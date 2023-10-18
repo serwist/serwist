@@ -1,0 +1,58 @@
+{
+  "name": "@serwist/cli",
+  "version": "7.0.0",
+  "type": "module",
+  "description": "@serwist/cli is the command line interface for Serwist.",
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "serwist",
+    "serwistjs",
+    "service worker",
+    "caching",
+    "fetch requests",
+    "offline",
+    "cli"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "author": "Google's Web DevRel Team, Serwist's Team",
+  "license": "MIT",
+  "repository": "serwist/serwist",
+  "bugs": "https://github.com/serwist/serwist/issues",
+  "homepage": "https://github.com/serwist/serwist",
+  "bin": {
+    "serwist": "dist/bin.js"
+  },
+  "scripts": {
+    "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js",
+    "lint": "eslint src --ext ts,tsx,js,jsx,cjs,mjs",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "@serwist/build": "workspace:*",
+    "chalk": "5.3.0",
+    "chokidar": "3.5.3",
+    "common-tags": "1.8.2",
+    "fs-extra": "11.1.1",
+    "glob": "10.3.10",
+    "inquirer": "9.2.11",
+    "meow": "12.1.1",
+    "ora": "7.0.1",
+    "pretty-bytes": "6.1.1",
+    "stringify-object": "5.0.0",
+    "upath": "2.0.1",
+    "update-notifier": "6.0.2"
+  },
+  "devDependencies": {
+    "@serwist/constants": "workspace:*",
+    "@types/common-tags": "1.8.3",
+    "@types/fs-extra": "11.0.2",
+    "@types/inquirer": "9.0.5",
+    "@types/stringify-object": "4.0.3",
+    "@types/update-notifier": "6.0.5",
+    "rollup": "3.28.1"
+  }
+}

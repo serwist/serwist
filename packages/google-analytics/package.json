@@ -1,0 +1,55 @@
+{
+  "name": "@serwist/google-analytics",
+  "version": "7.0.0",
+  "type": "module",
+  "description": "Queues failed requests and uses the Background Sync API to replay them when the network is available",
+  "files": [
+    "dist",
+    "!dist/**/dts"
+  ],
+  "keywords": [
+    "serwist",
+    "serwistjs",
+    "service worker",
+    "sw",
+    "offline",
+    "google",
+    "analytics"
+  ],
+  "author": "Google's Web DevRel Team, Serwist's Team",
+  "license": "MIT",
+  "repository": "serwist/serwist",
+  "bugs": "https://github.com/serwist/serwist/issues",
+  "homepage": "https://ducanh-next-pwa.vercel.app",
+  "module": "./dist/index.js",
+  "main": "./dist/index.old.cjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.old.cjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./initialize": {
+      "import": "./dist/initialize.js",
+      "require": "./dist/initialize.old.cjs",
+      "types": "./dist/initialize.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js",
+    "lint": "eslint src --ext ts,tsx,js,jsx,cjs,mjs",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "@serwist/background-sync": "workspace:*",
+    "@serwist/core": "workspace:*",
+    "@serwist/routing": "workspace:*",
+    "@serwist/strategies": "workspace:*"
+  },
+  "devDependencies": {
+    "@serwist/constants": "workspace:*",
+    "rollup": "3.28.1"
+  }
+}

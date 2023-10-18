@@ -1,0 +1,51 @@
+{
+  "name": "@serwist/sw",
+  "version": "7.0.0",
+  "license": "MIT",
+  "type": "module",
+  "author": "Google's Web DevRel Team, Serwist's Team",
+  "description": "This module makes it easy to get started with the Serwist service worker libraries.",
+  "repository": "serwist/serwist",
+  "bugs": "https://github.com/serwist/serwist/issues",
+  "homepage": "https://ducanh-next-pwa.vercel.app",
+  "keywords": [
+    "serwist",
+    "serwistjs",
+    "service worker",
+    "sw"
+  ],
+  "module": "./dist/index.js",
+  "main": "./dist/index.old.cjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.old.cjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js",
+    "lint": "eslint src --ext ts,tsx,js,jsx,cjs,mjs",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "@serwist/background-sync": "workspace:*",
+    "@serwist/broadcast-update": "workspace:*",
+    "@serwist/cacheable-response": "workspace:*",
+    "@serwist/core": "workspace:*",
+    "@serwist/expiration": "workspace:*",
+    "@serwist/google-analytics": "workspace:*",
+    "@serwist/navigation-preload": "workspace:*",
+    "@serwist/precaching": "workspace:*",
+    "@serwist/range-requests": "workspace:*",
+    "@serwist/routing": "workspace:*",
+    "@serwist/strategies": "workspace:*"
+  },
+  "devDependencies": {
+    "@serwist/build": "workspace:*",
+    "@serwist/constants": "workspace:*",
+    "rollup": "3.28.1"
+  }
+}

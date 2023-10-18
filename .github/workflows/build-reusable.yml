@@ -1,0 +1,53 @@
+name: Build reusable
+on:
+  workflow_call:
+    inputs:
+      skipInstallBuild:
+        required: false
+        description: "whether to skip pnpm install && pnpm build"
+        type: string
+      nodeVersion:
+        required: false
+        description: "version of Node.js to use"
+        type: string
+      pnpmVersion:
+        required: false
+        description: "version of pnpm to use"
+        type: string
+      afterBuild:
+        required: false
+        description: "additional steps to run"
+        type: string
+env:
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+  TURBO_REMOTE_ONLY: true
+jobs:
+  build:
+    name: ⬣, 🔎, 🔨 Typecheck, lint, and build on Node ${{ matrix.node-version }} and ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node-version: ${{ fromJson(inputs.nodeVersion || '["18.x"]') }}
+        pnpm-version: ${{ fromJson(inputs.pnpmVersion || '["8.x"]') }}
+        os: [ubuntu-latest]
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Use pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ matrix.pnpm-version }}
+      - name: Use Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install
+        if: ${{ inputs.skipInstallBuild != 'yes' }}
+      - name: Build
+        run: pnpm build
+        if: ${{ inputs.skipInstallBuild != 'yes' }}
+      - name: Run after build
+        run: /bin/bash -c "${{ inputs.afterBuild }}"

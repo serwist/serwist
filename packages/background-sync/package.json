@@ -1,0 +1,49 @@
+{
+  "name": "@serwist/background-sync",
+  "version": "7.0.0",
+  "type": "module",
+  "description": "Queues failed requests and uses the Background Sync API to replay them when the network is available",
+  "files": [
+    "dist",
+    "!dist/**/dts"
+  ],
+  "keywords": [
+    "serwist",
+    "serwistjs",
+    "service worker",
+    "sw",
+    "background",
+    "sync",
+    "serwist-plugin"
+  ],
+  "author": "Google's Web DevRel Team, Serwist's Team",
+  "license": "MIT",
+  "repository": "serwist/serwist",
+  "bugs": "https://github.com/serwist/serwist/issues",
+  "homepage": "https://ducanh-next-pwa.vercel.app",
+  "module": "./dist/index.js",
+  "main": "./dist/index.old.cjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.old.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js",
+    "lint": "eslint src --ext ts,tsx,js,jsx,cjs,mjs",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "@serwist/core": "workspace:*",
+    "idb": "7.1.1"
+  },
+  "devDependencies": {
+    "@serwist/constants": "workspace:*",
+    "cross-env": "7.0.3",
+    "rollup": "3.28.1",
+    "typescript": "5.2.2"
+  }
+}

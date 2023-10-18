@@ -1,25 +1,17 @@
-<img src='https://user-images.githubusercontent.com/110953/28352645-7a8a66d8-6c0c-11e7-83af-752609e7e072.png' width='500px'/>
+# A Swiss Army knife for service workers.
 
-# Welcome to Workbox!
+Serwist is a collection of JavaScript libraries for [Progressive Web Apps](https://web.dev/progressive-web-apps/).
 
-Workbox is a collection of JavaScript libraries for
-[Progressive Web Apps](https://web.dev/progressive-web-apps/).
+It is a fork of Workbox that happened due to the aforementioned's development being stagnated. Most work was done by Google LLC's team and the community.
+
+---
 
 ## Documentation
 
 - [Overview](https://developers.google.com/web/tools/workbox/) ([site source](https://github.com/google/WebFundamentals/tree/main/src/content/en/tools/workbox))
 - [Get started](https://developers.google.com/web/tools/workbox/guides/get-started)
-- [Contribute](CONTRIBUTING.md)
+- [Contribute](/CONTRIBUTING.md)
 
 ## Contributing
 
-Development happens in the open on GitHub. We're thankful to the community for
-contributing any improvements.
-
-Please read the [guide to contributing](CONTRIBUTING.md) for information about
-setting up your environment and other requirements prior to filing any
-pull requests.
-
-## License
-
-MIT. See [LICENSE](LICENSE) for details.
+Please see [our contributing guide](/CONTRIBUTING.md).

@@ -1,2 +1,1 @@
-*.js text eol=lf
-*.mjs text eol=lf
+* text=auto eol=lf

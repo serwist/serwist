@@ -1,0 +1,89 @@
+{
+  "name": "@serwist/build",
+  "version": "7.0.0",
+  "type": "module",
+  "description": "A module that integrates into your build process, helping you generate a manifest of local files that should be precached.",
+  "files": [
+    "dist",
+    "!dist/**/dts"
+  ],
+  "keywords": [
+    "serwist",
+    "serwistjs",
+    "service worker",
+    "caching",
+    "fetch requests",
+    "offline",
+    "file manifest"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "author": "Google's Web DevRel Team, Serwist's Team",
+  "license": "MIT",
+  "repository": "serwist/serwist",
+  "bugs": "https://github.com/serwist/serwist/issues",
+  "homepage": "https://ducanh-next-pwa.vercel.app",
+  "module": "./dist/index.js",
+  "main": "./dist/index.old.cjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.old.cjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "rimraf dist && cross-env NODE_OPTIONS='--max-old-space-size=4096' NODE_ENV=production rollup --config rollup.config.js",
+    "lint": "eslint src --ext ts,tsx,js,jsx,cjs,mjs",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "@apideck/better-ajv-errors": "0.3.6",
+    "@babel/core": "7.23.2",
+    "@babel/preset-env": "7.23.2",
+    "@babel/runtime": "7.23.2",
+    "@rollup/plugin-commonjs": "25.0.7",
+    "@rollup/plugin-node-resolve": "15.2.3",
+    "@rollup/plugin-replace": "5.0.4",
+    "@rollup/plugin-swc": "0.2.1",
+    "@serwist/background-sync": "workspace:*",
+    "@serwist/broadcast-update": "workspace:*",
+    "@serwist/cacheable-response": "workspace:*",
+    "@serwist/core": "workspace:*",
+    "@serwist/expiration": "workspace:*",
+    "@serwist/google-analytics": "workspace:*",
+    "@serwist/precaching": "workspace:*",
+    "@serwist/routing": "workspace:*",
+    "@swc/core": "1.3.93",
+    "ajv": "8.12.0",
+    "common-tags": "1.8.2",
+    "devalue": "4.3.2",
+    "fast-json-stable-stringify": "2.1.0",
+    "fs-extra": "11.1.1",
+    "fsevents": "2.3.3",
+    "glob": "10.3.10",
+    "lodash": "4.17.21",
+    "pretty-bytes": "6.1.1",
+    "rollup": "3.28.1",
+    "source-map": "0.8.0-beta.0",
+    "stringify-object": "5.0.0",
+    "strip-comments": "2.0.1",
+    "tempy": "3.1.0",
+    "upath": "2.0.1"
+  },
+  "devDependencies": {
+    "@serwist/constants": "workspace:*",
+    "@types/babel__preset-env": "7.9.4",
+    "@types/common-tags": "1.8.3",
+    "@types/fs-extra": "11.0.2",
+    "@types/lodash": "4.14.200",
+    "@types/node": "20.8.7",
+    "@types/stringify-object": "4.0.3",
+    "@types/strip-comments": "2.0.3",
+    "@types/surma__rollup-plugin-off-main-thread": "2.2.2",
+    "type-fest": "4.4.0"
+  }
+}
