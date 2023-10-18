@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { WorkboxPlugin } from "@serwiss/core/types.js";
+import { WorkboxPlugin } from "@serwist/core/types.js";
 
 import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheController.js";
 import { PrecacheController } from "./PrecacheController.js";

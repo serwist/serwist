@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { WorkboxPlugin } from "@serwiss/core/types";
+import { WorkboxPlugin } from "@serwist/core/types";
 
 import { Queue, QueueOptions } from "./Queue.js";
 import "./_version.js";

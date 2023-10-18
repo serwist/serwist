@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { logger } from "@serwiss/core/_private/logger.js";
+import { logger } from "@serwist/core/_private/logger.js";
 import { isSupported } from "./isSupported.js";
 import "./_version.js";
 

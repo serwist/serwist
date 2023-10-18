@@ -6,9 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { Deferred } from "@serwiss/core/_private/Deferred.js";
-import { dontWaitFor } from "@serwiss/core/_private/dontWaitFor.js";
-import { logger } from "@serwiss/core/_private/logger.js";
+import { Deferred } from "@serwist/core/_private/Deferred.js";
+import { dontWaitFor } from "@serwist/core/_private/dontWaitFor.js";
+import { logger } from "@serwist/core/_private/logger.js";
 import { TrustedScriptURL } from "trusted-types/lib";
 
 import { messageSW } from "./messageSW.js";

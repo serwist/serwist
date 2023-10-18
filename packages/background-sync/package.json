@@ -1,5 +1,5 @@
 {
-  "name": "@serwiss/background-sync",
+  "name": "@serwist/background-sync",
   "version": "7.0.0",
   "license": "MIT",
   "author": "Google's Web DevRel Team, DuCanhGH",
@@ -25,7 +25,7 @@
   "module": "index.mjs",
   "types": "index.d.ts",
   "dependencies": {
-    "@serwiss/core": "workspace:*",
+    "@serwist/core": "workspace:*",
     "idb": "7.1.1"
   },
   "exports": {

@@ -6,9 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert } from "@serwiss/core/_private/assert.js";
-import { logger } from "@serwiss/core/_private/logger.js";
-import { RouteHandler, RouteMatchCallbackOptions } from "@serwiss/core/types";
+import { assert } from "@serwist/core/_private/assert.js";
+import { logger } from "@serwist/core/_private/logger.js";
+import { RouteHandler, RouteMatchCallbackOptions } from "@serwist/core/types";
 
 import { Route } from "./Route.js";
 

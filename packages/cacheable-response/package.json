@@ -1,5 +1,5 @@
 {
-  "name": "@serwiss/cacheable-response",
+  "name": "@serwist/cacheable-response",
   "version": "7.0.0",
   "type": "module",
   "license": "MIT",
@@ -26,6 +26,6 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@serwiss/core": "7.0.0"
+    "@serwist/core": "7.0.0"
   }
 }

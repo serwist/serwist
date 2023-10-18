@@ -6,8 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { WorkboxError } from "@serwiss/core/_private/WorkboxError.js";
-import { logger } from "@serwiss/core/_private/logger.js";
+import { WorkboxError } from "@serwist/core/_private/WorkboxError.js";
+import { logger } from "@serwist/core/_private/logger.js";
 import "./_version.js";
 
 /**

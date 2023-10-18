@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert } from "@serwiss/core/_private/assert.js";
+import { assert } from "@serwist/core/_private/assert.js";
 import {
   UnidentifiedQueueStoreEntry,
   QueueStoreEntry,

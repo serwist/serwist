@@ -5,7 +5,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { registerRoute } from "@serwiss/routing/registerRoute.js";
+import { registerRoute } from "@serwist/routing/registerRoute.js";
 
 import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheController.js";
 import { PrecacheRoute } from "./PrecacheRoute.js";

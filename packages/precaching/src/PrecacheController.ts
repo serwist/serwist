@@ -6,13 +6,13 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert } from "@serwiss/core/_private/assert.js";
-import { cacheNames } from "@serwiss/core/_private/cacheNames.js";
-import { logger } from "@serwiss/core/_private/logger.js";
-import { WorkboxError } from "@serwiss/core/_private/WorkboxError.js";
-import { waitUntil } from "@serwiss/core/_private/waitUntil.js";
-import { Strategy } from "@serwiss/strategies/Strategy.js";
-import { RouteHandlerCallback, WorkboxPlugin } from "@serwiss/core/types.js";
+import { assert } from "@serwist/core/_private/assert.js";
+import { cacheNames } from "@serwist/core/_private/cacheNames.js";
+import { logger } from "@serwist/core/_private/logger.js";
+import { WorkboxError } from "@serwist/core/_private/WorkboxError.js";
+import { waitUntil } from "@serwist/core/_private/waitUntil.js";
+import { Strategy } from "@serwist/strategies/Strategy.js";
+import { RouteHandlerCallback, WorkboxPlugin } from "@serwist/core/types.js";
 
 import { createCacheKey } from "./utils/createCacheKey.js";
 import { PrecacheInstallReportPlugin } from "./utils/PrecacheInstallReportPlugin.js";

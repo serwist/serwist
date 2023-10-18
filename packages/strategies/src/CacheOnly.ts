@@ -6,9 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert } from "@serwiss/core/_private/assert.js";
-import { logger } from "@serwiss/core/_private/logger.js";
-import { WorkboxError } from "@serwiss/core/_private/WorkboxError.js";
+import { assert } from "@serwist/core/_private/assert.js";
+import { logger } from "@serwist/core/_private/logger.js";
+import { WorkboxError } from "@serwist/core/_private/WorkboxError.js";
 
 import { Strategy } from "./Strategy.js";
 import { StrategyHandler } from "./StrategyHandler.js";

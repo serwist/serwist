@@ -6,10 +6,10 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { WorkboxError } from "@serwiss/core/_private/WorkboxError.js";
-import { logger } from "@serwiss/core/_private/logger.js";
-import { assert } from "@serwiss/core/_private/assert.js";
-import { getFriendlyURL } from "@serwiss/core/_private/getFriendlyURL.js";
+import { WorkboxError } from "@serwist/core/_private/WorkboxError.js";
+import { logger } from "@serwist/core/_private/logger.js";
+import { assert } from "@serwist/core/_private/assert.js";
+import { getFriendlyURL } from "@serwist/core/_private/getFriendlyURL.js";
 import { QueueStore } from "./lib/QueueStore.js";
 import { QueueStoreEntry, UnidentifiedQueueStoreEntry } from "./lib/QueueDb.js";
 import { StorableRequest } from "./lib/StorableRequest.js";

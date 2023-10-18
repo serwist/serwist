@@ -1,11 +1,11 @@
 import type { PackageJson } from "type-fest";
-import type { QueueOptions } from "@serwiss/background-sync/queue";
-import type { BroadcastCacheUpdateOptions } from "@serwiss/broadcast-update";
-import type { CacheableResponseOptions } from "@serwiss/cacheable-response";
-import type { RouteHandler, RouteMatchCallback , WorkboxPlugin } from "@serwiss/core/types";
-import type { ExpirationPluginOptions } from "@serwiss/expiration";
-import type { GoogleAnalyticsInitializeOptions } from "@serwiss/google-analytics/initialize";
-import type { HTTPMethod } from "@serwiss/routing";
+import type { QueueOptions } from "@serwist/background-sync/queue";
+import type { BroadcastCacheUpdateOptions } from "@serwist/broadcast-update";
+import type { CacheableResponseOptions } from "@serwist/cacheable-response";
+import type { RouteHandler, RouteMatchCallback , WorkboxPlugin } from "@serwist/core/types";
+import type { ExpirationPluginOptions } from "@serwist/expiration";
+import type { GoogleAnalyticsInitializeOptions } from "@serwist/google-analytics/initialize";
+import type { HTTPMethod } from "@serwist/routing";
 
 export interface ManifestEntry {
   integrity?: string;

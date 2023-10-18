@@ -5,12 +5,12 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-import { setCatchHandler } from "@serwiss/routing/setCatchHandler.js";
-import { matchPrecache } from "@serwiss/precaching/matchPrecache.js";
+import { setCatchHandler } from "@serwist/routing/setCatchHandler.js";
+import { matchPrecache } from "@serwist/precaching/matchPrecache.js";
 import {
   RouteHandler,
   RouteHandlerCallbackOptions,
-} from "@serwiss/core/types.js";
+} from "@serwist/core/types.js";
 
 import "./_version.js";
 

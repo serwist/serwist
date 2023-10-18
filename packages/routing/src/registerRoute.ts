@@ -6,9 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { logger } from "@serwiss/core/_private/logger.js";
-import { WorkboxError } from "@serwiss/core/_private/WorkboxError.js";
-import { RouteHandler, RouteMatchCallback } from "@serwiss/core/types";
+import { logger } from "@serwist/core/_private/logger.js";
+import { WorkboxError } from "@serwist/core/_private/WorkboxError.js";
+import { RouteHandler, RouteMatchCallback } from "@serwist/core/types";
 
 import { Route } from "./Route.js";
 import { RegExpRoute } from "./RegExpRoute.js";

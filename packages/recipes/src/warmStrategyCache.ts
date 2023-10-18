@@ -1,4 +1,4 @@
-import { Strategy } from "@serwiss/strategies/Strategy.js";
+import { Strategy } from "@serwist/strategies/Strategy.js";
 
 import "./_version.js";
 

@@ -1,5 +1,5 @@
 {
-  "name": "@serwiss/expiration",
+  "name": "@serwist/expiration",
   "version": "7.0.0",
   "type": "module",
   "license": "MIT",
@@ -26,7 +26,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@serwiss/core": "workspace:*",
+    "@serwist/core": "workspace:*",
     "idb": "7.1.1"
   }
 }

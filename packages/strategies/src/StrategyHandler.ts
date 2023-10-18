@@ -6,20 +6,20 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert } from "@serwiss/core/_private/assert.js";
-import { cacheMatchIgnoreParams } from "@serwiss/core/_private/cacheMatchIgnoreParams.js";
-import { Deferred } from "@serwiss/core/_private/Deferred.js";
-import { executeQuotaErrorCallbacks } from "@serwiss/core/_private/executeQuotaErrorCallbacks.js";
-import { getFriendlyURL } from "@serwiss/core/_private/getFriendlyURL.js";
-import { logger } from "@serwiss/core/_private/logger.js";
-import { timeout } from "@serwiss/core/_private/timeout.js";
-import { WorkboxError } from "@serwiss/core/_private/WorkboxError.js";
+import { assert } from "@serwist/core/_private/assert.js";
+import { cacheMatchIgnoreParams } from "@serwist/core/_private/cacheMatchIgnoreParams.js";
+import { Deferred } from "@serwist/core/_private/Deferred.js";
+import { executeQuotaErrorCallbacks } from "@serwist/core/_private/executeQuotaErrorCallbacks.js";
+import { getFriendlyURL } from "@serwist/core/_private/getFriendlyURL.js";
+import { logger } from "@serwist/core/_private/logger.js";
+import { timeout } from "@serwist/core/_private/timeout.js";
+import { WorkboxError } from "@serwist/core/_private/WorkboxError.js";
 import {
   HandlerCallbackOptions,
   MapLikeObject,
   WorkboxPlugin,
   WorkboxPluginCallbackParam,
-} from "@serwiss/core/types.js";
+} from "@serwist/core/types.js";
 
 import { Strategy } from "./Strategy.js";
 import "./_version.js";

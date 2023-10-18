@@ -1,5 +1,5 @@
 {
-  "name": "@serwiss/window",
+  "name": "@serwist/window",
   "version": "7.0.0",
   "license": "MIT",
   "author": "Google's Web DevRel Team, DuCanhGH",
@@ -24,7 +24,7 @@
   "module": "build/workbox-window.prod.es5.mjs",
   "types": "index.d.ts",
   "dependencies": {
-    "@serwiss/core": "7.0.0",
+    "@serwist/core": "7.0.0",
     "@types/trusted-types": "2.0.4"
   }
 }

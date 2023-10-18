@@ -1,5 +1,5 @@
 {
-  "name": "@serwiss/recipes",
+  "name": "@serwist/recipes",
   "version": "7.0.0",
   "license": "MIT",
   "author": "Google's Web DevRel Team, DuCanhGH",
@@ -23,11 +23,11 @@
   "module": "index.mjs",
   "types": "index.d.ts",
   "dependencies": {
-    "@serwiss/cacheable-response": "workspace:*",
-    "@serwiss/core": "workspace:*",
-    "@serwiss/expiration": "workspace:*",
-    "@serwiss/precaching": "workspace:*",
-    "@serwiss/routing": "workspace:*",
-    "@serwiss/strategies": "workspace:*"
+    "@serwist/cacheable-response": "workspace:*",
+    "@serwist/core": "workspace:*",
+    "@serwist/expiration": "workspace:*",
+    "@serwist/precaching": "workspace:*",
+    "@serwist/routing": "workspace:*",
+    "@serwist/strategies": "workspace:*"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "@serwiss/routing",
+  "name": "@serwist/routing",
   "version": "7.0.0",
   "license": "MIT",
   "author": "Google's Web DevRel Team, DuCanhGH",
@@ -26,6 +26,6 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@serwiss/core": "workspace:*"
+    "@serwist/core": "workspace:*"
   }
 }

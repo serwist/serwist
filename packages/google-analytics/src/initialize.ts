@@ -6,16 +6,16 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { BackgroundSyncPlugin } from "@serwiss/background-sync";
-import { Queue } from "@serwiss/background-sync/queue";
-import { cacheNames } from "@serwiss/core/_private/cacheNames.js";
-import { getFriendlyURL } from "@serwiss/core/_private/getFriendlyURL.js";
-import { logger } from "@serwiss/core/_private/logger.js";
-import { RouteMatchCallbackOptions } from "@serwiss/core/types";
-import { Route } from "@serwiss/routing/Route.js";
-import { Router } from "@serwiss/routing/Router.js";
-import { NetworkFirst } from "@serwiss/strategies/NetworkFirst.js";
-import { NetworkOnly } from "@serwiss/strategies/NetworkOnly.js";
+import { BackgroundSyncPlugin } from "@serwist/background-sync";
+import { Queue } from "@serwist/background-sync/queue";
+import { cacheNames } from "@serwist/core/_private/cacheNames.js";
+import { getFriendlyURL } from "@serwist/core/_private/getFriendlyURL.js";
+import { logger } from "@serwist/core/_private/logger.js";
+import { RouteMatchCallbackOptions } from "@serwist/core/types";
+import { Route } from "@serwist/routing/Route.js";
+import { Router } from "@serwist/routing/Router.js";
+import { NetworkFirst } from "@serwist/strategies/NetworkFirst.js";
+import { NetworkOnly } from "@serwist/strategies/NetworkOnly.js";
 import {
   QUEUE_NAME,
   MAX_RETENTION_TIME,

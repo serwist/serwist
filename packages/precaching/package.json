@@ -1,5 +1,5 @@
 {
-  "name": "@serwiss/precaching",
+  "name": "@serwist/precaching",
   "version": "7.0.0",
   "license": "MIT",
   "author": "Google's Web DevRel Team, DuCanhGH",
@@ -21,8 +21,8 @@
   "module": "index.mjs",
   "types": "index.d.ts",
   "dependencies": {
-    "@serwiss/core": "workspace:*",
-    "@serwiss/routing": "workspace:*",
-    "@serwiss/strategies": "workspace:*"
+    "@serwist/core": "workspace:*",
+    "@serwist/routing": "workspace:*",
+    "@serwist/strategies": "workspace:*"
   }
 }

@@ -5,11 +5,11 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-import { registerRoute } from "@serwiss/routing/registerRoute.js";
-import { StaleWhileRevalidate } from "@serwiss/strategies/StaleWhileRevalidate.js";
-import { CacheFirst } from "@serwiss/strategies/CacheFirst.js";
-import { CacheableResponsePlugin } from "@serwiss/cacheable-response/CacheableResponsePlugin.js";
-import { ExpirationPlugin } from "@serwiss/expiration/ExpirationPlugin.js";
+import { registerRoute } from "@serwist/routing/registerRoute.js";
+import { StaleWhileRevalidate } from "@serwist/strategies/StaleWhileRevalidate.js";
+import { CacheFirst } from "@serwist/strategies/CacheFirst.js";
+import { CacheableResponsePlugin } from "@serwist/cacheable-response/CacheableResponsePlugin.js";
+import { ExpirationPlugin } from "@serwist/expiration/ExpirationPlugin.js";
 
 import "./_version.js";
 

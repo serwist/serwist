@@ -6,14 +6,14 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert } from "@serwiss/core/_private/assert.js";
+import { assert } from "@serwist/core/_private/assert.js";
 import { HTTPMethod, defaultMethod, validMethods } from "./utils/constants.js";
 import { normalizeHandler } from "./utils/normalizeHandler.js";
 import {
   RouteHandler,
   RouteHandlerObject,
   RouteMatchCallback,
-} from "@serwiss/core/types";
+} from "@serwist/core/types";
 import "./_version.js";
 
 /**

@@ -6,15 +6,15 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { cacheNames } from "@serwiss/core/_private/cacheNames.js";
-import { WorkboxError } from "@serwiss/core/_private/WorkboxError.js";
-import { logger } from "@serwiss/core/_private/logger.js";
-import { getFriendlyURL } from "@serwiss/core/_private/getFriendlyURL.js";
+import { cacheNames } from "@serwist/core/_private/cacheNames.js";
+import { WorkboxError } from "@serwist/core/_private/WorkboxError.js";
+import { logger } from "@serwist/core/_private/logger.js";
+import { getFriendlyURL } from "@serwist/core/_private/getFriendlyURL.js";
 import {
   HandlerCallbackOptions,
   RouteHandlerObject,
   WorkboxPlugin,
-} from "@serwiss/core/types.js";
+} from "@serwist/core/types.js";
 
 import { StrategyHandler } from "./StrategyHandler.js";
 

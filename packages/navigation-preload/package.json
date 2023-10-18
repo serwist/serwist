@@ -1,5 +1,5 @@
 {
-  "name": "@serwiss/navigation-preload",
+  "name": "@serwist/navigation-preload",
   "version": "7.0.0",
   "license": "MIT",
   "author": "Google's Web DevRel Team, DuCanhGH",
@@ -22,6 +22,6 @@
   "module": "index.mjs",
   "types": "index.d.ts",
   "dependencies": {
-    "@serwiss/core": "workspace:*"
+    "@serwist/core": "workspace:*"
   }
 }

@@ -6,11 +6,11 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { logger } from "@serwiss/core/_private/logger.js";
+import { logger } from "@serwist/core/_private/logger.js";
 import {
   RouteHandlerCallback,
   RouteHandlerCallbackOptions,
-} from "@serwiss/core/types.js";
+} from "@serwist/core/types.js";
 import { createHeaders } from "./utils/createHeaders.js";
 import { concatenateToResponse } from "./concatenateToResponse.js";
 import { isSupported } from "./isSupported.js";

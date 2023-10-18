@@ -9,7 +9,7 @@
 import {
   WorkboxPlugin,
   WorkboxPluginCallbackParam,
-} from "@serwiss/core/types.js";
+} from "@serwist/core/types.js";
 
 import { PrecacheController } from "../PrecacheController.js";
 

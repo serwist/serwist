@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { WorkboxPlugin } from "@serwiss/core/types.js";
+import { WorkboxPlugin } from "@serwist/core/types.js";
 import { createPartialResponse } from "./createPartialResponse.js";
 import "./_version.js";
 

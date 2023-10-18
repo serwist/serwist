@@ -1,5 +1,5 @@
 {
-  "name": "@serwiss/broadcast-update",
+  "name": "@serwist/broadcast-update",
   "version": "7.0.0",
   "type": "module",
   "license": "MIT",
@@ -23,7 +23,7 @@
   "module": "index.mjs",
   "types": "index.d.ts",
   "dependencies": {
-    "@serwiss/core": "7.0.0"
+    "@serwist/core": "7.0.0"
   },
   "exports": {
     ".": "./src/index.ts"
