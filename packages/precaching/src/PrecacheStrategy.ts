@@ -6,14 +6,19 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { copyResponse } from "@serwist/core/copyResponse.js";
-import { cacheNames } from "@serwist/core/_private/cacheNames.js";
-import { getFriendlyURL } from "@serwist/core/_private/getFriendlyURL.js";
-import { logger } from "@serwist/core/_private/logger.js";
-import { WorkboxError } from "@serwist/core/_private/WorkboxError.js";
-import { WorkboxPlugin } from "@serwist/core/types.js";
-import { Strategy, StrategyOptions } from "@serwist/strategies/Strategy.js";
-import { StrategyHandler } from "@serwist/strategies/StrategyHandler.js";
+import { copyResponse } from "@serwist/core";
+import {
+  cacheNames,
+  getFriendlyURL,
+  logger,
+  WorkboxError,
+} from "@serwist/core/private";
+import { WorkboxPlugin } from "@serwist/core/types";
+import {
+  Strategy,
+  type StrategyOptions,
+  StrategyHandler,
+} from "@serwist/strategies";
 
 import "./_version.js";
 

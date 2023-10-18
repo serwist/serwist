@@ -6,8 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { logger } from "@serwist/core/_private/logger.js";
-import { WorkboxError } from "@serwist/core/_private/WorkboxError.js";
+import { logger, WorkboxError } from "@serwist/core/private";
 import { RouteHandler, RouteMatchCallback } from "@serwist/core/types";
 
 import { Route } from "./Route.js";

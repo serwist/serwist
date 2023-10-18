@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { logger } from "@serwist/core/_private/logger.js";
+import { logger } from "@serwist/core/private";
 import {
   RouteHandlerCallback,
   RouteHandlerCallbackOptions,

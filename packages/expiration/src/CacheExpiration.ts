@@ -6,10 +6,12 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert } from "@serwist/core/_private/assert.js";
-import { dontWaitFor } from "@serwist/core/_private/dontWaitFor.js";
-import { logger } from "@serwist/core/_private/logger.js";
-import { WorkboxError } from "@serwist/core/_private/WorkboxError.js";
+import {
+  assert,
+  dontWaitFor,
+  logger,
+  WorkboxError,
+} from "@serwist/core/private";
 
 import { CacheTimestampsModel } from "./models/CacheTimestampsModel.js";
 

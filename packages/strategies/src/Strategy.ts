@@ -6,10 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { cacheNames } from "@serwist/core/_private/cacheNames.js";
-import { WorkboxError } from "@serwist/core/_private/WorkboxError.js";
-import { logger } from "@serwist/core/_private/logger.js";
-import { getFriendlyURL } from "@serwist/core/_private/getFriendlyURL.js";
+import { cacheNames, WorkboxError, logger, getFriendlyURL } from "@serwist/core/private";
 import {
   HandlerCallbackOptions,
   RouteHandlerObject,

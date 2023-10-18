@@ -8,9 +8,7 @@
 
 import { BackgroundSyncPlugin } from "@serwist/background-sync";
 import { Queue } from "@serwist/background-sync/queue";
-import { cacheNames } from "@serwist/core/_private/cacheNames.js";
-import { getFriendlyURL } from "@serwist/core/_private/getFriendlyURL.js";
-import { logger } from "@serwist/core/_private/logger.js";
+import { cacheNames, getFriendlyURL, logger } from "@serwist/core/private";
 import { RouteMatchCallbackOptions } from "@serwist/core/types";
 import { Route, Router } from "@serwist/routing";
 import { NetworkFirst, NetworkOnly } from "@serwist/strategies";

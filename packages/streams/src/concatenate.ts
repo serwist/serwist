@@ -6,11 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert } from "@serwist/core/_private/assert.js";
-import { Deferred } from "@serwist/core/_private/Deferred.js";
-import { logger } from "@serwist/core/_private/logger.js";
+import { assert, Deferred, logger, WorkboxError } from "@serwist/core/private";
 import { StreamSource } from "./_types.js";
-import { WorkboxError } from "@serwist/core/_private/WorkboxError.js";
 
 import "./_version.js";
 

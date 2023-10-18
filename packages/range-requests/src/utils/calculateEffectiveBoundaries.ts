@@ -6,8 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { WorkboxError } from "@serwist/core/_private/WorkboxError.js";
-import { assert } from "@serwist/core/_private/assert.js";
+import { WorkboxError, assert } from "@serwist/core/private";
 import "../_version.js";
 
 /**

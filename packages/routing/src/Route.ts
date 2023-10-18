@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert } from "@serwist/core/_private/assert.js";
+import { assert } from "@serwist/core/private";
 import { HTTPMethod, defaultMethod, validMethods } from "./utils/constants.js";
 import { normalizeHandler } from "./utils/normalizeHandler.js";
 import {

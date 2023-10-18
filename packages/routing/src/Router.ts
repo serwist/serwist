@@ -6,8 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert } from "@serwist/core/_private/assert.js";
-import { getFriendlyURL } from "@serwist/core/_private/getFriendlyURL.js";
+import { assert, getFriendlyURL, logger, WorkboxError } from "@serwist/core/private";
 import {
   RouteHandler,
   RouteHandlerObject,
@@ -15,10 +14,8 @@ import {
   RouteMatchCallbackOptions,
 } from "@serwist/core/types";
 import { HTTPMethod, defaultMethod } from "./utils/constants.js";
-import { logger } from "@serwist/core/_private/logger.js";
 import { normalizeHandler } from "./utils/normalizeHandler.js";
 import { Route } from "./Route.js";
-import { WorkboxError } from "@serwist/core/_private/WorkboxError.js";
 
 import "./_version.js";
 

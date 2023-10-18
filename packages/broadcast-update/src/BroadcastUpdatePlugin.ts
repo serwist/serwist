@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { dontWaitFor } from "@serwist/core/_private/dontWaitFor.js";
+import { dontWaitFor } from "@serwist/core/private";
 import { WorkboxPlugin } from "@serwist/core/types";
 
 import {

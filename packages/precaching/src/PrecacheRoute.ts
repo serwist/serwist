@@ -6,13 +6,12 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { logger } from "@serwist/core/_private/logger.js";
-import { getFriendlyURL } from "@serwist/core/_private/getFriendlyURL.js";
+import { logger, getFriendlyURL } from "@serwist/core/private";
 import {
   RouteMatchCallback,
   RouteMatchCallbackOptions,
-} from "@serwist/core/types.js";
-import { Route } from "@serwist/routing/Route.js";
+} from "@serwist/core/types";
+import { Route } from "@serwist/routing";
 
 import { PrecacheRouteOptions } from "./_types.js";
 import { PrecacheController } from "./PrecacheController.js";

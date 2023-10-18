@@ -6,8 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { cacheNames } from "@serwist/core/_private/cacheNames.js";
-import { logger } from "@serwist/core/_private/logger.js";
+import { cacheNames, logger } from "@serwist/core/private";
 import { deleteOutdatedCaches } from "./utils/deleteOutdatedCaches.js";
 import "./_version.js";
 

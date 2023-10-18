@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert } from "@serwist/core/_private/assert.js";
+import { assert } from "@serwist/core/private";
 import { RouteHandler, RouteHandlerObject } from "@serwist/core/types";
 
 import "../_version.js";

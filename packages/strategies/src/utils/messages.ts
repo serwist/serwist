@@ -6,8 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { logger } from "@serwist/core/_private/logger.js";
-import { getFriendlyURL } from "@serwist/core/_private/getFriendlyURL.js";
+import { logger, getFriendlyURL } from "@serwist/core/private";
 import "../_version.js";
 
 export const messages = {

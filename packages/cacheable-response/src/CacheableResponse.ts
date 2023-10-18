@@ -6,10 +6,12 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert } from "@serwist/core/_private/assert.js";
-import { WorkboxError } from "@serwist/core/_private/WorkboxError.js";
-import { getFriendlyURL } from "@serwist/core/_private/getFriendlyURL.js";
-import { logger } from "@serwist/core/_private/logger.js";
+import {
+  assert,
+  WorkboxError,
+  getFriendlyURL,
+  logger,
+} from "@serwist/core/private";
 import "./_version.js";
 
 export interface CacheableResponseOptions {

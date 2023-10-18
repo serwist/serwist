@@ -6,11 +6,13 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert } from "@serwist/core/_private/assert.js";
-import { timeout } from "@serwist/core/_private/timeout.js";
-import { resultingClientExists } from "@serwist/core/_private/resultingClientExists.js";
+import {
+  assert,
+  timeout,
+  resultingClientExists,
+  logger,
+} from "@serwist/core/private";
 import { CacheDidUpdateCallbackParam } from "@serwist/core/types";
-import { logger } from "@serwist/core/_private/logger.js";
 import { responsesAreSame } from "./responsesAreSame.js";
 import {
   CACHE_UPDATED_MESSAGE_META,

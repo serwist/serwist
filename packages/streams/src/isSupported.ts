@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { canConstructReadableStream } from "@serwist/core/_private/canConstructReadableStream.js";
+import { canConstructReadableStream } from "@serwist/core/private";
 import "./_version.js";
 
 /**

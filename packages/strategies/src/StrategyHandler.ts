@@ -6,14 +6,16 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert } from "@serwist/core/_private/assert.js";
-import { cacheMatchIgnoreParams } from "@serwist/core/_private/cacheMatchIgnoreParams.js";
-import { Deferred } from "@serwist/core/_private/Deferred.js";
-import { executeQuotaErrorCallbacks } from "@serwist/core/_private/executeQuotaErrorCallbacks.js";
-import { getFriendlyURL } from "@serwist/core/_private/getFriendlyURL.js";
-import { logger } from "@serwist/core/_private/logger.js";
-import { timeout } from "@serwist/core/_private/timeout.js";
-import { WorkboxError } from "@serwist/core/_private/WorkboxError.js";
+import {
+  assert,
+  cacheMatchIgnoreParams,
+  Deferred,
+  executeQuotaErrorCallbacks,
+  getFriendlyURL,
+  logger,
+  timeout,
+  WorkboxError,
+} from "@serwist/core/private";
 import {
   HandlerCallbackOptions,
   MapLikeObject,
