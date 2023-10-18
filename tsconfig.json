@@ -19,5 +19,6 @@
     "checkJs": true,
     "noEmit": true
   },
-  "include": ["*.js", "*.cjs", "*.mjs"]
+  "include": ["*.js", "*.cjs", "*.mjs"],
+  "exclude": ["node_modules", "dist"]
 }

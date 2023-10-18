@@ -19,7 +19,7 @@ import {
   MapLikeObject,
   WorkboxPlugin,
   WorkboxPluginCallbackParam,
-} from "@serwist/core/types.js";
+} from "@serwist/core/types";
 
 import { Strategy } from "./Strategy.js";
 import "./_version.js";

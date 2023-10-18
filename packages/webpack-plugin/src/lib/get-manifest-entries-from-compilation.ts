@@ -19,11 +19,11 @@ import type {
   ManifestEntry,
   WebpackGenerateSWOptions,
   WebpackInjectManifestOptions,
-} from "workbox-build";
-import { transformManifest } from "workbox-build/build/lib/transform-manifest";
+} from "@serwist/build";
+import { transformManifest } from "@serwist/build/lib/transform-manifest.js";
 
-import { getAssetHash } from "./get-asset-hash";
-import { resolveWebpackURL } from "./resolve-webpack-url";
+import { getAssetHash } from "./get-asset-hash.js";
+import { resolveWebpackURL } from "./resolve-webpack-url.js";
 
 /**
  * For a given asset, checks whether at least one of the conditions matches.

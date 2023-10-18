@@ -12,10 +12,8 @@ import { cacheNames } from "@serwist/core/_private/cacheNames.js";
 import { getFriendlyURL } from "@serwist/core/_private/getFriendlyURL.js";
 import { logger } from "@serwist/core/_private/logger.js";
 import { RouteMatchCallbackOptions } from "@serwist/core/types";
-import { Route } from "@serwist/routing/Route.js";
-import { Router } from "@serwist/routing/Router.js";
-import { NetworkFirst } from "@serwist/strategies/NetworkFirst.js";
-import { NetworkOnly } from "@serwist/strategies/NetworkOnly.js";
+import { Route, Router } from "@serwist/routing";
+import { NetworkFirst, NetworkOnly } from "@serwist/strategies";
 import {
   QUEUE_NAME,
   MAX_RETENTION_TIME,

@@ -34,11 +34,10 @@ export {
   CacheFirst,
   CacheOnly,
   NetworkFirst,
-  NetworkFirstOptions,
   NetworkOnly,
-  NetworkOnlyOptions,
   StaleWhileRevalidate,
   Strategy,
   StrategyHandler,
-  StrategyOptions,
 };
+
+export type { NetworkFirstOptions, NetworkOnlyOptions, StrategyOptions };

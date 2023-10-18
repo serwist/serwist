@@ -213,6 +213,9 @@ importers:
         specifier: 2.0.1
         version: 2.0.1
     devDependencies:
+      '@types/babel__preset-env':
+        specifier: 7.9.4
+        version: 7.9.4
       '@types/common-tags':
         specifier: 1.8.3
         version: 1.8.3
@@ -228,6 +231,12 @@ importers:
       '@types/stringify-object':
         specifier: 4.0.3
         version: 4.0.3
+      '@types/strip-comments':
+        specifier: 2.0.3
+        version: 2.0.3
+      '@types/surma__rollup-plugin-off-main-thread':
+        specifier: 2.2.2
+        version: 2.2.2
       type-fest:
         specifier: 4.4.0
         version: 4.4.0
@@ -2467,6 +2476,10 @@ packages:
       '@babel/types': 7.23.0
     dev: true
 
+  /@types/babel__preset-env@7.9.4:
+    resolution: {integrity: sha512-zszj0sWMq7onvH9rNCsL1pD8MbGhboZ5l6Rmqy0AZHWg3EKGvkBapZTvEB3B2qKwbWkjGh5r6LRnekuS2DDusQ==}
+    dev: true
+
   /@types/babel__template@7.4.3:
     resolution: {integrity: sha512-ciwyCLeuRfxboZ4isgdNZi/tkt06m8Tw6uGbBSBgWrnnZGNXiEyM27xc/PjXGQLqlZ6ylbgHMnm7ccF9tCkOeQ==}
     dependencies:
@@ -2600,6 +2613,16 @@ packages:
 
   /@types/stringify-object@4.0.3:
     resolution: {integrity: sha512-mJopEHaDdx8cIXy23etLuRCOwXgQ9PJiHgzZg1QbdAQ7vIatRKBTeJ8auVfFwUsHajW+ZvEWwp4+4gFW2XkLAg==}
+    dev: true
+
+  /@types/strip-comments@2.0.3:
+    resolution: {integrity: sha512-QLoPoE6JXiT9uVAXBweMjo2/vYOzLN1ovP/iipzbvi6HB7C31QsojS3ggeZY5ZGD0+6up+QR1sXzSSU7D1EIUQ==}
+    dev: true
+
+  /@types/surma__rollup-plugin-off-main-thread@2.2.2:
+    resolution: {integrity: sha512-Ir8Wabb+R+KDriULkSvRBk4B1A+UL+BILLeuh6IRYL3myTXFHnuklO6V7ixaB0UBMGecn18x93uHNvEhWHJpqQ==}
+    dependencies:
+      rollup: 3.28.1
     dev: true
 
   /@types/through@0.0.31:
@@ -7412,7 +7435,6 @@ packages:
     hasBin: true
     optionalDependencies:
       fsevents: 2.3.3
-    dev: false
 
   /run-async@3.0.0:
     resolution: {integrity: sha512-540WwVDOMxA6dN6We19EcT9sc3hkXPw5mzRNGM3FkdN/vtE9NFvj5lFAPNwUDmJjXidm3v7TC1cTE7t17Ulm1Q==}

@@ -71,10 +71,9 @@ class StorableRequest {
       requestData.body = await request.clone().arrayBuffer();
     }
 
-    // Convert the headers from an iterable to an object.
-    for (const [key, value] of request.headers.entries()) {
+    request.headers.forEach((value, key) => {
       requestData.headers[key] = value;
-    }
+    })
 
     // Add all other serializable request properties
     for (const prop of serializableProperties) {

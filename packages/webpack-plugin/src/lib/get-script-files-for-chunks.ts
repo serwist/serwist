@@ -9,7 +9,7 @@
 import upath from "upath";
 import type { Compilation, WebpackError } from "webpack";
 
-import { resolveWebpackURL } from "./resolve-webpack-url";
+import { resolveWebpackURL } from "./resolve-webpack-url.js";
 
 export function getScriptFilesForChunks(
   compilation: Compilation,

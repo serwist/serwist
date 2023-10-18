@@ -35,8 +35,6 @@ examples/*/.next
 .next/
 out/
 
-build/
-
 coverage/
 
 .DS_Store

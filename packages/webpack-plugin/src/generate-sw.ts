@@ -8,14 +8,14 @@
 
 import prettyBytes from "pretty-bytes";
 import webpack from "webpack";
-import type { ManifestEntry, WebpackGenerateSWOptions } from "workbox-build";
-import { bundle } from "workbox-build/build/lib/bundle";
-import { populateSWTemplate } from "workbox-build/build/lib/populate-sw-template";
-import { validateWebpackGenerateSWOptions } from "workbox-build/build/lib/validate-options";
+import type { ManifestEntry, WebpackGenerateSWOptions } from "@serwist/build";
+import { bundle } from "@serwist/build/lib/bundle.js";
+import { populateSWTemplate } from "@serwist/build/lib/populate-sw-template.js";
+import { validateWebpackGenerateSWOptions } from "@serwist/build/lib/validate-options.js";
 
-import { getManifestEntriesFromCompilation } from "./lib/get-manifest-entries-from-compilation";
-import { getScriptFilesForChunks } from "./lib/get-script-files-for-chunks";
-import { relativeToOutputPath } from "./lib/relative-to-output-path";
+import { getManifestEntriesFromCompilation } from "./lib/get-manifest-entries-from-compilation.js";
+import { getScriptFilesForChunks } from "./lib/get-script-files-for-chunks.js";
+import { relativeToOutputPath } from "./lib/relative-to-output-path.js";
 
 // webpack v4/v5 compatibility:
 // https://github.com/webpack/webpack/issues/11425#issuecomment-686607633

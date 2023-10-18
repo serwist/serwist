@@ -27,7 +27,7 @@ type MethodNames =
   | "WebpackGenerateSW"
   | "WebpackInjectManifest";
 
-const ajv = new Ajv({
+const ajv = new (Ajv as unknown as typeof Ajv.default)({
   useDefaults: true,
 });
 

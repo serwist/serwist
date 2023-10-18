@@ -1,6 +1,7 @@
 {
   "name": "@serwist/webpack-plugin",
   "version": "7.0.0",
+  "type": "module",
   "description": "A plugin for your Webpack build process, helping you generate a manifest of local files that workbox-sw should precache.",
   "keywords": [
     "workbox",

@@ -8,7 +8,7 @@
 
 import upath from "upath";
 import type { Compilation } from "webpack";
-import { getSourceMapURL } from "workbox-build/build/lib/get-source-map-url";
+import { getSourceMapURL } from "@serwist/build/lib/get-source-map-url.js";
 
 /**
  * If our bundled swDest file contains a sourcemap, we would invalidate that
@@ -18,14 +18,13 @@ import { getSourceMapURL } from "workbox-build/build/lib/get-source-map-url";
  *
  * See https://github.com/GoogleChrome/workbox/issues/2235
  *
- * @param {Object} compilation The current webpack compilation.
- * @param {string} swContents The contents of the swSrc file, which may or
+ * @param compilation The current webpack compilation.
+ * @param swContents The contents of the swSrc file, which may or
  * may not include a valid sourcemap comment.
- * @param {string} swDest The configured swDest value.
- * @return {string|undefined} If the swContents contains a valid sourcemap
+ * @param swDest The configured swDest value.
+ * @return If the swContents contains a valid sourcemap
  * comment pointing to an asset present in the compilation, this will return the
  * name of that asset. Otherwise, it will return undefined.
- *
  * @private
  */
 export function getSourcemapAssetName(

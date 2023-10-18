@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { WorkboxPlugin } from "@serwist/core/types.js";
+import { WorkboxPlugin } from "@serwist/core/types";
 import "../_version.js";
 
 export const cacheOkAndOpaquePlugin: WorkboxPlugin = {

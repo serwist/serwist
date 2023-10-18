@@ -64,12 +64,19 @@
     "packageType": "node_ts"
   },
   "types": "build/index.d.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./lib/*.js": "./src/lib/*.ts"
+  },
   "devDependencies": {
+    "@types/babel__preset-env": "7.9.4",
     "@types/common-tags": "1.8.3",
     "@types/fs-extra": "11.0.2",
     "@types/lodash": "4.14.200",
     "@types/node": "20.8.7",
     "@types/stringify-object": "4.0.3",
+    "@types/strip-comments": "2.0.3",
+    "@types/surma__rollup-plugin-off-main-thread": "2.2.2",
     "type-fest": "4.4.0"
   }
 }

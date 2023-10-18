@@ -119,4 +119,5 @@ class NetworkOnly extends Strategy {
   }
 }
 
-export { NetworkOnly, NetworkOnlyOptions };
+export { NetworkOnly };
+export type { NetworkOnlyOptions };

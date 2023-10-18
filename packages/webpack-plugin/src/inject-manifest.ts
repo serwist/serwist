@@ -10,14 +10,14 @@ import stringify from "fast-json-stable-stringify";
 import prettyBytes from "pretty-bytes";
 import upath from "upath";
 import webpack from "webpack";
-import type { WebpackInjectManifestOptions } from "workbox-build";
-import { escapeRegExp } from "workbox-build/build/lib/escape-regexp";
-import { replaceAndUpdateSourceMap } from "workbox-build/build/lib/replace-and-update-source-map";
-import { validateWebpackInjectManifestOptions } from "workbox-build/build/lib/validate-options";
+import type { WebpackInjectManifestOptions } from "@serwist/build";
+import { escapeRegExp } from "@serwist/build/lib/escape-regexp.js";
+import { replaceAndUpdateSourceMap } from "@serwist/build/lib/replace-and-update-source-map.js";
+import { validateWebpackInjectManifestOptions } from "@serwist/build/lib/validate-options.js";
 
-import { getManifestEntriesFromCompilation } from "./lib/get-manifest-entries-from-compilation";
-import { getSourcemapAssetName } from "./lib/get-sourcemap-asset-name";
-import { relativeToOutputPath } from "./lib/relative-to-output-path";
+import { getManifestEntriesFromCompilation } from "./lib/get-manifest-entries-from-compilation.js";
+import { getSourcemapAssetName } from "./lib/get-sourcemap-asset-name.js";
+import { relativeToOutputPath } from "./lib/relative-to-output-path.js";
 // Used to keep track of swDest files written by *any* instance of this plugin.
 // See https://github.com/GoogleChrome/workbox/issues/2181
 const _generatedAssetNames = new Set<string>();

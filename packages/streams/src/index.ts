@@ -17,12 +17,8 @@ import "./_version.js";
  * @module workbox-streams
  */
 
-export {
-  concatenate,
-  concatenateToResponse,
-  isSupported,
-  strategy,
-  StreamsHandlerCallback,
-};
+export { concatenate, concatenateToResponse, isSupported, strategy };
+
+export type { StreamsHandlerCallback };
 
 export * from "./_types.js";

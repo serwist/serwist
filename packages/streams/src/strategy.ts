@@ -10,7 +10,7 @@ import { logger } from "@serwist/core/_private/logger.js";
 import {
   RouteHandlerCallback,
   RouteHandlerCallbackOptions,
-} from "@serwist/core/types.js";
+} from "@serwist/core/types";
 import { createHeaders } from "./utils/createHeaders.js";
 import { concatenateToResponse } from "./concatenateToResponse.js";
 import { isSupported } from "./isSupported.js";

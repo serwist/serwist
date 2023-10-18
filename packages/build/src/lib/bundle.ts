@@ -15,10 +15,10 @@ import { writeFile } from "fs-extra";
 import type { Plugin } from "rollup";
 import { rollup } from "rollup";
 import terser from "@rollup/plugin-terser";
-import * as tempy from "tempy";
+import { temporaryFile } from "tempy";
 import upath from "upath";
 
-import type { GeneratePartial, RequiredSWDestPartial } from "../types";
+import type { GeneratePartial, RequiredSWDestPartial } from "../types.js";
 
 interface NameAndContents {
   contents: string | Uint8Array;
@@ -40,12 +40,12 @@ export async function bundle({
   // a custom file system.
   const { dir, base } = upath.parse(swDest);
 
-  const temporaryFile = tempy.file({ name: base });
-  await writeFile(temporaryFile, unbundledCode);
+  const tempFile = temporaryFile({ name: base });
+  await writeFile(tempFile, unbundledCode);
 
   const plugins = [
     nodeResolve(),
-    replace({
+    (replace as unknown as typeof replace.default)({
       // See https://github.com/GoogleChrome/workbox/issues/2769
       preventAssignment: true,
       "process.env.NODE_ENV": JSON.stringify(mode),
@@ -72,7 +72,7 @@ export async function bundle({
 
   if (mode === "production") {
     plugins.push(
-      terser({
+      (terser as unknown as typeof terser.default)({
         mangle: {
           toplevel: true,
           properties: {
@@ -89,7 +89,7 @@ export async function bundle({
     plugins: Array<Plugin>;
   } = {
     plugins,
-    input: temporaryFile,
+    input: tempFile,
   };
 
   // Rollup will inline the runtime by default. If we don't want that, we need

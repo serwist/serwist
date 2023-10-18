@@ -14,7 +14,7 @@ import {
   HandlerCallbackOptions,
   RouteHandlerObject,
   WorkboxPlugin,
-} from "@serwist/core/types.js";
+} from "@serwist/core/types";
 
 import { StrategyHandler } from "./StrategyHandler.js";
 
