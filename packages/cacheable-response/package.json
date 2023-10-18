@@ -1,0 +1,41 @@
+{
+  "name": "@serwist/cacheable-response",
+  "version": "8.0.0",
+  "type": "module",
+  "license": "MIT",
+  "author": "Google's Web DevRel Team, Serwist's Team",
+  "description": "This library takes a Response object and determines whether it's cacheable based on a specific configuration.",
+  "repository": "serwist/serwist",
+  "bugs": "https://github.com/serwist/serwist/issues",
+  "homepage": "https://ducanh-next-pwa.vercel.app",
+  "keywords": [
+    "serwist",
+    "serwistjs",
+    "service worker",
+    "sw",
+    "serwist-plugin"
+  ],
+  "module": "./dist/index.js",
+  "main": "./dist/index.old.cjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.old.cjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "cross-env NODE_ENV=production rollup --waitForBundleInput --config rollup.config.js",
+    "lint": "eslint src --ext ts,tsx,js,jsx,cjs,mjs",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "@serwist/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@serwist/constants": "workspace:*",
+    "rollup": "3.28.1"
+  }
+}

@@ -1,43 +1,27 @@
-.DS_Store
-build
-lerna-debug.log
-node_modules
-npm-debug.log
-packages/**/LICENSE
-temp
-tmp-*
-!packages/workbox-cli/test/static/example-project-1/node_modules
-coverage/
-generated-release-files/
-workbox-*.json
-.esm-cache/
-.nyc_output/
-.rpt2_cache/
-docs
-local-builds/
-firebase-debug.log
-.firebase
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# Generated TypeScript files and build data
-tsconfig.tsbuildinfo
-packages/workbox-*/**/*.d.ts
-!packages/workbox-*/src/**/*.d.ts
-packages/workbox-*/**/*.js
-!packages/workbox-build/**/*.js
-!packages/workbox-webpack-plugin/**/*.js
+# dependencies
+node_modules/
+.pnp/
+.pnp.js
 
-# Individual package ignores during TypeScript migration
-packages/workbox-background-sync/**/*.mjs
-packages/workbox-broadcast-update/**/*.mjs
-packages/workbox-cacheable-response/**/*.mjs
-packages/workbox-core/**/*.mjs
-packages/workbox-expiration/**/*.mjs
-packages/workbox-google-analytics/**/*.mjs
-packages/workbox-navigation-preload/**/*.mjs
-packages/workbox-precaching/**/*.mjs
-packages/workbox-range-requests/**/*.mjs
-packages/workbox-recipes/**/*.mjs
-packages/workbox-routing/**/*.mjs
-packages/workbox-strategies/**/*.mjs
-packages/workbox-streams/**/*.mjs
-packages/workbox-window/**/*.mjs
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files
+.env*
+
+# turbo
+.turbo
+
+# production
+dist/
+
+# vscode
+.vscode
+
+# rollup
+.rollup.cache

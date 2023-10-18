@@ -1,0 +1,73 @@
+{
+  "name": "@serwist/webpack-plugin",
+  "version": "8.0.0",
+  "type": "module",
+  "description": "A plugin for your Webpack build process, helping you generate a manifest of local files that should be precached.",
+  "files": [
+    "dist",
+    "!dist/**/dts"
+  ],
+  "keywords": [
+    "serwist",
+    "serwistjs",
+    "webpack",
+    "service worker",
+    "caching",
+    "fetch requests",
+    "offline",
+    "file manifest"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "author": "Google's Web DevRel Team, Serwist's Team",
+  "license": "MIT",
+  "repository": "serwist/serwist",
+  "bugs": "https://github.com/serwist/serwist/issues",
+  "homepage": "https://ducanh-next-pwa.vercel.app",
+  "module": "./dist/index.js",
+  "main": "./dist/index.old.cjs",
+  "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "internal": [
+        "./dist/index.internal.d.ts"
+      ]
+    }
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.old.cjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./internal": {
+      "import": "./dist/index.internal.js",
+      "require": "./dist/index.internal.old.cjs",
+      "types": "./dist/index.internal.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js",
+    "lint": "eslint src --ext ts,tsx,js,jsx,cjs,mjs",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "@serwist/build": "workspace:*",
+    "fast-json-stable-stringify": "2.1.0",
+    "picomatch": "3.0.1",
+    "pretty-bytes": "6.1.1",
+    "rollup": "3.28.1",
+    "upath": "2.0.1",
+    "webpack-sources": "3.2.3"
+  },
+  "peerDependencies": {
+    "webpack": "4.4.0 || ^5.9.0"
+  },
+  "devDependencies": {
+    "@serwist/constants": "workspace:*",
+    "@types/node": "20.8.7",
+    "@types/webpack": "5.28.3"
+  }
+}

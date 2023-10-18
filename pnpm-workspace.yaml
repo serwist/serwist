@@ -1,0 +1,6 @@
+packages:
+  - "docs"
+  - "packages/**"
+  - "examples/**"
+  - "!examples/**/.next"
+  - "serwist-e2e-test"
