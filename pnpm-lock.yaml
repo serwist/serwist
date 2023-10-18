@@ -86,7 +86,7 @@ importers:
 
   packages/background-sync:
     dependencies:
-      '@serwiss/core':
+      '@serwist/core':
         specifier: workspace:*
         version: link:../core
       idb:
@@ -95,7 +95,7 @@ importers:
 
   packages/broadcast-update:
     dependencies:
-      '@serwiss/core':
+      '@serwist/core':
         specifier: 7.0.0
         version: link:../core
 
@@ -125,49 +125,49 @@ importers:
       '@rollup/plugin-terser':
         specifier: 0.4.4
         version: 0.4.4(rollup@3.28.1)
-      '@serwiss/background-sync':
+      '@serwist/background-sync':
         specifier: workspace:*
         version: link:../background-sync
-      '@serwiss/broadcast-update':
+      '@serwist/broadcast-update':
         specifier: workspace:*
         version: link:../broadcast-update
-      '@serwiss/cacheable-response':
+      '@serwist/cacheable-response':
         specifier: workspace:*
         version: link:../cacheable-response
-      '@serwiss/core':
+      '@serwist/core':
         specifier: workspace:*
         version: link:../core
-      '@serwiss/expiration':
+      '@serwist/expiration':
         specifier: workspace:*
         version: link:../expiration
-      '@serwiss/google-analytics':
+      '@serwist/google-analytics':
         specifier: workspace:*
         version: link:../google-analytics
-      '@serwiss/navigation-preload':
+      '@serwist/navigation-preload':
         specifier: workspace:*
         version: link:../navigation-preload
-      '@serwiss/precaching':
+      '@serwist/precaching':
         specifier: workspace:*
         version: link:../precaching
-      '@serwiss/range-requests':
+      '@serwist/range-requests':
         specifier: workspace:*
         version: link:../range-requests
-      '@serwiss/recipes':
+      '@serwist/recipes':
         specifier: workspace:*
         version: link:../recipes
-      '@serwiss/routing':
+      '@serwist/routing':
         specifier: workspace:*
         version: link:../routing
-      '@serwiss/strategies':
+      '@serwist/strategies':
         specifier: workspace:*
         version: link:../strategies
-      '@serwiss/streams':
+      '@serwist/streams':
         specifier: workspace:*
         version: link:../streams
-      '@serwiss/sw':
+      '@serwist/sw':
         specifier: workspace:*
         version: link:../sw
-      '@serwiss/window':
+      '@serwist/window':
         specifier: workspace:*
         version: link:../window
       '@surma/rollup-plugin-off-main-thread':
@@ -234,13 +234,13 @@ importers:
 
   packages/cacheable-response:
     dependencies:
-      '@serwiss/core':
+      '@serwist/core':
         specifier: 7.0.0
         version: link:../core
 
   packages/cli:
     dependencies:
-      '@serwiss/build':
+      '@serwist/build':
         specifier: workspace:*
         version: link:../build
       chalk:
@@ -300,7 +300,7 @@ importers:
 
   packages/expiration:
     dependencies:
-      '@serwiss/core':
+      '@serwist/core':
         specifier: workspace:*
         version: link:../core
       idb:
@@ -309,82 +309,82 @@ importers:
 
   packages/google-analytics:
     dependencies:
-      '@serwiss/background-sync':
+      '@serwist/background-sync':
         specifier: workspace:*
         version: link:../background-sync
-      '@serwiss/core':
+      '@serwist/core':
         specifier: workspace:*
         version: link:../core
-      '@serwiss/routing':
+      '@serwist/routing':
         specifier: workspace:*
         version: link:../routing
-      '@serwiss/strategies':
+      '@serwist/strategies':
         specifier: workspace:*
         version: link:../strategies
 
   packages/navigation-preload:
     dependencies:
-      '@serwiss/core':
+      '@serwist/core':
         specifier: workspace:*
         version: link:../core
 
   packages/precaching:
     dependencies:
-      '@serwiss/core':
+      '@serwist/core':
         specifier: workspace:*
         version: link:../core
-      '@serwiss/routing':
+      '@serwist/routing':
         specifier: workspace:*
         version: link:../routing
-      '@serwiss/strategies':
+      '@serwist/strategies':
         specifier: workspace:*
         version: link:../strategies
 
   packages/range-requests:
     dependencies:
-      '@serwiss/core':
+      '@serwist/core':
         specifier: workspace:*
         version: link:../core
 
   packages/recipes:
     dependencies:
-      '@serwiss/cacheable-response':
+      '@serwist/cacheable-response':
         specifier: workspace:*
         version: link:../cacheable-response
-      '@serwiss/core':
+      '@serwist/core':
         specifier: workspace:*
         version: link:../core
-      '@serwiss/expiration':
+      '@serwist/expiration':
         specifier: workspace:*
         version: link:../expiration
-      '@serwiss/precaching':
+      '@serwist/precaching':
         specifier: workspace:*
         version: link:../precaching
-      '@serwiss/routing':
+      '@serwist/routing':
         specifier: workspace:*
         version: link:../routing
-      '@serwiss/strategies':
+      '@serwist/strategies':
         specifier: workspace:*
         version: link:../strategies
 
   packages/routing:
     dependencies:
-      '@serwiss/core':
+      '@serwist/core':
         specifier: workspace:*
         version: link:../core
 
   packages/strategies:
     dependencies:
-      '@serwiss/core':
+      '@serwist/core':
         specifier: workspace:*
         version: link:../core
 
   packages/streams:
     dependencies:
-      '@serwiss/core':
+      '@serwist/core':
         specifier: workspace:*
         version: link:../core
-      '@serwiss/routing':
+      '@serwist/routing':
         specifier: workspace:*
         version: link:../routing
 
@@ -392,7 +392,7 @@ importers:
 
   packages/webpack-plugin:
     dependencies:
-      '@serwiss/build':
+      '@serwist/build':
         specifier: workspace:*
         version: link:../build
       fast-json-stable-stringify:
@@ -420,7 +420,7 @@ importers:
 
   packages/window:
     dependencies:
-      '@serwiss/core':
+      '@serwist/core':
         specifier: 7.0.0
         version: link:../core
       '@types/trusted-types':
