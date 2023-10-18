@@ -1,0 +1,29 @@
+{
+  "name": "@serwiss/streams",
+  "version": "7.0.0",
+  "license": "MIT",
+  "author": "Google's Web DevRel Team, DuCanhGH",
+  "description": "A library that makes it easier to work with Streams in the browser.",
+  "repository": "DuCanhGH/next-pwa",
+  "bugs": "https://github.com/DuCanhGH/next-pwa/issues",
+  "homepage": "https://ducanh-next-pwa.vercel.app",
+  "keywords": [
+    "workbox",
+    "workboxjs",
+    "service worker",
+    "sw",
+    "streams",
+    "readablestream"
+  ],
+  "workbox": {
+    "browserNamespace": "workbox.streams",
+    "packageType": "sw"
+  },
+  "main": "index.js",
+  "module": "index.mjs",
+  "types": "index.d.ts",
+  "dependencies": {
+    "@serwiss/core": "workspace:*",
+    "@serwiss/routing": "workspace:*"
+  }
+}

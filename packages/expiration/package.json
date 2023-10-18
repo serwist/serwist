@@ -1,0 +1,32 @@
+{
+  "name": "@serwiss/expiration",
+  "version": "7.0.0",
+  "type": "module",
+  "license": "MIT",
+  "author": "Google's Web DevRel Team, DuCanhGH",
+  "description": "A service worker helper library that expires cached responses based on age or maximum number of entries.",
+  "repository": "DuCanhGH/next-pwa",
+  "bugs": "https://github.com/DuCanhGH/next-pwa/issues",
+  "homepage": "https://ducanh-next-pwa.vercel.app",
+  "keywords": [
+    "workbox",
+    "workboxjs",
+    "service worker",
+    "sw",
+    "workbox-plugin"
+  ],
+  "workbox": {
+    "browserNamespace": "workbox.expiration",
+    "packageType": "sw"
+  },
+  "main": "index.js",
+  "module": "index.mjs",
+  "types": "index.d.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@serwiss/core": "workspace:*",
+    "idb": "7.1.1"
+  }
+}

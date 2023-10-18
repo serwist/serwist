@@ -1,0 +1,10 @@
+{
+  "include": [
+    "**/*.js",
+    "**/*.jsx",
+    "**/*.cjs",
+    "**/*.mjs",
+    "**/.eslintrc.cjs",
+    "**/.ncurc.js"
+  ]
+}

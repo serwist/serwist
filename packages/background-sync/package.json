@@ -1,0 +1,35 @@
+{
+  "name": "@serwiss/background-sync",
+  "version": "7.0.0",
+  "license": "MIT",
+  "author": "Google's Web DevRel Team, DuCanhGH",
+  "description": "Queues failed requests and uses the Background Sync API to replay them when the network is available",
+  "repository": "DuCanhGH/next-pwa",
+  "bugs": "https://github.com/DuCanhGH/next-pwa/issues",
+  "homepage": "https://ducanh-next-pwa.vercel.app",
+  "type": "module",
+  "keywords": [
+    "workbox",
+    "workboxjs",
+    "service worker",
+    "sw",
+    "background",
+    "sync",
+    "workbox-plugin"
+  ],
+  "workbox": {
+    "browserNamespace": "workbox.backgroundSync",
+    "packageType": "sw"
+  },
+  "main": "index.js",
+  "module": "index.mjs",
+  "types": "index.d.ts",
+  "dependencies": {
+    "@serwiss/core": "workspace:*",
+    "idb": "7.1.1"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./queue": "./src/Queue.ts"
+  }
+}

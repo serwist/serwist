@@ -1,0 +1,28 @@
+{
+  "name": "@serwiss/precaching",
+  "version": "7.0.0",
+  "license": "MIT",
+  "author": "Google's Web DevRel Team, DuCanhGH",
+  "description": "This module efficiently precaches assets.",
+  "repository": "DuCanhGH/next-pwa",
+  "bugs": "https://github.com/DuCanhGH/next-pwa/issues",
+  "homepage": "https://ducanh-next-pwa.vercel.app",
+  "keywords": [
+    "workbox",
+    "workboxjs",
+    "service worker",
+    "sw"
+  ],
+  "workbox": {
+    "browserNamespace": "workbox.precaching",
+    "packageType": "sw"
+  },
+  "main": "index.js",
+  "module": "index.mjs",
+  "types": "index.d.ts",
+  "dependencies": {
+    "@serwiss/core": "workspace:*",
+    "@serwiss/routing": "workspace:*",
+    "@serwiss/strategies": "workspace:*"
+  }
+}

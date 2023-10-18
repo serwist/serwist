@@ -1,39 +1,23 @@
 {
   "compilerOptions": {
-    "composite": true,
-    "declaration": true,
-    "lib": ["es2017", "webworker"],
-    "module": "esnext",
-    "moduleResolution": "node",
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitReturns": true,
+    "target": "ESNext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["DOM", "ES6", "ES2017", "ESNext.AsyncIterable", "WebWorker"],
+    "skipLibCheck": true,
+    "sourceMap": false,
+    "strict": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "preserveConstEnums": true,
-    "strict": true,
-    "target": "es2017",
-    "tsBuildInfoFile": "./tsconfig.tsbuildinfo"
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "isolatedModules": true,
+    "removeComments": false,
+    "checkJs": true,
+    "noEmit": true
   },
-  "files": ["./infra/type-overrides.d.ts"],
-  "exclude": [],
-  "references": [
-    {"path": "./packages/workbox-broadcast-update/"},
-    {"path": "./packages/workbox-background-sync/"},
-    {"path": "./packages/workbox-build/"},
-    {"path": "./packages/workbox-cacheable-response/"},
-    {"path": "./packages/workbox-cli/"},
-    {"path": "./packages/workbox-core/"},
-    {"path": "./packages/workbox-expiration/"},
-    {"path": "./packages/workbox-navigation-preload/"},
-    {"path": "./packages/workbox-precaching/"},
-    {"path": "./packages/workbox-range-requests/"},
-    {"path": "./packages/workbox-recipes/"},
-    {"path": "./packages/workbox-routing/"},
-    {"path": "./packages/workbox-strategies/"},
-    {"path": "./packages/workbox-streams/"},
-    {
-      "path": "./packages/workbox-webpack-plugin/"
-    },
-    {"path": "./packages/workbox-window/"}
-  ]
+  "include": ["*.js", "*.cjs", "*.mjs"]
 }

@@ -1,0 +1,33 @@
+{
+  "name": "@serwiss/recipes",
+  "version": "7.0.0",
+  "license": "MIT",
+  "author": "Google's Web DevRel Team, DuCanhGH",
+  "description": "A service worker helper library to manage common request and caching patterns",
+  "repository": "DuCanhGH/next-pwa",
+  "bugs": "https://github.com/DuCanhGH/next-pwa/issues",
+  "homepage": "https://ducanh-next-pwa.vercel.app",
+  "keywords": [
+    "workbox",
+    "workboxjs",
+    "service worker",
+    "sw",
+    "router",
+    "routing"
+  ],
+  "workbox": {
+    "browserNamespace": "workbox.recipes",
+    "packageType": "sw"
+  },
+  "main": "index.js",
+  "module": "index.mjs",
+  "types": "index.d.ts",
+  "dependencies": {
+    "@serwiss/cacheable-response": "workspace:*",
+    "@serwiss/core": "workspace:*",
+    "@serwiss/expiration": "workspace:*",
+    "@serwiss/precaching": "workspace:*",
+    "@serwiss/routing": "workspace:*",
+    "@serwiss/strategies": "workspace:*"
+  }
+}
