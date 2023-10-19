@@ -24,62 +24,26 @@ export declare interface PrecacheEntry {
 }
 
 export interface PrecacheRouteOptions {
+  /**
+   * The `directoryIndex` will check cache entries for a URLs ending with '/' 
+   * to see if there is a hit when appending the `directoryIndex` value.
+   */
   directoryIndex?: string;
+  /**
+   * An array of RegExp's to remove search params when looking for a cache match.
+   */
   ignoreURLParametersMatching?: RegExp[];
+  /**
+   * The `cleanURLs` option will check the cache for the URL with a `.html` added 
+   * to the end of the end.
+   */
   cleanURLs?: boolean;
+  /**
+   * This is a function that should take a URL and return an array of
+   * alternative URLs that should be checked for precache matches.
+   */
   urlManipulation?: urlManipulation;
 }
 
 export type urlManipulation = ({ url }: { url: URL }) => URL[];
 
-// * * * IMPORTANT! * * *
-// ------------------------------------------------------------------------- //
-// jdsoc type definitions cannot be declared above TypeScript definitions or
-// they'll be stripped from the built `.js` files, and they'll only be in the
-// `d.ts` files, which aren't read by the jsdoc generator. As a result we
-// have to put declare them below.
-
-/**
- * @typedef {Object} InstallResult
- * @property {Array<string>} updatedURLs List of URLs that were updated during
- * installation.
- * @property {Array<string>} notUpdatedURLs List of URLs that were already up to
- * date.
- *
- * @memberof workbox-precaching
- */
-
-/**
- * @typedef {Object} CleanupResult
- * @property {Array<string>} deletedCacheRequests List of URLs that were deleted
- * while cleaning up the cache.
- *
- * @memberof workbox-precaching
- */
-
-/**
- * @typedef {Object} PrecacheEntry
- * @property {string} url URL to precache.
- * @property {string} [revision] Revision information for the URL.
- * @property {string} [integrity] Integrity metadata that will be used when
- * making the network request for the URL.
- *
- * @memberof workbox-precaching
- */
-
-/**
- * The "urlManipulation" callback can be used to determine if there are any
- * additional permutations of a URL that should be used to check against
- * the available precached files.
- *
- * For example, Workbox supports checking for '/index.html' when the URL
- * '/' is provided. This callback allows additional, custom checks.
- *
- * @callback ~urlManipulation
- * @param {Object} context
- * @param {URL} context.url The request's URL.
- * @return {Array<URL>} To add additional urls to test, return an Array of
- * URLs. Please note that these **should not be strings**, but URL objects.
- *
- * @memberof workbox-precaching
- */

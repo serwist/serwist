@@ -96,13 +96,13 @@ class StorableRequest {
   constructor(requestData: RequestData) {
     if (process.env.NODE_ENV !== "production") {
       assert!.isType(requestData, "object", {
-        moduleName: "workbox-background-sync",
+        moduleName: "@serwist/background-sync",
         className: "StorableRequest",
         funcName: "constructor",
         paramName: "requestData",
       });
       assert!.isType(requestData.url, "string", {
-        moduleName: "workbox-background-sync",
+        moduleName: "@serwist/background-sync",
         className: "StorableRequest",
         funcName: "constructor",
         paramName: "requestData.url",

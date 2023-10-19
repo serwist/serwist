@@ -23,7 +23,7 @@ export async function runWizard(options = {}): Promise<void> {
   const command = "injectManifest" in options ? "injectManifest" : "generateSW";
   logger.log(`To build your service worker, run
 
-  workbox ${command} ${configLocation}
+  serwist ${command} ${configLocation}
 
 as part of a build process. See https://goo.gl/fdTQBf for details.`);
 

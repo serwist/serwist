@@ -8,23 +8,25 @@
   https://opensource.org/licenses/MIT.
 */
 
+import type { Result as MeowResult } from "meow";
 import meow from "meow";
-import updateNotifier from "update-notifier";
+import updateNotifier, { type Package } from "update-notifier";
 
-import { app } from "./app";
+import { app } from "./app.js";
 import { cleanupStackTrace } from "./lib/cleanup-stack-trace.js";
-import { helpText } from "./lib/help-text";
-import { logger } from "./lib/logger";
+import { helpText } from "./lib/help-text.js";
+import { logger } from "./lib/logger.js";
+import { AnyFlags, BooleanFlag } from "./types.js";
 
-export interface SupportedFlags extends meow.AnyFlags {
-  debug: meow.BooleanFlag;
-  injectManifest: meow.BooleanFlag;
-  watch: meow.BooleanFlag;
-}
+export interface SupportedFlags extends AnyFlags{
+  debug: BooleanFlag;
+  injectManifest: BooleanFlag;
+  watch: BooleanFlag;
+};
 
 void (async () => {
-  const params: meow.Result<any> = meow(helpText);
-  updateNotifier({ pkg: params.pkg as updateNotifier.Package }).notify();
+  const params: MeowResult<any> = meow(helpText);
+  updateNotifier({ pkg: params.pkg as Package }).notify();
 
   try {
     await app(params);

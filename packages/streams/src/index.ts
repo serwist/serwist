@@ -13,10 +13,6 @@ import { strategy, StreamsHandlerCallback } from "./strategy.js";
 
 import "./_version.js";
 
-/**
- * @module workbox-streams
- */
-
 export { concatenate, concatenateToResponse, isSupported, strategy };
 
 export type { StreamsHandlerCallback };

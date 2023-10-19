@@ -3,18 +3,18 @@
   "version": "7.0.0",
   "license": "MIT",
   "author": "Google's Web DevRel Team, DuCanhGH",
-  "description": "This module is used by a number of the other Workbox modules to share common code.",
+  "description": "This module is used by a number of the other Serwist modules to share common code.",
   "repository": "DuCanhGH/next-pwa",
   "bugs": "https://github.com/DuCanhGH/next-pwa/issues",
   "homepage": "https://ducanh-next-pwa.vercel.app",
   "keywords": [
-    "workbox",
-    "workboxjs",
+    "serwist",
+    "serwistjs",
     "service worker",
     "sw"
   ],
-  "workbox": {
-    "browserNamespace": "workbox.core",
+  "serwist": {
+    "browserNamespace": "serwist.core",
     "packageType": "sw"
   },
   "main": "index.js",

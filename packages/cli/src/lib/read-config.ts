@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { GenerateSWOptions, InjectManifestOptions } from "workbox-build";
+import type { GenerateSWOptions, InjectManifestOptions } from "@serwist/build";
 
 // A really light wrapper on top of Node's require() to make it easier to stub
 // out reading the configuration during tests.

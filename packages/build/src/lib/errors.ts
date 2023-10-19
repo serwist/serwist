@@ -37,7 +37,7 @@ export const errors = {
   "sw-write-failure": "Unable to write the service worker file.",
   "sw-write-failure-directory": ol`Unable to write the service worker file;
     'swDest' should be a full path to the file, not a path to a directory.`,
-  "unable-to-copy-workbox-libraries": ol`One or more of the Workbox libraries
+  "unable-to-copy-serwist-libraries": ol`One or more of the Serwist libraries
     could not be copied over to the destination directory: `,
   "invalid-generate-sw-input": ol`The input to generateSW() must be an object.`,
   "invalid-glob-directory": ol`The supplied globDirectory must be a path as a
@@ -62,7 +62,7 @@ export const errors = {
   "invalid-glob-ignores": ol`The 'globIgnores' parameter must be an array of
     glob pattern strings.`,
   "manifest-entry-bad-url": ol`The generated manifest contains an entry without
-    a URL string. This is likely an error with workbox-build.`,
+    a URL string. This is likely an error with @serwist/build.`,
   "modify-url-prefix-bad-prefixes": ol`The 'modifyURLPrefix' parameter must be
     an object with string key value pairs.`,
   "invalid-inject-manifest-arg": ol`The input to 'injectManifest()' must be an

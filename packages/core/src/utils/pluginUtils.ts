@@ -6,11 +6,11 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { WorkboxPlugin } from "../types.js";
+import { SerwistPlugin } from "../types.js";
 import "../_version.js";
 
 export const pluginUtils = {
-  filter: (plugins: WorkboxPlugin[], callbackName: string): WorkboxPlugin[] => {
+  filter: (plugins: SerwistPlugin[], callbackName: string): SerwistPlugin[] => {
     return plugins.filter((plugin) => callbackName in plugin);
   },
 };

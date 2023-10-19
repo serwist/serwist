@@ -33,7 +33,7 @@ const ajv = new (Ajv as unknown as typeof Ajv.default)({
 
 const DEFAULT_EXCLUDE_VALUE = [/\.map$/, /^manifest.*\.js$/];
 
-export class WorkboxConfigError extends Error {
+export class SerwistConfigError extends Error {
   constructor(message?: string) {
     super(message);
     Object.setPrototypeOf(this, new.target.prototype);
@@ -72,7 +72,7 @@ function validate<T>(
     ${err.suggestion ? err.suggestion : ""}`
   );
 
-  throw new WorkboxConfigError(messages.join("\n\n"));
+  throw new SerwistConfigError(messages.join("\n\n"));
 }
 
 function ensureValidManifestTransforms(
@@ -90,7 +90,7 @@ function ensureValidManifestTransforms(
       options.manifestTransforms.every((item) => typeof item === "function")
     )
   ) {
-    throw new WorkboxConfigError(errors["manifest-transforms"]);
+    throw new SerwistConfigError(errors["manifest-transforms"]);
   }
 }
 
@@ -102,7 +102,7 @@ function ensureValidNavigationPreloadConfig(
     (!Array.isArray(options.runtimeCaching) ||
       options.runtimeCaching.length === 0)
   ) {
-    throw new WorkboxConfigError(errors["nav-preload-runtime-caching"]);
+    throw new SerwistConfigError(errors["nav-preload-runtime-caching"]);
   }
 }
 
@@ -114,7 +114,7 @@ function ensureValidCacheExpiration(
       runtimeCaching.options?.expiration &&
       !runtimeCaching.options?.cacheName
     ) {
-      throw new WorkboxConfigError(errors["cache-name-required"]);
+      throw new SerwistConfigError(errors["cache-name-required"]);
     }
   }
 }
@@ -127,7 +127,7 @@ function ensureValidRuntimeCachingOrGlobDirectory(
     (!Array.isArray(options.runtimeCaching) ||
       options.runtimeCaching.length === 0)
   ) {
-    throw new WorkboxConfigError(
+    throw new SerwistConfigError(
       errors["no-manifest-entries-or-runtime-caching"]
     );
   }
@@ -157,7 +157,7 @@ function ensureValidStringHandler(
       typeof runtimeCaching.handler === "string" &&
       !validHandlers.includes(runtimeCaching.handler)
     ) {
-      throw new WorkboxConfigError(
+      throw new SerwistConfigError(
         errors["invalid-handler-string"] + runtimeCaching.handler
       );
     }

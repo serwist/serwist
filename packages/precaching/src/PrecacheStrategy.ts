@@ -11,9 +11,9 @@ import {
   cacheNames,
   getFriendlyURL,
   logger,
-  WorkboxError,
+  SerwistError,
 } from "@serwist/core/private";
-import { WorkboxPlugin } from "@serwist/core/types";
+import { SerwistPlugin } from "@serwist/core/types";
 import {
   Strategy,
   type StrategyOptions,
@@ -34,14 +34,11 @@ interface PrecacheStrategyOptions extends StrategyOptions {
  *
  * Note: an instance of this class is created automatically when creating a
  * `PrecacheController`; it's generally not necessary to create this yourself.
- *
- * @extends workbox-strategies.Strategy
- * @memberof workbox-precaching
  */
 class PrecacheStrategy extends Strategy {
   private readonly _fallbackToNetwork: boolean;
 
-  static readonly defaultPrecacheCacheabilityPlugin: WorkboxPlugin = {
+  static readonly defaultPrecacheCacheabilityPlugin: SerwistPlugin = {
     async cacheWillUpdate({ response }) {
       if (!response || response.status >= 400) {
         return null;
@@ -51,7 +48,7 @@ class PrecacheStrategy extends Strategy {
     },
   };
 
-  static readonly copyRedirectedCacheableResponsesPlugin: WorkboxPlugin = {
+  static readonly copyRedirectedCacheableResponsesPlugin: SerwistPlugin = {
     async cacheWillUpdate({ response }) {
       return response.redirected ? await copyResponse(response) : response;
     },
@@ -90,10 +87,9 @@ class PrecacheStrategy extends Strategy {
 
   /**
    * @private
-   * @param {Request|string} request A request to run this strategy for.
-   * @param {workbox-strategies.StrategyHandler} handler The event that
-   *     triggered the request.
-   * @return {Promise<Response>}
+   * @param request A request to run this strategy for.
+   * @param handler The event that triggered the request.
+   * @returns
    */
   async _handle(request: Request, handler: StrategyHandler): Promise<Response> {
     const response = await handler.cacheMatch(request);
@@ -122,7 +118,7 @@ class PrecacheStrategy extends Strategy {
       integrity?: string;
     };
 
-    // Fall back to the network if we're configured to do so.
+    // Fallback to the network if we're configured to do so.
     if (this._fallbackToNetwork) {
       if (process.env.NODE_ENV !== "production") {
         logger.warn(
@@ -174,7 +170,7 @@ class PrecacheStrategy extends Strategy {
     } else {
       // This shouldn't normally happen, but there are edge cases:
       // https://github.com/GoogleChrome/workbox/issues/1441
-      throw new WorkboxError("missing-precache-entry", {
+      throw new SerwistError("missing-precache-entry", {
         cacheName: this.cacheName,
         url: request.url,
       });
@@ -223,7 +219,7 @@ class PrecacheStrategy extends Strategy {
     if (!wasCached) {
       // Throwing here will lead to the `install` handler failing, which
       // we want to do if *any* of the responses aren't safe to cache.
-      throw new WorkboxError("bad-precaching-response", {
+      throw new SerwistError("bad-precaching-response", {
         url: request.url,
         status: response.status,
       });

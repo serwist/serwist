@@ -12,10 +12,10 @@ import {
   dontWaitFor,
   getFriendlyURL,
   logger,
-  WorkboxError,
+  SerwistError,
 } from "@serwist/core/private";
 import { registerQuotaErrorCallback } from "@serwist/core";
-import { WorkboxPlugin } from "@serwist/core/types";
+import { SerwistPlugin } from "@serwist/core/types";
 
 import { CacheExpiration } from "./CacheExpiration.js";
 
@@ -29,10 +29,10 @@ export interface ExpirationPluginOptions {
 }
 
 /**
- * This plugin can be used in a `workbox-strategy` to regularly enforce a
+ * This plugin can be used in a `@serwist/strategies` Strategy to regularly enforce a
  * limit on the age and / or the number of cached requests.
  *
- * It can only be used with `workbox-strategy` instances that have a
+ * It can only be used with Strategy instances that have a
  * [custom `cacheName` property set](/web/tools/workbox/guides/configure-workbox#custom_cache_names_in_strategies).
  * In other words, it can't be used to expire entries in strategy that uses the
  * default runtime cache name.
@@ -48,10 +48,8 @@ export interface ExpirationPluginOptions {
  *
  * When using `maxEntries`, the entry least-recently requested will be removed
  * from the cache first.
- *
- * @memberof workbox-expiration
  */
-class ExpirationPlugin implements WorkboxPlugin {
+class ExpirationPlugin implements SerwistPlugin {
   private readonly _config: ExpirationPluginOptions;
   private readonly _maxAgeSeconds?: number;
   private _cacheExpirations: Map<string, CacheExpiration>;
@@ -70,8 +68,8 @@ class ExpirationPlugin implements WorkboxPlugin {
   constructor(config: ExpirationPluginOptions = {}) {
     if (process.env.NODE_ENV !== "production") {
       if (!(config.maxEntries || config.maxAgeSeconds)) {
-        throw new WorkboxError("max-entries-or-age-required", {
-          moduleName: "workbox-expiration",
+        throw new SerwistError("max-entries-or-age-required", {
+          moduleName: "@serwist/expiration",
           className: "Plugin",
           funcName: "constructor",
         });
@@ -79,7 +77,7 @@ class ExpirationPlugin implements WorkboxPlugin {
 
       if (config.maxEntries) {
         assert!.isType(config.maxEntries, "number", {
-          moduleName: "workbox-expiration",
+          moduleName: "@serwist/expiration",
           className: "Plugin",
           funcName: "constructor",
           paramName: "config.maxEntries",
@@ -88,7 +86,7 @@ class ExpirationPlugin implements WorkboxPlugin {
 
       if (config.maxAgeSeconds) {
         assert!.isType(config.maxAgeSeconds, "number", {
-          moduleName: "workbox-expiration",
+          moduleName: "@serwist/expiration",
           className: "Plugin",
           funcName: "constructor",
           paramName: "config.maxAgeSeconds",
@@ -116,7 +114,7 @@ class ExpirationPlugin implements WorkboxPlugin {
    */
   private _getCacheExpiration(cacheName: string): CacheExpiration {
     if (cacheName === cacheNames.getRuntimeName()) {
-      throw new WorkboxError("expire-custom-caches-only");
+      throw new SerwistError("expire-custom-caches-only");
     }
 
     let cacheExpiration = this._cacheExpirations.get(cacheName);
@@ -129,7 +127,7 @@ class ExpirationPlugin implements WorkboxPlugin {
 
   /**
    * A "lifecycle" callback that will be triggered automatically by the
-   * `workbox-strategies` handlers when a `Response` is about to be returned
+   * `@serwist/strategies` handlers when a `Response` is about to be returned
    * from a [Cache](https://developer.mozilla.org/en-US/docs/Web/API/Cache) to
    * the handler. It allows the `Response` to be inspected for freshness and
    * prevents it from being used if the `Response`'s `Date` header value is
@@ -144,7 +142,7 @@ class ExpirationPlugin implements WorkboxPlugin {
    *
    * @private
    */
-  cachedResponseWillBeUsed: WorkboxPlugin["cachedResponseWillBeUsed"] = async ({
+  cachedResponseWillBeUsed: SerwistPlugin["cachedResponseWillBeUsed"] = async ({
     event,
     request,
     cacheName,
@@ -240,7 +238,7 @@ class ExpirationPlugin implements WorkboxPlugin {
 
   /**
    * A "lifecycle" callback that will be triggered automatically by the
-   * `workbox-strategies` handlers when an entry is added to a cache.
+   * `@serwist/strategies` handlers when an entry is added to a cache.
    *
    * @param {Object} options
    * @param {string} options.cacheName Name of the cache that was updated.
@@ -248,19 +246,19 @@ class ExpirationPlugin implements WorkboxPlugin {
    *
    * @private
    */
-  cacheDidUpdate: WorkboxPlugin["cacheDidUpdate"] = async ({
+  cacheDidUpdate: SerwistPlugin["cacheDidUpdate"] = async ({
     cacheName,
     request,
   }) => {
     if (process.env.NODE_ENV !== "production") {
       assert!.isType(cacheName, "string", {
-        moduleName: "workbox-expiration",
+        moduleName: "@serwist/expiration",
         className: "Plugin",
         funcName: "cacheDidUpdate",
         paramName: "cacheName",
       });
       assert!.isInstance(request, Request, {
-        moduleName: "workbox-expiration",
+        moduleName: "@serwist/expiration",
         className: "Plugin",
         funcName: "cacheDidUpdate",
         paramName: "request",
@@ -286,7 +284,7 @@ class ExpirationPlugin implements WorkboxPlugin {
    *
    * Note that if you're *not* using cache expiration for a given cache, calling
    * `caches.delete()` and passing in the cache's name should be sufficient.
-   * There is no Workbox-specific method needed for cleanup in that case.
+   * There is no Serwist-specific method needed for cleanup in that case.
    */
   async deleteCacheAndMetadata(): Promise<void> {
     // Do this one at a time instead of all at once via `Promise.all()` to

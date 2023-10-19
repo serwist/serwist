@@ -7,7 +7,7 @@
 */
 
 export const constants = {
-  defaultConfigFile: "workbox-config.js",
+  defaultConfigFile: "serwist.config.js",
   ignoredDirectories: ["node_modules"],
   ignoredFileExtensions: ["map"],
   ignoreURLParametersMatching: [/^utm_/, /^fbclid$/],

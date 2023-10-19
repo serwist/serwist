@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert, getFriendlyURL, logger, WorkboxError } from "@serwist/core/private";
+import { assert, getFriendlyURL, logger, SerwistError } from "@serwist/core/private";
 import {
   RouteHandler,
   RouteHandlerObject,
@@ -29,21 +29,16 @@ interface CacheURLsMessageData {
 }
 
 /**
- * The Router can be used to process a `FetchEvent` using one or more
- * {@link workbox-routing.Route}, responding with a `Response` if
- * a matching route exists.
+ * The Router can be used to process a `FetchEvent` using one or more `@serwist/routing` Route(s), 
+ * responding with a `Response` if a matching route exists.
  *
- * If no route matches a given a request, the Router will use a "default"
- * handler if one is defined.
+ * If no route matches a given a request, the Router will use a "default" handler if one is defined.
  *
- * Should the matching Route throw an error, the Router will use a "catch"
- * handler if one is defined to gracefully deal with issues and respond with a
- * Request.
+ * Should the matching Route throw an error, the Router will use a "catch" handler if one is defined to 
+ * gracefully deal with issues and respond with a Request.
  *
  * If a request matches multiple routes, the **earliest** registered route will
  * be used to respond to the request.
- *
- * @memberof workbox-routing
  */
 class Router {
   private readonly _routes: Map<HTTPMethod, Route[]>;
@@ -59,8 +54,7 @@ class Router {
   }
 
   /**
-   * @return {Map<string, Array<workbox-routing.Route>>} routes A `Map` of HTTP
-   * method name ('GET', etc.) to an array of all the corresponding `Route`
+   * @returns routes A `Map` of HTTP method name ('GET', etc.) to an array of all the corresponding `Route`
    * instances that are registered.
    */
   get routes(): Map<HTTPMethod, Route[]> {
@@ -163,7 +157,7 @@ class Router {
   }): Promise<Response> | undefined {
     if (process.env.NODE_ENV !== "production") {
       assert!.isInstance(request, Request, {
-        moduleName: "workbox-routing",
+        moduleName: "@serwist/routing",
         className: "Router",
         funcName: "handleRequest",
         paramName: "options.request",
@@ -385,10 +379,9 @@ class Router {
    * Without a default handler, unmatched requests will go against the
    * network as if there were no service worker present.
    *
-   * @param {workbox-routing~handlerCallback} handler A callback
-   * function that returns a Promise resulting in a Response.
-   * @param {string} [method='GET'] The HTTP method to associate with this
-   * default handler. Each method has its own default.
+   * @param handler A callback function that returns a Promise resulting in a Response.
+   * @param method The HTTP method to associate with this default handler. Each method 
+   * has its own default. Defaults to GET.
    */
   setDefaultHandler(
     handler: RouteHandler,
@@ -401,8 +394,8 @@ class Router {
    * If a Route throws an error while handling a request, this `handler`
    * will be called and given a chance to provide a response.
    *
-   * @param {workbox-routing~handlerCallback} handler A callback
-   * function that returns a Promise resulting in a Response.
+   * @param handler A callback function that returns a Promise resulting 
+   * in a Response.
    */
   setCatchHandler(handler: RouteHandler): void {
     this._catchHandler = normalizeHandler(handler);
@@ -411,40 +404,40 @@ class Router {
   /**
    * Registers a route with the router.
    *
-   * @param {workbox-routing.Route} route The route to register.
+   * @param route The route to register.
    */
   registerRoute(route: Route): void {
     if (process.env.NODE_ENV !== "production") {
       assert!.isType(route, "object", {
-        moduleName: "workbox-routing",
+        moduleName: "@serwist/routing",
         className: "Router",
         funcName: "registerRoute",
         paramName: "route",
       });
 
       assert!.hasMethod(route, "match", {
-        moduleName: "workbox-routing",
+        moduleName: "@serwist/routing",
         className: "Router",
         funcName: "registerRoute",
         paramName: "route",
       });
 
       assert!.isType(route.handler, "object", {
-        moduleName: "workbox-routing",
+        moduleName: "@serwist/routing",
         className: "Router",
         funcName: "registerRoute",
         paramName: "route",
       });
 
       assert!.hasMethod(route.handler, "handle", {
-        moduleName: "workbox-routing",
+        moduleName: "@serwist/routing",
         className: "Router",
         funcName: "registerRoute",
         paramName: "route.handler",
       });
 
       assert!.isType(route.method, "string", {
-        moduleName: "workbox-routing",
+        moduleName: "@serwist/routing",
         className: "Router",
         funcName: "registerRoute",
         paramName: "route.method",
@@ -463,11 +456,11 @@ class Router {
   /**
    * Unregisters a route with the router.
    *
-   * @param {workbox-routing.Route} route The route to unregister.
+   * @param route The route to unregister.
    */
   unregisterRoute(route: Route): void {
     if (!this._routes.has(route.method)) {
-      throw new WorkboxError("unregister-route-but-not-found-with-method", {
+      throw new SerwistError("unregister-route-but-not-found-with-method", {
         method: route.method,
       });
     }
@@ -476,7 +469,7 @@ class Router {
     if (routeIndex > -1) {
       this._routes.get(route.method)!.splice(routeIndex, 1);
     } else {
-      throw new WorkboxError("unregister-route-route-not-registered");
+      throw new SerwistError("unregister-route-route-not-registered");
     }
   }
 }

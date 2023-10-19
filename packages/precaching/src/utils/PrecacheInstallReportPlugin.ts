@@ -7,9 +7,9 @@
 */
 
 import {
-  WorkboxPlugin,
-  WorkboxPluginCallbackParam,
-} from "@serwist/core/types.js";
+  SerwistPlugin,
+  SerwistPluginCallbackParam,
+} from "@serwist/core/types";
 
 import "../_version.js";
 
@@ -19,25 +19,25 @@ import "../_version.js";
  *
  * @private
  */
-class PrecacheInstallReportPlugin implements WorkboxPlugin {
+class PrecacheInstallReportPlugin implements SerwistPlugin {
   updatedURLs: string[] = [];
   notUpdatedURLs: string[] = [];
 
-  handlerWillStart: WorkboxPlugin["handlerWillStart"] = async ({
+  handlerWillStart: SerwistPlugin["handlerWillStart"] = async ({
     request,
     state,
-  }: WorkboxPluginCallbackParam["handlerWillStart"]) => {
+  }: SerwistPluginCallbackParam["handlerWillStart"]) => {
     // TODO: `state` should never be undefined...
     if (state) {
       state.originalRequest = request;
     }
   };
 
-  cachedResponseWillBeUsed: WorkboxPlugin["cachedResponseWillBeUsed"] = async ({
+  cachedResponseWillBeUsed: SerwistPlugin["cachedResponseWillBeUsed"] = async ({
     event,
     state,
     cachedResponse,
-  }: WorkboxPluginCallbackParam["cachedResponseWillBeUsed"]) => {
+  }: SerwistPluginCallbackParam["cachedResponseWillBeUsed"]) => {
     if (event.type === "install") {
       if (
         state &&

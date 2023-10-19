@@ -7,9 +7,9 @@
 */
 
 import {
-  WorkboxPlugin,
-  WorkboxPluginCallbackParam,
-} from "@serwist/core/types.js";
+  SerwistPlugin,
+  SerwistPluginCallbackParam,
+} from "@serwist/core/types";
 
 import { PrecacheController } from "../PrecacheController.js";
 
@@ -21,7 +21,7 @@ import "../_version.js";
  *
  * @private
  */
-class PrecacheCacheKeyPlugin implements WorkboxPlugin {
+class PrecacheCacheKeyPlugin implements SerwistPlugin {
   private readonly _precacheController: PrecacheController;
 
   constructor({
@@ -32,10 +32,10 @@ class PrecacheCacheKeyPlugin implements WorkboxPlugin {
     this._precacheController = precacheController;
   }
 
-  cacheKeyWillBeUsed: WorkboxPlugin["cacheKeyWillBeUsed"] = async ({
+  cacheKeyWillBeUsed: SerwistPlugin["cacheKeyWillBeUsed"] = async ({
     request,
     params,
-  }: WorkboxPluginCallbackParam["cacheKeyWillBeUsed"]) => {
+  }: SerwistPluginCallbackParam["cacheKeyWillBeUsed"]) => {
     // Params is type any, can't change right now.
     /* eslint-disable */
     const cacheKey =

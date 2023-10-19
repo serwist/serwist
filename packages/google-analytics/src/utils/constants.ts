@@ -8,7 +8,7 @@
 
 import "../_version.js";
 
-export const QUEUE_NAME = "workbox-google-analytics";
+export const QUEUE_NAME = "serwist-google-analytics";
 export const MAX_RETENTION_TIME = 60 * 48; // Two days in minutes
 export const GOOGLE_ANALYTICS_HOST = "www.google-analytics.com";
 export const GTM_HOST = "www.googletagmanager.com";

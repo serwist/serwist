@@ -5,37 +5,47 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-import { warmStrategyCache } from "./warmStrategyCache";
-import { registerRoute } from "@serwist/routing/registerRoute.js";
-import { NetworkFirst } from "@serwist/strategies/NetworkFirst.js";
-import { CacheableResponsePlugin } from "@serwist/cacheable-response/CacheableResponsePlugin.js";
+import { warmStrategyCache } from "./warmStrategyCache.js";
+import { registerRoute } from "@serwist/routing";
+import { NetworkFirst } from "@serwist/strategies";
+import { CacheableResponsePlugin } from "@serwist/cacheable-response";
 import {
   RouteMatchCallback,
   RouteMatchCallbackOptions,
-  WorkboxPlugin,
-} from "@serwist/core/types.js";
+  SerwistPlugin,
+} from "@serwist/core/types";
 
 import "./_version.js";
 
 export interface PageCacheOptions {
+  /**
+   * Name for cache. Defaults to pages.
+   */
   cacheName?: string;
+  /**
+   * Workbox callback function to call to match to. Defaults to request.mode === 'navigate'.
+   */
   matchCallback?: RouteMatchCallback;
+  /**
+   * Maximum amount of time, in seconds, to wait on the network before falling back to cache.
+   * 
+   * @default 3
+   */
   networkTimeoutSeconds?: number;
-  plugins?: Array<WorkboxPlugin>;
-  warmCache?: Array<string>;
+  /**
+   * Additional plugins to use for this recipe.
+   */
+  plugins?: SerwistPlugin[];
+  /**
+   * Paths to call to use to warm this cache
+   */
+  warmCache?: string[];
 }
 
 /**
- * An implementation of a page caching recipe with a network timeout
+ * An implementation of a page caching recipe with a network timeout.
  *
- * @memberof workbox-recipes
- *
- * @param {Object} [options]
- * @param {string} [options.cacheName] Name for cache. Defaults to pages
- * @param {RouteMatchCallback} [options.matchCallback] Workbox callback function to call to match to. Defaults to request.mode === 'navigate';
- * @param {number} [options.networkTimoutSeconds] Maximum amount of time, in seconds, to wait on the network before falling back to cache. Defaults to 3
- * @param {WorkboxPlugin[]} [options.plugins] Additional plugins to use for this recipe
- * @param {string[]} [options.warmCache] Paths to call to use to warm this cache
+ * @param options
  */
 function pageCache(options: PageCacheOptions = {}): void {
   const defaultMatchCallback = ({ request }: RouteMatchCallbackOptions) =>

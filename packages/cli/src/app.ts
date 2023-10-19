@@ -6,14 +6,20 @@
   https://opensource.org/licenses/MIT.
 */
 
+import {
+  injectManifest,
+  generateSW,
+  copySerwistLibraries,
+  type GenerateSWOptions,
+  type InjectManifestOptions,
+} from "@serwist/build";
 import assert from "assert";
 import type { WatchOptions } from "chokidar";
 import { default as chokidar } from "chokidar";
 import { oneLine as ol } from "common-tags";
-import type meow from "meow";
+import type { Result as MeowResult } from "meow";
 import prettyBytes from "pretty-bytes";
 import upath from "upath";
-import * as workboxBuild from "workbox-build";
 
 import type { SupportedFlags } from "./bin.js";
 import { constants } from "./lib/constants.js";
@@ -22,11 +28,18 @@ import { logger } from "./lib/logger.js";
 import { readConfig } from "./lib/read-config.js";
 import { runWizard } from "./lib/run-wizard.js";
 
-interface BuildCommand {
-  command: "generateSW" | "injectManifest";
-  config: workboxBuild.GenerateSWOptions | workboxBuild.InjectManifestOptions;
+type BuildCommand = {
   watch: boolean;
-}
+} & (
+  | {
+      command: "generateSW";
+      config: GenerateSWOptions;
+    }
+  | {
+      command: "injectManifest";
+      config: InjectManifestOptions;
+    }
+);
 
 /**
  * Runs the specified build command with the provided configuration.
@@ -34,9 +47,10 @@ interface BuildCommand {
  * @param {Object} options
  */
 async function runBuildCommand({ command, config, watch }: BuildCommand) {
-  const { count, filePaths, size, warnings } = await workboxBuild[command](
-    config as any
-  );
+  const { count, filePaths, size, warnings } =
+    command === "generateSW"
+      ? await generateSW(config)
+      : await injectManifest(config);
 
   for (const warning of warnings) {
     logger.warn(warning);
@@ -63,7 +77,7 @@ async function runBuildCommand({ command, config, watch }: BuildCommand) {
 }
 
 export const app = async (
-  params: meow.Result<SupportedFlags>
+  params: MeowResult<SupportedFlags>
 ): Promise<void> => {
   // This should not be a user-visible error, unless meow() messes something up.
   assert(params && Array.isArray(params.input), errors["missing-input"]);
@@ -81,11 +95,11 @@ export const app = async (
       assert(option, errors["missing-dest-dir-param"]);
       const parentDirectory = upath.resolve(process.cwd(), option);
 
-      const dirName = await workboxBuild.copyWorkboxLibraries(parentDirectory);
+      const dirName = await copySerwistLibraries(parentDirectory);
       const fullPath = upath.join(parentDirectory, dirName);
 
-      logger.log(`The Workbox libraries were copied to ${fullPath}`);
-      logger.log(ol`Add a call to workbox.setConfig({modulePathPrefix: '...'})
+      logger.log(`The Serwist libraries were copied to ${fullPath}`);
+      logger.log(ol`Add a call to serwist.setConfig({modulePathPrefix: '...'})
         to your service worker to use these local libraries.`);
       logger.log(`See https://goo.gl/Fo9gPX for further documentation.`);
       break;
@@ -98,21 +112,23 @@ export const app = async (
         option || constants.defaultConfigFile
       );
 
-      let configFromDisk:
-        | workboxBuild.GenerateSWOptions
-        | workboxBuild.InjectManifestOptions;
+      let config: GenerateSWOptions | InjectManifestOptions | null;
       try {
-        configFromDisk = readConfig(configPath);
+        config = readConfig(configPath);
       } catch (error) {
+        config = null;
         if (error instanceof Error) {
           logger.error(errors["invalid-common-js-module"]);
           throw error;
         }
       }
 
+      if (config === null) {
+        throw logger.error(errors["invalid-config-location"]);
+      }
+
       logger.log(`Using configuration from ${configPath}.`);
 
-      const config = configFromDisk!;
       // Determine whether we're in --watch mode, or one-off mode.
       if (params?.flags?.watch) {
         const options: WatchOptions = {
@@ -129,24 +145,33 @@ export const app = async (
           chokidar
             .watch(config.globPatterns, options)
             .on("all", async () => {
-              await runBuildCommand({ command, config, watch: true });
+              if (config === null) return;
+              await runBuildCommand({
+                command,
+                config: config as any,
+                watch: true,
+              });
             })
             .on("ready", async () => {
-              await runBuildCommand({ command, config, watch: true });
+              if (config === null) return;
+              await runBuildCommand({
+                command,
+                config: config as any,
+                watch: true,
+              });
             })
             .on("error", (err) => {
               logger.error(err.toString());
             });
         }
       } else {
-        await runBuildCommand({ command, config, watch: false });
+        await runBuildCommand({ command, config: config as any, watch: false });
       }
       break;
     }
 
     case "help": {
       params.showHelp();
-      break;
     }
 
     default: {

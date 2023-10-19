@@ -36,13 +36,12 @@ const SKIP_WAITING_MESSAGE = { type: "SKIP_WAITING" };
  * A class to aid in handling service worker registration, updates, and
  * reacting to service worker lifecycle events.
  *
- * @fires {@link workbox-window.Workbox#message}
- * @fires {@link workbox-window.Workbox#installed}
- * @fires {@link workbox-window.Workbox#waiting}
- * @fires {@link workbox-window.Workbox#controlling}
- * @fires {@link workbox-window.Workbox#activated}
- * @fires {@link workbox-window.Workbox#redundant}
- * @memberof workbox-window
+ * @fires `@serwist/window.Workbox.message`
+ * @fires `@serwist/window.Workbox.installed`
+ * @fires `@serwist/window.Workbox.waiting`
+ * @fires `@serwist/window.Workbox.controlling`
+ * @fires `@serwist/window.Workbox.activated`
+ * @fires `@serwist/window.Workbox.redundant`
  */
 class Workbox extends WorkboxEventTarget {
   private readonly _scriptURL: string | TrustedScriptURL;
@@ -298,7 +297,7 @@ class Workbox extends WorkboxEventTarget {
 
   /**
    * Sends the passed data object to the service worker registered by this
-   * instance (via {@link workbox-window.Workbox#getSW}) and resolves
+   * instance (via `@serwist/window.Workbox.getSW`) and resolves
    * with a response (if any).
    *
    * A response can be set in a message handler in the service worker by
@@ -306,8 +305,8 @@ class Workbox extends WorkboxEventTarget {
    * returned by `messageSW()`. If no response is set, the promise will never
    * resolve.
    *
-   * @param {Object} data An object to send to the service worker
-   * @return {Promise<Object>}
+   * @param data An object to send to the service worker
+   * @returns
    */
   // We might be able to change the 'data' type to Record<string, unknown> in the future.
   // eslint-disable-next-line @typescript-eslint/ban-types

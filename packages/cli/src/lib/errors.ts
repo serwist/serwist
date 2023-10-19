@@ -15,7 +15,7 @@ export const errors = {
   "invalid-common-js-module": ol`Please pass in a valid CommonJS module that
     exports your configuration.`,
   "config-validation-failed": `Your configuration is invalid:`,
-  "workbox-build-runtime-error": `Service worker generation failed:`,
+  "serwist-build-runtime-error": `Service worker generation failed:`,
   "unknown-command": `Unknown command:`,
   "no-file-extensions-found": ol`No files could be found that are suitable for
     caching.`,

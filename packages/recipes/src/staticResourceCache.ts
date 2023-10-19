@@ -5,35 +5,45 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-import { warmStrategyCache } from "./warmStrategyCache";
-import { registerRoute } from "@serwist/routing/registerRoute.js";
-import { StaleWhileRevalidate } from "@serwist/strategies/StaleWhileRevalidate.js";
-import { CacheableResponsePlugin } from "@serwist/cacheable-response/CacheableResponsePlugin.js";
+import { registerRoute } from "@serwist/routing";
+import { StaleWhileRevalidate } from "@serwist/strategies";
+import { CacheableResponsePlugin } from "@serwist/cacheable-response";
 import {
   RouteMatchCallback,
   RouteMatchCallbackOptions,
-  WorkboxPlugin,
-} from "@serwist/core/types.js";
+  SerwistPlugin,
+} from "@serwist/core/types";
 
+import { warmStrategyCache } from "./warmStrategyCache.js";
 import "./_version.js";
 
 export interface StaticResourceOptions {
+  /**
+   * Name for cache.
+   * 
+   * @default "static-resources"
+   */
   cacheName?: string;
+  /**
+   * Workbox callback function to call to match to.
+   * 
+   * @default request.destination === 'style' || request.destination === 'script' || request.destination === 'worker'
+   */
   matchCallback?: RouteMatchCallback;
-  plugins?: Array<WorkboxPlugin>;
-  warmCache?: Array<string>;
+  /**
+   * Additional plugins to use for this recipe.
+   */
+  plugins?: SerwistPlugin[];
+  /**
+   * Paths to call to use to warm this cache.
+   */
+  warmCache?: string[];
 }
 
 /**
- * An implementation of the [CSS and JavaScript files recipe]{@link https://developers.google.com/web/tools/workbox/guides/common-recipes#cache_css_and_javascript_files}
+ * An implementation of the [CSS and JavaScript files recipe](https://developers.google.com/web/tools/workbox/guides/common-recipes#cache_css_and_javascript_files).
  *
- * @memberof workbox-recipes
- *
- * @param {Object} [options]
- * @param {string} [options.cacheName] Name for cache. Defaults to static-resources
- * @param {RouteMatchCallback} [options.matchCallback] Workbox callback function to call to match to. Defaults to request.destination === 'style' || request.destination === 'script' || request.destination === 'worker';
- * @param {WorkboxPlugin[]} [options.plugins] Additional plugins to use for this recipe
- * @param {string[]} [options.warmCache] Paths to call to use to warm this cache
+ * @param options
  */
 function staticResourceCache(options: StaticResourceOptions = {}): void {
   const defaultMatchCallback = ({ request }: RouteMatchCallbackOptions) =>

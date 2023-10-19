@@ -2,7 +2,7 @@ import type { PackageJson } from "type-fest";
 import type { QueueOptions } from "@serwist/background-sync/queue";
 import type { BroadcastCacheUpdateOptions } from "@serwist/broadcast-update";
 import type { CacheableResponseOptions } from "@serwist/cacheable-response";
-import type { RouteHandler, RouteMatchCallback , WorkboxPlugin } from "@serwist/core/types";
+import type { RouteHandler, RouteMatchCallback , SerwistPlugin } from "@serwist/core/types";
 import type { ExpirationPluginOptions } from "@serwist/expiration";
 import type { GoogleAnalyticsInitializeOptions } from "@serwist/google-analytics/initialize";
 import type { HTTPMethod } from "@serwist/routing";
@@ -86,7 +86,7 @@ export interface RuntimeCaching {
      * {@link workbox-expiration.ExpirationPlugin}). The plugins provided here
      * will be added to the {@link workbox-strategies} configured in `handler`.
      */
-    plugins?: Array<WorkboxPlugin>;
+    plugins?: Array<SerwistPlugin>;
     /**
      * Configuring this will add a
      * {@link workbox-precaching.PrecacheFallbackPlugin} instance to
@@ -581,8 +581,8 @@ export type BuildType = "dev" | "prod";
 /**
  * @private
  */
-export type WorkboxPackageJSON = PackageJson & {
-  workbox?: {
+export type SerwistPackageJSON = PackageJson & {
+  serwist?: {
     browserNamespace?: string;
     packageType?: string;
     prodOnly?: boolean;

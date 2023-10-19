@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { WorkboxError, assert } from "@serwist/core/private";
+import { SerwistError, assert } from "@serwist/core/private";
 import "../_version.js";
 
 /**
@@ -26,7 +26,7 @@ function calculateEffectiveBoundaries(
 ): { start: number; end: number } {
   if (process.env.NODE_ENV !== "production") {
     assert!.isInstance(blob, Blob, {
-      moduleName: "workbox-range-requests",
+      moduleName: "@serwist/range-requests",
       funcName: "calculateEffectiveBoundaries",
       paramName: "blob",
     });
@@ -35,7 +35,7 @@ function calculateEffectiveBoundaries(
   const blobSize = blob.size;
 
   if ((end && end > blobSize) || (start && start < 0)) {
-    throw new WorkboxError("range-not-satisfiable", {
+    throw new SerwistError("range-not-satisfiable", {
       size: blobSize,
       end,
       start,

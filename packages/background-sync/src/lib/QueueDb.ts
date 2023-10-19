@@ -19,7 +19,7 @@ interface QueueDBSchema extends DBSchema {
 }
 
 const DB_VERSION = 3;
-const DB_NAME = "workbox-background-sync";
+const DB_NAME = "serwist-background-sync";
 const REQUEST_OBJECT_STORE_NAME = "requests";
 const QUEUE_NAME_INDEX = "queueName";
 

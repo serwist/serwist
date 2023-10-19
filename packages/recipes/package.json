@@ -1,6 +1,7 @@
 {
   "name": "@serwist/recipes",
   "version": "7.0.0",
+  "type": "module",
   "license": "MIT",
   "author": "Google's Web DevRel Team, DuCanhGH",
   "description": "A service worker helper library to manage common request and caching patterns",
@@ -8,15 +9,15 @@
   "bugs": "https://github.com/DuCanhGH/next-pwa/issues",
   "homepage": "https://ducanh-next-pwa.vercel.app",
   "keywords": [
-    "workbox",
-    "workboxjs",
+    "serwist",
+    "serwistjs",
     "service worker",
     "sw",
     "router",
     "routing"
   ],
-  "workbox": {
-    "browserNamespace": "workbox.recipes",
+  "serwist": {
+    "browserNamespace": "serwist.recipes",
     "packageType": "sw"
   },
   "main": "index.js",

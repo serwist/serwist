@@ -66,8 +66,6 @@ export interface GenerateSWConfig extends WebpackGenerateSWOptions {
  *   skipWaiting: ...,
  * });
  * ```
- *
- * @memberof module:workbox-webpack-plugin
  */
 class GenerateSW {
   protected config: GenerateSWConfig;

@@ -10,7 +10,7 @@ import { oneLine as ol } from "common-tags";
 import upath from "upath";
 
 /**
- * Class for keeping track of which Workbox modules are used by the generated
+ * Class for keeping track of which Serwist modules are used by the generated
  * service worker script.
  *
  * @private
@@ -33,7 +33,7 @@ export class ModuleRegistry {
    * @private
    */
   getImportStatements(): Array<string> {
-    const workboxModuleImports: Array<string> = [];
+    const serwistModuleImports: Array<string> = [];
 
     for (const [localName, { moduleName, pkg }] of this._modulesUsed) {
       // By default require.resolve returns the resolved path of the 'main'
@@ -45,16 +45,16 @@ export class ModuleRegistry {
       const importStatement = ol`import {${moduleName} as ${localName}} from
         '${pkgRoot}/${moduleName}.mjs';`;
 
-      workboxModuleImports.push(importStatement);
+      serwistModuleImports.push(importStatement);
     }
 
-    return workboxModuleImports;
+    return serwistModuleImports;
   }
 
   /**
-   * @param {string} pkg The workbox package that the module belongs to.
-   * @param {string} moduleName The name of the module to import.
-   * @return {string} The local variable name that corresponds to that module.
+   * @param pkg The Serwist package that the module belongs to.
+   * @param moduleName The name of the module to import.
+   * @returns The local variable name that corresponds to that module.
    * @private
    */
   getLocalName(pkg: string, moduleName: string): string {
@@ -62,9 +62,9 @@ export class ModuleRegistry {
   }
 
   /**
-   * @param {string} pkg The workbox package that the module belongs to.
-   * @param {string} moduleName The name of the module to import.
-   * @return {string} The local variable name that corresponds to that module.
+   * @param pkg The Serwist package that the module belongs to.
+   * @param moduleName The name of the module to import.
+   * @returns The local variable name that corresponds to that module.
    * @private
    */
   use(pkg: string, moduleName: string): string {

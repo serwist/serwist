@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert, logger, timeout, WorkboxError } from "@serwist/core/private";
+import { assert, logger, timeout, SerwistError } from "@serwist/core/private";
 
 import { Strategy, StrategyOptions } from "./Strategy.js";
 import { StrategyHandler } from "./StrategyHandler.js";
@@ -15,35 +15,25 @@ import "./_version.js";
 
 interface NetworkOnlyOptions
   extends Omit<StrategyOptions, "cacheName" | "matchOptions"> {
+  /**
+   * If set, any network requests that fail to respond within the timeout will result in a network error.
+   */
   networkTimeoutSeconds?: number;
 }
 
 /**
- * An implementation of a
- * [network-only](https://developer.chrome.com/docs/workbox/caching-strategies-overview/#network-only)
+ * An implementation of a [network only](https://developer.chrome.com/docs/workbox/caching-strategies-overview/#network-only)
  * request strategy.
  *
- * This class is useful if you want to take advantage of any
- * [Workbox plugins](https://developer.chrome.com/docs/workbox/using-plugins/).
+ * This class is useful if you want to take advantage of any Serwist plugin.
  *
- * If the network request fails, this will throw a `WorkboxError` exception.
- *
- * @extends workbox-strategies.Strategy
- * @memberof workbox-strategies
+ * If the network request fails, this will throw a `SerwistError` exception.
  */
 class NetworkOnly extends Strategy {
   private readonly _networkTimeoutSeconds: number;
 
   /**
-   * @param {Object} [options]
-   * @param {Array<Object>} [options.plugins] [Plugins]{@link https://developers.google.com/web/tools/workbox/guides/using-plugins}
-   * to use in conjunction with this caching strategy.
-   * @param {Object} [options.fetchOptions] Values passed along to the
-   * [`init`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters)
-   * of [non-navigation](https://github.com/GoogleChrome/workbox/issues/1796)
-   * `fetch()` requests made by this strategy.
-   * @param {number} [options.networkTimeoutSeconds] If set, any network requests
-   * that fail to respond within the timeout will result in a network error.
+   * @param options
    */
   constructor(options: NetworkOnlyOptions = {}) {
     super(options);
@@ -53,15 +43,14 @@ class NetworkOnly extends Strategy {
 
   /**
    * @private
-   * @param {Request|string} request A request to run this strategy for.
-   * @param {workbox-strategies.StrategyHandler} handler The event that
-   *     triggered the request.
-   * @return {Promise<Response>}
+   * @param request A request to run this strategy for.
+   * @param handler The event that triggered the request.
+   * @returns
    */
   async _handle(request: Request, handler: StrategyHandler): Promise<Response> {
     if (process.env.NODE_ENV !== "production") {
       assert!.isInstance(request, Request, {
-        moduleName: "workbox-strategies",
+        moduleName: "@serwist/strategies",
         className: this.constructor.name,
         funcName: "_handle",
         paramName: "request",
@@ -110,7 +99,7 @@ class NetworkOnly extends Strategy {
     }
 
     if (!response) {
-      throw new WorkboxError("no-response", { url: request.url, error });
+      throw new SerwistError("no-response", { url: request.url, error });
     }
     return response;
   }

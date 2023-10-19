@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "module": "NodeNext",
+    "paths": {
+      "$utils/*": ["./src/utils/*"]
+    }
+  },
+  "include": ["globals.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "dist", "__tests__"]
+}

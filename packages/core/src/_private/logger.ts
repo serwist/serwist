@@ -69,8 +69,8 @@ const logger = (
             `padding: 2px 0.5em`,
           ];
 
-          // When in a group, the workbox prefix is not displayed.
-          const logPrefix = inGroup ? [] : ["%cworkbox", styles.join(";")];
+          // When in a group, the serwist prefix is not displayed.
+          const logPrefix = inGroup ? [] : ["%cserwist", styles.join(";")];
 
           console[method](...logPrefix, ...args);
 

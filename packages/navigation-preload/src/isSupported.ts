@@ -12,10 +12,8 @@ import "./_version.js";
 declare let self: ServiceWorkerGlobalScope;
 
 /**
- * @return {boolean} Whether or not the current browser supports enabling
+ * @returns Whether or not the current browser supports enabling
  * navigation preload.
- *
- * @memberof workbox-navigation-preload
  */
 function isSupported(): boolean {
   return Boolean(self.registration && self.registration.navigationPreload);

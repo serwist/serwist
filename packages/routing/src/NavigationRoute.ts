@@ -14,24 +14,28 @@ import { Route } from "./Route.js";
 import "./_version.js";
 
 export interface NavigationRouteMatchOptions {
+  /**
+   * If any of these patterns
+   * match the URL's pathname and search parameter, the route will handle the
+   * request (assuming the denylist doesn't match).
+   * 
+   * @default [/./]
+   */
   allowlist?: RegExp[];
+  /**
+   * If any of these patterns match, the route will not handle the request (even if a allowlist RegExp matches).
+   */
   denylist?: RegExp[];
 }
 
 /**
- * NavigationRoute makes it easy to create a
- * {@link workbox-routing.Route} that matches for browser
- * [navigation requests]{@link https://developers.google.com/web/fundamentals/primers/service-workers/high-performance-loading#first_what_are_navigation_requests}.
+ * NavigationRoute makes it easy to create a `@serwist/routing` Route that matches for browser
+ * [navigation requests](https://developers.google.com/web/fundamentals/primers/service-workers/high-performance-loading#first_what_are_navigation_requests).
  *
- * It will only match incoming Requests whose
- * {@link https://fetch.spec.whatwg.org/#concept-request-mode|mode}
- * is set to `navigate`.
+ * It will only match incoming Requests whose [mode](https://fetch.spec.whatwg.org/#concept-request-mode) is set to `navigate`.
  *
  * You can optionally only apply this route to a subset of navigation requests
  * by using one or both of the `denylist` and `allowlist` parameters.
- *
- * @memberof workbox-routing
- * @extends workbox-routing.Route
  */
 class NavigationRoute extends Route {
   private readonly _allowlist: RegExp[];
@@ -43,8 +47,8 @@ class NavigationRoute extends Route {
    *
    * The regular expressions in `allowlist` and `denylist`
    * are matched against the concatenated
-   * [`pathname`]{@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLHyperlinkElementUtils/pathname}
-   * and [`search`]{@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLHyperlinkElementUtils/search}
+   * [`pathname`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLHyperlinkElementUtils/pathname)
+   * and [`search`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLHyperlinkElementUtils/search)
    * portions of the requested URL.
    *
    * *Note*: These RegExps may be evaluated against every destination URL during
@@ -52,14 +56,8 @@ class NavigationRoute extends Route {
    * [complex RegExps](https://github.com/GoogleChrome/workbox/issues/3077),
    * or else your users may see delays when navigating your site.
    *
-   * @param {workbox-routing~handlerCallback} handler A callback
-   * function that returns a Promise resulting in a Response.
-   * @param {Object} options
-   * @param {Array<RegExp>} [options.denylist] If any of these patterns match,
-   * the route will not handle the request (even if a allowlist RegExp matches).
-   * @param {Array<RegExp>} [options.allowlist=[/./]] If any of these patterns
-   * match the URL's pathname and search parameter, the route will handle the
-   * request (assuming the denylist doesn't match).
+   * @param handler A callback function that returns a Promise resulting in a Response.
+   * @param options
    */
   constructor(
     handler: RouteHandler,
@@ -67,13 +65,13 @@ class NavigationRoute extends Route {
   ) {
     if (process.env.NODE_ENV !== "production") {
       assert!.isArrayOfClass(allowlist, RegExp, {
-        moduleName: "workbox-routing",
+        moduleName: "@serwist/routing",
         className: "NavigationRoute",
         funcName: "constructor",
         paramName: "options.allowlist",
       });
       assert!.isArrayOfClass(denylist, RegExp, {
-        moduleName: "workbox-routing",
+        moduleName: "@serwist/routing",
         className: "NavigationRoute",
         funcName: "constructor",
         paramName: "options.denylist",
@@ -92,11 +90,8 @@ class NavigationRoute extends Route {
   /**
    * Routes match handler.
    *
-   * @param {Object} options
-   * @param {URL} options.url
-   * @param {Request} options.request
-   * @return {boolean}
-   *
+   * @param options
+   * @returns
    * @private
    */
   private _match({ url, request }: RouteMatchCallbackOptions): boolean {

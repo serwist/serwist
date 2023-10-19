@@ -9,13 +9,13 @@
   "homepage": "https://ducanh-next-pwa.vercel.app",
   "type": "module",
   "keywords": [
-    "workbox",
-    "workboxjs",
+    "serwist",
+    "serwistjs",
     "service worker",
     "sw",
     "background",
     "sync",
-    "workbox-plugin"
+    "serwist-plugin"
   ],
   "workbox": {
     "browserNamespace": "workbox.backgroundSync",

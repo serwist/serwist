@@ -19,7 +19,27 @@ export interface CacheNameDetails {
 }
 
 export interface PartialCacheNameDetails {
-  [propName: string]: string;
+  /**
+   * The string to add to the beginning of the precache and runtime cache names.
+   */
+  prefix?: string;
+  /**
+   * The string to add to the end of the precache and runtime cache names.
+   */
+  suffix?: string;
+  /**
+   * The cache name to use for precache caching.
+   */
+  precache?: string;
+  /**
+   * The cache name to use for runtime caching.
+   */
+  runtime?: string;
+  /**
+   * The cache name to use for `@serwist/google-analytics` caching.
+   */
+  googleAnalytics?: string;
+  [propName: string]: string | undefined;
 }
 
 export type CacheNameDetailsProp =
@@ -32,7 +52,7 @@ export type CacheNameDetailsProp =
 const _cacheNameDetails: CacheNameDetails = {
   googleAnalytics: "googleAnalytics",
   precache: "precache-v2",
-  prefix: "workbox",
+  prefix: "serwist",
   runtime: "runtime",
   suffix: typeof registration !== "undefined" ? registration.scope : "",
 };

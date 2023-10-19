@@ -11,83 +11,18 @@ import "../_version.mjs";
 const CDN_PATH = `WORKBOX_CDN_ROOT_URL`;
 
 const MODULE_KEY_TO_NAME_MAPPING = {
-  /**
-   * @name backgroundSync
-   * @memberof workbox
-   * @see module:workbox-background-sync
-   */
   backgroundSync: "background-sync",
-  /**
-   * @name broadcastUpdate
-   * @memberof workbox
-   * @see module:workbox-broadcast-update
-   */
   broadcastUpdate: "broadcast-update",
-  /**
-   * @name cacheableResponse
-   * @memberof workbox
-   * @see module:workbox-cacheable-response
-   */
   cacheableResponse: "cacheable-response",
-  /**
-   * @name core
-   * @memberof workbox
-   * @see module:workbox-core
-   */
   core: "core",
-  /**
-   * @name expiration
-   * @memberof workbox
-   * @see module:workbox-expiration
-   */
   expiration: "expiration",
-  /**
-   * @name googleAnalytics
-   * @memberof workbox
-   * @see module:workbox-google-analytics
-   */
   googleAnalytics: "offline-ga",
-  /**
-   * @name navigationPreload
-   * @memberof workbox
-   * @see module:workbox-navigation-preload
-   */
   navigationPreload: "navigation-preload",
-  /**
-   * @name precaching
-   * @memberof workbox
-   * @see module:workbox-precaching
-   */
   precaching: "precaching",
-  /**
-   * @name rangeRequests
-   * @memberof workbox
-   * @see module:workbox-range-requests
-   */
   rangeRequests: "range-requests",
-  /**
-   * @name routing
-   * @memberof workbox
-   * @see module:workbox-routing
-   */
   routing: "routing",
-  /**
-   * @name strategies
-   * @memberof workbox
-   * @see module:workbox-strategies
-   */
   strategies: "strategies",
-  /**
-   * @name streams
-   * @memberof workbox
-   * @see module:workbox-streams
-   */
   streams: "streams",
-  /**
-   * @name recipes
-   * @memberof workbox
-   * @see module:workbox-recipes
-   */
   recipes: "recipes",
 };
 
@@ -122,7 +57,7 @@ export class WorkboxSW {
 
         const moduleName = MODULE_KEY_TO_NAME_MAPPING[key];
         if (moduleName) {
-          target.loadModule(`workbox-${moduleName}`);
+          target.loadModule(`@serwist/${moduleName}`);
         }
 
         return target[key];
@@ -133,19 +68,16 @@ export class WorkboxSW {
   /**
    * Updates the configuration options. You can specify whether to treat as a
    * debug build and whether to use a CDN or a specific path when importing
-   * other workbox-modules
-   *
-   * @param {Object} [options]
+   * other Serwist modules
+   * @param options
    * @param {boolean} [options.debug] If true, `dev` builds are using, otherwise
    * `prod` builds are used. By default, `prod` is used unless on localhost.
    * @param {Function} [options.modulePathPrefix] To avoid using the CDN with
-   * `workbox-sw` set the path prefix of where modules should be loaded from.
+   * `@serwist/sw` set the path prefix of where modules should be loaded from.
    * For example `modulePathPrefix: '/third_party/workbox/v3.0.0/'`.
    * @param {workbox~ModulePathCallback} [options.modulePathCb] If defined,
    * this callback will be responsible for determining the path of each
    * workbox module.
-   *
-   * @alias workbox.setConfig
    */
   setConfig(options = {}) {
     if (!this._modulesLoaded) {
@@ -170,13 +102,11 @@ export class WorkboxSW {
   loadModule(moduleName) {
     const modulePath = this._getImportPath(moduleName);
     try {
-      importScripts(modulePath);
+      globalThis.importScripts(modulePath);
       this._modulesLoaded = true;
     } catch (err) {
       // TODO Add context of this error if using the CDN vs the local file.
-
-      // We can't rely on workbox-core being loaded so using console
-      // eslint-disable-next-line
+      // We can't rely on @serwist/core being loaded so using console
       console.error(
         `Unable to import module '${moduleName}' from '${modulePath}'.`
       );

@@ -15,12 +15,11 @@ import { stringifyWithoutComments } from "./stringify-without-comments.js";
 
 /**
  * Given a set of options that configures runtime caching behavior, convert it
- * to the equivalent Workbox method calls.
+ * to the equivalent Serwist method calls.
  *
- * @param {ModuleRegistry} moduleRegistry
- * @param {Object} options See
- *        https://developers.google.com/web/tools/workbox/modules/workbox-build#generateSW-runtimeCaching
- * @return {string} A JSON string representing the equivalent options.
+ * @param moduleRegistry
+ * @param options See https://developers.google.com/web/tools/workbox/modules/workbox-build#generateSW-runtimeCaching
+ * @return A JSON string representing the equivalent options.
  *
  * @private
  */
@@ -60,7 +59,7 @@ function getOptionsString(
       case "backgroundSync": {
         const name = options.backgroundSync!.name;
         const plugin = moduleRegistry.use(
-          "workbox-background-sync",
+          "@serwist/background-sync",
           "BackgroundSyncPlugin"
         );
 
@@ -83,7 +82,7 @@ function getOptionsString(
           options.broadcastUpdate!.options
         );
         const plugin = moduleRegistry.use(
-          "workbox-broadcast-update",
+          "@serwist/broadcast-update",
           "BroadcastUpdatePlugin"
         );
 
@@ -93,7 +92,7 @@ function getOptionsString(
 
       case "cacheableResponse": {
         const plugin = moduleRegistry.use(
-          "workbox-cacheable-response",
+          "@serwist/cacheable-response",
           "CacheableResponsePlugin"
         );
 
@@ -107,7 +106,7 @@ function getOptionsString(
 
       case "expiration": {
         const plugin = moduleRegistry.use(
-          "workbox-expiration",
+          "@serwist/expiration",
           "ExpirationPlugin"
         );
 
@@ -119,7 +118,7 @@ function getOptionsString(
 
       case "precacheFallback": {
         const plugin = moduleRegistry.use(
-          "workbox-precaching",
+          "@serwist/precaching",
           "PrecacheFallbackPlugin"
         );
 
@@ -133,7 +132,7 @@ function getOptionsString(
 
       case "rangeRequests": {
         const plugin = moduleRegistry.use(
-          "workbox-range-requests",
+          "@serwist/range-requests",
           "RangeRequestsPlugin"
         );
 
@@ -195,12 +194,12 @@ export function runtimeCachingConverter(
           : entry.urlPattern;
 
       const registerRoute = moduleRegistry.use(
-        "workbox-routing",
+        "@serwist/routing",
         "registerRoute"
       );
       if (typeof entry.handler === "string") {
         const optionsString = getOptionsString(moduleRegistry, entry.options);
-        const handler = moduleRegistry.use("workbox-strategies", entry.handler);
+        const handler = moduleRegistry.use("@serwist/strategies", entry.handler);
         const strategyString = `new ${handler}(${optionsString})`;
 
         return `${registerRoute}(${matcher.toString()}, ${strategyString}, '${method}');\n`;

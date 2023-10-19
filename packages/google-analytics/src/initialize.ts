@@ -25,8 +25,22 @@ import {
 import "./_version.js";
 
 export interface GoogleAnalyticsInitializeOptions {
+  /**
+   * The cache name to store and retrieve analytics.js. Defaults to the cache names provided by `@serwist/core`.
+   */
   cacheName?: string;
+  /**
+   * [Measurement Protocol parameters](https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters),
+   * expressed as key/value pairs, to be added to replayed Google Analytics
+   * requests. This can be used to, e.g., set a custom dimension indicating
+   * that the request was replayed.
+   */
   parameterOverrides?: { [paramName: string]: string };
+  /**
+   * A function that allows you to modify the hit parameters prior to replaying
+   * the hit. The function is invoked with the original hit's URLSearchParams
+   * object as its only argument.
+   */
   hitFilter?: (params: URLSearchParams) => void;
 }
 
@@ -36,9 +50,8 @@ export interface GoogleAnalyticsInitializeOptions {
  * `qt` param based on the current time, as well as applies any other
  * user-defined hit modifications.
  *
- * @param {Object} config See {@link workbox-google-analytics.initialize}.
- * @return {Function} The requestWillDequeue callback function.
- *
+ * @param config
+ * @returns The requestWillDequeue callback function.
  * @private
  */
 const createOnSyncCallback = (config: GoogleAnalyticsInitializeOptions) => {
@@ -118,9 +131,8 @@ const createOnSyncCallback = (config: GoogleAnalyticsInitializeOptions) => {
 /**
  * Creates GET and POST routes to catch failed Measurement Protocol hits.
  *
- * @param {BackgroundSyncPlugin} bgSyncPlugin
- * @return {Array<Route>} The created routes.
- *
+ * @param bgSyncPlugin
+ * @returns The created routes.
  * @private
  */
 const createCollectRoutes = (bgSyncPlugin: BackgroundSyncPlugin) => {
@@ -138,9 +150,8 @@ const createCollectRoutes = (bgSyncPlugin: BackgroundSyncPlugin) => {
 /**
  * Creates a route with a network first strategy for the analytics.js script.
  *
- * @param {string} cacheName
- * @return {Route} The created route.
- *
+ * @param cacheName
+ * @returns The created route.
  * @private
  */
 const createAnalyticsJsRoute = (cacheName: string) => {
@@ -156,9 +167,8 @@ const createAnalyticsJsRoute = (cacheName: string) => {
 /**
  * Creates a route with a network first strategy for the gtag.js script.
  *
- * @param {string} cacheName
- * @return {Route} The created route.
- *
+ * @param cacheName
+ * @returns The created route.
  * @private
  */
 const createGtagJsRoute = (cacheName: string) => {
@@ -173,9 +183,8 @@ const createGtagJsRoute = (cacheName: string) => {
 /**
  * Creates a route with a network first strategy for the gtm.js script.
  *
- * @param {string} cacheName
- * @return {Route} The created route.
- *
+ * @param cacheName
+ * @return The created route.
  * @private
  */
 const createGtmJsRoute = (cacheName: string) => {
@@ -188,20 +197,7 @@ const createGtmJsRoute = (cacheName: string) => {
 };
 
 /**
- * @param {Object=} [options]
- * @param {Object} [options.cacheName] The cache name to store and retrieve
- *     analytics.js. Defaults to the cache names provided by `workbox-core`.
- * @param {Object} [options.parameterOverrides]
- *     [Measurement Protocol parameters](https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters),
- *     expressed as key/value pairs, to be added to replayed Google Analytics
- *     requests. This can be used to, e.g., set a custom dimension indicating
- *     that the request was replayed.
- * @param {Function} [options.hitFilter] A function that allows you to modify
- *     the hit parameters prior to replaying
- *     the hit. The function is invoked with the original hit's URLSearchParams
- *     object as its only argument.
- *
- * @memberof workbox-google-analytics
+ * @param options
  */
 const initialize = (options: GoogleAnalyticsInitializeOptions = {}): void => {
   const cacheName = cacheNames.getGoogleAnalyticsName(options.cacheName);

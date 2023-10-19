@@ -11,9 +11,6 @@ import { Workbox } from "./Workbox.js";
 
 import "./_version.js";
 
-/**
- * @module workbox-window
- */
 export { messageSW, Workbox };
 
 // See https://github.com/GoogleChrome/workbox/issues/2770

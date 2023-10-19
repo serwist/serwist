@@ -22,8 +22,6 @@ import "./_version.js";
  * request by returning a non-falsy value if it can. The "handler" callback
  * is called when there is a match and should return a Promise that resolves
  * to a `Response`.
- *
- * @memberof workbox-routing
  */
 class Route {
   handler: RouteHandlerObject;
@@ -34,13 +32,12 @@ class Route {
   /**
    * Constructor for Route class.
    *
-   * @param {workbox-routing~matchCallback} match
-   * A callback function that determines whether the route matches a given
-   * `fetch` event by returning a non-falsy value.
-   * @param {workbox-routing~handlerCallback} handler A callback
-   * function that returns a Promise resolving to a Response.
-   * @param {string} [method='GET'] The HTTP method to match the Route
-   * against.
+   * @param match A callback function that determines whether the 
+   * route matches a given `fetch` event by returning a non-falsy value.
+   * @param handler A callback function that returns a Promise resolving
+   * to a Response.
+   * @param method The HTTP method to match the Route against. Defaults 
+   * to GET.
    */
   constructor(
     match: RouteMatchCallback,
@@ -49,7 +46,7 @@ class Route {
   ) {
     if (process.env.NODE_ENV !== "production") {
       assert!.isType(match, "function", {
-        moduleName: "workbox-routing",
+        moduleName: "@serwist/routing",
         className: "Route",
         funcName: "constructor",
         paramName: "match",
@@ -69,8 +66,8 @@ class Route {
 
   /**
    *
-   * @param {workbox-routing-handlerCallback} handler A callback
-   * function that returns a Promise resolving to a Response
+   * @param handler A callback function that returns a Promise resolving 
+   * to a Response.
    */
   setCatchHandler(handler: RouteHandler): void {
     this.catchHandler = normalizeHandler(handler);

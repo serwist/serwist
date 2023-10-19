@@ -1,9 +1,15 @@
-import { Strategy } from "@serwist/strategies/Strategy.js";
+import { Strategy } from "@serwist/strategies";
 
 import "./_version.js";
 
 export interface WarmStrategyCacheOptions {
-  urls: Array<string>;
+  /**
+   * Paths to warm the strategy's cache with.
+   */
+  urls: string[];
+  /**
+   * Strategy to use.
+   */
   strategy: Strategy;
 }
 
@@ -11,11 +17,7 @@ export interface WarmStrategyCacheOptions {
 declare let self: ServiceWorkerGlobalScope;
 
 /**
- * @memberof workbox-recipes
- 
- * @param {Object} options 
- * @param {string[]} options.urls Paths to warm the strategy's cache with
- * @param {Strategy} options.strategy Strategy to use
+ * @param options 
  */
 function warmStrategyCache(options: WarmStrategyCacheOptions): void {
   self.addEventListener("install", (event) => {

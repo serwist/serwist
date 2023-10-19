@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { WorkboxError } from "../_private/WorkboxError.js";
+import { SerwistError } from "../_private/SerwistError.js";
 import { MapLikeObject } from "../types.js";
 import "../_version.js";
 
@@ -18,7 +18,7 @@ import "../_version.js";
  */
 const isArray = (value: any[], details: MapLikeObject) => {
   if (!Array.isArray(value)) {
-    throw new WorkboxError("not-an-array", details);
+    throw new SerwistError("not-an-array", details);
   }
 };
 
@@ -30,7 +30,7 @@ const hasMethod = (
   const type = typeof object[expectedMethod];
   if (type !== "function") {
     details["expectedMethod"] = expectedMethod;
-    throw new WorkboxError("missing-a-method", details);
+    throw new SerwistError("missing-a-method", details);
   }
 };
 
@@ -41,7 +41,7 @@ const isType = (
 ) => {
   if (typeof object !== expectedType) {
     details["expectedType"] = expectedType;
-    throw new WorkboxError("incorrect-type", details);
+    throw new SerwistError("incorrect-type", details);
   }
 };
 
@@ -54,7 +54,7 @@ const isInstance = (
 ) => {
   if (!(object instanceof expectedClass)) {
     details["expectedClassName"] = expectedClass.name;
-    throw new WorkboxError("incorrect-class", details);
+    throw new SerwistError("incorrect-class", details);
   }
 };
 
@@ -63,7 +63,7 @@ const isOneOf = (value: any, validValues: any[], details: MapLikeObject) => {
     details["validValueDescription"] = `Valid values are ${JSON.stringify(
       validValues
     )}.`;
-    throw new WorkboxError("invalid-value", details);
+    throw new SerwistError("invalid-value", details);
   }
 };
 
@@ -73,7 +73,7 @@ const isArrayOfClass = (
   expectedClass: Function, // eslint-disable-line
   details: MapLikeObject
 ) => {
-  const error = new WorkboxError("not-array-of-class", details);
+  const error = new SerwistError("not-array-of-class", details);
   if (!Array.isArray(value)) {
     throw error;
   }

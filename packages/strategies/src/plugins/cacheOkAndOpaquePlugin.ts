@@ -6,10 +6,10 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { WorkboxPlugin } from "@serwist/core/types";
+import { SerwistPlugin } from "@serwist/core/types";
 import "../_version.js";
 
-export const cacheOkAndOpaquePlugin: WorkboxPlugin = {
+export const cacheOkAndOpaquePlugin: SerwistPlugin = {
   /**
    * Returns a valid response (to allow caching) if the status is 200 (OK) or
    * 0 (opaque).

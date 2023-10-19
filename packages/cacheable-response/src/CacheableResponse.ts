@@ -8,14 +8,21 @@
 
 import {
   assert,
-  WorkboxError,
+  SerwistError,
   getFriendlyURL,
   logger,
 } from "@serwist/core/private";
 import "./_version.js";
 
 export interface CacheableResponseOptions {
+  /**
+   * One or more status codes that a `Response` can have to be considered cacheable.
+   */
   statuses?: number[];
+  /**
+   * A mapping of header names and expected values that a `Response` can have and be 
+   * considered cacheable. If multiple headers are provided, only one needs to be present.
+   */
   headers?: { [headerName: string]: string };
 }
 
@@ -24,8 +31,6 @@ export interface CacheableResponseOptions {
  * status codes and/or headers need to be present in order for a
  * [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response)
  * to be considered cacheable.
- *
- * @memberof workbox-cacheable-response
  */
 class CacheableResponse {
   private readonly _statuses?: CacheableResponseOptions["statuses"];
@@ -48,8 +53,8 @@ class CacheableResponse {
   constructor(config: CacheableResponseOptions = {}) {
     if (process.env.NODE_ENV !== "production") {
       if (!(config.statuses || config.headers)) {
-        throw new WorkboxError("statuses-or-headers-required", {
-          moduleName: "workbox-cacheable-response",
+        throw new SerwistError("statuses-or-headers-required", {
+          moduleName: "@serwist/cacheable-response",
           className: "CacheableResponse",
           funcName: "constructor",
         });
@@ -57,7 +62,7 @@ class CacheableResponse {
 
       if (config.statuses) {
         assert!.isArray(config.statuses, {
-          moduleName: "workbox-cacheable-response",
+          moduleName: "@serwist/cacheable-response",
           className: "CacheableResponse",
           funcName: "constructor",
           paramName: "config.statuses",
@@ -66,7 +71,7 @@ class CacheableResponse {
 
       if (config.headers) {
         assert!.isType(config.headers, "object", {
-          moduleName: "workbox-cacheable-response",
+          moduleName: "@serwist/cacheable-response",
           className: "CacheableResponse",
           funcName: "constructor",
           paramName: "config.headers",
@@ -90,7 +95,7 @@ class CacheableResponse {
   isResponseCacheable(response: Response): boolean {
     if (process.env.NODE_ENV !== "production") {
       assert!.isInstance(response, Response, {
-        moduleName: "workbox-cacheable-response",
+        moduleName: "@serwist/cacheable-response",
         className: "CacheableResponse",
         funcName: "isResponseCacheable",
         paramName: "response",

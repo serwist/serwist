@@ -56,8 +56,6 @@ import type { BuildResult, GenerateSWOptions,GetManifestOptions } from "./types.
  *   swDest: '...',
  * });
  * ```
- *
- * @memberof workbox-build
  */
 export async function generateSW(
   config: GenerateSWOptions
@@ -78,11 +76,11 @@ export async function generateSW(
     // See https://rollupjs.org/guide/en/#outputchunkfilenames for naming.
     if (!options.inlineWorkboxRuntime) {
       const swDestDir = upath.dirname(options.swDest);
-      const workboxRuntimeFile = upath.join(swDestDir, "workbox-*.js");
+      const serwistRuntimeFile = upath.join(swDestDir, "serwist-*.js");
       options.globIgnores!.push(
         rebasePath({
           baseDirectory: options.globDirectory,
-          file: workboxRuntimeFile,
+          file: serwistRuntimeFile,
         })
       );
     }

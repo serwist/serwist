@@ -8,18 +8,21 @@
   "bugs": "https://github.com/DuCanhGH/next-pwa/issues",
   "homepage": "https://ducanh-next-pwa.vercel.app",
   "keywords": [
-    "workbox",
-    "workboxjs",
+    "serwist",
+    "serwistjs",
     "service worker",
     "sw"
   ],
-  "workbox": {
-    "browserNamespace": "workbox.precaching",
+  "serwist": {
+    "browserNamespace": "serwist.precaching",
     "packageType": "sw"
   },
   "main": "index.js",
   "module": "index.mjs",
   "types": "index.d.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "dependencies": {
     "@serwist/core": "workspace:*",
     "@serwist/routing": "workspace:*",

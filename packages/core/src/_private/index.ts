@@ -1,3 +1,5 @@
+// Serwist's internal functions, classes, variables, and more. Feel free to use it, but you
+// are responsible for your app breaking when this file unexpectedly changes.
 export { assert } from "./assert.js";
 export { cacheMatchIgnoreParams } from "./cacheMatchIgnoreParams.js";
 export { cacheNames } from "./cacheNames.js";
@@ -11,4 +13,4 @@ export { logger } from "./logger.js";
 export { resultingClientExists } from "./resultingClientExists.js";
 export { timeout } from "./timeout.js";
 export { waitUntil } from "./waitUntil.js";
-export { WorkboxError } from "./WorkboxError.js";
+export { SerwistError } from "./SerwistError.js";

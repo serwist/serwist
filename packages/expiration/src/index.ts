@@ -14,10 +14,6 @@ import {
 
 import "./_version.js";
 
-/**
- * @module workbox-expiration
- */
-
 export { CacheExpiration, ExpirationPlugin };
 
 export type { ExpirationPluginOptions };

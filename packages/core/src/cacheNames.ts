@@ -13,16 +13,13 @@ import "./_version.js";
  * Get the current cache names and prefix/suffix used by Workbox.
  *
  * `cacheNames.precache` is used for precached assets,
- * `cacheNames.googleAnalytics` is used by `workbox-google-analytics` to
+ * `cacheNames.googleAnalytics` is used by `@serwist/google-analytics` to
  * store `analytics.js`, and `cacheNames.runtime` is used for everything else.
  *
  * `cacheNames.prefix` can be used to retrieve just the current prefix value.
  * `cacheNames.suffix` can be used to retrieve just the current suffix value.
  *
- * @return {Object} An object with `precache`, `runtime`, `prefix`, and
- *     `googleAnalytics` properties.
- *
- * @memberof workbox-core
+ * @returns An object with `precache`, `runtime`, `prefix`, and `googleAnalytics` properties.
  */
 const cacheNames = {
   get googleAnalytics(): string {

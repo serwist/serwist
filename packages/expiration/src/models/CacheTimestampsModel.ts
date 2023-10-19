@@ -9,7 +9,7 @@
 import { openDB, DBSchema, IDBPDatabase, deleteDB } from "idb";
 import "../_version.js";
 
-const DB_NAME = "workbox-expiration";
+const DB_NAME = "serwist-expiration";
 const CACHE_OBJECT_STORE = "cache-entries";
 
 const normalizeURL = (unNormalizedUrl: string) => {

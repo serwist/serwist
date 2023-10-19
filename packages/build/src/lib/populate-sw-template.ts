@@ -90,11 +90,11 @@ export function populateSWTemplate({
       use: moduleRegistry.use.bind(moduleRegistry),
     });
 
-    const workboxImportStatements = moduleRegistry.getImportStatements();
+    const serwistImportStatements = moduleRegistry.getImportStatements();
 
-    // We need the import statements for all of the Workbox runtime modules
+    // We need the import statements for all of the Serwist runtime modules
     // prepended, so that the correct bundle can be created.
-    return workboxImportStatements.join("\n") + populatedTemplate;
+    return serwistImportStatements.join("\n") + populatedTemplate;
   } catch (error) {
     throw new Error(
       `${errors["populating-sw-tmpl-failed"]} '${

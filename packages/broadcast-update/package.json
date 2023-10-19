@@ -9,11 +9,11 @@
   "bugs": "https://github.com/DuCanhGH/next-pwa/issues",
   "homepage": "https://ducanh-next-pwa.vercel.app",
   "keywords": [
-    "workbox",
-    "workboxjs",
+    "serwist",
+    "serwistjs",
     "service worker",
     "sw",
-    "workbox-plugin"
+    "serwist-plugin"
   ],
   "workbox": {
     "browserNamespace": "workbox.broadcastUpdate",

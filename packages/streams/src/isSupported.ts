@@ -15,10 +15,8 @@ import "./_version.js";
  * [`ReadableStream`](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream/ReadableStream)
  * can be created.
  *
- * @return {boolean} `true`, if the current browser meets the requirements for
+ * @returns `true`, if the current browser meets the requirements for
  * streaming responses, and `false` otherwise.
- *
- * @memberof workbox-streams
  */
 function isSupported(): boolean {
   return canConstructReadableStream();

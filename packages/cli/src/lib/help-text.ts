@@ -7,7 +7,7 @@
 */
 
 export const helpText = `Usage:
-$ workbox <command> [options]
+$ serwist <command> [options]
 
 Commands:
   wizard [--injectManifest]
@@ -20,7 +20,7 @@ Commands:
 
   generateSW [<path/to/config.js>] [--watch]
     Creates a new service worker file based on the options
-    in the config file (defaults to workbox-config.js).
+    in the config file (defaults to serwist.config.js).
     If --watch is provided, the CLI will stay running, and will
     rebuild the service worker each time a file in the precache
     manifest changes.
@@ -30,7 +30,7 @@ Commands:
     Takes an existing service worker file and creates a
     copy of it with a precache manifest "injected" into
     it. The precache manifest is generated based on the
-    options in the config file (defaults to workbox-config.js).
+    options in the config file (defaults to serwist.config.js).
     If --watch is provided, the CLI will stay running, and will
     rebuild the service worker each time a file in the precache
     manifest changes.
@@ -45,13 +45,13 @@ Commands:
 Config file:
   In 'generateSW' or 'injectManifest' mode, the config file should be a
   JavaScript file, in CommonJS module format.
-  By default, a config file named workbox-config.js in the current
+  By default, a config file named serwist.config.js in the current
   directory is assumed, but this can be overridden.
 
 Examples:
-  $ workbox wizard
-  $ workbox wizard --injectManifest
-  $ workbox generateSW --watch
-  $ workbox injectManifest configs/workbox-dev-config.js
-  $ workbox copyLibraries build/
+  $ serwist wizard
+  $ serwist wizard --injectManifest
+  $ serwist generateSW --watch
+  $ serwist injectManifest configs/serwist-dev-config.js
+  $ serwist copyLibraries build/
 `;

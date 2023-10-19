@@ -7,7 +7,7 @@
 */
 
 import { canConstructResponseFromBodyStream } from "./_private/canConstructResponseFromBodyStream.js";
-import { WorkboxError } from "./_private/WorkboxError.js";
+import { SerwistError } from "./_private/SerwistError.js";
 
 import "./_version.js";
 
@@ -26,9 +26,8 @@ import "./_version.js";
  * This method is intentionally limited to same-origin responses, regardless of
  * whether CORS was used or not.
  *
- * @param {Response} response
- * @param {Function} modifier
- * @memberof workbox-core
+ * @param response
+ * @param modifier
  */
 async function copyResponse(
   response: Response,
@@ -42,7 +41,7 @@ async function copyResponse(
   }
 
   if (origin !== self.location.origin) {
-    throw new WorkboxError("cross-origin-copy-response", { origin });
+    throw new SerwistError("cross-origin-copy-response", { origin });
   }
 
   const clonedResponse = response.clone();

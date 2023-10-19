@@ -10,7 +10,7 @@ import {
   assert,
   dontWaitFor,
   logger,
-  WorkboxError,
+  SerwistError,
 } from "@serwist/core/private";
 
 import { CacheTimestampsModel } from "./models/CacheTimestampsModel.js";
@@ -27,8 +27,6 @@ interface CacheExpirationConfig {
  * The `CacheExpiration` class allows you define an expiration and / or
  * limit on the number of responses stored in a
  * [`Cache`](https://developer.mozilla.org/en-US/docs/Web/API/Cache).
- *
- * @memberof workbox-expiration
  */
 class CacheExpiration {
   private _isRunning = false;
@@ -55,15 +53,15 @@ class CacheExpiration {
   constructor(cacheName: string, config: CacheExpirationConfig = {}) {
     if (process.env.NODE_ENV !== "production") {
       assert!.isType(cacheName, "string", {
-        moduleName: "workbox-expiration",
+        moduleName: "@serwist/expiration",
         className: "CacheExpiration",
         funcName: "constructor",
         paramName: "cacheName",
       });
 
       if (!(config.maxEntries || config.maxAgeSeconds)) {
-        throw new WorkboxError("max-entries-or-age-required", {
-          moduleName: "workbox-expiration",
+        throw new SerwistError("max-entries-or-age-required", {
+          moduleName: "@serwist/expiration",
           className: "CacheExpiration",
           funcName: "constructor",
         });
@@ -71,7 +69,7 @@ class CacheExpiration {
 
       if (config.maxEntries) {
         assert!.isType(config.maxEntries, "number", {
-          moduleName: "workbox-expiration",
+          moduleName: "@serwist/expiration",
           className: "CacheExpiration",
           funcName: "constructor",
           paramName: "config.maxEntries",
@@ -80,7 +78,7 @@ class CacheExpiration {
 
       if (config.maxAgeSeconds) {
         assert!.isType(config.maxAgeSeconds, "number", {
-          moduleName: "workbox-expiration",
+          moduleName: "@serwist/expiration",
           className: "CacheExpiration",
           funcName: "constructor",
           paramName: "config.maxAgeSeconds",
@@ -155,7 +153,7 @@ class CacheExpiration {
   async updateTimestamp(url: string): Promise<void> {
     if (process.env.NODE_ENV !== "production") {
       assert!.isType(url, "string", {
-        moduleName: "workbox-expiration",
+        moduleName: "@serwist/expiration",
         className: "CacheExpiration",
         funcName: "updateTimestamp",
         paramName: "url",
@@ -179,7 +177,7 @@ class CacheExpiration {
   async isURLExpired(url: string): Promise<boolean> {
     if (!this._maxAgeSeconds) {
       if (process.env.NODE_ENV !== "production") {
-        throw new WorkboxError(`expired-test-without-max-age`, {
+        throw new SerwistError(`expired-test-without-max-age`, {
           methodName: "isURLExpired",
           paramName: "maxAgeSeconds",
         });

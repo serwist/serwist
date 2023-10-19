@@ -50,8 +50,6 @@ const { RawSource } = webpack.sources || require("webpack-sources");
  *   swSrc: '...',
  * });
  * ```
- *
- * @memberof module:workbox-webpack-plugin
  */
 class InjectManifest {
   protected config: WebpackInjectManifestOptions;

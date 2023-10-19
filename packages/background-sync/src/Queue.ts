@@ -43,7 +43,7 @@ interface QueueEntry {
   metadata?: object;
 }
 
-const TAG_PREFIX = "workbox-background-sync";
+const TAG_PREFIX = "serwist-background-sync";
 const MAX_RETENTION_TIME = 60 * 24 * 7; // 7 days in minutes
 
 const queueNames = new Set<string>();
@@ -157,13 +157,13 @@ class Queue {
   async pushRequest(entry: QueueEntry): Promise<void> {
     if (process.env.NODE_ENV !== "production") {
       assert!.isType(entry, "object", {
-        moduleName: "workbox-background-sync",
+        moduleName: "serwist-background-sync",
         className: "Queue",
         funcName: "pushRequest",
         paramName: "entry",
       });
       assert!.isInstance(entry.request, Request, {
-        moduleName: "workbox-background-sync",
+        moduleName: "serwist-background-sync",
         className: "Queue",
         funcName: "pushRequest",
         paramName: "entry.request",
@@ -192,13 +192,13 @@ class Queue {
   async unshiftRequest(entry: QueueEntry): Promise<void> {
     if (process.env.NODE_ENV !== "production") {
       assert!.isType(entry, "object", {
-        moduleName: "workbox-background-sync",
+        moduleName: "serwist-background-sync",
         className: "Queue",
         funcName: "unshiftRequest",
         paramName: "entry",
       });
       assert!.isInstance(entry.request, Request, {
-        moduleName: "workbox-background-sync",
+        moduleName: "serwist-background-sync",
         className: "Queue",
         funcName: "unshiftRequest",
         paramName: "entry.request",

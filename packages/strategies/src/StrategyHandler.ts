@@ -14,13 +14,13 @@ import {
   getFriendlyURL,
   logger,
   timeout,
-  WorkboxError,
+  SerwistError,
 } from "@serwist/core/private";
 import {
   HandlerCallbackOptions,
   MapLikeObject,
-  WorkboxPlugin,
-  WorkboxPluginCallbackParam,
+  SerwistPlugin,
+  SerwistPluginCallbackParam,
 } from "@serwist/core/types";
 
 import { Strategy } from "./Strategy.js";
@@ -31,18 +31,35 @@ function toRequest(input: RequestInfo) {
 }
 
 /**
- * A class created every time a Strategy instance instance calls
- * {@link workbox-strategies.Strategy~handle} or
- * {@link workbox-strategies.Strategy~handleAll} that wraps all fetch and
- * cache actions around plugin callbacks and keeps track of when the strategy
- * is "done" (i.e. all added `event.waitUntil()` promises have resolved).
- *
- * @memberof workbox-strategies
+ * A class created every time a Strategy instance instance calls `Strategy.handle` or
+ * `Strategy.handleAll` that wraps all fetch and cache actions around plugin callbacks
+ * and keeps track of when the strategy is "done" (i.e. all added `event.waitUntil()` promises
+ * have resolved).
  */
 class StrategyHandler {
+  /**
+   * The request the strategy is performing (passed to the strategy's
+   * `handle()` or `handleAll()` method).
+   */
   public request!: Request;
+  /**
+   * A `URL` instance of `request.url` (if passed to the strategy's
+   * `handle()` or `handleAll()` method).
+   * Note: the `url` param will be present if the strategy was invoked
+   * from a `@serwist/routing.Route` object.
+   */
   public url?: URL;
+  /**
+   * The event associated with this request.
+   */
   public event: ExtendableEvent;
+  /**
+   * A `param` value (if passed to the strategy's
+   * `handle()` or `handleAll()` method).
+   * Note: the `param` param will be present if the strategy was invoked
+   * from a `@serwist/routing.Route` object and the `@serwist/strategies.matchCallback`
+   * returned a truthy value (it will be that value).
+   */
   public params?: any;
 
   private _cacheKeys: Record<string, Request> = {};
@@ -50,8 +67,8 @@ class StrategyHandler {
   private readonly _strategy: Strategy;
   private readonly _extendLifetimePromises: Promise<any>[];
   private readonly _handlerDeferred: Deferred<any>;
-  private readonly _plugins: WorkboxPlugin[];
-  private readonly _pluginStateMap: Map<WorkboxPlugin, MapLikeObject>;
+  private readonly _plugins: SerwistPlugin[];
+  private readonly _pluginStateMap: Map<SerwistPlugin, MapLikeObject>;
 
   /**
    * Creates a new instance associated with the passed strategy and event
@@ -60,56 +77,18 @@ class StrategyHandler {
    * The constructor also initializes the state that will be passed to each of
    * the plugins handling this request.
    *
-   * @param {workbox-strategies.Strategy} strategy
-   * @param {Object} options
-   * @param {Request|string} options.request A request to run this strategy for.
-   * @param {ExtendableEvent} options.event The event associated with the
-   *     request.
-   * @param {URL} [options.url]
-   * @param {*} [options.params] The return value from the
-   *     {@link workbox-routing~matchCallback} (if applicable).
+   * @param strategy
+   * @param options
+   * @param options.request A request to run this strategy for.
+   * @param options.event The event associated with the request.
+   * @param options.url
+   * @param {*} [options.params] The return value from `@serwist/routing`'s `matchCallback`
+   * (if applicable).
    */
   constructor(strategy: Strategy, options: HandlerCallbackOptions) {
-    /**
-     * The request the strategy is performing (passed to the strategy's
-     * `handle()` or `handleAll()` method).
-     * @name request
-     * @instance
-     * @type {Request}
-     * @memberof workbox-strategies.StrategyHandler
-     */
-    /**
-     * The event associated with this request.
-     * @name event
-     * @instance
-     * @type {ExtendableEvent}
-     * @memberof workbox-strategies.StrategyHandler
-     */
-    /**
-     * A `URL` instance of `request.url` (if passed to the strategy's
-     * `handle()` or `handleAll()` method).
-     * Note: the `url` param will be present if the strategy was invoked
-     * from a workbox `Route` object.
-     * @name url
-     * @instance
-     * @type {URL|undefined}
-     * @memberof workbox-strategies.StrategyHandler
-     */
-    /**
-     * A `param` value (if passed to the strategy's
-     * `handle()` or `handleAll()` method).
-     * Note: the `param` param will be present if the strategy was invoked
-     * from a workbox `Route` object and the
-     * {@link workbox-routing~matchCallback} returned
-     * a truthy value (it will be that value).
-     * @name params
-     * @instance
-     * @type {*|undefined}
-     * @memberof workbox-strategies.StrategyHandler
-     */
     if (process.env.NODE_ENV !== "production") {
       assert!.isInstance(options.event, ExtendableEvent, {
-        moduleName: "workbox-strategies",
+        moduleName: "@serwist/strategies",
         className: "StrategyHandler",
         funcName: "constructor",
         paramName: "options.event",
@@ -183,7 +162,7 @@ class StrategyHandler {
       }
     } catch (err) {
       if (err instanceof Error) {
-        throw new WorkboxError("plugin-error-request-will-fetch", {
+        throw new SerwistError("plugin-error-request-will-fetch", {
           thrownErrorMessage: err.message,
         });
       }
@@ -330,7 +309,7 @@ class StrategyHandler {
 
     if (process.env.NODE_ENV !== "production") {
       if (effectiveRequest.method && effectiveRequest.method !== "GET") {
-        throw new WorkboxError("attempt-to-cache-non-get-request", {
+        throw new SerwistError("attempt-to-cache-non-get-request", {
           url: getFriendlyURL(effectiveRequest.url),
           method: effectiveRequest.method,
         });
@@ -356,7 +335,7 @@ class StrategyHandler {
         );
       }
 
-      throw new WorkboxError("cache-put-with-no-response", {
+      throw new SerwistError("cache-put-with-no-response", {
         url: getFriendlyURL(effectiveRequest.url),
       });
     }
@@ -468,7 +447,7 @@ class StrategyHandler {
    * @param {string} name The name of the callback to check for.
    * @return {boolean}
    */
-  hasCallback<C extends keyof WorkboxPlugin>(name: C): boolean {
+  hasCallback<C extends keyof SerwistPlugin>(name: C): boolean {
     for (const plugin of this._strategy.plugins) {
       if (name in plugin) {
         return true;
@@ -484,18 +463,15 @@ class StrategyHandler {
    *
    * Note: since this method runs all plugins, it's not suitable for cases
    * where the return value of a callback needs to be applied prior to calling
-   * the next callback. See
-   * {@link workbox-strategies.StrategyHandler#iterateCallbacks}
-   * below for how to handle that case.
+   * the next callback. See `@serwist/strategies.iterateCallbacks` for how to handle that case.
    *
-   * @param {string} name The name of the callback to run within each plugin.
-   * @param {Object} param The object to pass as the first (and only) param
-   *     when executing each callback. This object will be merged with the
-   *     current plugin state prior to callback execution.
+   * @param name The name of the callback to run within each plugin.
+   * @param param The object to pass as the first (and only) param when executing each callback. This object will be merged with the
+   * current plugin state prior to callback execution.
    */
-  async runCallbacks<C extends keyof NonNullable<WorkboxPlugin>>(
+  async runCallbacks<C extends keyof NonNullable<SerwistPlugin>>(
     name: C,
-    param: Omit<WorkboxPluginCallbackParam[C], "state">
+    param: Omit<SerwistPluginCallbackParam[C], "state">
   ): Promise<void> {
     for (const callback of this.iterateCallbacks(name)) {
       // TODO(philipwalton): not sure why `any` is needed. It seems like
@@ -513,14 +489,14 @@ class StrategyHandler {
    * @param {string} name The name fo the callback to run
    * @return {Array<Function>}
    */
-  *iterateCallbacks<C extends keyof WorkboxPlugin>(
+  *iterateCallbacks<C extends keyof SerwistPlugin>(
     name: C
-  ): Generator<NonNullable<WorkboxPlugin[C]>> {
+  ): Generator<NonNullable<SerwistPlugin[C]>> {
     for (const plugin of this._strategy.plugins) {
       if (typeof plugin[name] === "function") {
         const state = this._pluginStateMap.get(plugin);
         const statefulCallback = (
-          param: Omit<WorkboxPluginCallbackParam[C], "state">
+          param: Omit<SerwistPluginCallbackParam[C], "state">
         ) => {
           const statefulParam = { ...param, state };
 
@@ -528,23 +504,22 @@ class StrategyHandler {
           // this should work with `as WorkboxPluginCallbackParam[C]`.
           return plugin[name]!(statefulParam as any);
         };
-        yield statefulCallback as NonNullable<WorkboxPlugin[C]>;
+        yield statefulCallback as NonNullable<SerwistPlugin[C]>;
       }
     }
   }
 
   /**
    * Adds a promise to the
-   * [extend lifetime promises]{@link https://w3c.github.io/ServiceWorker/#extendableevent-extend-lifetime-promises}
-   * of the event event associated with the request being handled (usually a
-   * `FetchEvent`).
+   * [extend lifetime promises](https://w3c.github.io/ServiceWorker/#extendableevent-extend-lifetime-promises)
+   * of the event event associated with the request being handled (usually a `FetchEvent`).
    *
    * Note: you can await
-   * {@link workbox-strategies.StrategyHandler~doneWaiting}
+   * `@serwist/strategies.StrategyHandler.doneWaiting`
    * to know when all added promises have settled.
    *
-   * @param {Promise} promise A promise to add to the extend lifetime promises
-   *     of the event that triggered the request.
+   * @param promise A promise to add to the extend lifetime promises of 
+   * the event that triggered the request.
    */
   waitUntil<T>(promise: Promise<T>): Promise<T> {
     this._extendLifetimePromises.push(promise);
@@ -552,9 +527,8 @@ class StrategyHandler {
   }
 
   /**
-   * Returns a promise that resolves once all promises passed to
-   * {@link workbox-strategies.StrategyHandler~waitUntil}
-   * have settled.
+   * Returns a promise that resolves once all promises passed to 
+   * `@serwist/strategies.StrategyHandler.waitUntil` have settled.
    *
    * Note: any work done after `doneWaiting()` settles should be manually
    * passed to an event's `waitUntil()` method (not this handler's
@@ -577,13 +551,11 @@ class StrategyHandler {
   }
 
   /**
-   * This method will call cacheWillUpdate on the available plugins (or use
-   * status === 200) to determine if the Response is safe and valid to cache.
+   * This method will call `cacheWillUpdate` on the available plugins (or use
+   * status === 200) to determine if the response is safe and valid to cache.
    *
-   * @param {Request} options.request
-   * @param {Response} options.response
-   * @return {Promise<Response|undefined>}
-   *
+   * @param response
+   * @returns
    * @private
    */
   async _ensureResponseSafeToCache(

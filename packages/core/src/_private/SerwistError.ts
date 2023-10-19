@@ -11,15 +11,15 @@ import { MapLikeObject } from "../types.js";
 import "../_version.js";
 
 /**
- * Workbox errors should be thrown with this class.
+ * Serwist errors should be thrown with this class.
  * This allows use to ensure the type easily in tests,
- * helps developers identify errors from workbox
+ * helps developers identify errors from Serwist
  * easily and allows use to optimise error
  * messages correctly.
  *
  * @private
  */
-class WorkboxError extends Error {
+class SerwistError extends Error {
   details?: MapLikeObject;
 
   /**
@@ -40,4 +40,4 @@ class WorkboxError extends Error {
   }
 }
 
-export { WorkboxError };
+export { SerwistError };

@@ -9,7 +9,7 @@
 import { ok } from "assert";
 
 import cdn from "../cdn-details.json";
-import type { BuildType, WorkboxPackageJSON } from "../types.js";
+import type { BuildType, SerwistPackageJSON } from "../types.js";
 import { errors } from "./errors.js";
 
 function getVersionedURL(): string {
@@ -25,8 +25,8 @@ export function getModuleURL(moduleName: string, buildType: BuildType): string {
 
   if (buildType) {
     // eslint-disable-next-line  @typescript-eslint/no-unsafe-assignment
-    const pkgJson: WorkboxPackageJSON = require(`${moduleName}/package.json`);
-    if (buildType === "dev" && pkgJson.workbox && pkgJson.workbox.prodOnly) {
+    const pkgJson: SerwistPackageJSON = require(`${moduleName}/package.json`);
+    if (buildType === "dev" && pkgJson.serwist && pkgJson.serwist.prodOnly) {
       // This is not due to a public-facing exception, so just throw an Error(),
       // without creating an entry in errors.js.
       throw Error(`The 'dev' build of ${moduleName} is not available.`);

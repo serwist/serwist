@@ -17,10 +17,9 @@ import "./_version.js";
  * returned by `messageSW()`. If no response is set, the promise will not
  * resolve.
  *
- * @param {ServiceWorker} sw The service worker to send the message to.
- * @param {Object} data An object to send to the service worker.
- * @return {Promise<Object|undefined>}
- * @memberof workbox-window
+ * @param sw The service worker to send the message to.
+ * @param data An object to send to the service worker.
+ * @returns
  */
 // Better not change type of data.
 // eslint-disable-next-line @typescript-eslint/ban-types

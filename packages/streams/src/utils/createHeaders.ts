@@ -15,12 +15,9 @@ import "../_version.js";
  * is available.
  *
  * @private
- * @param {HeadersInit} [headersInit] If there's no `Content-Type` specified,
- * `'text/html'` will be used by default.
- * @return {boolean} `true`, if the current browser meets the requirements for
+ * @param headersInit If there's no `Content-Type` specified, `'text/html'` will be used by default.
+ * @returns `true`, if the current browser meets the requirements for
  * streaming responses, and `false` otherwise.
- *
- * @memberof workbox-streams
  */
 function createHeaders(headersInit = {}): Headers {
   // See https://github.com/GoogleChrome/workbox/issues/1461

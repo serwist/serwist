@@ -8,14 +8,14 @@
   "bugs": "https://github.com/DuCanhGH/next-pwa/issues",
   "homepage": "https://ducanh-next-pwa.vercel.app",
   "keywords": [
-    "workbox",
-    "workboxjs",
+    "serwist",
+    "serwistjs",
     "service worker",
     "sw",
     "navigation"
   ],
-  "workbox": {
-    "browserNamespace": "workbox.navigationPreload",
+  "serwist": {
+    "browserNamespace": "serwist.navigationPreload",
     "packageType": "sw"
   },
   "main": "index.js",

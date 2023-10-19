@@ -47,13 +47,13 @@ export class QueueStore {
   async pushEntry(entry: UnidentifiedQueueStoreEntry): Promise<void> {
     if (process.env.NODE_ENV !== "production") {
       assert!.isType(entry, "object", {
-        moduleName: "workbox-background-sync",
+        moduleName: "serwist-background-sync",
         className: "QueueStore",
         funcName: "pushEntry",
         paramName: "entry",
       });
       assert!.isType(entry.requestData, "object", {
-        moduleName: "workbox-background-sync",
+        moduleName: "@serwist/background-sync",
         className: "QueueStore",
         funcName: "pushEntry",
         paramName: "entry.requestData",
@@ -78,13 +78,13 @@ export class QueueStore {
   async unshiftEntry(entry: UnidentifiedQueueStoreEntry): Promise<void> {
     if (process.env.NODE_ENV !== "production") {
       assert!.isType(entry, "object", {
-        moduleName: "workbox-background-sync",
+        moduleName: "@serwist/background-sync",
         className: "QueueStore",
         funcName: "unshiftEntry",
         paramName: "entry",
       });
       assert!.isType(entry.requestData, "object", {
-        moduleName: "workbox-background-sync",
+        moduleName: "@serwist/background-sync",
         className: "QueueStore",
         funcName: "unshiftEntry",
         paramName: "entry.requestData",
@@ -129,9 +129,8 @@ export class QueueStore {
 
   /**
    * Returns all entries in the store matching the `queueName`.
-   *
-   * @param {Object} options See {@link workbox-background-sync.Queue~getAll}
-   * @return {Promise<Array<Object>>}
+   * 
+   * @returns
    */
   async getAll(): Promise<QueueStoreEntry[]> {
     return await this._queueDb.getAllEntriesByQueueName(this._queueName);
@@ -140,8 +139,7 @@ export class QueueStore {
   /**
    * Returns the number of entries in the store matching the `queueName`.
    *
-   * @param {Object} options See {@link workbox-background-sync.Queue~size}
-   * @return {Promise<number>}
+   * @returns
    */
   async size(): Promise<number> {
     return await this._queueDb.getEntryCountByQueueName(this._queueName);
@@ -165,7 +163,7 @@ export class QueueStore {
    * Removes and returns the first or last entry in the queue (based on the
    * `direction` argument) matching the `queueName`.
    *
-   * @return {Promise<QueueStoreEntry|undefined>}
+   * @returns
    * @private
    */
   async _removeEntry(

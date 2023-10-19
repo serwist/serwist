@@ -5,40 +5,50 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-import { warmStrategyCache } from "./warmStrategyCache";
-import { registerRoute } from "@serwist/routing/registerRoute.js";
-import { CacheFirst } from "@serwist/strategies/CacheFirst.js";
-import { CacheableResponsePlugin } from "@serwist/cacheable-response/CacheableResponsePlugin.js";
-import { ExpirationPlugin } from "@serwist/expiration/ExpirationPlugin.js";
+import { registerRoute } from "@serwist/routing";
+import { CacheFirst } from "@serwist/strategies";
+import { CacheableResponsePlugin } from "@serwist/cacheable-response";
+import { ExpirationPlugin } from "@serwist/expiration";
 import {
   RouteMatchCallback,
   RouteMatchCallbackOptions,
-  WorkboxPlugin,
-} from "@serwist/core/types.js";
+  SerwistPlugin,
+} from "@serwist/core/types";
 
+import { warmStrategyCache } from "./warmStrategyCache.js";
 import "./_version.js";
 
 export interface ImageCacheOptions {
+  /**
+   * Name for cache. Defaults to images.
+   */
   cacheName?: string;
+  /**
+   * Workbox callback function to call to match to. Defaults to request.destination === 'image'.
+   */
   matchCallback?: RouteMatchCallback;
+  /**
+   * Maximum age, in seconds, that image entries will be cached for. Defaults to 30 days.
+   */
   maxAgeSeconds?: number;
+  /**
+   * Maximum number of images that will be cached. Defaults to 60.
+   */
   maxEntries?: number;
-  plugins?: Array<WorkboxPlugin>;
-  warmCache?: Array<string>;
+  /**
+   * Additional plugins to use for this recipe.
+   */
+  plugins?: SerwistPlugin[];
+  /**
+   * Paths to call to use to warm this cache.
+   */
+  warmCache?: string[];
 }
 
 /**
- * An implementation of the [image caching recipe]{@link https://developers.google.com/web/tools/workbox/guides/common-recipes#caching_images}
+ * An implementation of the [image caching recipe](https://developers.google.com/web/tools/workbox/guides/common-recipes#caching_images).
  *
- * @memberof workbox-recipes
- *
- * @param {Object} [options]
- * @param {string} [options.cacheName] Name for cache. Defaults to images
- * @param {RouteMatchCallback} [options.matchCallback] Workbox callback function to call to match to. Defaults to request.destination === 'image';
- * @param {number} [options.maxAgeSeconds] Maximum age, in seconds, that font entries will be cached for. Defaults to 30 days
- * @param {number} [options.maxEntries] Maximum number of images that will be cached. Defaults to 60
- * @param {WorkboxPlugin[]} [options.plugins] Additional plugins to use for this recipe
- * @param {string[]} [options.warmCache] Paths to call to use to warm this cache
+ * @param options
  */
 function imageCache(options: ImageCacheOptions = {}): void {
   const defaultMatchCallback = ({ request }: RouteMatchCallbackOptions) =>

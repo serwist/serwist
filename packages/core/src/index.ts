@@ -12,15 +12,11 @@ import { cacheNames } from "./cacheNames.js";
 import { copyResponse } from "./copyResponse.js";
 import { clientsClaim } from "./clientsClaim.js";
 import { setCacheNameDetails } from "./setCacheNameDetails.js";
-import { skipWaiting } from "./skipWaiting.js";
 import "./_version.js";
 
 /**
- * All of the Workbox service worker libraries use workbox-core for shared
- * code as well as setting default values that need to be shared (like cache
- * names).
- *
- * @module workbox-core
+ * All Serwist libraries use `@serwist/core` for shared code as well as 
+ * setting default values that need to be shared (like cache names).
  */
 export {
   _private,
@@ -29,7 +25,6 @@ export {
   copyResponse,
   registerQuotaErrorCallback,
   setCacheNameDetails,
-  skipWaiting,
 };
 
 export * from "./types.js";

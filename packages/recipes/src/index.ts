@@ -6,24 +6,20 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { googleFontsCache, GoogleFontCacheOptions } from "./googleFontsCache";
-import { imageCache, ImageCacheOptions } from "./imageCache";
+import { googleFontsCache, GoogleFontCacheOptions } from "./googleFontsCache.js";
+import { imageCache, ImageCacheOptions } from "./imageCache.js";
 import {
   staticResourceCache,
   StaticResourceOptions,
-} from "./staticResourceCache";
-import { pageCache, PageCacheOptions } from "./pageCache";
-import { offlineFallback, OfflineFallbackOptions } from "./offlineFallback";
+} from "./staticResourceCache.js";
+import { pageCache, PageCacheOptions } from "./pageCache.js";
+import { offlineFallback, OfflineFallbackOptions } from "./offlineFallback.js";
 import {
   warmStrategyCache,
   WarmStrategyCacheOptions,
-} from "./warmStrategyCache";
+} from "./warmStrategyCache.js";
 
 import "./_version.js";
-
-/**
- * @module workbox-recipes
- */
 
 export {
   GoogleFontCacheOptions,

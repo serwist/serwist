@@ -26,10 +26,7 @@ declare global {
 /**
  * There are common caching strategies that most service workers will need
  * and use. This module provides simple implementations of these strategies.
- *
- * @module workbox-strategies
  */
-
 export {
   CacheFirst,
   CacheOnly,

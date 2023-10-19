@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert, Deferred, logger, WorkboxError } from "@serwist/core/private";
+import { assert, Deferred, logger, SerwistError } from "@serwist/core/private";
 import { StreamSource } from "./_types.js";
 
 import "./_version.js";
@@ -16,8 +16,8 @@ import "./_version.js";
  * [BodyInit](https://fetch.spec.whatwg.org/#bodyinit) and returns the
  * ReadableStreamReader object associated with it.
  *
- * @param {workbox-streams.StreamSource} source
- * @return {ReadableStreamReader}
+ * @param source
+ * @returns
  * @private
  */
 function _getReaderFromSource(
@@ -28,7 +28,7 @@ function _getReaderFromSource(
     if (source.body) {
       return source.body.getReader();
     }
-    throw new WorkboxError("opaque-streams-source", { type: source.type });
+    throw new SerwistError("opaque-streams-source", { type: source.type });
   }
   if (source instanceof ReadableStream) {
     return source.getReader();
@@ -44,10 +44,8 @@ function _getReaderFromSource(
  * data returned in sequence, along with a Promise which signals when the
  * stream is finished (useful for passing to a FetchEvent's waitUntil()).
  *
- * @param {Array<Promise<workbox-streams.StreamSource>>} sourcePromises
- * @return {Object<{done: Promise, stream: ReadableStream}>}
- *
- * @memberof workbox-streams
+ * @param sourcePromises
+ * @returns
  */
 function concatenate(sourcePromises: Promise<StreamSource>[]): {
   done: Promise<void>;
@@ -55,7 +53,7 @@ function concatenate(sourcePromises: Promise<StreamSource>[]): {
 } {
   if (process.env.NODE_ENV !== "production") {
     assert!.isArray(sourcePromises, {
-      moduleName: "workbox-streams",
+      moduleName: "@serwist/streams",
       funcName: "concatenate",
       paramName: "sourcePromises",
     });

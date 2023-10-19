@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { WorkboxError } from "@serwist/core/private";
+import { SerwistError } from "@serwist/core/private";
 import { PrecacheEntry } from "../_types.js";
 import "../_version.js";
 
@@ -25,11 +25,10 @@ const REVISION_SEARCH_PARAM = "__WB_REVISION__";
  * @return {string} A URL with versioning info.
  *
  * @private
- * @memberof workbox-precaching
  */
 export function createCacheKey(entry: PrecacheEntry | string): CacheKey {
   if (!entry) {
-    throw new WorkboxError("add-to-cache-list-unexpected-type", { entry });
+    throw new SerwistError("add-to-cache-list-unexpected-type", { entry });
   }
 
   // If a precache manifest entry is a string, it's assumed to be a versioned
@@ -44,7 +43,7 @@ export function createCacheKey(entry: PrecacheEntry | string): CacheKey {
 
   const { revision, url } = entry;
   if (!url) {
-    throw new WorkboxError("add-to-cache-list-unexpected-type", { entry });
+    throw new SerwistError("add-to-cache-list-unexpected-type", { entry });
   }
 
   // If there's just a URL and no revision, then it's also assumed to be a

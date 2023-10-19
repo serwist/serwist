@@ -10,11 +10,11 @@ import {
   assert,
   cacheNames,
   logger,
-  WorkboxError,
+  SerwistError,
   waitUntil,
 } from "@serwist/core/private";
 import { Strategy } from "@serwist/strategies";
-import { RouteHandlerCallback, WorkboxPlugin } from "@serwist/core/types";
+import { RouteHandlerCallback, SerwistPlugin } from "@serwist/core/types";
 
 import { createCacheKey } from "./utils/createCacheKey.js";
 import { PrecacheInstallReportPlugin } from "./utils/PrecacheInstallReportPlugin.js";
@@ -36,7 +36,7 @@ declare global {
 
 interface PrecacheControllerOptions {
   cacheName?: string;
-  plugins?: WorkboxPlugin[];
+  plugins?: SerwistPlugin[];
   fallbackToNetwork?: boolean;
 }
 
@@ -90,7 +90,7 @@ class PrecacheController {
   }
 
   /**
-   * @type {workbox-precaching.PrecacheStrategy} The strategy created by this controller and
+   * The strategy created by this controller and
    * used to cache assets and respond to fetch events.
    */
   get strategy(): Strategy {
@@ -121,13 +121,12 @@ class PrecacheController {
    * This method will add items to the precache list, removing duplicates
    * and ensuring the information is valid.
    *
-   * @param {Array<workbox-precaching.PrecacheController.PrecacheEntry|string>} entries
-   *     Array of entries to precache.
+   * @param entries Array of entries to precache.
    */
   addToCacheList(entries: Array<PrecacheEntry | string>): void {
     if (process.env.NODE_ENV !== "production") {
       assert!.isArray(entries, {
-        moduleName: "workbox-precaching",
+        moduleName: "@serwist/precaching",
         className: "PrecacheController",
         funcName: "addToCacheList",
         paramName: "entries",
@@ -151,7 +150,7 @@ class PrecacheController {
         this._urlsToCacheKeys.has(url) &&
         this._urlsToCacheKeys.get(url) !== cacheKey
       ) {
-        throw new WorkboxError("add-to-cache-list-conflicting-entries", {
+        throw new SerwistError("add-to-cache-list-conflicting-entries", {
           firstEntry: this._urlsToCacheKeys.get(url),
           secondEntry: cacheKey,
         });
@@ -162,7 +161,7 @@ class PrecacheController {
           this._cacheKeysToIntegrities.has(cacheKey) &&
           this._cacheKeysToIntegrities.get(cacheKey) !== entry.integrity
         ) {
-          throw new WorkboxError("add-to-cache-list-conflicting-integrities", {
+          throw new SerwistError("add-to-cache-list-conflicting-integrities", {
             url,
           });
         }
@@ -195,8 +194,8 @@ class PrecacheController {
    * Note: this method calls `event.waitUntil()` for you, so you do not need
    * to call it yourself in your event handlers.
    *
-   * @param {ExtendableEvent} event
-   * @return {Promise<workbox-precaching.InstallResult>}
+   * @param event
+   * @returns
    */
   install(event: ExtendableEvent): Promise<InstallResult> {
     // waitUntil returns Promise<any>
@@ -243,8 +242,8 @@ class PrecacheController {
    * Note: this method calls `event.waitUntil()` for you, so you do not need
    * to call it yourself in your event handlers.
    *
-   * @param {ExtendableEvent} event
-   * @return {Promise<workbox-precaching.CleanupResult>}
+   * @param event
+   * @returns
    */
   activate(event: ExtendableEvent): Promise<CleanupResult> {
     // waitUntil returns Promise<any>
@@ -347,14 +346,13 @@ class PrecacheController {
    * Returns a function that looks up `url` in the precache (taking into
    * account revision information), and returns the corresponding `Response`.
    *
-   * @param {string} url The precached URL which will be used to lookup the
-   * `Response`.
-   * @return {workbox-routing~handlerCallback}
+   * @param url The precached URL which will be used to lookup the response.
+   * @return
    */
   createHandlerBoundToURL(url: string): RouteHandlerCallback {
     const cacheKey = this.getCacheKeyForURL(url);
     if (!cacheKey) {
-      throw new WorkboxError("non-precached-url", { url });
+      throw new SerwistError("non-precached-url", { url });
     }
     return (options) => {
       options.request = new Request(url);

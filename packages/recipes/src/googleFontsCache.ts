@@ -5,29 +5,32 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-import { registerRoute } from "@serwist/routing/registerRoute.js";
-import { StaleWhileRevalidate } from "@serwist/strategies/StaleWhileRevalidate.js";
-import { CacheFirst } from "@serwist/strategies/CacheFirst.js";
-import { CacheableResponsePlugin } from "@serwist/cacheable-response/CacheableResponsePlugin.js";
-import { ExpirationPlugin } from "@serwist/expiration/ExpirationPlugin.js";
+import { registerRoute } from "@serwist/routing";
+import { StaleWhileRevalidate, CacheFirst } from "@serwist/strategies";
+import { CacheableResponsePlugin } from "@serwist/cacheable-response";
+import { ExpirationPlugin } from "@serwist/expiration";
 
 import "./_version.js";
 
 export interface GoogleFontCacheOptions {
+  /**
+   * Cache prefix for caching stylesheets and webfonts. Defaults to google-fonts.
+   */
   cachePrefix?: string;
+  /**
+   * Maximum age, in seconds, that font entries will be cached for. Defaults to 1 year.
+   */
   maxAgeSeconds?: number;
+  /**
+   * Maximum number of fonts that will be cached. Defaults to 30.
+   */
   maxEntries?: number;
 }
 
 /**
- * An implementation of the [Google fonts]{@link https://developers.google.com/web/tools/workbox/guides/common-recipes#google_fonts} caching recipe
+ * An implementation of the [Google fonts](https://developers.google.com/web/tools/workbox/guides/common-recipes#google_fonts) caching recipe.
  *
- * @memberof workbox-recipes
- *
- * @param {Object} [options]
- * @param {string} [options.cachePrefix] Cache prefix for caching stylesheets and webfonts. Defaults to google-fonts
- * @param {number} [options.maxAgeSeconds] Maximum age, in seconds, that font entries will be cached for. Defaults to 1 year
- * @param {number} [options.maxEntries] Maximum number of fonts that will be cached. Defaults to 30
+ * @param options
  */
 function googleFontsCache(options: GoogleFontCacheOptions = {}): void {
   const sheetCacheName = `${options.cachePrefix || "google-fonts"}-stylesheets`;

@@ -15,15 +15,14 @@ import "./_version.js";
  * Adds a function to the set of quotaErrorCallbacks that will be executed if
  * there's a quota error.
  *
- * @param {Function} callback
- * @memberof workbox-core
+ * @param callback
  */
 // Can't change Function type
 // eslint-disable-next-line @typescript-eslint/ban-types
 function registerQuotaErrorCallback(callback: Function): void {
   if (process.env.NODE_ENV !== "production") {
     assert!.isType(callback, "function", {
-      moduleName: "workbox-core",
+      moduleName: "@serwist/core",
       funcName: "register",
       paramName: "callback",
     });

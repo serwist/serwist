@@ -8,15 +8,15 @@
   "bugs": "https://github.com/DuCanhGH/next-pwa/issues",
   "homepage": "https://ducanh-next-pwa.vercel.app",
   "keywords": [
-    "workbox",
-    "workboxjs",
+    "serwist",
+    "serwistjs",
     "service worker",
     "sw",
     "streams",
     "readablestream"
   ],
-  "workbox": {
-    "browserNamespace": "workbox.streams",
+  "serwist": {
+    "browserNamespace": "serwist.streams",
     "packageType": "sw"
   },
   "main": "index.js",

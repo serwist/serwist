@@ -9,11 +9,11 @@
 import fse from "fs-extra";
 import upath from "upath";
 
-import type { WorkboxPackageJSON } from "../types.js";
+import type { SerwistPackageJSON } from "../types.js";
 import { errors } from "./errors.js";
 
 // Used to filter the libraries to copy based on our package.json dependencies.
-const WORKBOX_PREFIX = "workbox-";
+const SERWIST_PREFIX = "serwist-";
 
 // The directory within each package containing the final bundles.
 const BUILD_DIR = "build";
@@ -41,7 +41,7 @@ export async function copyWorkboxLibraries(
   destDirectory: string
 ): Promise<string> {
   // eslint-disable-next-line  @typescript-eslint/no-unsafe-assignment
-  const thisPkg: WorkboxPackageJSON = require("../../package.json");
+  const thisPkg: SerwistPackageJSON = require("../../package.json");
   // Use the version string from workbox-build in the name of the parent
   // directory. This should be safe, because lerna will bump workbox-build's
   // pkg.version whenever one of the dependent libraries gets bumped, and we
@@ -54,7 +54,7 @@ export async function copyWorkboxLibraries(
 
   const copyPromises: Array<Promise<void>> = [];
   const librariesToCopy = Object.keys(thisPkg.dependencies || {}).filter(
-    (dependency) => dependency.startsWith(WORKBOX_PREFIX)
+    (dependency) => dependency.startsWith(SERWIST_PREFIX)
   );
 
   for (const library of librariesToCopy) {
@@ -76,7 +76,7 @@ export async function copyWorkboxLibraries(
     return workboxDirectoryName;
   } catch (error) {
     throw Error(
-      `${errors["unable-to-copy-workbox-libraries"]} ${
+      `${errors["unable-to-copy-serwist-libraries"]} ${
         error instanceof Error ? error.toString() : ""
       }`
     );

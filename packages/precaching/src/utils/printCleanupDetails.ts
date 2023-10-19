@@ -26,10 +26,8 @@ const logGroup = (groupTitle: string, deletedURLs: string[]) => {
 };
 
 /**
- * @param {Array<string>} deletedURLs
- *
+ * @param deletedURLs
  * @private
- * @memberof workbox-precaching
  */
 export function printCleanupDetails(deletedURLs: string[]): void {
   const deletionCount = deletedURLs.length;

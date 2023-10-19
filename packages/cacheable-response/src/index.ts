@@ -14,10 +14,6 @@ import { CacheableResponsePlugin } from "./CacheableResponsePlugin.js";
 
 import "./_version.js";
 
-/**
- * @module workbox-cacheable-response
- */
-
 export { CacheableResponse, CacheableResponsePlugin };
 
 export type { CacheableResponseOptions };

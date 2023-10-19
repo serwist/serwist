@@ -107,7 +107,7 @@ export const messages: MessageMap = {
   "add-to-cache-list-unexpected-type": ({ entry }) => {
     return (
       `An unexpected entry was passed to ` +
-      `'workbox-precaching.PrecacheController.addToCacheList()' The entry ` +
+      `'@serwist/precaching.PrecacheController.addToCacheList()' The entry ` +
       `'${JSON.stringify(
         entry
       )}' isn't supported. You must supply an array of ` +
@@ -125,8 +125,8 @@ export const messages: MessageMap = {
 
     return (
       `Two of the entries passed to ` +
-      `'workbox-precaching.PrecacheController.addToCacheList()' had the URL ` +
-      `${firstEntry} but different revision details. Workbox is ` +
+      `'@serwist/precaching.PrecacheController.addToCacheList()' had the URL ` +
+      `${firstEntry} but different revision details. Serwist is ` +
       `unable to cache and version the asset correctly. Please remove one ` +
       `of the entries.`
     );
@@ -356,7 +356,7 @@ export const messages: MessageMap = {
   "add-to-cache-list-conflicting-integrities": ({ url }) => {
     return (
       `Two of the entries passed to ` +
-      `'workbox-precaching.PrecacheController.addToCacheList()' had the URL ` +
+      `'@serwist/precaching.PrecacheController.addToCacheList()' had the URL ` +
       `${url} with different integrity values. Please remove one of them.`
     );
   },
@@ -367,14 +367,14 @@ export const messages: MessageMap = {
 
   "cross-origin-copy-response": ({ origin }) => {
     return (
-      `workbox-core.copyResponse() can only be used with same-origin ` +
+      `@serwist/core.copyResponse() can only be used with same-origin ` +
       `responses. It was passed a response with origin ${origin}.`
     );
   },
 
   "opaque-streams-source": ({ type }) => {
     const message =
-      `One of the workbox-streams sources resulted in an ` +
+      `One of the @serwist/streams sources resulted in an ` +
       `'${type}' response.`;
     if (type === "opaqueredirect") {
       return (

@@ -2,10 +2,10 @@
   "name": "@serwist/webpack-plugin",
   "version": "7.0.0",
   "type": "module",
-  "description": "A plugin for your Webpack build process, helping you generate a manifest of local files that workbox-sw should precache.",
+  "description": "A plugin for your Webpack build process, helping you generate a manifest of local files that @serwist/sw should precache.",
   "keywords": [
-    "workbox",
-    "workboxjs",
+    "serwist",
+    "serwistjs",
     "webpack",
     "service worker",
     "caching",
@@ -13,11 +13,14 @@
     "offline",
     "file manifest"
   ],
-  "workbox": {
+  "serwist": {
     "packageType": "node_ts"
   },
   "main": "build/index.js",
   "types": "build/index.d.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "engines": {
     "node": ">=16.0.0"
   },

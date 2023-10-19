@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { WorkboxError, assert } from "@serwist/core/private";
+import { SerwistError, assert } from "@serwist/core/private";
 import "../_version.js";
 
 /**
@@ -23,7 +23,7 @@ function parseRangeHeader(rangeHeader: string): {
 } {
   if (process.env.NODE_ENV !== "production") {
     assert!.isType(rangeHeader, "string", {
-      moduleName: "workbox-range-requests",
+      moduleName: "@serwist/range-requests",
       funcName: "parseRangeHeader",
       paramName: "rangeHeader",
     });
@@ -31,20 +31,20 @@ function parseRangeHeader(rangeHeader: string): {
 
   const normalizedRangeHeader = rangeHeader.trim().toLowerCase();
   if (!normalizedRangeHeader.startsWith("bytes=")) {
-    throw new WorkboxError("unit-must-be-bytes", { normalizedRangeHeader });
+    throw new SerwistError("unit-must-be-bytes", { normalizedRangeHeader });
   }
 
   // Specifying multiple ranges separate by commas is valid syntax, but this
   // library only attempts to handle a single, contiguous sequence of bytes.
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Range#Syntax
   if (normalizedRangeHeader.includes(",")) {
-    throw new WorkboxError("single-range-only", { normalizedRangeHeader });
+    throw new SerwistError("single-range-only", { normalizedRangeHeader });
   }
 
   const rangeParts = /(\d*)-(\d*)/.exec(normalizedRangeHeader);
   // We need either at least one of the start or end values.
   if (!rangeParts || !(rangeParts[1] || rangeParts[2])) {
-    throw new WorkboxError("invalid-range-values", { normalizedRangeHeader });
+    throw new SerwistError("invalid-range-values", { normalizedRangeHeader });
   }
 
   return {

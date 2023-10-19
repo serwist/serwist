@@ -1,10 +1,11 @@
 {
   "name": "@serwist/cli",
   "version": "7.0.0",
-  "description": "workbox-cli is the command line interface for Workbox.",
+  "type": "module",
+  "description": "@serwist/cli is the command line interface for Serwist.",
   "keywords": [
-    "workbox",
-    "workboxjs",
+    "serwist",
+    "serwistjs",
     "service worker",
     "caching",
     "fetch requests",
@@ -12,19 +13,19 @@
     "cli"
   ],
   "bin": {
-    "workbox": "build/bin.js"
+    "serwist": "dist/bin.js"
   },
   "files": [
-    "build"
+    "dist"
   ],
   "engines": {
     "node": ">=16.0.0"
   },
   "author": "Google's Web DevRel Team, DuCanhGH",
   "license": "MIT",
-  "repository": "DuCanhGH/next-pwa",
-  "bugs": "https://github.com/DuCanhGH/next-pwa/issues",
-  "homepage": "https://github.com/GoogleChrome/workbox/tree/master/packages/workbox-cli",
+  "repository": "serwist/serwist",
+  "bugs": "https://github.com/serwist/serwist/issues",
+  "homepage": "https://github.com/serwist/serwist",
   "dependencies": {
     "@serwist/build": "workspace:*",
     "chalk": "5.3.0",

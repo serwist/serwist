@@ -5,18 +5,27 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-import { setCatchHandler } from "@serwist/routing/setCatchHandler.js";
-import { matchPrecache } from "@serwist/precaching/matchPrecache.js";
+import { setCatchHandler } from "@serwist/routing";
+import { matchPrecache } from "@serwist/precaching";
 import {
   RouteHandler,
   RouteHandlerCallbackOptions,
-} from "@serwist/core/types.js";
+} from "@serwist/core/types";
 
 import "./_version.js";
 
 export interface OfflineFallbackOptions {
+  /**
+   * Precache name to match for page fallbacks. Defaults to offline.html.
+   */
   pageFallback?: string;
+  /**
+   * Precache name to match for image fallbacks.
+   */
   imageFallback?: string;
+  /**
+   * Precache name to match for font fallbacks.
+   */
   fontFallback?: string;
 }
 
@@ -24,14 +33,10 @@ export interface OfflineFallbackOptions {
 declare let self: ServiceWorkerGlobalScope;
 
 /**
- * An implementation of the [comprehensive fallbacks recipe]{@link https://developers.google.com/web/tools/workbox/guides/advanced-recipes#comprehensive_fallbacks}. Be sure to include the fallbacks in your precache injection
- *
- * @memberof workbox-recipes
- *
- * @param {Object} [options]
- * @param {string} [options.pageFallback] Precache name to match for pag fallbacks. Defaults to offline.html
- * @param {string} [options.imageFallback] Precache name to match for image fallbacks.
- * @param {string} [options.fontFallback] Precache name to match for font fallbacks.
+ * An implementation of the [comprehensive fallbacks recipe](https://developers.google.com/web/tools/workbox/guides/advanced-recipes#comprehensive_fallbacks). 
+ * Be sure to include the fallbacks in your precache injection.
+
+ * @param options
  */
 function offlineFallback(options: OfflineFallbackOptions = {}): void {
   const pageFallback = options.pageFallback || "offline.html";
@@ -49,7 +54,7 @@ function offlineFallback(options: OfflineFallbackOptions = {}): void {
 
     event.waitUntil(
       self.caches
-        .open("workbox-offline-fallbacks")
+        .open("serwist-offline-fallbacks")
         .then((cache) => cache.addAll(files))
     );
   });
@@ -58,7 +63,7 @@ function offlineFallback(options: OfflineFallbackOptions = {}): void {
     options: RouteHandlerCallbackOptions
   ) => {
     const dest = options.request.destination;
-    const cache = await self.caches.open("workbox-offline-fallbacks");
+    const cache = await self.caches.open("serwist-offline-fallbacks");
 
     if (dest === "document") {
       const match =

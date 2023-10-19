@@ -6,11 +6,11 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { cacheNames, WorkboxError, logger, getFriendlyURL } from "@serwist/core/private";
+import { cacheNames, SerwistError, logger, getFriendlyURL } from "@serwist/core/private";
 import {
   HandlerCallbackOptions,
   RouteHandlerObject,
-  WorkboxPlugin,
+  SerwistPlugin,
 } from "@serwist/core/types";
 
 import { StrategyHandler } from "./StrategyHandler.js";
@@ -18,20 +18,35 @@ import { StrategyHandler } from "./StrategyHandler.js";
 import "./_version.js";
 
 export interface StrategyOptions {
+  /**
+   * Cache name to store and retrieve requests. Defaults to cache names provided by `@serwist/core`.
+   */
   cacheName?: string;
-  plugins?: WorkboxPlugin[];
+  /**
+   * [Plugins]{@link https://developers.google.com/web/tools/workbox/guides/using-plugins}
+   * to use in conjunction with this caching strategy.
+   */
+  plugins?: SerwistPlugin[];
+  /**
+   * Values passed along to the [`init`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters)
+   * of [non-navigation](https://github.com/GoogleChrome/workbox/issues/1796) `fetch()` requests made by this strategy.
+   */
   fetchOptions?: RequestInit;
+  /**
+   * [`CacheQueryOptions`](https://w3c.github.io/ServiceWorker/#dictdef-cachequeryoptions).
+   */
   matchOptions?: CacheQueryOptions;
 }
 
 /**
- * An abstract base class that all other strategy classes must extend from:
- *
- * @memberof workbox-strategies
+ * Classes extending the `Strategy` based class should implement this method,
+ * and leverage `@serwist/strategies`'s `StrategyHandler` arg to perform all 
+ * fetching and cache logic, which will ensure all relevant cache, cache options, 
+ * fetch options and plugins are used (per the current strategy instance).
  */
 abstract class Strategy implements RouteHandlerObject {
   cacheName: string;
-  plugins: WorkboxPlugin[];
+  plugins: SerwistPlugin[];
   fetchOptions?: RequestInit;
   matchOptions?: CacheQueryOptions;
 
@@ -48,51 +63,26 @@ abstract class Strategy implements RouteHandlerObject {
    * not need more than these properties, it does not need to define its own
    * constructor.
    *
-   * @param {Object} [options]
-   * @param {string} [options.cacheName] Cache name to store and retrieve
-   * requests. Defaults to the cache names provided by
-   * {@link workbox-core.cacheNames}.
-   * @param {Array<Object>} [options.plugins] [Plugins]{@link https://developers.google.com/web/tools/workbox/guides/using-plugins}
-   * to use in conjunction with this caching strategy.
-   * @param {Object} [options.fetchOptions] Values passed along to the
-   * [`init`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters)
-   * of [non-navigation](https://github.com/GoogleChrome/workbox/issues/1796)
-   * `fetch()` requests made by this strategy.
-   * @param {Object} [options.matchOptions] The
-   * [`CacheQueryOptions`]{@link https://w3c.github.io/ServiceWorker/#dictdef-cachequeryoptions}
-   * for any `cache.match()` or `cache.put()` calls made by this strategy.
+   * @param options
    */
   constructor(options: StrategyOptions = {}) {
     /**
-     * Cache name to store and retrieve
-     * requests. Defaults to the cache names provided by
-     * {@link workbox-core.cacheNames}.
-     *
-     * @type {string}
+     * Cache name to store and retrieve requests. Defaults to the cache names provided by `@serwist/core`.
      */
     this.cacheName = cacheNames.getRuntimeName(options.cacheName);
     /**
-     * The list
-     * [Plugins]{@link https://developers.google.com/web/tools/workbox/guides/using-plugins}
+     * A list of [Plugins](https://developers.google.com/web/tools/workbox/guides/using-plugins)
      * used by this strategy.
-     *
-     * @type {Array<Object>}
      */
     this.plugins = options.plugins || [];
     /**
-     * Values passed along to the
-     * [`init`]{@link https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters}
-     * of all fetch() requests made by this strategy.
-     *
-     * @type {Object}
+     * Values passed along to the [`init`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters)
+     * of all `fetch()` requests made by this strategy.
      */
     this.fetchOptions = options.fetchOptions;
     /**
-     * The
-     * [`CacheQueryOptions`]{@link https://w3c.github.io/ServiceWorker/#dictdef-cachequeryoptions}
+     * The [`CacheQueryOptions`]{@link https://w3c.github.io/ServiceWorker/#dictdef-cachequeryoptions}
      * for any `cache.match()` or `cache.put()` calls made by this strategy.
-     *
-     * @type {Object}
      */
     this.matchOptions = options.matchOptions;
   }
@@ -101,18 +91,15 @@ abstract class Strategy implements RouteHandlerObject {
    * Perform a request strategy and returns a `Promise` that will resolve with
    * a `Response`, invoking all relevant plugin callbacks.
    *
-   * When a strategy instance is registered with a Workbox
-   * {@link workbox-routing.Route}, this method is automatically
+   * When a strategy instance is registered with a `@serwist/routing` Route, this method is automatically
    * called when the route matches.
    *
    * Alternatively, this method can be used in a standalone `FetchEvent`
    * listener by passing it to `event.respondWith()`.
    *
-   * @param {FetchEvent|Object} options A `FetchEvent` or an object with the
-   *     properties listed below.
-   * @param {Request|string} options.request A request to run this strategy for.
-   * @param {ExtendableEvent} options.event The event associated with the
-   *     request.
+   * @param options A `FetchEvent` or an object with the properties listed below.
+   * @param options.request A request to run this strategy for.
+   * @param options.event The event associated with the request.
    * @param {URL} [options.url]
    * @param {*} [options.params]
    */
@@ -122,7 +109,7 @@ abstract class Strategy implements RouteHandlerObject {
   }
 
   /**
-   * Similar to {@link workbox-strategies.Strategy~handle}, but
+   * Similar to `@serwist/strategies`'s `Strategy.handle`, but
    * instead of just returning a `Promise` that resolves to a `Response` it
    * it will return an tuple of `[response, done]` promises, where the former
    * (`response`) is equivalent to what `handle()` returns, and the latter is a
@@ -132,16 +119,13 @@ abstract class Strategy implements RouteHandlerObject {
    * You can await the `done` promise to ensure any extra work performed by
    * the strategy (usually caching responses) completes successfully.
    *
-   * @param {FetchEvent|Object} options A `FetchEvent` or an object with the
-   *     properties listed below.
-   * @param {Request|string} options.request A request to run this strategy for.
-   * @param {ExtendableEvent} options.event The event associated with the
-   *     request.
+   * @param options A `FetchEvent` or an object with the properties listed below.
+   * @param options.request A request to run this strategy for.
+   * @param options.event The event associated with the request.
    * @param {URL} [options.url]
    * @param {*} [options.params]
-   * @return {Array<Promise>} A tuple of [response, done]
-   *     promises that can be used to determine when the response resolves as
-   *     well as when the handler has completed all its work.
+   * @returns A tuple of [response, done] promises that can be used to determine when the response resolves as
+   * well as when the handler has completed all its work.
    */
   handleAll(
     options: FetchEvent | HandlerCallbackOptions
@@ -188,14 +172,14 @@ abstract class Strategy implements RouteHandlerObject {
       // The "official" Strategy subclasses all throw this error automatically,
       // but in case a third-party Strategy doesn't, ensure that we have a
       // consistent failure when there's no response or an error response.
-      if (!response || response.type === "error") {
-        throw new WorkboxError("no-response", { url: request.url });
+      if (response === undefined || response.type === "error") {
+        throw new SerwistError("no-response", { url: request.url });
       }
     } catch (error) {
       if (error instanceof Error) {
         for (const callback of handler.iterateCallbacks("handlerDidError")) {
           response = await callback({ error, event, request });
-          if (response) {
+          if (response !== undefined) {
             break;
           }
         }
@@ -204,7 +188,7 @@ abstract class Strategy implements RouteHandlerObject {
       if (!response) {
         throw error;
       } else if (process.env.NODE_ENV !== "production") {
-        logger.log(
+        throw logger.log(
           `While responding to '${getFriendlyURL(request.url)}', ` +
             `an ${
               error instanceof Error ? error.toString() : ""
@@ -215,7 +199,7 @@ abstract class Strategy implements RouteHandlerObject {
     }
 
     for (const callback of handler.iterateCallbacks("handlerWillRespond")) {
-      response = await callback({ event, request, response });
+      response = await callback({ event, request, response }) as Response;
     }
 
     return response;
@@ -266,21 +250,3 @@ abstract class Strategy implements RouteHandlerObject {
 }
 
 export { Strategy };
-
-/**
- * Classes extending the `Strategy` based class should implement this method,
- * and leverage the {@link workbox-strategies.StrategyHandler}
- * arg to perform all fetching and cache logic, which will ensure all relevant
- * cache, cache options, fetch options and plugins are used (per the current
- * strategy instance).
- *
- * @name _handle
- * @instance
- * @abstract
- * @function
- * @param {Request} request
- * @param {workbox-strategies.StrategyHandler} handler
- * @return {Promise<Response>}
- *
- * @memberof workbox-strategies.Strategy
- */

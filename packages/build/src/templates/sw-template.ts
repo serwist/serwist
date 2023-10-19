@@ -7,13 +7,13 @@
 */
 
 export const swTemplate = `/**
- * Welcome to your Workbox-powered service worker!
+ * Welcome to your Serwist-powered service worker!
  *
  * You'll need to register this file in your web app.
  * See https://goo.gl/nhQhGp
  *
  * The rest of the code is auto-generated. Please don't update this file
- * directly; instead, make changes to your Workbox build configuration
+ * directly; instead, make changes to your Serwist build configuration
  * and re-run your build process.
  * See https://goo.gl/2aRDsh
  */
@@ -24,9 +24,9 @@ importScripts(
 );
 <% } %>
 
-<% if (navigationPreload) { %><%= use('workbox-navigation-preload', 'enable') %>();<% } %>
+<% if (navigationPreload) { %><%= use('@serwist/navigation-preload', 'enable') %>();<% } %>
 
-<% if (cacheId) { %><%= use('workbox-core', 'setCacheNameDetails') %>({prefix: <%= JSON.stringify(cacheId) %>});<% } %>
+<% if (cacheId) { %><%= use('@serwist/core', 'setCacheNameDetails') %>({prefix: <%= JSON.stringify(cacheId) %>});<% } %>
 
 <% if (skipWaiting) { %>
 self.skipWaiting();
@@ -37,7 +37,7 @@ self.addEventListener('message', (event) => {
   }
 });
 <% } %>
-<% if (clientsClaim) { %><%= use('workbox-core', 'clientsClaim') %>();<% } %>
+<% if (clientsClaim) { %><%= use('@serwist/core', 'clientsClaim') %>();<% } %>
 
 <% if (Array.isArray(manifestEntries) && manifestEntries.length > 0) {%>
 /**
@@ -45,9 +45,9 @@ self.addEventListener('message', (event) => {
  * requests for URLs in the manifest.
  * See https://goo.gl/S9QRab
  */
-<%= use('workbox-precaching', 'precacheAndRoute') %>(<%= JSON.stringify(manifestEntries, null, 2) %>, <%= precacheOptionsString %>);
-<% if (cleanupOutdatedCaches) { %><%= use('workbox-precaching', 'cleanupOutdatedCaches') %>();<% } %>
-<% if (navigateFallback) { %><%= use('workbox-routing', 'registerRoute') %>(new <%= use('workbox-routing', 'NavigationRoute') %>(<%= use('workbox-precaching', 'createHandlerBoundToURL') %>(<%= JSON.stringify(navigateFallback) %>)<% if (navigateFallbackAllowlist || navigateFallbackDenylist) { %>, {
+<%= use('@serwist/precaching', 'precacheAndRoute') %>(<%= JSON.stringify(manifestEntries, null, 2) %>, <%= precacheOptionsString %>);
+<% if (cleanupOutdatedCaches) { %><%= use('@serwist/precaching', 'cleanupOutdatedCaches') %>();<% } %>
+<% if (navigateFallback) { %><%= use('@serwist/routing', 'registerRoute') %>(new <%= use('@serwist/routing', 'NavigationRoute') %>(<%= use('@serwist/precaching', 'createHandlerBoundToURL') %>(<%= JSON.stringify(navigateFallback) %>)<% if (navigateFallbackAllowlist || navigateFallbackDenylist) { %>, {
   <% if (navigateFallbackAllowlist) { %>allowlist: [<%= navigateFallbackAllowlist %>],<% } %>
   <% if (navigateFallbackDenylist) { %>denylist: [<%= navigateFallbackDenylist %>],<% } %>
 }<% } %>));<% } %>
@@ -55,6 +55,6 @@ self.addEventListener('message', (event) => {
 
 <% if (runtimeCaching) { runtimeCaching.forEach(runtimeCachingString => {%><%= runtimeCachingString %><% });} %>
 
-<% if (offlineAnalyticsConfigString) { %><%= use('workbox-google-analytics', 'initialize') %>(<%= offlineAnalyticsConfigString %>);<% } %>
+<% if (offlineAnalyticsConfigString) { %><%= use('@serwist/google-analytics', 'initialize') %>(<%= offlineAnalyticsConfigString %>);<% } %>
 
 <% if (disableDevLogs) { %>self.__WB_DISABLE_DEV_LOGS = true;<% } %>`;

@@ -20,10 +20,6 @@ import type { HTTPMethod } from "./utils/constants.js";
 
 import "./_version.js";
 
-/**
- * @module workbox-routing
- */
-
 export {
   NavigationRoute,
   RegExpRoute,

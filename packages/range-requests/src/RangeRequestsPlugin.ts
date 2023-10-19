@@ -6,7 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { WorkboxPlugin } from "@serwist/core/types.js";
+import { SerwistPlugin } from "@serwist/core/types";
+
 import { createPartialResponse } from "./createPartialResponse.js";
 import "./_version.js";
 
@@ -16,10 +17,8 @@ import "./_version.js";
  *
  * It does this by intercepting the `cachedResponseWillBeUsed` plugin callback
  * and returning the appropriate subset of the cached response body.
- *
- * @memberof workbox-range-requests
  */
-class RangeRequestsPlugin implements WorkboxPlugin {
+class RangeRequestsPlugin implements SerwistPlugin {
   /**
    * @param {Object} options
    * @param {Request} options.request The original request, which may or may not
@@ -31,7 +30,7 @@ class RangeRequestsPlugin implements WorkboxPlugin {
    *
    * @private
    */
-  cachedResponseWillBeUsed: WorkboxPlugin["cachedResponseWillBeUsed"] = async ({
+  cachedResponseWillBeUsed: SerwistPlugin["cachedResponseWillBeUsed"] = async ({
     request,
     cachedResponse,
   }) => {

@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert, logger, WorkboxError } from "@serwist/core/private";
+import { assert, logger, SerwistError } from "@serwist/core/private";
 
 import { cacheOkAndOpaquePlugin } from "./plugins/cacheOkAndOpaquePlugin.js";
 import { Strategy, StrategyOptions } from "./Strategy.js";
@@ -30,24 +30,11 @@ import "./_version.js";
  * support [CORS](https://enable-cors.org/).
  *
  * If the network request fails, and there is no cache match, this will throw
- * a `WorkboxError` exception.
- *
- * @extends workbox-strategies.Strategy
- * @memberof workbox-strategies
+ * a `SerwistError` exception.
  */
 class StaleWhileRevalidate extends Strategy {
   /**
-   * @param {Object} [options]
-   * @param {string} [options.cacheName] Cache name to store and retrieve
-   * requests. Defaults to cache names provided by
-   * {@link workbox-core.cacheNames}.
-   * @param {Array<Object>} [options.plugins] [Plugins]{@link https://developers.google.com/web/tools/workbox/guides/using-plugins}
-   * to use in conjunction with this caching strategy.
-   * @param {Object} [options.fetchOptions] Values passed along to the
-   * [`init`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters)
-   * of [non-navigation](https://github.com/GoogleChrome/workbox/issues/1796)
-   * `fetch()` requests made by this strategy.
-   * @param {Object} [options.matchOptions] [`CacheQueryOptions`](https://w3c.github.io/ServiceWorker/#dictdef-cachequeryoptions)
+   * @param options
    */
   constructor(options: StrategyOptions = {}) {
     super(options);
@@ -61,17 +48,16 @@ class StaleWhileRevalidate extends Strategy {
 
   /**
    * @private
-   * @param {Request|string} request A request to run this strategy for.
-   * @param {workbox-strategies.StrategyHandler} handler The event that
-   *     triggered the request.
-   * @return {Promise<Response>}
+   * @param request A request to run this strategy for.
+   * @param handler The event that triggered the request.
+   * @returns
    */
   async _handle(request: Request, handler: StrategyHandler): Promise<Response> {
     const logs = [];
 
     if (process.env.NODE_ENV !== "production") {
       assert!.isInstance(request, Request, {
-        moduleName: "workbox-strategies",
+        moduleName: "@serwist/strategies",
         className: this.constructor.name,
         funcName: "handle",
         paramName: "request",
@@ -124,7 +110,7 @@ class StaleWhileRevalidate extends Strategy {
     }
 
     if (!response) {
-      throw new WorkboxError("no-response", { url: request.url, error });
+      throw new SerwistError("no-response", { url: request.url, error });
     }
     return response;
   }

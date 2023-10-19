@@ -94,7 +94,7 @@ export interface ManualHandlerCallback {
  *
  * A `Route` object can be created with either an `RouteHandlerCallback`
  * function or this `RouteHandler` object. The benefit of the `RouteHandler`
- * is it can be extended (as is done by the `workbox-strategies` package).
+ * is it can be extended (as is done by the `@serwist/strategies` package).
  */
 export interface RouteHandlerObject {
   handle: RouteHandlerCallback;
@@ -102,7 +102,7 @@ export interface RouteHandlerObject {
 
 /**
  * Either a `RouteHandlerCallback` or a `RouteHandlerObject`.
- * Most APIs in `workbox-routing` that accept route handlers take either.
+ * Most APIs in `@serwist/routing` that accept route handlers take either.
  */
 export type RouteHandler = RouteHandlerCallback | RouteHandlerObject;
 
@@ -251,7 +251,7 @@ export interface HandlerDidCompleteCallback {
  * An object with optional lifecycle callback properties for the fetch and
  * cache operations.
  */
-export declare interface WorkboxPlugin {
+export declare interface SerwistPlugin {
   cacheDidUpdate?: CacheDidUpdateCallback;
   cachedResponseWillBeUsed?: CachedResponseWillBeUsedCallback;
   cacheKeyWillBeUsed?: CacheKeyWillBeUsedCallback;
@@ -266,7 +266,7 @@ export declare interface WorkboxPlugin {
   requestWillFetch?: RequestWillFetchCallback;
 }
 
-export interface WorkboxPluginCallbackParam {
+export interface SerwistPluginCallbackParam {
   cacheDidUpdate: CacheDidUpdateCallbackParam;
   cachedResponseWillBeUsed: CachedResponseWillBeUsedCallbackParam;
   cacheKeyWillBeUsed: CacheKeyWillBeUsedCallbackParam;

@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert, logger, WorkboxError } from "@serwist/core/private";
+import { assert, logger, SerwistError } from "@serwist/core/private";
 
 import { Strategy } from "./Strategy.js";
 import { StrategyHandler } from "./StrategyHandler.js";
@@ -14,7 +14,7 @@ import { messages } from "./utils/messages.js";
 import "./_version.js";
 
 /**
- * An implementation of a [cache-first](https://developer.chrome.com/docs/workbox/caching-strategies-overview/#cache-first-falling-back-to-network)
+ * An implementation of a [cache first](https://developer.chrome.com/docs/workbox/caching-strategies-overview/#cache-first-falling-back-to-network)
  * request strategy.
  *
  * A cache first strategy is useful for assets that have been revisioned,
@@ -22,25 +22,21 @@ import "./_version.js";
  * can be cached for long periods of time.
  *
  * If the network request fails, and there is no cache match, this will throw
- * a `WorkboxError` exception.
- *
- * @extends workbox-strategies.Strategy
- * @memberof workbox-strategies
+ * a `SerwistError` exception.
  */
 class CacheFirst extends Strategy {
   /**
    * @private
-   * @param {Request|string} request A request to run this strategy for.
-   * @param {workbox-strategies.StrategyHandler} handler The event that
-   *     triggered the request.
-   * @return {Promise<Response>}
+   * @param request A request to run this strategy for.
+   * @param handler The event that triggered the request.
+   * @returns
    */
   async _handle(request: Request, handler: StrategyHandler): Promise<Response> {
     const logs = [];
 
     if (process.env.NODE_ENV !== "production") {
       assert!.isInstance(request, Request, {
-        moduleName: "workbox-strategies",
+        moduleName: "@serwist/strategies",
         className: this.constructor.name,
         funcName: "makeRequest",
         paramName: "request",
@@ -90,7 +86,7 @@ class CacheFirst extends Strategy {
     }
 
     if (!response) {
-      throw new WorkboxError("no-response", { url: request.url, error });
+      throw new SerwistError("no-response", { url: request.url, error });
     }
     return response;
   }

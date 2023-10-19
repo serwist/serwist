@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { WorkboxError, assert, logger } from "@serwist/core/private";
+import { SerwistError, assert, logger } from "@serwist/core/private";
 import { calculateEffectiveBoundaries } from "./utils/calculateEffectiveBoundaries.js";
 import { parseRangeHeader } from "./utils/parseRangeHeader.js";
 import "./_version.js";
@@ -19,15 +19,13 @@ import "./_version.js";
  * a status of 206), then this assumes it already fulfills the `Range:`
  * requirements, and will return it as-is.
  *
- * @param {Request} request A request, which should contain a Range:
+ * @param request A request, which should contain a Range:
  * header.
- * @param {Response} originalResponse A response.
- * @return {Promise<Response>} Either a `206 Partial Content` response, with
+ * @param originalResponse A response.
+ * @returns Either a `206 Partial Content` response, with
  * the response body set to the slice of content specified by the request's
  * `Range:` header, or a `416 Range Not Satisfiable` response if the
  * conditions of the `Range:` header can't be met.
- *
- * @memberof workbox-range-requests
  */
 async function createPartialResponse(
   request: Request,
@@ -36,13 +34,13 @@ async function createPartialResponse(
   try {
     if (process.env.NODE_ENV !== "production") {
       assert!.isInstance(request, Request, {
-        moduleName: "workbox-range-requests",
+        moduleName: "@serwist/range-requests",
         funcName: "createPartialResponse",
         paramName: "request",
       });
 
       assert!.isInstance(originalResponse, Response, {
-        moduleName: "workbox-range-requests",
+        moduleName: "@serwist/range-requests",
         funcName: "createPartialResponse",
         paramName: "originalResponse",
       });
@@ -56,7 +54,7 @@ async function createPartialResponse(
 
     const rangeHeader = request.headers.get("range");
     if (!rangeHeader) {
-      throw new WorkboxError("no-range-header");
+      throw new SerwistError("no-range-header");
     }
 
     const boundaries = parseRangeHeader(rangeHeader);

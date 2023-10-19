@@ -20,7 +20,7 @@ import { logger } from "./_private/logger.js";
 import { resultingClientExists } from "./_private/resultingClientExists.js";
 import { timeout } from "./_private/timeout.js";
 import { waitUntil } from "./_private/waitUntil.js";
-import { WorkboxError } from "./_private/WorkboxError.js";
+import { SerwistError } from "./_private/SerwistError.js";
 
 import "./_version.js";
 
@@ -38,5 +38,5 @@ export {
   resultingClientExists,
   timeout,
   waitUntil,
-  WorkboxError,
+  SerwistError,
 };

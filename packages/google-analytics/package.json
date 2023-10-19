@@ -9,17 +9,17 @@
   "bugs": "https://github.com/DuCanhGH/next-pwa/issues",
   "homepage": "https://ducanh-next-pwa.vercel.app",
   "keywords": [
-    "workbox",
-    "workboxjs",
+    "serwist",
+    "serwistjs",
     "service worker",
     "sw",
     "offline",
     "google",
     "analytics"
   ],
-  "workbox": {
-    "browserNamespace": "workbox.googleAnalytics",
-    "outputFilename": "workbox-offline-ga",
+  "serwist": {
+    "browserNamespace": "serwist.googleAnalytics",
+    "outputFilename": "serwist-offline-ga",
     "packageType": "sw"
   },
   "main": "index.js",
