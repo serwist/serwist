@@ -43,8 +43,8 @@
     "@serwist/strategies": "workspace:*",
     "@serwist/streams": "workspace:*",
     "@serwist/sw": "workspace:*",
+    "@serwist/rollup-plugin-off-main-thread": "workspace:*",
     "@serwist/window": "workspace:*",
-    "@surma/rollup-plugin-off-main-thread": "2.2.3",
     "ajv": "8.12.0",
     "common-tags": "1.8.2",
     "fast-json-stable-stringify": "2.1.0",
@@ -69,6 +69,8 @@
     "./lib/*.js": "./src/lib/*.ts"
   },
   "devDependencies": {
+    "@rollup/plugin-swc": "0.2.1",
+    "@swc/core": "1.3.93",
     "@types/babel__preset-env": "7.9.4",
     "@types/common-tags": "1.8.3",
     "@types/fs-extra": "11.0.2",

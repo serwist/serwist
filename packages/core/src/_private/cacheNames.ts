@@ -72,8 +72,9 @@ const eachCacheNameDetail = (fn: (key: CacheNameDetailsProp) => void): void => {
 export const cacheNames = {
   updateDetails: (details: PartialCacheNameDetails): void => {
     eachCacheNameDetail((key: CacheNameDetailsProp): void => {
-      if (typeof details[key] === "string") {
-        _cacheNameDetails[key] = details[key];
+      const detail = details[key];
+      if (typeof detail === "string") {
+        _cacheNameDetails[key] = detail;
       }
     });
   },

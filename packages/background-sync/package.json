@@ -1,13 +1,13 @@
 {
   "name": "@serwist/background-sync",
   "version": "7.0.0",
+  "type": "module",
   "license": "MIT",
   "author": "Google's Web DevRel Team, DuCanhGH",
   "description": "Queues failed requests and uses the Background Sync API to replay them when the network is available",
-  "repository": "DuCanhGH/next-pwa",
-  "bugs": "https://github.com/DuCanhGH/next-pwa/issues",
+  "repository": "serwist/serwist",
+  "bugs": "https://github.com/serwist/serwist/issues",
   "homepage": "https://ducanh-next-pwa.vercel.app",
-  "type": "module",
   "keywords": [
     "serwist",
     "serwistjs",
@@ -17,19 +17,43 @@
     "sync",
     "serwist-plugin"
   ],
-  "workbox": {
-    "browserNamespace": "workbox.backgroundSync",
+  "serwist": {
+    "browserNamespace": "serwist.backgroundSync",
     "packageType": "sw"
   },
-  "main": "index.js",
-  "module": "index.mjs",
-  "types": "index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.module.js",
+  "types": "./dist/index.module.d.ts",
+  "exports": {
+    ".": {
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "default": {
+        "types": "./dist/index.module.d.ts",
+        "default": "./dist/index.module.js"
+      }
+    }
+  },
+  "scripts": {
+    "build": "cross-env NODE_ENV=production rollup --waitForBundleInput --config rollup.config.js"
+  },
   "dependencies": {
     "@serwist/core": "workspace:*",
     "idb": "7.1.1"
   },
-  "exports": {
-    ".": "./src/index.ts",
-    "./queue": "./src/Queue.ts"
+  "devDependencies": {
+    "@serwist/constants": "workspace:*",
+    "cross-env": "7.0.3",
+    "typescript": "5.2.2",
+    "@rollup/plugin-json": "6.0.1",
+    "@rollup/plugin-node-resolve": "15.2.3",
+    "@rollup/plugin-swc": "0.2.1",
+    "@rollup/plugin-typescript": "11.1.5",
+    "@swc/core": "1.3.93",
+    "rollup": "4.1.4",
+    "rollup-plugin-dts": "6.1.0",
+    "type-fest": "4.5.0"
   }
 }

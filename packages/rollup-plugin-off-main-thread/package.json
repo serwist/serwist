@@ -1,0 +1,35 @@
+{
+    "name": "@serwist/rollup-plugin-off-main-thread",
+    "version": "7.0.0",
+    "type": "module",
+    "description": "Use Rollup with workers and ES6 modules today.",
+    "keywords": [
+        "serwist",
+        "serwistjs",
+        "rollup",
+        "workers"
+    ],
+    "engines": {
+        "node": ">=16.0.0"
+    },
+    "author": "Surma <surma@google.com>, DuCanhGH",
+    "license": "Apache-2.0",
+    "repository": "serwist/serwist",
+    "bugs": "https://github.com/serwist/serwist/issues",
+    "homepage": "https://ducanh-next-pwa.vercel.app",
+    "main": "./src/index.ts",
+    "exports": {
+        ".": "./src/index.ts"
+    },
+    "dependencies": {
+        "ejs": "3.1.9",
+        "json5": "2.2.3",
+        "magic-string": "0.30.5"
+    },
+    "devDependencies": {
+        "@types/ejs": "3.1.4"
+    },
+    "peerDependencies": {
+        "rollup": "^3.28.1"
+    }
+}

@@ -6,10 +6,7 @@ const fg = require("fast-glob");
 const TSCONFIG_SOURCES = /** @type {const} */ ([
   "tsconfig.json",
   "tsconfig.eslint.json",
-  "docs/tsconfig.json",
   "packages/*/tsconfig.json",
-  "packages/*/__tests__/tsconfig.json",
-  "examples/*/tsconfig.json",
 ]);
 
 let packageDirs = fg

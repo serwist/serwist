@@ -6,13 +6,14 @@
   https://opensource.org/licenses/MIT.
 */
 
+import "./_version.js";
+
 import {
   assert,
-  SerwistError,
   getFriendlyURL,
   logger,
+  SerwistError,
 } from "@serwist/core/private";
-import "./_version.js";
 
 export interface CacheableResponseOptions {
   /**

@@ -6,16 +6,18 @@
   https://opensource.org/licenses/MIT.
 */
 
+import "./_version.js";
+
 import {
-  WorkboxError,
-  logger,
   assert,
   getFriendlyURL,
+  logger,
+  SerwistError,
 } from "@serwist/core/private";
+
+import type { QueueStoreEntry, UnidentifiedQueueStoreEntry } from "./lib/QueueDb.js";
 import { QueueStore } from "./lib/QueueStore.js";
-import { QueueStoreEntry, UnidentifiedQueueStoreEntry } from "./lib/QueueDb.js";
 import { StorableRequest } from "./lib/StorableRequest.js";
-import "./_version.js";
 
 // Give TypeScript the correct global.
 declare let self: ServiceWorkerGlobalScope;
@@ -29,18 +31,52 @@ interface OnSyncCallback {
 }
 
 export interface QueueOptions {
+  /**
+   * If `true`, instead of attempting to use background sync events, always attempt 
+   * to replay queued request at service worker startup. Most folks will not need
+   * this, unless you explicitly target a runtime like Electron that exposes the 
+   * interfaces for background sync, but does not have a working implementation.
+   * 
+   * @default false
+   */
   forceSyncFallback?: boolean;
+  /**
+   * The amount of time (in minutes) a request may be retried. After this amount 
+   * of time has passed, the request will be deleted from the queue.
+   * 
+   * @default 60 * 24 * 7
+   */
   maxRetentionTime?: number;
+  /**
+   * A function that gets invoked whenever the 'sync' event fires. The function 
+   * is invoked with an object containing the `queue` property (referencing this 
+   * instance), and you can use the callback to customize the replay behavior of 
+   * the queue. When not set the `replayRequests()` method is called. Note: if the 
+   * replay fails after a sync event, make sure you throw an error, so the browser 
+   * knows to retry the sync event later.
+   */
   onSync?: OnSyncCallback;
 }
 
 interface QueueEntry {
+  /**
+   * The request to store in the queue.
+   */
   request: Request;
+  /**
+   * The timestamp (Epoch time in milliseconds) when the request was first added 
+   * to the queue. This is used along with `maxRetentionTime` to remove outdated 
+   * requests. In general you don't need to set this value, as it's automatically 
+   * set for you (defaulting to `Date.now()`), but you can update it if you don't 
+   * want particular requests to expire.
+   */
   timestamp?: number;
-  // We could use Record<string, unknown> as a type but that would be a breaking
-  // change, better do it in next major release.
-  // eslint-disable-next-line  @typescript-eslint/ban-types
-  metadata?: object;
+  /**
+   * Any metadata you want associated with the stored request. When requests are 
+   * replayed you'll have access to this metadata object in case you need to modify 
+   * the request beforehand.
+   */
+  metadata?: Record<string, unknown>;
 }
 
 const TAG_PREFIX = "serwist-background-sync";
@@ -89,27 +125,11 @@ class Queue {
   /**
    * Creates an instance of Queue with the given options
    *
-   * @param {string} name The unique name for this queue. This name must be
-   *     unique as it's used to register sync events and store requests
-   *     in IndexedDB specific to this instance. An error will be thrown if
-   *     a duplicate name is detected.
-   * @param {Object} [options]
-   * @param {Function} [options.onSync] A function that gets invoked whenever
-   *     the 'sync' event fires. The function is invoked with an object
-   *     containing the `queue` property (referencing this instance), and you
-   *     can use the callback to customize the replay behavior of the queue.
-   *     When not set the `replayRequests()` method is called.
-   *     Note: if the replay fails after a sync event, make sure you throw an
-   *     error, so the browser knows to retry the sync event later.
-   * @param {number} [options.maxRetentionTime=7 days] The amount of time (in
-   *     minutes) a request may be retried. After this amount of time has
-   *     passed, the request will be deleted from the queue.
-   * @param {boolean} [options.forceSyncFallback=false] If `true`, instead
-   *     of attempting to use background sync events, always attempt to replay
-   *     queued request at service worker startup. Most folks will not need
-   *     this, unless you explicitly target a runtime like Electron that
-   *     exposes the interfaces for background sync, but does not have a working
-   *     implementation.
+   * @param name The unique name for this queue. This name must be
+   * unique as it's used to register sync events and store requests
+   * in IndexedDB specific to this instance. An error will be thrown if
+   * a duplicate name is detected.
+   * @param options
    */
   constructor(
     name: string,
@@ -117,7 +137,7 @@ class Queue {
   ) {
     // Ensure the store name is not already being used
     if (queueNames.has(name)) {
-      throw new WorkboxError("duplicate-queue-name", { name });
+      throw new SerwistError("duplicate-queue-name", { name });
     } else {
       queueNames.add(name);
     }
@@ -142,28 +162,18 @@ class Queue {
    * Stores the passed request in IndexedDB (with its timestamp and any
    * metadata) at the end of the queue.
    *
-   * @param {QueueEntry} entry
-   * @param {Request} entry.request The request to store in the queue.
-   * @param {Object} [entry.metadata] Any metadata you want associated with the
-   *     stored request. When requests are replayed you'll have access to this
-   *     metadata object in case you need to modify the request beforehand.
-   * @param {number} [entry.timestamp] The timestamp (Epoch time in
-   *     milliseconds) when the request was first added to the queue. This is
-   *     used along with `maxRetentionTime` to remove outdated requests. In
-   *     general you don't need to set this value, as it's automatically set
-   *     for you (defaulting to `Date.now()`), but you can update it if you
-   *     don't want particular requests to expire.
+   * @param entry
    */
   async pushRequest(entry: QueueEntry): Promise<void> {
     if (process.env.NODE_ENV !== "production") {
       assert!.isType(entry, "object", {
-        moduleName: "serwist-background-sync",
+        moduleName: "@serwist/background-sync",
         className: "Queue",
         funcName: "pushRequest",
         paramName: "entry",
       });
       assert!.isInstance(entry.request, Request, {
-        moduleName: "serwist-background-sync",
+        moduleName: "@serwist/background-sync",
         className: "Queue",
         funcName: "pushRequest",
         paramName: "entry.request",
@@ -177,28 +187,18 @@ class Queue {
    * Stores the passed request in IndexedDB (with its timestamp and any
    * metadata) at the beginning of the queue.
    *
-   * @param {QueueEntry} entry
-   * @param {Request} entry.request The request to store in the queue.
-   * @param {Object} [entry.metadata] Any metadata you want associated with the
-   *     stored request. When requests are replayed you'll have access to this
-   *     metadata object in case you need to modify the request beforehand.
-   * @param {number} [entry.timestamp] The timestamp (Epoch time in
-   *     milliseconds) when the request was first added to the queue. This is
-   *     used along with `maxRetentionTime` to remove outdated requests. In
-   *     general you don't need to set this value, as it's automatically set
-   *     for you (defaulting to `Date.now()`), but you can update it if you
-   *     don't want particular requests to expire.
+   * @param entry
    */
   async unshiftRequest(entry: QueueEntry): Promise<void> {
     if (process.env.NODE_ENV !== "production") {
       assert!.isType(entry, "object", {
-        moduleName: "serwist-background-sync",
+        moduleName: "@serwist/background-sync",
         className: "Queue",
         funcName: "unshiftRequest",
         paramName: "entry",
       });
       assert!.isInstance(entry.request, Request, {
-        moduleName: "serwist-background-sync",
+        moduleName: "@serwist/background-sync",
         className: "Queue",
         funcName: "unshiftRequest",
         paramName: "entry.request",
@@ -213,7 +213,7 @@ class Queue {
    * timestamp and any metadata). The returned object takes the form:
    * `{request, timestamp, metadata}`.
    *
-   * @return {Promise<QueueEntry | undefined>}
+   * @returns
    */
   async popRequest(): Promise<QueueEntry | undefined> {
     return this._removeRequest("pop");
@@ -224,7 +224,7 @@ class Queue {
    * timestamp and any metadata). The returned object takes the form:
    * `{request, timestamp, metadata}`.
    *
-   * @return {Promise<QueueEntry | undefined>}
+   * @returns
    */
   async shiftRequest(): Promise<QueueEntry | undefined> {
     return this._removeRequest("shift");
@@ -234,7 +234,7 @@ class Queue {
    * Returns all the entries that have not expired (per `maxRetentionTime`).
    * Any expired entries are removed from the queue.
    *
-   * @return {Promise<Array<QueueEntry>>}
+   * @returns
    */
   async getAll(): Promise<Array<QueueEntry>> {
     const allEntries = await this._queueStore.getAll();
@@ -259,7 +259,7 @@ class Queue {
    * Returns the number of entries present in the queue.
    * Note that expired entries (per `maxRetentionTime`) are also included in this count.
    *
-   * @return {Promise<number>}
+   * @returns
    */
   async size(): Promise<number> {
     return await this._queueStore.size();
@@ -268,11 +268,8 @@ class Queue {
   /**
    * Adds the entry to the QueueStore and registers for a sync event.
    *
-   * @param {Object} entry
-   * @param {Request} entry.request
-   * @param {Object} [entry.metadata]
-   * @param {number} [entry.timestamp=Date.now()]
-   * @param {string} operation ('push' or 'unshift')
+   * @param entry
+   * @param operation
    * @private
    */
   async _addRequest(
@@ -320,8 +317,8 @@ class Queue {
    * Removes and returns the first or last (depending on `operation`) entry
    * from the QueueStore that's not older than the `maxRetentionTime`.
    *
-   * @param {string} operation ('pop' or 'shift')
-   * @return {Object|undefined}
+   * @param operation
+   * @returns
    * @private
    */
   async _removeRequest(
@@ -378,7 +375,7 @@ class Queue {
               `failed to replay, putting it back in queue '${this._name}'`
           );
         }
-        throw new WorkboxError("queue-replay-failed", { name: this._name });
+        throw new SerwistError("queue-replay-failed", { name: this._name });
       }
     }
     if (process.env.NODE_ENV !== "production") {
@@ -477,8 +474,7 @@ class Queue {
    * Returns the set of queue names. This is primarily used to reset the list
    * of queue names in tests.
    *
-   * @return {Set<string>}
-   *
+   * @returns
    * @private
    */
   static get _queueNames(): Set<string> {

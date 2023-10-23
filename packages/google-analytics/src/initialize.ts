@@ -6,23 +6,25 @@
   https://opensource.org/licenses/MIT.
 */
 
+import "./_version.js";
+
+import type { Queue } from "@serwist/background-sync";
 import { BackgroundSyncPlugin } from "@serwist/background-sync";
-import { Queue } from "@serwist/background-sync/queue";
 import { cacheNames, getFriendlyURL, logger } from "@serwist/core/private";
-import { RouteMatchCallbackOptions } from "@serwist/core/types";
+import type { RouteMatchCallbackOptions } from "@serwist/core/types";
 import { Route, Router } from "@serwist/routing";
 import { NetworkFirst, NetworkOnly } from "@serwist/strategies";
+
 import {
-  QUEUE_NAME,
-  MAX_RETENTION_TIME,
-  GOOGLE_ANALYTICS_HOST,
-  GTM_HOST,
   ANALYTICS_JS_PATH,
-  GTAG_JS_PATH,
-  GTM_JS_PATH,
   COLLECT_PATHS_REGEX,
+  GOOGLE_ANALYTICS_HOST,
+  GTAG_JS_PATH,
+  GTM_HOST,
+  GTM_JS_PATH,
+  MAX_RETENTION_TIME,
+  QUEUE_NAME,
 } from "./utils/constants.js";
-import "./_version.js";
 
 export interface GoogleAnalyticsInitializeOptions {
   /**

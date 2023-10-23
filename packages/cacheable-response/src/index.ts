@@ -6,13 +6,11 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {
-  CacheableResponse,
-  CacheableResponseOptions,
-} from "./CacheableResponse.js";
-import { CacheableResponsePlugin } from "./CacheableResponsePlugin.js";
-
 import "./_version.js";
+
+import type { CacheableResponseOptions } from "./CacheableResponse.js";
+import { CacheableResponse } from "./CacheableResponse.js";
+import { CacheableResponsePlugin } from "./CacheableResponsePlugin.js";
 
 export { CacheableResponse, CacheableResponsePlugin };
 

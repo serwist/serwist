@@ -6,13 +6,15 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert } from "@serwist/core/private";
-import {
-  UnidentifiedQueueStoreEntry,
-  QueueStoreEntry,
-  QueueDb,
-} from "./QueueDb.js";
 import "../_version.js";
+
+import { assert } from "@serwist/core/private";
+
+import type {
+  QueueStoreEntry,
+  UnidentifiedQueueStoreEntry,
+} from "./QueueDb.js";
+import { QueueDb } from "./QueueDb.js";
 
 /**
  * A class to manage storing requests from a Queue in IndexedDB,
@@ -39,15 +41,12 @@ export class QueueStore {
   /**
    * Append an entry last in the queue.
    *
-   * @param {Object} entry
-   * @param {Object} entry.requestData
-   * @param {number} [entry.timestamp]
-   * @param {Object} [entry.metadata]
+   * @param entry
    */
   async pushEntry(entry: UnidentifiedQueueStoreEntry): Promise<void> {
     if (process.env.NODE_ENV !== "production") {
       assert!.isType(entry, "object", {
-        moduleName: "serwist-background-sync",
+        moduleName: "@serwist/background-sync",
         className: "QueueStore",
         funcName: "pushEntry",
         paramName: "entry",
@@ -129,7 +128,7 @@ export class QueueStore {
 
   /**
    * Returns all entries in the store matching the `queueName`.
-   * 
+   *
    * @returns
    */
   async getAll(): Promise<QueueStoreEntry[]> {

@@ -6,8 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { cacheNames as _cacheNames } from "./_private/cacheNames.js";
 import "./_version.js";
+
+import { cacheNames as _cacheNames } from "./_private/cacheNames.js";
 
 /**
  * Get the current cache names and prefix/suffix used by Workbox.

@@ -6,9 +6,10 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert } from "@serwist/core/private";
-import { MapLikeObject } from "@serwist/core/types";
 import "../_version.js";
+
+import { assert } from "@serwist/core/private";
+import type { MapLikeObject } from "@serwist/core/types";
 
 type SerializableProperties =
   | "method"

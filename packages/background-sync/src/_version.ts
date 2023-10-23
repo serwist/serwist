@@ -1,4 +1,6 @@
 try {
-  // @ts-ignore
+  // @ts-expect-error God knows
   self["workbox:background-sync:7.0.0"] && _();
-} catch (e) {}
+} catch (e) {
+  // Do nothing
+}

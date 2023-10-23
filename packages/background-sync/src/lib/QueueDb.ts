@@ -6,9 +6,12 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { openDB, DBSchema, IDBPDatabase } from "idb";
-import { RequestData } from "./StorableRequest.js";
 import "../_version.js";
+
+import type { DBSchema, IDBPDatabase } from "idb";
+import { openDB } from "idb";
+
+import type { RequestData } from "./StorableRequest.js";
 
 interface QueueDBSchema extends DBSchema {
   requests: {
@@ -28,10 +31,7 @@ export interface UnidentifiedQueueStoreEntry {
   timestamp: number;
   id?: number;
   queueName?: string;
-  // We could use Record<string, unknown> as a type but that would be a breaking
-  // change, better do it in next major release.
-  // eslint-disable-next-line  @typescript-eslint/ban-types
-  metadata?: object;
+  metadata?: Record<string, unknown>;
 }
 
 export interface QueueStoreEntry extends UnidentifiedQueueStoreEntry {
@@ -52,7 +52,7 @@ export class QueueDb {
   /**
    * Add QueueStoreEntry to underlying db.
    *
-   * @param {UnidentifiedQueueStoreEntry} entry
+   * @param entry
    */
   async addEntry(entry: UnidentifiedQueueStoreEntry): Promise<void> {
     const db = await this.getDb();
@@ -66,7 +66,7 @@ export class QueueDb {
   /**
    * Returns the first entry id in the ObjectStore.
    *
-   * @return {number | undefined}
+   * @returns
    */
   async getFirstEntryId(): Promise<number | undefined> {
     const db = await this.getDb();
@@ -80,7 +80,7 @@ export class QueueDb {
    * Get all the entries filtered by index
    *
    * @param queueName
-   * @return {Promise<QueueStoreEntry[]>}
+   * @returns
    */
   async getAllEntriesByQueueName(
     queueName: string
@@ -98,7 +98,7 @@ export class QueueDb {
    * Returns the number of entries filtered by index
    *
    * @param queueName
-   * @return {Promise<number>}
+   * @returns
    */
   async getEntryCountByQueueName(queueName: string): Promise<number> {
     const db = await this.getDb();
@@ -112,7 +112,7 @@ export class QueueDb {
   /**
    * Deletes a single entry by id.
    *
-   * @param {number} id the id of the entry to be deleted
+   * @param id the id of the entry to be deleted
    */
   async deleteEntry(id: number): Promise<void> {
     const db = await this.getDb();
@@ -122,7 +122,7 @@ export class QueueDb {
   /**
    *
    * @param queueName
-   * @returns {Promise<QueueStoreEntry | undefined>}
+   * @returns
    */
   async getFirstEntryByQueueName(
     queueName: string
@@ -133,7 +133,7 @@ export class QueueDb {
   /**
    *
    * @param queueName
-   * @returns {Promise<QueueStoreEntry | undefined>}
+   * @returns
    */
   async getLastEntryByQueueName(
     queueName: string
@@ -145,9 +145,9 @@ export class QueueDb {
    * Returns either the first or the last entries, depending on direction.
    * Filtered by index.
    *
-   * @param {IDBCursorDirection} direction
-   * @param {IDBKeyRange} query
-   * @return {Promise<QueueStoreEntry | undefined>}
+   * @param direction
+   * @param query
+   * @returns
    * @private
    */
   async getEndEntryFromIndex(
@@ -180,8 +180,8 @@ export class QueueDb {
   /**
    * Upgrades QueueDB
    *
-   * @param {IDBPDatabase<QueueDBSchema>} db
-   * @param {number} oldVersion
+   * @param db
+   * @param oldVersion
    * @private
    */
   private _upgradeDb(db: IDBPDatabase<QueueDBSchema>, oldVersion: number) {

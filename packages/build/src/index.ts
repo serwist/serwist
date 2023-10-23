@@ -12,9 +12,6 @@ import { injectManifest } from "./inject-manifest.js";
 import { getModuleURL } from "./lib/cdn-utils.js";
 import { copyWorkboxLibraries as copySerwistLibraries } from "./lib/copy-serwist-libraries.js";
 
-/**
- * @module workbox-build
- */
 export {
   copySerwistLibraries,
   generateSW,

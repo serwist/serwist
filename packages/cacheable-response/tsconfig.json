@@ -3,5 +3,5 @@
   "compilerOptions": {
     "module": "NodeNext"
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "rollup.config.js"]
 }

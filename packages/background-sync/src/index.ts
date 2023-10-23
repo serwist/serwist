@@ -6,12 +6,13 @@
   https://opensource.org/licenses/MIT.
 */
 
+import "./_version.js";
+
 import { BackgroundSyncPlugin } from "./BackgroundSyncPlugin.js";
-import { Queue, QueueOptions } from "./Queue.js";
+import type { QueueOptions } from "./Queue.js";
+import { Queue } from "./Queue.js";
 import { QueueStore } from "./QueueStore.js";
 import { StorableRequest } from "./StorableRequest.js";
-
-import "./_version.js";
 
 // See https://github.com/GoogleChrome/workbox/issues/2946
 interface SyncManager {
@@ -34,9 +35,6 @@ declare global {
   }
 }
 
-/**
- * @module workbox-background-sync
- */
 export { BackgroundSyncPlugin, Queue, QueueStore, StorableRequest };
 
 export type { QueueOptions };

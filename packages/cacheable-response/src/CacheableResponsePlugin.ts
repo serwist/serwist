@@ -6,12 +6,12 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { SerwistPlugin } from "@serwist/core/types";
-import {
-  CacheableResponse,
-  CacheableResponseOptions,
-} from "./CacheableResponse.js";
 import "./_version.js";
+
+import type { SerwistPlugin } from "@serwist/core/types";
+
+import type { CacheableResponseOptions } from "./CacheableResponse.js";
+import { CacheableResponse } from "./CacheableResponse.js";
 
 /**
  * A class implementing the `cacheWillUpdate` lifecycle callback. This makes it

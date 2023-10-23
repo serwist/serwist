@@ -6,10 +6,12 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { WorkboxPlugin } from "@serwist/core/types";
-
-import { Queue, QueueOptions } from "./Queue.js";
 import "./_version.js";
+
+import type { SerwistPlugin } from "@serwist/core/types";
+
+import type { QueueOptions } from "./Queue.js";
+import { Queue } from "./Queue.js";
 
 /**
  * A class implementing the `fetchDidFail` lifecycle callback. This makes it
@@ -17,7 +19,7 @@ import "./_version.js";
  *
  * @memberof workbox-background-sync
  */
-class BackgroundSyncPlugin implements WorkboxPlugin {
+class BackgroundSyncPlugin implements SerwistPlugin {
   private readonly _queue: Queue;
 
   /**
@@ -31,11 +33,10 @@ class BackgroundSyncPlugin implements WorkboxPlugin {
   }
 
   /**
-   * @param {Object} options
-   * @param {Request} options.request
+   * @param options
    * @private
    */
-  fetchDidFail: WorkboxPlugin["fetchDidFail"] = async ({ request }) => {
+  fetchDidFail: SerwistPlugin["fetchDidFail"] = async ({ request }) => {
     await this._queue.pushRequest({ request });
   };
 }

@@ -11,6 +11,6 @@ export { executeQuotaErrorCallbacks } from "./executeQuotaErrorCallbacks.js";
 export { getFriendlyURL } from "./getFriendlyURL.js";
 export { logger } from "./logger.js";
 export { resultingClientExists } from "./resultingClientExists.js";
+export { SerwistError } from "./SerwistError.js";
 export { timeout } from "./timeout.js";
 export { waitUntil } from "./waitUntil.js";
-export { SerwistError } from "./SerwistError.js";

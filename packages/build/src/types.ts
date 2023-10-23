@@ -1,5 +1,5 @@
 import type { PackageJson } from "type-fest";
-import type { QueueOptions } from "@serwist/background-sync/queue";
+import type { QueueOptions } from "@serwist/background-sync";
 import type { BroadcastCacheUpdateOptions } from "@serwist/broadcast-update";
 import type { CacheableResponseOptions } from "@serwist/cacheable-response";
 import type { RouteHandler, RouteMatchCallback , SerwistPlugin } from "@serwist/core/types";

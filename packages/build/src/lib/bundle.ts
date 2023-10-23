@@ -6,19 +6,18 @@
   https://opensource.org/licenses/MIT.
 */
 
-import presetEnv from "@babel/preset-env";
-import { babel } from "@rollup/plugin-babel";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import replace from "@rollup/plugin-replace";
-import omt from "@surma/rollup-plugin-off-main-thread";
+import swc from "@rollup/plugin-swc";
+import { omt } from "@serwist/rollup-plugin-off-main-thread";
 import { writeFile } from "fs-extra";
-import type { Plugin } from "rollup";
+import type { RollupOptions } from "rollup";
 import { rollup } from "rollup";
-import terser from "@rollup/plugin-terser";
 import { temporaryFile } from "tempy";
 import upath from "upath";
 
 import type { GeneratePartial, RequiredSWDestPartial } from "../types.js";
+import { defaultSwcRc } from "./.swcrc.js";
 
 interface NameAndContents {
   contents: string | Uint8Array;
@@ -43,64 +42,35 @@ export async function bundle({
   const tempFile = temporaryFile({ name: base });
   await writeFile(tempFile, unbundledCode);
 
-  const plugins = [
-    nodeResolve(),
-    (replace as unknown as typeof replace.default)({
-      // See https://github.com/GoogleChrome/workbox/issues/2769
-      preventAssignment: true,
-      "process.env.NODE_ENV": JSON.stringify(mode),
-    }),
-    babel({
-      babelHelpers: "bundled",
-      // Disable the logic that checks for local Babel config files:
-      // https://github.com/GoogleChrome/workbox/issues/2111
-      babelrc: false,
-      configFile: false,
-      presets: [
-        [
-          presetEnv,
-          {
-            targets: {
-              browsers: babelPresetEnvTargets,
-            },
-            loose: true,
-          },
-        ],
-      ],
-    }),
-  ];
+  const swcRc = defaultSwcRc;
 
-  if (mode === "production") {
-    plugins.push(
-      (terser as unknown as typeof terser.default)({
-        mangle: {
-          toplevel: true,
-          properties: {
-            regex: /(^_|_$)/,
-          },
-        },
-      })
-    );
+  if (!swcRc.env) {
+    swcRc.env = {};
   }
+  swcRc.env.targets = babelPresetEnvTargets;
 
-  const rollupConfig: {
-    input: string;
-    manualChunks?: (id: string) => string | undefined;
-    plugins: Array<Plugin>;
-  } = {
-    plugins,
+  const rollupConfig = {
+    plugins: [
+      nodeResolve(),
+      (replace as unknown as typeof replace.default)({
+        // See https://github.com/GoogleChrome/workbox/issues/2769
+        preventAssignment: true,
+        "process.env.NODE_ENV": JSON.stringify(mode),
+      }),
+      (swc as unknown as typeof swc.default)({
+        swc: {
+          ...swcRc,
+          minify: mode === "production",
+        },
+      }),
+    ],
     input: tempFile,
-  };
+  } satisfies RollupOptions;
 
   // Rollup will inline the runtime by default. If we don't want that, we need
   // to add in some additional config.
   if (!inlineWorkboxRuntime) {
-    // No lint for omt(), library has no types.
-    // eslint-disable-next-line  @typescript-eslint/no-unsafe-call
     rollupConfig.plugins.unshift(omt());
-    rollupConfig.manualChunks = (id) => {
-      return id.includes("workbox") ? "workbox" : undefined;
-    };
   }
 
   const bundle = await rollup(rollupConfig);
@@ -109,9 +79,14 @@ export async function bundle({
     sourcemap,
     // Using an external Workbox runtime requires 'amd'.
     format: inlineWorkboxRuntime ? "es" : "amd",
+    ...(!inlineWorkboxRuntime && {
+      manualChunks(id) {
+        return id.includes("workbox") ? "workbox" : undefined;
+      },
+    }),
   });
 
-  const files: Array<NameAndContents> = [];
+  const files: NameAndContents[] = [];
   for (const chunkOrAsset of output) {
     if (chunkOrAsset.type === "asset") {
       files.push({

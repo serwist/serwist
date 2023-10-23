@@ -6,20 +6,19 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { registerQuotaErrorCallback } from "./registerQuotaErrorCallback.js";
-import * as _private from "./_private.js";
-import { cacheNames } from "./cacheNames.js";
-import { copyResponse } from "./copyResponse.js";
-import { clientsClaim } from "./clientsClaim.js";
-import { setCacheNameDetails } from "./setCacheNameDetails.js";
 import "./_version.js";
+
+import { cacheNames } from "./cacheNames.js";
+import { clientsClaim } from "./clientsClaim.js";
+import { copyResponse } from "./copyResponse.js";
+import { registerQuotaErrorCallback } from "./registerQuotaErrorCallback.js";
+import { setCacheNameDetails } from "./setCacheNameDetails.js";
 
 /**
  * All Serwist libraries use `@serwist/core` for shared code as well as 
  * setting default values that need to be shared (like cache names).
  */
 export {
-  _private,
   cacheNames,
   clientsClaim,
   copyResponse,
