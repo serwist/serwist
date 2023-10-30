@@ -10,8 +10,8 @@ import { oneLine as ol } from "common-tags";
 import fse from "fs-extra";
 import stringifyObject from "stringify-object";
 
-import { logger } from "./logger";
-import { askQuestions } from "./questions/ask-questions";
+import { logger } from "./logger.js";
+import { askQuestions } from "./questions/ask-questions.js";
 
 export async function runWizard(options = {}): Promise<void> {
   const { configLocation, config } = await askQuestions(options);

@@ -5,9 +5,9 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-
-import { WorkboxError, logger } from "@serwist/core/private";
 import "./_version.js";
+
+import { logger, SerwistError } from "@serwist/core/private";
 
 /**
  * Given two `Response's`, compares several header values to see if they are
@@ -29,7 +29,7 @@ const responsesAreSame = (
     if (
       !(firstResponse instanceof Response && secondResponse instanceof Response)
     ) {
-      throw new WorkboxError("invalid-responses-are-same-args");
+      throw new SerwistError("invalid-responses-are-same-args");
     }
   }
 

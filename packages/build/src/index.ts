@@ -10,7 +10,7 @@ import { generateSW } from "./generate-sw.js";
 import { getManifest } from "./get-manifest.js";
 import { injectManifest } from "./inject-manifest.js";
 import { getModuleURL } from "./lib/cdn-utils.js";
-import { copyWorkboxLibraries as copySerwistLibraries } from "./lib/copy-serwist-libraries.js";
+import { copySerwistLibraries as copySerwistLibraries } from "./lib/copy-serwist-libraries.js";
 
 export {
   copySerwistLibraries,

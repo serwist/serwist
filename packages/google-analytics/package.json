@@ -1,13 +1,12 @@
 {
   "name": "@serwist/google-analytics",
   "version": "7.0.0",
-  "license": "MIT",
   "type": "module",
-  "author": "Google's Web DevRel Team, DuCanhGH",
   "description": "Queues failed requests and uses the Background Sync API to replay them when the network is available",
-  "repository": "DuCanhGH/next-pwa",
-  "bugs": "https://github.com/DuCanhGH/next-pwa/issues",
-  "homepage": "https://ducanh-next-pwa.vercel.app",
+  "files": [
+    "dist",
+    "!dist/**/dts"
+  ],
   "keywords": [
     "serwist",
     "serwistjs",
@@ -17,21 +16,52 @@
     "google",
     "analytics"
   ],
+  "author": "Google's Web DevRel Team, DuCanhGH",
+  "license": "MIT",
+  "repository": "serwist/serwist",
+  "bugs": "https://github.com/serwist/serwist/issues",
+  "homepage": "https://ducanh-next-pwa.vercel.app",
   "serwist": {
     "browserNamespace": "serwist.googleAnalytics",
     "outputFilename": "serwist-offline-ga",
     "packageType": "sw"
   },
-  "main": "index.js",
-  "module": "index.mjs",
-  "types": "index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.module.js",
+  "types": "./dist/index.module.d.ts",
   "exports": {
-    "./initialize": "./src/initialize.ts"
+    ".": {
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "default": {
+        "types": "./dist/index.module.d.ts",
+        "default": "./dist/index.module.js"
+      }
+    },
+    "./initialize": {
+      "require": {
+        "types": "./dist/initialize.d.cts",
+        "default": "./dist/initialize.cjs"
+      },
+      "default": {
+        "types": "./dist/initialize.module.d.ts",
+        "default": "./dist/initialize.module.js"
+      }
+    }
+  },
+  "scripts": {
+    "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js"
   },
   "dependencies": {
     "@serwist/background-sync": "workspace:*",
     "@serwist/core": "workspace:*",
     "@serwist/routing": "workspace:*",
     "@serwist/strategies": "workspace:*"
+  },
+  "devDependencies": {
+    "@serwist/constants": "workspace:*",
+    "rollup": "3.28.1"
   }
 }

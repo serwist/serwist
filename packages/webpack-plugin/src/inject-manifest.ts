@@ -6,14 +6,14 @@
   https://opensource.org/licenses/MIT.
 */
 
-import stringify from "fast-json-stable-stringify";
-import prettyBytes from "pretty-bytes";
-import upath from "upath";
-import webpack from "webpack";
 import type { WebpackInjectManifestOptions } from "@serwist/build";
 import { escapeRegExp } from "@serwist/build/lib/escape-regexp.js";
 import { replaceAndUpdateSourceMap } from "@serwist/build/lib/replace-and-update-source-map.js";
 import { validateWebpackInjectManifestOptions } from "@serwist/build/lib/validate-options.js";
+import stringify from "fast-json-stable-stringify";
+import prettyBytes from "pretty-bytes";
+import upath from "upath";
+import webpack from "webpack";
 
 import { getManifestEntriesFromCompilation } from "./lib/get-manifest-entries-from-compilation.js";
 import { getSourcemapAssetName } from "./lib/get-sourcemap-asset-name.js";

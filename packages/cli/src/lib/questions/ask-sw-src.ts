@@ -14,7 +14,7 @@ import inquirer from "inquirer";
 const name = "swSrc";
 
 /**
- * @return {Promise<Answers>} The answers from inquirer.
+ * @returns The answers from inquirer.
  */
 function askQuestion(): Promise<Answers> {
   return inquirer.prompt([

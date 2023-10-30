@@ -22,6 +22,20 @@ export default getRollupOptions({
         },
       ],
     },
+    {
+      input: "src/initialize.ts",
+      output: [
+        {
+          file: "dist/initialize.cjs",
+          format: "cjs",
+          exports: "named",
+        },
+        {
+          file: "dist/initialize.module.js",
+          format: "esm",
+        },
+      ],
+    },
   ],
   dtsFiles: [
     {
@@ -29,6 +43,13 @@ export default getRollupOptions({
       output: [
         { format: "es", file: "dist/index.module.d.ts" },
         { format: "cjs", file: "dist/index.d.cts" },
+      ],
+    },
+    {
+      input: "dist/dts/initialize.d.ts",
+      output: [
+        { format: "es", file: "dist/initialize.module.d.ts" },
+        { format: "cjs", file: "dist/initialize.d.cts" },
       ],
     },
   ],

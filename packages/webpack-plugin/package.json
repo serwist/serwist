@@ -3,6 +3,10 @@
   "version": "7.0.0",
   "type": "module",
   "description": "A plugin for your Webpack build process, helping you generate a manifest of local files that @serwist/sw should precache.",
+  "files": [
+    "dist",
+    "!dist/**/dts"
+  ],
   "keywords": [
     "serwist",
     "serwistjs",
@@ -13,21 +17,41 @@
     "offline",
     "file manifest"
   ],
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "author": "Google's Web DevRel Team, DuCanhGH",
+  "license": "MIT",
+  "repository": "serwist/serwist",
+  "bugs": "https://github.com/serwist/serwist/issues",
+  "homepage": "https://ducanh-next-pwa.vercel.app",
   "serwist": {
     "packageType": "node_ts"
   },
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.module.js",
+  "types": "./dist/index.module.d.ts",
   "exports": {
-    ".": "./src/index.ts"
+    ".": {
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "default": {
+        "types": "./dist/index.module.d.ts",
+        "default": "./dist/index.module.js"
+      }
+    }
   },
-  "engines": {
-    "node": ">=16.0.0"
+  "scripts": {
+    "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js"
   },
   "dependencies": {
     "@serwist/build": "workspace:*",
     "fast-json-stable-stringify": "2.1.0",
+    "picomatch": "3.0.1",
     "pretty-bytes": "6.1.1",
+    "rollup": "3.28.1",
     "upath": "2.0.1",
     "webpack-sources": "3.2.3"
   },
@@ -35,12 +59,8 @@
     "webpack": "4.4.0 || ^5.9.0"
   },
   "devDependencies": {
+    "@serwist/constants": "workspace:*",
     "@types/node": "20.8.7",
     "@types/webpack": "5.28.3"
-  },
-  "author": "Google's Web DevRel Team, DuCanhGH",
-  "license": "MIT",
-  "repository": "DuCanhGH/next-pwa",
-  "bugs": "https://github.com/DuCanhGH/next-pwa/issues",
-  "homepage": "https://ducanh-next-pwa.vercel.app"
+  }
 }

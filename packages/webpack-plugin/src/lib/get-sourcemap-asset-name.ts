@@ -6,9 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
+import { getSourceMapURL } from "@serwist/build/lib/get-source-map-url.js";
 import upath from "upath";
 import type { Compilation } from "webpack";
-import { getSourceMapURL } from "@serwist/build/lib/get-source-map-url.js";
 
 /**
  * If our bundled swDest file contains a sourcemap, we would invalidate that

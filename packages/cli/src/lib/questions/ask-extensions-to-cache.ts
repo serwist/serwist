@@ -7,14 +7,14 @@
 */
 
 import assert from "assert";
-import glob from "glob";
+import { glob } from "glob";
 import type { Answers } from "inquirer";
 import inquirer from "inquirer";
 import ora from "ora";
 import upath from "upath";
 
-import { constants } from "../constants";
-import { errors } from "../errors";
+import { constants } from "../constants.js";
+import { errors } from "../errors.js";
 
 // The key used for the question/answer.
 const name = "globPatterns";
@@ -25,31 +25,17 @@ const name = "globPatterns";
  * to all of the files under globDirectory.
  */
 async function getAllFileExtensions(globDirectory: string) {
-  const files: string[] = await new Promise((resolve, reject) => {
-    // Use a pattern to match any file that contains a '.', since that signifies
-    // the presence of a file extension.
-    glob(
-      "**/*.*",
-      {
-        cwd: globDirectory,
-        nodir: true,
-        ignore: [
-          ...constants.ignoredDirectories.map(
-            (directory) => `**/${directory}/**`
-          ),
-          ...constants.ignoredFileExtensions.map(
-            (extension) => `**/*.${extension}`
-          ),
-        ],
-      },
-      (error, files) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(files);
-        }
-      }
-    );
+  // Use a pattern to match any file that contains a '.', since that signifies
+  // the presence of a file extension.
+  const files: string[] = await glob("**/*.*", {
+    cwd: globDirectory,
+    nodir: true,
+    ignore: [
+      ...constants.ignoredDirectories.map((directory) => `**/${directory}/**`),
+      ...constants.ignoredFileExtensions.map(
+        (extension) => `**/*.${extension}`
+      ),
+    ],
   });
 
   const extensions: Set<string> = new Set();
@@ -65,8 +51,8 @@ async function getAllFileExtensions(globDirectory: string) {
 }
 
 /**
- * @param {string} globDirectory The directory used for the root of globbing.
- * @return {Promise<Answers>} The answers from inquirer.
+ * @param globDirectory The directory used for the root of globbing.
+ * @returns The answers from inquirer.
  */
 async function askQuestion(globDirectory: string): Promise<Answers> {
   // We need to get a list of extensions corresponding to files in the directory

@@ -21,6 +21,7 @@ export default getRollupOptions({
           format: "esm",
         },
       ],
+      external: ["lodash/template.js"]
     },
   ],
   dtsFiles: [

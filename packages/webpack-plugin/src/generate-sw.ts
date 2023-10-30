@@ -6,12 +6,12 @@
   https://opensource.org/licenses/MIT.
 */
 
-import prettyBytes from "pretty-bytes";
-import webpack from "webpack";
 import type { ManifestEntry, WebpackGenerateSWOptions } from "@serwist/build";
 import { bundle } from "@serwist/build/lib/bundle.js";
 import { populateSWTemplate } from "@serwist/build/lib/populate-sw-template.js";
 import { validateWebpackGenerateSWOptions } from "@serwist/build/lib/validate-options.js";
+import prettyBytes from "pretty-bytes";
+import webpack from "webpack";
 
 import { getManifestEntriesFromCompilation } from "./lib/get-manifest-entries-from-compilation.js";
 import { getScriptFilesForChunks } from "./lib/get-script-files-for-chunks.js";

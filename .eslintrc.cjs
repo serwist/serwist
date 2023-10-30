@@ -59,6 +59,7 @@ module.exports = {
     "import/no-unresolved": "off",
     "import/no-named-as-default": "off",
     "import/no-named-as-default-member": "off",
+    "no-fallthrough": "off",
     "no-unused-vars": "off",
     "no-extra-boolean-cast": "off",
     "simple-import-sort/imports": "warn",

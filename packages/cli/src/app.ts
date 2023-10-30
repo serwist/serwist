@@ -7,10 +7,10 @@
 */
 
 import {
-  injectManifest,
-  generateSW,
   copySerwistLibraries,
+  generateSW,
   type GenerateSWOptions,
+  injectManifest,
   type InjectManifestOptions,
 } from "@serwist/build";
 import assert from "assert";

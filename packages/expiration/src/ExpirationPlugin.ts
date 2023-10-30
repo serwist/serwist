@@ -6,6 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
+import "./_version.js";
+
+import { registerQuotaErrorCallback } from "@serwist/core";
 import {
   assert,
   cacheNames,
@@ -14,12 +17,9 @@ import {
   logger,
   SerwistError,
 } from "@serwist/core/private";
-import { registerQuotaErrorCallback } from "@serwist/core";
-import { SerwistPlugin } from "@serwist/core/types";
+import type { SerwistPlugin } from "@serwist/core/types";
 
 import { CacheExpiration } from "./CacheExpiration.js";
-
-import "./_version.js";
 
 export interface ExpirationPluginOptions {
   maxEntries?: number;

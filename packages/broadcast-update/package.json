@@ -2,12 +2,11 @@
   "name": "@serwist/broadcast-update",
   "version": "7.0.0",
   "type": "module",
-  "license": "MIT",
-  "author": "Google's Web DevRel Team, DuCanhGH",
   "description": "A service worker helper library that uses the Broadcast Channel API to announce when a cached response has updated",
-  "repository": "DuCanhGH/next-pwa",
-  "bugs": "https://github.com/DuCanhGH/next-pwa/issues",
-  "homepage": "https://ducanh-next-pwa.vercel.app",
+  "files": [
+    "dist",
+    "!dist/**/dts"
+  ],
   "keywords": [
     "serwist",
     "serwistjs",
@@ -15,17 +14,38 @@
     "sw",
     "serwist-plugin"
   ],
-  "workbox": {
-    "browserNamespace": "workbox.broadcastUpdate",
+  "author": "Google's Web DevRel Team, DuCanhGH",
+  "license": "MIT",
+  "repository": "serwist/serwist",
+  "bugs": "https://github.com/serwist/serwist/issues",
+  "homepage": "https://ducanh-next-pwa.vercel.app",
+  "serwist": {
+    "browserNamespace": "serwist.broadcastUpdate",
     "packageType": "sw"
   },
-  "main": "index.js",
-  "module": "index.mjs",
-  "types": "index.d.ts",
-  "dependencies": {
-    "@serwist/core": "7.0.0"
-  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.module.js",
+  "types": "./dist/index.module.d.ts",
   "exports": {
-    ".": "./src/index.ts"
+    ".": {
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "default": {
+        "types": "./dist/index.module.d.ts",
+        "default": "./dist/index.module.js"
+      }
+    }
+  },
+  "dependencies": {
+    "@serwist/core": "workspace:*"
+  },
+  "scripts": {
+    "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js"
+  },
+  "devDependencies": {
+    "@serwist/constants": "workspace:*",
+    "rollup": "3.28.1"
   }
 }

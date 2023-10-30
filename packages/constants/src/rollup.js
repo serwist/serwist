@@ -1,9 +1,4 @@
 /* eslint-disable import/no-extraneous-dependencies */
-/**
- * @typedef {Pick<import("rollup").RollupOptions, "input" | "output" | "plugins"> & {
- * external?: (string | RegExp)[] | string | RegExp;
- * }} FileEntry
- */
 import json from "@rollup/plugin-json";
 import nodeResolve from "@rollup/plugin-node-resolve";
 import swc from "@rollup/plugin-swc";

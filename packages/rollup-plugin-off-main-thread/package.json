@@ -2,7 +2,13 @@
     "name": "@serwist/rollup-plugin-off-main-thread",
     "version": "7.0.0",
     "type": "module",
+    "private": true,
     "description": "Use Rollup with workers and ES6 modules today.",
+    "files": [
+        "dist",
+        "loader.ejs",
+        "!dist/dts"
+    ],
     "keywords": [
         "serwist",
         "serwistjs",
@@ -17,9 +23,23 @@
     "repository": "serwist/serwist",
     "bugs": "https://github.com/serwist/serwist/issues",
     "homepage": "https://ducanh-next-pwa.vercel.app",
-    "main": "./src/index.ts",
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.module.js",
+    "types": "./dist/index.module.d.ts",
     "exports": {
-        ".": "./src/index.ts"
+        ".": {
+            "require": {
+                "types": "./dist/index.d.cts",
+                "default": "./dist/index.cjs"
+            },
+            "default": {
+                "types": "./dist/index.module.d.ts",
+                "default": "./dist/index.module.js"
+            }
+        }
+    },
+    "scripts": {
+        "build": "rimraf dist && cross-env NODE_OPTIONS='--max-old-space-size=4096' NODE_ENV=production rollup --config rollup.config.js"
     },
     "dependencies": {
         "ejs": "3.1.9",
@@ -27,7 +47,9 @@
         "magic-string": "0.30.5"
     },
     "devDependencies": {
-        "@types/ejs": "3.1.4"
+        "@serwist/constants": "workspace:*",
+        "@types/ejs": "3.1.4",
+        "rollup": "3.28.1"
     },
     "peerDependencies": {
         "rollup": "^3.28.1"

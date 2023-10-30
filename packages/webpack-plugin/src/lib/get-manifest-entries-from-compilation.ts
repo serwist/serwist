@@ -7,20 +7,14 @@
 */
 
 import type {
-  Asset,
-  Chunk,
-  Compilation,
-  WebpackError} from "webpack";
-import {
-  ModuleFilenameHelpers
-} from "webpack";
-import type {
   FileDetails,
   ManifestEntry,
   WebpackGenerateSWOptions,
   WebpackInjectManifestOptions,
 } from "@serwist/build";
 import { transformManifest } from "@serwist/build/lib/transform-manifest.js";
+import type { Asset, Chunk, Compilation, WebpackError } from "webpack";
+import { ModuleFilenameHelpers } from "webpack";
 
 import { getAssetHash } from "./get-asset-hash.js";
 import { resolveWebpackURL } from "./resolve-webpack-url.js";
@@ -28,12 +22,12 @@ import { resolveWebpackURL } from "./resolve-webpack-url.js";
 /**
  * For a given asset, checks whether at least one of the conditions matches.
  *
- * @param {Asset} asset The webpack asset in question. This will be passed
+ * @param asset The webpack asset in question. This will be passed
  * to any functions that are listed as conditions.
- * @param {Compilation} compilation The webpack compilation. This will be passed
+ * @param compilation The webpack compilation. This will be passed
  * to any functions that are listed as conditions.
- * @param {Array<string|RegExp|Function>} conditions
- * @return {boolean} Whether or not at least one condition matches.
+ * @param conditions
+ * @return Whether or not at least one condition matches.
  * @private
  */
 function checkConditions(
@@ -99,8 +93,8 @@ function getNamesOfAssetsInChunkOrGroup(
 /**
  * Returns the names of all the assets in a chunk.
  *
- * @param {Chunk} chunk
- * @return {Array<string>}
+ * @param chunk
+ * @returns
  * @private
  */
 function getNamesOfAssetsInChunk(chunk: Chunk): Array<string> {
@@ -121,9 +115,9 @@ function getNamesOfAssetsInChunk(chunk: Chunk): Array<string> {
  * - chunks and excludeChunks, for chunkName-based criteria.
  * - include and exclude, for more general criteria.
  *
- * @param {Compilation} compilation The webpack compilation.
- * @param {Object} config The validated configuration, obtained from the plugin.
- * @return {Set<Asset>} The assets that should be included in the manifest,
+ * @param compilation The webpack compilation.
+ * @param config The validated configuration, obtained from the plugin.
+ * @returns The assets that should be included in the manifest,
  * based on the criteria provided.
  * @private
  */

@@ -16,16 +16,18 @@ import { app } from "./app.js";
 import { cleanupStackTrace } from "./lib/cleanup-stack-trace.js";
 import { helpText } from "./lib/help-text.js";
 import { logger } from "./lib/logger.js";
-import { AnyFlags, BooleanFlag } from "./types.js";
+import type { AnyFlags, BooleanFlag } from "./types.js";
 
-export interface SupportedFlags extends AnyFlags{
+export interface SupportedFlags extends AnyFlags {
   debug: BooleanFlag;
   injectManifest: BooleanFlag;
   watch: BooleanFlag;
-};
+}
 
 void (async () => {
-  const params: MeowResult<any> = meow(helpText);
+  const params: MeowResult<any> = meow(helpText, {
+    importMeta: import.meta,
+  });
   updateNotifier({ pkg: params.pkg as Package }).notify();
 
   try {

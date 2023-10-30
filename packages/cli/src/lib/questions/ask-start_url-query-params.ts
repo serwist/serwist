@@ -10,8 +10,8 @@ import assert from "assert";
 import { oneLine as ol } from "common-tags";
 import inquirer from "inquirer";
 
-import { constants } from "../constants";
-import { errors } from "../errors";
+import { constants } from "../constants.js";
+import { errors } from "../errors.js";
 
 const START_URL_QUERY_PARAMS_PROMPT =
   "Please enter the search parameter(s) that you would like to ignore (separated by comma):";

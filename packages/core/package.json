@@ -1,28 +1,55 @@
 {
   "name": "@serwist/core",
   "version": "7.0.0",
-  "license": "MIT",
-  "author": "Google's Web DevRel Team, DuCanhGH",
+  "type": "module",
   "description": "This module is used by a number of the other Serwist modules to share common code.",
-  "repository": "DuCanhGH/next-pwa",
-  "bugs": "https://github.com/DuCanhGH/next-pwa/issues",
-  "homepage": "https://ducanh-next-pwa.vercel.app",
+  "files": [
+    "dist",
+    "!dist/**/dts"
+  ],
   "keywords": [
     "serwist",
     "serwistjs",
     "service worker",
     "sw"
   ],
+  "author": "Google's Web DevRel Team, DuCanhGH",
+  "license": "MIT",
+  "repository": "serwist/serwist",
+  "bugs": "https://github.com/serwist/serwist/issues",
+  "homepage": "https://ducanh-next-pwa.vercel.app",
   "serwist": {
     "browserNamespace": "serwist.core",
     "packageType": "sw"
   },
-  "main": "index.js",
-  "module": "index.mjs",
-  "types": "index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "private": ["./dist/private.d.ts"],
+      "types": ["./dist/types.d.ts"]
+    }
+  },
   "exports": {
-    ".": "./src/index.ts",
-    "./private": "./src/_private/index.ts",
-    "./types": "./src/types.ts"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./private":  {
+      "types": "./dist/private.d.ts",
+      "default": "./dist/private.js"
+    },
+    "./types": {
+      "types": "./dist/types.d.ts",
+      "default": null
+    }
+  },
+  "scripts": {
+    "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js"
+  },
+  "devDependencies": {
+    "@serwist/constants": "workspace:*",
+    "rollup": "3.28.1"
   }
 }

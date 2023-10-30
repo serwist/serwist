@@ -9,11 +9,11 @@
 import assert from "assert";
 import { oneLine as ol } from "common-tags";
 import fse from "fs-extra";
-import glob from "glob";
+import { glob } from "glob";
 import inquirer from "inquirer";
 
-import { constants } from "../constants";
-import { errors } from "../errors";
+import { constants } from "../constants.js";
+import { errors } from "../errors.js";
 
 const ROOT_PROMPT = "Please enter the path to the root of your web app:";
 
@@ -22,26 +22,12 @@ const questionRootDirectory = "globDirectory";
 const questionManualInput = "manualDirectoryInput";
 
 /**
- * @return {Promise<Array<string>>} The subdirectories of the current
+ * @return The subdirectories of the current
  * working directory, with hidden and ignored ones filtered out.
  */
-async function getSubdirectories(): Promise<Array<string>> {
-  return await new Promise((resolve, reject) => {
-    glob(
-      "*/",
-      {
-        ignore: constants.ignoredDirectories.map(
-          (directory) => `${directory}/`
-        ),
-      },
-      (error, directories) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(directories);
-        }
-      }
-    );
+async function getSubdirectories(): Promise<string[]> {
+  return await glob("*/", {
+    ignore: constants.ignoredDirectories.map((directory) => `${directory}/`),
   });
 }
 

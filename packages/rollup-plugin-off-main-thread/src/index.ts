@@ -19,6 +19,7 @@ import json5 from "json5";
 import MagicString from "magic-string";
 import type { Plugin as RollupPlugin, RenderedChunk } from "rollup";
 
+// __dirname is actually `/[...path]/dist`, not `/[...path]/src`. Be careful.
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export interface Options {
@@ -32,7 +33,7 @@ export interface Options {
 const defaultOpts = {
   // A string containing the EJS template for the amd loader. If `undefined`,
   // OMT will use `loader.ejs`.
-  loader: readFileSync(join(__dirname, "./loader.ejs"), "utf8"),
+  loader: readFileSync(join(__dirname, "../loader.ejs"), "utf8"),
   // Use `fetch()` + `eval()` to load dependencies instead of `<script>` tags
   // and `importScripts()`. _This is not CSP compliant, but is required if you
   // want to use dynamic imports in ServiceWorker_.

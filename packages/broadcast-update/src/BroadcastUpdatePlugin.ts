@@ -6,15 +6,13 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { dontWaitFor } from "@serwist/core/private";
-import { WorkboxPlugin } from "@serwist/core/types";
-
-import {
-  BroadcastCacheUpdate,
-  BroadcastCacheUpdateOptions,
-} from "./BroadcastCacheUpdate.js";
-
 import "./_version.js";
+
+import { dontWaitFor } from "@serwist/core/private";
+import type { SerwistPlugin } from "@serwist/core/types";
+
+import type { BroadcastCacheUpdateOptions } from "./BroadcastCacheUpdate.js";
+import { BroadcastCacheUpdate } from "./BroadcastCacheUpdate.js";
 
 /**
  * This plugin will automatically broadcast a message whenever a cached response
@@ -22,7 +20,7 @@ import "./_version.js";
  *
  * @memberof workbox-broadcast-update
  */
-class BroadcastUpdatePlugin implements WorkboxPlugin {
+class BroadcastUpdatePlugin implements SerwistPlugin {
   private readonly _broadcastUpdate: BroadcastCacheUpdate;
 
   /**
@@ -55,7 +53,7 @@ class BroadcastUpdatePlugin implements WorkboxPlugin {
    * @param {Request} options.request The request that triggered the update.
    * @param {Request} options.event The event that triggered the update.
    */
-  cacheDidUpdate: WorkboxPlugin["cacheDidUpdate"] = async (options) => {
+  cacheDidUpdate: SerwistPlugin["cacheDidUpdate"] = async (options) => {
     dontWaitFor(this._broadcastUpdate.notifyIfUpdated(options));
   };
 }

@@ -11,14 +11,14 @@ import type { Answers } from "inquirer";
 import inquirer from "inquirer";
 import upath from "upath";
 
-import { errors } from "../errors";
+import { errors } from "../errors.js";
 
 // The key used for the question/answer.
 const name = "swDest";
 
 /**
- * @param {string} defaultDir
- * @return {Promise<Answers>} The answers from inquirer.
+ * @param defaultDir
+ * @returns The answers from inquirer.
  */
 function askQuestion(defaultDir: string): Promise<Answers> {
   return inquirer.prompt([

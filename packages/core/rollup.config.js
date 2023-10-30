@@ -12,12 +12,16 @@ export default getRollupOptions({
       input: "src/index.ts",
       output: [
         {
-          file: "dist/index.cjs",
-          format: "cjs",
-          exports: "named",
+          file: "dist/index.js",
+          format: "esm",
         },
+      ],
+    },
+    {
+      input: "src/_private/index.ts",
+      output: [
         {
-          file: "dist/index.module.js",
+          file: "dist/private.js",
           format: "esm",
         },
       ],
@@ -26,10 +30,15 @@ export default getRollupOptions({
   dtsFiles: [
     {
       input: "dist/dts/index.d.ts",
-      output: [
-        { format: "es", file: "dist/index.module.d.ts" },
-        { format: "cjs", file: "dist/index.d.cts" },
-      ],
+      output: [{ format: "es", file: "dist/index.d.ts" }],
+    },
+    {
+      input: "dist/dts/_private/index.d.ts",
+      output: [{ format: "es", file: "dist/private.d.ts" }],
+    },
+    {
+      input: "dist/dts/types.d.ts",
+      output: [{ format: "es", file: "dist/types.d.ts" }],
     },
   ],
   shouldMinify: !isDev,

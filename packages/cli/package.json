@@ -3,6 +3,9 @@
   "version": "7.0.0",
   "type": "module",
   "description": "@serwist/cli is the command line interface for Serwist.",
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "serwist",
     "serwistjs",
@@ -12,12 +15,6 @@
     "offline",
     "cli"
   ],
-  "bin": {
-    "serwist": "dist/bin.js"
-  },
-  "files": [
-    "dist"
-  ],
   "engines": {
     "node": ">=16.0.0"
   },
@@ -26,6 +23,15 @@
   "repository": "serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",
   "homepage": "https://github.com/serwist/serwist",
+  "serwist": {
+    "packageType": "node_ts"
+  },
+  "bin": {
+    "serwist": "dist/bin.js"
+  },
+  "scripts": {
+    "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js"
+  },
   "dependencies": {
     "@serwist/build": "workspace:*",
     "chalk": "5.3.0",
@@ -41,14 +47,13 @@
     "upath": "2.0.1",
     "update-notifier": "6.0.2"
   },
-  "workbox": {
-    "packageType": "node_ts"
-  },
   "devDependencies": {
+    "@serwist/constants": "workspace:*",
     "@types/common-tags": "1.8.3",
     "@types/fs-extra": "11.0.2",
     "@types/inquirer": "9.0.5",
     "@types/stringify-object": "4.0.3",
-    "@types/update-notifier": "6.0.5"
+    "@types/update-notifier": "6.0.5",
+    "rollup": "3.28.1"
   }
 }

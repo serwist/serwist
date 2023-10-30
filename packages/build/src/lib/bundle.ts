@@ -10,7 +10,7 @@ import { nodeResolve } from "@rollup/plugin-node-resolve";
 import replace from "@rollup/plugin-replace";
 import swc from "@rollup/plugin-swc";
 import { omt } from "@serwist/rollup-plugin-off-main-thread";
-import { writeFile } from "fs-extra";
+import fse from "fs-extra";
 import type { RollupOptions } from "rollup";
 import { rollup } from "rollup";
 import { temporaryFile } from "tempy";
@@ -40,7 +40,7 @@ export async function bundle({
   const { dir, base } = upath.parse(swDest);
 
   const tempFile = temporaryFile({ name: base });
-  await writeFile(tempFile, unbundledCode);
+  await fse.writeFile(tempFile, unbundledCode);
 
   const swcRc = defaultSwcRc;
 

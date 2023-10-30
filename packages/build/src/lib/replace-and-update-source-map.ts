@@ -6,30 +6,43 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type {
-  RawSourceMap} from "source-map";
-import {
-  SourceMapConsumer,
-  SourceMapGenerator,
-} from "source-map";
+import type { RawSourceMap } from "source-map";
+import { SourceMapConsumer, SourceMapGenerator } from "source-map";
+
+interface ReplaceAndUpdateSourceMapOptions {
+  /**
+   * The name for the file whose contents
+   * correspond to originalSource.
+   */
+  jsFilename: string;
+  /**
+   * The sourcemap for originalSource,
+   * prior to any replacements.
+   */
+  originalMap: RawSourceMap;
+  /**
+   * The source code, prior to any
+   * replacements.
+   */
+  originalSource: string;
+  /**
+   * A string to swap in for searchString.
+   */
+  replaceString: string;
+  /**
+   * A string in originalSource to replace.
+   * Only the first occurrence will be replaced.
+   */
+  searchString: string;
+}
 
 /**
  * Adapted from https://github.com/nsams/sourcemap-aware-replace, with modern
  * JavaScript updates, along with additional properties copied from originalMap.
  *
- * @param {Object} options
- * @param {string} options.jsFilename The name for the file whose contents
- * correspond to originalSource.
- * @param {Object} options.originalMap The sourcemap for originalSource,
- * prior to any replacements.
- * @param {string} options.originalSource The source code, prior to any
- * replacements.
- * @param {string} options.replaceString A string to swap in for searchString.
- * @param {string} options.searchString A string in originalSource to replace.
- * Only the first occurrence will be replaced.
- * @return {{source: string, map: string}} An object containing both
+ * @param options
+ * @returns An object containing both
  * originalSource with the replacement applied, and the modified originalMap.
- *
  * @private
  */
 export async function replaceAndUpdateSourceMap({
@@ -38,13 +51,7 @@ export async function replaceAndUpdateSourceMap({
   originalSource,
   replaceString,
   searchString,
-}: {
-  jsFilename: string;
-  originalMap: RawSourceMap;
-  originalSource: string;
-  replaceString: string;
-  searchString: string;
-}): Promise<{ map: string; source: string }> {
+}: ReplaceAndUpdateSourceMapOptions): Promise<{ map: string; source: string }> {
   const generator = new SourceMapGenerator({
     file: jsFilename,
   });

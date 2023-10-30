@@ -31,13 +31,11 @@ const BUILD_DIR = "build";
  * {@link workbox-build.generateSW} don't need to
  * explicitly call this method.
  *
- * @param {string} destDirectory The path to the parent directory under which
+ * @param destDirectory The path to the parent directory under which
  * the new directory of libraries will be created.
- * @return {Promise<string>} The name of the newly created directory.
- *
- * @alias workbox-build.copyWorkboxLibraries
+ * @returns The name of the newly created directory.
  */
-export async function copyWorkboxLibraries(
+export async function copySerwistLibraries(
   destDirectory: string
 ): Promise<string> {
   // eslint-disable-next-line  @typescript-eslint/no-unsafe-assignment
@@ -46,7 +44,7 @@ export async function copyWorkboxLibraries(
   // directory. This should be safe, because lerna will bump workbox-build's
   // pkg.version whenever one of the dependent libraries gets bumped, and we
   // care about versioning the dependent libraries.
-  const workboxDirectoryName = `workbox-v${
+  const workboxDirectoryName = `serwist-v${
     thisPkg.version ? thisPkg.version : ""
   }`;
   const workboxDirectoryPath = upath.join(destDirectory, workboxDirectoryName);
