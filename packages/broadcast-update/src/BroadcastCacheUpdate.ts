@@ -6,13 +6,16 @@
   https://opensource.org/licenses/MIT.
 */
 
+import "./_version.js";
+
 import {
   assert,
-  timeout,
-  resultingClientExists,
   logger,
+  resultingClientExists,
+  timeout,
 } from "@serwist/core/private";
-import { CacheDidUpdateCallbackParam } from "@serwist/core/types";
+import type { CacheDidUpdateCallbackParam } from "@serwist/core/types";
+
 import { responsesAreSame } from "./responsesAreSame.js";
 import {
   CACHE_UPDATED_MESSAGE_META,
@@ -20,8 +23,6 @@ import {
   DEFAULT_HEADERS_TO_CHECK,
   NOTIFY_ALL_CLIENTS,
 } from "./utils/constants.js";
-
-import "./_version.js";
 
 // UA-sniff Safari: https://stackoverflow.com/questions/7944460/detect-safari-browser
 // TODO(philipwalton): remove once this Safari bug fix has been released.
@@ -32,10 +33,29 @@ const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 declare let self: ServiceWorkerGlobalScope;
 
 export interface BroadcastCacheUpdateOptions {
+  /**
+   * A list of headers that will be used to determine whether the responses
+   * differ.
+   * 
+   * @default ['content-length', 'etag', 'last-modified']
+   */
   headersToCheck?: string[];
+  /**
+   * A function whose return value
+   * will be used as the `payload` field in any cache update messages sent
+   * to the window clients.
+   * @param options 
+   * @returns 
+   */
   generatePayload?: (
     options: CacheDidUpdateCallbackParam
   ) => Record<string, any>;
+  /**
+   * If true (the default) then all open clients will receive a message. If false, 
+   * then only the client that make the original request will be notified of the update.
+   * 
+   * @default true
+   */
   notifyAllClients?: boolean;
 }
 
@@ -61,8 +81,6 @@ function defaultPayloadGenerator(
  *
  * For efficiency's sake, the underlying response bodies are not compared;
  * only specific response headers are checked.
- *
- * @memberof workbox-broadcast-update
  */
 class BroadcastCacheUpdate {
   private readonly _headersToCheck: string[];
@@ -75,16 +93,7 @@ class BroadcastCacheUpdate {
    * Construct a BroadcastCacheUpdate instance with a specific `channelName` to
    * broadcast messages on
    *
-   * @param {Object} [options]
-   * @param {Array<string>} [options.headersToCheck=['content-length', 'etag', 'last-modified']]
-   *     A list of headers that will be used to determine whether the responses
-   *     differ.
-   * @param {string} [options.generatePayload] A function whose return value
-   *     will be used as the `payload` field in any cache update messages sent
-   *     to the window clients.
-   * @param {boolean} [options.notifyAllClients=true] If true (the default) then
-   *     all open clients will receive a message. If false, then only the client
-   *     that make the original request will be notified of the update.
+   * @param options
    */
   constructor({
     generatePayload,
@@ -117,15 +126,8 @@ class BroadcastCacheUpdate {
    * }
    * ```
    *
-   * @param {Object} options
-   * @param {Response} [options.oldResponse] Cached response to compare.
-   * @param {Response} options.newResponse Possibly updated response to compare.
-   * @param {Request} options.request The request.
-   * @param {string} options.cacheName Name of the cache the responses belong
-   *     to. This is included in the broadcast message.
-   * @param {Event} options.event event The event that triggered
-   *     this possible cache update.
-   * @return {Promise} Resolves once the update is sent.
+   * @param options
+   * @returns Resolves once the update is sent.
    */
   async notifyIfUpdated(options: CacheDidUpdateCallbackParam): Promise<void> {
     if (process.env.NODE_ENV !== "production") {

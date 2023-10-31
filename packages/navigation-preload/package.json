@@ -1,12 +1,12 @@
 {
   "name": "@serwist/navigation-preload",
   "version": "7.0.0",
-  "license": "MIT",
-  "author": "Google's Web DevRel Team, DuCanhGH",
+  "type": "module",
   "description": "This library allows developers to opt-in to using Navigation Preload in their service worker.",
-  "repository": "DuCanhGH/next-pwa",
-  "bugs": "https://github.com/DuCanhGH/next-pwa/issues",
-  "homepage": "https://ducanh-next-pwa.vercel.app",
+  "files": [
+    "dist",
+    "!dist/**/dts"
+  ],
   "keywords": [
     "serwist",
     "serwistjs",
@@ -14,14 +14,38 @@
     "sw",
     "navigation"
   ],
+  "author": "Google's Web DevRel Team, DuCanhGH",
+  "license": "MIT",
+  "repository": "serwist/serwist",
+  "bugs": "https://github.com/DuCanhGH/next-pwa/issues",
+  "homepage": "https://ducanh-next-pwa.vercel.app",
   "serwist": {
     "browserNamespace": "serwist.navigationPreload",
     "packageType": "sw"
   },
-  "main": "index.js",
-  "module": "index.mjs",
-  "types": "index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.module.js",
+  "types": "./dist/index.module.d.ts",
+  "exports": {
+    ".": {
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "default": {
+        "types": "./dist/index.module.d.ts",
+        "default": "./dist/index.module.js"
+      }
+    }
+  },
+  "scripts": {
+    "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js"
+  },
   "dependencies": {
     "@serwist/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@serwist/constants": "workspace:*",
+    "rollup": "3.28.1"
   }
 }

@@ -2,12 +2,7 @@
   "name": "@serwist/recipes",
   "version": "7.0.0",
   "type": "module",
-  "license": "MIT",
-  "author": "Google's Web DevRel Team, DuCanhGH",
   "description": "A service worker helper library to manage common request and caching patterns",
-  "repository": "DuCanhGH/next-pwa",
-  "bugs": "https://github.com/DuCanhGH/next-pwa/issues",
-  "homepage": "https://ducanh-next-pwa.vercel.app",
   "keywords": [
     "serwist",
     "serwistjs",
@@ -16,13 +11,33 @@
     "router",
     "routing"
   ],
+  "author": "Google's Web DevRel Team, DuCanhGH",
+  "license": "MIT",
+  "repository": "serwist/serwist",
+  "bugs": "https://github.com/serwist/serwist/issues",
+  "homepage": "https://ducanh-next-pwa.vercel.app",
   "serwist": {
     "browserNamespace": "serwist.recipes",
     "packageType": "sw"
   },
-  "main": "index.js",
-  "module": "index.mjs",
-  "types": "index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.module.js",
+  "types": "./dist/index.module.d.ts",
+  "exports": {
+    ".": {
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "default": {
+        "types": "./dist/index.module.d.ts",
+        "default": "./dist/index.module.js"
+      }
+    }
+  },
+  "scripts": {
+    "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js"
+  },
   "dependencies": {
     "@serwist/cacheable-response": "workspace:*",
     "@serwist/core": "workspace:*",
@@ -30,5 +45,9 @@
     "@serwist/precaching": "workspace:*",
     "@serwist/routing": "workspace:*",
     "@serwist/strategies": "workspace:*"
+  },
+  "devDependencies": {
+    "@serwist/constants": "workspace:*",
+    "rollup": "3.28.1"
   }
 }

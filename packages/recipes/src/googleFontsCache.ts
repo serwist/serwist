@@ -5,12 +5,12 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-import { registerRoute } from "@serwist/routing";
-import { StaleWhileRevalidate, CacheFirst } from "@serwist/strategies";
+import "./_version.js";
+
 import { CacheableResponsePlugin } from "@serwist/cacheable-response";
 import { ExpirationPlugin } from "@serwist/expiration";
-
-import "./_version.js";
+import { registerRoute } from "@serwist/routing";
+import { CacheFirst, StaleWhileRevalidate } from "@serwist/strategies";
 
 export interface GoogleFontCacheOptions {
   /**

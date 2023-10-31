@@ -6,18 +6,25 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert, getFriendlyURL, logger, SerwistError } from "@serwist/core/private";
+import "./_version.js";
+
 import {
+  assert,
+  getFriendlyURL,
+  logger,
+  SerwistError,
+} from "@serwist/core/private";
+import type {
   RouteHandler,
-  RouteHandlerObject,
   RouteHandlerCallbackOptions,
+  RouteHandlerObject,
   RouteMatchCallbackOptions,
 } from "@serwist/core/types";
-import { HTTPMethod, defaultMethod } from "./utils/constants.js";
-import { normalizeHandler } from "./utils/normalizeHandler.js";
-import { Route } from "./Route.js";
 
-import "./_version.js";
+import type { Route } from "./Route.js";
+import type { HTTPMethod } from "./utils/constants.js";
+import { defaultMethod } from "./utils/constants.js";
+import { normalizeHandler } from "./utils/normalizeHandler.js";
 
 type RequestArgs = string | [string, RequestInit?];
 
@@ -29,12 +36,12 @@ interface CacheURLsMessageData {
 }
 
 /**
- * The Router can be used to process a `FetchEvent` using one or more `@serwist/routing` Route(s), 
+ * The Router can be used to process a `FetchEvent` using one or more `@serwist/routing` Route(s),
  * responding with a `Response` if a matching route exists.
  *
  * If no route matches a given a request, the Router will use a "default" handler if one is defined.
  *
- * Should the matching Route throw an error, the Router will use a "catch" handler if one is defined to 
+ * Should the matching Route throw an error, the Router will use a "catch" handler if one is defined to
  * gracefully deal with issues and respond with a Request.
  *
  * If a request matches multiple routes, the **earliest** registered route will
@@ -380,7 +387,7 @@ class Router {
    * network as if there were no service worker present.
    *
    * @param handler A callback function that returns a Promise resulting in a Response.
-   * @param method The HTTP method to associate with this default handler. Each method 
+   * @param method The HTTP method to associate with this default handler. Each method
    * has its own default. Defaults to GET.
    */
   setDefaultHandler(
@@ -394,7 +401,7 @@ class Router {
    * If a Route throws an error while handling a request, this `handler`
    * will be called and given a chance to provide a response.
    *
-   * @param handler A callback function that returns a Promise resulting 
+   * @param handler A callback function that returns a Promise resulting
    * in a Response.
    */
   setCatchHandler(handler: RouteHandler): void {

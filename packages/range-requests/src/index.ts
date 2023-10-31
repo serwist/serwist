@@ -6,8 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
+import "./_version.js";
+
 import { createPartialResponse } from "./createPartialResponse.js";
 import { RangeRequestsPlugin } from "./RangeRequestsPlugin.js";
-import "./_version.js";
 
 export { createPartialResponse, RangeRequestsPlugin };

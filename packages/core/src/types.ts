@@ -117,10 +117,26 @@ export interface HandlerWillStartCallback {
 }
 
 export interface CacheDidUpdateCallbackParam {
+  /**
+   * Name of the cache the responses belong to. This is included in the 
+   * broadcast message.
+   */
   cacheName: string;
+  /**
+   * Possibly updated response to compare.
+   */
   newResponse: Response;
+  /**
+   * The request.
+   */
   request: Request;
+  /**
+   * The event that triggered this possible cache update.
+   */
   event: ExtendableEvent;
+  /**
+   * Cached response to compare.
+   */
   oldResponse?: Response | null;
   state?: PluginState;
 }

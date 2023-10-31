@@ -1,12 +1,8 @@
 {
   "name": "@serwist/window",
   "version": "7.0.0",
-  "license": "MIT",
-  "author": "Google's Web DevRel Team, DuCanhGH",
+  "type": "module",
   "description": "Simplifies communications with Serwist packages running in the service worker",
-  "repository": "DuCanhGH/next-pwa",
-  "bugs": "https://github.com/DuCanhGH/next-pwa/issues",
-  "homepage": "https://ducanh-next-pwa.vercel.app",
   "keywords": [
     "serwist",
     "serwistjs",
@@ -16,15 +12,39 @@
     "message",
     "postMessage"
   ],
+  "author": "Google's Web DevRel Team, DuCanhGH",
+  "license": "MIT",
+  "repository": "serwist/serwist",
+  "bugs": "https://github.com/serwist/serwist/issues",
+  "homepage": "https://ducanh-next-pwa.vercel.app",
   "serwist": {
     "packageType": "window",
-    "primaryBuild": "build/serwist-window.prod.mjs"
+    "primaryBuild": "dist/index.module.js"
   },
-  "main": "build/serwist-window.prod.umd.js",
-  "module": "build/serwist-window.prod.es5.mjs",
-  "types": "index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.module.js",
+  "types": "./dist/index.module.d.ts",
+  "exports": {
+    ".": {
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "default": {
+        "types": "./dist/index.module.d.ts",
+        "default": "./dist/index.module.js"
+      }
+    }
+  },
+  "scripts": {
+    "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js"
+  },
   "dependencies": {
     "@serwist/core": "7.0.0",
     "@types/trusted-types": "2.0.4"
+  },
+  "devDependencies": {
+    "@serwist/constants": "workspace:*",
+    "rollup": "3.28.1"
   }
 }

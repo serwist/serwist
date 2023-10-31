@@ -6,18 +6,16 @@
   https://opensource.org/licenses/MIT.
 */
 
+import "./_version.js";
+
 import { Deferred, dontWaitFor, logger } from "@serwist/core/private";
-import { TrustedScriptURL } from "trusted-types/lib";
+import type { TrustedScriptURL } from "trusted-types/lib";
 
 import { messageSW } from "./messageSW.js";
-import { WorkboxEventTarget } from "./utils/WorkboxEventTarget.js";
 import { urlsMatch } from "./utils/urlsMatch.js";
-import {
-  WorkboxEvent,
-  WorkboxLifecycleEventMap,
-} from "./utils/WorkboxEvent.js";
-
-import "./_version.js";
+import type { WorkboxLifecycleEventMap } from "./utils/WorkboxEvent.js";
+import { WorkboxEvent } from "./utils/WorkboxEvent.js";
+import { WorkboxEventTarget } from "./utils/WorkboxEventTarget.js";
 
 // The time a SW must be in the waiting phase before we can conclude
 // `skipWaiting()` wasn't called. This 200 amount wasn't scientifically

@@ -31,7 +31,7 @@ export class QueueStore {
    * Associates this instance with a Queue instance, so entries added can be
    * identified by their queue name.
    *
-   * @param {string} queueName
+   * @param queueName
    */
   constructor(queueName: string) {
     this._queueName = queueName;
@@ -69,10 +69,7 @@ export class QueueStore {
   /**
    * Prepend an entry first in the queue.
    *
-   * @param {Object} entry
-   * @param {Object} entry.requestData
-   * @param {number} [entry.timestamp]
-   * @param {Object} [entry.metadata]
+   * @param entry
    */
   async unshiftEntry(entry: UnidentifiedQueueStoreEntry): Promise<void> {
     if (process.env.NODE_ENV !== "production") {
@@ -152,7 +149,7 @@ export class QueueStore {
    * as this class is not publicly exposed. An additional check would make
    * this method slower than it needs to be.
    *
-   * @param {number} id
+   * @param id
    */
   async deleteEntry(id: number): Promise<void> {
     await this._queueDb.deleteEntry(id);

@@ -89,8 +89,8 @@ const queueNames = new Set<string>();
  * converting the request data into a real request and omitting the `id` and
  * `queueName` properties.
  *
- * @param {UnidentifiedQueueStoreEntry} queueStoreEntry
- * @return {Queue}
+ * @param queueStoreEntry
+ * @returns
  * @private
  */
 const convertEntry = (

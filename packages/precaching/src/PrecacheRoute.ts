@@ -6,18 +6,18 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { logger, getFriendlyURL } from "@serwist/core/private";
-import {
+import "./_version.js";
+
+import { getFriendlyURL,logger } from "@serwist/core/private";
+import type {
   RouteMatchCallback,
   RouteMatchCallbackOptions,
 } from "@serwist/core/types";
 import { Route } from "@serwist/routing";
 
-import { PrecacheRouteOptions } from "./_types.js";
-import { PrecacheController } from "./PrecacheController.js";
+import type { PrecacheRouteOptions } from "./_types.js";
+import type { PrecacheController } from "./PrecacheController.js";
 import { generateURLVariations } from "./utils/generateURLVariations.js";
-
-import "./_version.js";
 
 /**
  * A subclass of {@link workbox-routing.Route} that takes a

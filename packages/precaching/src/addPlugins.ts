@@ -6,18 +6,18 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { WorkboxPlugin } from "@serwist/core/types.js";
-import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheController.js";
 import "./_version.js";
+
+import type { SerwistPlugin } from "@serwist/core/types";
+
+import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheController.js";
 
 /**
  * Adds plugins to the precaching strategy.
  *
- * @param {Array<Object>} plugins
- *
- * @memberof workbox-precaching
+ * @param plugins
  */
-function addPlugins(plugins: WorkboxPlugin[]): void {
+function addPlugins(plugins: SerwistPlugin[]): void {
   const precacheController = getOrCreatePrecacheController();
   precacheController.strategy.plugins.push(...plugins);
 }

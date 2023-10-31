@@ -6,12 +6,26 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { WorkboxPlugin } from "@serwist/core/types.js";
-
-import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheController.js";
-import { PrecacheController } from "./PrecacheController.js";
-
 import "./_version.js";
+
+import type { SerwistPlugin } from "@serwist/core/types";
+
+import type { PrecacheController } from "./PrecacheController.js";
+import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheController.js";
+
+interface PrecacheFallbackPluginOptions {
+  /**
+   * A precached URL to use as the fallback
+   * if the associated strategy can't generate a response.
+   */
+  fallbackURL: string;
+  /**
+   * An optional
+   * PrecacheController instance. If not provided, the default
+   * PrecacheController will be used.
+   */
+  precacheController?: PrecacheController;
+}
 
 /**
  * `PrecacheFallbackPlugin` allows you to specify an "offline fallback"
@@ -24,41 +38,30 @@ import "./_version.js";
  * Unless you explicitly pass in a `PrecacheController` instance to the
  * constructor, the default instance will be used. Generally speaking, most
  * developers will end up using the default.
- *
- * @memberof workbox-precaching
  */
-class PrecacheFallbackPlugin implements WorkboxPlugin {
+class PrecacheFallbackPlugin implements SerwistPlugin {
   private readonly _fallbackURL: string;
   private readonly _precacheController: PrecacheController;
 
   /**
    * Constructs a new PrecacheFallbackPlugin with the associated fallbackURL.
    *
-   * @param {Object} config
-   * @param {string} config.fallbackURL A precached URL to use as the fallback
-   *     if the associated strategy can't generate a response.
-   * @param {PrecacheController} [config.precacheController] An optional
-   *     PrecacheController instance. If not provided, the default
-   *     PrecacheController will be used.
+   * @param config
    */
   constructor({
     fallbackURL,
     precacheController,
-  }: {
-    fallbackURL: string;
-    precacheController?: PrecacheController;
-  }) {
+  }: PrecacheFallbackPluginOptions) {
     this._fallbackURL = fallbackURL;
     this._precacheController =
       precacheController || getOrCreatePrecacheController();
   }
 
   /**
-   * @return {Promise<Response>} The precache response for the fallback URL.
-   *
+   * @returns The precache response for the fallback URL.
    * @private
    */
-  handlerDidError: WorkboxPlugin["handlerDidError"] = () =>
+  handlerDidError: SerwistPlugin["handlerDidError"] = () =>
     this._precacheController.matchPrecache(this._fallbackURL);
 }
 

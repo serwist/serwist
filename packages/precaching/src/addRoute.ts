@@ -5,13 +5,13 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { registerRoute } from "@serwist/routing/registerRoute.js";
-
-import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheController.js";
-import { PrecacheRoute } from "./PrecacheRoute.js";
-import { PrecacheRouteOptions } from "./_types.js";
-
 import "./_version.js";
+
+import { registerRoute } from "@serwist/routing";
+
+import type { PrecacheRouteOptions } from "./_types.js";
+import { PrecacheRoute } from "./PrecacheRoute.js";
+import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheController.js";
 
 /**
  * Add a `fetch` listener to the service worker that will

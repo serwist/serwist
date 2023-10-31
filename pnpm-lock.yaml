@@ -426,6 +426,13 @@ importers:
       '@serwist/core':
         specifier: workspace:*
         version: link:../core
+    devDependencies:
+      '@serwist/constants':
+        specifier: workspace:*
+        version: link:../constants
+      rollup:
+        specifier: 3.28.1
+        version: 3.28.1
 
   packages/next:
     dependencies:
@@ -517,12 +524,26 @@ importers:
       '@serwist/strategies':
         specifier: workspace:*
         version: link:../strategies
+    devDependencies:
+      '@serwist/constants':
+        specifier: workspace:*
+        version: link:../constants
+      rollup:
+        specifier: 3.28.1
+        version: 3.28.1
 
   packages/range-requests:
     dependencies:
       '@serwist/core':
         specifier: workspace:*
         version: link:../core
+    devDependencies:
+      '@serwist/constants':
+        specifier: workspace:*
+        version: link:../constants
+      rollup:
+        specifier: 3.28.1
+        version: 3.28.1
 
   packages/recipes:
     dependencies:
@@ -544,6 +565,13 @@ importers:
       '@serwist/strategies':
         specifier: workspace:*
         version: link:../strategies
+    devDependencies:
+      '@serwist/constants':
+        specifier: workspace:*
+        version: link:../constants
+      rollup:
+        specifier: 3.28.1
+        version: 3.28.1
 
   packages/rollup-plugin-off-main-thread:
     dependencies:
@@ -572,12 +600,26 @@ importers:
       '@serwist/core':
         specifier: workspace:*
         version: link:../core
+    devDependencies:
+      '@serwist/constants':
+        specifier: workspace:*
+        version: link:../constants
+      rollup:
+        specifier: 3.28.1
+        version: 3.28.1
 
   packages/strategies:
     dependencies:
       '@serwist/core':
         specifier: workspace:*
         version: link:../core
+    devDependencies:
+      '@serwist/constants':
+        specifier: workspace:*
+        version: link:../constants
+      rollup:
+        specifier: 3.28.1
+        version: 3.28.1
 
   packages/streams:
     dependencies:
@@ -587,6 +629,13 @@ importers:
       '@serwist/routing':
         specifier: workspace:*
         version: link:../routing
+    devDependencies:
+      '@serwist/constants':
+        specifier: workspace:*
+        version: link:../constants
+      rollup:
+        specifier: 3.28.1
+        version: 3.28.1
 
   packages/sw: {}
 
@@ -635,6 +684,13 @@ importers:
       '@types/trusted-types':
         specifier: 2.0.4
         version: 2.0.4
+    devDependencies:
+      '@serwist/constants':
+        specifier: workspace:*
+        version: link:../constants
+      rollup:
+        specifier: 3.28.1
+        version: 3.28.1
 
 packages:
 

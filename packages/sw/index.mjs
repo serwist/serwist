@@ -6,12 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { WorkboxSW } from "./controllers/WorkboxSW.mjs";
 import "./_version.mjs";
 
-/**
- * @namespace workbox
- */
+import { WorkboxSW } from "./controllers/WorkboxSW.mjs";
 
 // Don't export anything, just expose a global.
 self.workbox = new WorkboxSW();

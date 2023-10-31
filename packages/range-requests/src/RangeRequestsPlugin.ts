@@ -6,10 +6,11 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { SerwistPlugin } from "@serwist/core/types";
+import "./_version.js";
+
+import type { SerwistPlugin } from "@serwist/core/types";
 
 import { createPartialResponse } from "./createPartialResponse.js";
-import "./_version.js";
 
 /**
  * The range request plugin makes it easy for a request with a 'Range' header to

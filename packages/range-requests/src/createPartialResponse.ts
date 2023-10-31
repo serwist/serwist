@@ -6,10 +6,12 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { SerwistError, assert, logger } from "@serwist/core/private";
+import "./_version.js";
+
+import { assert, logger, SerwistError } from "@serwist/core/private";
+
 import { calculateEffectiveBoundaries } from "./utils/calculateEffectiveBoundaries.js";
 import { parseRangeHeader } from "./utils/parseRangeHeader.js";
-import "./_version.js";
 
 /**
  * Given a `Request` and `Response` objects as input, this will return a

@@ -17,8 +17,6 @@ import { BroadcastCacheUpdate } from "./BroadcastCacheUpdate.js";
 /**
  * This plugin will automatically broadcast a message whenever a cached response
  * is updated.
- *
- * @memberof workbox-broadcast-update
  */
 class BroadcastUpdatePlugin implements SerwistPlugin {
   private readonly _broadcastUpdate: BroadcastCacheUpdate;
@@ -28,13 +26,7 @@ class BroadcastUpdatePlugin implements SerwistPlugin {
    * the passed options and calls its `notifyIfUpdated` method whenever the
    * plugin's `cacheDidUpdate` callback is invoked.
    *
-   * @param {Object} [options]
-   * @param {Array<string>} [options.headersToCheck=['content-length', 'etag', 'last-modified']]
-   *     A list of headers that will be used to determine whether the responses
-   *     differ.
-   * @param {string} [options.generatePayload] A function whose return value
-   *     will be used as the `payload` field in any cache update messages sent
-   *     to the window clients.
+   * @param options
    */
   constructor(options?: BroadcastCacheUpdateOptions) {
     this._broadcastUpdate = new BroadcastCacheUpdate(options);
@@ -46,12 +38,7 @@ class BroadcastUpdatePlugin implements SerwistPlugin {
    * added to a cache.
    *
    * @private
-   * @param {Object} options The input object to this function.
-   * @param {string} options.cacheName Name of the cache being updated.
-   * @param {Response} [options.oldResponse] The previous cached value, if any.
-   * @param {Response} options.newResponse The new value in the cache.
-   * @param {Request} options.request The request that triggered the update.
-   * @param {Request} options.event The event that triggered the update.
+   * @param options The input object to this function.
    */
   cacheDidUpdate: SerwistPlugin["cacheDidUpdate"] = async (options) => {
     dontWaitFor(this._broadcastUpdate.notifyIfUpdated(options));
