@@ -6,11 +6,14 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { ok } from "assert";
+import { ok } from "node:assert";
+import { createRequire } from "node:module";
 
 import cdn from "../cdn-details.json";
 import type { BuildType, SerwistPackageJSON } from "../types.js";
 import { errors } from "./errors.js";
+
+const require = createRequire(import.meta.url);
 
 function getVersionedURL(): string {
   return `${getCDNPrefix()}/${cdn.latestVersion}`;
@@ -24,7 +27,6 @@ export function getModuleURL(moduleName: string, buildType: BuildType): string {
   ok(moduleName, errors["no-module-name"]);
 
   if (buildType) {
-    // eslint-disable-next-line  @typescript-eslint/no-unsafe-assignment
     const pkgJson: SerwistPackageJSON = require(`${moduleName}/package.json`);
     if (buildType === "dev" && pkgJson.serwist && pkgJson.serwist.prodOnly) {
       // This is not due to a public-facing exception, so just throw an Error(),

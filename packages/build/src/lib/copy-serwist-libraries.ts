@@ -5,12 +5,15 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
+import { createRequire } from "node:module";
 
 import fse from "fs-extra";
 import upath from "upath";
 
 import type { SerwistPackageJSON } from "../types.js";
 import { errors } from "./errors.js";
+
+const require = createRequire(import.meta.url);
 
 // Used to filter the libraries to copy based on our package.json dependencies.
 const SERWIST_PREFIX = "serwist-";
@@ -38,7 +41,6 @@ const BUILD_DIR = "build";
 export async function copySerwistLibraries(
   destDirectory: string
 ): Promise<string> {
-  // eslint-disable-next-line  @typescript-eslint/no-unsafe-assignment
   const thisPkg: SerwistPackageJSON = require("../../package.json");
   // Use the version string from workbox-build in the name of the parent
   // directory. This should be safe, because lerna will bump workbox-build's

@@ -5,6 +5,7 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
+import { createRequire } from "node:module";
 
 import type { WebpackInjectManifestOptions } from "@serwist/build";
 import { escapeRegExp } from "@serwist/build/lib/escape-regexp.js";
@@ -18,6 +19,9 @@ import webpack from "webpack";
 import { getManifestEntriesFromCompilation } from "./lib/get-manifest-entries-from-compilation.js";
 import { getSourcemapAssetName } from "./lib/get-sourcemap-asset-name.js";
 import { relativeToOutputPath } from "./lib/relative-to-output-path.js";
+
+const require = createRequire(import.meta.url);
+
 // Used to keep track of swDest files written by *any* instance of this plugin.
 // See https://github.com/GoogleChrome/workbox/issues/2181
 const _generatedAssetNames = new Set<string>();

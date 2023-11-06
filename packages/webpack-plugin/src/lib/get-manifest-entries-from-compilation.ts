@@ -14,7 +14,7 @@ import type {
 } from "@serwist/build";
 import { transformManifest } from "@serwist/build/lib/transform-manifest.js";
 import type { Asset, Chunk, Compilation, WebpackError } from "webpack";
-import { ModuleFilenameHelpers } from "webpack";
+import webpack from "webpack";
 
 import { getAssetHash } from "./get-asset-hash.js";
 import { resolveWebpackURL } from "./resolve-webpack-url.js";
@@ -44,7 +44,7 @@ function checkConditions(
       return condition({ asset, compilation });
       //return compilation !== null;
     } else {
-      if (ModuleFilenameHelpers.matchPart(asset.name, condition)) {
+      if (webpack.ModuleFilenameHelpers.matchPart(asset.name, condition)) {
         return true;
       }
     }

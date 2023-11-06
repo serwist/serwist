@@ -99,7 +99,7 @@ export function populateSWTemplate({
     throw new Error(
       `${errors["populating-sw-tmpl-failed"]} '${
         error instanceof Error && error.message ? error.message : ""
-      }'`
+      }' ${error}`
     );
   }
 }

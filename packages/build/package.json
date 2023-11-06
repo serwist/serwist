@@ -42,8 +42,14 @@
       }
     },
     "./lib/*.js": {
-      "types": "./dist/lib/*.d.ts",
-      "default": "./dist/lib/*.js"
+      "require": {
+        "types": "./dist/lib/*.d.cts",
+        "default": "./dist/lib/*.cjs"
+      },
+      "default": {
+        "types": "./dist/lib/*.module.d.ts",
+        "default": "./dist/lib/*.module.js"
+      }
     },
     "./package.json": "./package.json"
   },
@@ -56,6 +62,7 @@
     "@babel/preset-env": "7.23.2",
     "@babel/runtime": "7.23.2",
     "@rollup/plugin-babel": "6.0.4",
+    "@rollup/plugin-commonjs": "25.0.7",
     "@rollup/plugin-node-resolve": "15.2.3",
     "@rollup/plugin-replace": "5.0.4",
     "@rollup/plugin-swc": "0.2.1",
@@ -70,7 +77,6 @@
     "@serwist/precaching": "workspace:*",
     "@serwist/range-requests": "workspace:*",
     "@serwist/recipes": "workspace:*",
-    "@serwist/rollup-plugin-off-main-thread": "workspace:*",
     "@serwist/routing": "workspace:*",
     "@serwist/strategies": "workspace:*",
     "@serwist/streams": "workspace:*",
@@ -81,6 +87,7 @@
     "common-tags": "1.8.2",
     "fast-json-stable-stringify": "2.1.0",
     "fs-extra": "11.1.1",
+    "fsevents": "2.3.3",
     "glob": "10.3.10",
     "lodash": "4.17.21",
     "pretty-bytes": "6.1.1",

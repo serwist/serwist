@@ -21,8 +21,13 @@ const libJs = libTs.map((file) => {
     input: `src/lib/${parsedFilename.base}`,
     output: [
       {
-        file: `dist/lib/${parsedFilename.name}.js`,
+        file: `dist/lib/${parsedFilename.name}.module.js`,
         format: "esm",
+      },
+      {
+        file: `dist/lib/${parsedFilename.name}.cjs`,
+        format: "cjs",
+        exports: "named"
       },
     ],
     external: ["lodash/template.js"]
@@ -35,8 +40,12 @@ const libDts = libTs.map((file) => {
     input: `dist/lib/dts/lib/${parsedFilename.name}.d.ts`,
     output: [
       {
-        file: `dist/lib/${parsedFilename.name}.d.ts`,
+        file: `dist/lib/${parsedFilename.name}.module.d.ts`,
         format: "esm",
+      },
+      {
+        file: `dist/lib/${parsedFilename.name}.d.cts`,
+        format: "cjs",
       },
     ],
   });

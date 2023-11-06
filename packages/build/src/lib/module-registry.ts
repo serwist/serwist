@@ -5,13 +5,16 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
+import { createRequire } from "node:module";
 
 import { oneLine as ol } from "common-tags";
-import upath from "upath";
+
+const require = createRequire(import.meta.url);
 
 /**
  * Class for keeping track of which Serwist modules are used by the generated
  * service worker script.
+ * TODO: do some sane shit.
  *
  * @private
  */
@@ -27,24 +30,22 @@ export class ModuleRegistry {
     this._modulesUsed = new Map();
   }
 
+  #normalizePkgName(pkg: string) {
+    return pkg.replace(/@(.*?)\/(.*?)/g, "$1_$2").replace(/-/g, "_");
+  }
+
   /**
-   * @return {Array<string>} A list of all of the import statements that are
+   * @returns A list of all of the import statements that are
    * needed for the modules being used.
    * @private
    */
-  getImportStatements(): Array<string> {
-    const serwistModuleImports: Array<string> = [];
+  getImportStatements() {
+    const serwistModuleImports: string[] = [];
 
     for (const [localName, { moduleName, pkg }] of this._modulesUsed) {
-      // By default require.resolve returns the resolved path of the 'main'
-      // field, which might be deeper than the package root. To work around
-      // this, we can find the package's root by resolving its package.json and
-      // strip the '/package.json' from the resolved path.
-      const pkgJsonPath = require.resolve(`${pkg}/package.json`);
-      const pkgRoot = upath.dirname(pkgJsonPath);
-      const importStatement = ol`import {${moduleName} as ${localName}} from
-        '${pkgRoot}/${moduleName}.mjs';`;
-
+      const pkgPath = require.resolve(pkg);
+      
+      const importStatement = ol`import { ${moduleName} as ${localName} } from '${pkgPath}'`;
       serwistModuleImports.push(importStatement);
     }
 
@@ -58,7 +59,7 @@ export class ModuleRegistry {
    * @private
    */
   getLocalName(pkg: string, moduleName: string): string {
-    return `${pkg.replace(/-/g, "_")}_${moduleName}`;
+    return `${this.#normalizePkgName(pkg)}_${moduleName}`;
   }
 
   /**

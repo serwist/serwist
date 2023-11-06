@@ -15,17 +15,12 @@ import type {
   GenerateSWOptions,
   GetManifestOptions,
   InjectManifestOptions,
+  MethodNames,
   WebpackGenerateSWOptions,
   WebpackInjectManifestOptions,
 } from "../types.js";
 import { errors } from "./errors.js";
-
-type MethodNames =
-  | "GenerateSW"
-  | "GetManifest"
-  | "InjectManifest"
-  | "WebpackGenerateSW"
-  | "WebpackInjectManifest";
+import { optionsSchemas } from "../schema/index.js";
 
 const ajv = new (Ajv as unknown as typeof Ajv.default)({
   useDefaults: true,
@@ -48,10 +43,7 @@ function validate<T>(
 ): [T, JSONSchemaType<T>] {
   // Don't mutate input: https://github.com/GoogleChrome/workbox/issues/2158
   const inputCopy = Object.assign({}, input);
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const jsonSchema: JSONSchemaType<T> = require(
-    `../schema/${methodName}Options.json`
-  );
+  const jsonSchema = optionsSchemas[methodName] as unknown as JSONSchemaType<T>;
   const validate = ajv.compile(jsonSchema);
   if (validate(inputCopy)) {
     // All methods support manifestTransforms, so validate it here.

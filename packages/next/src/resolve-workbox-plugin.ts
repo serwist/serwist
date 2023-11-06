@@ -1,7 +1,7 @@
 import path from "node:path";
 
 import type { RuntimeCaching } from "@serwist/build";
-import WorkboxPlugin from "@serwist/webpack-plugin";
+import { GenerateSW, InjectManifest } from "@serwist/webpack-plugin";
 
 import { logger } from "$utils/index.js";
 
@@ -78,7 +78,7 @@ export const resolveWorkboxPlugin = ({
       modifyURLPrefix,
       publicPath,
     });
-    const workboxPlugin = new WorkboxPlugin.InjectManifest({
+    const workboxPlugin = new InjectManifest({
       ...workboxCommon,
       ...workboxOptions,
       swSrc,
@@ -235,7 +235,7 @@ export const resolveWorkboxPlugin = ({
       });
     }
 
-    const workboxPlugin = new WorkboxPlugin.GenerateSW({
+    const workboxPlugin = new GenerateSW({
       ...workboxCommon,
       skipWaiting,
       clientsClaim,

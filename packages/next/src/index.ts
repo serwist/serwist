@@ -1,3 +1,4 @@
+import { createRequire } from "node:module";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -16,6 +17,7 @@ import { getFileHash } from "./utils.js";
 import { buildSWEntryWorker } from "./webpack-builders/build-sw-entry-worker.js";
 import { setDefaultContext } from "./webpack-builders/context.js";
 
+const require = createRequire(import.meta.url);
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
 const withPWAInit = (

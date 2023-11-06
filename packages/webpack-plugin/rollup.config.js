@@ -1,5 +1,4 @@
 // @ts-check
-import serwistBuildPackageJson from "@serwist/build/package.json" assert { type: "json" };
 import { getRollupOptions } from "@serwist/constants/rollup";
 
 import packageJson from "./package.json" assert { type: "json" };
@@ -23,8 +22,7 @@ export default getRollupOptions({
         },
       ],
       external: [
-        "lodash/template.js",
-        ...Object.keys(serwistBuildPackageJson.dependencies),
+        /@serwist\/build/
       ],
     },
   ],

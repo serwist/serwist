@@ -5,6 +5,7 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
+import { createRequire } from "node:module";
 
 import type { ManifestEntry, WebpackGenerateSWOptions } from "@serwist/build";
 import { bundle } from "@serwist/build/lib/bundle.js";
@@ -16,6 +17,8 @@ import webpack from "webpack";
 import { getManifestEntriesFromCompilation } from "./lib/get-manifest-entries-from-compilation.js";
 import { getScriptFilesForChunks } from "./lib/get-script-files-for-chunks.js";
 import { relativeToOutputPath } from "./lib/relative-to-output-path.js";
+
+const require = createRequire(import.meta.url);
 
 // webpack v4/v5 compatibility:
 // https://github.com/webpack/webpack/issues/11425#issuecomment-686607633

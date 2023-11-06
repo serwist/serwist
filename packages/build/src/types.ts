@@ -588,3 +588,13 @@ export type SerwistPackageJSON = PackageJson & {
     prodOnly?: boolean;
   };
 }
+
+/**
+ * @private
+ */
+export type MethodNames =
+  | "GenerateSW"
+  | "GetManifest"
+  | "InjectManifest"
+  | "WebpackGenerateSW"
+  | "WebpackInjectManifest";

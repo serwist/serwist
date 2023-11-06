@@ -10,6 +10,7 @@
     "!examples/**/.next"
   ],
   "scripts": {
+    "build": "cross-env FORCE_COLOR=1 turbo run build --filter=./packages/*",
     "deps": "node ncu.js",
     "format": "prettier --write",
     "format:all": "pnpm format .",

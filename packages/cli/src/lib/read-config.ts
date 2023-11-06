@@ -6,7 +6,11 @@
   https://opensource.org/licenses/MIT.
 */
 
+import { createRequire } from "node:module";
+
 import type { GenerateSWOptions, InjectManifestOptions } from "@serwist/build";
+
+const require = createRequire(import.meta.url);
 
 // A really light wrapper on top of Node's require() to make it easier to stub
 // out reading the configuration during tests.

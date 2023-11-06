@@ -6,14 +6,13 @@
   https://opensource.org/licenses/MIT.
 */
 
+import commonjs from "@rollup/plugin-commonjs";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import replace from "@rollup/plugin-replace";
 import swc from "@rollup/plugin-swc";
-import { omt } from "@serwist/rollup-plugin-off-main-thread";
 import fse from "fs-extra";
 import type { RollupOptions } from "rollup";
 import { rollup } from "rollup";
-import { temporaryFile } from "tempy";
 import upath from "upath";
 
 import type { GeneratePartial, RequiredSWDestPartial } from "../types.js";
@@ -25,8 +24,8 @@ interface NameAndContents {
 }
 
 export async function bundle({
-  babelPresetEnvTargets,
-  inlineWorkboxRuntime,
+  // babelPresetEnvTargets,
+  // inlineWorkboxRuntime,
   mode,
   sourcemap,
   swDest,
@@ -39,19 +38,20 @@ export async function bundle({
   // a custom file system.
   const { dir, base } = upath.parse(swDest);
 
+  const temporaryFile = (await import("tempy")).temporaryFile;
+
   const tempFile = temporaryFile({ name: base });
+
   await fse.writeFile(tempFile, unbundledCode);
 
   const swcRc = defaultSwcRc;
 
-  if (!swcRc.env) {
-    swcRc.env = {};
-  }
-  swcRc.env.targets = babelPresetEnvTargets;
-
   const rollupConfig = {
     plugins: [
-      nodeResolve(),
+      (commonjs as unknown as typeof commonjs.default)(),
+      nodeResolve({
+        extensions: [".mjs", ".js", ".json", ".node", ".cjs"],
+      }),
       (replace as unknown as typeof replace.default)({
         // See https://github.com/GoogleChrome/workbox/issues/2769
         preventAssignment: true,
@@ -67,23 +67,11 @@ export async function bundle({
     input: tempFile,
   } satisfies RollupOptions;
 
-  // Rollup will inline the runtime by default. If we don't want that, we need
-  // to add in some additional config.
-  if (!inlineWorkboxRuntime) {
-    rollupConfig.plugins.unshift(omt());
-  }
-
   const bundle = await rollup(rollupConfig);
 
   const { output } = await bundle.generate({
     sourcemap,
-    // Using an external Workbox runtime requires 'amd'.
-    format: inlineWorkboxRuntime ? "es" : "amd",
-    ...(!inlineWorkboxRuntime && {
-      manualChunks(id) {
-        return id.includes("workbox") ? "workbox" : undefined;
-      },
-    }),
+    format: "es",
   });
 
   const files: NameAndContents[] = [];
