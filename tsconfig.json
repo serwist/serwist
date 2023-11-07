@@ -16,9 +16,9 @@
     "noFallthroughCasesInSwitch": true,
     "isolatedModules": true,
     "removeComments": false,
+    "noEmit": true,
     "checkJs": true,
-    "noEmit": true
   },
   "include": ["*.js", "*.cjs", "*.mjs"],
-  "exclude": ["node_modules", "dist"]
+  "exclude": ["node_modules", "dist"],
 }

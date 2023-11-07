@@ -47,17 +47,31 @@ export interface RouteMatchCallback {
  * Options passed to a `RouteHandlerCallback` function.
  */
 export declare interface RouteHandlerCallbackOptions {
+  /**
+   * The event associated with the request.
+   */
   event: ExtendableEvent;
+  /**
+   * A request to run this strategy for.
+   */
   request: Request;
   url: URL;
+  /**
+   * The return value from `@serwist/routing`'s `matchCallback` (if applicable).
+   */
   params?: string[] | MapLikeObject;
 }
-
 /**
- * Options passed to a `ManualHandlerCallback` function.
- */
+* Options passed to a `ManualHandlerCallback` function.
+*/
 export interface ManualHandlerCallbackOptions {
+  /**
+   * The event associated with the request.
+   */
   event: ExtendableEvent;
+  /**
+   * A request to run this strategy for.
+   */
   request: Request | string;
 }
 
@@ -127,7 +141,7 @@ export interface CacheDidUpdateCallbackParam {
    */
   newResponse: Response;
   /**
-   * The request.
+   * The `Request` object for the cached entry.
    */
   request: Request;
   /**
@@ -171,8 +185,19 @@ export interface CacheWillUpdateCallback {
 }
 
 export interface CachedResponseWillBeUsedCallbackParam {
+  /**
+   * Name of the cache the response is in.
+   */
   cacheName: string;
+  /**
+   * The original request, which may or may not
+   * contain a Range: header.
+   */
   request: Request;
+  /**
+   * The complete cached `Response` object that's been read 
+   * from a cache and whose freshness should be checked.
+   */
   cachedResponse?: Response;
   event: ExtendableEvent;
   matchOptions?: CacheQueryOptions;

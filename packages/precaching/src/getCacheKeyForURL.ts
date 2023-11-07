@@ -6,8 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheController.js";
 import "./_version.js";
+
+import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheController.js";
 
 /**
  * Takes in a URL, and returns the corresponding URL that could be used to
@@ -23,10 +24,8 @@ import "./_version.js";
  * original URL with the addition of a query parameter used for keeping track of
  * the revision info.
  *
- * @param {string} url The URL whose cache key to look up.
- * @return {string} The cache key that corresponds to that URL.
- *
- * @memberof workbox-precaching
+ * @param url The URL whose cache key to look up.
+ * @returns The cache key that corresponds to that URL.
  */
 function getCacheKeyForURL(url: string): string | undefined {
   const precacheController = getOrCreatePrecacheController();

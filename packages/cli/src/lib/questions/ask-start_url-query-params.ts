@@ -22,7 +22,7 @@ const question_shouldAskForIgnoreURLParametersMatching =
   "shouldAskForIgnoreURLParametersMatching";
 
 /**
- * @return {Promise<Object>} The answers from inquirer.
+ * @returns The answers from inquirer.
  */
 async function askQuestion(): Promise<{
   shouldAskForIgnoreURLParametersMatching: boolean;

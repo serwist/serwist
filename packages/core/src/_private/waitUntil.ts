@@ -11,9 +11,9 @@ import "../_version.js";
  * A utility method that makes it easier to use `event.waitUntil` with
  * async functions and return the result.
  *
- * @param {ExtendableEvent} event
- * @param {Function} asyncFn
- * @return {Function}
+ * @param event
+ * @param asyncFn
+ * @returns
  * @private
  */
 function waitUntil(

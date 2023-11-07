@@ -13,9 +13,7 @@ import "./_version.js";
 /**
  * Adds an `activate` event listener which will clean up incompatible
  * precaches that were created by older versions of Workbox.
- *
- * @memberof workbox-precaching
- */
+  */
 function cleanupOutdatedCaches(): void {
   // See https://github.com/Microsoft/TypeScript/issues/28357#issuecomment-436484705
   self.addEventListener("activate", ((event: ExtendableEvent) => {

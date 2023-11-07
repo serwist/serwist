@@ -36,7 +36,6 @@ class CacheableResponsePlugin implements SerwistPlugin {
 
   /**
    * @param options
-   * @param options.response
    * @returns
    * @private
    */

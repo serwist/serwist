@@ -6,13 +6,15 @@
   https://opensource.org/licenses/MIT.
 */
 
+import "./_version.js";
+
 import { assert, logger, SerwistError } from "@serwist/core/private";
 
 import { cacheOkAndOpaquePlugin } from "./plugins/cacheOkAndOpaquePlugin.js";
-import { Strategy, StrategyOptions } from "./Strategy.js";
-import { StrategyHandler } from "./StrategyHandler.js";
+import type { StrategyOptions } from "./Strategy.js";
+import { Strategy } from "./Strategy.js";
+import type { StrategyHandler } from "./StrategyHandler.js";
 import { messages } from "./utils/messages.js";
-import "./_version.js";
 
 export interface NetworkFirstOptions extends StrategyOptions {
   /**
@@ -137,12 +139,8 @@ class NetworkFirst extends Strategy {
   }
 
   /**
-   * @param {Object} options
-   * @param {Request} options.request
-   * @param {Array} options.logs A reference to the logs array
-   * @param {Event} options.event
-   * @return {Promise<Response>}
-   *
+   * @param options
+   * @returns
    * @private
    */
   private _getTimeoutPromise({
@@ -151,6 +149,9 @@ class NetworkFirst extends Strategy {
     handler,
   }: {
     request: Request;
+    /**
+     * A reference to the logs array.
+     */
     logs: any[];
     handler: StrategyHandler;
   }): { promise: Promise<Response | undefined>; id?: number } {
@@ -180,12 +181,12 @@ class NetworkFirst extends Strategy {
   }
 
   /**
-   * @param {Object} options
-   * @param {number|undefined} options.timeoutId
-   * @param {Request} options.request
-   * @param {Array} options.logs A reference to the logs Array.
-   * @param {Event} options.event
-   * @return {Promise<Response>}
+   * @param options
+   * @param options.timeoutId
+   * @param options.request
+   * @param options.logs A reference to the logs Array.
+   * @param options.event
+   * @returns
    *
    * @private
    */

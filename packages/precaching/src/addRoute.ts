@@ -23,11 +23,9 @@ import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheContro
  * responded to, allowing the event to fall through to other `fetch` event
  * listeners.
  *
- * @param {Object} [options] See the {@link workbox-precaching.PrecacheRoute}
+ * @param options See the {@link workbox-precaching.PrecacheRoute}
  * options.
- *
- * @memberof workbox-precaching
- */
+  */
 function addRoute(options?: PrecacheRouteOptions): void {
   const precacheController = getOrCreatePrecacheController();
 

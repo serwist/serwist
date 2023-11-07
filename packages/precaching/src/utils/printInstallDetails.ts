@@ -10,8 +10,8 @@ import { logger } from "@serwist/core/private";
 import "../_version.js";
 
 /**
- * @param {string} groupTitle
- * @param {Array<string>} urls
+ * @param groupTitle
+ * @param urls
  *
  * @private
  */

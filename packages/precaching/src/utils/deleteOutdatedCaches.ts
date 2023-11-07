@@ -22,14 +22,12 @@ const SUBSTRING_TO_FIND = "-precache-";
  * This should be safe to use as long as you don't include `substringToFind`
  * (defaulting to `-precache-`) in your non-precache cache names.
  *
- * @param {string} currentPrecacheName The cache name currently in use for
+ * @param currentPrecacheName The cache name currently in use for
  * precaching. This cache won't be deleted.
- * @param {string} [substringToFind='-precache-'] Cache names which include this
+ * @param substringToFind Cache names which include this
  * substring will be deleted (excluding `currentPrecacheName`).
- * @return {Array<string>} A list of all the cache names that were deleted.
- *
+ * @returns A list of all the cache names that were deleted.
  * @private
- * @memberof workbox-precaching
  */
 const deleteOutdatedCaches = async (
   currentPrecacheName: string,

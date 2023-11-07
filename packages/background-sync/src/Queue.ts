@@ -15,7 +15,10 @@ import {
   SerwistError,
 } from "@serwist/core/private";
 
-import type { QueueStoreEntry, UnidentifiedQueueStoreEntry } from "./lib/QueueDb.js";
+import type {
+  QueueStoreEntry,
+  UnidentifiedQueueStoreEntry,
+} from "./lib/QueueDb.js";
 import { QueueStore } from "./lib/QueueStore.js";
 import { StorableRequest } from "./lib/StorableRequest.js";
 
@@ -32,27 +35,27 @@ interface OnSyncCallback {
 
 export interface QueueOptions {
   /**
-   * If `true`, instead of attempting to use background sync events, always attempt 
+   * If `true`, instead of attempting to use background sync events, always attempt
    * to replay queued request at service worker startup. Most folks will not need
-   * this, unless you explicitly target a runtime like Electron that exposes the 
+   * this, unless you explicitly target a runtime like Electron that exposes the
    * interfaces for background sync, but does not have a working implementation.
-   * 
+   *
    * @default false
    */
   forceSyncFallback?: boolean;
   /**
-   * The amount of time (in minutes) a request may be retried. After this amount 
+   * The amount of time (in minutes) a request may be retried. After this amount
    * of time has passed, the request will be deleted from the queue.
-   * 
+   *
    * @default 60 * 24 * 7
    */
   maxRetentionTime?: number;
   /**
-   * A function that gets invoked whenever the 'sync' event fires. The function 
-   * is invoked with an object containing the `queue` property (referencing this 
-   * instance), and you can use the callback to customize the replay behavior of 
-   * the queue. When not set the `replayRequests()` method is called. Note: if the 
-   * replay fails after a sync event, make sure you throw an error, so the browser 
+   * A function that gets invoked whenever the 'sync' event fires. The function
+   * is invoked with an object containing the `queue` property (referencing this
+   * instance), and you can use the callback to customize the replay behavior of
+   * the queue. When not set the `replayRequests()` method is called. Note: if the
+   * replay fails after a sync event, make sure you throw an error, so the browser
    * knows to retry the sync event later.
    */
   onSync?: OnSyncCallback;
@@ -64,16 +67,16 @@ interface QueueEntry {
    */
   request: Request;
   /**
-   * The timestamp (Epoch time in milliseconds) when the request was first added 
-   * to the queue. This is used along with `maxRetentionTime` to remove outdated 
-   * requests. In general you don't need to set this value, as it's automatically 
-   * set for you (defaulting to `Date.now()`), but you can update it if you don't 
+   * The timestamp (Epoch time in milliseconds) when the request was first added
+   * to the queue. This is used along with `maxRetentionTime` to remove outdated
+   * requests. In general you don't need to set this value, as it's automatically
+   * set for you (defaulting to `Date.now()`), but you can update it if you don't
    * want particular requests to expire.
    */
   timestamp?: number;
   /**
-   * Any metadata you want associated with the stored request. When requests are 
-   * replayed you'll have access to this metadata object in case you need to modify 
+   * Any metadata you want associated with the stored request. When requests are
+   * replayed you'll have access to this metadata object in case you need to modify
    * the request beforehand.
    */
   metadata?: Record<string, unknown>;
@@ -110,8 +113,6 @@ const convertEntry = (
  * A class to manage storing failed requests in IndexedDB and retrying them
  * later. All parts of the storing and replaying process are observable via
  * callbacks.
- *
- * @memberof workbox-background-sync
  */
 class Queue {
   private readonly _name: string;
@@ -152,7 +153,7 @@ class Queue {
   }
 
   /**
-   * @return {string}
+   * @returns
    */
   get name(): string {
     return this._name;

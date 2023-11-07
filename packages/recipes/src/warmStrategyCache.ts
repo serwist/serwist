@@ -1,6 +1,6 @@
-import { Strategy } from "@serwist/strategies";
-
 import "./_version.js";
+
+import type { Strategy } from "@serwist/strategies";
 
 export interface WarmStrategyCacheOptions {
   /**

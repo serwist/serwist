@@ -6,6 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
+import "./_version.js";
+
 import { copyResponse } from "@serwist/core";
 import {
   cacheNames,
@@ -13,16 +15,15 @@ import {
   logger,
   SerwistError,
 } from "@serwist/core/private";
-import { SerwistPlugin } from "@serwist/core/types";
-import {
-  Strategy,
-  type StrategyOptions,
-  StrategyHandler,
-} from "@serwist/strategies";
-
-import "./_version.js";
+import type { SerwistPlugin } from "@serwist/core/types";
+import type { StrategyHandler, StrategyOptions } from "@serwist/strategies";
+import { Strategy } from "@serwist/strategies";
 
 interface PrecacheStrategyOptions extends StrategyOptions {
+  /**
+   * Whether to attempt to get the response from the network 
+   * if there's a precache miss.
+   */
   fallbackToNetwork?: boolean;
 }
 
@@ -55,21 +56,7 @@ class PrecacheStrategy extends Strategy {
   };
 
   /**
-   *
-   * @param {Object} [options]
-   * @param {string} [options.cacheName] Cache name to store and retrieve
-   * requests. Defaults to the cache names provided by
-   * {@link workbox-core.cacheNames}.
-   * @param {Array<Object>} [options.plugins] {@link https://developers.google.com/web/tools/workbox/guides/using-plugins|Plugins}
-   * to use in conjunction with this caching strategy.
-   * @param {Object} [options.fetchOptions] Values passed along to the
-   * {@link https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters|init}
-   * of all fetch() requests made by this strategy.
-   * @param {Object} [options.matchOptions] The
-   * {@link https://w3c.github.io/ServiceWorker/#dictdef-cachequeryoptions|CacheQueryOptions}
-   * for any `cache.match()` or `cache.put()` calls made by this strategy.
-   * @param {boolean} [options.fallbackToNetwork=true] Whether to attempt to
-   * get the response from the network if there's a precache miss.
+   * @param options
    */
   constructor(options: PrecacheStrategyOptions = {}) {
     options.cacheName = cacheNames.getPrecacheName(options.cacheName);

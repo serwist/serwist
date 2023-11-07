@@ -32,7 +32,7 @@ async function getSubdirectories(): Promise<string[]> {
 }
 
 /**
- * @return {Promise<Object>} The answers from inquirer.
+ * @returns The answers from inquirer.
  */
 async function askQuestion(): Promise<{
   globDirectory: string;

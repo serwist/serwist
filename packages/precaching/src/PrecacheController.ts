@@ -6,6 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
+import "./_version.js";
+
 import {
   assert,
   cacheNames,
@@ -13,17 +15,16 @@ import {
   SerwistError,
   waitUntil,
 } from "@serwist/core/private";
-import { Strategy } from "@serwist/strategies";
-import { RouteHandlerCallback, SerwistPlugin } from "@serwist/core/types";
+import type { RouteHandlerCallback, SerwistPlugin } from "@serwist/core/types";
+import type { Strategy } from "@serwist/strategies";
 
+import type { CleanupResult,InstallResult, PrecacheEntry } from "./_types.js";
+import { PrecacheStrategy } from "./PrecacheStrategy.js";
 import { createCacheKey } from "./utils/createCacheKey.js";
-import { PrecacheInstallReportPlugin } from "./utils/PrecacheInstallReportPlugin.js";
 import { PrecacheCacheKeyPlugin } from "./utils/PrecacheCacheKeyPlugin.js";
+import { PrecacheInstallReportPlugin } from "./utils/PrecacheInstallReportPlugin.js";
 import { printCleanupDetails } from "./utils/printCleanupDetails.js";
 import { printInstallDetails } from "./utils/printInstallDetails.js";
-import { PrecacheStrategy } from "./PrecacheStrategy.js";
-import { PrecacheEntry, InstallResult, CleanupResult } from "./_types.js";
-import "./_version.js";
 
 // Give TypeScript the correct global.
 declare let self: ServiceWorkerGlobalScope;
@@ -35,16 +36,25 @@ declare global {
 }
 
 interface PrecacheControllerOptions {
+  /**
+   * The cache to use for precaching.
+   */
   cacheName?: string;
+  /**
+   * Plugins to use when precaching as well as responding to fetch 
+   * events for precached assets.
+   */
   plugins?: SerwistPlugin[];
+  /**
+   * Whether to attempt to get the response from the network if there's 
+   * a precache miss.
+   */
   fallbackToNetwork?: boolean;
 }
 
 /**
  * Performs efficient precaching of assets.
- *
- * @memberof workbox-precaching
- */
+  */
 class PrecacheController {
   private _installAndActiveListenersAdded?: boolean;
   private readonly _strategy: Strategy;
@@ -63,12 +73,7 @@ class PrecacheController {
   /**
    * Create a new PrecacheController.
    *
-   * @param {Object} [options]
-   * @param {string} [options.cacheName] The cache to use for precaching.
-   * @param {string} [options.plugins] Plugins to use when precaching as well
-   * as responding to fetch events for precached assets.
-   * @param {boolean} [options.fallbackToNetwork=true] Whether to attempt to
-   * get the response from the network if there's a precache miss.
+   * @param options
    */
   constructor({
     cacheName,
@@ -105,7 +110,7 @@ class PrecacheController {
    *
    * This method can be called multiple times.
    *
-   * @param {Array<Object|string>} [entries=[]] Array of entries to precache.
+   * @param entries Array of entries to precache.
    */
   precache(entries: Array<PrecacheEntry | string>): void {
     this.addToCacheList(entries);
@@ -273,7 +278,7 @@ class PrecacheController {
    * Returns a mapping of a precached URL to the corresponding cache key, taking
    * into account the revision information for the URL.
    *
-   * @return {Map<string, string>} A URL to cache key mapping.
+   * @returns A URL to cache key mapping.
    */
   getURLsToCacheKeys(): Map<string, string> {
     return this._urlsToCacheKeys;
@@ -283,7 +288,7 @@ class PrecacheController {
    * Returns a list of all the URLs that have been precached by the current
    * service worker.
    *
-   * @return {Array<string>} The precached URLs.
+   * @returns The precached URLs.
    */
   getCachedURLs(): Array<string> {
     return [...this._urlsToCacheKeys.keys()];
@@ -294,8 +299,8 @@ class PrecacheController {
    * unversioned, like `/index.html', then the cache key will be the original
    * URL with a search parameter appended to it.
    *
-   * @param {string} url A URL whose cache key you want to look up.
-   * @return {string} The versioned URL that corresponds to a cache key
+   * @param url A URL whose cache key you want to look up.
+   * @returns The versioned URL that corresponds to a cache key
    * for the original URL, or undefined if that URL isn't precached.
    */
   getCacheKeyForURL(url: string): string | undefined {
@@ -304,8 +309,8 @@ class PrecacheController {
   }
 
   /**
-   * @param {string} url A cache key whose SRI you want to look up.
-   * @return {string} The subresource integrity associated with the cache key,
+   * @param url A cache key whose SRI you want to look up.
+   * @returns The subresource integrity associated with the cache key,
    * or undefined if it's not set.
    */
   getIntegrityForCacheKey(cacheKey: string): string | undefined {
@@ -326,9 +331,9 @@ class PrecacheController {
    * response for the currently active service worker, even if the actual cache
    * key is `'/index.html?__WB_REVISION__=1234abcd'`.
    *
-   * @param {string|Request} request The key (without revisioning parameters)
+   * @param request The key (without revisioning parameters)
    * to look up in the precache.
-   * @return {Promise<Response|undefined>}
+   * @returns
    */
   async matchPrecache(
     request: string | Request

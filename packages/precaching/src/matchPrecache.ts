@@ -19,12 +19,10 @@ import "./_version.js";
  * {@link PrecacheController#matchPrecache} on that instance,
  * instead of using this function.
  *
- * @param {string|Request} request The key (without revisioning parameters)
+ * @param request The key (without revisioning parameters)
  * to look up in the precache.
- * @return {Promise<Response|undefined>}
- *
- * @memberof workbox-precaching
- */
+ * @returns
+  */
 function matchPrecache(
   request: string | Request
 ): Promise<Response | undefined> {

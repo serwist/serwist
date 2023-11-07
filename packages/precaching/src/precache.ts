@@ -6,9 +6,10 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheController.js";
-import { PrecacheEntry } from "./_types.js";
 import "./_version.js";
+
+import type { PrecacheEntry } from "./_types.js";
+import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheController.js";
 
 /**
  * Adds items to the precache list, removing any duplicates and
@@ -25,10 +26,8 @@ import "./_version.js";
  * If you have a single array of files to precache, you can just call
  * {@link workbox-precaching.precacheAndRoute}.
  *
- * @param {Array<Object|string>} [entries=[]] Array of entries to precache.
- *
- * @memberof workbox-precaching
- */
+ * @param entries Array of entries to precache.
+  */
 function precache(entries: Array<PrecacheEntry | string>): void {
   const precacheController = getOrCreatePrecacheController();
   precacheController.precache(entries);

@@ -25,9 +25,7 @@ import type { GetManifestOptions, GetManifestResult } from "./types.js";
  *   maximumFileSizeToCacheInBytes: ...,
  * });
  * ```
- *
- * @memberof workbox-build
- */
+  */
 export async function getManifest(
   config: GetManifestOptions
 ): Promise<GetManifestResult> {

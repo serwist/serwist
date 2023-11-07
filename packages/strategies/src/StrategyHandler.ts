@@ -6,6 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
+import "./_version.js";
+
 import {
   assert,
   cacheMatchIgnoreParams,
@@ -13,18 +15,17 @@ import {
   executeQuotaErrorCallbacks,
   getFriendlyURL,
   logger,
-  timeout,
   SerwistError,
+  timeout,
 } from "@serwist/core/private";
-import {
+import type {
   HandlerCallbackOptions,
   MapLikeObject,
   SerwistPlugin,
   SerwistPluginCallbackParam,
 } from "@serwist/core/types";
 
-import { Strategy } from "./Strategy.js";
-import "./_version.js";
+import type { Strategy } from "./Strategy.js";
 
 function toRequest(input: RequestInfo) {
   return typeof input === "string" ? new Request(input) : input;
@@ -79,11 +80,6 @@ class StrategyHandler {
    *
    * @param strategy
    * @param options
-   * @param options.request A request to run this strategy for.
-   * @param options.event The event associated with the request.
-   * @param options.url
-   * @param {*} [options.params] The return value from `@serwist/routing`'s `matchCallback`
-   * (if applicable).
    */
   constructor(strategy: Strategy, options: HandlerCallbackOptions) {
     if (process.env.NODE_ENV !== "production") {
@@ -123,8 +119,8 @@ class StrategyHandler {
    * - `fetchDidSucceed()`
    * - `fetchDidFail()`
    *
-   * @param {Request|string} input The URL or request to fetch.
-   * @return {Promise<Response>}
+   * @param input The URL or request to fetch.
+   * @returns
    */
   async fetch(input: RequestInfo): Promise<Response> {
     const { event } = this;
@@ -228,8 +224,8 @@ class StrategyHandler {
    * The call to `this.cachePut()` automatically invokes `this.waitUntil()`,
    * so you do not have to manually call `waitUntil()` on the event.
    *
-   * @param {Request|string} input The request or URL to fetch and cache.
-   * @return {Promise<Response>}
+   * @param input The request or URL to fetch and cache.
+   * @returns
    */
   async fetchAndCachePut(input: RequestInfo): Promise<Response> {
     const response = await this.fetch(input);
@@ -249,8 +245,8 @@ class StrategyHandler {
    * - cacheKeyWillByUsed()
    * - cachedResponseWillByUsed()
    *
-   * @param {Request|string} key The Request or URL to use as the cache key.
-   * @return {Promise<Response|undefined>} A matching response, if found.
+   * @param key The Request or URL to use as the cache key.
+   * @returns A matching response, if found.
    */
   async cacheMatch(key: RequestInfo): Promise<Response | undefined> {
     const request: Request = toRequest(key);
@@ -293,9 +289,9 @@ class StrategyHandler {
    * - cacheWillUpdate()
    * - cacheDidUpdate()
    *
-   * @param {Request|string} key The request or URL to use as the cache key.
-   * @param {Response} response The response to cache.
-   * @return {Promise<boolean>} `false` if a cacheWillUpdate caused the response
+   * @param key The request or URL to use as the cache key.
+   * @param response The response to cache.
+   * @returns `false` if a cacheWillUpdate caused the response
    * not be cached, and `true` otherwise.
    */
   async cachePut(key: RequestInfo, response: Response): Promise<boolean> {
@@ -411,9 +407,9 @@ class StrategyHandler {
    * reads and/or writes. If no `cacheKeyWillBeUsed` plugin callbacks have
    * been registered, the passed request is returned unmodified
    *
-   * @param {Request} request
-   * @param {string} mode
-   * @return {Promise<Request>}
+   * @param request
+   * @param mode
+   * @returns
    */
   async getCacheKey(
     request: Request,
@@ -444,8 +440,8 @@ class StrategyHandler {
    * Returns true if the strategy has at least one plugin with the given
    * callback.
    *
-   * @param {string} name The name of the callback to check for.
-   * @return {boolean}
+   * @param name The name of the callback to check for.
+   * @returns
    */
   hasCallback<C extends keyof SerwistPlugin>(name: C): boolean {
     for (const plugin of this._strategy.plugins) {
@@ -486,8 +482,8 @@ class StrategyHandler {
    * you call each callback, whatever object parameter you pass it will
    * be merged with the plugin's current state).
    *
-   * @param {string} name The name fo the callback to run
-   * @return {Array<Function>}
+   * @param name The name fo the callback to run
+   * @returns
    */
   *iterateCallbacks<C extends keyof SerwistPlugin>(
     name: C

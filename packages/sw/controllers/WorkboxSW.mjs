@@ -68,16 +68,8 @@ export class WorkboxSW {
   /**
    * Updates the configuration options. You can specify whether to treat as a
    * debug build and whether to use a CDN or a specific path when importing
-   * other Serwist modules
-   * @param options
-   * @param {boolean} [options.debug] If true, `dev` builds are using, otherwise
-   * `prod` builds are used. By default, `prod` is used unless on localhost.
-   * @param {Function} [options.modulePathPrefix] To avoid using the CDN with
-   * `@serwist/sw` set the path prefix of where modules should be loaded from.
-   * For example `modulePathPrefix: '/third_party/workbox/v3.0.0/'`.
-   * @param {workbox~ModulePathCallback} [options.modulePathCb] If defined,
-   * this callback will be responsible for determining the path of each
-   * workbox module.
+   * other Serwist modules.
+   * @param {import("./WorkboxSW.d.ts").Config} options
    */
   setConfig(options = {}) {
     if (!this._modulesLoaded) {
@@ -95,9 +87,7 @@ export class WorkboxSW {
    * dynamically used and you want to safe guard use of the module while the
    * user may be offline.
    *
-   * @param {string} moduleName
-   *
-   * @alias workbox.loadModule
+   * @param moduleName
    */
   loadModule(moduleName) {
     const modulePath = this._getImportPath(moduleName);
@@ -117,9 +107,8 @@ export class WorkboxSW {
   /**
    * This method will get the path / CDN URL to be used for importScript calls.
    *
-   * @param {string} moduleName
-   * @return {string} URL to the desired module.
-   *
+   * @param moduleName
+   * @returns URL to the desired module.
    * @private
    */
   _getImportPath(moduleName) {

@@ -92,13 +92,6 @@ module.exports = {
     {
       files: ["packages/**"],
       rules: {
-        "import/no-extraneous-dependencies": [
-          "error",
-          {
-            devDependencies: ["**/*.config.{cjs,mjs,js,ts}"],
-            packageDir: [__dirname, ...packageDirs],
-          },
-        ],
         "turbo/no-undeclared-env-vars": [
           "error",
           {

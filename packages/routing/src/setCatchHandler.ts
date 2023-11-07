@@ -6,11 +6,11 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { RouteHandler } from "@serwist/core/types";
+import "./_version.js";
+
+import type { RouteHandler } from "@serwist/core/types";
 
 import { getOrCreateDefaultRouter } from "./utils/getOrCreateDefaultRouter.js";
-
-import "./_version.js";
 
 /**
  * If a Route throws an error while handling a request, this `handler`

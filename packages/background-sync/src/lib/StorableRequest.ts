@@ -121,7 +121,7 @@ class StorableRequest {
   /**
    * Returns a deep clone of the instances `_requestData` object.
    *
-   * @return {Object}
+   * @returns
    */
   toObject(): RequestData {
     const requestData = Object.assign({}, this._requestData);
@@ -136,7 +136,7 @@ class StorableRequest {
   /**
    * Converts this instance to a Request.
    *
-   * @return {Request}
+   * @returns
    */
   toRequest(): Request {
     return new Request(this._requestData.url, this._requestData);
@@ -145,7 +145,7 @@ class StorableRequest {
   /**
    * Creates and returns a deep clone of the instance.
    *
-   * @return {StorableRequest}
+   * @returns
    */
   clone(): StorableRequest {
     return new StorableRequest(this.toObject());

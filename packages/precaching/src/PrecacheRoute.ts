@@ -24,9 +24,7 @@ import { generateURLVariations } from "./utils/generateURLVariations.js";
  * {@link workbox-precaching.PrecacheController}
  * instance and uses it to match incoming requests and handle fetching
  * responses from the precache.
- *
- * @memberof workbox-precaching
- */
+  */
 class PrecacheRoute extends Route {
   /**
    * @param precacheController A `PrecacheController`

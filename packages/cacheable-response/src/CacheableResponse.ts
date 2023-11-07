@@ -44,12 +44,7 @@ class CacheableResponse {
    * If both `statuses` and `headers` are specified, then both conditions must
    * be met for the `Response` to be considered cacheable.
    *
-   * @param {Object} config
-   * @param {Array<number>} [config.statuses] One or more status codes that a
-   * `Response` can have and be considered cacheable.
-   * @param {Object<string,string>} [config.headers] A mapping of header names
-   * and expected values that a `Response` can have and be considered cacheable.
-   * If multiple headers are provided, only one needs to be present.
+   * @param config
    */
   constructor(config: CacheableResponseOptions = {}) {
     if (process.env.NODE_ENV !== "production") {
@@ -88,9 +83,9 @@ class CacheableResponse {
    * Checks a response to see whether it's cacheable or not, based on this
    * object's configuration.
    *
-   * @param {Response} response The response whose cacheability is being
+   * @param response The response whose cacheability is being
    * checked.
-   * @return {boolean} `true` if the `Response` is cacheable, and `false`
+   * @returns `true` if the `Response` is cacheable, and `false`
    * otherwise.
    */
   isResponseCacheable(response: Response): boolean {

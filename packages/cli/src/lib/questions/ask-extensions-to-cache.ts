@@ -20,8 +20,8 @@ import { errors } from "../errors.js";
 const name = "globPatterns";
 
 /**
- * @param {string} globDirectory The directory used for the root of globbing.
- * @return {Promise<Array<string>>} The unique file extensions corresponding
+ * @param globDirectory The directory used for the root of globbing.
+ * @returns The unique file extensions corresponding
  * to all of the files under globDirectory.
  */
 async function getAllFileExtensions(globDirectory: string) {

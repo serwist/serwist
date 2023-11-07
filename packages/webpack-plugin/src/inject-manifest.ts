@@ -68,7 +68,7 @@ class InjectManifest {
   }
 
   /**
-   * @param {Object} [compiler] default compiler object passed from webpack
+   * @param compiler default compiler object passed from webpack
    *
    * @private
    */
@@ -86,7 +86,7 @@ class InjectManifest {
   }
 
   /**
-   * @param {Object} [compiler] default compiler object passed from webpack
+   * @param compiler default compiler object passed from webpack
    *
    * @private
    */
@@ -136,8 +136,8 @@ class InjectManifest {
   }
 
   /**
-   * @param {Object} compilation The webpack compilation.
-   * @param {Object} parentCompiler The webpack parent compiler.
+   * @param compilation The webpack compilation.
+   * @param parentCompiler The webpack parent compiler.
    *
    * @private
    */
@@ -194,8 +194,8 @@ class InjectManifest {
   }
 
   /**
-   * @param {Object} compilation The webpack compilation.
-   * @param {Object} parentCompiler The webpack parent compiler.
+   * @param compilation The webpack compilation.
+   * @param parentCompiler The webpack parent compiler.
    *
    * @private
    */
@@ -211,8 +211,8 @@ class InjectManifest {
   }
 
   /**
-   * @param {Object} compilation The webpack compilation.
-   * @param {Object} parentCompiler The webpack parent compiler.
+   * @param compilation The webpack compilation.
+   * @param parentCompiler The webpack parent compiler.
    *
    * @private
    */
@@ -255,7 +255,7 @@ class InjectManifest {
   }
 
   /**
-   * @param {Object} compilation The webpack compilation.
+   * @param compilation The webpack compilation.
    *
    * @private
    */

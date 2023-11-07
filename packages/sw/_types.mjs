@@ -13,12 +13,10 @@ import "./_version.mjs";
  * Workbox modules are loaded.
  *
  * @callback ~ModulePathCallback
- * @param {string} moduleName The name of the module to load (i.e.
+ * @param moduleName The name of the module to load (i.e.
  * 'workbox-core', 'workbox-precaching' etc.).
- * @param {boolean} debug When true, `dev` builds should be loaded, otherwise
+ * @param debug When true, `dev` builds should be loaded, otherwise
  * load `prod` builds.
- * @return {string} This callback should return a path of module. This will
+ * @returns This callback should return a path of module. This will
  * be passed to `importScripts()`.
- *
- * @memberof workbox
- */
+  */

@@ -15,8 +15,7 @@ let supportStatus: boolean | undefined;
  * constructing a [`ReadableStream`](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream/ReadableStream)
  * object.
  *
- * @return {boolean} `true`, if the current browser can successfully
- *     construct a `ReadableStream`, `false` otherwise.
+ * @returns `true`, if the current browser can successfully construct a `ReadableStream`, `false` otherwise.
  *
  * @private
  */

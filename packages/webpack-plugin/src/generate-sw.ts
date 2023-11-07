@@ -83,7 +83,7 @@ class GenerateSW {
   }
 
   /**
-   * @param {Object} [compiler] default compiler object passed from webpack
+   * @param compiler default compiler object passed from webpack
    *
    * @private
    */
@@ -100,7 +100,7 @@ class GenerateSW {
   }
 
   /**
-   * @param {Object} [compiler] default compiler object passed from webpack
+   * @param compiler default compiler object passed from webpack
    *
    * @private
    */
@@ -142,7 +142,7 @@ class GenerateSW {
   }
 
   /**
-   * @param {Object} compilation The webpack compilation.
+   * @param compilation The webpack compilation.
    *
    * @private
    */

@@ -5,8 +5,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { timeout } from "./timeout.js";
 import "../_version.js";
+
+import { timeout } from "./timeout.js";
 
 // Give TypeScript the correct global.
 declare let self: ServiceWorkerGlobalScope;
@@ -19,8 +20,8 @@ const MAX_RETRY_TIME = 2000;
  * or if waiting for the resulting client to apper takes too long, resolve to
  * `undefined`.
  *
- * @param {string} [resultingClientId]
- * @return {Promise<Client|undefined>}
+ * @param resultingClientId
+ * @returns
  * @private
  */
 export async function resultingClientExists(

@@ -104,7 +104,7 @@ export class QueueStore {
   /**
    * Removes and returns the last entry in the queue matching the `queueName`.
    *
-   * @return {Promise<QueueStoreEntry|undefined>}
+   * @returns
    */
   async popEntry(): Promise<QueueStoreEntry | undefined> {
     return this._removeEntry(
@@ -115,7 +115,7 @@ export class QueueStore {
   /**
    * Removes and returns the first entry in the queue matching the `queueName`.
    *
-   * @return {Promise<QueueStoreEntry|undefined>}
+   * @returns
    */
   async shiftEntry(): Promise<QueueStoreEntry | undefined> {
     return this._removeEntry(

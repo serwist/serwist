@@ -47,9 +47,7 @@ import type { BuildResult, InjectManifestOptions } from "./types.js";
  *   swSrc: '...',
  * });
  * ```
- *
- * @memberof workbox-build
- */
+  */
 export async function injectManifest(
   config: InjectManifestOptions
 ): Promise<BuildResult> {

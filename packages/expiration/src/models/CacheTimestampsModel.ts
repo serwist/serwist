@@ -6,8 +6,10 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { openDB, DBSchema, IDBPDatabase, deleteDB } from "idb";
 import "../_version.js";
+
+import type { DBSchema, IDBPDatabase } from "idb";
+import { deleteDB, openDB } from "idb";
 
 const DB_NAME = "serwist-expiration";
 const CACHE_OBJECT_STORE = "cache-entries";
@@ -45,7 +47,7 @@ class CacheTimestampsModel {
 
   /**
    *
-   * @param {string} cacheName
+   * @param cacheName
    *
    * @private
    */
@@ -56,7 +58,7 @@ class CacheTimestampsModel {
   /**
    * Performs an upgrade of indexedDB.
    *
-   * @param {IDBPDatabase<CacheDbSchema>} db
+   * @param db
    *
    * @private
    */
@@ -79,7 +81,7 @@ class CacheTimestampsModel {
   /**
    * Performs an upgrade of indexedDB and deletes deprecated DBs.
    *
-   * @param {IDBPDatabase<CacheDbSchema>} db
+   * @param db
    *
    * @private
    */
@@ -91,8 +93,8 @@ class CacheTimestampsModel {
   }
 
   /**
-   * @param {string} url
-   * @param {number} timestamp
+   * @param url
+   * @param timestamp
    *
    * @private
    */
@@ -119,9 +121,8 @@ class CacheTimestampsModel {
   /**
    * Returns the timestamp stored for a given URL.
    *
-   * @param {string} url
-   * @return {number | undefined}
-   *
+   * @param url
+   * @returns
    * @private
    */
   async getTimestamp(url: string): Promise<number | undefined> {
@@ -135,10 +136,9 @@ class CacheTimestampsModel {
    * oldest) and removes entries once either `maxCount` is reached or the
    * entry's timestamp is less than `minTimestamp`.
    *
-   * @param {number} minTimestamp
-   * @param {number} maxCount
-   * @return {Array<string>}
-   *
+   * @param minTimestamp
+   * @param maxCount
+   * @returns
    * @private
    */
   async expireEntries(
@@ -196,9 +196,8 @@ class CacheTimestampsModel {
   /**
    * Takes a URL and returns an ID that will be unique in the object store.
    *
-   * @param {string} url
-   * @return {string}
-   *
+   * @param url
+   * @returns
    * @private
    */
   private _getId(url: string): string {

@@ -37,7 +37,7 @@ const libJs = libTs.map((file) => {
 const libDts = libTs.map((file) => {
   const parsedFilename = path.parse(file);
   return /** @type {import("@serwist/constants/rollup").FileEntry} */ ({
-    input: `dist/lib/dts/lib/${parsedFilename.name}.d.ts`,
+    input: `dist/dts/lib/${parsedFilename.name}.d.ts`,
     output: [
       {
         file: `dist/lib/${parsedFilename.name}.module.d.ts`,

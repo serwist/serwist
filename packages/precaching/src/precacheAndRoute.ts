@@ -19,12 +19,10 @@ import "./_version.js";
  * {@link workbox-precaching.precache} and
  * {@link workbox-precaching.addRoute} in a single call.
  *
- * @param {Array<Object|string>} entries Array of entries to precache.
- * @param {Object} [options] See the
+ * @param entries Array of entries to precache.
+ * @param options See the
  * {@link workbox-precaching.PrecacheRoute} options.
- *
- * @memberof workbox-precaching
- */
+  */
 function precacheAndRoute(
   entries: Array<PrecacheEntry | string>,
   options?: PrecacheRouteOptions

@@ -6,18 +6,17 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { SerwistPlugin } from "@serwist/core/types";
 import "../_version.js";
+
+import type { SerwistPlugin } from "@serwist/core/types";
 
 export const cacheOkAndOpaquePlugin: SerwistPlugin = {
   /**
    * Returns a valid response (to allow caching) if the status is 200 (OK) or
    * 0 (opaque).
    *
-   * @param {Object} options
-   * @param {Response} options.response
-   * @return {Response|null}
-   *
+   * @param options
+   * @returns
    * @private
    */
   cacheWillUpdate: async ({ response }) => {

@@ -6,6 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
+import "./_version.js";
+
 import {
   assert,
   dontWaitFor,
@@ -15,11 +17,20 @@ import {
 
 import { CacheTimestampsModel } from "./models/CacheTimestampsModel.js";
 
-import "./_version.js";
-
 interface CacheExpirationConfig {
+  /**
+   * The maximum number of entries to cache. Entries used the least will 
+   * be removed as the maximum is reached.
+   */
   maxEntries?: number;
+  /**
+   * The maximum age of an entry before it's treated as stale and removed.
+   */
   maxAgeSeconds?: number;
+  /**
+   * The [`CacheQueryOptions`](https://developer.mozilla.org/en-US/docs/Web/API/Cache/delete#Parameters)
+   * that will be used when calling `delete()` on the cache.
+   */
   matchOptions?: CacheQueryOptions;
 }
 
@@ -41,14 +52,8 @@ class CacheExpiration {
    * To construct a new CacheExpiration instance you must provide at least
    * one of the `config` properties.
    *
-   * @param {string} cacheName Name of the cache to apply restrictions to.
-   * @param {Object} config
-   * @param {number} [config.maxEntries] The maximum number of entries to cache.
-   * Entries used the least will be removed as the maximum is reached.
-   * @param {number} [config.maxAgeSeconds] The maximum age of an entry before
-   * it's treated as stale and removed.
-   * @param {Object} [config.matchOptions] The [`CacheQueryOptions`](https://developer.mozilla.org/en-US/docs/Web/API/Cache/delete#Parameters)
-   * that will be used when calling `delete()` on the cache.
+   * @param cacheName Name of the cache to apply restrictions to.
+   * @param config
    */
   constructor(cacheName: string, config: CacheExpirationConfig = {}) {
     if (process.env.NODE_ENV !== "production") {
@@ -148,7 +153,7 @@ class CacheExpiration {
    * removing entries based on maximum entries, most recently used
    * is accurate or when expiring, the timestamp is up-to-date.
    *
-   * @param {string} url
+   * @param url
    */
   async updateTimestamp(url: string): Promise<void> {
     if (process.env.NODE_ENV !== "production") {
@@ -171,8 +176,8 @@ class CacheExpiration {
    * Note: This method will not remove the cached entry, call
    * `expireEntries()` to remove indexedDB and Cache entries.
    *
-   * @param {string} url
-   * @return {boolean}
+   * @param url
+   * @returns
    */
   async isURLExpired(url: string): Promise<boolean> {
     if (!this._maxAgeSeconds) {

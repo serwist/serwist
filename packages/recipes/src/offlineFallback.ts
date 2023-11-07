@@ -5,14 +5,14 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-import { setCatchHandler } from "@serwist/routing";
-import { matchPrecache } from "@serwist/precaching";
-import {
+import "./_version.js";
+
+import type {
   RouteHandler,
   RouteHandlerCallbackOptions,
 } from "@serwist/core/types";
-
-import "./_version.js";
+import { matchPrecache } from "@serwist/precaching";
+import { setCatchHandler } from "@serwist/routing";
 
 export interface OfflineFallbackOptions {
   /**

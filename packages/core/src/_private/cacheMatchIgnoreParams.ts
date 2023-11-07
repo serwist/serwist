@@ -21,11 +21,11 @@ function stripParams(fullURL: string, ignoreParams: string[]) {
  * params (while continuing to match on the others).
  *
  * @private
- * @param {Cache} cache
- * @param {Request} request
- * @param {Object} matchOptions
- * @param {Array<string>} ignoreParams
- * @return {Promise<Response|undefined>}
+ * @param cache
+ * @param request
+ * @param matchOptions
+ * @param ignoreParams
+ * @returns
  */
 async function cacheMatchIgnoreParams(
   cache: Cache,

@@ -13,9 +13,9 @@ import "../_version.js";
  * relative, and if they are the current location href is used to resolve URLs.
  *
  * @private
- * @param {string} url1
- * @param {string} url2
- * @return {boolean}
+ * @param url1
+ * @param url2
+ * @returns
  */
 export function urlsMatch(url1: string, url2: string): boolean {
   const { href } = location;

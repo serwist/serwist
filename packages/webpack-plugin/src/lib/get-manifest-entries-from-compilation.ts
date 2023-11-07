@@ -60,9 +60,9 @@ function checkConditions(
  * Otherwise, if provided a chunk name, return all the assets in that chunk.
  * Otherwise, if there isn't a chunk group or chunk with that name, return null.
  *
- * @param {Compilation} compilation
- * @param {string} chunkOrGroup
- * @return {Array<string>|null}
+ * @param compilation
+ * @param chunkOrGroup
+ * @returns
  * @private
  */
 function getNamesOfAssetsInChunkOrGroup(

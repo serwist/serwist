@@ -6,17 +6,17 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { SerwistError, assert } from "@serwist/core/private";
 import "../_version.js";
 
+import { assert, SerwistError } from "@serwist/core/private";
+
 /**
- * @param {Blob} blob A source blob.
- * @param {number} [start] The offset to use as the start of the
+ * @param blob A source blob.
+ * @param start The offset to use as the start of the
  * slice.
- * @param {number} [end] The offset to use as the end of the slice.
- * @return {Object} An object with `start` and `end` properties, reflecting
+ * @param end The offset to use as the end of the slice.
+ * @returns An object with `start` and `end` properties, reflecting
  * the effective boundaries to use given the size of the blob.
- *
  * @private
  */
 function calculateEffectiveBoundaries(

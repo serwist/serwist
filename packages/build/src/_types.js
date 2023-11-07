@@ -16,17 +16,13 @@ import "./_version.mjs";
  * versioning already included in the URL.
  * @property {string} [integrity] Integrity metadata that will be used when
  * making the network request for the URL.
- *
- * @memberof module:workbox-build
- */
+  */
 
 /**
  * @typedef {Object} ManifestTransformResult
  * @property {Array<module:workbox-build.ManifestEntry>} manifest
  * @property {Array<string>|undefined} warnings
- *
- * @memberof module:workbox-build
- */
+  */
 
 /**
  * @typedef {Object} RuntimeCachingEntry
@@ -115,6 +111,4 @@ import "./_version.mjs";
  * One or more [additional plugins](https://developers.google.com/web/tools/workbox/guides/using-plugins#custom_plugins)
  * to apply to the handler. Useful when you want a plugin that doesn't have a
  * "shortcut" configuration.
- *
- * @memberof module:workbox-build
- */
+  */

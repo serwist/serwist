@@ -44,7 +44,7 @@ type BuildCommand = {
 /**
  * Runs the specified build command with the provided configuration.
  *
- * @param {Object} options
+ * @param options
  */
 async function runBuildCommand({ command, config, watch }: BuildCommand) {
   const { count, filePaths, size, warnings } =

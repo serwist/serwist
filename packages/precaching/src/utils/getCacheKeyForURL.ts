@@ -15,9 +15,9 @@ import "../_version.js";
  * This function will take the request URL and manipulate it based on the
  * configuration options.
  *
- * @param {string} url
- * @param {Object} options
- * @return {string} Returns the URL in the cache that matches the request,
+ * @param url
+ * @param options
+ * @returns Returns the URL in the cache that matches the request,
  * if possible.
  *
  * @private

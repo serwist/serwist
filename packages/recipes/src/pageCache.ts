@@ -5,17 +5,18 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-import { warmStrategyCache } from "./warmStrategyCache.js";
-import { registerRoute } from "@serwist/routing";
-import { NetworkFirst } from "@serwist/strategies";
+import "./_version.js";
+
 import { CacheableResponsePlugin } from "@serwist/cacheable-response";
-import {
+import type {
   RouteMatchCallback,
   RouteMatchCallbackOptions,
   SerwistPlugin,
 } from "@serwist/core/types";
+import { registerRoute } from "@serwist/routing";
+import { NetworkFirst } from "@serwist/strategies";
 
-import "./_version.js";
+import { warmStrategyCache } from "./warmStrategyCache.js";
 
 export interface PageCacheOptions {
   /**

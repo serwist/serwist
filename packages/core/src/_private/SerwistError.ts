@@ -6,9 +6,10 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { messageGenerator } from "../models/messages/messageGenerator.js";
-import { MapLikeObject } from "../types.js";
 import "../_version.js";
+
+import { messageGenerator } from "../models/messages/messageGenerator.js";
+import type { MapLikeObject } from "../types.js";
 
 /**
  * Serwist errors should be thrown with this class.
@@ -24,9 +25,9 @@ class SerwistError extends Error {
 
   /**
    *
-   * @param {string} errorCode The error code that
+   * @param errorCode The error code that
    * identifies this particular error.
-   * @param {Object=} details Any relevant arguments
+   * @param details Any relevant arguments
    * that will help developers identify issues should
    * be added as a key on the context object.
    */

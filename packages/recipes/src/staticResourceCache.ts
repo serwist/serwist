@@ -5,17 +5,18 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-import { registerRoute } from "@serwist/routing";
-import { StaleWhileRevalidate } from "@serwist/strategies";
+import "./_version.js";
+
 import { CacheableResponsePlugin } from "@serwist/cacheable-response";
-import {
+import type {
   RouteMatchCallback,
   RouteMatchCallbackOptions,
   SerwistPlugin,
 } from "@serwist/core/types";
+import { registerRoute } from "@serwist/routing";
+import { StaleWhileRevalidate } from "@serwist/strategies";
 
 import { warmStrategyCache } from "./warmStrategyCache.js";
-import "./_version.js";
 
 export interface StaticResourceOptions {
   /**

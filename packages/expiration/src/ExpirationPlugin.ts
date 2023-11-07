@@ -22,9 +22,23 @@ import type { SerwistPlugin } from "@serwist/core/types";
 import { CacheExpiration } from "./CacheExpiration.js";
 
 export interface ExpirationPluginOptions {
+  /**
+   * The maximum number of entries to cache. Entries used the least will be removed 
+   * as the maximum is reached.
+   */
   maxEntries?: number;
+  /**
+   * The maximum age of an entry before it's treated as stale and removed.
+   */
   maxAgeSeconds?: number;
+  /**
+   * The [`CacheQueryOptions`](https://developer.mozilla.org/en-US/docs/Web/API/Cache/delete#Parameters)
+   * that will be used when calling `delete()` on the cache.
+   */
   matchOptions?: CacheQueryOptions;
+  /**
+   * Whether to opt this cache in to automatic deletion if the available storage quota has been exceeded.
+   */
   purgeOnQuotaError?: boolean;
 }
 
@@ -55,15 +69,7 @@ class ExpirationPlugin implements SerwistPlugin {
   private _cacheExpirations: Map<string, CacheExpiration>;
 
   /**
-   * @param {ExpirationPluginOptions} config
-   * @param {number} [config.maxEntries] The maximum number of entries to cache.
-   * Entries used the least will be removed as the maximum is reached.
-   * @param {number} [config.maxAgeSeconds] The maximum age of an entry before
-   * it's treated as stale and removed.
-   * @param {Object} [config.matchOptions] The [`CacheQueryOptions`](https://developer.mozilla.org/en-US/docs/Web/API/Cache/delete#Parameters)
-   * that will be used when calling `delete()` on the cache.
-   * @param {boolean} [config.purgeOnQuotaError] Whether to opt this cache in to
-   * automatic deletion if the available storage quota has been exceeded.
+   * @param config
    */
   constructor(config: ExpirationPluginOptions = {}) {
     if (process.env.NODE_ENV !== "production") {
@@ -107,9 +113,8 @@ class ExpirationPlugin implements SerwistPlugin {
    * A simple helper method to return a CacheExpiration instance for a given
    * cache name.
    *
-   * @param {string} cacheName
-   * @return {CacheExpiration}
-   *
+   * @param cacheName
+   * @returns
    * @private
    */
   private _getCacheExpiration(cacheName: string): CacheExpiration {
@@ -133,13 +138,9 @@ class ExpirationPlugin implements SerwistPlugin {
    * prevents it from being used if the `Response`'s `Date` header value is
    * older than the configured `maxAgeSeconds`.
    *
-   * @param {Object} options
-   * @param {string} options.cacheName Name of the cache the response is in.
-   * @param {Response} options.cachedResponse The `Response` object that's been
-   *     read from a cache and whose freshness should be checked.
-   * @return {Response} Either the `cachedResponse`, if it's
-   *     fresh, or `null` if the `Response` is older than `maxAgeSeconds`.
-   *
+   * @param options
+   * @returns Either the `cachedResponse`, if it's fresh, or `null` if the `Response` 
+   * is older than `maxAgeSeconds`.
    * @private
    */
   cachedResponseWillBeUsed: SerwistPlugin["cachedResponseWillBeUsed"] = async ({
@@ -183,9 +184,8 @@ class ExpirationPlugin implements SerwistPlugin {
   };
 
   /**
-   * @param {Response} cachedResponse
-   * @return {boolean}
-   *
+   * @param cachedResponse
+   * @returns
    * @private
    */
   private _isResponseDateFresh(cachedResponse: Response): boolean {
@@ -213,9 +213,8 @@ class ExpirationPlugin implements SerwistPlugin {
    * This method will extract the data header and parse it into a useful
    * value.
    *
-   * @param {Response} cachedResponse
-   * @return {number|null}
-   *
+   * @param cachedResponse
+   * @returns
    * @private
    */
   private _getDateHeaderTimestamp(cachedResponse: Response): number | null {
@@ -240,10 +239,7 @@ class ExpirationPlugin implements SerwistPlugin {
    * A "lifecycle" callback that will be triggered automatically by the
    * `@serwist/strategies` handlers when an entry is added to a cache.
    *
-   * @param {Object} options
-   * @param {string} options.cacheName Name of the cache that was updated.
-   * @param {string} options.request The Request for the cached entry.
-   *
+   * @param options
    * @private
    */
   cacheDidUpdate: SerwistPlugin["cacheDidUpdate"] = async ({

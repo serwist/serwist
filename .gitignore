@@ -22,3 +22,6 @@ dist/
 
 # vscode
 .vscode
+
+# rollup
+.rollup.cache

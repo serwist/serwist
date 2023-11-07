@@ -21,8 +21,8 @@ const REVISION_SEARCH_PARAM = "__WB_REVISION__";
 /**
  * Converts a manifest entry into a versioned URL suitable for precaching.
  *
- * @param {Object|string} entry
- * @return {string} A URL with versioning info.
+ * @param entry
+ * @returns A URL with versioning info.
  *
  * @private
  */

@@ -6,15 +6,15 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { SerwistError, assert } from "@serwist/core/private";
 import "../_version.js";
 
+import { assert, SerwistError } from "@serwist/core/private";
+
 /**
- * @param {string} rangeHeader A Range: header value.
- * @return {Object} An object with `start` and `end` properties, reflecting
+ * @param rangeHeader A Range: header value.
+ * @returns An object with `start` and `end` properties, reflecting
  * the parsed value of the Range: header. If either the `start` or `end` are
  * omitted, then `null` will be returned.
- *
  * @private
  */
 function parseRangeHeader(rangeHeader: string): {

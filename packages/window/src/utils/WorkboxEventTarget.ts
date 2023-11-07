@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { WorkboxEvent, WorkboxEventMap } from "./WorkboxEvent.js";
+import type { WorkboxEvent, WorkboxEventMap } from "./WorkboxEvent.js";
 
 export type ListenerCallback = (event: WorkboxEvent<any>) => any;
 
@@ -23,8 +23,8 @@ export class WorkboxEventTarget {
   > = new Map();
 
   /**
-   * @param {string} type
-   * @param {Function} listener
+   * @param type
+   * @param listener
    * @private
    */
   addEventListener<K extends keyof WorkboxEventMap>(
@@ -36,8 +36,8 @@ export class WorkboxEventTarget {
   }
 
   /**
-   * @param {string} type
-   * @param {Function} listener
+   * @param type
+   * @param listener
    * @private
    */
   removeEventListener<K extends keyof WorkboxEventMap>(
@@ -48,7 +48,7 @@ export class WorkboxEventTarget {
   }
 
   /**
-   * @param {Object} event
+   * @param event
    * @private
    */
   dispatchEvent(event: WorkboxEvent<any>): void {
@@ -64,8 +64,8 @@ export class WorkboxEventTarget {
    * Returns a Set of listeners associated with the passed event type.
    * If no handlers have been registered, an empty Set is returned.
    *
-   * @param {string} type The event type.
-   * @return {Set<ListenerCallback>} An array of handler functions.
+   * @param type The event type.
+   * @returns An array of handler functions.
    * @private
    */
   private _getEventListenersByType(type: keyof WorkboxEventMap) {

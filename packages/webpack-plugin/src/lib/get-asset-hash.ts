@@ -10,8 +10,8 @@ import crypto from "crypto";
 import type { Asset } from "webpack";
 
 /**
- * @param {Asset} asset
- * @return {string} The MD5 hash of the asset's source.
+ * @param asset
+ * @returns The MD5 hash of the asset's source.
  *
  * @private
  */

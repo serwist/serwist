@@ -10,10 +10,10 @@ import upath from "upath";
 import type { Compilation } from "webpack";
 
 /**
- * @param {Object} compilation The webpack compilation.
- * @param {string} swDest The original swDest value.
+ * @param compilation The webpack compilation.
+ * @param swDest The original swDest value.
  *
- * @return {string} If swDest was not absolute, the returns swDest as-is.
+ * @returns If swDest was not absolute, the returns swDest as-is.
  * Otherwise, returns swDest relative to the compilation's output path.
  *
  * @private

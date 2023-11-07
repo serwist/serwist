@@ -12,9 +12,9 @@ import { RouteHandler, RouteHandlerObject } from "@serwist/core/types";
 import "../_version.js";
 
 /**
- * @param {function()|Object} handler Either a function, or an object with a
+ * @param handler Either a function, or an object with a
  * 'handle' method.
- * @return {Object} An object with a handle method.
+ * @returns An object with a handle method.
  *
  * @private
  */

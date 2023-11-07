@@ -6,16 +6,21 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { cacheNames, SerwistError, logger, getFriendlyURL } from "@serwist/core/private";
+import "./_version.js";
+
 import {
+  cacheNames,
+  getFriendlyURL,
+  logger,
+  SerwistError,
+} from "@serwist/core/private";
+import type {
   HandlerCallbackOptions,
   RouteHandlerObject,
   SerwistPlugin,
 } from "@serwist/core/types";
 
 import { StrategyHandler } from "./StrategyHandler.js";
-
-import "./_version.js";
 
 export interface StrategyOptions {
   /**
@@ -40,8 +45,8 @@ export interface StrategyOptions {
 
 /**
  * Classes extending the `Strategy` based class should implement this method,
- * and leverage `@serwist/strategies`'s `StrategyHandler` arg to perform all 
- * fetching and cache logic, which will ensure all relevant cache, cache options, 
+ * and leverage `@serwist/strategies`'s `StrategyHandler` arg to perform all
+ * fetching and cache logic, which will ensure all relevant cache, cache options,
  * fetch options and plugins are used (per the current strategy instance).
  */
 abstract class Strategy implements RouteHandlerObject {
@@ -100,8 +105,8 @@ abstract class Strategy implements RouteHandlerObject {
    * @param options A `FetchEvent` or an object with the properties listed below.
    * @param options.request A request to run this strategy for.
    * @param options.event The event associated with the request.
-   * @param {URL} [options.url]
-   * @param {*} [options.params]
+   * @param options.url
+   * @param options.params
    */
   handle(options: FetchEvent | HandlerCallbackOptions): Promise<Response> {
     const [responseDone] = this.handleAll(options);
@@ -119,11 +124,7 @@ abstract class Strategy implements RouteHandlerObject {
    * You can await the `done` promise to ensure any extra work performed by
    * the strategy (usually caching responses) completes successfully.
    *
-   * @param options A `FetchEvent` or an object with the properties listed below.
-   * @param options.request A request to run this strategy for.
-   * @param options.event The event associated with the request.
-   * @param {URL} [options.url]
-   * @param {*} [options.params]
+   * @param options A `FetchEvent` or `HandlerCallbackOptions` object.
    * @returns A tuple of [response, done] promises that can be used to determine when the response resolves as
    * well as when the handler has completed all its work.
    */
@@ -199,7 +200,7 @@ abstract class Strategy implements RouteHandlerObject {
     }
 
     for (const callback of handler.iterateCallbacks("handlerWillRespond")) {
-      response = await callback({ event, request, response }) as Response;
+      response = (await callback({ event, request, response })) as Response;
     }
 
     return response;

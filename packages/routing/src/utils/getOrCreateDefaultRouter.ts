@@ -16,7 +16,7 @@ let defaultRouter: Router;
  * does already exist, that instance is returned.
  *
  * @private
- * @return {Router}
+ * @returns
  */
 export const getOrCreateDefaultRouter = (): Router => {
   if (!defaultRouter) {

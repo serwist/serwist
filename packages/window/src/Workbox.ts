@@ -66,10 +66,10 @@ class Workbox extends WorkboxEventTarget {
    * options. The script URL and options are the same as those used when
    * calling [navigator.serviceWorker.register(scriptURL, options)](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerContainer/register).
    *
-   * @param {string|TrustedScriptURL} scriptURL The service worker script
+   * @param scriptURL The service worker script
    *     associated with this instance. Using a
    *     [`TrustedScriptURL`](https://web.dev/trusted-types/) is supported.
-   * @param {Object} [registerOptions] The service worker options associated
+   * @param registerOptions The service worker options associated
    *     with this instance.
    */
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -90,14 +90,17 @@ class Workbox extends WorkboxEventTarget {
    * worker options. By default this method delays registration until after
    * the window has loaded.
    *
-   * @param {Object} [options]
-   * @param {Function} [options.immediate=false] Setting this to true will
-   *     register the service worker immediately, even if the window has
-   *     not loaded (not recommended).
+   * @param options
    */
-  async register({ immediate = false } = {}): Promise<
-    ServiceWorkerRegistration | undefined
-  > {
+  async register({
+    immediate = false,
+  }: {
+    /**
+     * Setting this to true will  register the service worker immediately,
+     * even if the window has not loaded (not recommended).
+     */
+    immediate?: boolean;
+  } = {}): Promise<ServiceWorkerRegistration | undefined> {
     if (process.env.NODE_ENV !== "production") {
       if (this._registrationTime) {
         logger.error(
@@ -248,7 +251,7 @@ class Workbox extends WorkboxEventTarget {
    * script versions) match, otherwise it will wait until an update is found
    * and activates.
    *
-   * @return {Promise<ServiceWorker>}
+   * @returns
    */
   get active(): Promise<ServiceWorker> {
     return this._activeDeferred.promise;
@@ -264,7 +267,7 @@ class Workbox extends WorkboxEventTarget {
    * not start controlling the page unless `clients.claim()` is called in the
    * service worker.
    *
-   * @return {Promise<ServiceWorker>}
+   * @returns
    */
   get controlling(): Promise<ServiceWorker> {
     return this._controllingDeferred.promise;
@@ -283,7 +286,7 @@ class Workbox extends WorkboxEventTarget {
    * time then the promise will not resolve until an update is found and starts
    * installing, at which point the installing service worker is used.
    *
-   * @return {Promise<ServiceWorker>}
+   * @returns
    */
   getSW(): Promise<ServiceWorker> {
     // If `this._sw` is set, resolve with that as we want `getSW()` to
@@ -331,7 +334,7 @@ class Workbox extends WorkboxEventTarget {
    * it if its script URL matches.
    *
    * @private
-   * @return {ServiceWorker|undefined}
+   * @returns
    */
   private _getControllingSWIfCompatible() {
     const controller = navigator.serviceWorker.controller;
@@ -447,7 +450,7 @@ class Workbox extends WorkboxEventTarget {
 
   /**
    * @private
-   * @param {Event} originalEvent
+   * @param originalEvent
    */
   private readonly _onStateChange = (originalEvent: Event) => {
     // `this._registration` will never be `undefined` after an update is found.
@@ -549,7 +552,7 @@ class Workbox extends WorkboxEventTarget {
 
   /**
    * @private
-   * @param {Event} originalEvent
+   * @param originalEvent
    */
   private readonly _onControllerChange = (originalEvent: Event) => {
     const sw = this._sw;
@@ -578,7 +581,7 @@ class Workbox extends WorkboxEventTarget {
 
   /**
    * @private
-   * @param {Event} originalEvent
+   * @param originalEvent
    */
   private readonly _onMessage = async (originalEvent: MessageEvent) => {
     // Can't change type 'any' of data.

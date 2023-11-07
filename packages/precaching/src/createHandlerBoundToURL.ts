@@ -6,10 +6,11 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { RouteHandlerCallback } from "@serwist/core/types";
+import "./_version.js";
+
+import type { RouteHandlerCallback } from "@serwist/core/types";
 
 import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheController.js";
-import "./_version.js";
 
 /**
  * Helper function that calls
@@ -22,12 +23,10 @@ import "./_version.js";
  *
  * @param url The precached URL which will be used to lookup the
  * `Response`.
- * @param [fallbackToNetwork=true] Whether to attempt to get the
+ * @param fallbackToNetwork Whether to attempt to get the
  * response from the network if there's a precache miss.
  * @return
- *
- * @memberof workbox-precaching
- */
+  */
 function createHandlerBoundToURL(url: string): RouteHandlerCallback {
   const precacheController = getOrCreatePrecacheController();
   return precacheController.createHandlerBoundToURL(url);

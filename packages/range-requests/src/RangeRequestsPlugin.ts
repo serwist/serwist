@@ -21,14 +21,10 @@ import { createPartialResponse } from "./createPartialResponse.js";
  */
 class RangeRequestsPlugin implements SerwistPlugin {
   /**
-   * @param {Object} options
-   * @param {Request} options.request The original request, which may or may not
-   * contain a Range: header.
-   * @param {Response} options.cachedResponse The complete cached response.
-   * @return {Promise<Response>} If request contains a 'Range' header, then a
+   * @param options
+   * @returns If request contains a 'Range' header, then a
    * new response with status 206 whose body is a subset of `cachedResponse` is
    * returned. Otherwise, `cachedResponse` is returned as-is.
-   *
    * @private
    */
   cachedResponseWillBeUsed: SerwistPlugin["cachedResponseWillBeUsed"] = async ({

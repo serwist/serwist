@@ -24,7 +24,7 @@ const configLocationQuestion: Question<Answers> = {
   default: constants.defaultConfigFile,
 };
 /**
- * @return {Promise<Answers>} The answers from inquirer.
+ * @returns The answers from inquirer.
  */
 function askQuestion(): Promise<Answers> {
   return inquirer.prompt([configLocationQuestion]);

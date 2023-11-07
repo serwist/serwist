@@ -59,15 +59,12 @@ import { noRevisionForURLsMatchingTransform } from "./no-revision-for-urls-match
  * };
  *
  * @callback ManifestTransform
- * @param {Array<workbox-build.ManifestEntry>} manifestEntries The full
+ * @param manifestEntries The full
  * array of entries, prior to the current transformation.
- * @param {Object} [compilation] When used in the webpack plugins, this param
+ * @param compilation When used in the webpack plugins, this param
  * will be set to the current `compilation`.
- * @return {Promise<workbox-build.ManifestTransformResult>}
- * The array of entries with the transformation applied, and optionally, any
- * warnings that should be reported back to the build tool.
- *
- * @memberof workbox-build
+ * @returns The array of entries with the transformation applied, 
+ * and optionally, any warnings that should be reported back to the build tool.
  */
 
 interface ManifestTransformResultWithWarnings {
