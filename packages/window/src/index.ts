@@ -9,9 +9,9 @@
 import "./_version.js";
 
 import { messageSW } from "./messageSW.js";
-import { Workbox } from "./Workbox.js";
+import { Serwist } from "./Serwist.js";
 
-export { messageSW, Workbox };
+export { messageSW, Serwist };
 
 // See https://github.com/GoogleChrome/workbox/issues/2770
-export * from "./utils/WorkboxEvent.js";
+export * from "./utils/SerwistEvent.js";

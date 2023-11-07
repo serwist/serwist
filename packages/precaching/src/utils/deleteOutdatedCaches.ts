@@ -15,7 +15,7 @@ const SUBSTRING_TO_FIND = "-precache-";
 
 /**
  * Cleans up incompatible precaches that were created by older versions of
- * Workbox, by a service worker registered under the current scope.
+ * Serwist, by a service worker registered under the current scope.
  *
  * This is meant to be called as part of the `activate` event.
  *

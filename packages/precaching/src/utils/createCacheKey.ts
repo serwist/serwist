@@ -6,9 +6,11 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { SerwistError } from "@serwist/core/private";
-import { PrecacheEntry } from "../_types.js";
 import "../_version.js";
+
+import { SerwistError } from "@serwist/core/private";
+
+import type { PrecacheEntry } from "../_types.js";
 
 interface CacheKey {
   cacheKey: string;
@@ -56,7 +58,7 @@ export function createCacheKey(entry: PrecacheEntry | string): CacheKey {
     };
   }
 
-  // Otherwise, construct a properly versioned URL using the custom Workbox
+  // Otherwise, construct a properly versioned URL using the custom Serwist
   // search parameter along with the revision info.
   const cacheKeyURL = new URL(url, location.href);
   const originalURL = new URL(url, location.href);

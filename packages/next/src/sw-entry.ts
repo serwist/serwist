@@ -1,4 +1,4 @@
-import { Workbox } from "@serwist/window";
+import { Serwist } from "@serwist/window";
 
 import type { MessageType } from "./sw-entry-worker.js";
 
@@ -12,7 +12,7 @@ declare const __PWA_SCOPE__: string;
 declare const __PWA_SW_ENTRY_WORKER__: string | undefined;
 declare global {
   interface Window {
-    workbox: Workbox;
+    serwist: Serwist;
   }
 }
 
@@ -27,12 +27,12 @@ if (
     swEntryWorker = new Worker(__PWA_SW_ENTRY_WORKER__);
   }
 
-  window.workbox = new Workbox(window.location.origin + __PWA_SW__, {
+  window.serwist = new Serwist(window.location.origin + __PWA_SW__, {
     scope: __PWA_SCOPE__,
   });
 
   if (__PWA_ENABLE_REGISTER__) {
-    window.workbox.register();
+    window.serwist.register();
   }
 
   if (__PWA_CACHE_ON_FRONT_END_NAV__ || __PWA_START_URL__) {

@@ -215,7 +215,6 @@ class GenerateSW {
 
     const files = await bundle({
       babelPresetEnvTargets: config.babelPresetEnvTargets,
-      inlineWorkboxRuntime: config.inlineWorkboxRuntime,
       mode: config.mode,
       sourcemap: config.sourcemap,
       swDest: relativeToOutputPath(compilation, config.swDest!),

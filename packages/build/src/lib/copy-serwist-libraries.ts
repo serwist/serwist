@@ -22,16 +22,16 @@ const SERWIST_PREFIX = "serwist-";
 const BUILD_DIR = "build";
 
 /**
- * This copies over a set of runtime libraries used by Workbox into a
+ * This copies over a set of runtime libraries used by Serwist into a
  * local directory, which should be deployed alongside your service worker file.
  *
  * As an alternative to deploying these local copies, you could instead use
- * Workbox from its official CDN URL.
+ * Serwist from its official CDN URL.
  *
  * This method is exposed for the benefit of developers using
- * {@link workbox-build.injectManifest} who would
- * prefer not to use the CDN copies of Workbox. Developers using
- * {@link workbox-build.generateSW} don't need to
+ * `@serwist/build.injectManifest` who would
+ * prefer not to use the CDN copies of Serwist. Developers using
+ * `@serwist/build.generateSW` don't need to
  * explicitly call this method.
  *
  * @param destDirectory The path to the parent directory under which
@@ -42,8 +42,8 @@ export async function copySerwistLibraries(
   destDirectory: string
 ): Promise<string> {
   const thisPkg: SerwistPackageJSON = require("../../package.json");
-  // Use the version string from workbox-build in the name of the parent
-  // directory. This should be safe, because lerna will bump workbox-build's
+  // Use the version string from @serwist/build in the name of the parent
+  // directory. This should be safe, because lerna will bump @serwist/build's
   // pkg.version whenever one of the dependent libraries gets bumped, and we
   // care about versioning the dependent libraries.
   const workboxDirectoryName = `serwist-v${

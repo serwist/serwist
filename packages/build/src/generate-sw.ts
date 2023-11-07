@@ -5,9 +5,6 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-
-import upath from "upath";
-
 import { getFileManifestEntries } from "./lib/get-file-manifest-entries.js";
 import { rebasePath } from "./lib/rebase-path.js";
 import { validateGenerateSWOptions } from "./lib/validate-options.js";
@@ -71,19 +68,6 @@ export async function generateSW(
         file: options.swDest,
       })
     );
-
-    // If we create an extra external runtime file, ignore that, too.
-    // See https://rollupjs.org/guide/en/#outputchunkfilenames for naming.
-    if (!options.inlineWorkboxRuntime) {
-      const swDestDir = upath.dirname(options.swDest);
-      const serwistRuntimeFile = upath.join(swDestDir, "serwist-*.js");
-      options.globIgnores!.push(
-        rebasePath({
-          baseDirectory: options.globDirectory,
-          file: serwistRuntimeFile,
-        })
-      );
-    }
 
     // We've previously asserted that options.globDirectory is set, so this
     // should be a safe cast.

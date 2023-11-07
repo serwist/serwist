@@ -145,7 +145,7 @@ function filterAssets(
         compilation.warnings.push(
           new Error(
             `The chunk '${name}' was ` +
-              `provided in your Workbox chunks config, but was not found in the ` +
+              `provided in your Serwist chunks config, but was not found in the ` +
               `compilation.`
           ) as WebpackError
         );

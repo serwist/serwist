@@ -135,25 +135,25 @@ export interface PluginOptions {
   /**
    * Allow this plugin to automatically register the service worker for you. Set
    * this to `false` if you want to register the service worker yourself, which
-   * can be done by running `window.workbox.register()` in
+   * can be done by running `window.serwist.register()` in
    * `componentDidMount` or `useEffect`.
    * @example
    *   ```tsx
    *   // app/register-pwa.tsx
    *   "use client";
    *   import { useEffect } from "react";
-   *   import type { Workbox } from "workbox-window";
+   *   import type { Serwist } from "@serwist/window";
    *
    *   declare global {
    *     interface Window {
-   *       workbox: Workbox;
+   *       serwist: Serwist;
    *     }
    *   }
    *
    *   export default function RegisterPWA() {
    *     useEffect(() => {
-   *       if ("serviceWorker" in navigator && window.workbox !== undefined) {
-   *         window.workbox.register();
+   *       if ("serviceWorker" in navigator && window.serwist !== undefined) {
+   *         window.serwist.register();
    *       }
    *     }, []);
    *     return <></>;
@@ -193,8 +193,8 @@ export interface PluginOptions {
    */
   watchWorkersInDev?: boolean;
   /**
-   * Pass options to `workbox-webpack-plugin`. This one relies on
-   * `workbox-webpack-plugin`'s own JSDoc, so some information may not be
+   * Pass options to `@serwist/webpack-plugin`. This one relies on
+   * `@serwist/webpack-plugin`'s own JSDoc, so some information may not be
    * exactly correct.
    */
   workboxOptions?: WorkboxTypes[keyof WorkboxTypes];

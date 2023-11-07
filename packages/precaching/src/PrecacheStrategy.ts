@@ -28,9 +28,9 @@ interface PrecacheStrategyOptions extends StrategyOptions {
 }
 
 /**
- * A {@link workbox-strategies.Strategy} implementation
+ * A `@serwist/strategies.Strategy` implementation
  * specifically designed to work with
- * {@link workbox-precaching.PrecacheController}
+ * `@serwist/precaching.PrecacheController`
  * to both cache and fetch precached assets.
  *
  * Note: an instance of this class is created automatically when creating a
@@ -167,7 +167,7 @@ class PrecacheStrategy extends Strategy {
       const cacheKey =
         params.cacheKey || (await handler.getCacheKey(request, "read"));
 
-      // Workbox is going to handle the route.
+      // Serwist is going to handle the route.
       // print the routing details to the console.
       logger.groupCollapsed(
         `Precaching is responding to: ` + getFriendlyURL(request.url)

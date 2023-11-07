@@ -21,9 +21,9 @@ class BackgroundSyncPlugin implements SerwistPlugin {
   private readonly _queue: Queue;
 
   /**
-   * @param name See the {@link workbox-background-sync.Queue}
+   * @param name See the `@serwist/background-sync.Queue`
    * documentation for parameter details.
-   * @param options See the {@link workbox-background-sync.Queue} 
+   * @param options See the `@serwist/background-sync.Queue`
    * documentation for parameter details.
    */
   constructor(name: string, options?: QueueOptions) {

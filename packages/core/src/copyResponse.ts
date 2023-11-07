@@ -6,15 +6,15 @@
   https://opensource.org/licenses/MIT.
 */
 
+import "./_version.js";
+
 import { canConstructResponseFromBodyStream } from "./_private/canConstructResponseFromBodyStream.js";
 import { SerwistError } from "./_private/SerwistError.js";
-
-import "./_version.js";
 
 /**
  * Allows developers to copy a response and modify its `headers`, `status`,
  * or `statusText` values (the values settable via a
- * [`ResponseInit`]{@link https://developer.mozilla.org/en-US/docs/Web/API/Response/Response#Syntax}
+ * [`ResponseInit`](https://developer.mozilla.org/en-US/docs/Web/API/Response/Response#Syntax)
  * object in the constructor).
  * To modify these values, pass a function as the second argument. That
  * function will be invoked with a single object with the response properties

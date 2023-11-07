@@ -13,12 +13,11 @@ import type { RouteHandlerCallback } from "@serwist/core/types";
 import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheController.js";
 
 /**
- * Helper function that calls
- * {@link PrecacheController#createHandlerBoundToURL} on the default
- * {@link PrecacheController} instance.
+ * Helper function that calls `PrecacheController#createHandlerBoundToURL` 
+ * on the default `PrecacheController` instance.
  *
- * If you are creating your own {@link PrecacheController}, then call the
- * {@link PrecacheController#createHandlerBoundToURL} on that instance,
+ * If you are creating your own `PrecacheController`, then call the
+ * `PrecacheController#createHandlerBoundToURL` on that instance,
  * instead of using this function.
  *
  * @param url The precached URL which will be used to lookup the

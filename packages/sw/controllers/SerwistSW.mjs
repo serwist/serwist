@@ -32,7 +32,7 @@ const MODULE_KEY_TO_NAME_MAPPING = {
  *
  * @private
  */
-export class WorkboxSW {
+export class SerwistSW {
   /**
    * Creates a proxy that automatically loads workbox namespaces on demand.
    *
@@ -69,19 +69,19 @@ export class WorkboxSW {
    * Updates the configuration options. You can specify whether to treat as a
    * debug build and whether to use a CDN or a specific path when importing
    * other Serwist modules.
-   * @param {import("./WorkboxSW.d.ts").Config} options
+   * @param {import("./WorkboxSW").Config} options
    */
   setConfig(options = {}) {
     if (!this._modulesLoaded) {
       Object.assign(this._options, options);
       this._env = this._options.debug ? "dev" : "prod";
     } else {
-      throw new Error("Config must be set before accessing workbox.* modules");
+      throw new Error("Config must be set before accessing serwist.* modules");
     }
   }
 
   /**
-   * Load a Workbox module by passing in the appropriate module name.
+   * Load a Serwist module by passing in the appropriate module name.
    *
    * This is not generally needed unless you know there are modules that are
    * dynamically used and you want to safe guard use of the module while the

@@ -6,16 +6,18 @@
   https://opensource.org/licenses/MIT.
 */
 
+import "./_version.js";
+
 import { logger } from "@serwist/core/private";
-import {
+import type {
   RouteHandlerCallback,
   RouteHandlerCallbackOptions,
 } from "@serwist/core/types";
-import { createHeaders } from "./utils/createHeaders.js";
+
+import type { StreamSource } from "./_types.js";
 import { concatenateToResponse } from "./concatenateToResponse.js";
 import { isSupported } from "./isSupported.js";
-import { StreamSource } from "./_types.js";
-import "./_version.js";
+import { createHeaders } from "./utils/createHeaders.js";
 
 export interface StreamsHandlerCallback {
   ({
@@ -27,7 +29,7 @@ export interface StreamsHandlerCallback {
 }
 
 /**
- * A shortcut to create a strategy that could be dropped-in to Workbox's router.
+ * A shortcut to create a strategy that could be dropped-in to Serwist's router.
  *
  * On browsers that do not support constructing new `ReadableStream`s, this
  * strategy will automatically wait for all the `sourceFunctions` to complete,

@@ -23,7 +23,6 @@ export async function writeSWUsingDefaultTemplate({
   disableDevLogs,
   ignoreURLParametersMatching,
   importScripts,
-  inlineWorkboxRuntime,
   manifestEntries,
   mode,
   navigateFallback,
@@ -69,7 +68,6 @@ export async function writeSWUsingDefaultTemplate({
   try {
     const files = await bundle({
       babelPresetEnvTargets,
-      inlineWorkboxRuntime,
       mode,
       sourcemap,
       swDest,

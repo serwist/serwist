@@ -24,7 +24,7 @@ export interface PageCacheOptions {
    */
   cacheName?: string;
   /**
-   * Workbox callback function to call to match to. Defaults to request.mode === 'navigate'.
+   * Serwist callback function to call to match to. Defaults to request.mode === 'navigate'.
    */
   matchCallback?: RouteMatchCallback;
   /**

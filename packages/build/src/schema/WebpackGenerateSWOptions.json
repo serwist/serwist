@@ -121,11 +121,6 @@
         "type": "string"
       }
     },
-    "inlineWorkboxRuntime": {
-      "description": "Whether the runtime code for the Workbox library should be included in the\ntop-level service worker, or split into a separate file that needs to be\ndeployed alongside the service worker. Keeping the runtime separate means\nthat users will not have to re-download the Workbox code each time your\ntop-level service worker changes.",
-      "default": false,
-      "type": "boolean"
-    },
     "navigateFallback": {
       "description": "If specified, all\n[navigation requests](https://developers.google.com/web/fundamentals/primers/service-workers/high-performance-loading#first_what_are_navigation_requests)\nfor URLs that aren't precached will be fulfilled with the HTML at the URL\nprovided. You must pass in the URL of an HTML document that is listed in\nyour precache manifest. This is meant to be used in a Single Page App\nscenario, in which you want all navigations to use common\n[App Shell HTML](https://developers.google.com/web/fundamentals/architecture/app-shell).",
       "default": null,

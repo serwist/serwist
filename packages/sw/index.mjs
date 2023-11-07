@@ -8,7 +8,7 @@
 
 import "./_version.mjs";
 
-import { WorkboxSW } from "./controllers/WorkboxSW.mjs";
+import { SerwistSW } from "./controllers/SerwistSW.mjs";
 
 // Don't export anything, just expose a global.
-self.workbox = new WorkboxSW();
+self.serwist = new SerwistSW();

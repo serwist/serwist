@@ -25,7 +25,6 @@ interface NameAndContents {
 
 export async function bundle({
   // babelPresetEnvTargets,
-  // inlineWorkboxRuntime,
   mode,
   sourcemap,
   swDest,

@@ -37,7 +37,7 @@ import "./_version.js";
  * @param context.sameOrigin The result of comparing `url.origin`
  *     against the current origin.
  * @returns To signify a match, return a truthy value.
-  */
+ */
 
 /**
  * The "handler" callback is invoked whenever a `Router` matches a URL to a
@@ -59,4 +59,6 @@ import "./_version.js";
  *     Route's {@link workbox-routing~matchCallback}.
  *     This will be undefined if an empty array or object were returned.
  * @returns The response that will fulfill the request.
-  */
+ *
+ * @memberof workbox-routing
+ */

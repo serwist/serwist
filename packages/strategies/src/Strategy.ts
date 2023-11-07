@@ -28,7 +28,7 @@ export interface StrategyOptions {
    */
   cacheName?: string;
   /**
-   * [Plugins]{@link https://developers.google.com/web/tools/workbox/guides/using-plugins}
+   * [Plugins](https://developers.google.com/web/tools/workbox/guides/using-plugins)
    * to use in conjunction with this caching strategy.
    */
   plugins?: SerwistPlugin[];
@@ -38,7 +38,8 @@ export interface StrategyOptions {
    */
   fetchOptions?: RequestInit;
   /**
-   * [`CacheQueryOptions`](https://w3c.github.io/ServiceWorker/#dictdef-cachequeryoptions).
+   * The [`CacheQueryOptions`](https://w3c.github.io/ServiceWorker/#dictdef-cachequeryoptions)
+   * for any `cache.match()` or `cache.put()` calls made by this strategy.
    */
   matchOptions?: CacheQueryOptions;
 }
@@ -71,24 +72,9 @@ abstract class Strategy implements RouteHandlerObject {
    * @param options
    */
   constructor(options: StrategyOptions = {}) {
-    /**
-     * Cache name to store and retrieve requests. Defaults to the cache names provided by `@serwist/core`.
-     */
     this.cacheName = cacheNames.getRuntimeName(options.cacheName);
-    /**
-     * A list of [Plugins](https://developers.google.com/web/tools/workbox/guides/using-plugins)
-     * used by this strategy.
-     */
     this.plugins = options.plugins || [];
-    /**
-     * Values passed along to the [`init`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters)
-     * of all `fetch()` requests made by this strategy.
-     */
     this.fetchOptions = options.fetchOptions;
-    /**
-     * The [`CacheQueryOptions`]{@link https://w3c.github.io/ServiceWorker/#dictdef-cachequeryoptions}
-     * for any `cache.match()` or `cache.put()` calls made by this strategy.
-     */
     this.matchOptions = options.matchOptions;
   }
 

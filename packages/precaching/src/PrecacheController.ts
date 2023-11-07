@@ -104,8 +104,7 @@ class PrecacheController {
 
   /**
    * Adds items to the precache list, removing any duplicates and
-   * stores the files in the
-   * {@link workbox-core.cacheNames|"precache cache"} when the service
+   * stores the files in the precache cache when the service
    * worker installs.
    *
    * This method can be called multiple times.
@@ -178,7 +177,7 @@ class PrecacheController {
 
       if (urlsToWarnAbout.length > 0) {
         const warningMessage =
-          `Workbox is precaching URLs without revision ` +
+          `Serwist is precaching URLs without revision ` +
           `info: ${urlsToWarnAbout.join(", ")}\nThis is generally NOT safe. ` +
           `Learn more at https://bit.ly/wb-precache`;
         if (process.env.NODE_ENV === "production") {

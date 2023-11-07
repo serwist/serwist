@@ -178,7 +178,7 @@ class Router {
     if (!url.protocol.startsWith("http")) {
       if (process.env.NODE_ENV !== "production") {
         logger.debug(
-          `Workbox Router only supports URLs that start with 'http'.`
+          `Serwist Router only supports URLs that start with 'http'.`
         );
       }
       return;
@@ -222,7 +222,7 @@ class Router {
 
     if (!handler) {
       if (process.env.NODE_ENV !== "production") {
-        // No handler so Workbox will do nothing. If logs is set of debug
+        // No handler so Serwist will do nothing. If logs is set of debug
         // i.e. verbose, we should print out this information.
         logger.debug(`No route found for: ${getFriendlyURL(url)}`);
       }
@@ -230,7 +230,7 @@ class Router {
     }
 
     if (process.env.NODE_ENV !== "production") {
-      // We have a handler, meaning Workbox is going to handle the route.
+      // We have a handler, meaning Serwist is going to handle the route.
       // print the routing details to the console.
       logger.groupCollapsed(`Router is responding to: ${getFriendlyURL(url)}`);
 

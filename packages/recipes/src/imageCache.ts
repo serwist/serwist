@@ -25,7 +25,7 @@ export interface ImageCacheOptions {
    */
   cacheName?: string;
   /**
-   * Workbox callback function to call to match to. Defaults to request.destination === 'image'.
+   * Serwist callback function to call to match to. Defaults to request.destination === 'image'.
    */
   matchCallback?: RouteMatchCallback;
   /**

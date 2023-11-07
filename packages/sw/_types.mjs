@@ -10,11 +10,11 @@ import "./_version.mjs";
 
 /**
  * A `ModulePathCallback` function can be used to modify the modify the where
- * Workbox modules are loaded.
+ * Serwist modules are loaded.
  *
  * @callback ~ModulePathCallback
  * @param moduleName The name of the module to load (i.e.
- * 'workbox-core', 'workbox-precaching' etc.).
+ * '@serwist/core', '@serwist/recaching' etc.).
  * @param debug When true, `dev` builds should be loaded, otherwise
  * load `prod` builds.
  * @returns This callback should return a path of module. This will

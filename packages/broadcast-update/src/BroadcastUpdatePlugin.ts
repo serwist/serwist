@@ -22,7 +22,7 @@ class BroadcastUpdatePlugin implements SerwistPlugin {
   private readonly _broadcastUpdate: BroadcastCacheUpdate;
 
   /**
-   * Construct a {@link workbox-broadcast-update.BroadcastUpdate} instance with
+   * Construct a `@serwist/broadcast-update.BroadcastCacheUpdate` instance with
    * the passed options and calls its `notifyIfUpdated` method whenever the
    * plugin's `cacheDidUpdate` callback is invoked.
    *
@@ -34,7 +34,7 @@ class BroadcastUpdatePlugin implements SerwistPlugin {
 
   /**
    * A "lifecycle" callback that will be triggered automatically by the
-   * `workbox-sw` and `workbox-runtime-caching` handlers when an entry is
+   * `@serwist/sw` and `@serwist/build.RuntimeCaching` handlers when an entry is
    * added to a cache.
    *
    * @private

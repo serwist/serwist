@@ -37,7 +37,7 @@ yarn-error.log*
 next-env.d.ts
 
 # next-pwa
-**/public/workbox**
+**/public/serwist**
 **/public/sw**
 **/public/worker**
 **/public/fallback**

@@ -26,7 +26,7 @@ export interface StaticResourceOptions {
    */
   cacheName?: string;
   /**
-   * Workbox callback function to call to match to.
+   * Serwist callback function to call to match to.
    * 
    * @default request.destination === 'style' || request.destination === 'script' || request.destination === 'worker'
    */

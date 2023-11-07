@@ -6,6 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
+import "./_version.js";
+
 import { addPlugins } from "./addPlugins.js";
 import { addRoute } from "./addRoute.js";
 import { cleanupOutdatedCaches } from "./cleanupOutdatedCaches.js";
@@ -15,23 +17,19 @@ import { matchPrecache } from "./matchPrecache.js";
 import { precache } from "./precache.js";
 import { precacheAndRoute } from "./precacheAndRoute.js";
 import { PrecacheController } from "./PrecacheController.js";
+import { PrecacheFallbackPlugin } from "./PrecacheFallbackPlugin.js";
 import { PrecacheRoute } from "./PrecacheRoute.js";
 import { PrecacheStrategy } from "./PrecacheStrategy.js";
-import { PrecacheFallbackPlugin } from "./PrecacheFallbackPlugin.js";
-
-import "./_version.js";
 
 /**
  * Most consumers of this module will want to use the
- * {@link workbox-precaching.precacheAndRoute}
+ * `@serwist/precaching.precacheAndRoute`
  * method to add assets to the cache and respond to network requests with these
  * cached assets.
  *
  * If you require more control over caching and routing, you can use the
- * {@link workbox-precaching.PrecacheController}
+ * `@serwist/precaching.PrecacheController`
  * interface.
- *
- * @module workbox-precaching
  */
 
 export {
@@ -44,9 +42,9 @@ export {
   precache,
   precacheAndRoute,
   PrecacheController,
+  PrecacheFallbackPlugin,
   PrecacheRoute,
   PrecacheStrategy,
-  PrecacheFallbackPlugin,
 };
 
 export * from "./_types.js";

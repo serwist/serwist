@@ -6,13 +6,15 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { cacheNames, logger } from "@serwist/core/private";
-import { deleteOutdatedCaches } from "./utils/deleteOutdatedCaches.js";
 import "./_version.js";
+
+import { cacheNames, logger } from "@serwist/core/private";
+
+import { deleteOutdatedCaches } from "./utils/deleteOutdatedCaches.js";
 
 /**
  * Adds an `activate` event listener which will clean up incompatible
- * precaches that were created by older versions of Workbox.
+ * precaches that were created by older versions of Serwist.
   */
 function cleanupOutdatedCaches(): void {
   // See https://github.com/Microsoft/TypeScript/issues/28357#issuecomment-436484705

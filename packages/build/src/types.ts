@@ -23,9 +23,9 @@ export type StrategyName =
 export interface RuntimeCaching {
   /**
    * This determines how the runtime route will generate a response.
-   * To use one of the built-in {@link workbox-strategies}, provide its name,
+   * To use one of the built-in `@serwist/strategies`, provide its name,
    * like `'NetworkFirst'`.
-   * Alternatively, this can be a {@link workbox-core.RouteHandler} callback
+   * Alternatively, this can be a `@serwist/core.RouteHandler` callback
    * function with custom response logic.
    */
   handler: RouteHandler | StrategyName;
@@ -39,8 +39,8 @@ export interface RuntimeCaching {
   options?: {
     /**
      * Configuring this will add a
-     * {@link workbox-background-sync.BackgroundSyncPlugin} instance to the
-     * {@link workbox-strategies} configured in `handler`.
+     * `@serwist/background-sync.BackgroundSyncPlugin` instance to the
+     * `@serwist/strategies` configured in `handler`.
      */
     backgroundSync?: {
       name: string;
@@ -48,8 +48,8 @@ export interface RuntimeCaching {
     };
     /**
      * Configuring this will add a
-     * {@link workbox-broadcast-update.BroadcastUpdatePlugin} instance to the
-     * {@link workbox-strategies} configured in `handler`.
+     * `@serwist/broadcast-update.BroadcastUpdatePlugin` instance to the
+     * `@serwist/strategies` configured in `handler`.
      */
     broadcastUpdate?: {
       // TODO: This option is ignored since we switched to using postMessage().
@@ -59,56 +59,56 @@ export interface RuntimeCaching {
     };
     /**
      * Configuring this will add a
-     * {@link workbox-cacheable-response.CacheableResponsePlugin} instance to
-     * the {@link workbox-strategies} configured in `handler`.
+     * `@serwist/cacheable-response.CacheableResponsePlugin` instance to
+     * the `@serwist/strategies` configured in `handler`.
      */
     cacheableResponse?: CacheableResponseOptions;
     /**
      * If provided, this will set the `cacheName` property of the
-     * {@link workbox-strategies} configured in `handler`.
+     * `@serwist/strategies` configured in `handler`.
      */
     cacheName?: string | null;
     /**
      * Configuring this will add a
-     * {@link workbox-expiration.ExpirationPlugin} instance to
-     * the {@link workbox-strategies} configured in `handler`.
+     * `@serwist/expiration.ExpirationPlugin` instance to
+     * the `@serwist/strategies` configured in `handler`.
      */
     expiration?: ExpirationPluginOptions;
     /**
      * If provided, this will set the `networkTimeoutSeconds` property of the
-     * {@link workbox-strategies} configured in `handler`. Note that only
+     * `@serwist/strategies` configured in `handler`. Note that only
      * `'NetworkFirst'` and `'NetworkOnly'` support `networkTimeoutSeconds`.
      */
     networkTimeoutSeconds?: number;
     /**
-     * Configuring this allows the use of one or more Workbox plugins that
+     * Configuring this allows the use of one or more Serwist plugins that
      * don't have "shortcut" options (like `expiration` for
-     * {@link workbox-expiration.ExpirationPlugin}). The plugins provided here
-     * will be added to the {@link workbox-strategies} configured in `handler`.
+     * `@serwist/expiration.ExpirationPlugin`). The plugins provided here
+     * will be added to the `@serwist/strategies` configured in `handler`.
      */
     plugins?: Array<SerwistPlugin>;
     /**
      * Configuring this will add a
-     * {@link workbox-precaching.PrecacheFallbackPlugin} instance to
-     * the {@link workbox-strategies} configured in `handler`.
+     * `@serwist/precaching.PrecacheFallbackPlugin` instance to
+     * the `@serwist/strategies` configured in `handler`.
      */
     precacheFallback?: {
       fallbackURL: string;
     };
     /**
      * Enabling this will add a
-     * {@link workbox-range-requests.RangeRequestsPlugin} instance to
-     * the {@link workbox-strategies} configured in `handler`.
+     * `@serwist/range-requests.RangeRequestsPlugin` instance to
+     * the `@serwist/strategies` configured in `handler`.
      */
     rangeRequests?: boolean;
     /**
      * Configuring this will pass along the `fetchOptions` value to
-     * the {@link workbox-strategies} configured in `handler`.
+     * the `@serwist/strategies` configured in `handler`.
      */
     fetchOptions?: RequestInit;
     /**
      * Configuring this will pass along the `matchOptions` value to
-     * the {@link workbox-strategies} configured in `handler`.
+     * the `@serwist/strategies` configured in `handler`.
      */
     matchOptions?: CacheQueryOptions;
   };
@@ -119,8 +119,8 @@ export interface RuntimeCaching {
    * whose `urlPattern` matches will be the one that responds.
    *
    * This value directly maps to the first parameter passed to
-   * {@link workbox-routing.registerRoute}. It's recommended to use a
-   * {@link workbox-core.RouteMatchCallback} function for greatest flexibility.
+   * `@serwist/routing.registerRoute`. It's recommended to use a
+   * `@serwist/core.RouteMatchCallback` function for greatest flexibility.
    */
   urlPattern: RegExp | string | RouteMatchCallback;
 }
@@ -201,7 +201,7 @@ export interface GeneratePartial {
    */
   cacheId?: string | null;
   /**
-   * Whether or not Workbox should attempt to identify and delete any precaches
+   * Whether or not Serwist should attempt to identify and delete any precaches
    * created by older, incompatible versions.
    * @default false
    */
@@ -238,19 +238,10 @@ export interface GeneratePartial {
    * A list of JavaScript files that should be passed to
    * [`importScripts()`](https://developer.mozilla.org/en-US/docs/Web/API/WorkerGlobalScope/importScripts)
    * inside the generated service worker file. This is  useful when you want to
-   * let Workbox create your top-level service worker file, but want to include
+   * let Serwist create your top-level service worker file, but want to include
    * some additional code, such as a push event listener.
    */
   importScripts?: Array<string>;
-  /**
-   * Whether the runtime code for the Workbox library should be included in the
-   * top-level service worker, or split into a separate file that needs to be
-   * deployed alongside the service worker. Keeping the runtime separate means
-   * that users will not have to re-download the Workbox code each time your
-   * top-level service worker changes.
-   * @default false
-   */
-  inlineWorkboxRuntime?: boolean;
   /**
    * If set to 'production', then an optimized service worker bundle that
    * excludes debugging info will be produced. If not explicitly configured
@@ -318,12 +309,12 @@ export interface GeneratePartial {
    */
   offlineGoogleAnalytics?: boolean | GoogleAnalyticsInitializeOptions;
   /**
-   * When using Workbox's build tools to generate your service worker, you can
+   * When using Serwist's build tools to generate your service worker, you can
    * specify one or more runtime caching configurations. These are then
-   * translated to {@link workbox-routing.registerRoute} calls using the match
+   * translated to `@serwist/routing.registerRoute` calls using the match
    * and handler configuration you define.
    *
-   * For all of the options, see the {@link workbox-build.RuntimeCaching}
+   * For all of the options, see the `@serwist/build.RuntimeCaching`
    * documentation. The example below shows a typical configuration, with two
    * runtime routes defined:
    *

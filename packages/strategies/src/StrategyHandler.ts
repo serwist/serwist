@@ -471,7 +471,7 @@ class StrategyHandler {
   ): Promise<void> {
     for (const callback of this.iterateCallbacks(name)) {
       // TODO(philipwalton): not sure why `any` is needed. It seems like
-      // this should work with `as WorkboxPluginCallbackParam[C]`.
+      // this should work with `as SerwistPluginCallbackParam[C]`.
       await callback(param as any);
     }
   }

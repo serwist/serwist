@@ -6,17 +6,16 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheController.js";
-
 import "./_version.js";
 
+import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheController.js";
+
 /**
- * Helper function that calls
- * {@link PrecacheController#matchPrecache} on the default
- * {@link PrecacheController} instance.
+ * Helper function that calls `PrecacheController#matchPrecache` 
+ * on the default `PrecacheController` instance.
  *
- * If you are creating your own {@link PrecacheController}, then call
- * {@link PrecacheController#matchPrecache} on that instance,
+ * If you are creating your own `PrecacheController`, then call
+ * `PrecacheController#matchPrecache` on that instance,
  * instead of using this function.
  *
  * @param request The key (without revisioning parameters)

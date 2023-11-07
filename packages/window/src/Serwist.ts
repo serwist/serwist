@@ -12,10 +12,10 @@ import { Deferred, dontWaitFor, logger } from "@serwist/core/private";
 import type { TrustedScriptURL } from "trusted-types/lib";
 
 import { messageSW } from "./messageSW.js";
+import type { SerwistLifecycleEventMap } from "./utils/SerwistEvent.js";
+import { SerwistEvent } from "./utils/SerwistEvent.js";
+import { SerwistEventTarget } from "./utils/SerwistEventTarget.js";
 import { urlsMatch } from "./utils/urlsMatch.js";
-import type { WorkboxLifecycleEventMap } from "./utils/WorkboxEvent.js";
-import { WorkboxEvent } from "./utils/WorkboxEvent.js";
-import { WorkboxEventTarget } from "./utils/WorkboxEventTarget.js";
 
 // The time a SW must be in the waiting phase before we can conclude
 // `skipWaiting()` wasn't called. This 200 amount wasn't scientifically
@@ -34,14 +34,14 @@ const SKIP_WAITING_MESSAGE = { type: "SKIP_WAITING" };
  * A class to aid in handling service worker registration, updates, and
  * reacting to service worker lifecycle events.
  *
- * @fires `@serwist/window.Workbox.message`
- * @fires `@serwist/window.Workbox.installed`
- * @fires `@serwist/window.Workbox.waiting`
- * @fires `@serwist/window.Workbox.controlling`
- * @fires `@serwist/window.Workbox.activated`
- * @fires `@serwist/window.Workbox.redundant`
+ * @fires `@serwist/window.Serwist.message`
+ * @fires `@serwist/window.Serwist.installed`
+ * @fires `@serwist/window.Serwist.waiting`
+ * @fires `@serwist/window.Serwist.controlling`
+ * @fires `@serwist/window.Serwist.activated`
+ * @fires `@serwist/window.Serwist.redundant`
  */
-class Workbox extends WorkboxEventTarget {
+export class Serwist extends SerwistEventTarget {
   private readonly _scriptURL: string | TrustedScriptURL;
   private readonly _registerOptions: RegistrationOptions = {};
   private _updateFoundCount = 0;
@@ -159,7 +159,7 @@ class Workbox extends WorkboxEventTarget {
       dontWaitFor(
         Promise.resolve().then(() => {
           this.dispatchEvent(
-            new WorkboxEvent("waiting", {
+            new SerwistEvent("waiting", {
               sw: waitingSW,
               wasWaitingBeforeRegister: true,
             })
@@ -474,7 +474,7 @@ class Workbox extends WorkboxEventTarget {
     }
 
     this.dispatchEvent(
-      new WorkboxEvent(state as keyof WorkboxLifecycleEventMap, eventProps)
+      new SerwistEvent(state as keyof SerwistLifecycleEventMap, eventProps)
     );
 
     if (state === "installed") {
@@ -489,7 +489,7 @@ class Workbox extends WorkboxEventTarget {
       this._waitingTimeout = self.setTimeout(() => {
         // Ensure the SW is still waiting (it may now be redundant).
         if (state === "installed" && registration.waiting === sw) {
-          this.dispatchEvent(new WorkboxEvent("waiting", eventProps));
+          this.dispatchEvent(new SerwistEvent("waiting", eventProps));
 
           if (process.env.NODE_ENV !== "production") {
             if (isExternal) {
@@ -563,7 +563,7 @@ class Workbox extends WorkboxEventTarget {
     // vs. an update-check or other tab's registration.
     // See https://github.com/GoogleChrome/workbox/issues/2786
     this.dispatchEvent(
-      new WorkboxEvent("controlling", {
+      new SerwistEvent("controlling", {
         isExternal,
         originalEvent,
         sw,
@@ -600,7 +600,7 @@ class Workbox extends WorkboxEventTarget {
     // update to be found.
     if (this._ownSWs.has(source as ServiceWorker)) {
       this.dispatchEvent(
-        new WorkboxEvent("message", {
+        new SerwistEvent("message", {
           // Can't change type 'any' of data.
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           data,
@@ -613,8 +613,6 @@ class Workbox extends WorkboxEventTarget {
   };
 }
 
-export { Workbox };
-
 // The jsdoc comments below outline the events this instance may dispatch:
 // -----------------------------------------------------------------------
 
@@ -622,7 +620,7 @@ export { Workbox };
  * The `message` event is dispatched any time a `postMessage` is received.
  *
  * @event workbox-window.Workbox#message
- * @type {WorkboxEvent}
+ * @type {SerwistEvent}
  * @property {*} data The `data` property from the original `message` event.
  * @property {Event} originalEvent The original [`message`]{@link https://developer.mozilla.org/en-US/docs/Web/API/MessageEvent}
  *     event.
@@ -642,7 +640,7 @@ export { Workbox };
  * of an update being found, the event's `isUpdate` property will be `true`.
  *
  * @event workbox-window.Workbox#installed
- * @type {WorkboxEvent}
+ * @type {SerwistEvent}
  * @property {ServiceWorker} sw The service worker instance.
  * @property {Event} originalEvent The original [`statechange`]{@link https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorker/onstatechange}
  *     event.
@@ -665,7 +663,7 @@ export { Workbox };
  * method was called.
  *
  * @event workbox-window.Workbox#waiting
- * @type {WorkboxEvent}
+ * @type {SerwistEvent}
  * @property {ServiceWorker} sw The service worker instance.
  * @property {Event|undefined} originalEvent The original
  *    [`statechange`]{@link https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorker/onstatechange}
@@ -692,7 +690,7 @@ export { Workbox };
  * [registered service worker]{@link https://developers.google.com/web/tools/workbox/modules/workbox-precaching#def-registered-sw}.
  *
  * @event workbox-window.Workbox#controlling
- * @type {WorkboxEvent}
+ * @type {SerwistEvent}
  * @property {ServiceWorker} sw The service worker instance.
  * @property {Event} originalEvent The original [`controllerchange`]{@link https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerContainer/oncontrollerchange}
  *     event.
@@ -711,7 +709,7 @@ export { Workbox };
  * changes to `activated`.
  *
  * @event workbox-window.Workbox#activated
- * @type {WorkboxEvent}
+ * @type {SerwistEvent}
  * @property {ServiceWorker} sw The service worker instance.
  * @property {Event} originalEvent The original [`statechange`]{@link https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorker/onstatechange}
  *     event.
@@ -730,7 +728,7 @@ export { Workbox };
  * changes to `redundant`.
  *
  * @event workbox-window.Workbox#redundant
- * @type {WorkboxEvent}
+ * @type {SerwistEvent}
  * @property {ServiceWorker} sw The service worker instance.
  * @property {Event} originalEvent The original [`statechange`]{@link https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorker/onstatechange}
  *     event.

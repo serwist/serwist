@@ -20,8 +20,8 @@ import type { PrecacheController } from "./PrecacheController.js";
 import { generateURLVariations } from "./utils/generateURLVariations.js";
 
 /**
- * A subclass of {@link workbox-routing.Route} that takes a
- * {@link workbox-precaching.PrecacheController}
+ * A subclass of `@serwist/routing.Route` that takes a
+ * `@serwist/precaching.PrecacheController`
  * instance and uses it to match incoming requests and handle fetching
  * responses from the precache.
   */

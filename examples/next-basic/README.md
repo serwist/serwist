@@ -31,6 +31,6 @@ pnpm create next-app --example https://github.com/DuCanhGH/next-pwa/tree/master/
 ## Recommended `.gitignore`
 
 ```gitignore
-**/public/workbox-*.js
+**/public/serwist-*.js
 **/public/sw.js
 ```

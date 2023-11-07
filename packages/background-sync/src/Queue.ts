@@ -18,9 +18,9 @@ import {
 import type {
   QueueStoreEntry,
   UnidentifiedQueueStoreEntry,
-} from "./lib/QueueDb.js";
-import { QueueStore } from "./lib/QueueStore.js";
-import { StorableRequest } from "./lib/StorableRequest.js";
+} from "./QueueDb.js";
+import { QueueStore } from "./QueueStore.js";
+import { StorableRequest } from "./StorableRequest.js";
 
 // Give TypeScript the correct global.
 declare let self: ServiceWorkerGlobalScope;
