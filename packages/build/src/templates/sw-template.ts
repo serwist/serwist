@@ -1,12 +1,4 @@
-/*
-  Copyright 2018 Google LLC
-
-  Use of this source code is governed by an MIT-style
-  license that can be found in the LICENSE file or at
-  https://opensource.org/licenses/MIT.
-*/
-
-export const swTemplate = `/**
+/**
  * Welcome to your Serwist-powered service worker!
  *
  * You'll need to register this file in your web app.
@@ -17,44 +9,100 @@ export const swTemplate = `/**
  * and re-run your build process.
  * See https://goo.gl/2aRDsh
  */
+import { setCacheNameDetails, clientsClaim } from "@serwist/core";
+import { enable } from "@serwist/navigation-preload";
+import {
+  cleanupOutdatedCaches,
+  createHandlerBoundToURL,
+  precacheAndRoute,
+  PrecacheRouteOptions,
+} from "@serwist/precaching";
+import { NavigationRoute, registerRoute } from "@serwist/routing";
 
-<% if (importScripts) { %>
-importScripts(
-  <%= importScripts.map(JSON.stringify).join(',\\n  ') %>
-);
-<% } %>
+import { ManifestEntry } from "../types.js";
+import { initialize, type GoogleAnalyticsInitializeOptions } from "@serwist/google-analytics/initialize";
 
-<% if (navigationPreload) { %><%= use('@serwist/navigation-preload', 'enable') %>();<% } %>
+interface SerwistSWTemplateOptions {
+  skipWaiting: boolean;
+  importScripts: string[];
+  navigationPreload: boolean;
+  cacheId: string | undefined;
+  clientsClaim: boolean;
+  manifestEntries: ManifestEntry[];
+  precacheOptions: PrecacheRouteOptions;
+  cleanupOutdatedCaches: boolean;
+  navigateFallback: string | undefined;
+  navigateFallbackAllowlist: RegExp[];
+  navigateFallbackDenylist: RegExp[];
+  offlineAnalyticsConfig: GoogleAnalyticsInitializeOptions;
+  disableDevLogs: boolean;
+}
 
-<% if (cacheId) { %><%= use('@serwist/core', 'setCacheNameDetails') %>({prefix: <%= JSON.stringify(cacheId) %>});<% } %>
+declare const self: ServiceWorkerGlobalScope & {
+  serwist: SerwistSWTemplateOptions;
+  __WB_DISABLE_DEV_LOGS?: boolean;
+};
 
-<% if (skipWaiting) { %>
-self.skipWaiting();
-<% } else { %>
-self.addEventListener('message', (event) => {
-  if (event.data && event.data.type === 'SKIP_WAITING') {
-    self.skipWaiting();
+const {
+  skipWaiting: shouldSkipWaiting = false,
+  importScripts: scriptsToImport,
+  navigationPreload = false,
+  cacheId,
+  clientsClaim: shouldClientsClaim = true,
+  manifestEntries,
+  precacheOptions,
+  cleanupOutdatedCaches: shouldCleanupOutdatedCaches = false,
+  navigateFallback,
+  navigateFallbackAllowlist,
+  navigateFallbackDenylist,
+  offlineAnalyticsConfig,
+  disableDevLogs = false,
+} = self.serwist;
+
+if (scriptsToImport !== undefined) importScripts(...scriptsToImport);
+
+if (navigationPreload) enable();
+
+if (cacheId) {
+  setCacheNameDetails({
+    prefix: cacheId,
+  });
+}
+
+if (shouldSkipWaiting) {
+  self.skipWaiting();
+} else {
+  self.addEventListener("message", (event) => {
+    if (event.data && event.data.type === "SKIP_WAITING") {
+      self.skipWaiting();
+    }
+  });
+}
+
+if (shouldClientsClaim) clientsClaim();
+
+if (Array.isArray(manifestEntries) && manifestEntries.length > 0) {
+  /**
+   * The precacheAndRoute() method efficiently caches and responds to
+   * requests for URLs in the manifest.
+   * See https://goo.gl/S9QRab
+   */
+  precacheAndRoute(manifestEntries, precacheOptions);
+
+  if (shouldCleanupOutdatedCaches) cleanupOutdatedCaches();
+
+  if (navigateFallback) {
+    registerRoute(
+      new NavigationRoute(createHandlerBoundToURL(navigateFallback), {
+        allowlist: navigateFallbackAllowlist,
+        denylist: navigateFallbackDenylist,
+      })
+    );
   }
-});
-<% } %>
-<% if (clientsClaim) { %><%= use('@serwist/core', 'clientsClaim') %>();<% } %>
+}
 
-<% if (Array.isArray(manifestEntries) && manifestEntries.length > 0) {%>
-/**
- * The precacheAndRoute() method efficiently caches and responds to
- * requests for URLs in the manifest.
- * See https://goo.gl/S9QRab
- */
-<%= use('@serwist/precaching', 'precacheAndRoute') %>(<%= JSON.stringify(manifestEntries, null, 2) %>, <%= precacheOptionsString %>);
-<% if (cleanupOutdatedCaches) { %><%= use('@serwist/precaching', 'cleanupOutdatedCaches') %>();<% } %>
-<% if (navigateFallback) { %><%= use('@serwist/routing', 'registerRoute') %>(new <%= use('@serwist/routing', 'NavigationRoute') %>(<%= use('@serwist/precaching', 'createHandlerBoundToURL') %>(<%= JSON.stringify(navigateFallback) %>)<% if (navigateFallbackAllowlist || navigateFallbackDenylist) { %>, {
-  <% if (navigateFallbackAllowlist) { %>allowlist: [<%= navigateFallbackAllowlist %>],<% } %>
-  <% if (navigateFallbackDenylist) { %>denylist: [<%= navigateFallbackDenylist %>],<% } %>
-}<% } %>));<% } %>
-<% } %>
+// <% if (runtimeCaching) { runtimeCaching.forEach(runtimeCachingString => {%><%= runtimeCachingString %><% });} %>
 
-<% if (runtimeCaching) { runtimeCaching.forEach(runtimeCachingString => {%><%= runtimeCachingString %><% });} %>
+if (offlineAnalyticsConfig) initialize(offlineAnalyticsConfig);
 
-<% if (offlineAnalyticsConfigString) { %><%= use('@serwist/google-analytics', 'initialize') %>(<%= offlineAnalyticsConfigString %>);<% } %>
-
-<% if (disableDevLogs) { %>self.__WB_DISABLE_DEV_LOGS = true;<% } %>`;
+if (disableDevLogs) { self.__WB_DISABLE_DEV_LOGS = true; }

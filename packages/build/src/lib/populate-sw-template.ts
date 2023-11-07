@@ -5,6 +5,7 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
+import type { PrecacheRouteOptions } from "@serwist/precaching";
 
 import template from "lodash/template.js";
 
@@ -39,13 +40,13 @@ export function populateSWTemplate({
 
   // These are all options that can be passed to the precacheAndRoute() method.
   const precacheOptions = {
-    directoryIndex,
+    directoryIndex: directoryIndex === null ? undefined : directoryIndex,
     // An array of RegExp objects can't be serialized by JSON.stringify()'s
     // default behavior, so if it's given, convert it manually.
     ignoreURLParametersMatching: ignoreURLParametersMatching
       ? ([] as Array<RegExp>)
       : undefined,
-  };
+  } satisfies PrecacheRouteOptions;
 
   let precacheOptionsString = JSON.stringify(precacheOptions, null, 2);
   if (ignoreURLParametersMatching) {
