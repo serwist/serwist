@@ -6,14 +6,12 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {
-  BroadcastCacheUpdate,
-  BroadcastCacheUpdateOptions,
-} from "./BroadcastCacheUpdate.js";
+import "./_version.js";
+
+import type { BroadcastCacheUpdateOptions } from "./BroadcastCacheUpdate.js";
+import { BroadcastCacheUpdate } from "./BroadcastCacheUpdate.js";
 import { BroadcastUpdatePlugin } from "./BroadcastUpdatePlugin.js";
 import { responsesAreSame } from "./responsesAreSame.js";
-
-import "./_version.js";
 
 /**
  * @module workbox-broadcast-update

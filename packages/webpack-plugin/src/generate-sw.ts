@@ -6,10 +6,11 @@
   https://opensource.org/licenses/MIT.
 */
 import { createRequire } from "node:module";
+import path from "node:path";
 
 import type { ManifestEntry, WebpackGenerateSWOptions } from "@serwist/build";
 import { bundle } from "@serwist/build/lib/bundle.js";
-import { populateSWTemplate } from "@serwist/build/lib/populate-sw-template.js";
+import { serializeSWTemplateOptions } from "@serwist/build/lib/serialize-sw-template-options.js";
 import { validateWebpackGenerateSWOptions } from "@serwist/build/lib/validate-options.js";
 import prettyBytes from "pretty-bytes";
 import webpack from "webpack";
@@ -211,14 +212,53 @@ class GenerateSW {
     );
     config.manifestEntries = sortedEntries;
 
-    const unbundledCode = populateSWTemplate(config);
+    const {
+      cacheId,
+      cleanupOutdatedCaches = true,
+      clientsClaim = true,
+      directoryIndex,
+      disableDevLogs = false,
+      ignoreURLParametersMatching,
+      importScripts,
+      manifestEntries,
+      navigateFallback,
+      navigateFallbackDenylist = [],
+      navigateFallbackAllowlist = [],
+      navigationPreload = false,
+      offlineGoogleAnalytics,
+      runtimeCaching,
+      skipWaiting = true,
+    } = config;
 
     const files = await bundle({
       babelPresetEnvTargets: config.babelPresetEnvTargets,
       mode: config.mode,
       sourcemap: config.sourcemap,
       swDest: relativeToOutputPath(compilation, config.swDest!),
-      unbundledCode,
+      unbundledCode: path.join(
+        path.dirname(require.resolve("@serwist/build/package.json")),
+        "./templates/sw-template.ts"
+      ),
+      replaceValues: serializeSWTemplateOptions({
+        cacheId: cacheId ?? undefined,
+        shouldCleanupOutdatedCaches: cleanupOutdatedCaches,
+        shouldClientsClaim: clientsClaim,
+        disableDevLogs,
+        scriptsToImport: importScripts,
+        shouldRunPrecacheAndRoute: Array.isArray(manifestEntries) && manifestEntries.length > 0,
+        manifestEntries,
+        navigateFallback: navigateFallback ?? undefined,
+        navigateFallbackDenylist,
+        navigateFallbackAllowlist,
+        navigationPreload,
+        offlineAnalyticsConfig: offlineGoogleAnalytics,
+        runtimeCaching: runtimeCaching ?? [],
+        shouldSkipWaiting: skipWaiting,
+        precacheOptions: {
+          directoryIndex: directoryIndex ?? undefined,
+          ignoreURLParametersMatching,
+        },
+      }),
     });
 
     for (const file of files) {

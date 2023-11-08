@@ -8,7 +8,7 @@
 
 import commonjs from "@rollup/plugin-commonjs";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
-import replace from "@rollup/plugin-replace";
+import replace, { type Replacement } from "@rollup/plugin-replace";
 import swc from "@rollup/plugin-swc";
 import fse from "fs-extra";
 import type { RollupOptions } from "rollup";
@@ -29,17 +29,19 @@ export async function bundle({
   sourcemap,
   swDest,
   unbundledCode,
+  replaceValues,
 }: Omit<GeneratePartial, "runtimeCaching"> &
-  RequiredSWDestPartial & { unbundledCode: string }): Promise<
-  Array<NameAndContents>
-> {
+  RequiredSWDestPartial & {
+    unbundledCode: string;
+    replaceValues?: Record<string, Replacement>;
+  }): Promise<Array<NameAndContents>> {
   // We need to write this to the "real" file system, as Rollup won't read from
   // a custom file system.
-  const { dir, base } = upath.parse(swDest);
+  const { dir, name } = upath.parse(swDest);
 
   const temporaryFile = (await import("tempy")).temporaryFile;
 
-  const tempFile = temporaryFile({ name: base });
+  const tempFile = temporaryFile({ name: `${name}.ts` });
 
   await fse.writeFile(tempFile, unbundledCode);
 
@@ -54,7 +56,9 @@ export async function bundle({
       (replace as unknown as typeof replace.default)({
         // See https://github.com/GoogleChrome/workbox/issues/2769
         preventAssignment: true,
+        delimiters: ['\\b', ''],
         "process.env.NODE_ENV": JSON.stringify(mode),
+        ...replaceValues,
       }),
       (swc as unknown as typeof swc.default)({
         swc: {
@@ -63,7 +67,7 @@ export async function bundle({
         },
       }),
     ],
-    input: tempFile,
+    input: unbundledCode,
   } satisfies RollupOptions;
 
   const bundle = await rollup(rollupConfig);

@@ -5,6 +5,7 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
+import path from "node:path";
 
 import fse from "fs-extra";
 import upath from "upath";
@@ -12,31 +13,31 @@ import upath from "upath";
 import type { GenerateSWOptions, ManifestEntry } from "../types.js";
 import { bundle } from "./bundle.js";
 import { errors } from "./errors.js";
-import { populateSWTemplate } from "./populate-sw-template.js";
+import { serializeSWTemplateOptions } from "./serialize-sw-template-options.js";
 
 export async function writeSWUsingDefaultTemplate({
+  mode,
   babelPresetEnvTargets,
   cacheId,
-  cleanupOutdatedCaches,
-  clientsClaim,
+  cleanupOutdatedCaches = true,
+  clientsClaim = true,
   directoryIndex,
-  disableDevLogs,
+  disableDevLogs = false,
   ignoreURLParametersMatching,
   importScripts,
   manifestEntries,
-  mode,
   navigateFallback,
-  navigateFallbackDenylist,
-  navigateFallbackAllowlist,
-  navigationPreload,
+  navigateFallbackDenylist = [],
+  navigateFallbackAllowlist = [],
+  navigationPreload = false,
   offlineGoogleAnalytics,
   runtimeCaching,
-  skipWaiting,
+  skipWaiting = true,
   sourcemap,
   swDest,
-}: GenerateSWOptions & { manifestEntries: Array<ManifestEntry> }): Promise<
-  Array<string>
-> {
+}: GenerateSWOptions & {
+  manifestEntries: Array<ManifestEntry>;
+}): Promise<Array<string>> {
   const outputDir = upath.dirname(swDest);
   try {
     await fse.mkdirp(outputDir);
@@ -47,31 +48,33 @@ export async function writeSWUsingDefaultTemplate({
     );
   }
 
-  const unbundledCode = populateSWTemplate({
-    cacheId,
-    cleanupOutdatedCaches,
-    clientsClaim,
-    directoryIndex,
-    disableDevLogs,
-    ignoreURLParametersMatching,
-    importScripts,
-    manifestEntries,
-    navigateFallback,
-    navigateFallbackDenylist,
-    navigateFallbackAllowlist,
-    navigationPreload,
-    offlineGoogleAnalytics,
-    runtimeCaching,
-    skipWaiting,
-  });
-
   try {
     const files = await bundle({
       babelPresetEnvTargets,
       mode,
       sourcemap,
       swDest,
-      unbundledCode,
+      unbundledCode: path.join(__dirname, "../../templates/sw-template.ts"),
+      replaceValues: serializeSWTemplateOptions({
+        cacheId: cacheId ?? undefined,
+        shouldCleanupOutdatedCaches: cleanupOutdatedCaches,
+        shouldClientsClaim: clientsClaim,
+        disableDevLogs,
+        scriptsToImport: importScripts,
+        shouldRunPrecacheAndRoute: Array.isArray(manifestEntries) && manifestEntries.length > 0,
+        manifestEntries,
+        navigateFallback: navigateFallback ?? undefined,
+        navigateFallbackDenylist,
+        navigateFallbackAllowlist,
+        navigationPreload,
+        offlineAnalyticsConfig: offlineGoogleAnalytics,
+        runtimeCaching: runtimeCaching ?? [],
+        shouldSkipWaiting: skipWaiting,
+        precacheOptions: {
+          directoryIndex: directoryIndex ?? undefined,
+          ignoreURLParametersMatching,
+        },
+      }),
     });
 
     const filePaths: Array<string> = [];

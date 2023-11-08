@@ -6,8 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { logger } from "../_private/logger.js";
 import "../_version.js";
+
+import { logger } from "../_private/logger.js";
 
 // A SerwistCore instance must be exported before we can use the logger.
 // This is so it can get the current log level.

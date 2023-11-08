@@ -10,6 +10,7 @@ import type {
 import type { ExpirationPluginOptions } from "@serwist/expiration";
 import type { GoogleAnalyticsInitializeOptions } from "@serwist/google-analytics/initialize";
 import type { HTTPMethod } from "@serwist/routing";
+import type { PrecacheRouteOptions } from "@serwist/precaching";
 
 export interface ManifestEntry {
   integrity?: string;
@@ -594,3 +595,23 @@ export type MethodNames =
   | "WebpackGenerateSW"
   | "WebpackInjectManifest";
 
+/**
+ * @private
+ */
+export interface SerwistSWTemplateOptions {
+  shouldSkipWaiting: boolean;
+  scriptsToImport?: string[];
+  navigationPreload: boolean;
+  cacheId: string | undefined;
+  shouldClientsClaim: boolean;
+  shouldRunPrecacheAndRoute: boolean;
+  manifestEntries: ManifestEntry[];
+  precacheOptions: PrecacheRouteOptions;
+  shouldCleanupOutdatedCaches: boolean;
+  navigateFallback: string | undefined;
+  navigateFallbackAllowlist: RegExp[];
+  navigateFallbackDenylist: RegExp[];
+  offlineAnalyticsConfig?: boolean | GoogleAnalyticsInitializeOptions;
+  disableDevLogs: boolean;
+  runtimeCaching: RuntimeCaching[];
+}

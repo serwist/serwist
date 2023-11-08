@@ -1,20 +1,9 @@
 // @ts-check
-const path = require("node:path");
-
-const fg = require("fast-glob");
-
 const TSCONFIG_SOURCES = /** @type {const} */ ([
   "tsconfig.json",
   "tsconfig.eslint.json",
   "packages/*/tsconfig.json",
 ]);
-
-let packageDirs = fg
-  .sync("packages/*", {
-    cwd: __dirname,
-    onlyDirectories: true,
-  })
-  .map((dir) => path.join(__dirname, dir));
 
 /** @type {import("eslint").Linter.BaseConfig} */
 module.exports = {

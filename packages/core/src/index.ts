@@ -11,6 +11,7 @@ import "./_version.js";
 import { cacheNames } from "./cacheNames.js";
 import { clientsClaim } from "./clientsClaim.js";
 import { copyResponse } from "./copyResponse.js";
+import { nonNullable } from "./nonNullable.js";
 import { registerQuotaErrorCallback } from "./registerQuotaErrorCallback.js";
 import { setCacheNameDetails } from "./setCacheNameDetails.js";
 
@@ -22,6 +23,7 @@ export {
   cacheNames,
   clientsClaim,
   copyResponse,
+  nonNullable,
   registerQuotaErrorCallback,
   setCacheNameDetails,
 };

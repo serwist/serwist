@@ -37,7 +37,7 @@ const libJs = libTs.map((file) => {
 const libDts = libTs.map((file) => {
   const parsedFilename = path.parse(file);
   return /** @type {import("@serwist/constants/rollup").FileEntry} */ ({
-    input: `dist/dts/lib/${parsedFilename.name}.d.ts`,
+    input: `dist/dts/src/lib/${parsedFilename.name}.d.ts`,
     output: [
       {
         file: `dist/lib/${parsedFilename.name}.module.d.ts`,
@@ -73,7 +73,7 @@ export default getRollupOptions({
   ],
   dtsFiles: [
     {
-      input: "dist/dts/index.d.ts",
+      input: "dist/dts/src/index.d.ts",
       output: [
         { format: "es", file: "dist/index.module.d.ts" },
         { format: "cjs", file: "dist/index.d.cts" },
