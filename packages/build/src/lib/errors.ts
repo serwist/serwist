@@ -68,8 +68,6 @@ export const errors = {
     Please ensure that your service worker file contains the following: `,
   "multiple-injection-points": ol`Please ensure that your 'swSrc' file contains
     only one match for the following: `,
-  "populating-sw-tmpl-failed": ol`Unable to generate service worker from
-    template.`,
   "useless-glob-pattern": ol`One of the glob patterns doesn't match any files.
     Please remove or fix the following: `,
   "bad-template-urls-asset": ol`There was an issue using one of the provided
@@ -90,13 +88,6 @@ export const errors = {
   "same-src-and-dest": ol`Unable to find a place to inject the manifest. This is
     likely because swSrc and swDest are configured to the same file.
     Please ensure that your swSrc file contains the following:`,
-  "only-regexp-routes-supported": ol`Please use a regular expression object as
-    the urlPattern parameter. (Express-style routes are not currently
-    supported.)`,
-  "bad-runtime-caching-config": ol`An unknown configuration option was used
-    with runtimeCaching: `,
-  "invalid-network-timeout-seconds": ol`When using networkTimeoutSeconds, you
-    must set the handler to 'NetworkFirst'.`,
   "no-module-name": ol`You must provide a moduleName parameter when calling
     getModuleURL().`,
   "bad-manifest-transforms-return-value": ol`The return value from a
@@ -105,17 +96,8 @@ export const errors = {
   "string-entry-warning": ol`Some items were passed to additionalManifestEntries
     without revisioning info. This is generally NOT safe. Learn more at
     https://bit.ly/wb-precache.`,
-  "no-manifest-entries-or-runtime-caching": ol`Couldn't find configuration for
-    either precaching or runtime caching. Please ensure that the various glob
-    options are set to match one or more files, and/or configure the
-    runtimeCaching option.`,
   "cant-find-sourcemap": ol`The swSrc file refers to a sourcemap that can't be
     opened:`,
-  "nav-preload-runtime-caching": ol`When using navigationPreload, you must also
-    configure a runtimeCaching route that will use the preloaded response.`,
-  "cache-name-required": ol`When using cache expiration, you must also
-    configure a custom cacheName.`,
   "manifest-transforms": ol`When using manifestTransforms, you must provide
     an array of functions.`,
-  "invalid-handler-string": ol`The handler name provided is not valid: `,
 };
