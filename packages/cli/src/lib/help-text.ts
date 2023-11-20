@@ -13,18 +13,6 @@ Commands:
   wizard [--injectManifest]
     Runs the configuration wizard, which will generate a
     config file based on answers to questions.
-    By default the configuration will be tailored to the
-    generateSW use case.
-    If --injectManifest is provided, the wizard will ask
-    questions needed for the injectManifest use case.
-
-  generateSW [<path/to/config.js>] [--watch]
-    Creates a new service worker file based on the options
-    in the config file (defaults to serwist.config.js).
-    If --watch is provided, the CLI will stay running, and will
-    rebuild the service worker each time a file in the precache
-    manifest changes.
-    See https://bit.ly/wb-generateSW
 
   injectManifest [<path/to/config.js>] [--watch]
     Takes an existing service worker file and creates a
@@ -43,7 +31,7 @@ Commands:
     rather than CDN hosted, libraries.
 
 Config file:
-  In 'generateSW' or 'injectManifest' mode, the config file should be a
+  In 'injectManifest' mode, the config file should be a
   JavaScript file, in CommonJS module format.
   By default, a config file named serwist.config.js in the current
   directory is assumed, but this can be overridden.
@@ -51,7 +39,6 @@ Config file:
 Examples:
   $ serwist wizard
   $ serwist wizard --injectManifest
-  $ serwist generateSW --watch
   $ serwist injectManifest configs/serwist-dev-config.js
   $ serwist copyLibraries build/
 `;

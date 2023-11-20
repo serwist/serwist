@@ -8,7 +8,7 @@
 
 import { createRequire } from "node:module";
 
-import type { GenerateSWOptions, InjectManifestOptions } from "@serwist/build";
+import type { InjectManifestOptions } from "@serwist/build";
 
 const require = createRequire(import.meta.url);
 
@@ -16,6 +16,6 @@ const require = createRequire(import.meta.url);
 // out reading the configuration during tests.
 export function readConfig(
   configFile: string
-): GenerateSWOptions | InjectManifestOptions {
-  return require(configFile) as GenerateSWOptions | InjectManifestOptions;
+): InjectManifestOptions {
+  return require(configFile) as InjectManifestOptions;
 }

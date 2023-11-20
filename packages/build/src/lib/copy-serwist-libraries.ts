@@ -30,9 +30,7 @@ const BUILD_DIR = "build";
  *
  * This method is exposed for the benefit of developers using
  * `@serwist/build.injectManifest` who would
- * prefer not to use the CDN copies of Serwist. Developers using
- * `@serwist/build.generateSW` don't need to
- * explicitly call this method.
+ * prefer not to use the CDN copies of Serwist.
  *
  * @param destDirectory The path to the parent directory under which
  * the new directory of libraries will be created.

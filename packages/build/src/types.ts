@@ -484,19 +484,6 @@ export interface RequiredSWDestPartial {
   swDest: string;
 }
 
-export interface WebpackGenerateSWPartial {
-  /**
-   * One or more names of webpack chunks. The content of those chunks will be
-   * included in the generated service worker, via a call to `importScripts()`.
-   */
-  importScriptsViaChunks?: Array<string>;
-  /**
-   * The asset name of the service worker file created by this plugin.
-   * @default "service-worker.js"
-   */
-  swDest?: string;
-}
-
 export interface WebpackInjectManifestPartial {
   /**
    * When `true` (the default), the `swSrc` file will be compiled by webpack.
@@ -523,12 +510,6 @@ export interface WebpackInjectManifestPartial {
   webpackCompilationPlugins?: Array<any>;
 }
 
-export type GenerateSWOptions = BasePartial &
-  GlobPartial &
-  GeneratePartial &
-  RequiredSWDestPartial &
-  OptionalGlobDirectoryPartial;
-
 export type GetManifestOptions = BasePartial &
   GlobPartial &
   RequiredGlobDirectoryPartial;
@@ -538,11 +519,6 @@ export type InjectManifestOptions = BasePartial &
   InjectPartial &
   RequiredSWDestPartial &
   RequiredGlobDirectoryPartial;
-
-export type WebpackGenerateSWOptions = BasePartial &
-  WebpackPartial &
-  GeneratePartial &
-  WebpackGenerateSWPartial;
 
 export type WebpackInjectManifestOptions = BasePartial &
   WebpackPartial &
@@ -589,10 +565,8 @@ export type SerwistPackageJSON = PackageJson & {
  * @private
  */
 export type MethodNames =
-  | "GenerateSW"
   | "GetManifest"
   | "InjectManifest"
-  | "WebpackGenerateSW"
   | "WebpackInjectManifest";
 
 /**

@@ -12,11 +12,9 @@ import Ajv from "ajv";
 import { oneLine as ol } from "common-tags";
 
 import type {
-  GenerateSWOptions,
   GetManifestOptions,
   InjectManifestOptions,
   MethodNames,
-  WebpackGenerateSWOptions,
   WebpackInjectManifestOptions,
 } from "../types.js";
 import { errors } from "./errors.js";
@@ -47,7 +45,7 @@ function validate<T>(
   const validate = ajv.compile(jsonSchema);
   if (validate(inputCopy)) {
     // All methods support manifestTransforms, so validate it here.
-    ensureValidManifestTransforms(inputCopy);
+    ensureValidManifestTransforms(inputCopy as any);
     return [inputCopy, jsonSchema];
   }
 
@@ -69,10 +67,8 @@ function validate<T>(
 
 function ensureValidManifestTransforms(
   options:
-    | GenerateSWOptions
     | GetManifestOptions
     | InjectManifestOptions
-    | WebpackGenerateSWOptions
     | WebpackInjectManifestOptions
 ): void {
   if (
@@ -84,89 +80,6 @@ function ensureValidManifestTransforms(
   ) {
     throw new SerwistConfigError(errors["manifest-transforms"]);
   }
-}
-
-function ensureValidNavigationPreloadConfig(
-  options: GenerateSWOptions | WebpackGenerateSWOptions
-): void {
-  if (
-    options.navigationPreload &&
-    (!Array.isArray(options.runtimeCaching) ||
-      options.runtimeCaching.length === 0)
-  ) {
-    throw new SerwistConfigError(errors["nav-preload-runtime-caching"]);
-  }
-}
-
-function ensureValidCacheExpiration(
-  options: GenerateSWOptions | WebpackGenerateSWOptions
-): void {
-  for (const runtimeCaching of options.runtimeCaching || []) {
-    if (
-      runtimeCaching.options?.expiration &&
-      !runtimeCaching.options?.cacheName
-    ) {
-      throw new SerwistConfigError(errors["cache-name-required"]);
-    }
-  }
-}
-
-function ensureValidRuntimeCachingOrGlobDirectory(
-  options: GenerateSWOptions
-): void {
-  if (
-    !options.globDirectory &&
-    (!Array.isArray(options.runtimeCaching) ||
-      options.runtimeCaching.length === 0)
-  ) {
-    throw new SerwistConfigError(
-      errors["no-manifest-entries-or-runtime-caching"]
-    );
-  }
-}
-
-// This is... messy, because we can't rely on the built-in ajv validation for
-// runtimeCaching.handler, as it needs to accept {} (i.e. any) due to
-// https://github.com/GoogleChrome/workbox/pull/2899
-// So we need to perform validation when a string (not a function) is used.
-function ensureValidStringHandler(
-  options: GenerateSWOptions | WebpackGenerateSWOptions,
-  jsonSchema: JSONSchemaType<GenerateSWOptions | WebpackGenerateSWOptions>
-): void {
-  let validHandlers: Array<string> = [];
-  /* eslint-disable */
-  for (const handler of jsonSchema.definitions?.RuntimeCaching?.properties
-    ?.handler?.anyOf || []) {
-    if ("enum" in handler) {
-      validHandlers = handler.enum;
-      break;
-    }
-  }
-  /* eslint-enable */
-
-  for (const runtimeCaching of options.runtimeCaching || []) {
-    if (
-      typeof runtimeCaching.handler === "string" &&
-      !validHandlers.includes(runtimeCaching.handler)
-    ) {
-      throw new SerwistConfigError(
-        errors["invalid-handler-string"] + runtimeCaching.handler
-      );
-    }
-  }
-}
-
-export function validateGenerateSWOptions(input: unknown): GenerateSWOptions {
-  const [validatedOptions, jsonSchema] = validate<GenerateSWOptions>(
-    input,
-    "GenerateSW"
-  );
-  ensureValidNavigationPreloadConfig(validatedOptions);
-  ensureValidCacheExpiration(validatedOptions);
-  ensureValidRuntimeCachingOrGlobDirectory(validatedOptions);
-  ensureValidStringHandler(validatedOptions, jsonSchema);
-
-  return validatedOptions;
 }
 
 export function validateGetManifestOptions(input: unknown): GetManifestOptions {
@@ -182,30 +95,6 @@ export function validateInjectManifestOptions(
     input,
     "InjectManifest"
   );
-
-  return validatedOptions;
-}
-
-// The default `exclude: [/\.map$/, /^manifest.*\.js$/]` value can't be
-// represented in the JSON schema, so manually set it for the webpack options.
-export function validateWebpackGenerateSWOptions(
-  input: unknown
-): WebpackGenerateSWOptions {
-  const inputWithExcludeDefault = Object.assign(
-    {
-      // Make a copy, as exclude can be mutated when used.
-      exclude: Array.from(DEFAULT_EXCLUDE_VALUE),
-    },
-    input
-  );
-  const [validatedOptions, jsonSchema] = validate<WebpackGenerateSWOptions>(
-    inputWithExcludeDefault,
-    "WebpackGenerateSW"
-  );
-
-  ensureValidNavigationPreloadConfig(validatedOptions);
-  ensureValidCacheExpiration(validatedOptions);
-  ensureValidStringHandler(validatedOptions, jsonSchema);
 
   return validatedOptions;
 }

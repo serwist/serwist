@@ -9,7 +9,6 @@
 import type {
   FileDetails,
   ManifestEntry,
-  WebpackGenerateSWOptions,
   WebpackInjectManifestOptions,
 } from "@serwist/build";
 import { transformManifest } from "@serwist/build/lib/transform-manifest.js";
@@ -123,7 +122,7 @@ function getNamesOfAssetsInChunk(chunk: Chunk): Array<string> {
  */
 function filterAssets(
   compilation: Compilation,
-  config: WebpackInjectManifestOptions | WebpackGenerateSWOptions
+  config: WebpackInjectManifestOptions
 ): Set<Asset> {
   const filteredAssets = new Set<Asset>();
   const assets = compilation.getAssets();
@@ -209,7 +208,7 @@ function filterAssets(
 
 export async function getManifestEntriesFromCompilation(
   compilation: Compilation,
-  config: WebpackGenerateSWOptions | WebpackInjectManifestOptions
+  config: WebpackInjectManifestOptions
 ): Promise<{ size: number; sortedEntries: ManifestEntry[] }> {
   const filteredAssets = filterAssets(compilation, config);
 

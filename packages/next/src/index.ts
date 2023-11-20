@@ -20,43 +20,30 @@ import { setDefaultContext } from "./webpack-builders/context.js";
 const require = createRequire(import.meta.url);
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
-const withPWAInit = (
-  pluginOptions: PluginOptions = {}
-): ((nextConfig?: NextConfig) => NextConfig) => {
+const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) => NextConfig) => {
   return (nextConfig = {}) => ({
     ...nextConfig,
     webpack(config: Configuration, options) {
       let nextDefConfig: NextConfig | undefined;
 
       try {
-        nextDefConfig = (
-          require("next/dist/server/config-shared") as typeof NextConfigShared
-        ).defaultConfig;
+        nextDefConfig = (require("next/dist/server/config-shared") as typeof NextConfigShared).defaultConfig;
       } catch {
         // do nothing - we are using Next's internals and they might not be available.
       }
 
-      const isAppDirEnabled =
-        (nextConfig.experimental as any)?.appDir ??
-        (nextDefConfig?.experimental as any)?.appDir ??
-        true;
+      const isAppDirEnabled = (nextConfig.experimental as any)?.appDir ?? (nextDefConfig?.experimental as any)?.appDir ?? true;
 
       const webpack: typeof Webpack = options.webpack;
       const {
         buildId,
         dev,
-        config: {
-          distDir = ".next",
-          pageExtensions = ["tsx", "ts", "jsx", "js", "mdx"],
-        },
+        config: { distDir = ".next", pageExtensions = ["tsx", "ts", "jsx", "js", "mdx"] },
       } = options;
 
       const basePath = options.config.basePath || "/";
 
-      const tsConfigJson = loadTSConfig(
-        options.dir,
-        nextConfig?.typescript?.tsconfigPath
-      );
+      const tsConfigJson = loadTSConfig(options.dir, nextConfig?.typescript?.tsconfigPath);
 
       // For Workbox configurations:
       // https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-webpack-plugin.GenerateSW
@@ -79,7 +66,7 @@ const withPWAInit = (
         customWorkerSrc = customWorkerDir || "worker",
         customWorkerDest = dest,
         customWorkerPrefix = "worker",
-        workboxOptions = {},
+        workboxOptions,
         extendDefaultRuntimeCaching = false,
         swcMinify = nextConfig.swcMinify ?? nextDefConfig?.swcMinify ?? false,
         browserslist = "chrome >= 56",
@@ -101,9 +88,7 @@ const withPWAInit = (
         config.plugins = [];
       }
 
-      logger.event(
-        `Compiling for ${options.isServer ? "server" : "client (static)"}...`
-      );
+      logger.event(`Compiling for ${options.isServer ? "server" : "client (static)"}...`);
 
       const _sw = path.posix.join(basePath, sw);
       const _scope = path.posix.join(scope, "/");
@@ -121,9 +106,7 @@ const withPWAInit = (
       );
 
       const swEntryJs = path.join(__dirname, "sw-entry.js");
-      const entry = config.entry as () => Promise<
-        Record<string, string[] | string>
-      >;
+      const entry = config.entry as () => Promise<Record<string, string[] | string>>;
       config.entry = () =>
         entry().then((entries) => {
           if (entries["main.js"] && !entries["main.js"].includes(swEntryJs)) {
@@ -170,14 +153,8 @@ const withPWAInit = (
 
           logger.info(`  window.workbox.register()`);
 
-          if (
-            !tsConfigJson?.compilerOptions?.types?.includes(
-              "@ducanh2912/next-pwa/workbox"
-            )
-          ) {
-            logger.info(
-              "You may also want to add @ducanh2912/next-pwa/workbox to compilerOptions.types in your tsconfig.json/jsconfig.json."
-            );
+          if (!tsConfigJson?.compilerOptions?.types?.includes("@ducanh2912/next-pwa/workbox")) {
+            logger.info("You may also want to add @ducanh2912/next-pwa/workbox to compilerOptions.types in your tsconfig.json/jsconfig.json.");
           }
         }
 
@@ -240,10 +217,7 @@ const withPWAInit = (
               url: basePath,
               revision: buildId,
             });
-          } else if (
-            typeof dynamicStartUrlRedirect === "string" &&
-            dynamicStartUrlRedirect.length > 0
-          ) {
+          } else if (typeof dynamicStartUrlRedirect === "string" && dynamicStartUrlRedirect.length > 0) {
             manifestEntries.push({
               url: dynamicStartUrlRedirect,
               revision: buildId,
@@ -251,9 +225,7 @@ const withPWAInit = (
           }
         }
 
-        Object.keys(workbox).forEach(
-          (key) => workbox[key] === undefined && delete workbox[key]
-        );
+        Object.keys(workbox).forEach((key) => workbox[key] === undefined && delete workbox[key]);
 
         const workboxPlugin = resolveWorkboxPlugin({
           workboxOptions: workbox,
@@ -269,9 +241,7 @@ const withPWAInit = (
           pageExtensions,
           isDev: dev,
           isAppDirEnabled,
-          plugins: config.plugins.filter(
-            (plugin) => plugin instanceof webpack.DefinePlugin
-          ),
+          plugins: config.plugins.filter((plugin) => plugin instanceof webpack.DefinePlugin),
           tsConfigJson,
 
           customWorkerSrc,

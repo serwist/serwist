@@ -6,9 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { GenerateSW, type GenerateSWConfig } from "./generate-sw.js";
 import { InjectManifest } from "./inject-manifest.js";
 
-export { GenerateSW, InjectManifest };
-
-export type { GenerateSWConfig };
+export { InjectManifest };

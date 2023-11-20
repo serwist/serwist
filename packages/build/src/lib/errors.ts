@@ -32,14 +32,11 @@ export const errors = {
   "manifest-file-write-failure": "Unable to write the file manifest.",
   "unable-to-make-sw-directory": ol`Unable to make the directories to output
     the service worker path.`,
-  "read-sw-template-failure": ol`Unable to read the service worker template
-    file.`,
   "sw-write-failure": "Unable to write the service worker file.",
   "sw-write-failure-directory": ol`Unable to write the service worker file;
     'swDest' should be a full path to the file, not a path to a directory.`,
   "unable-to-copy-serwist-libraries": ol`One or more of the Serwist libraries
     could not be copied over to the destination directory: `,
-  "invalid-generate-sw-input": ol`The input to generateSW() must be an object.`,
   "invalid-glob-directory": ol`The supplied globDirectory must be a path as a
     string.`,
   "invalid-dont-cache-bust": ol`The supplied 'dontCacheBustURLsMatching'

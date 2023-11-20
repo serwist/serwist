@@ -6,13 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {
-  copySerwistLibraries,
-  generateSW,
-  type GenerateSWOptions,
-  injectManifest,
-  type InjectManifestOptions,
-} from "@serwist/build";
+import { copySerwistLibraries, injectManifest, type InjectManifestOptions } from "@serwist/build";
 import assert from "assert";
 import type { WatchOptions } from "chokidar";
 import { default as chokidar } from "chokidar";
@@ -30,27 +24,16 @@ import { runWizard } from "./lib/run-wizard.js";
 
 type BuildCommand = {
   watch: boolean;
-} & (
-  | {
-      command: "generateSW";
-      config: GenerateSWOptions;
-    }
-  | {
-      command: "injectManifest";
-      config: InjectManifestOptions;
-    }
-);
+  config: InjectManifestOptions;
+};
 
 /**
  * Runs the specified build command with the provided configuration.
  *
  * @param options
  */
-async function runBuildCommand({ command, config, watch }: BuildCommand) {
-  const { count, filePaths, size, warnings } =
-    command === "generateSW"
-      ? await generateSW(config)
-      : await injectManifest(config);
+async function runBuildCommand({ config, watch }: BuildCommand) {
+  const { count, filePaths, size, warnings } = await injectManifest(config);
 
   for (const warning of warnings) {
     logger.warn(warning);
@@ -66,19 +49,14 @@ async function runBuildCommand({ command, config, watch }: BuildCommand) {
     logger.log(`The service worker files were written to:\n${message}`);
   }
 
-  logger.log(
-    `The service worker will precache ${count} URLs, ` +
-      `totaling ${prettyBytes(size)}.`
-  );
+  logger.log(`The service worker will precache ${count} URLs, ` + `totaling ${prettyBytes(size)}.`);
 
   if (watch) {
     logger.log(`\nWatching for changes...`);
   }
 }
 
-export const app = async (
-  params: MeowResult<SupportedFlags>
-): Promise<void> => {
+export const app = async (params: MeowResult<SupportedFlags>): Promise<void> => {
   // This should not be a user-visible error, unless meow() messes something up.
   assert(params && Array.isArray(params.input), errors["missing-input"]);
 
@@ -105,14 +83,10 @@ export const app = async (
       break;
     }
 
-    case "generateSW":
     case "injectManifest": {
-      const configPath = upath.resolve(
-        process.cwd(),
-        option || constants.defaultConfigFile
-      );
+      const configPath = upath.resolve(process.cwd(), option || constants.defaultConfigFile);
 
-      let config: GenerateSWOptions | InjectManifestOptions | null;
+      let config: InjectManifestOptions | null;
       try {
         config = readConfig(configPath);
       } catch (error) {
@@ -147,16 +121,14 @@ export const app = async (
             .on("all", async () => {
               if (config === null) return;
               await runBuildCommand({
-                command,
-                config: config as any,
+                config,
                 watch: true,
               });
             })
             .on("ready", async () => {
               if (config === null) return;
               await runBuildCommand({
-                command,
-                config: config as any,
+                config,
                 watch: true,
               });
             })
@@ -165,7 +137,7 @@ export const app = async (
             });
         }
       } else {
-        await runBuildCommand({ command, config: config as any, watch: false });
+        await runBuildCommand({ config, watch: false });
       }
       break;
     }

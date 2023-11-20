@@ -1,6 +1,6 @@
-import type { GenerateSWConfig } from "@serwist/webpack-plugin";
+import type { InjectManifestOptions,WebpackInjectManifestOptions } from "@serwist/build";
 
-import type { BrowserslistOptions, WorkboxTypes } from "./private-types.js";
+import type { BrowserslistOptions } from "./private-types.js";
 
 export interface PluginOptions {
   /**
@@ -28,7 +28,7 @@ export interface PluginOptions {
    *   [];
    *   ```
    */
-  buildExcludes?: GenerateSWConfig["exclude"];
+  buildExcludes?: WebpackInjectManifestOptions["exclude"];
   /**
    * Enable additional route caching when users navigate through pages with
    * `next/link`. This improves user experience in some cases but it
@@ -197,7 +197,7 @@ export interface PluginOptions {
    * `@serwist/webpack-plugin`'s own JSDoc, so some information may not be
    * exactly correct.
    */
-  workboxOptions?: WorkboxTypes[keyof WorkboxTypes];
+  workboxOptions: InjectManifestOptions;
 }
 
 export interface FallbackRoutes {

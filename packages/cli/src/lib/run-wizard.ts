@@ -20,10 +20,9 @@ export async function runWizard(options = {}): Promise<void> {
   const contents = `module.exports = ${stringifyObject(config)};`;
   await fse.writeFile(configLocation, contents);
 
-  const command = "injectManifest" in options ? "injectManifest" : "generateSW";
   logger.log(`To build your service worker, run
 
-  serwist ${command} ${configLocation}
+  serwist injectManifest ${configLocation}
 
 as part of a build process. See https://goo.gl/fdTQBf for details.`);
 

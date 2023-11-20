@@ -1,14 +1,12 @@
 import crypto from "node:crypto";
 import fs from "node:fs";
 
-import type { GenerateSW, InjectManifest } from "@serwist/webpack-plugin";
+import type { InjectManifest } from "@serwist/webpack-plugin";
 
 import { logger } from "$utils/index.js";
 
-import type { WorkboxTypes } from "./private-types.js";
-
 export const overrideAfterCalledMethod = (
-  workboxPlugin: InjectManifest | GenerateSW
+  workboxPlugin: InjectManifest
 ) => {
   Object.defineProperty(workboxPlugin, "alreadyCalled", {
     get() {
@@ -18,12 +16,6 @@ export const overrideAfterCalledMethod = (
       // do nothing
     },
   });
-};
-
-export const isInjectManifestConfig = (
-  config: WorkboxTypes[keyof WorkboxTypes] | undefined
-): config is WorkboxTypes["InjectManifest"] => {
-  return typeof config !== "undefined" && typeof config.swSrc === "string";
 };
 
 /**

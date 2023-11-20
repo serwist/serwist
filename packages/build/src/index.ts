@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { generateSW } from "./generate-sw.js";
 import { getManifest } from "./get-manifest.js";
 import { injectManifest } from "./inject-manifest.js";
 import { getModuleURL } from "./lib/cdn-utils.js";
@@ -14,7 +13,6 @@ import { copySerwistLibraries as copySerwistLibraries } from "./lib/copy-serwist
 
 export {
   copySerwistLibraries,
-  generateSW,
   getManifest,
   getModuleURL,
   injectManifest,

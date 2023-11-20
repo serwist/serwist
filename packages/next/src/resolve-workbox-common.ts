@@ -1,12 +1,10 @@
 import path from "node:path";
 
+import type { ManifestEntry, ManifestTransform, WebpackInjectManifestOptions } from "@serwist/build";
 import type { Asset, Configuration } from "webpack";
-import type { ManifestEntry, ManifestTransform } from "@serwist/build";
-import type { GenerateSWConfig } from "@serwist/webpack-plugin";
 
 import type {
   NextBuildInfo,
-  SharedWorkboxOptionsKeys,
 } from "./private-types.js";
 import type { PluginOptions } from "./types.js";
 
@@ -18,8 +16,6 @@ export interface ResolveWorkboxCommonOptions {
   modifyURLPrefix: Record<string, string>;
   publicPath: NonNullable<Configuration["output"]>["publicPath"];
 }
-
-export type WorkboxCommon = Pick<GenerateSWConfig, SharedWorkboxOptionsKeys>;
 
 interface ResolveWorkboxCommonCompleteOptions
   extends ResolveWorkboxCommonOptions,
@@ -36,7 +32,7 @@ export const resolveWorkboxCommon = ({
   manifestTransforms,
   modifyURLPrefix,
   publicPath,
-}: ResolveWorkboxCommonCompleteOptions): WorkboxCommon => ({
+}: ResolveWorkboxCommonCompleteOptions): Partial<WebpackInjectManifestOptions> => ({
   swDest: path.join(destDir, sw),
   additionalManifestEntries: isDev ? [] : manifestEntries,
   exclude: [
