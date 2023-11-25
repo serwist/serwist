@@ -32,8 +32,8 @@ class BroadcastUpdatePlugin implements SerwistPlugin {
   }
 
   /**
-   * A "lifecycle" callback that will be triggered automatically by the
-   * `@serwist/sw` and `@serwist/build.RuntimeCaching` handlers when an entry is
+   * A "lifecycle" callback that will be triggered automatically by
+   * `@serwist/build.RuntimeCaching` handlers when an entry is
    * added to a cache.
    *
    * @private

@@ -2,7 +2,7 @@
   "name": "@serwist/webpack-plugin",
   "version": "7.0.0",
   "type": "module",
-  "description": "A plugin for your Webpack build process, helping you generate a manifest of local files that @serwist/sw should precache.",
+  "description": "A plugin for your Webpack build process, helping you generate a manifest of local files that should be precached.",
   "files": [
     "dist",
     "!dist/**/dts"
