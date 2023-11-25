@@ -6,14 +6,16 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert } from "@serwist/core/private";
-import { HTTPMethod, defaultMethod, validMethods } from "./utils/constants.js";
-import { normalizeHandler } from "./utils/normalizeHandler.js";
-import {
+import type {
   RouteHandler,
   RouteHandlerObject,
-  RouteMatchCallback,
-} from "@serwist/core/types";
+  RouteMatchCallback} from "@serwist/core";
+import { assert 
+} from "@serwist/core";
+
+import type { HTTPMethod} from "./utils/constants.js";
+import { defaultMethod, validMethods } from "./utils/constants.js";
+import { normalizeHandler } from "./utils/normalizeHandler.js";
 
 /**
  * A `Route` consists of a pair of callback functions, "match" and "handler".

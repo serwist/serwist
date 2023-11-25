@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { SerwistPlugin } from "../types.js";
+import type { SerwistPlugin } from "../types.js";
 
 export const pluginUtils = {
   filter: (plugins: SerwistPlugin[], callbackName: string): SerwistPlugin[] => {

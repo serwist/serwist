@@ -7,18 +7,18 @@
 */
 
 
-import {
-  assert,
-  getFriendlyURL,
-  logger,
-  SerwistError,
-} from "@serwist/core/private";
 import type {
   RouteHandler,
   RouteHandlerCallbackOptions,
   RouteHandlerObject,
   RouteMatchCallbackOptions,
-} from "@serwist/core/types";
+} from "@serwist/core";
+import {
+  assert,
+  getFriendlyURL,
+  logger,
+  SerwistError,
+} from "@serwist/core";
 
 import type { Route } from "./Route.js";
 import type { HTTPMethod } from "./utils/constants.js";

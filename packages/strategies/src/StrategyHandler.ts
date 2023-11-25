@@ -6,23 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-
-import {
-  assert,
-  cacheMatchIgnoreParams,
-  Deferred,
-  executeQuotaErrorCallbacks,
-  getFriendlyURL,
-  logger,
-  SerwistError,
-  timeout,
-} from "@serwist/core/private";
-import type {
-  HandlerCallbackOptions,
-  MapLikeObject,
-  SerwistPlugin,
-  SerwistPluginCallbackParam,
-} from "@serwist/core/types";
+import type { HandlerCallbackOptions, MapLikeObject, SerwistPlugin, SerwistPluginCallbackParam } from "@serwist/core";
+import { assert, cacheMatchIgnoreParams, Deferred, executeQuotaErrorCallbacks, getFriendlyURL, logger, SerwistError, timeout } from "@serwist/core";
 
 import type { Strategy } from "./Strategy.js";
 
@@ -125,20 +110,11 @@ class StrategyHandler {
     const { event } = this;
     let request: Request = toRequest(input);
 
-    if (
-      request.mode === "navigate" &&
-      event instanceof FetchEvent &&
-      event.preloadResponse
-    ) {
-      const possiblePreloadResponse = (await event.preloadResponse) as
-        | Response
-        | undefined;
+    if (request.mode === "navigate" && event instanceof FetchEvent && event.preloadResponse) {
+      const possiblePreloadResponse = (await event.preloadResponse) as Response | undefined;
       if (possiblePreloadResponse) {
         if (process.env.NODE_ENV !== "production") {
-          logger.log(
-            `Using a preloaded navigation response for ` +
-              `'${getFriendlyURL(request.url)}'`
-          );
+          logger.log(`Using a preloaded navigation response for ` + `'${getFriendlyURL(request.url)}'`);
         }
         return possiblePreloadResponse;
       }
@@ -147,9 +123,7 @@ class StrategyHandler {
     // If there is a fetchDidFail plugin, we need to save a clone of the
     // original request before it's either modified by a requestWillFetch
     // plugin or before the original request's body is consumed via fetch().
-    const originalRequest = this.hasCallback("fetchDidFail")
-      ? request.clone()
-      : null;
+    const originalRequest = this.hasCallback("fetchDidFail") ? request.clone() : null;
 
     try {
       for (const cb of this.iterateCallbacks("requestWillFetch")) {
@@ -172,17 +146,10 @@ class StrategyHandler {
       let fetchResponse: Response;
 
       // See https://github.com/GoogleChrome/workbox/issues/1796
-      fetchResponse = await fetch(
-        request,
-        request.mode === "navigate" ? undefined : this._strategy.fetchOptions
-      );
+      fetchResponse = await fetch(request, request.mode === "navigate" ? undefined : this._strategy.fetchOptions);
 
       if (process.env.NODE_ENV !== "production") {
-        logger.debug(
-          `Network request for ` +
-            `'${getFriendlyURL(request.url)}' returned a response with ` +
-            `status '${fetchResponse.status}'.`
-        );
+        logger.debug(`Network request for ` + `'${getFriendlyURL(request.url)}' returned a response with ` + `status '${fetchResponse.status}'.`);
       }
 
       for (const callback of this.iterateCallbacks("fetchDidSucceed")) {
@@ -195,11 +162,7 @@ class StrategyHandler {
       return fetchResponse;
     } catch (error) {
       if (process.env.NODE_ENV !== "production") {
-        logger.log(
-          `Network request for ` +
-            `'${getFriendlyURL(request.url)}' threw an error.`,
-          error
-        );
+        logger.log(`Network request for ` + `'${getFriendlyURL(request.url)}' threw an error.`, error);
       }
 
       // `originalRequest` will only exist if a `fetchDidFail` callback
@@ -324,10 +287,7 @@ class StrategyHandler {
 
     if (!response) {
       if (process.env.NODE_ENV !== "production") {
-        logger.error(
-          `Cannot cache non-existent response for ` +
-            `'${getFriendlyURL(effectiveRequest.url)}'.`
-        );
+        logger.error(`Cannot cache non-existent response for ` + `'${getFriendlyURL(effectiveRequest.url)}'.`);
       }
 
       throw new SerwistError("cache-put-with-no-response", {
@@ -339,11 +299,7 @@ class StrategyHandler {
 
     if (!responseToCache) {
       if (process.env.NODE_ENV !== "production") {
-        logger.debug(
-          `Response '${getFriendlyURL(effectiveRequest.url)}' ` +
-            `will not be cached.`,
-          responseToCache
-        );
+        logger.debug(`Response '${getFriendlyURL(effectiveRequest.url)}' ` + `will not be cached.`, responseToCache);
       }
       return false;
     }
@@ -365,17 +321,11 @@ class StrategyHandler {
       : null;
 
     if (process.env.NODE_ENV !== "production") {
-      logger.debug(
-        `Updating the '${cacheName}' cache with a new Response ` +
-          `for ${getFriendlyURL(effectiveRequest.url)}.`
-      );
+      logger.debug(`Updating the '${cacheName}' cache with a new Response ` + `for ${getFriendlyURL(effectiveRequest.url)}.`);
     }
 
     try {
-      await cache.put(
-        effectiveRequest,
-        hasCacheUpdateCallback ? responseToCache.clone() : responseToCache
-      );
+      await cache.put(effectiveRequest, hasCacheUpdateCallback ? responseToCache.clone() : responseToCache);
     } catch (error) {
       if (error instanceof Error) {
         // See https://developer.mozilla.org/en-US/docs/Web/API/DOMException#exception-QuotaExceededError
@@ -410,10 +360,7 @@ class StrategyHandler {
    * @param mode
    * @returns
    */
-  async getCacheKey(
-    request: Request,
-    mode: "read" | "write"
-  ): Promise<Request> {
+  async getCacheKey(request: Request, mode: "read" | "write"): Promise<Request> {
     const key = `${request.url} | ${mode}`;
     if (!this._cacheKeys[key]) {
       let effectiveRequest = request;
@@ -464,10 +411,7 @@ class StrategyHandler {
    * @param param The object to pass as the first (and only) param when executing each callback. This object will be merged with the
    * current plugin state prior to callback execution.
    */
-  async runCallbacks<C extends keyof NonNullable<SerwistPlugin>>(
-    name: C,
-    param: Omit<SerwistPluginCallbackParam[C], "state">
-  ): Promise<void> {
+  async runCallbacks<C extends keyof NonNullable<SerwistPlugin>>(name: C, param: Omit<SerwistPluginCallbackParam[C], "state">): Promise<void> {
     for (const callback of this.iterateCallbacks(name)) {
       // TODO(philipwalton): not sure why `any` is needed. It seems like
       // this should work with `as SerwistPluginCallbackParam[C]`.
@@ -484,15 +428,11 @@ class StrategyHandler {
    * @param name The name fo the callback to run
    * @returns
    */
-  *iterateCallbacks<C extends keyof SerwistPlugin>(
-    name: C
-  ): Generator<NonNullable<SerwistPlugin[C]>> {
+  *iterateCallbacks<C extends keyof SerwistPlugin>(name: C): Generator<NonNullable<SerwistPlugin[C]>> {
     for (const plugin of this._strategy.plugins) {
       if (typeof plugin[name] === "function") {
         const state = this._pluginStateMap.get(plugin);
-        const statefulCallback = (
-          param: Omit<SerwistPluginCallbackParam[C], "state">
-        ) => {
+        const statefulCallback = (param: Omit<SerwistPluginCallbackParam[C], "state">) => {
           const statefulParam = { ...param, state };
 
           // TODO(philipwalton): not sure why `any` is needed. It seems like
@@ -513,7 +453,7 @@ class StrategyHandler {
    * `@serwist/strategies.StrategyHandler.doneWaiting`
    * to know when all added promises have settled.
    *
-   * @param promise A promise to add to the extend lifetime promises of 
+   * @param promise A promise to add to the extend lifetime promises of
    * the event that triggered the request.
    */
   waitUntil<T>(promise: Promise<T>): Promise<T> {
@@ -522,7 +462,7 @@ class StrategyHandler {
   }
 
   /**
-   * Returns a promise that resolves once all promises passed to 
+   * Returns a promise that resolves once all promises passed to
    * `@serwist/strategies.StrategyHandler.waitUntil` have settled.
    *
    * Note: any work done after `doneWaiting()` settles should be manually
@@ -553,9 +493,7 @@ class StrategyHandler {
    * @returns
    * @private
    */
-  async _ensureResponseSafeToCache(
-    response: Response
-  ): Promise<Response | undefined> {
+  async _ensureResponseSafeToCache(response: Response): Promise<Response | undefined> {
     let responseToCache: Response | undefined = response;
     let pluginsUsed = false;
 
@@ -588,9 +526,7 @@ class StrategyHandler {
               );
             } else {
               logger.debug(
-                `The response for '${this.request.url}' ` +
-                  `returned a status code of '${response.status}' and won't ` +
-                  `be cached as a result.`
+                `The response for '${this.request.url}' ` + `returned a status code of '${response.status}' and won't ` + `be cached as a result.`
               );
             }
           }

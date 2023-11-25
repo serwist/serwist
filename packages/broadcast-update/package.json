@@ -23,26 +23,22 @@
     "browserNamespace": "serwist.broadcastUpdate",
     "packageType": "sw"
   },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.module.js",
-  "types": "./dist/index.module.d.ts",
+  "module": "./dist/index.js",
+  "main": "./dist/index.old.cjs",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      },
-      "default": {
-        "types": "./dist/index.module.d.ts",
-        "default": "./dist/index.module.js"
-      }
+      "import": "./dist/index.js",
+      "require":"./dist/index.old.cjs",
+      "types": "./dist/index.d.ts"
     }
   },
   "dependencies": {
     "@serwist/core": "workspace:*"
   },
   "scripts": {
-    "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js"
+    "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js",
+    "lint": "eslint src --ext ts,tsx,js,jsx,cjs,mjs"
   },
   "devDependencies": {
     "@serwist/constants": "workspace:*",

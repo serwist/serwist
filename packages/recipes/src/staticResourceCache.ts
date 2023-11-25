@@ -11,7 +11,7 @@ import type {
   RouteMatchCallback,
   RouteMatchCallbackOptions,
   SerwistPlugin,
-} from "@serwist/core/types";
+} from "@serwist/core";
 import { registerRoute } from "@serwist/routing";
 import { StaleWhileRevalidate } from "@serwist/strategies";
 

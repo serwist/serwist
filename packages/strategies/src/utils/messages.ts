@@ -6,11 +6,10 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { logger, getFriendlyURL } from "@serwist/core/private";
+import { getFriendlyURL, logger } from "@serwist/core";
 
 export const messages = {
-  strategyStart: (strategyName: string, request: Request): string =>
-    `Using ${strategyName} to respond to '${getFriendlyURL(request.url)}'`,
+  strategyStart: (strategyName: string, request: Request): string => `Using ${strategyName} to respond to '${getFriendlyURL(request.url)}'`,
   printFinalResponse: (response?: Response): void => {
     if (response) {
       logger.groupCollapsed(`View the final response here.`);

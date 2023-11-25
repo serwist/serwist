@@ -18,11 +18,11 @@ import { validateWebpackInjectManifestOptions } from "./lib/validate-options.js"
 
 export {
   copySerwistLibraries,
+  escapeRegExp,
   getManifest,
   getModuleURL,
-  injectManifest,
-  escapeRegExp,
   getSourceMapURL,
+  injectManifest,
   replaceAndUpdateSourceMap,
   transformManifest,
   validateWebpackInjectManifestOptions,

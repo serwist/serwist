@@ -6,10 +6,10 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert, logger, SerwistError } from "@serwist/core/private";
+import { assert, logger, SerwistError } from "@serwist/core";
 
 import { Strategy } from "./Strategy.js";
-import { StrategyHandler } from "./StrategyHandler.js";
+import type { StrategyHandler } from "./StrategyHandler.js";
 import { messages } from "./utils/messages.js";
 
 /**

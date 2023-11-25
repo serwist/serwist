@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { logger } from "@serwist/core/private";
+import { logger } from "@serwist/core";
 
 /**
  * @param groupTitle

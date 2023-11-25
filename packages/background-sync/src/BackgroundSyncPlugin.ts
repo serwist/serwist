@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { SerwistPlugin } from "@serwist/core/types";
+import type { SerwistPlugin } from "@serwist/core";
 
 import type { QueueOptions } from "./Queue.js";
 import { Queue } from "./Queue.js";

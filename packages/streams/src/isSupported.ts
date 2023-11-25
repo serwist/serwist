@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { canConstructReadableStream } from "@serwist/core/private";
+import { canConstructReadableStream } from "@serwist/core";
 
 /**
  * This is a utility method that determines whether the current browser supports

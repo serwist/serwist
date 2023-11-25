@@ -7,17 +7,17 @@
 */
 
 
-import {
-  cacheNames,
-  getFriendlyURL,
-  logger,
-  SerwistError,
-} from "@serwist/core/private";
 import type {
   HandlerCallbackOptions,
   RouteHandlerObject,
   SerwistPlugin,
-} from "@serwist/core/types";
+} from "@serwist/core";
+import {
+  getFriendlyURL,
+  logger,
+  privateCacheNames,
+  SerwistError,
+} from "@serwist/core";
 
 import { StrategyHandler } from "./StrategyHandler.js";
 
@@ -71,7 +71,7 @@ abstract class Strategy implements RouteHandlerObject {
    * @param options
    */
   constructor(options: StrategyOptions = {}) {
-    this.cacheName = cacheNames.getRuntimeName(options.cacheName);
+    this.cacheName = privateCacheNames.getRuntimeName(options.cacheName);
     this.plugins = options.plugins || [];
     this.fetchOptions = options.fetchOptions;
     this.matchOptions = options.matchOptions;

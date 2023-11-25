@@ -6,22 +6,11 @@
   https://opensource.org/licenses/MIT.
 */
 
-
-import {
-  assert,
-  logger,
-  resultingClientExists,
-  timeout,
-} from "@serwist/core/private";
-import type { CacheDidUpdateCallbackParam } from "@serwist/core/types";
+import type { CacheDidUpdateCallbackParam } from "@serwist/core";
+import { assert, logger, resultingClientExists, timeout } from "@serwist/core";
 
 import { responsesAreSame } from "./responsesAreSame.js";
-import {
-  CACHE_UPDATED_MESSAGE_META,
-  CACHE_UPDATED_MESSAGE_TYPE,
-  DEFAULT_HEADERS_TO_CHECK,
-  NOTIFY_ALL_CLIENTS,
-} from "./utils/constants.js";
+import { CACHE_UPDATED_MESSAGE_META, CACHE_UPDATED_MESSAGE_TYPE, DEFAULT_HEADERS_TO_CHECK, NOTIFY_ALL_CLIENTS } from "./utils/constants.js";
 
 // UA-sniff Safari: https://stackoverflow.com/questions/7944460/detect-safari-browser
 // TODO(philipwalton): remove once this Safari bug fix has been released.
@@ -35,7 +24,7 @@ export interface BroadcastCacheUpdateOptions {
   /**
    * A list of headers that will be used to determine whether the responses
    * differ.
-   * 
+   *
    * @default ['content-length', 'etag', 'last-modified']
    */
   headersToCheck?: string[];
@@ -43,16 +32,14 @@ export interface BroadcastCacheUpdateOptions {
    * A function whose return value
    * will be used as the `payload` field in any cache update messages sent
    * to the window clients.
-   * @param options 
-   * @returns 
+   * @param options
+   * @returns
    */
-  generatePayload?: (
-    options: CacheDidUpdateCallbackParam
-  ) => Record<string, any>;
+  generatePayload?: (options: CacheDidUpdateCallbackParam) => Record<string, any>;
   /**
-   * If true (the default) then all open clients will receive a message. If false, 
+   * If true (the default) then all open clients will receive a message. If false,
    * then only the client that make the original request will be notified of the update.
-   * 
+   *
    * @default true
    */
   notifyAllClients?: boolean;
@@ -65,9 +52,7 @@ export interface BroadcastCacheUpdateOptions {
  * @return Object
  * @private
  */
-function defaultPayloadGenerator(
-  data: CacheDidUpdateCallbackParam
-): Record<string, any> {
+function defaultPayloadGenerator(data: CacheDidUpdateCallbackParam): Record<string, any> {
   return {
     cacheName: data.cacheName,
     updatedURL: data.request.url,
@@ -83,9 +68,7 @@ function defaultPayloadGenerator(
  */
 class BroadcastCacheUpdate {
   private readonly _headersToCheck: string[];
-  private readonly _generatePayload: (
-    options: CacheDidUpdateCallbackParam
-  ) => Record<string, any>;
+  private readonly _generatePayload: (options: CacheDidUpdateCallbackParam) => Record<string, any>;
   private readonly _notifyAllClients: boolean;
 
   /**
@@ -94,11 +77,7 @@ class BroadcastCacheUpdate {
    *
    * @param options
    */
-  constructor({
-    generatePayload,
-    headersToCheck,
-    notifyAllClients,
-  }: BroadcastCacheUpdateOptions = {}) {
+  constructor({ generatePayload, headersToCheck, notifyAllClients }: BroadcastCacheUpdateOptions = {}) {
     this._headersToCheck = headersToCheck || DEFAULT_HEADERS_TO_CHECK;
     this._generatePayload = generatePayload || defaultPayloadGenerator;
     this._notifyAllClients = notifyAllClients ?? NOTIFY_ALL_CLIENTS;
@@ -155,18 +134,9 @@ class BroadcastCacheUpdate {
       return;
     }
 
-    if (
-      !responsesAreSame(
-        options.oldResponse,
-        options.newResponse,
-        this._headersToCheck
-      )
-    ) {
+    if (!responsesAreSame(options.oldResponse, options.newResponse, this._headersToCheck)) {
       if (process.env.NODE_ENV !== "production") {
-        logger.log(
-          `Newer response found (and cached) for:`,
-          options.request.url
-        );
+        logger.log(`Newer response found (and cached) for:`, options.request.url);
       }
 
       const messageData = {

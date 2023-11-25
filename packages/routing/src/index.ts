@@ -6,9 +6,10 @@
   https://opensource.org/licenses/MIT.
 */
 
+import type {
+  NavigationRouteMatchOptions} from "./NavigationRoute.js";
 import {
-  NavigationRoute,
-  NavigationRouteMatchOptions,
+  NavigationRoute
 } from "./NavigationRoute.js";
 import { RegExpRoute } from "./RegExpRoute.js";
 import { registerRoute } from "./registerRoute.js";
@@ -29,4 +30,4 @@ export {
   setDefaultHandler,
 };
 
-export type { NavigationRouteMatchOptions, HTTPMethod };
+export type { HTTPMethod,NavigationRouteMatchOptions };

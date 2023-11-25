@@ -11,7 +11,7 @@ import type {
   RouteMatchCallback,
   RouteMatchCallbackOptions,
   SerwistPlugin,
-} from "@serwist/core/types";
+} from "@serwist/core";
 import { ExpirationPlugin } from "@serwist/expiration";
 import { registerRoute } from "@serwist/routing";
 import { CacheFirst } from "@serwist/strategies";

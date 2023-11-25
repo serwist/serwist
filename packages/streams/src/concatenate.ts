@@ -6,8 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert, Deferred, logger, SerwistError } from "@serwist/core/private";
-import { StreamSource } from "./_types.js";
+import { assert, Deferred, logger, SerwistError } from "@serwist/core";
+
+import type { StreamSource } from "./_types.js";
 
 
 /**

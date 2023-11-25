@@ -7,7 +7,7 @@
 */
 
 
-import type { SerwistPlugin } from "@serwist/core/types";
+import type { SerwistPlugin } from "@serwist/core";
 
 import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheController.js";
 

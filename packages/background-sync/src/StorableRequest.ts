@@ -7,8 +7,8 @@
 */
 
 
-import { assert } from "@serwist/core/private";
-import type { MapLikeObject } from "@serwist/core/types";
+import type { MapLikeObject } from "@serwist/core";
+import { assert } from "@serwist/core";
 
 type SerializableProperties =
   | "method"

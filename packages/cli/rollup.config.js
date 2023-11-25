@@ -18,7 +18,6 @@ export default getRollupOptions({
       ],
     },
   ],
-  dtsFiles: [],
   shouldMinify: !isDev,
   shouldEmitDeclaration: false,
 });

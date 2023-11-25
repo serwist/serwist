@@ -6,12 +6,12 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { logger, SerwistError } from "@serwist/core/private";
-import { RouteHandler, RouteMatchCallback } from "@serwist/core/types";
+import type { RouteHandler, RouteMatchCallback } from "@serwist/core";
+import { logger, SerwistError  } from "@serwist/core";
 
-import { Route } from "./Route.js";
 import { RegExpRoute } from "./RegExpRoute.js";
-import { HTTPMethod } from "./utils/constants.js";
+import { Route } from "./Route.js";
+import type { HTTPMethod } from "./utils/constants.js";
 import { getOrCreateDefaultRouter } from "./utils/getOrCreateDefaultRouter.js";
 
 

@@ -1,6 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalEnv": ["NODE_ENV", "NEXT_TEST_MODE"],
+  "globalEnv": ["NODE_ENV", "NEXT_TEST_MODE", "PUBLISH"],
   "pipeline": {
     "dev": {
       "cache": false,

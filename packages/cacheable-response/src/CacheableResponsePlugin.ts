@@ -7,7 +7,7 @@
 */
 
 
-import type { SerwistPlugin } from "@serwist/core/types";
+import type { SerwistPlugin } from "@serwist/core";
 
 import type { CacheableResponseOptions } from "./CacheableResponse.js";
 import { CacheableResponse } from "./CacheableResponse.js";

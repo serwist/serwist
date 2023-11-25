@@ -6,7 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { logger } from "@serwist/core/private";
+import { logger } from "@serwist/core";
+
 import { isSupported } from "./isSupported.js";
 
 // Give TypeScript the correct global.

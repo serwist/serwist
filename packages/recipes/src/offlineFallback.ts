@@ -9,7 +9,7 @@
 import type {
   RouteHandler,
   RouteHandlerCallbackOptions,
-} from "@serwist/core/types";
+} from "@serwist/core";
 import { matchPrecache } from "@serwist/precaching";
 import { setCatchHandler } from "@serwist/routing";
 

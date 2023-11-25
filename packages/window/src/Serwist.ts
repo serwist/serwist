@@ -7,7 +7,7 @@
 */
 
 
-import { Deferred, dontWaitFor, logger } from "@serwist/core/private";
+import { Deferred, dontWaitFor, logger } from "@serwist/core";
 import type { TrustedScriptURL } from "trusted-types/lib";
 
 import { messageSW } from "./messageSW.js";

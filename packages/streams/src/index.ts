@@ -9,7 +9,8 @@
 import { concatenate } from "./concatenate.js";
 import { concatenateToResponse } from "./concatenateToResponse.js";
 import { isSupported } from "./isSupported.js";
-import { strategy, StreamsHandlerCallback } from "./strategy.js";
+import type { StreamsHandlerCallback } from "./strategy.js";
+import { strategy } from "./strategy.js";
 
 
 export { concatenate, concatenateToResponse, isSupported, strategy };

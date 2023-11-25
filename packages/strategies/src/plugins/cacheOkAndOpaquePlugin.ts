@@ -7,7 +7,7 @@
 */
 
 
-import type { SerwistPlugin } from "@serwist/core/types";
+import type { SerwistPlugin } from "@serwist/core";
 
 export const cacheOkAndOpaquePlugin: SerwistPlugin = {
   /**

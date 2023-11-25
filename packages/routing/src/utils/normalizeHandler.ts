@@ -6,8 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert } from "@serwist/core/private";
-import { RouteHandler, RouteHandlerObject } from "@serwist/core/types";
+import type { RouteHandler, RouteHandlerObject } from "@serwist/core";
+import { assert  } from "@serwist/core";
 
 
 /**

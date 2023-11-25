@@ -10,7 +10,7 @@ import {
   getFriendlyURL,
   logger,
   SerwistError,
-} from "@serwist/core/private";
+} from "@serwist/core";
 
 import type {
   QueueStoreEntry,

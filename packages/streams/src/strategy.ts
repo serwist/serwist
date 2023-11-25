@@ -7,11 +7,11 @@
 */
 
 
-import { logger } from "@serwist/core/private";
 import type {
   RouteHandlerCallback,
   RouteHandlerCallbackOptions,
-} from "@serwist/core/types";
+} from "@serwist/core";
+import { logger } from "@serwist/core";
 
 import type { StreamSource } from "./_types.js";
 import { concatenateToResponse } from "./concatenateToResponse.js";

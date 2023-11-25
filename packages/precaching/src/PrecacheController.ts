@@ -6,18 +6,11 @@
   https://opensource.org/licenses/MIT.
 */
 
-
-import {
-  assert,
-  cacheNames,
-  logger,
-  SerwistError,
-  waitUntil,
-} from "@serwist/core/private";
-import type { RouteHandlerCallback, SerwistPlugin } from "@serwist/core/types";
+import type { RouteHandlerCallback, SerwistPlugin } from "@serwist/core";
+import { assert, logger, privateCacheNames, SerwistError, waitUntil } from "@serwist/core";
 import type { Strategy } from "@serwist/strategies";
 
-import type { CleanupResult,InstallResult, PrecacheEntry } from "./_types.js";
+import type { CleanupResult, InstallResult, PrecacheEntry } from "./_types.js";
 import { PrecacheStrategy } from "./PrecacheStrategy.js";
 import { createCacheKey } from "./utils/createCacheKey.js";
 import { PrecacheCacheKeyPlugin } from "./utils/PrecacheCacheKeyPlugin.js";
@@ -40,12 +33,12 @@ interface PrecacheControllerOptions {
    */
   cacheName?: string;
   /**
-   * Plugins to use when precaching as well as responding to fetch 
+   * Plugins to use when precaching as well as responding to fetch
    * events for precached assets.
    */
   plugins?: SerwistPlugin[];
   /**
-   * Whether to attempt to get the response from the network if there's 
+   * Whether to attempt to get the response from the network if there's
    * a precache miss.
    */
   fallbackToNetwork?: boolean;
@@ -53,20 +46,12 @@ interface PrecacheControllerOptions {
 
 /**
  * Performs efficient precaching of assets.
-  */
+ */
 class PrecacheController {
   private _installAndActiveListenersAdded?: boolean;
   private readonly _strategy: Strategy;
   private readonly _urlsToCacheKeys: Map<string, string> = new Map();
-  private readonly _urlsToCacheModes: Map<
-    string,
-    | "reload"
-    | "default"
-    | "no-store"
-    | "no-cache"
-    | "force-cache"
-    | "only-if-cached"
-  > = new Map();
+  private readonly _urlsToCacheModes: Map<string, "reload" | "default" | "no-store" | "no-cache" | "force-cache" | "only-if-cached"> = new Map();
   private readonly _cacheKeysToIntegrities: Map<string, string> = new Map();
 
   /**
@@ -74,17 +59,10 @@ class PrecacheController {
    *
    * @param options
    */
-  constructor({
-    cacheName,
-    plugins = [],
-    fallbackToNetwork = true,
-  }: PrecacheControllerOptions = {}) {
+  constructor({ cacheName, plugins = [], fallbackToNetwork = true }: PrecacheControllerOptions = {}) {
     this._strategy = new PrecacheStrategy({
-      cacheName: cacheNames.getPrecacheName(cacheName),
-      plugins: [
-        ...plugins,
-        new PrecacheCacheKeyPlugin({ precacheController: this }),
-      ],
+      cacheName: privateCacheNames.getPrecacheName(cacheName),
+      plugins: [...plugins, new PrecacheCacheKeyPlugin({ precacheController: this })],
       fallbackToNetwork,
     });
 
@@ -146,13 +124,9 @@ class PrecacheController {
       }
 
       const { cacheKey, url } = createCacheKey(entry);
-      const cacheMode =
-        typeof entry !== "string" && entry.revision ? "reload" : "default";
+      const cacheMode = typeof entry !== "string" && entry.revision ? "reload" : "default";
 
-      if (
-        this._urlsToCacheKeys.has(url) &&
-        this._urlsToCacheKeys.get(url) !== cacheKey
-      ) {
+      if (this._urlsToCacheKeys.has(url) && this._urlsToCacheKeys.get(url) !== cacheKey) {
         throw new SerwistError("add-to-cache-list-conflicting-entries", {
           firstEntry: this._urlsToCacheKeys.get(url),
           secondEntry: cacheKey,
@@ -160,10 +134,7 @@ class PrecacheController {
       }
 
       if (typeof entry !== "string" && entry.integrity) {
-        if (
-          this._cacheKeysToIntegrities.has(cacheKey) &&
-          this._cacheKeysToIntegrities.get(cacheKey) !== entry.integrity
-        ) {
+        if (this._cacheKeysToIntegrities.has(cacheKey) && this._cacheKeysToIntegrities.get(cacheKey) !== entry.integrity) {
           throw new SerwistError("add-to-cache-list-conflicting-integrities", {
             url,
           });
@@ -333,9 +304,7 @@ class PrecacheController {
    * to look up in the precache.
    * @returns
    */
-  async matchPrecache(
-    request: string | Request
-  ): Promise<Response | undefined> {
+  async matchPrecache(request: string | Request): Promise<Response | undefined> {
     const url = request instanceof Request ? request.url : request;
     const cacheKey = this.getCacheKeyForURL(url);
     if (cacheKey) {

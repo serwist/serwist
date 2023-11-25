@@ -11,6 +11,7 @@ import type { JSONSchemaType } from "ajv";
 import Ajv from "ajv";
 import { oneLine as ol } from "common-tags";
 
+import { optionsSchemas } from "../schema/index.js";
 import type {
   GetManifestOptions,
   InjectManifestOptions,
@@ -18,7 +19,6 @@ import type {
   WebpackInjectManifestOptions,
 } from "../types.js";
 import { errors } from "./errors.js";
-import { optionsSchemas } from "../schema/index.js";
 
 const ajv = new (Ajv as unknown as typeof Ajv.default)({
   useDefaults: true,

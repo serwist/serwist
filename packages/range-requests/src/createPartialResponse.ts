@@ -7,7 +7,7 @@
 */
 
 
-import { assert, logger, SerwistError } from "@serwist/core/private";
+import { assert, logger, SerwistError } from "@serwist/core";
 
 import { calculateEffectiveBoundaries } from "./utils/calculateEffectiveBoundaries.js";
 import { parseRangeHeader } from "./utils/parseRangeHeader.js";

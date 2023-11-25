@@ -1,8 +1,8 @@
 import path from "node:path";
 
+import type { ManifestEntry } from "@serwist/build";
 import type { TsConfigJson } from "type-fest";
 import type { Configuration } from "webpack";
-import type { ManifestEntry } from "@serwist/build";
 
 import type { NextBuildInfo } from "../private-types.js";
 import type { PluginOptions } from "../types.js";

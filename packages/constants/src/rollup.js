@@ -1,12 +1,12 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import json from "@rollup/plugin-json";
 import nodeResolve from "@rollup/plugin-node-resolve";
 import swc from "@rollup/plugin-swc";
 import typescript from "@rollup/plugin-typescript";
 import { defineConfig } from "rollup";
-import dts from "rollup-plugin-dts";
 
 import { swcConfig } from "./swc-config.js";
+
+const isPublishMode = process.env.PUBLISH === "true";
 
 /**
  * @type {typeof import("./rollup.d.ts").getRollupOptions}
@@ -14,7 +14,6 @@ import { swcConfig } from "./swc-config.js";
 export const getRollupOptions = ({
   packageJson,
   jsFiles,
-  dtsFiles,
   shouldMinify,
   shouldEmitDeclaration,
 }) => {
@@ -51,7 +50,7 @@ export const getRollupOptions = ({
               emitDeclarationOnly: true,
               outDir: "dist",
               declaration: true,
-              declarationDir: "dts",
+              declarationMap: !isPublishMode,
             }),
           swc({
             swc: {
@@ -63,22 +62,6 @@ export const getRollupOptions = ({
         ],
       })
     );
-  }
-
-  if (shouldEmitDeclaration) {
-    for (const { input, output, external = [], plugins } of dtsFiles) {
-      rollupEntries.push(
-        defineConfig({
-          input,
-          output,
-          external: [
-            ...(Array.isArray(external) ? external : [external]),
-            ...forcedExternals,
-          ],
-          plugins: [dts(), ...[plugins ?? []]],
-        })
-      );
-    }
   }
 
   return rollupEntries;

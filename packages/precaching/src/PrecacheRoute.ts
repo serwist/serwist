@@ -7,11 +7,11 @@
 */
 
 
-import { getFriendlyURL,logger } from "@serwist/core/private";
 import type {
   RouteMatchCallback,
   RouteMatchCallbackOptions,
-} from "@serwist/core/types";
+} from "@serwist/core";
+import { getFriendlyURL,logger } from "@serwist/core";
 import { Route } from "@serwist/routing";
 
 import type { PrecacheRouteOptions } from "./_types.js";

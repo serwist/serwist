@@ -6,8 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { logger } from "./_private/logger.js";
 import { assert } from "./_private/assert.js";
+import { logger } from "./_private/logger.js";
 import { quotaErrorCallbacks } from "./models/quotaErrorCallbacks.js";
 
 /**

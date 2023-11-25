@@ -7,7 +7,7 @@
 */
 
 
-import type { RouteHandlerCallback } from "@serwist/core/types";
+import type { RouteHandlerCallback } from "@serwist/core";
 
 import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheController.js";
 

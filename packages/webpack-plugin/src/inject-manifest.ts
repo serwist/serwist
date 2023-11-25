@@ -12,7 +12,8 @@ import { escapeRegExp, replaceAndUpdateSourceMap, validateWebpackInjectManifestO
 import stringify from "fast-json-stable-stringify";
 import prettyBytes from "pretty-bytes";
 import upath from "upath";
-import webpack, { Compilation } from "webpack";
+import type { Compilation } from "webpack";
+import webpack from "webpack";
 
 import { getManifestEntriesFromCompilation } from "./lib/get-manifest-entries-from-compilation.js";
 import { getSourcemapAssetName } from "./lib/get-sourcemap-asset-name.js";

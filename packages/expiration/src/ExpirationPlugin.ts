@@ -6,23 +6,14 @@
   https://opensource.org/licenses/MIT.
 */
 
-
-import { registerQuotaErrorCallback } from "@serwist/core";
-import {
-  assert,
-  cacheNames,
-  dontWaitFor,
-  getFriendlyURL,
-  logger,
-  SerwistError,
-} from "@serwist/core/private";
-import type { SerwistPlugin } from "@serwist/core/types";
+import type { SerwistPlugin } from "@serwist/core";
+import { assert, dontWaitFor, getFriendlyURL, logger, privateCacheNames, registerQuotaErrorCallback, SerwistError } from "@serwist/core";
 
 import { CacheExpiration } from "./CacheExpiration.js";
 
 export interface ExpirationPluginOptions {
   /**
-   * The maximum number of entries to cache. Entries used the least will be removed 
+   * The maximum number of entries to cache. Entries used the least will be removed
    * as the maximum is reached.
    */
   maxEntries?: number;
@@ -117,7 +108,7 @@ class ExpirationPlugin implements SerwistPlugin {
    * @private
    */
   private _getCacheExpiration(cacheName: string): CacheExpiration {
-    if (cacheName === cacheNames.getRuntimeName()) {
+    if (cacheName === privateCacheNames.getRuntimeName()) {
       throw new SerwistError("expire-custom-caches-only");
     }
 
@@ -138,16 +129,11 @@ class ExpirationPlugin implements SerwistPlugin {
    * older than the configured `maxAgeSeconds`.
    *
    * @param options
-   * @returns Either the `cachedResponse`, if it's fresh, or `null` if the `Response` 
+   * @returns Either the `cachedResponse`, if it's fresh, or `null` if the `Response`
    * is older than `maxAgeSeconds`.
    * @private
    */
-  cachedResponseWillBeUsed: SerwistPlugin["cachedResponseWillBeUsed"] = async ({
-    event,
-    request,
-    cacheName,
-    cachedResponse,
-  }) => {
+  cachedResponseWillBeUsed: SerwistPlugin["cachedResponseWillBeUsed"] = async ({ event, request, cacheName, cachedResponse }) => {
     if (!cachedResponse) {
       return null;
     }
@@ -241,10 +227,7 @@ class ExpirationPlugin implements SerwistPlugin {
    * @param options
    * @private
    */
-  cacheDidUpdate: SerwistPlugin["cacheDidUpdate"] = async ({
-    cacheName,
-    request,
-  }) => {
+  cacheDidUpdate: SerwistPlugin["cacheDidUpdate"] = async ({ cacheName, request }) => {
     if (process.env.NODE_ENV !== "production") {
       assert!.isType(cacheName, "string", {
         moduleName: "@serwist/expiration",

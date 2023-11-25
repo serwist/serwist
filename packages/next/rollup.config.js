@@ -12,12 +12,12 @@ export default getRollupOptions({
       input: "src/index.ts",
       output: [
         {
-          file: "dist/index.cjs",
+          file: "dist/index.old.cjs",
           format: "cjs",
           exports: "named",
         },
         {
-          file: "dist/index.module.js",
+          file: "dist/index.js",
           format: "esm",
         },
       ],
@@ -49,22 +49,6 @@ export default getRollupOptions({
         file: "dist/swc-loader.cjs",
         format: "cjs",
       },
-    },
-  ],
-  dtsFiles: [
-    {
-      input: "dist/dts/src/index.d.ts",
-      output: [
-        { format: "es", file: "dist/index.module.d.ts" },
-        { format: "cjs", file: "dist/index.d.cts" },
-      ],
-    },
-    {
-      input: "dist/dts/src/sw-entry.d.ts",
-      output: [
-        { format: "es", file: "dist/sw-entry.module.d.ts" },
-        { format: "cjs", file: "dist/sw-entry.d.cts" },
-      ],
     },
   ],
   shouldMinify: !isDev,

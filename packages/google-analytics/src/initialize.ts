@@ -6,11 +6,10 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 import type { Queue } from "@serwist/background-sync";
 import { BackgroundSyncPlugin } from "@serwist/background-sync";
-import { cacheNames, getFriendlyURL, logger } from "@serwist/core/private";
-import type { RouteMatchCallbackOptions } from "@serwist/core/types";
+import type { RouteMatchCallbackOptions } from "@serwist/core";
+import { getFriendlyURL, logger,privateCacheNames } from "@serwist/core";
 import { Route, Router } from "@serwist/routing";
 import { NetworkFirst, NetworkOnly } from "@serwist/strategies";
 
@@ -65,10 +64,7 @@ const createOnSyncCallback = (config: GoogleAnalyticsInitializeOptions) => {
       try {
         // Measurement protocol requests can set their payload parameters in
         // either the URL query string (for GET requests) or the POST body.
-        const params =
-          request.method === "POST"
-            ? new URLSearchParams(await request.clone().text())
-            : url.searchParams;
+        const params = request.method === "POST" ? new URLSearchParams(await request.clone().text()) : url.searchParams;
 
         // Calculate the qt param, accounting for the fact that an existing
         // qt param may be present and should be updated rather than replaced.
@@ -104,27 +100,19 @@ const createOnSyncCallback = (config: GoogleAnalyticsInitializeOptions) => {
         );
 
         if (process.env.NODE_ENV !== "production") {
-          logger.log(
-            `Request for '${getFriendlyURL(url.href)}' ` + `has been replayed`
-          );
+          logger.log(`Request for '${getFriendlyURL(url.href)}' ` + `has been replayed`);
         }
       } catch (err) {
         await queue.unshiftRequest(entry);
 
         if (process.env.NODE_ENV !== "production") {
-          logger.log(
-            `Request for '${getFriendlyURL(url.href)}' ` +
-              `failed to replay, putting it back in the queue.`
-          );
+          logger.log(`Request for '${getFriendlyURL(url.href)}' ` + `failed to replay, putting it back in the queue.`);
         }
         throw err;
       }
     }
     if (process.env.NODE_ENV !== "production") {
-      logger.log(
-        `All Google Analytics request successfully replayed; ` +
-          `the queue is now empty!`
-      );
+      logger.log(`All Google Analytics request successfully replayed; ` + `the queue is now empty!`);
     }
   };
 };
@@ -137,9 +125,7 @@ const createOnSyncCallback = (config: GoogleAnalyticsInitializeOptions) => {
  * @private
  */
 const createCollectRoutes = (bgSyncPlugin: BackgroundSyncPlugin) => {
-  const match = ({ url }: RouteMatchCallbackOptions) =>
-    url.hostname === GOOGLE_ANALYTICS_HOST &&
-    COLLECT_PATHS_REGEX.test(url.pathname);
+  const match = ({ url }: RouteMatchCallbackOptions) => url.hostname === GOOGLE_ANALYTICS_HOST && COLLECT_PATHS_REGEX.test(url.pathname);
 
   const handler = new NetworkOnly({
     plugins: [bgSyncPlugin],
@@ -156,9 +142,7 @@ const createCollectRoutes = (bgSyncPlugin: BackgroundSyncPlugin) => {
  * @private
  */
 const createAnalyticsJsRoute = (cacheName: string) => {
-  const match = ({ url }: RouteMatchCallbackOptions) =>
-    url.hostname === GOOGLE_ANALYTICS_HOST &&
-    url.pathname === ANALYTICS_JS_PATH;
+  const match = ({ url }: RouteMatchCallbackOptions) => url.hostname === GOOGLE_ANALYTICS_HOST && url.pathname === ANALYTICS_JS_PATH;
 
   const handler = new NetworkFirst({ cacheName });
 
@@ -173,8 +157,7 @@ const createAnalyticsJsRoute = (cacheName: string) => {
  * @private
  */
 const createGtagJsRoute = (cacheName: string) => {
-  const match = ({ url }: RouteMatchCallbackOptions) =>
-    url.hostname === GTM_HOST && url.pathname === GTAG_JS_PATH;
+  const match = ({ url }: RouteMatchCallbackOptions) => url.hostname === GTM_HOST && url.pathname === GTAG_JS_PATH;
 
   const handler = new NetworkFirst({ cacheName });
 
@@ -189,8 +172,7 @@ const createGtagJsRoute = (cacheName: string) => {
  * @private
  */
 const createGtmJsRoute = (cacheName: string) => {
-  const match = ({ url }: RouteMatchCallbackOptions) =>
-    url.hostname === GTM_HOST && url.pathname === GTM_JS_PATH;
+  const match = ({ url }: RouteMatchCallbackOptions) => url.hostname === GTM_HOST && url.pathname === GTM_JS_PATH;
 
   const handler = new NetworkFirst({ cacheName });
 
@@ -201,19 +183,14 @@ const createGtmJsRoute = (cacheName: string) => {
  * @param options
  */
 const initialize = (options: GoogleAnalyticsInitializeOptions = {}): void => {
-  const cacheName = cacheNames.getGoogleAnalyticsName(options.cacheName);
+  const cacheName = privateCacheNames.getGoogleAnalyticsName(options.cacheName);
 
   const bgSyncPlugin = new BackgroundSyncPlugin(QUEUE_NAME, {
     maxRetentionTime: MAX_RETENTION_TIME,
     onSync: createOnSyncCallback(options),
   });
 
-  const routes = [
-    createGtmJsRoute(cacheName),
-    createAnalyticsJsRoute(cacheName),
-    createGtagJsRoute(cacheName),
-    ...createCollectRoutes(bgSyncPlugin),
-  ];
+  const routes = [createGtmJsRoute(cacheName), createAnalyticsJsRoute(cacheName), createGtagJsRoute(cacheName), ...createCollectRoutes(bgSyncPlugin)];
 
   const router = new Router();
   for (const route of routes) {

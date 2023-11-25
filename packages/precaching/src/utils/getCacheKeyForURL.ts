@@ -6,9 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { getOrCreatePrecacheController } from "./getOrCreatePrecacheController.js";
+import type { PrecacheRouteOptions } from "../_types.js";
 import { generateURLVariations } from "./generateURLVariations.js";
-import { PrecacheRouteOptions } from "../_types.js";
+import { getOrCreatePrecacheController } from "./getOrCreatePrecacheController.js";
 
 /**
  * This function will take the request URL and manipulate it based on the

@@ -6,9 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { createHeaders } from "./utils/createHeaders.js";
+import type { StreamSource } from "./_types.js";
 import { concatenate } from "./concatenate.js";
-import { StreamSource } from "./_types.js";
+import { createHeaders } from "./utils/createHeaders.js";
 
 /**
  * Takes multiple source Promises, each of which could resolve to a Response, a

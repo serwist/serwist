@@ -7,8 +7,8 @@
 */
 
 
-import { dontWaitFor } from "@serwist/core/private";
-import type { SerwistPlugin } from "@serwist/core/types";
+import type { SerwistPlugin } from "@serwist/core";
+import { dontWaitFor } from "@serwist/core";
 
 import type { BroadcastCacheUpdateOptions } from "./BroadcastCacheUpdate.js";
 import { BroadcastCacheUpdate } from "./BroadcastCacheUpdate.js";

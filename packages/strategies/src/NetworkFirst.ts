@@ -7,7 +7,7 @@
 */
 
 
-import { assert, logger, SerwistError } from "@serwist/core/private";
+import { assert, logger, SerwistError } from "@serwist/core";
 
 import { cacheOkAndOpaquePlugin } from "./plugins/cacheOkAndOpaquePlugin.js";
 import type { StrategyOptions } from "./Strategy.js";

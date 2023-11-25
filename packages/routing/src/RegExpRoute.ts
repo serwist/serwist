@@ -6,15 +6,15 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert, logger } from "@serwist/core/private";
-import {
+import type {
   RouteHandler,
   RouteMatchCallback,
-  RouteMatchCallbackOptions,
-} from "@serwist/core/types";
+  RouteMatchCallbackOptions} from "@serwist/core";
+import { assert, logger 
+} from "@serwist/core";
 
-import { HTTPMethod } from "./utils/constants.js";
 import { Route } from "./Route.js";
+import type { HTTPMethod } from "./utils/constants.js";
 
 
 /**

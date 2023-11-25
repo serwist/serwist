@@ -6,12 +6,12 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {
+import type {
   SerwistPlugin,
   SerwistPluginCallbackParam,
-} from "@serwist/core/types";
+} from "@serwist/core";
 
-import { PrecacheController } from "../PrecacheController.js";
+import type { PrecacheController } from "../PrecacheController.js";
 
 
 /**

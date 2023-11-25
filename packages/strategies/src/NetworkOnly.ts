@@ -6,10 +6,11 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert, logger, timeout, SerwistError } from "@serwist/core/private";
+import { assert, logger, SerwistError,timeout } from "@serwist/core";
 
-import { Strategy, StrategyOptions } from "./Strategy.js";
-import { StrategyHandler } from "./StrategyHandler.js";
+import type { StrategyOptions } from "./Strategy.js";
+import { Strategy } from "./Strategy.js";
+import type { StrategyHandler } from "./StrategyHandler.js";
 import { messages } from "./utils/messages.js";
 
 interface NetworkOnlyOptions

@@ -8,10 +8,13 @@
 
 import { CacheFirst } from "./CacheFirst.js";
 import { CacheOnly } from "./CacheOnly.js";
-import { NetworkFirst, NetworkFirstOptions } from "./NetworkFirst.js";
-import { NetworkOnly, NetworkOnlyOptions } from "./NetworkOnly.js";
+import type { NetworkFirstOptions } from "./NetworkFirst.js";
+import { NetworkFirst } from "./NetworkFirst.js";
+import type { NetworkOnlyOptions } from "./NetworkOnly.js";
+import { NetworkOnly } from "./NetworkOnly.js";
 import { StaleWhileRevalidate } from "./StaleWhileRevalidate.js";
-import { Strategy, StrategyOptions } from "./Strategy.js";
+import type { StrategyOptions } from "./Strategy.js";
+import { Strategy } from "./Strategy.js";
 import { StrategyHandler } from "./StrategyHandler.js";
 
 // See https://github.com/GoogleChrome/workbox/issues/2946

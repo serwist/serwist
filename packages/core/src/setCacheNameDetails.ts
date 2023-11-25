@@ -7,7 +7,8 @@
 */
 
 import { assert } from "./_private/assert.js";
-import { cacheNames, PartialCacheNameDetails } from "./_private/cacheNames.js";
+import type { PartialCacheNameDetails } from "./_private/cacheNames.js";
+import { cacheNames } from "./_private/cacheNames.js";
 import { SerwistError } from "./_private/SerwistError.js";
 
 /**

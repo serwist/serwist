@@ -1,6 +1,6 @@
 {
   "name": "@serwist/next",
-  "version": "9.7.2",
+  "version": "7.0.0",
   "type": "module",
   "description": "PWA for Next.js, powered by Serwist.",
   "repository": "https://github.com/serwist/serwist",
@@ -11,34 +11,25 @@
     "dist",
     "!dist/dts"
   ],
-  "source": "./src/index.ts",
+  "module": "./dist/index.js",
+  "main": "./dist/index.old.cjs",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      },
-      "default": {
-        "types": "./dist/index.module.d.ts",
-        "default": "./dist/index.module.js"
-      }
+      "import": "./dist/index.js",
+      "require": "./dist/index.old.cjs",
+      "types": "./dist/index.d.ts"
     },
     "./serwist": {
-      "require": {
-        "types": "./dist/sw-entry.d.cts"
-      },
-      "default": {
-        "types": "./dist/sw-entry.module.d.ts"
-      }
-    }
+      "import": "./dist/sw-entry.d.ts",
+      "require": "./dist/sw-entry.d.ts"
+    },
+    "./package.json": "./package.json"
   },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.module.js",
-  "types": "./dist/index.module.d.ts",
   "typesVersions": {
     "*": {
       "serwist": [
-        "./dist/sw-entry.module.d.ts"
+        "./dist/sw-entry.d.ts"
       ]
     }
   },

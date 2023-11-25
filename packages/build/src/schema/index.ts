@@ -1,4 +1,4 @@
-import { MethodNames } from "../types.js";
+import type { MethodNames } from "../types.js";
 import getManifestOptionsSchema from "./GetManifestOptions.json";
 import injectManifestOptionsSchema from "./InjectManifestOptions.json";
 import webpackInjectManifestOptionsSchema from "./WebpackInjectManifestOptions.json";

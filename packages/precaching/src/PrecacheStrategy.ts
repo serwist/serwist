@@ -6,21 +6,14 @@
   https://opensource.org/licenses/MIT.
 */
 
-
-import { copyResponse } from "@serwist/core";
-import {
-  cacheNames,
-  getFriendlyURL,
-  logger,
-  SerwistError,
-} from "@serwist/core/private";
-import type { SerwistPlugin } from "@serwist/core/types";
+import type { SerwistPlugin } from "@serwist/core";
+import { copyResponse, getFriendlyURL, logger, privateCacheNames, SerwistError } from "@serwist/core";
 import type { StrategyHandler, StrategyOptions } from "@serwist/strategies";
 import { Strategy } from "@serwist/strategies";
 
 interface PrecacheStrategyOptions extends StrategyOptions {
   /**
-   * Whether to attempt to get the response from the network 
+   * Whether to attempt to get the response from the network
    * if there's a precache miss.
    */
   fallbackToNetwork?: boolean;
@@ -58,11 +51,10 @@ class PrecacheStrategy extends Strategy {
    * @param options
    */
   constructor(options: PrecacheStrategyOptions = {}) {
-    options.cacheName = cacheNames.getPrecacheName(options.cacheName);
+    options.cacheName = privateCacheNames.getPrecacheName(options.cacheName);
     super(options);
 
-    this._fallbackToNetwork =
-      options.fallbackToNetwork === false ? false : true;
+    this._fallbackToNetwork = options.fallbackToNetwork === false ? false : true;
 
     // Redirected responses cannot be used to satisfy a navigation request, so
     // any redirected response must be "copied" rather than cloned, so the new
@@ -94,10 +86,7 @@ class PrecacheStrategy extends Strategy {
     return await this._handleFetch(request, handler);
   }
 
-  async _handleFetch(
-    request: Request,
-    handler: StrategyHandler
-  ): Promise<Response> {
+  async _handleFetch(request: Request, handler: StrategyHandler): Promise<Response> {
     let response;
     const params = (handler.params || {}) as {
       cacheKey?: string;
@@ -108,25 +97,19 @@ class PrecacheStrategy extends Strategy {
     if (this._fallbackToNetwork) {
       if (process.env.NODE_ENV !== "production") {
         logger.warn(
-          `The precached response for ` +
-            `${getFriendlyURL(request.url)} in ${this.cacheName} was not ` +
-            `found. Falling back to the network.`
+          `The precached response for ` + `${getFriendlyURL(request.url)} in ${this.cacheName} was not ` + `found. Falling back to the network.`
         );
       }
 
       const integrityInManifest = params.integrity;
       const integrityInRequest = request.integrity;
-      const noIntegrityConflict =
-        !integrityInRequest || integrityInRequest === integrityInManifest;
+      const noIntegrityConflict = !integrityInRequest || integrityInRequest === integrityInManifest;
 
       // Do not add integrity if the original request is no-cors
       // See https://github.com/GoogleChrome/workbox/issues/3096
       response = await handler.fetch(
         new Request(request, {
-          integrity:
-            request.mode !== "no-cors"
-              ? integrityInRequest || integrityInManifest
-              : undefined,
+          integrity: request.mode !== "no-cors" ? integrityInRequest || integrityInManifest : undefined,
         })
       );
 
@@ -137,19 +120,12 @@ class PrecacheStrategy extends Strategy {
       // See https://github.com/GoogleChrome/workbox/issues/2858
       // Also if the original request users no-cors we don't use integrity.
       // See https://github.com/GoogleChrome/workbox/issues/3096
-      if (
-        integrityInManifest &&
-        noIntegrityConflict &&
-        request.mode !== "no-cors"
-      ) {
+      if (integrityInManifest && noIntegrityConflict && request.mode !== "no-cors") {
         this._useDefaultCacheabilityPluginIfNeeded();
         const wasCached = await handler.cachePut(request, response.clone());
         if (process.env.NODE_ENV !== "production") {
           if (wasCached) {
-            logger.log(
-              `A response for ${getFriendlyURL(request.url)} ` +
-                `was used to "repair" the precache.`
-            );
+            logger.log(`A response for ${getFriendlyURL(request.url)} ` + `was used to "repair" the precache.`);
           }
         }
       }
@@ -163,19 +139,12 @@ class PrecacheStrategy extends Strategy {
     }
 
     if (process.env.NODE_ENV !== "production") {
-      const cacheKey =
-        params.cacheKey || (await handler.getCacheKey(request, "read"));
+      const cacheKey = params.cacheKey || (await handler.getCacheKey(request, "read"));
 
       // Serwist is going to handle the route.
       // print the routing details to the console.
-      logger.groupCollapsed(
-        `Precaching is responding to: ` + getFriendlyURL(request.url)
-      );
-      logger.log(
-        `Serving the precached url: ${getFriendlyURL(
-          cacheKey instanceof Request ? cacheKey.url : cacheKey
-        )}`
-      );
+      logger.groupCollapsed(`Precaching is responding to: ` + getFriendlyURL(request.url));
+      logger.log(`Serving the precached url: ${getFriendlyURL(cacheKey instanceof Request ? cacheKey.url : cacheKey)}`);
 
       logger.groupCollapsed(`View request details here.`);
       logger.log(request);
@@ -191,10 +160,7 @@ class PrecacheStrategy extends Strategy {
     return response;
   }
 
-  async _handleInstall(
-    request: Request,
-    handler: StrategyHandler
-  ): Promise<Response> {
+  async _handleInstall(request: Request, handler: StrategyHandler): Promise<Response> {
     this._useDefaultCacheabilityPluginIfNeeded();
 
     const response = await handler.fetch(request);
