@@ -20,7 +20,7 @@ export type SerwistOptions = HandlePrecachingOptions & {
   disableDevLogs?: boolean;
 };
 
-export const useSerwist = ({
+export const installSerwist = ({
   manifestEntries,
   precacheOptions,
   cleanupOutdatedCaches,

@@ -1,7 +1,7 @@
-import { useSerwist } from "@serwist/sw";
+import { installSerwist } from "@serwist/sw";
 
-useSerwist({
-  // @ts-ignore
+installSerwist({
+  // @ts-expect-error add definition for __WB_MANIFEST later.
   manifestEntries: self.__WB_MANIFEST,
   runtimeCaching: [
     {

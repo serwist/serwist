@@ -1,6 +1,4 @@
-// @ts-ignore
 import type { AppProps } from "next/app";
-// @ts-ignore
 import Head from "next/head";
 
 const APP_NAME = "next-pwa example";
