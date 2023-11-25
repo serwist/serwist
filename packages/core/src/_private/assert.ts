@@ -8,7 +8,6 @@
 
 import { SerwistError } from "../_private/SerwistError.js";
 import { MapLikeObject } from "../types.js";
-import "../_version.js";
 
 /*
  * This method throws if the supplied value is not an array.

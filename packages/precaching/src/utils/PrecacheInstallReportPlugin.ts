@@ -11,7 +11,6 @@ import {
   SerwistPluginCallbackParam,
 } from "@serwist/core/types";
 
-import "../_version.js";
 
 /**
  * A plugin, designed to be used with PrecacheController, to determine the

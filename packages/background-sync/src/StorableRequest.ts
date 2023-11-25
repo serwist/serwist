@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "./_version.js";
 
 import { assert } from "@serwist/core/private";
 import type { MapLikeObject } from "@serwist/core/types";

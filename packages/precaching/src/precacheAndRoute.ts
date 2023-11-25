@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "./_version.js";
 
 import type { PrecacheEntry, PrecacheRouteOptions } from "./_types.js";
 import { addRoute } from "./addRoute.js";

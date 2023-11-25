@@ -9,7 +9,6 @@
 import { assert } from "@serwist/core/private";
 import { RouteHandler, RouteHandlerObject } from "@serwist/core/types";
 
-import "../_version.js";
 
 /**
  * @param handler Either a function, or an object with a

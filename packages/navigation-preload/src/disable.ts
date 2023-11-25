@@ -8,7 +8,6 @@
 
 import { logger } from "@serwist/core/private";
 import { isSupported } from "./isSupported.js";
-import "./_version.js";
 
 // Give TypeScript the correct global.
 declare let self: ServiceWorkerGlobalScope;

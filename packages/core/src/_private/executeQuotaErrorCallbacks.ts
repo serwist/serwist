@@ -8,7 +8,6 @@
 
 import { logger } from "../_private/logger.js";
 import { quotaErrorCallbacks } from "../models/quotaErrorCallbacks.js";
-import "../_version.js";
 
 /**
  * Runs all of the callback functions, one at a time sequentially, in the order

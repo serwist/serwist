@@ -12,7 +12,6 @@ import { cacheOkAndOpaquePlugin } from "./plugins/cacheOkAndOpaquePlugin.js";
 import { Strategy, StrategyOptions } from "./Strategy.js";
 import { StrategyHandler } from "./StrategyHandler.js";
 import { messages } from "./utils/messages.js";
-import "./_version.js";
 
 /**
  * An implementation of a

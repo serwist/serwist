@@ -9,7 +9,6 @@
 import { assert } from "./_private/assert.js";
 import { cacheNames, PartialCacheNameDetails } from "./_private/cacheNames.js";
 import { SerwistError } from "./_private/SerwistError.js";
-import "./_version.js";
 
 /**
  * Modifies the default cache names used by the Serwist packages.

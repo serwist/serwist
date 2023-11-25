@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "../_version.js";
 
 export type HTTPMethod = "DELETE" | "GET" | "HEAD" | "PATCH" | "POST" | "PUT";
 

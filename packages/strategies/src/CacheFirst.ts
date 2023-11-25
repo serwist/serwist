@@ -11,7 +11,6 @@ import { assert, logger, SerwistError } from "@serwist/core/private";
 import { Strategy } from "./Strategy.js";
 import { StrategyHandler } from "./StrategyHandler.js";
 import { messages } from "./utils/messages.js";
-import "./_version.js";
 
 /**
  * An implementation of a [cache first](https://developer.chrome.com/docs/workbox/caching-strategies-overview/#cache-first-falling-back-to-network)

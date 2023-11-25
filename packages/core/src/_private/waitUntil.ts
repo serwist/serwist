@@ -5,7 +5,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "../_version.js";
 
 /**
  * A utility method that makes it easier to use `event.waitUntil` with

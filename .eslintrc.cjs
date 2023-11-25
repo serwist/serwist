@@ -2,6 +2,7 @@
 const TSCONFIG_SOURCES = /** @type {const} */ ([
   "tsconfig.json",
   "tsconfig.eslint.json",
+  "examples/*/tsconfig.json",
   "packages/*/tsconfig.json",
 ]);
 

@@ -86,6 +86,9 @@ importers:
 
   examples/next-basic:
     dependencies:
+      '@serwist/build':
+        specifier: workspace:*
+        version: link:../../packages/build
       '@serwist/next':
         specifier: latest
         version: link:../../packages/next
@@ -99,6 +102,9 @@ importers:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
     devDependencies:
+      '@serwist/sw':
+        specifier: workspace:*
+        version: link:../../packages/sw
       '@types/node':
         specifier: 20.8.7
         version: 20.8.7
@@ -218,9 +224,6 @@ importers:
       '@serwist/streams':
         specifier: workspace:*
         version: link:../streams
-      '@serwist/sw':
-        specifier: workspace:*
-        version: link:../sw
       '@serwist/window':
         specifier: workspace:*
         version: link:../window
@@ -652,7 +655,51 @@ importers:
         specifier: 3.28.1
         version: 3.28.1
 
-  packages/sw: {}
+  packages/sw:
+    dependencies:
+      '@serwist/background-sync':
+        specifier: workspace:*
+        version: link:../background-sync
+      '@serwist/broadcast-update':
+        specifier: workspace:*
+        version: link:../broadcast-update
+      '@serwist/cacheable-response':
+        specifier: workspace:*
+        version: link:../cacheable-response
+      '@serwist/core':
+        specifier: workspace:*
+        version: link:../core
+      '@serwist/expiration':
+        specifier: workspace:*
+        version: link:../expiration
+      '@serwist/google-analytics':
+        specifier: workspace:*
+        version: link:../google-analytics
+      '@serwist/navigation-preload':
+        specifier: workspace:*
+        version: link:../navigation-preload
+      '@serwist/precaching':
+        specifier: workspace:*
+        version: link:../precaching
+      '@serwist/range-requests':
+        specifier: workspace:*
+        version: link:../range-requests
+      '@serwist/routing':
+        specifier: workspace:*
+        version: link:../routing
+      '@serwist/strategies':
+        specifier: workspace:*
+        version: link:../strategies
+    devDependencies:
+      '@serwist/build':
+        specifier: workspace:*
+        version: link:../build
+      '@serwist/constants':
+        specifier: workspace:*
+        version: link:../constants
+      rollup:
+        specifier: 3.28.1
+        version: 3.28.1
 
   packages/webpack-plugin:
     dependencies:

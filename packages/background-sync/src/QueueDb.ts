@@ -6,8 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "./_version.js";
-
 import type { DBSchema, IDBPDatabase } from "idb";
 import { openDB } from "idb";
 

@@ -6,6 +6,5 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "./_version.js";
 
 export type StreamSource = Response | ReadableStream | BodyInit;

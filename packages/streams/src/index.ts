@@ -11,7 +11,6 @@ import { concatenateToResponse } from "./concatenateToResponse.js";
 import { isSupported } from "./isSupported.js";
 import { strategy, StreamsHandlerCallback } from "./strategy.js";
 
-import "./_version.js";
 
 export { concatenate, concatenateToResponse, isSupported, strategy };
 

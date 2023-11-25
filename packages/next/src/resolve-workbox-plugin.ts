@@ -19,7 +19,7 @@ interface WorkboxPluginOptions extends PluginCompleteOptions, BuildWorkersOption
 }
 
 export const resolveWorkboxPlugin = ({
-  workboxOptions,
+  workboxOptions: { swSrc: relativeSwSrc, swDest: relativeSwDest, ...workboxOptions },
 
   // Next.js build info
   rootDir,
@@ -35,7 +35,8 @@ export const resolveWorkboxPlugin = ({
   modifyURLPrefix,
   publicPath,
 }: WorkboxPluginOptions) => {
-  const swSrc = path.join(rootDir, workboxOptions.swSrc);
+  const swSrc = path.join(rootDir, relativeSwSrc);
+  const swDest = path.join(rootDir, relativeSwDest);
   logger.event(`Using InjectManifest with ${swSrc}`);
   const workboxCommon = resolveWorkboxCommon({
     destDir,
@@ -52,6 +53,7 @@ export const resolveWorkboxPlugin = ({
     ...workboxCommon,
     ...workboxOptions,
     swSrc,
+    swDest,
   });
   if (isDev) {
     overrideAfterCalledMethod(workboxPlugin);

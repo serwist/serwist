@@ -13,7 +13,6 @@ import {
 
 import { PrecacheController } from "../PrecacheController.js";
 
-import "../_version.js";
 
 /**
  * A plugin, designed to be used with PrecacheController, to translate URLs into

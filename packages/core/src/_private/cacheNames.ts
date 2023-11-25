@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "../_version.js";
 
 declare let registration: ServiceWorkerRegistration | undefined;
 

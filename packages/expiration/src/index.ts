@@ -12,7 +12,6 @@ import {
   ExpirationPluginOptions,
 } from "./ExpirationPlugin.js";
 
-import "./_version.js";
 
 export { CacheExpiration, ExpirationPlugin };
 

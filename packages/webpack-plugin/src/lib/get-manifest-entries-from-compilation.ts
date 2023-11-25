@@ -6,12 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type {
-  FileDetails,
-  ManifestEntry,
-  WebpackInjectManifestOptions,
-} from "@serwist/build";
-import { transformManifest } from "@serwist/build/lib/transform-manifest.js";
+import type { FileDetails, ManifestEntry, WebpackInjectManifestOptions } from "@serwist/build";
+import { transformManifest } from "@serwist/build";
 import type { Asset, Chunk, Compilation, WebpackError } from "webpack";
 import webpack from "webpack";
 
@@ -64,13 +60,8 @@ function checkConditions(
  * @returns
  * @private
  */
-function getNamesOfAssetsInChunkOrGroup(
-  compilation: Compilation,
-  chunkOrGroup: string
-): Array<string> | null {
-  const chunkGroup =
-    compilation.namedChunkGroups &&
-    compilation.namedChunkGroups.get(chunkOrGroup);
+function getNamesOfAssetsInChunkOrGroup(compilation: Compilation, chunkOrGroup: string): Array<string> | null {
+  const chunkGroup = compilation.namedChunkGroups && compilation.namedChunkGroups.get(chunkOrGroup);
   if (chunkGroup) {
     const assetNames = [];
     for (const chunk of chunkGroup.chunks) {
@@ -78,8 +69,7 @@ function getNamesOfAssetsInChunkOrGroup(
     }
     return assetNames;
   } else {
-    const chunk =
-      compilation.namedChunks && compilation.namedChunks.get(chunkOrGroup);
+    const chunk = compilation.namedChunks && compilation.namedChunks.get(chunkOrGroup);
     if (chunk) {
       return getNamesOfAssetsInChunk(chunk);
     }
@@ -120,10 +110,7 @@ function getNamesOfAssetsInChunk(chunk: Chunk): Array<string> {
  * based on the criteria provided.
  * @private
  */
-function filterAssets(
-  compilation: Compilation,
-  config: WebpackInjectManifestOptions
-): Set<Asset> {
+function filterAssets(compilation: Compilation, config: WebpackInjectManifestOptions): Set<Asset> {
   const filteredAssets = new Set<Asset>();
   const assets = compilation.getAssets();
 
@@ -132,21 +119,14 @@ function filterAssets(
   if (Array.isArray(config.chunks)) {
     for (const name of config.chunks) {
       // See https://github.com/GoogleChrome/workbox/issues/2717
-      const assetsInChunkOrGroup = getNamesOfAssetsInChunkOrGroup(
-        compilation,
-        name
-      );
+      const assetsInChunkOrGroup = getNamesOfAssetsInChunkOrGroup(compilation, name);
       if (assetsInChunkOrGroup) {
         for (const assetName of assetsInChunkOrGroup) {
           allowedAssetNames.add(assetName);
         }
       } else {
         compilation.warnings.push(
-          new Error(
-            `The chunk '${name}' was ` +
-              `provided in your Serwist chunks config, but was not found in the ` +
-              `compilation.`
-          ) as WebpackError
+          new Error(`The chunk '${name}' was ` + `provided in your Serwist chunks config, but was not found in the ` + `compilation.`) as WebpackError
         );
       }
     }
@@ -156,10 +136,7 @@ function filterAssets(
   if (Array.isArray(config.excludeChunks)) {
     for (const name of config.excludeChunks) {
       // See https://github.com/GoogleChrome/workbox/issues/2717
-      const assetsInChunkOrGroup = getNamesOfAssetsInChunkOrGroup(
-        compilation,
-        name
-      );
+      const assetsInChunkOrGroup = getNamesOfAssetsInChunkOrGroup(compilation, name);
       if (assetsInChunkOrGroup) {
         for (const assetName of assetsInChunkOrGroup) {
           deniedAssetNames.add(assetName);
@@ -192,9 +169,7 @@ function filterAssets(
     }
 
     // Treat an empty config.includes as an implicit inclusion.
-    const isIncluded =
-      !Array.isArray(config.include) ||
-      checkConditions(asset, compilation, config.include);
+    const isIncluded = !Array.isArray(config.include) || checkConditions(asset, compilation, config.include);
     if (!isIncluded) {
       continue;
     }
@@ -238,9 +213,7 @@ export async function getManifestEntriesFromCompilation(
   }
 
   // Ensure that the entries are properly sorted by URL.
-  const sortedEntries = manifestEntries.sort((a, b) =>
-    a.url === b.url ? 0 : a.url > b.url ? 1 : -1
-  );
+  const sortedEntries = manifestEntries.sort((a, b) => (a.url === b.url ? 0 : a.url > b.url ? 1 : -1));
 
   return { size, sortedEntries };
 }

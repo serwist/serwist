@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "../_version.js";
 
 // Callbacks to be executed whenever there's a quota error.
 // Can't change Function type right now.

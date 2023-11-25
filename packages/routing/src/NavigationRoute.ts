@@ -11,7 +11,6 @@ import { RouteHandler, RouteMatchCallbackOptions } from "@serwist/core/types";
 
 import { Route } from "./Route.js";
 
-import "./_version.js";
 
 export interface NavigationRouteMatchOptions {
   /**

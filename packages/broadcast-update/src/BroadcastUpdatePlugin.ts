@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "./_version.js";
 
 import { dontWaitFor } from "@serwist/core/private";
 import type { SerwistPlugin } from "@serwist/core/types";

@@ -7,7 +7,6 @@
 */
 
 import { canConstructReadableStream } from "@serwist/core/private";
-import "./_version.js";
 
 /**
  * This is a utility method that determines whether the current browser supports

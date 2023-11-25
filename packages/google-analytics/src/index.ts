@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "./_version.js";
 
 import type { GoogleAnalyticsInitializeOptions } from "./initialize.js";
 import { initialize } from "./initialize.js";

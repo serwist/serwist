@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "./_version.js";
 
 import { cacheNames as _cacheNames } from "./_private/cacheNames.js";
 

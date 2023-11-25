@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "./_version.js";
 
 import { addPlugins } from "./addPlugins.js";
 import { addRoute } from "./addRoute.js";

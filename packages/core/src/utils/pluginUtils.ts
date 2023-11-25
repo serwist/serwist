@@ -7,7 +7,6 @@
 */
 
 import { SerwistPlugin } from "../types.js";
-import "../_version.js";
 
 export const pluginUtils = {
   filter: (plugins: SerwistPlugin[], callbackName: string): SerwistPlugin[] => {

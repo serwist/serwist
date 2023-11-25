@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "../_version.js";
 
 export const CACHE_UPDATED_MESSAGE_TYPE = "CACHE_UPDATED";
 export const CACHE_UPDATED_MESSAGE_META = "serwist-broadcast-update";

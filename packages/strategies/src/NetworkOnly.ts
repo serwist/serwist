@@ -11,7 +11,6 @@ import { assert, logger, timeout, SerwistError } from "@serwist/core/private";
 import { Strategy, StrategyOptions } from "./Strategy.js";
 import { StrategyHandler } from "./StrategyHandler.js";
 import { messages } from "./utils/messages.js";
-import "./_version.js";
 
 interface NetworkOnlyOptions
   extends Omit<StrategyOptions, "cacheName" | "matchOptions"> {

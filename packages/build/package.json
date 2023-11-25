@@ -80,7 +80,6 @@
     "@serwist/routing": "workspace:*",
     "@serwist/strategies": "workspace:*",
     "@serwist/streams": "workspace:*",
-    "@serwist/sw": "workspace:*",
     "@serwist/window": "workspace:*",
     "@swc/core": "1.3.93",
     "ajv": "8.12.0",

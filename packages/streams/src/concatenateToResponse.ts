@@ -9,7 +9,6 @@
 import { createHeaders } from "./utils/createHeaders.js";
 import { concatenate } from "./concatenate.js";
 import { StreamSource } from "./_types.js";
-import "./_version.js";
 
 /**
  * Takes multiple source Promises, each of which could resolve to a Response, a

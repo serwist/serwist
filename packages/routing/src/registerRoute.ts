@@ -14,7 +14,6 @@ import { RegExpRoute } from "./RegExpRoute.js";
 import { HTTPMethod } from "./utils/constants.js";
 import { getOrCreateDefaultRouter } from "./utils/getOrCreateDefaultRouter.js";
 
-import "./_version.js";
 
 /**
  * Easily register a RegExp, string, or function with a caching

@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "../_version.js";
 
 let supportStatus: boolean | undefined;
 

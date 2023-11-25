@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "./_version.js";
 
 import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheController.js";
 

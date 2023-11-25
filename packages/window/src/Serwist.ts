@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "./_version.js";
 
 import { Deferred, dontWaitFor, logger } from "@serwist/core/private";
 import type { TrustedScriptURL } from "trusted-types/lib";

@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "./_version.js";
 
 import type { CacheableResponseOptions } from "./CacheableResponse.js";
 import { CacheableResponse } from "./CacheableResponse.js";

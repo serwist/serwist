@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "../_version.js";
 
 /**
  * Removes any URL search parameters that should be ignored.

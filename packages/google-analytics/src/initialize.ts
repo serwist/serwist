@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "./_version.js";
 
 import type { Queue } from "@serwist/background-sync";
 import { BackgroundSyncPlugin } from "@serwist/background-sync";

@@ -14,7 +14,6 @@ import {
   RouteHandlerObject,
   RouteMatchCallback,
 } from "@serwist/core/types";
-import "./_version.js";
 
 /**
  * A `Route` consists of a pair of callback functions, "match" and "handler".

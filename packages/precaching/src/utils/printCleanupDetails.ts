@@ -7,7 +7,6 @@
 */
 
 import { logger } from "@serwist/core/private";
-import "../_version.js";
 
 /**
  * @param groupTitle

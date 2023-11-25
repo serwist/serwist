@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "../_version.js";
 
 export const enum pluginEvents {
   CACHE_DID_UPDATE = "cacheDidUpdate",

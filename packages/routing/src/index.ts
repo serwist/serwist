@@ -18,7 +18,6 @@ import { setCatchHandler } from "./setCatchHandler.js";
 import { setDefaultHandler } from "./setDefaultHandler.js";
 import type { HTTPMethod } from "./utils/constants.js";
 
-import "./_version.js";
 
 export {
   NavigationRoute,

@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "./_version.mjs";
 
 /**
  * @typedef {Object} ManifestEntry

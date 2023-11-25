@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "../_version.js";
 
 const getFriendlyURL = (url: URL | string): string => {
   const urlObj = new URL(String(url), location.href);

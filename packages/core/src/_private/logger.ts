@@ -5,7 +5,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "../_version.js";
 
 // logger is used inside of both service workers and the window global scope.
 declare global {
@@ -55,7 +54,7 @@ const logger = (
           if (method === "groupCollapsed") {
             // Safari doesn't print all console.groupCollapsed() arguments:
             // https://bugs.webkit.org/show_bug.cgi?id=182754
-            if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+            if (typeof navigator !== "undefined" && /^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
               console[method](...args);
               return;
             }

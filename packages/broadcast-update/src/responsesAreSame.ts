@@ -5,7 +5,6 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-import "./_version.js";
 
 import { logger, SerwistError } from "@serwist/core/private";
 

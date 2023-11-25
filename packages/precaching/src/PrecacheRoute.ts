@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "./_version.js";
 
 import { getFriendlyURL,logger } from "@serwist/core/private";
 import type {

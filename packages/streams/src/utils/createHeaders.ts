@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "../_version.js";
 
 /**
  * This is a utility method that determines whether the current browser supports

@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "./_version.js";
 
 import type { GoogleFontCacheOptions } from "./googleFontsCache.js";
 import { googleFontsCache } from "./googleFontsCache.js";

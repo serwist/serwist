@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "./_version.js";
 
 import { canConstructResponseFromBodyStream } from "./_private/canConstructResponseFromBodyStream.js";
 import { SerwistError } from "./_private/SerwistError.js";

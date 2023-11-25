@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "../_version.js";
 
 /**
  * Returns true if two URLs have the same `.href` property. The URLS can be

@@ -9,7 +9,6 @@
 import { assert, Deferred, logger, SerwistError } from "@serwist/core/private";
 import { StreamSource } from "./_types.js";
 
-import "./_version.js";
 
 /**
  * Takes either a Response, a ReadableStream, or a

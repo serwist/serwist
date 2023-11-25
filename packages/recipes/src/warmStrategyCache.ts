@@ -1,4 +1,3 @@
-import "./_version.js";
 
 import type { Strategy } from "@serwist/strategies";
 

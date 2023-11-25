@@ -7,7 +7,6 @@
 */
 
 import { messages } from "./messages.js";
-import "../../_version.js";
 
 const fallback = (code: string, ...args: any[]) => {
   let msg = code;

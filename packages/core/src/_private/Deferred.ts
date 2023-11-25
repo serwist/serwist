@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "../_version.js";
 
 /**
  * The Deferred class composes Promises in a way that allows for them to be

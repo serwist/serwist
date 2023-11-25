@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { getSourceMapURL } from "@serwist/build/lib/get-source-map-url.js";
+import { getSourceMapURL } from "@serwist/build";
 import upath from "upath";
 import type { Compilation } from "webpack";
 

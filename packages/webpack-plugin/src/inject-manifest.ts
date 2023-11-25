@@ -5,33 +5,22 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-import { createRequire } from "node:module";
+import path from "node:path";
 
 import type { WebpackInjectManifestOptions } from "@serwist/build";
-import { escapeRegExp } from "@serwist/build/lib/escape-regexp.js";
-import { replaceAndUpdateSourceMap } from "@serwist/build/lib/replace-and-update-source-map.js";
-import { validateWebpackInjectManifestOptions } from "@serwist/build/lib/validate-options.js";
+import { escapeRegExp, replaceAndUpdateSourceMap, validateWebpackInjectManifestOptions } from "@serwist/build";
 import stringify from "fast-json-stable-stringify";
 import prettyBytes from "pretty-bytes";
 import upath from "upath";
-import webpack from "webpack";
+import webpack, { Compilation } from "webpack";
 
 import { getManifestEntriesFromCompilation } from "./lib/get-manifest-entries-from-compilation.js";
 import { getSourcemapAssetName } from "./lib/get-sourcemap-asset-name.js";
 import { relativeToOutputPath } from "./lib/relative-to-output-path.js";
 
-const require = createRequire(import.meta.url);
-
 // Used to keep track of swDest files written by *any* instance of this plugin.
 // See https://github.com/GoogleChrome/workbox/issues/2181
 const _generatedAssetNames = new Set<string>();
-
-// SingleEntryPlugin in v4 was renamed to EntryPlugin in v5.
-const SingleEntryPlugin = webpack.EntryPlugin || webpack.SingleEntryPlugin;
-
-// webpack v4/v5 compatibility:
-// https://github.com/webpack/webpack/issues/11425#issuecomment-686607633
-const { RawSource } = webpack.sources || require("webpack-sources");
 
 /**
  * This class supports compiling a service worker file provided via `swSrc`,
@@ -73,13 +62,14 @@ class InjectManifest {
    * @private
    */
   propagateWebpackConfig(compiler: webpack.Compiler): void {
+    const parsedSwSrc = upath.parse(this.config.swSrc);
     // Because this.config is listed last, properties that are already set
     // there take precedence over derived properties from the compiler.
     this.config = Object.assign(
       {
         mode: compiler.options.mode,
         // Use swSrc with a hardcoded .js extension, in case swSrc is a .ts file.
-        swDest: upath.parse(this.config.swSrc).name + ".js",
+        swDest: path.join(parsedSwSrc.dir, parsedSwSrc.name + ".js"),
       },
       this.config
     );
@@ -94,45 +84,28 @@ class InjectManifest {
     this.propagateWebpackConfig(compiler);
 
     compiler.hooks.make.tapPromise(this.constructor.name, (compilation) =>
-      this.handleMake(compilation, compiler).catch(
-        (error: webpack.WebpackError) => {
-          compilation.errors.push(error);
-        }
-      )
+      this.handleMake(compilation, compiler).catch((error: webpack.WebpackError) => {
+        compilation.errors.push(error);
+      })
     );
 
-    // webpack v4/v5 compatibility:
-    // https://github.com/webpack/webpack/issues/11425#issuecomment-690387207
-    if (webpack.version?.startsWith("4.")) {
-      compiler.hooks.emit.tapPromise(this.constructor.name, (compilation) =>
-        this.addAssets(compilation).catch((error: webpack.WebpackError) => {
-          compilation.errors.push(error);
-        })
+    const { PROCESS_ASSETS_STAGE_OPTIMIZE_TRANSFER } = webpack.Compilation;
+    // Specifically hook into thisCompilation, as per
+    // https://github.com/webpack/webpack/issues/11425#issuecomment-690547848
+    compiler.hooks.thisCompilation.tap(this.constructor.name, (compilation) => {
+      compilation.hooks.processAssets.tapPromise(
+        {
+          name: this.constructor.name,
+          // TODO(jeffposnick): This may need to change eventually.
+          // See https://github.com/webpack/webpack/issues/11822#issuecomment-726184972
+          stage: PROCESS_ASSETS_STAGE_OPTIMIZE_TRANSFER - 10,
+        },
+        () =>
+          this.addAssets(compilation).catch((error: webpack.WebpackError) => {
+            compilation.errors.push(error);
+          })
       );
-    } else {
-      const { PROCESS_ASSETS_STAGE_OPTIMIZE_TRANSFER } = webpack.Compilation;
-      // Specifically hook into thisCompilation, as per
-      // https://github.com/webpack/webpack/issues/11425#issuecomment-690547848
-      compiler.hooks.thisCompilation.tap(
-        this.constructor.name,
-        (compilation) => {
-          compilation.hooks.processAssets.tapPromise(
-            {
-              name: this.constructor.name,
-              // TODO(jeffposnick): This may need to change eventually.
-              // See https://github.com/webpack/webpack/issues/11822#issuecomment-726184972
-              stage: PROCESS_ASSETS_STAGE_OPTIMIZE_TRANSFER - 10,
-            },
-            () =>
-              this.addAssets(compilation).catch(
-                (error: webpack.WebpackError) => {
-                  compilation.errors.push(error);
-                }
-              )
-          );
-        }
-      );
-    }
+    });
   }
 
   /**
@@ -141,20 +114,12 @@ class InjectManifest {
    *
    * @private
    */
-  async performChildCompilation(
-    compilation: webpack.Compilation,
-    parentCompiler: webpack.Compiler
-  ): Promise<void> {
-    const outputOptions = {
-      path: parentCompiler.options.output.path,
+  async performChildCompilation(compilation: webpack.Compilation, parentCompiler: webpack.Compiler): Promise<void> {
+    const outputOptions: Parameters<Compilation["createChildCompiler"]>["1"] = {
       filename: this.config.swDest,
     };
 
-    const childCompiler = compilation.createChildCompiler(
-      this.constructor.name,
-      outputOptions,
-      []
-    );
+    const childCompiler = compilation.createChildCompiler(this.constructor.name, outputOptions, []);
 
     childCompiler.context = parentCompiler.context;
     childCompiler.inputFileSystem = parentCompiler.inputFileSystem;
@@ -169,23 +134,15 @@ class InjectManifest {
       }
     }
 
-    new SingleEntryPlugin(
-      parentCompiler.context,
-      this.config.swSrc,
-      this.constructor.name
-    ).apply(childCompiler);
+    new webpack.EntryPlugin(parentCompiler.context, this.config.swSrc, this.constructor.name).apply(childCompiler);
 
     await new Promise<void>((resolve, reject) => {
       childCompiler.runAsChild((error, _entries, childCompilation) => {
         if (error) {
           reject(error);
         } else {
-          compilation.warnings = compilation.warnings.concat(
-            childCompilation?.warnings ?? []
-          );
-          compilation.errors = compilation.errors.concat(
-            childCompilation?.errors ?? []
-          );
+          compilation.warnings = compilation.warnings.concat(childCompilation?.warnings ?? []);
+          compilation.errors = compilation.errors.concat(childCompilation?.errors ?? []);
 
           resolve();
         }
@@ -199,15 +156,10 @@ class InjectManifest {
    *
    * @private
    */
-  addSrcToAssets(
-    compilation: webpack.Compilation,
-    parentCompiler: webpack.Compiler
-  ): void {
+  addSrcToAssets(compilation: webpack.Compilation, parentCompiler: webpack.Compiler): void {
     // eslint-disable-next-line
-    const source = (parentCompiler.inputFileSystem as any).readFileSync(
-      this.config.swSrc
-    );
-    compilation.emitAsset(this.config.swDest!, new RawSource(source));
+    const source = (parentCompiler.inputFileSystem as any).readFileSync(this.config.swSrc);
+    compilation.emitAsset(this.config.swDest!, new webpack.sources.RawSource(source));
   }
 
   /**
@@ -216,18 +168,12 @@ class InjectManifest {
    *
    * @private
    */
-  async handleMake(
-    compilation: webpack.Compilation,
-    parentCompiler: webpack.Compiler
-  ): Promise<void> {
+  async handleMake(compilation: webpack.Compilation, parentCompiler: webpack.Compiler): Promise<void> {
     try {
       this.config = validateWebpackInjectManifestOptions(this.config);
     } catch (error) {
       if (error instanceof Error) {
-        throw new Error(
-          `Please check your ${this.constructor.name} plugin ` +
-            `configuration:\n${error.message}`
-        );
+        throw new Error(`Please check your ${this.constructor.name} plugin ` + `configuration:\n${error.message}`);
       }
     }
 
@@ -240,15 +186,9 @@ class InjectManifest {
       this.addSrcToAssets(compilation, parentCompiler);
       // This used to be a fatal error, but just warn at runtime because we
       // can't validate it easily.
-      if (
-        Array.isArray(this.config.webpackCompilationPlugins) &&
-        this.config.webpackCompilationPlugins.length > 0
-      ) {
+      if (Array.isArray(this.config.webpackCompilationPlugins) && this.config.webpackCompilationPlugins.length > 0) {
         compilation.warnings.push(
-          new Error(
-            "compileSrc is false, so the " +
-              "webpackCompilationPlugins option will be ignored."
-          ) as webpack.WebpackError
+          new Error("compileSrc is false, so the " + "webpackCompilationPlugins option will be ignored.") as webpack.WebpackError
         );
       }
     }
@@ -269,15 +209,8 @@ class InjectManifest {
         `Please see https://github.com/GoogleChrome/workbox/issues/1790 for ` +
         `more information.`;
 
-      if (
-        !compilation.warnings.some(
-          (warning) =>
-            warning instanceof Error && warning.message === warningMessage
-        )
-      ) {
-        compilation.warnings.push(
-          new Error(warningMessage) as webpack.WebpackError
-        );
+      if (!compilation.warnings.some((warning) => warning instanceof Error && warning.message === warningMessage)) {
+        compilation.warnings.push(new Error(warningMessage) as webpack.WebpackError);
       }
     } else {
       this.alreadyCalled = true;
@@ -301,9 +234,7 @@ class InjectManifest {
     const injectionResults = swAssetString.match(globalRegexp);
 
     if (!injectionResults) {
-      throw new Error(
-        `Can't find ${config.injectionPoint ?? ""} in your SW source.`
-      );
+      throw new Error(`Can't find ${config.injectionPoint ?? ""} in your SW source.`);
     }
     if (injectionResults.length !== 1) {
       throw new Error(
@@ -313,29 +244,19 @@ class InjectManifest {
       );
     }
 
-    const { size, sortedEntries } = await getManifestEntriesFromCompilation(
-      compilation,
-      config
-    );
+    const { size, sortedEntries } = await getManifestEntriesFromCompilation(compilation, config);
 
     let manifestString = stringify(sortedEntries);
     if (
       this.config.compileSrc &&
       // See https://github.com/GoogleChrome/workbox/issues/2729
-      !(
-        compilation.options?.devtool === "eval-cheap-source-map" &&
-        compilation.options.optimization?.minimize
-      )
+      !(compilation.options?.devtool === "eval-cheap-source-map" && compilation.options.optimization?.minimize)
     ) {
       // See https://github.com/GoogleChrome/workbox/issues/2263
       manifestString = manifestString.replace(/"/g, `'`);
     }
 
-    const sourcemapAssetName = getSourcemapAssetName(
-      compilation,
-      swAssetString,
-      config.swDest!
-    );
+    const sourcemapAssetName = getSourcemapAssetName(compilation, swAssetString, config.swDest!);
 
     if (sourcemapAssetName) {
       _generatedAssetNames.add(sourcemapAssetName);
@@ -349,17 +270,12 @@ class InjectManifest {
         searchString: config.injectionPoint!,
       });
 
-      compilation.updateAsset(sourcemapAssetName, new RawSource(map));
-      compilation.updateAsset(config.swDest!, new RawSource(source));
+      compilation.updateAsset(sourcemapAssetName, new webpack.sources.RawSource(map));
+      compilation.updateAsset(config.swDest!, new webpack.sources.RawSource(source));
     } else {
       // If there's no sourcemap associated with swDest, a simple string
       // replacement will suffice.
-      compilation.updateAsset(
-        config.swDest!,
-        new RawSource(
-          swAssetString.replace(config.injectionPoint!, manifestString)
-        )
-      );
+      compilation.updateAsset(config.swDest!, new webpack.sources.RawSource(swAssetString.replace(config.injectionPoint!, manifestString)));
     }
 
     if (compilation.getLogger) {

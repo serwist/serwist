@@ -7,7 +7,6 @@
 */
 
 import { logger, getFriendlyURL } from "@serwist/core/private";
-import "../_version.js";
 
 export const messages = {
   strategyStart: (strategyName: string, request: Request): string =>

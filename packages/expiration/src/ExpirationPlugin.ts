@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "./_version.js";
 
 import { registerQuotaErrorCallback } from "@serwist/core";
 import {

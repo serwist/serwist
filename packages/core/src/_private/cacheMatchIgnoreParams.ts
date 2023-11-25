@@ -5,7 +5,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "../_version.js";
 
 function stripParams(fullURL: string, ignoreParams: string[]) {
   const strippedURL = new URL(fullURL);

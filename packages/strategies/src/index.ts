@@ -13,7 +13,6 @@ import { NetworkOnly, NetworkOnlyOptions } from "./NetworkOnly.js";
 import { StaleWhileRevalidate } from "./StaleWhileRevalidate.js";
 import { Strategy, StrategyOptions } from "./Strategy.js";
 import { StrategyHandler } from "./StrategyHandler.js";
-import "./_version.js";
 
 // See https://github.com/GoogleChrome/workbox/issues/2946
 declare global {

@@ -16,7 +16,6 @@ import {
 import { HTTPMethod } from "./utils/constants.js";
 import { Route } from "./Route.js";
 
-import "./_version.js";
 
 /**
  * RegExpRoute makes it easy to create a regular expression based on a `@serwist/routing` Route.

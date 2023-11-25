@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "./_version.js";
 
 import { cacheNames } from "./cacheNames.js";
 import { clientsClaim } from "./clientsClaim.js";

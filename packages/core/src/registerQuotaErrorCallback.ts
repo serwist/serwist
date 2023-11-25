@@ -9,7 +9,6 @@
 import { logger } from "./_private/logger.js";
 import { assert } from "./_private/assert.js";
 import { quotaErrorCallbacks } from "./models/quotaErrorCallbacks.js";
-import "./_version.js";
 
 /**
  * Adds a function to the set of quotaErrorCallbacks that will be executed if

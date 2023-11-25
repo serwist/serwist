@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "./_version.js";
 
 import {
   assert,
@@ -27,7 +26,7 @@ import {
 // UA-sniff Safari: https://stackoverflow.com/questions/7944460/detect-safari-browser
 // TODO(philipwalton): remove once this Safari bug fix has been released.
 // https://bugs.webkit.org/show_bug.cgi?id=201169
-const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+const isSafari = typeof navigator !== "undefined" && /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
 // Give TypeScript the correct global.
 declare let self: ServiceWorkerGlobalScope;

@@ -5,9 +5,6 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-
-import "./_version.js";
-
 import { BackgroundSyncPlugin } from "./BackgroundSyncPlugin.js";
 import type { QueueOptions } from "./Queue.js";
 import { Queue } from "./Queue.js";

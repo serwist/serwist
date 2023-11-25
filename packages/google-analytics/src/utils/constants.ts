@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "../_version.js";
 
 export const QUEUE_NAME = "serwist-google-analytics";
 export const MAX_RETENTION_TIME = 60 * 48; // Two days in minutes

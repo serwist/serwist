@@ -5,7 +5,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-import "./_version.js";
 
 import { registerRoute } from "@serwist/routing";
 

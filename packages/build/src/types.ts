@@ -496,8 +496,8 @@ export interface WebpackInjectManifestPartial {
   // This doesn't have a hardcoded default value; instead, the default will be
   // set at runtime to the swSrc basename, with the hardcoded extension .js.
   /**
-   * The asset name of the service worker file that will be created by this
-   * plugin. If omitted, the name will be based on the `swSrc` name.
+   * The asset path of the service worker file that will be created by this
+   * plugin. If omitted, the path will be based on `swSrc`.
    */
   swDest?: string;
   // This can only be set if compileSrc is true, but that restriction can't be
