@@ -1,13 +1,13 @@
-# next-pwa - basic
+# Serwist example - next-basic
 
-This example demonstrates how to use `next-pwa`.
+This example demonstrates how to use Serwist with Next.js.
 
 ## Usage
 
 [![Open in Gitpod and run](https://img.shields.io/badge/Open%20In-Gitpod.io-%231966D2?style=for-the-badge&logo=gitpod)](https://gitpod.io/#https://github.com/DuCanhGH/next-pwa/)
 
 ```bash
-cd examples/basic
+cd examples/next-basic
 pnpm build
 pnpm start
 ```
@@ -17,15 +17,15 @@ or
 Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
 
 ```bash
-npx create-next-app --example https://github.com/DuCanhGH/next-pwa/tree/master/examples/basic basic-app
+npx create-next-app --example https://github.com/serwist/serwist/tree/main/examples/next-basic my-app
 ```
 
 ```bash
-yarn create next-app --example https://github.com/DuCanhGH/next-pwa/tree/master/examples/basic basic-app
+yarn create next-app --example https://github.com/DuCanhGH/next-pwa/tree/master/examples/basic my-app
 ```
 
 ```bash
-pnpm create next-app --example https://github.com/DuCanhGH/next-pwa/tree/master/examples/basic basic-app
+pnpm create next-app --example https://github.com/serwist/serwist/tree/main/examples/next-basic my-app
 ```
 
 ## Recommended `.gitignore`

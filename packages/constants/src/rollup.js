@@ -14,7 +14,6 @@ const isPublishMode = process.env.PUBLISH === "true";
 export const getRollupOptions = ({
   packageJson,
   jsFiles,
-  shouldMinify,
   shouldEmitDeclaration,
 }) => {
   const forcedExternals = [
@@ -53,10 +52,7 @@ export const getRollupOptions = ({
               declarationMap: !isPublishMode,
             }),
           swc({
-            swc: {
-              ...swcConfig,
-              minify: shouldMinify,
-            },
+            swc: swcConfig,
           }),
           ...[plugins ?? []],
         ],

@@ -357,8 +357,7 @@ export interface GeneratePartial {
   sourcemap?: boolean;
 }
 
-// This needs to be set when using GetManifest or InjectManifest, but is
-// optional when using GenerateSW if runtimeCaching is also used. This is
+// This needs to be set when using GetManifest or InjectManifest. This is
 // enforced via runtime validation, and needs to be documented.
 export interface RequiredGlobDirectoryPartial {
   /**

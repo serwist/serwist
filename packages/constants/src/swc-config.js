@@ -6,22 +6,6 @@ export const swcConfig = {
     type: "nodenext",
   },
   jsc: {
-    minify: {
-      compress: {
-        ecma: 5,
-        comparisons: false,
-        inline: 2,
-      },
-      mangle: {
-        safari10: true,
-      },
-      format: {
-        ecma: 5,
-        safari10: true,
-        comments: false,
-        asciiOnly: true,
-      },
-    },
     parser: {
       syntax: "typescript",
       tsx: false,
@@ -31,4 +15,5 @@ export const swcConfig = {
     target: "esnext",
     loose: false,
   },
+  minify: false,
 };

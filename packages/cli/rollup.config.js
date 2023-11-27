@@ -18,6 +18,5 @@ export default getRollupOptions({
       ],
     },
   ],
-  shouldMinify: !isDev,
   shouldEmitDeclaration: false,
 });
