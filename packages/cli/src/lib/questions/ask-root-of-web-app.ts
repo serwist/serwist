@@ -22,7 +22,7 @@ const questionRootDirectory = "globDirectory";
 const questionManualInput = "manualDirectoryInput";
 
 /**
- * @return The subdirectories of the current
+ * @returns The subdirectories of the current
  * working directory, with hidden and ignored ones filtered out.
  */
 async function getSubdirectories(): Promise<string[]> {

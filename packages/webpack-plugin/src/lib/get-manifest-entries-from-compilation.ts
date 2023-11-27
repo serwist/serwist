@@ -22,7 +22,7 @@ import { resolveWebpackURL } from "./resolve-webpack-url.js";
  * @param compilation The webpack compilation. This will be passed
  * to any functions that are listed as conditions.
  * @param conditions
- * @return Whether or not at least one condition matches.
+ * @returns Whether or not at least one condition matches.
  * @private
  */
 function checkConditions(

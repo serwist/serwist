@@ -49,7 +49,7 @@ export interface BroadcastCacheUpdateOptions {
  * Generates the default payload used in update messages. By default the
  * payload includes the `cacheName` and `updatedURL` fields.
  *
- * @return Object
+ * @returns
  * @private
  */
 function defaultPayloadGenerator(data: CacheDidUpdateCallbackParam): Record<string, any> {

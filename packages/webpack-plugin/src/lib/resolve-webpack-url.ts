@@ -14,7 +14,7 @@
  *
  * @param publicPath The publicPath value from webpack's compilation.
  * @param paths File paths to join
- * @return Joined file path
+ * @returns Joined file path
  * @private
  */
 export function resolveWebpackURL(

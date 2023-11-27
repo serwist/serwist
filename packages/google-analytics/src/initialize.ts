@@ -168,7 +168,7 @@ const createGtagJsRoute = (cacheName: string) => {
  * Creates a route with a network first strategy for the gtm.js script.
  *
  * @param cacheName
- * @return The created route.
+ * @returns The created route.
  * @private
  */
 const createGtmJsRoute = (cacheName: string) => {
