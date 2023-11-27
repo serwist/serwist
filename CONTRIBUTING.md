@@ -1,7 +1,7 @@
-# Contributing to `next-pwa`
+# Contributing to Serwist
 
 - Read about our [Code of Conduct](.//CODE_OF_CONDUCT.md).
-- Before jumping into a PR be sure to search [existing PRs](https://github.com/DuCanhGH/next-pwa/pulls) or [issues](https://github.com/DuCanhGH/next-pwa/issues) for an item that is related to your submission.
+- Before jumping into a PR be sure to search [existing PRs](https://github.com/serwist/serwist/pulls) or [issues](https://github.com/serwist/serwist/issues) for an item that is related to your submission.
 
 ## Repository
 

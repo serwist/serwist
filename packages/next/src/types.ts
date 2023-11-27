@@ -47,33 +47,26 @@ export interface PluginOptions {
    * @default dest
    */
   customWorkerDest?: string;
-  // NEXT-PWA-TODO(major): remove this option
-  /**
-   * @deprecated renamed to `customWorkerSrc`, to be removed next major version.
-   */
-  customWorkerDir?: string;
   /**
    * The custom worker's output filename prefix.
    * @default "worker"
    */
   customWorkerPrefix?: string;
   /**
-   * Change the directory in which `next-pwa` looks for a custom worker
+   * Change the directory in which Serwist looks for a custom worker
    * implementation to import into the service worker. Relative to the root or `src`
    * directory.
    * @default "worker"
    */
   customWorkerSrc?: string;
-  // NEXT-PWA-TODO(major): change this option's default to `"public"`
   /**
-   * Set the output directory for service worker. Relative to Next.js's root
-   * directory. By default, this plugin uses `.next`, but it is recommended to
-   * change it to `public` instead.
-   * @default ".next"
+   * Set the output directory for service worker. Relative to your app's root
+   * directory. By default, this plugin uses `public`.
+   * @default "public"
    */
   dest?: string;
   /**
-   * Whether `next-pwa` should be disabled.
+   * Whether Serwist should be disabled.
    * @default false
    */
   disable?: boolean;

@@ -38,7 +38,7 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
       const {
         buildId,
         dev,
-        config: { distDir = ".next", pageExtensions = ["tsx", "ts", "jsx", "js", "mdx"] },
+        config: { pageExtensions = ["tsx", "ts", "jsx", "js", "mdx"] },
       } = options;
 
       const basePath = options.config.basePath || "/";
@@ -50,7 +50,7 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
       const {
         disable = false,
         register = true,
-        dest = distDir,
+        dest = "public",
         sw = "sw.js",
         cacheStartUrl = true,
         dynamicStartUrl = true,
@@ -62,8 +62,7 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
         aggressiveFrontEndNavCaching = false,
         reloadOnOnline = true,
         scope = basePath,
-        customWorkerDir,
-        customWorkerSrc = customWorkerDir || "worker",
+        customWorkerSrc = "worker",
         customWorkerDest = dest,
         customWorkerPrefix = "worker",
         workboxOptions,
@@ -153,8 +152,8 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
 
           logger.info(`  window.workbox.register()`);
 
-          if (!tsConfigJson?.compilerOptions?.types?.includes("@ducanh2912/next-pwa/workbox")) {
-            logger.info("You may also want to add @ducanh2912/next-pwa/workbox to compilerOptions.types in your tsconfig.json/jsconfig.json.");
+          if (!tsConfigJson?.compilerOptions?.types?.includes("@serwist/next/typings")) {
+            logger.info("You may also want to add @serwist/next/typings to compilerOptions.types in your tsconfig.json/jsconfig.json.");
           }
         }
 

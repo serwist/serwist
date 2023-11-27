@@ -1,17 +1,17 @@
 # Developing
 
-- The development branch is `master`.
-- All pull requests should be opened against `master`.
+- The development branch is `main`.
+- All pull requests should be opened against `main`.
 
 To develop locally:
 
-1. Clone the `next-pwa` repository:
+1. Clone the Serwist repository:
    ```bash
-   git clone https://github.com/DuCanhGH/next-pwa -- --depth=3000 --branch master --single-branch
+   git clone https://github.com/serwist -- --depth=3000 --branch main --single-branch
    ```
 1. Create a new branch:
    ```bash
-   git checkout -b MY_BRANCH_NAME origin/master
+   git checkout -b MY_BRANCH_NAME origin/main
    ```
 1. Install the dependencies with:
    ```bash
@@ -28,6 +28,6 @@ To develop locally:
    ```
 1. When you are ready to push, make a fork and then run:
    ```
-   git remote set-url origin https://github.com/YOUR_NAME/next-pwa
+   git remote set-url origin https://github.com/YOUR_NAME/serwist
    git push -u origin MY_BRANCH_NAME
    ```

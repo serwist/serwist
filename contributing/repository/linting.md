@@ -1,6 +1,6 @@
 # Linting
 
-The `next-pwa` repository runs [ESLint](https://eslint.org), [Prettier](https://prettier.io) to lint and format the codebase.
+The Serwist repository uses [ESLint](https://eslint.org) and [Prettier](https://prettier.io) to lint and format the codebase.
 
 To lint the codebase (except `examples` and `docs`) you can run:
 

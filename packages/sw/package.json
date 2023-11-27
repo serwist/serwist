@@ -5,7 +5,7 @@
   "type": "module",
   "author": "Google's Web DevRel Team, DuCanhGH",
   "description": "This module makes it easy to get started with the Serwist service worker libraries.",
-  "repository": "DuCanhGH/next-pwa",
+  "repository": "serwist/serwist",
   "bugs": "https://github.com/DuCanhGH/next-pwa/issues",
   "homepage": "https://ducanh-next-pwa.vercel.app",
   "keywords": [

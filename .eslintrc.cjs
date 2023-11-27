@@ -66,13 +66,13 @@ module.exports = {
       },
     },
     "import/internal-regex": "^@ducanh2912/",
-    "import/external-module-folders": [
-      "packages/next-pwa",
-      "packages/next-sw",
-      "packages/utils",
-      "packages/constants",
-      "node_modules",
-    ],
+    // "import/external-module-folders": [
+    //   "packages/next-pwa",
+    //   "packages/next-sw",
+    //   "packages/utils",
+    //   "packages/constants",
+    //   "node_modules",
+    // ],
     next: {
       rootDir: ["./docs/", "./examples/*/"],
     },

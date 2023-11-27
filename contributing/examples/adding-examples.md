@@ -1,6 +1,6 @@
 ## Adding examples
 
-When you add an example to the [examples](https://github.com/DuCanhGH/next-pwa/tree/master/examples) directory, please follow these guidelines:
+When you add an example to the [examples](https://github.com/serwist/serwist/tree/main/examples) directory, please follow these guidelines:
 
 - TypeScript should be leveraged for new examples.
 - If API routes aren't used in an example, they should be omitted.
@@ -15,17 +15,17 @@ When you add an example to the [examples](https://github.com/DuCanhGH/next-pwa/t
 Also, don’t forget to add a `README.md` file with the following format:
 
 - Replace `DIRECTORY_NAME` with the directory name you’re adding.
-- Fill in `next-pwa - Example Name` and `DESCRIPTION`.
+- Fill in `Serwist example - EXAMPLE_NAME` and `DESCRIPTION`.
 - To add additional notes, add `## Notes` section at the end.
 
 ````markdown
-# next-pwa - Example Name
+# Serwist example - EXAMPLE_NAME
 
-This example demonstrates how to use `next-pwa` with DESCRIPTION.
+This example demonstrates how to use Serwist with DESCRIPTION.
 
 ## Usage
 
-[![Open in Gitpod and run](https://img.shields.io/badge/Open%20In-Gitpod.io-%231966D2?style=for-the-badge&logo=gitpod)](https://gitpod.io/#https://github.com/DuCanhGH/next-pwa/)
+[![Open in Gitpod and run](https://img.shields.io/badge/Open%20In-Gitpod.io-%231966D2?style=for-the-badge&logo=gitpod)](https://gitpod.io/#https://github.com/serwist/serwist/)
 
 ```bash
 cd examples/DIRECTORY_NAME
@@ -38,15 +38,15 @@ or
 Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
 
 ```bash
-npx create-next-app --example https://github.com/DuCanhGH/next-pwa/tree/master/examples/DIRECTORY_NAME DIRECTORY_NAME-app
+npx create-next-app --example https://github.com/serwist/serwist/tree/main/examples/DIRECTORY_NAME DIRECTORY_NAME-app
 ```
 
 ```bash
-yarn create next-app --example https://github.com/DuCanhGH/next-pwa/tree/master/examples/DIRECTORY_NAME DIRECTORY_NAME-app
+yarn create next-app --example https://github.com/serwist/serwist/tree/main/examples/DIRECTORY_NAME DIRECTORY_NAME-app
 ```
 
 ```bash
-pnpm create next-app --example https://github.com/DuCanhGH/next-pwa/tree/master/examples/DIRECTORY_NAME DIRECTORY_NAME-app
+pnpm create next-app --example https://github.com/serwist/serwist/tree/main/examples/DIRECTORY_NAME DIRECTORY_NAME-app
 ```
 
 ## Recommended `.gitignore`

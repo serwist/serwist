@@ -1,8 +1,8 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
 
-const APP_NAME = "next-pwa example";
-const APP_DESCRIPTION = "This is an example of using next-pwa";
+const APP_NAME = "Serwist example";
+const APP_DESCRIPTION = "This is an example of using Serwist with Next.js";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (

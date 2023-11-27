@@ -56,12 +56,12 @@ export const buildSWEntryWorker = ({
     ],
   }).run((error, status) => {
     if (error || status?.hasErrors()) {
-      logger.error("Failed to build `next-pwa`'s worker.");
+      logger.error("Failed to build Serwist worker.");
       logger.error(
         status?.toString({ colors: true }) ?? error?.message ?? "Unknown error"
       );
       throw new Error(
-        "Failed to build `next-pwa`'s worker due to webpack errors."
+        "Failed to build Serwist worker due to webpack errors."
       );
     }
   });

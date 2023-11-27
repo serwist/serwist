@@ -6,7 +6,7 @@ This plugin is powered by [Serwist](https://github.com/serwist/serwist) and othe
 
 ## Getting Started
 
-Visit https://ducanh-next-pwa.vercel.app/docs/next-pwa/getting-started to get started with `next-pwa`.
+Visit https://ducanh-next-pwa.vercel.app/docs/next-pwa/getting-started to get started with `@serwist/next`.
 
 ## Documentation
 
@@ -14,7 +14,7 @@ Visit https://ducanh-next-pwa.vercel.app/docs/next-pwa to see the documentation.
 
 ## Community
 
-You can ask questions, suggest features, and share your projects on [Github Discussions](https://github.com/DuCanhGH/next-pwa/discussions).
+You can ask questions, suggest features, and share your projects on [Github Discussions](https://github.com/serwist/serwist/discussions).
 
 Please follow our [Code of Conduct](/CODE_OF_CONDUCT.md) when you communicate with other people.
 

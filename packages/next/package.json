@@ -20,7 +20,7 @@
       "require": "./dist/index.old.cjs",
       "types": "./dist/index.d.ts"
     },
-    "./serwist": {
+    "./typings": {
       "import": "./dist/sw-entry.d.ts",
       "require": "./dist/sw-entry.d.ts"
     },
@@ -28,7 +28,7 @@
   },
   "typesVersions": {
     "*": {
-      "serwist": [
+      "typings": [
         "./dist/sw-entry.d.ts"
       ]
     }

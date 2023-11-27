@@ -1,6 +1,6 @@
 {
-  "name": "next-pwa",
-  "short_name": "next-pwa",
+  "name": "Serwist + Next",
+  "short_name": "SerwistNext",
   "display": "standalone",
   "orientation": "portrait",
   "theme_color": "#FFFFFF",
