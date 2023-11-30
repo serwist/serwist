@@ -1,48 +1,39 @@
 import { Serwist } from "@serwist/window";
 
+import type { SerwistNextOptions } from "./internal-types.js";
 import type { MessageType } from "./sw-entry-worker.js";
 
-declare const __PWA_START_URL__: URL | RequestInfo;
-declare const __PWA_SW__: string;
-declare const __PWA_ENABLE_REGISTER__: boolean;
-declare const __PWA_CACHE_ON_FRONT_END_NAV__: boolean;
-declare const __PWA_AGGRFEN_CACHE__: boolean;
-declare const __PWA_RELOAD_ON_ONLINE__: boolean;
-declare const __PWA_SCOPE__: string;
-declare const __PWA_SW_ENTRY_WORKER__: string | undefined;
 declare global {
   interface Window {
     serwist: Serwist;
   }
 }
+declare const self: Window &
+  typeof globalThis & {
+    serwistNextOptions: SerwistNextOptions;
+  };
 
-if (
-  typeof window !== "undefined" &&
-  "serviceWorker" in navigator &&
-  typeof caches !== "undefined"
-) {
+if (typeof window !== "undefined" && "serviceWorker" in navigator && typeof caches !== "undefined") {
   let swEntryWorker: Worker | undefined;
 
-  if (__PWA_SW_ENTRY_WORKER__) {
-    swEntryWorker = new Worker(__PWA_SW_ENTRY_WORKER__);
+  if (self.serwistNextOptions.swEntryWorker) {
+    swEntryWorker = new Worker(self.serwistNextOptions.swEntryWorker);
   }
 
-  window.serwist = new Serwist(window.location.origin + __PWA_SW__, {
-    scope: __PWA_SCOPE__,
+  window.serwist = new Serwist(window.location.origin + self.serwistNextOptions.sw, {
+    scope: self.serwistNextOptions.scope,
   });
 
-  if (__PWA_ENABLE_REGISTER__) {
+  if (self.serwistNextOptions.register) {
     window.serwist.register();
   }
 
-  if (__PWA_CACHE_ON_FRONT_END_NAV__ || __PWA_START_URL__) {
-    const cacheOnFrontEndNav = async (
-      url?: string | URL | null | undefined
-    ) => {
+  if (self.serwistNextOptions.cacheOnFrontEndNav || !!self.serwistNextOptions.startUrl) {
+    const cacheOnFrontEndNav = async (url?: string | URL | null | undefined) => {
       if (!window.navigator.onLine || !url) {
         return;
       }
-      const isStartUrl = !!__PWA_START_URL__ && url === __PWA_START_URL__;
+      const isStartUrl = !!self.serwistNextOptions.startUrl && url === self.serwistNextOptions.startUrl;
       if (isStartUrl) {
         if (!swEntryWorker) {
           const response = await fetch(url);
@@ -56,10 +47,9 @@ if (
             url,
           } satisfies MessageType);
         }
-      } else if (__PWA_CACHE_ON_FRONT_END_NAV__) {
+      } else if (self.serwistNextOptions.cacheOnFrontEndNav) {
         swEntryWorker?.postMessage({
           type: "__FRONTEND_NAV_CACHE__",
-          shouldCacheAggressively: __PWA_AGGRFEN_CACHE__,
           url,
         } satisfies MessageType);
       }
@@ -82,7 +72,7 @@ if (
     });
   }
 
-  if (__PWA_RELOAD_ON_ONLINE__) {
+  if (self.serwistNextOptions.reloadOnOnline) {
     window.addEventListener("online", () => location.reload());
   }
 }

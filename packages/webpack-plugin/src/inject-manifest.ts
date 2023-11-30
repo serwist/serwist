@@ -128,9 +128,6 @@ class InjectManifest {
 
     if (Array.isArray(this.config.webpackCompilationPlugins)) {
       for (const plugin of this.config.webpackCompilationPlugins) {
-        // plugin has a generic type, eslint complains for an unsafe
-        // assign and unsafe use
-        // eslint-disable-next-line
         plugin.apply(childCompiler);
       }
     }

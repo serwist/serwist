@@ -15,7 +15,7 @@ import type { Compilation } from "webpack";
  *
  * @returns If swDest was not absolute, the returns swDest as-is.
  * Otherwise, returns swDest relative to the compilation's output path.
- *
+ * 
  * @private
  */
 export function relativeToOutputPath(

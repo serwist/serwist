@@ -2,15 +2,24 @@
   "name": "@serwist/next",
   "version": "7.0.0",
   "type": "module",
-  "description": "PWA for Next.js, powered by Serwist.",
-  "repository": "https://github.com/serwist/serwist",
-  "author": "ShadowWalker <w@weiw.io>, DuCanhGH",
-  "license": "MIT",
-  "private": false,
+  "description": "A module that integrates Serwist into your Next.js application.",
   "files": [
     "dist",
     "!dist/dts"
   ],
+  "keywords": [
+    "serwist",
+    "serwistjs",
+    "sw",
+    "service worker",
+    "web",
+    "service-worker"
+  ],
+  "author": "DuCanhGH",
+  "license": "MIT",
+  "repository": "serwist/serwist",
+  "bugs": "https://github.com/serwist/serwist/issues",
+  "homepage": "https://ducanh-next-pwa.vercel.app",
   "module": "./dist/index.js",
   "main": "./dist/index.old.cjs",
   "types": "./dist/index.d.ts",
@@ -20,6 +29,11 @@
       "require": "./dist/index.old.cjs",
       "types": "./dist/index.d.ts"
     },
+    "./browser": {
+      "import": "./dist/index.browser.js",
+      "require": "./dist/index.browser.old.cjs",
+      "types": "./dist/index.browser.d.ts"
+    },
     "./typings": {
       "import": "./dist/sw-entry.d.ts",
       "require": "./dist/sw-entry.d.ts"
@@ -28,24 +42,17 @@
   },
   "typesVersions": {
     "*": {
+      "browser": [
+        "./dist/index.browser.d.ts"
+      ],
       "typings": [
         "./dist/sw-entry.d.ts"
       ]
     }
   },
-  "keywords": [
-    "nextjs",
-    "pwa",
-    "serwist",
-    "web",
-    "service-worker"
-  ],
   "scripts": {
-    "dev": "rimraf dist && rollup --config --watch",
-    "build": "rimraf dist && cross-env NODE_ENV=production rollup --config --compact",
-    "lint": "eslint src --ext ts,tsx,js,jsx,cjs,mjs",
-    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest",
-    "typecheck": "tsc"
+    "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js",
+    "lint": "eslint src --ext ts,tsx,js,jsx,cjs,mjs"
   },
   "dependencies": {
     "@serwist/build": "workspace:*",
@@ -78,7 +85,7 @@
     "webpack": "5.89.0"
   },
   "peerDependencies": {
-    "next": ">=11.0.0",
+    "next": ">=14.0.0",
     "webpack": ">=5.9.0"
   }
 }

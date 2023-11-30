@@ -61,7 +61,7 @@ export class Serwist extends SerwistEventTarget {
   private _waitingTimeout?: number;
 
   /**
-   * Creates a new Workbox instance with a script URL and service worker
+   * Creates a new Serwist instance with a script URL and service worker
    * options. The script URL and options are the same as those used when
    * calling [navigator.serviceWorker.register(scriptURL, options)](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerContainer/register).
    *
@@ -103,7 +103,7 @@ export class Serwist extends SerwistEventTarget {
     if (process.env.NODE_ENV !== "production") {
       if (this._registrationTime) {
         logger.error(
-          "Cannot re-register a Workbox instance after it has " +
+          "Cannot re-register a Serwist instance after it has " +
             "been registered. Create a new instance instead."
         );
         return;
@@ -232,8 +232,8 @@ export class Serwist extends SerwistEventTarget {
     if (!this._registration) {
       if (process.env.NODE_ENV !== "production") {
         logger.error(
-          "Cannot update a Workbox instance without " +
-            "being registered. Register the Workbox instance first."
+          "Cannot update a Serwist instance without " +
+            "being registered. Register the Serwist instance first."
         );
       }
       return;
@@ -297,7 +297,7 @@ export class Serwist extends SerwistEventTarget {
 
   /**
    * Sends the passed data object to the service worker registered by this
-   * instance (via `@serwist/window.Workbox.getSW`) and resolves
+   * instance (via `@serwist/window.Serwist.getSW`) and resolves
    * with a response (if any).
    *
    * A response can be set in a message handler in the service worker by

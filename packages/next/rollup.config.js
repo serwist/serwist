@@ -23,11 +23,18 @@ export default getRollupOptions({
       ],
     },
     {
-      input: "src/fallback.ts",
-      output: {
-        file: "dist/fallback.js",
-        format: "cjs",
-      },
+      input: "src/index.browser.ts",
+      output: [
+        {
+          file: "dist/index.browser.old.cjs",
+          format: "cjs",
+          exports: "named",
+        },
+        {
+          file: "dist/index.browser.js",
+          format: "esm",
+        },
+      ],
     },
     {
       input: "src/sw-entry.ts",
@@ -41,13 +48,6 @@ export default getRollupOptions({
       output: {
         file: "dist/sw-entry-worker.js",
         format: "esm",
-      },
-    },
-    {
-      input: "src/swc-loader.ts",
-      output: {
-        file: "dist/swc-loader.cjs",
-        format: "cjs",
       },
     },
   ],

@@ -1,7 +1,7 @@
 import type { RuntimeCaching } from "@serwist/build";
 
-// Workbox RuntimeCaching config: https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-build#.RuntimeCachingEntry
-const defaultCache: RuntimeCaching[] = [
+// Serwist RuntimeCaching config: https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-build#.RuntimeCachingEntry
+export const defaultCache: RuntimeCaching[] = [
   {
     urlPattern: /^https:\/\/fonts\.(?:gstatic)\.com\/.*/i,
     handler: "CacheFirst",
@@ -216,5 +216,3 @@ const defaultCache: RuntimeCaching[] = [
     },
   },
 ];
-
-export default defaultCache;

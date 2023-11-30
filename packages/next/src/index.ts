@@ -1,55 +1,32 @@
-import { createRequire } from "node:module";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { InjectManifest } from "@serwist/webpack-plugin";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import fg from "fast-glob";
 import type { NextConfig } from "next";
-import type NextConfigShared from "next/dist/server/config-shared.js";
-import type { Configuration, default as Webpack } from "webpack";
+import type { Asset, Configuration, default as Webpack } from "webpack";
 
-import { loadTSConfig, logger } from "$utils/index.js";
-
-import defaultCache from "./cache.js";
-import { resolveWorkboxPlugin } from "./resolve-workbox-plugin.js";
+import type { SerwistNextOptions, SerwistNextOptionsKey } from "./internal-types.js";
 import type { PluginOptions } from "./types.js";
-import { getFileHash } from "./utils.js";
-import { buildSWEntryWorker } from "./webpack-builders/build-sw-entry-worker.js";
-import { setDefaultContext } from "./webpack-builders/context.js";
+import { getContentHash, getFileHash, loadTSConfig, logger } from "./utils/index.js";
+import { ChildCompilationPlugin } from "./webpack/plugins/child-compilation-plugin.js";
 
-const require = createRequire(import.meta.url);
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
 const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) => NextConfig) => {
   return (nextConfig = {}) => ({
     ...nextConfig,
     webpack(config: Configuration, options) {
-      let nextDefConfig: NextConfig | undefined;
-
-      try {
-        nextDefConfig = (require("next/dist/server/config-shared") as typeof NextConfigShared).defaultConfig;
-      } catch {
-        // do nothing - we are using Next's internals and they might not be available.
-      }
-
-      const isAppDirEnabled = (nextConfig.experimental as any)?.appDir ?? (nextDefConfig?.experimental as any)?.appDir ?? true;
-
       const webpack: typeof Webpack = options.webpack;
-      const {
-        buildId,
-        dev,
-        config: { pageExtensions = ["tsx", "ts", "jsx", "js", "mdx"] },
-      } = options;
+      const { buildId, dev } = options;
 
       const basePath = options.config.basePath || "/";
 
       const tsConfigJson = loadTSConfig(options.dir, nextConfig?.typescript?.tsconfigPath);
 
-      // For Workbox configurations:
-      // https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-webpack-plugin.GenerateSW
       const {
         disable = false,
-        register = true,
         dest = "public",
         sw = "sw.js",
         cacheStartUrl = true,
@@ -57,19 +34,11 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
         dynamicStartUrlRedirect,
         publicExcludes = ["!noprecache/**/*"],
         buildExcludes = [],
-        fallbacks = {},
         cacheOnFrontEndNav = false,
-        aggressiveFrontEndNavCaching = false,
+        register = true,
         reloadOnOnline = true,
         scope = basePath,
-        customWorkerSrc = "worker",
-        customWorkerDest = dest,
-        customWorkerPrefix = "worker",
-        workboxOptions,
-        extendDefaultRuntimeCaching = false,
-        swcMinify = nextConfig.swcMinify ?? nextDefConfig?.swcMinify ?? false,
-        browserslist = "chrome >= 56",
-        watchWorkersInDev = false,
+        buildOptions,
       } = pluginOptions;
 
       if (typeof nextConfig.webpack === "function") {
@@ -80,8 +49,6 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
         options.isServer && logger.info("PWA support is disabled.");
         return config;
       }
-
-      const importScripts: string[] = [];
 
       if (!config.plugins) {
         config.plugins = [];
@@ -94,14 +61,13 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
 
       config.plugins.push(
         new webpack.DefinePlugin({
-          __PWA_SW__: `'${_sw}'`,
-          __PWA_SCOPE__: `'${_scope}'`,
-          __PWA_ENABLE_REGISTER__: `${Boolean(register)}`,
-          __PWA_START_URL__: dynamicStartUrl ? `'${basePath}'` : undefined,
-          __PWA_CACHE_ON_FRONT_END_NAV__: `${Boolean(cacheOnFrontEndNav)}`,
-          __PWA_AGGRFEN_CACHE__: `${Boolean(aggressiveFrontEndNavCaching)}`,
-          __PWA_RELOAD_ON_ONLINE__: `${Boolean(reloadOnOnline)}`,
-        })
+          "self.serwistNextOptions.sw": `'${_sw}'`,
+          "self.serwistNextOptions.scope": `'${_scope}'`,
+          "self.serwistNextOptions.startUrl": dynamicStartUrl ? `'${basePath}'` : undefined,
+          "self.serwistNextOptions.cacheOnFrontEndNav": `${Boolean(cacheOnFrontEndNav)}`,
+          "self.serwistNextOptions.register": `${Boolean(register)}`,
+          "self.serwistNextOptions.reloadOnOnline": `${Boolean(reloadOnOnline)}`,
+        } satisfies Record<`${SerwistNextOptionsKey}.${Exclude<keyof SerwistNextOptions, "swEntryWorker">}`, string | undefined>)
       );
 
       const swEntryJs = path.join(__dirname, "sw-entry.js");
@@ -126,76 +92,66 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
         });
 
       if (!options.isServer) {
-        setDefaultContext("shouldMinify", !dev);
-        setDefaultContext("useSwcMinify", swcMinify);
-        setDefaultContext("browserslist", browserslist);
-        setDefaultContext("devWatchWorkers", watchWorkersInDev);
-
-        const _dest = path.join(options.dir, dest);
-        const sweWorkerPath = buildSWEntryWorker({
-          isDev: dev,
-          destDir: _dest,
-          shouldGenSWEWorker: cacheOnFrontEndNav,
-          basePath,
-        });
-
-        config.plugins.push(
-          new webpack.DefinePlugin({
-            __PWA_SW_ENTRY_WORKER__: sweWorkerPath && `'${sweWorkerPath}'`,
-          })
-        );
-
         if (!register) {
           logger.info(
             "Service worker won't be automatically registered as per the config, please call the following code in componentDidMount or useEffect:"
           );
 
-          logger.info(`  window.workbox.register()`);
+          logger.info(`  window.serwist.register()`);
 
           if (!tsConfigJson?.compilerOptions?.types?.includes("@serwist/next/typings")) {
             logger.info("You may also want to add @serwist/next/typings to compilerOptions.types in your tsconfig.json/jsconfig.json.");
           }
         }
 
-        logger.info(`Service worker: ${path.join(_dest, sw)}`);
+        const resolvedDest = path.join(options.dir, dest);
+        const shouldBuildSWEntryWorker = cacheOnFrontEndNav;
+        let swEntryPublicPath: string | undefined = undefined;
+        if (shouldBuildSWEntryWorker) {
+          const swEntryWorkerSrc = path.join(__dirname, `sw-entry-worker.js`);
+          const swEntryName = `swe-worker-${getContentHash(swEntryWorkerSrc, dev)}.js`;
+          swEntryPublicPath = path.posix.join(basePath, swEntryName);
+          const swEntryWorkerDest = path.join(resolvedDest, swEntryName);
+          config.plugins.push(
+            new ChildCompilationPlugin({
+              src: swEntryWorkerSrc,
+              dest: swEntryWorkerDest,
+            })
+          );
+        }
+        config.plugins.push(
+          new webpack.DefinePlugin({
+            "self.serwistNextOptions.swEntryWorker": swEntryPublicPath && `'${swEntryPublicPath}'`,
+          } satisfies Record<`${SerwistNextOptionsKey}.${Extract<keyof SerwistNextOptions, "swEntryWorker">}`, string | undefined>)
+        );
+
+        logger.info(`Service worker: ${path.join(resolvedDest, sw)}`);
         logger.info(`  URL: ${_sw}`);
         logger.info(`  Scope: ${_scope}`);
 
         config.plugins.push(
           new CleanWebpackPlugin({
             cleanOnceBeforeBuildPatterns: [
-              path.join(_dest, "workbox-*.js"),
-              path.join(_dest, "workbox-*.js.map"),
-              path.join(_dest, sw),
-              path.join(_dest, `${sw}.map`),
-              path.join(_dest, "sw-chunks/**"),
+              path.join(resolvedDest, "swe-worker-*.js"),
+              path.join(resolvedDest, "swe-worker-*.js.map"),
+              path.join(resolvedDest, sw),
+              path.join(resolvedDest, `${sw}.map`),
             ],
           })
         );
 
-        const {
-          additionalManifestEntries,
-          modifyURLPrefix = {},
-          manifestTransforms = [],
-          // @ts-expect-error removed from types
-          exclude,
-          ...workbox
-        } = workboxOptions;
+        const { additionalManifestEntries, modifyURLPrefix = {}, manifestTransforms = [], ...otherBuildOptions } = buildOptions;
 
         // Precache files in public folder
-        let manifestEntries = additionalManifestEntries ?? [];
+        let resolvedManifestEntries = additionalManifestEntries ?? [];
 
-        if (!manifestEntries) {
-          manifestEntries = fg
+        if (!resolvedManifestEntries) {
+          resolvedManifestEntries = fg
             .sync(
               [
                 "**/*",
-                "!workbox-*.js",
-                "!workbox-*.js.map",
-                "!worker-*.js",
-                "!worker-*.js.map",
-                "!fallback-*.js",
-                "!fallback-*.js.map",
+                "!swe-worker-*.js",
+                "!swe-worker-*.js.map",
                 `!${sw.replace(/^\/+/, "")}`,
                 `!${sw.replace(/^\/+/, "")}.map`,
                 ...publicExcludes,
@@ -212,51 +168,62 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
 
         if (cacheStartUrl) {
           if (!dynamicStartUrl) {
-            manifestEntries.push({
+            resolvedManifestEntries.push({
               url: basePath,
               revision: buildId,
             });
           } else if (typeof dynamicStartUrlRedirect === "string" && dynamicStartUrlRedirect.length > 0) {
-            manifestEntries.push({
+            resolvedManifestEntries.push({
               url: dynamicStartUrlRedirect,
               revision: buildId,
             });
           }
         }
 
-        Object.keys(workbox).forEach((key) => workbox[key] === undefined && delete workbox[key]);
+        const publicPath = config.output?.publicPath;
 
-        const workboxPlugin = resolveWorkboxPlugin({
-          workboxOptions: workbox,
-          importScripts,
-
-          extendDefaultRuntimeCaching,
-          dynamicStartUrl,
-
-          rootDir: options.dir,
-          destDir: _dest,
-          basePath,
-          buildId,
-          pageExtensions,
-          isDev: dev,
-          isAppDirEnabled,
-          plugins: config.plugins.filter((plugin) => plugin instanceof webpack.DefinePlugin),
-          tsConfigJson,
-
-          customWorkerSrc,
-          customWorkerDest,
-          customWorkerPrefix,
-          fallbacks,
-
-          sw,
-          buildExcludes,
-          manifestEntries,
-          manifestTransforms,
-          modifyURLPrefix,
-          publicPath: config.output?.publicPath,
-        });
-
-        config.plugins.push(workboxPlugin);
+        config.plugins.push(
+          new InjectManifest({
+            additionalManifestEntries: dev ? [] : resolvedManifestEntries,
+            exclude: [
+              ...buildExcludes,
+              ({ asset }: { asset: Asset }) => {
+                if (asset.name.startsWith("server/") || asset.name.match(/^((app-|^)build-manifest\.json|react-loadable-manifest\.json)$/)) {
+                  return true;
+                }
+                if (dev && !asset.name.startsWith("static/runtime/")) {
+                  return true;
+                }
+                return false;
+              },
+            ],
+            modifyURLPrefix: {
+              ...modifyURLPrefix,
+              "/_next/../public/": "/",
+            },
+            manifestTransforms: [
+              ...manifestTransforms,
+              async (manifestEntries, compilation) => {
+                const manifest = manifestEntries.map((m) => {
+                  m.url = m.url.replace("/_next//static/image", "/_next/static/image");
+                  m.url = m.url.replace("/_next//static/media", "/_next/static/media");
+                  if (m.revision === null) {
+                    let key = m.url;
+                    if (typeof publicPath === "string" && key.startsWith(publicPath)) {
+                      key = m.url.substring(publicPath.length);
+                    }
+                    const asset = (compilation as any).assetsInfo.get(key);
+                    m.revision = asset ? asset.contenthash || buildId : buildId;
+                  }
+                  m.url = m.url.replace(/\[/g, "%5B").replace(/\]/g, "%5D");
+                  return m;
+                });
+                return { manifest, warnings: [] };
+              },
+            ],
+            ...otherBuildOptions,
+          })
+        );
       }
 
       return config;
@@ -265,5 +232,4 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
 };
 
 export default withPWAInit;
-export { defaultCache as runtimeCaching };
 export * from "./types.js";

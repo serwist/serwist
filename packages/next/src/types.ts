@@ -1,19 +1,6 @@
-import type { InjectManifestOptions,WebpackInjectManifestOptions } from "@serwist/build";
-
-import type { BrowserslistOptions } from "./private-types.js";
+import type { WebpackInjectManifestOptions } from "@serwist/build";
 
 export interface PluginOptions {
-  /**
-   * Cache every `<link rel="stylesheet" />` and `<script />` on frontend navigation.
-   * Requires `cacheOnFrontEndNav` to be enabled.
-   * @default false
-   */
-  aggressiveFrontEndNavCaching?: boolean;
-  /**
-   * Configure supported browsers using Browserslist.
-   * @default "chrome >= 56"
-   */
-  browserslist?: BrowserslistOptions;
   /**
    * One or more specifiers used to exclude assets from the precache manifest.
    * This is interpreted following the same rules as webpack's standard `exclude`
@@ -43,23 +30,6 @@ export interface PluginOptions {
    */
   cacheStartUrl?: boolean;
   /**
-   * The output directory of the custom worker.
-   * @default dest
-   */
-  customWorkerDest?: string;
-  /**
-   * The custom worker's output filename prefix.
-   * @default "worker"
-   */
-  customWorkerPrefix?: string;
-  /**
-   * Change the directory in which Serwist looks for a custom worker
-   * implementation to import into the service worker. Relative to the root or `src`
-   * directory.
-   * @default "worker"
-   */
-  customWorkerSrc?: string;
-  /**
    * Set the output directory for service worker. Relative to your app's root
    * directory. By default, this plugin uses `public`.
    * @default "public"
@@ -87,19 +57,6 @@ export interface PluginOptions {
    */
   dynamicStartUrlRedirect?: string;
   /**
-   * Extend the default `runtimeCaching` array when `runtimeCaching` is specified.
-   * Entries having the same `cacheName` as any entry in the default `runtimeCaching`
-   * array will override it.
-   * @default false
-   */
-  extendDefaultRuntimeCaching?: boolean;
-  /**
-   * Configure routes to be precached so that they can be used as a fallback when
-   * fetching a resource from both the cache and the network fails. If you just need
-   * a fallback document, simply create `pages/_offline.tsx` or `app/~offline/page.tsx`.
-   */
-  fallbacks?: FallbackRoutes;
-  /**
    * An array of glob pattern strings to exclude files in the public folder from
    * being precached. By default, this plugin excludes `public/noprecache`.
    * Note that you have to add `!` before each glob pattern for it to work.
@@ -120,11 +77,6 @@ export interface PluginOptions {
    * @default "/sw.js"
    */
   sw?: string;
-  /**
-   * Use [`swc`](https://swc.rs) to minify the custom worker, the fallback worker, and more.
-   * @default nextConfig.swcMinify
-   */
-  swcMinify?: boolean;
   /**
    * Allow this plugin to automatically register the service worker for you. Set
    * this to `false` if you want to register the service worker yourself, which
@@ -180,51 +132,7 @@ export interface PluginOptions {
    */
   reloadOnOnline?: boolean;
   /**
-   * Watch certain workers for file changes in development mode. This currently includes the
-   * custom worker.
-   * @default false
+   * Pass options to `@serwist/webpack-plugin`.
    */
-  watchWorkersInDev?: boolean;
-  /**
-   * Pass options to `@serwist/webpack-plugin`. This one relies on
-   * `@serwist/webpack-plugin`'s own JSDoc, so some information may not be
-   * exactly correct.
-   */
-  workboxOptions: InjectManifestOptions;
-}
-
-export interface FallbackRoutes {
-  /**
-   * Fallback route for audios, defaults to none.
-   * @default undefined
-   */
-  audio?: string;
-  /**
-   * Fallback route for document (pages).
-   * @default
-   *   ```js
-   *   "/_offline" // or none if it doesn't exist.
-   *   ```
-   */
-  document?: string;
-  /**
-   * Fallback route for data, defaults to none.
-   * @default undefined
-   */
-  data?: string;
-  /**
-   * Fallback route for fonts, defaults to none.
-   * @default undefined
-   */
-  font?: string;
-  /**
-   * Fallback route for images, defaults to none.
-   * @default undefined
-   */
-  image?: string;
-  /**
-   * Fallback route for videos, defaults to none.
-   * @default undefined
-   */
-  video?: string;
+  buildOptions: WebpackInjectManifestOptions;
 }

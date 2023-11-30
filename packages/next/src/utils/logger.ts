@@ -1,20 +1,8 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import chalk from "chalk";
-import { coerce as semverCoerce, lt as semverLt } from "semver";
-
-import { getPackageVersion } from "./get-package-version.js";
-
-const nextPackageJson = semverCoerce(getPackageVersion("next"));
-const isNextOlderThan13_4_1 =
-    !!nextPackageJson && semverLt(nextPackageJson, "13.4.1"),
-  isNextOlderThan13_4_20 =
-    !!nextPackageJson && semverLt(nextPackageJson, "13.4.20");
 
 const LOGGING_METHOD = ["wait", "error", "warn", "info", "event"] as const;
 
 type LoggingMethods = (typeof LOGGING_METHOD)[number];
-
-type Prefixes = Record<LoggingMethods, string>;
 
 const mapLoggingMethodToConsole: Record<
   LoggingMethods,
@@ -27,47 +15,17 @@ const mapLoggingMethodToConsole: Record<
   event: "log",
 };
 
-/**
- * Get logging prefixes.
- * @returns
- */
-const getPrefixes = (): Prefixes => {
-  if (isNextOlderThan13_4_1) {
-    return {
-      wait: `${chalk.cyan("wait")}  - (PWA)`,
-      error: `${chalk.red("error")} - (PWA)`,
-      warn: `${chalk.yellow("warn")}  - (PWA)`,
-      info: `${chalk.cyan("info")}  - (PWA)`,
-      event: `${chalk.cyan("info")}  - (PWA)`,
-    };
-  }
-  if (isNextOlderThan13_4_20) {
-    return {
-      wait: `- ${chalk.cyan("wait")} (pwa)`,
-      error: `- ${chalk.red("error")} (pwa)`,
-      warn: `- ${chalk.yellow("warn")} (pwa)`,
-      info: `- ${chalk.cyan("info")} (pwa)`,
-      event: `- ${chalk.cyan("info")} (pwa)`,
-    };
-  }
-  return {
-    wait: `${chalk.white(chalk.bold("○"))} (pwa)`,
-    error: `${chalk.red(chalk.bold("X"))} (pwa)`,
-    warn: `${chalk.yellow(chalk.bold("⚠"))} (pwa)`,
-    info: `${chalk.white(chalk.bold("○"))} (pwa)`,
-    event: `${chalk.green(chalk.bold("✓"))} (pwa)`,
-  };
+const prefixes = {
+  wait: `${chalk.white(chalk.bold("○"))} (serwist)`,
+  error: `${chalk.red(chalk.bold("X"))} (serwist)`,
+  warn: `${chalk.yellow(chalk.bold("⚠"))} (serwist)`,
+  info: `${chalk.white(chalk.bold("○"))} (serwist)`,
+  event: `${chalk.green(chalk.bold("✓"))} (serwist)`,
 };
-
-const prefixes = getPrefixes();
 
 const prefixedLog = (prefixType: LoggingMethods, ...message: any[]) => {
   const consoleMethod = mapLoggingMethodToConsole[prefixType];
   const prefix = prefixes[prefixType];
-
-  if (isNextOlderThan13_4_20) {
-    return console[consoleMethod](prefix, ...message);
-  }
 
   if ((message[0] === "" || message[0] === undefined) && message.length === 1) {
     message.shift();
