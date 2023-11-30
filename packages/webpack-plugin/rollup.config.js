@@ -22,6 +22,20 @@ export default getRollupOptions({
         },
       ],
     },
+    {
+      input: "src/index.internal.ts",
+      output: [
+        {
+          file: "dist/index.internal.old.cjs",
+          format: "cjs",
+          exports: "named",
+        },
+        {
+          file: "dist/index.internal.js",
+          format: "esm",
+        },
+      ],
+    },
   ],
   shouldEmitDeclaration: !isDev,
 });

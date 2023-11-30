@@ -2,6 +2,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { InjectManifest } from "@serwist/webpack-plugin";
+import { ChildCompilationPlugin } from "@serwist/webpack-plugin/internal";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import fg from "fast-glob";
 import type { NextConfig } from "next";
@@ -10,7 +11,6 @@ import type { Asset, Configuration, default as Webpack } from "webpack";
 import type { SerwistNextOptions, SerwistNextOptionsKey } from "./internal-types.js";
 import type { PluginOptions } from "./types.js";
 import { getContentHash, getFileHash, loadTSConfig, logger } from "./utils/index.js";
-import { ChildCompilationPlugin } from "./webpack/plugins/child-compilation-plugin.js";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 

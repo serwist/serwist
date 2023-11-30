@@ -31,11 +31,21 @@
   "module": "./dist/index.js",
   "main": "./dist/index.old.cjs",
   "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "internal": ["./dist/index.internal.d.ts"]
+    }
+  },
   "exports": {
     ".": {
       "import": "./dist/index.js",
       "require": "./dist/index.old.cjs",
       "types": "./dist/index.d.ts"
+    },
+    "./internal": {
+      "import": "./dist/index.internal.js",
+      "require": "./dist/index.internal.old.cjs",
+      "types": "./dist/index.internal.d.ts"
     },
     "./package.json": "./package.json"
   },

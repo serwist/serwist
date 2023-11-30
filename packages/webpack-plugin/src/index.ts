@@ -7,6 +7,5 @@
 */
 
 import { InjectManifest } from "./inject-manifest.js";
-import { relativeToOutputPath } from "./lib/relative-to-output-path.js";
 
-export { InjectManifest, relativeToOutputPath };
+export { InjectManifest };

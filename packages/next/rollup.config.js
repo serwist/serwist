@@ -21,6 +21,7 @@ export default getRollupOptions({
           format: "esm",
         },
       ],
+      external: ["@serwist/webpack-plugin/internal"],
     },
     {
       input: "src/index.browser.ts",

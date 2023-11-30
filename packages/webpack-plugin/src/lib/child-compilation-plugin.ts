@@ -1,6 +1,7 @@
-import { relativeToOutputPath } from "@serwist/webpack-plugin";
 import type { Compilation, WebpackPluginInstance } from "webpack";
 import webpack from "webpack";
+
+import { relativeToOutputPath } from "./relative-to-output-path.js";
 
 export interface ChildCompilationPluginOptions {
   src: string;
@@ -8,6 +9,11 @@ export interface ChildCompilationPluginOptions {
   plugins?: WebpackPluginInstance[];
 }
 
+/**
+ * Compile a file by creating a child of the hooked compiler.
+ * 
+ * @private
+ */
 export class ChildCompilationPlugin implements WebpackPluginInstance {
   src: string;
   dest: string;
