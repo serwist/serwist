@@ -1,14 +1,17 @@
 // @ts-check
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
 import withSerwistInit from "@serwist/next";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const withSerwist = withSerwistInit({
   dest: "public",
   cacheOnFrontEndNav: true,
-  aggressiveFrontEndNavCaching: true,
-  // @ts-expect-error investigate globDirectory later.
-  workboxOptions: {
-    swSrc: "app/sw.ts",
-    swDest: "public/sw.js",
+  buildOptions: {
+    swSrc: path.join(__dirname, "app/sw.ts"),
+    swDest: path.join(__dirname, "public/sw.js"),
   },
 });
 
