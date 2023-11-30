@@ -1,5 +1,7 @@
 import type { WebpackInjectManifestOptions } from "@serwist/build";
 
+type Require<T, U extends keyof T> = T & Required<Pick<T, U>>;
+
 export interface PluginOptions {
   /**
    * One or more specifiers used to exclude assets from the precache manifest.
@@ -30,25 +32,10 @@ export interface PluginOptions {
    */
   cacheStartUrl?: boolean;
   /**
-   * Set the output directory for service worker. Relative to your app's root
-   * directory. By default, this plugin uses `public`.
-   * @default "public"
-   */
-  dest?: string;
-  /**
    * Whether Serwist should be disabled.
    * @default false
    */
   disable?: boolean;
-  /**
-   * If your start URL returns different HTML documents under different states
-   * (such as logged in and not logged in), this should be set to true if you
-   * also use `cacheStartUrl`. Effective only when `cacheStartUrl` is set to `true`.
-   * Set to `false` if your start URL always returns same HTML document, in which case
-   * the start URL will be precached, helping speed up the first load.
-   * @default true
-   */
-  dynamicStartUrl?: boolean;
   /**
    * If your start URL redirects to another route such as `/login`, it's
    * recommended to specify this redirected URL for the best user experience.
@@ -134,5 +121,5 @@ export interface PluginOptions {
   /**
    * Pass options to `@serwist/webpack-plugin`.
    */
-  buildOptions: WebpackInjectManifestOptions;
+  buildOptions: Require<WebpackInjectManifestOptions, "swDest">;
 }

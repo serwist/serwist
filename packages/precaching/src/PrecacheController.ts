@@ -7,7 +7,7 @@
 */
 
 import type { RouteHandlerCallback, SerwistPlugin } from "@serwist/core";
-import { assert, logger, privateCacheNames, SerwistError, waitUntil } from "@serwist/core";
+import { assert, logger, privateCacheNames, SerwistError, waitUntil } from "@serwist/core/internal";
 import type { Strategy } from "@serwist/strategies";
 
 import type { CleanupResult, InstallResult, PrecacheEntry } from "./_types.js";

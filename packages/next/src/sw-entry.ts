@@ -28,31 +28,15 @@ if (typeof window !== "undefined" && "serviceWorker" in navigator && typeof cach
     window.serwist.register();
   }
 
-  if (self.serwistNextOptions.cacheOnFrontEndNav || !!self.serwistNextOptions.startUrl) {
+  if (self.serwistNextOptions.cacheOnFrontEndNav) {
     const cacheOnFrontEndNav = async (url?: string | URL | null | undefined) => {
       if (!window.navigator.onLine || !url) {
         return;
       }
-      const isStartUrl = !!self.serwistNextOptions.startUrl && url === self.serwistNextOptions.startUrl;
-      if (isStartUrl) {
-        if (!swEntryWorker) {
-          const response = await fetch(url);
-          if (!response.redirected) {
-            const startUrlCache = await caches.open("start-url");
-            return startUrlCache.put(url, response);
-          }
-        } else {
-          swEntryWorker.postMessage({
-            type: "__START_URL_CACHE__",
-            url,
-          } satisfies MessageType);
-        }
-      } else if (self.serwistNextOptions.cacheOnFrontEndNav) {
-        swEntryWorker?.postMessage({
-          type: "__FRONTEND_NAV_CACHE__",
-          url,
-        } satisfies MessageType);
-      }
+      swEntryWorker?.postMessage({
+        type: "__FRONTEND_NAV_CACHE__",
+        url,
+      } satisfies MessageType);
     };
 
     const pushState = history.pushState;

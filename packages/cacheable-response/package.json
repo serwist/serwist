@@ -3,7 +3,7 @@
   "version": "7.0.0",
   "type": "module",
   "license": "MIT",
-  "author": "Google's Web DevRel Team, DuCanhGH",
+  "author": "Google's Web DevRel Team, Serwist's Team",
   "description": "This library takes a Response object and determines whether it's cacheable based on a specific configuration.",
   "repository": "serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",

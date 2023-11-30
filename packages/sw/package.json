@@ -3,10 +3,10 @@
   "version": "7.0.0",
   "license": "MIT",
   "type": "module",
-  "author": "Google's Web DevRel Team, DuCanhGH",
+  "author": "Google's Web DevRel Team, Serwist's Team",
   "description": "This module makes it easy to get started with the Serwist service worker libraries.",
   "repository": "serwist/serwist",
-  "bugs": "https://github.com/DuCanhGH/next-pwa/issues",
+  "bugs": "https://github.com/serwist/serwist/issues",
   "homepage": "https://ducanh-next-pwa.vercel.app",
   "keywords": [
     "serwist",

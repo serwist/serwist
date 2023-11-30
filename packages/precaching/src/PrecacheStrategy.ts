@@ -7,7 +7,8 @@
 */
 
 import type { SerwistPlugin } from "@serwist/core";
-import { copyResponse, getFriendlyURL, logger, privateCacheNames, SerwistError } from "@serwist/core";
+import { copyResponse } from "@serwist/core";
+import { getFriendlyURL, logger, privateCacheNames, SerwistError } from "@serwist/core/internal";
 import type { StrategyHandler, StrategyOptions } from "@serwist/strategies";
 import { Strategy } from "@serwist/strategies";
 

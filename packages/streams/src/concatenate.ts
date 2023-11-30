@@ -6,10 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert, Deferred, logger, SerwistError } from "@serwist/core";
+import { assert, Deferred, logger, SerwistError } from "@serwist/core/internal";
 
 import type { StreamSource } from "./_types.js";
-
 
 /**
  * Takes either a Response, a ReadableStream, or a
@@ -20,9 +19,7 @@ import type { StreamSource } from "./_types.js";
  * @returns
  * @private
  */
-function _getReaderFromSource(
-  source: StreamSource
-): ReadableStreamReader<unknown> {
+function _getReaderFromSource(source: StreamSource): ReadableStreamReader<unknown> {
   if (source instanceof Response) {
     // See https://github.com/GoogleChrome/workbox/issues/2998
     if (source.body) {
@@ -82,19 +79,14 @@ function concatenate(sourcePromises: Promise<StreamSource>[]): {
         .then((result) => {
           if (result?.done) {
             if (process.env.NODE_ENV !== "production") {
-              logMessages.push([
-                "Reached the end of source:",
-                sourcePromises[i],
-              ]);
+              logMessages.push(["Reached the end of source:", sourcePromises[i]]);
             }
 
             i++;
             if (i >= readerPromises.length) {
               // Log all the messages in the group at once in a single group.
               if (process.env.NODE_ENV !== "production") {
-                logger.groupCollapsed(
-                  `Concatenating ${readerPromises.length} sources.`
-                );
+                logger.groupCollapsed(`Concatenating ${readerPromises.length} sources.`);
                 for (const message of logMessages) {
                   if (Array.isArray(message)) {
                     logger.log(...message);

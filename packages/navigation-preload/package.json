@@ -14,10 +14,10 @@
     "sw",
     "navigation"
   ],
-  "author": "Google's Web DevRel Team, DuCanhGH",
+  "author": "Google's Web DevRel Team, Serwist's Team",
   "license": "MIT",
   "repository": "serwist/serwist",
-  "bugs": "https://github.com/DuCanhGH/next-pwa/issues",
+  "bugs": "https://github.com/serwist/serwist/issues",
   "homepage": "https://ducanh-next-pwa.vercel.app",
   "serwist": {
     "browserNamespace": "serwist.navigationPreload",

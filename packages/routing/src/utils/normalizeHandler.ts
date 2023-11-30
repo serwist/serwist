@@ -7,8 +7,7 @@
 */
 
 import type { RouteHandler, RouteHandlerObject } from "@serwist/core";
-import { assert  } from "@serwist/core";
-
+import { assert } from "@serwist/core/internal";
 
 /**
  * @param handler Either a function, or an object with a

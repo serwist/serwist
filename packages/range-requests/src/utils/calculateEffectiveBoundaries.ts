@@ -7,7 +7,7 @@
 */
 
 
-import { assert, SerwistError } from "@serwist/core";
+import { assert, SerwistError } from "@serwist/core/internal";
 
 /**
  * @param blob A source blob.

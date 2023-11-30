@@ -6,8 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-
-import { Deferred, dontWaitFor, logger } from "@serwist/core";
+import { Deferred, dontWaitFor, logger } from "@serwist/core/internal";
 import type { TrustedScriptURL } from "trusted-types/lib";
 
 import { messageSW } from "./messageSW.js";
@@ -48,8 +47,7 @@ export class Serwist extends SerwistEventTarget {
   // Deferreds we can resolve later.
   private readonly _swDeferred: Deferred<ServiceWorker> = new Deferred();
   private readonly _activeDeferred: Deferred<ServiceWorker> = new Deferred();
-  private readonly _controllingDeferred: Deferred<ServiceWorker> =
-    new Deferred();
+  private readonly _controllingDeferred: Deferred<ServiceWorker> = new Deferred();
 
   private _registrationTime: DOMHighResTimeStamp = 0;
   private _isUpdate?: boolean;
@@ -102,10 +100,7 @@ export class Serwist extends SerwistEventTarget {
   } = {}): Promise<ServiceWorkerRegistration | undefined> {
     if (process.env.NODE_ENV !== "production") {
       if (this._registrationTime) {
-        logger.error(
-          "Cannot re-register a Serwist instance after it has " +
-            "been registered. Create a new instance instead."
-        );
+        logger.error("Cannot re-register a Serwist instance after it has " + "been registered. Create a new instance instead.");
         return;
       }
     }
@@ -132,11 +127,7 @@ export class Serwist extends SerwistEventTarget {
       this._activeDeferred.resolve(this._compatibleControllingSW);
       this._controllingDeferred.resolve(this._compatibleControllingSW);
 
-      this._compatibleControllingSW.addEventListener(
-        "statechange",
-        this._onStateChange,
-        { once: true }
-      );
+      this._compatibleControllingSW.addEventListener("statechange", this._onStateChange, { once: true });
     }
 
     // If there's a waiting service worker with a matching URL before the
@@ -145,10 +136,7 @@ export class Serwist extends SerwistEventTarget {
     // page wasn't fully unloaded before this page started loading).
     // https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle#waiting
     const waitingSW = this._registration.waiting;
-    if (
-      waitingSW &&
-      urlsMatch(waitingSW.scriptURL, this._scriptURL.toString())
-    ) {
+    if (waitingSW && urlsMatch(waitingSW.scriptURL, this._scriptURL.toString())) {
       // Store the waiting SW as the "own" Sw, even if it means overwriting
       // a compatible controller.
       this._sw = waitingSW;
@@ -164,10 +152,7 @@ export class Serwist extends SerwistEventTarget {
             })
           );
           if (process.env.NODE_ENV !== "production") {
-            logger.warn(
-              "A service worker was already waiting to activate " +
-                "before this script was registered..."
-            );
+            logger.warn("A service worker was already waiting to activate " + "before this script was registered...");
           }
         })
       );
@@ -180,17 +165,11 @@ export class Serwist extends SerwistEventTarget {
     }
 
     if (process.env.NODE_ENV !== "production") {
-      logger.log(
-        "Successfully registered service worker.",
-        this._scriptURL.toString()
-      );
+      logger.log("Successfully registered service worker.", this._scriptURL.toString());
 
       if (navigator.serviceWorker.controller) {
         if (this._compatibleControllingSW) {
-          logger.debug(
-            "A service worker with the same script URL " +
-              "is already controlling this page."
-          );
+          logger.debug("A service worker with the same script URL " + "is already controlling this page.");
         } else {
           logger.debug(
             "A service worker with a different script URL is " +
@@ -201,26 +180,17 @@ export class Serwist extends SerwistEventTarget {
       }
 
       const currentPageIsOutOfScope = () => {
-        const scopeURL = new URL(
-          this._registerOptions.scope || this._scriptURL.toString(),
-          document.baseURI
-        );
+        const scopeURL = new URL(this._registerOptions.scope || this._scriptURL.toString(), document.baseURI);
         const scopeURLBasePath = new URL("./", scopeURL.href).pathname;
         return !location.pathname.startsWith(scopeURLBasePath);
       };
       if (currentPageIsOutOfScope()) {
-        logger.warn(
-          "The current page is not in scope for the registered " +
-            "service worker. Was this a mistake?"
-        );
+        logger.warn("The current page is not in scope for the registered " + "service worker. Was this a mistake?");
       }
     }
 
     this._registration.addEventListener("updatefound", this._onUpdateFound);
-    navigator.serviceWorker.addEventListener(
-      "controllerchange",
-      this._onControllerChange
-    );
+    navigator.serviceWorker.addEventListener("controllerchange", this._onControllerChange);
 
     return this._registration;
   }
@@ -231,10 +201,7 @@ export class Serwist extends SerwistEventTarget {
   async update(): Promise<void> {
     if (!this._registration) {
       if (process.env.NODE_ENV !== "production") {
-        logger.error(
-          "Cannot update a Serwist instance without " +
-            "being registered. Register the Serwist instance first."
-        );
+        logger.error("Cannot update a Serwist instance without " + "being registered. Register the Serwist instance first.");
       }
       return;
     }
@@ -290,9 +257,7 @@ export class Serwist extends SerwistEventTarget {
   getSW(): Promise<ServiceWorker> {
     // If `this._sw` is set, resolve with that as we want `getSW()` to
     // return the correct (new) service worker if an update is found.
-    return this._sw !== undefined
-      ? Promise.resolve(this._sw)
-      : this._swDeferred.promise;
+    return this._sw !== undefined ? Promise.resolve(this._sw) : this._swDeferred.promise;
   }
 
   /**
@@ -337,10 +302,7 @@ export class Serwist extends SerwistEventTarget {
    */
   private _getControllingSWIfCompatible() {
     const controller = navigator.serviceWorker.controller;
-    if (
-      controller &&
-      urlsMatch(controller.scriptURL, this._scriptURL.toString())
-    ) {
+    if (controller && urlsMatch(controller.scriptURL, this._scriptURL.toString())) {
       return controller;
     } else {
       return undefined;
@@ -358,10 +320,7 @@ export class Serwist extends SerwistEventTarget {
       // this._scriptURL may be a TrustedScriptURL, but there's no support for
       // passing that to register() in lib.dom right now.
       // https://github.com/GoogleChrome/workbox/issues/2855
-      const reg = await navigator.serviceWorker.register(
-        this._scriptURL as string,
-        this._registerOptions
-      );
+      const reg = await navigator.serviceWorker.register(this._scriptURL as string, this._registerOptions);
 
       // Keep track of when registration happened, so it can be used in the
       // `this._onUpdateFound` heuristic. Also use the presence of this
@@ -472,9 +431,7 @@ export class Serwist extends SerwistEventTarget {
       eventProps.isUpdate = true;
     }
 
-    this.dispatchEvent(
-      new SerwistEvent(state as keyof SerwistLifecycleEventMap, eventProps)
-    );
+    this.dispatchEvent(new SerwistEvent(state as keyof SerwistLifecycleEventMap, eventProps));
 
     if (state === "installed") {
       // This timeout is used to ignore cases where the service worker calls
@@ -492,15 +449,9 @@ export class Serwist extends SerwistEventTarget {
 
           if (process.env.NODE_ENV !== "production") {
             if (isExternal) {
-              logger.warn(
-                "An external service worker has installed but is " +
-                  "waiting for this client to close before activating..."
-              );
+              logger.warn("An external service worker has installed but is " + "waiting for this client to close before activating...");
             } else {
-              logger.warn(
-                "The service worker has installed but is waiting " +
-                  "for existing clients to close before activating..."
-              );
+              logger.warn("The service worker has installed but is waiting " + "for existing clients to close before activating...");
             }
           }
         }
@@ -516,10 +467,7 @@ export class Serwist extends SerwistEventTarget {
       switch (state) {
         case "installed":
           if (isExternal) {
-            logger.warn(
-              "An external service worker has installed. " +
-                "You may want to suggest users reload this page."
-            );
+            logger.warn("An external service worker has installed. " + "You may want to suggest users reload this page.");
           } else {
             logger.log("Registered service worker installed.");
           }

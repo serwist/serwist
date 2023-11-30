@@ -9,7 +9,7 @@
 import type { Queue } from "@serwist/background-sync";
 import { BackgroundSyncPlugin } from "@serwist/background-sync";
 import type { RouteMatchCallbackOptions } from "@serwist/core";
-import { getFriendlyURL, logger,privateCacheNames } from "@serwist/core";
+import { getFriendlyURL, logger, privateCacheNames } from "@serwist/core/internal";
 import { Route, Router } from "@serwist/routing";
 import { NetworkFirst, NetworkOnly } from "@serwist/strategies";
 

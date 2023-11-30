@@ -27,11 +27,7 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
 
       const {
         disable = false,
-        dest = "public",
         sw = "sw.js",
-        cacheStartUrl = true,
-        dynamicStartUrl = true,
-        dynamicStartUrlRedirect,
         publicExcludes = ["!noprecache/**/*"],
         buildExcludes = [],
         cacheOnFrontEndNav = false,
@@ -63,7 +59,6 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
         new webpack.DefinePlugin({
           "self.serwistNextOptions.sw": `'${_sw}'`,
           "self.serwistNextOptions.scope": `'${_scope}'`,
-          "self.serwistNextOptions.startUrl": dynamicStartUrl ? `'${basePath}'` : undefined,
           "self.serwistNextOptions.cacheOnFrontEndNav": `${Boolean(cacheOnFrontEndNav)}`,
           "self.serwistNextOptions.register": `${Boolean(register)}`,
           "self.serwistNextOptions.reloadOnOnline": `${Boolean(reloadOnOnline)}`,
@@ -104,14 +99,35 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
           }
         }
 
-        const resolvedDest = path.join(options.dir, dest);
+        const {
+          swSrc: providedSwSrc,
+          swDest: providedSwDest,
+          additionalManifestEntries,
+          modifyURLPrefix = {},
+          manifestTransforms = [],
+          ...otherBuildOptions
+        } = buildOptions;
+
+        let swSrc = providedSwSrc,
+          swDest = providedSwDest;
+
+        if (!path.isAbsolute(swSrc)) {
+          swSrc = path.join(options.dir, swSrc);
+        }
+        if (!path.isAbsolute(swDest)) {
+          swDest = path.join(options.dir, swDest);
+        }
+
+        const destDir = path.dirname(swDest);
+
         const shouldBuildSWEntryWorker = cacheOnFrontEndNav;
         let swEntryPublicPath: string | undefined = undefined;
+
         if (shouldBuildSWEntryWorker) {
           const swEntryWorkerSrc = path.join(__dirname, `sw-entry-worker.js`);
           const swEntryName = `swe-worker-${getContentHash(swEntryWorkerSrc, dev)}.js`;
           swEntryPublicPath = path.posix.join(basePath, swEntryName);
-          const swEntryWorkerDest = path.join(resolvedDest, swEntryName);
+          const swEntryWorkerDest = path.join(destDir, swEntryName);
           config.plugins.push(
             new ChildCompilationPlugin({
               src: swEntryWorkerSrc,
@@ -125,22 +141,20 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
           } satisfies Record<`${SerwistNextOptionsKey}.${Extract<keyof SerwistNextOptions, "swEntryWorker">}`, string | undefined>)
         );
 
-        logger.info(`Service worker: ${path.join(resolvedDest, sw)}`);
+        logger.info(`Service worker: ${swDest}`);
         logger.info(`  URL: ${_sw}`);
         logger.info(`  Scope: ${_scope}`);
 
         config.plugins.push(
           new CleanWebpackPlugin({
             cleanOnceBeforeBuildPatterns: [
-              path.join(resolvedDest, "swe-worker-*.js"),
-              path.join(resolvedDest, "swe-worker-*.js.map"),
-              path.join(resolvedDest, sw),
-              path.join(resolvedDest, `${sw}.map`),
+              path.join(destDir, "swe-worker-*.js"),
+              path.join(destDir, "swe-worker-*.js.map"),
+              path.join(destDir, sw),
+              path.join(destDir, `${sw}.map`),
             ],
           })
         );
-
-        const { additionalManifestEntries, modifyURLPrefix = {}, manifestTransforms = [], ...otherBuildOptions } = buildOptions;
 
         // Precache files in public folder
         let resolvedManifestEntries = additionalManifestEntries ?? [];
@@ -148,14 +162,7 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
         if (!resolvedManifestEntries) {
           resolvedManifestEntries = fg
             .sync(
-              [
-                "**/*",
-                "!swe-worker-*.js",
-                "!swe-worker-*.js.map",
-                `!${sw.replace(/^\/+/, "")}`,
-                `!${sw.replace(/^\/+/, "")}.map`,
-                ...publicExcludes,
-              ],
+              ["**/*", "!swe-worker-*.js", "!swe-worker-*.js.map", `!${sw.replace(/^\/+/, "")}`, `!${sw.replace(/^\/+/, "")}.map`, ...publicExcludes],
               {
                 cwd: "public",
               }
@@ -166,24 +173,13 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
             }));
         }
 
-        if (cacheStartUrl) {
-          if (!dynamicStartUrl) {
-            resolvedManifestEntries.push({
-              url: basePath,
-              revision: buildId,
-            });
-          } else if (typeof dynamicStartUrlRedirect === "string" && dynamicStartUrlRedirect.length > 0) {
-            resolvedManifestEntries.push({
-              url: dynamicStartUrlRedirect,
-              revision: buildId,
-            });
-          }
-        }
-
         const publicPath = config.output?.publicPath;
 
         config.plugins.push(
           new InjectManifest({
+            swSrc,
+            swDest,
+            disablePrecacheManifest: dev,
             additionalManifestEntries: dev ? [] : resolvedManifestEntries,
             exclude: [
               ...buildExcludes,

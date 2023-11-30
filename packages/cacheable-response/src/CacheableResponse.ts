@@ -12,7 +12,7 @@ import {
   getFriendlyURL,
   logger,
   SerwistError,
-} from "@serwist/core";
+} from "@serwist/core/internal";
 
 export interface CacheableResponseOptions {
   /**

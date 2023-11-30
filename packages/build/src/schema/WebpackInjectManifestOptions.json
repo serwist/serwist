@@ -90,6 +90,11 @@
       "description": "Optional `webpack` plugins that will be used when compiling the `swSrc`\ninput file. Only valid if `compileSrc` is `true`.",
       "type": "array",
       "items": {}
+    },
+    "disablePrecacheManifest": {
+      "description": "Whether the precache manifest should be set to `undefined`.",
+      "default": false,
+      "type": "boolean"
     }
   },
   "required": [

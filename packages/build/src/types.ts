@@ -485,7 +485,7 @@ export interface RequiredSWDestPartial {
 
 export interface WebpackInjectManifestPartial {
   /**
-   * When `true` (the default), the `swSrc` file will be compiled by webpack.
+   * When `true` (the default), the `swSrc` file will be compiled by `webpack`.
    * When `false`, compilation will not occur (and `webpackCompilationPlugins`
    * can't be used.) Set to `false` if you want to inject the manifest into,
    * e.g., a JSON file.
@@ -499,7 +499,7 @@ export interface WebpackInjectManifestPartial {
    * plugin. If omitted, the path will be based on `swSrc`.
    */
   swDest?: string;
-  // This can only be set if compileSrc is true, but that restriction can't be
+  // This can only be set if `compileSrc` is true, but that restriction can't be
   // represented in TypeScript. It's enforced via custom runtime validation
   // logic and needs to be documented.
   /**
@@ -507,6 +507,11 @@ export interface WebpackInjectManifestPartial {
    * input file. Only valid if `compileSrc` is `true`.
    */
   webpackCompilationPlugins?: Array<any>;
+  /**
+   * Whether the precache manifest should be set to `undefined`.
+   * @default false
+   */
+  disablePrecacheManifest?: boolean;
 }
 
 export type GetManifestOptions = BasePartial &

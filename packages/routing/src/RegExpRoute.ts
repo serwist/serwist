@@ -6,16 +6,11 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type {
-  RouteHandler,
-  RouteMatchCallback,
-  RouteMatchCallbackOptions} from "@serwist/core";
-import { assert, logger 
-} from "@serwist/core";
+import type { RouteHandler, RouteMatchCallback, RouteMatchCallbackOptions } from "@serwist/core";
+import { assert, logger } from "@serwist/core/internal";
 
 import { Route } from "./Route.js";
 import type { HTTPMethod } from "./utils/constants.js";
-
 
 /**
  * RegExpRoute makes it easy to create a regular expression based on a `@serwist/routing` Route.

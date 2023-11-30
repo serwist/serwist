@@ -11,14 +11,10 @@ const isPublishMode = process.env.PUBLISH === "true";
 /**
  * @type {typeof import("./rollup.d.ts").getRollupOptions}
  */
-export const getRollupOptions = ({
-  packageJson,
-  jsFiles,
-  shouldEmitDeclaration,
-}) => {
+export const getRollupOptions = ({ packageJson, jsFiles, shouldEmitDeclaration }) => {
   const forcedExternals = [
-    ...Object.keys(packageJson.dependencies ?? {}),
-    ...Object.keys(packageJson.peerDependencies ?? {}),
+    ...Object.keys(packageJson.dependencies ?? {}).map((e) => new RegExp("^" + e)),
+    ...Object.keys(packageJson.peerDependencies ?? {}).map((e) => new RegExp("^" + e)),
   ];
 
   /**
@@ -31,10 +27,7 @@ export const getRollupOptions = ({
       defineConfig({
         input,
         output,
-        external: [
-          ...(Array.isArray(external) ? external : [external]),
-          ...forcedExternals,
-        ],
+        external: [...(Array.isArray(external) ? external : [external]), ...forcedExternals],
         plugins: [
           nodeResolve({
             exportConditions: ["node"],

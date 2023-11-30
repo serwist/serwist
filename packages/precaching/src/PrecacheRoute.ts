@@ -6,12 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-
-import type {
-  RouteMatchCallback,
-  RouteMatchCallbackOptions,
-} from "@serwist/core";
-import { getFriendlyURL,logger } from "@serwist/core";
+import type { RouteMatchCallback, RouteMatchCallbackOptions } from "@serwist/core";
+import { getFriendlyURL, logger } from "@serwist/core/internal";
 import { Route } from "@serwist/routing";
 
 import type { PrecacheRouteOptions } from "./_types.js";
@@ -23,7 +19,7 @@ import { generateURLVariations } from "./utils/generateURLVariations.js";
  * `@serwist/precaching.PrecacheController`
  * instance and uses it to match incoming requests and handle fetching
  * responses from the precache.
-  */
+ */
 class PrecacheRoute extends Route {
   /**
    * @param precacheController A `PrecacheController`
@@ -31,26 +27,18 @@ class PrecacheRoute extends Route {
    * @param options Options to control how requests are matched
    * against the list of precached URLs.
    */
-  constructor(
-    precacheController: PrecacheController,
-    options?: PrecacheRouteOptions
-  ) {
-    const match: RouteMatchCallback = ({
-      request,
-    }: RouteMatchCallbackOptions) => {
+  constructor(precacheController: PrecacheController, options?: PrecacheRouteOptions) {
+    const match: RouteMatchCallback = ({ request }: RouteMatchCallbackOptions) => {
       const urlsToCacheKeys = precacheController.getURLsToCacheKeys();
       for (const possibleURL of generateURLVariations(request.url, options)) {
         const cacheKey = urlsToCacheKeys.get(possibleURL);
         if (cacheKey) {
-          const integrity =
-            precacheController.getIntegrityForCacheKey(cacheKey);
+          const integrity = precacheController.getIntegrityForCacheKey(cacheKey);
           return { cacheKey, integrity };
         }
       }
       if (process.env.NODE_ENV !== "production") {
-        logger.debug(
-          `Precaching did not find a match for ` + getFriendlyURL(request.url)
-        );
+        logger.debug(`Precaching did not find a match for ` + getFriendlyURL(request.url));
       }
       return;
     };

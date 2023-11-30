@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { getFriendlyURL, logger } from "@serwist/core";
+import { getFriendlyURL, logger } from "@serwist/core/internal";
 
 export const messages = {
   strategyStart: (strategyName: string, request: Request): string => `Using ${strategyName} to respond to '${getFriendlyURL(request.url)}'`,

@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert, logger, SerwistError } from "@serwist/core";
+import { assert, logger, SerwistError } from "@serwist/core/internal";
 
 import { cacheOkAndOpaquePlugin } from "./plugins/cacheOkAndOpaquePlugin.js";
 import type { StrategyOptions } from "./Strategy.js";
@@ -75,17 +75,11 @@ class StaleWhileRevalidate extends Strategy {
     let error;
     if (response) {
       if (process.env.NODE_ENV !== "production") {
-        logs.push(
-          `Found a cached response in the '${this.cacheName}'` +
-            ` cache. Will update with the network response in the background.`
-        );
+        logs.push(`Found a cached response in the '${this.cacheName}'` + ` cache. Will update with the network response in the background.`);
       }
     } else {
       if (process.env.NODE_ENV !== "production") {
-        logs.push(
-          `No response found in the '${this.cacheName}' cache. ` +
-            `Will wait for the network response.`
-        );
+        logs.push(`No response found in the '${this.cacheName}' cache. ` + `Will wait for the network response.`);
       }
       try {
         // NOTE(philipwalton): Really annoying that we have to type cast here.
@@ -99,9 +93,7 @@ class StaleWhileRevalidate extends Strategy {
     }
 
     if (process.env.NODE_ENV !== "production") {
-      logger.groupCollapsed(
-        messages.strategyStart(this.constructor.name, request)
-      );
+      logger.groupCollapsed(messages.strategyStart(this.constructor.name, request));
       for (const log of logs) {
         logger.log(log);
       }

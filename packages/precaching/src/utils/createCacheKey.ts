@@ -7,7 +7,7 @@
 */
 
 
-import { SerwistError } from "@serwist/core";
+import { SerwistError } from "@serwist/core/internal";
 
 import type { PrecacheEntry } from "../_types.js";
 

@@ -6,15 +6,14 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert, logger, SerwistError,timeout } from "@serwist/core";
+import { assert, logger, SerwistError, timeout } from "@serwist/core/internal";
 
 import type { StrategyOptions } from "./Strategy.js";
 import { Strategy } from "./Strategy.js";
 import type { StrategyHandler } from "./StrategyHandler.js";
 import { messages } from "./utils/messages.js";
 
-interface NetworkOnlyOptions
-  extends Omit<StrategyOptions, "cacheName" | "matchOptions"> {
+interface NetworkOnlyOptions extends Omit<StrategyOptions, "cacheName" | "matchOptions"> {
   /**
    * If set, any network requests that fail to respond within the timeout will result in a network error.
    */
@@ -61,23 +60,16 @@ class NetworkOnly extends Strategy {
     let response: Response | undefined;
 
     try {
-      const promises: Promise<Response | undefined>[] = [
-        handler.fetch(request),
-      ];
+      const promises: Promise<Response | undefined>[] = [handler.fetch(request)];
 
       if (this._networkTimeoutSeconds) {
-        const timeoutPromise = timeout(
-          this._networkTimeoutSeconds * 1000
-        ) as Promise<undefined>;
+        const timeoutPromise = timeout(this._networkTimeoutSeconds * 1000) as Promise<undefined>;
         promises.push(timeoutPromise);
       }
 
       response = await Promise.race(promises);
       if (!response) {
-        throw new Error(
-          `Timed out the network response after ` +
-            `${this._networkTimeoutSeconds} seconds.`
-        );
+        throw new Error(`Timed out the network response after ` + `${this._networkTimeoutSeconds} seconds.`);
       }
     } catch (err) {
       if (err instanceof Error) {
@@ -86,9 +78,7 @@ class NetworkOnly extends Strategy {
     }
 
     if (process.env.NODE_ENV !== "production") {
-      logger.groupCollapsed(
-        messages.strategyStart(this.constructor.name, request)
-      );
+      logger.groupCollapsed(messages.strategyStart(this.constructor.name, request));
       if (response) {
         logger.log(`Got response from network.`);
       } else {

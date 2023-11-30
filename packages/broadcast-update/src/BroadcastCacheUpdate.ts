@@ -7,7 +7,7 @@
 */
 
 import type { CacheDidUpdateCallbackParam } from "@serwist/core";
-import { assert, logger, resultingClientExists, timeout } from "@serwist/core";
+import { assert, logger, resultingClientExists, timeout } from "@serwist/core/internal";
 
 import { responsesAreSame } from "./responsesAreSame.js";
 import { CACHE_UPDATED_MESSAGE_META, CACHE_UPDATED_MESSAGE_TYPE, DEFAULT_HEADERS_TO_CHECK, NOTIFY_ALL_CLIENTS } from "./utils/constants.js";

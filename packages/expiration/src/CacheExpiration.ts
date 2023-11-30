@@ -12,7 +12,7 @@ import {
   dontWaitFor,
   logger,
   SerwistError,
-} from "@serwist/core";
+} from "@serwist/core/internal";
 
 import { CacheTimestampsModel } from "./models/CacheTimestampsModel.js";
 

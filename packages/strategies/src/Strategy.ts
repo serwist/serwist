@@ -6,18 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-
-import type {
-  HandlerCallbackOptions,
-  RouteHandlerObject,
-  SerwistPlugin,
-} from "@serwist/core";
-import {
-  getFriendlyURL,
-  logger,
-  privateCacheNames,
-  SerwistError,
-} from "@serwist/core";
+import type { HandlerCallbackOptions, RouteHandlerObject, SerwistPlugin } from "@serwist/core";
+import { getFriendlyURL, logger, privateCacheNames, SerwistError } from "@serwist/core/internal";
 
 import { StrategyHandler } from "./StrategyHandler.js";
 
@@ -55,10 +45,7 @@ abstract class Strategy implements RouteHandlerObject {
   fetchOptions?: RequestInit;
   matchOptions?: CacheQueryOptions;
 
-  protected abstract _handle(
-    request: Request,
-    handler: StrategyHandler
-  ): Promise<Response | undefined>;
+  protected abstract _handle(request: Request, handler: StrategyHandler): Promise<Response | undefined>;
 
   /**
    * Creates a new instance of the strategy and sets all documented option
@@ -113,9 +100,7 @@ abstract class Strategy implements RouteHandlerObject {
    * @returns A tuple of [response, done] promises that can be used to determine when the response resolves as
    * well as when the handler has completed all its work.
    */
-  handleAll(
-    options: FetchEvent | HandlerCallbackOptions
-  ): [Promise<Response>, Promise<void>] {
+  handleAll(options: FetchEvent | HandlerCallbackOptions): [Promise<Response>, Promise<void>] {
     // Allow for flexible options to be passed.
     if (options instanceof FetchEvent) {
       options = {
@@ -125,31 +110,19 @@ abstract class Strategy implements RouteHandlerObject {
     }
 
     const event = options.event;
-    const request =
-      typeof options.request === "string"
-        ? new Request(options.request)
-        : options.request;
+    const request = typeof options.request === "string" ? new Request(options.request) : options.request;
     const params = "params" in options ? options.params : undefined;
 
     const handler = new StrategyHandler(this, { event, request, params });
 
     const responseDone = this._getResponse(handler, request, event);
-    const handlerDone = this._awaitComplete(
-      responseDone,
-      handler,
-      request,
-      event
-    );
+    const handlerDone = this._awaitComplete(responseDone, handler, request, event);
 
     // Return an array of promises, suitable for use with Promise.all().
     return [responseDone, handlerDone];
   }
 
-  async _getResponse(
-    handler: StrategyHandler,
-    request: Request,
-    event: ExtendableEvent
-  ): Promise<Response> {
+  async _getResponse(handler: StrategyHandler, request: Request, event: ExtendableEvent): Promise<Response> {
     await handler.runCallbacks("handlerWillStart", { event, request });
 
     let response: Response | undefined = undefined;
@@ -176,9 +149,7 @@ abstract class Strategy implements RouteHandlerObject {
       } else if (process.env.NODE_ENV !== "production") {
         throw logger.log(
           `While responding to '${getFriendlyURL(request.url)}', ` +
-            `an ${
-              error instanceof Error ? error.toString() : ""
-            } error occurred. Using a fallback response provided by ` +
+            `an ${error instanceof Error ? error.toString() : ""} error occurred. Using a fallback response provided by ` +
             `a handlerDidError plugin.`
         );
       }
@@ -191,12 +162,7 @@ abstract class Strategy implements RouteHandlerObject {
     return response;
   }
 
-  async _awaitComplete(
-    responseDone: Promise<Response>,
-    handler: StrategyHandler,
-    request: Request,
-    event: ExtendableEvent
-  ): Promise<void> {
+  async _awaitComplete(responseDone: Promise<Response>, handler: StrategyHandler, request: Request, event: ExtendableEvent): Promise<void> {
     let response;
     let error;
 

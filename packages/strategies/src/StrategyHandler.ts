@@ -7,7 +7,16 @@
 */
 
 import type { HandlerCallbackOptions, MapLikeObject, SerwistPlugin, SerwistPluginCallbackParam } from "@serwist/core";
-import { assert, cacheMatchIgnoreParams, Deferred, executeQuotaErrorCallbacks, getFriendlyURL, logger, SerwistError, timeout } from "@serwist/core";
+import {
+  assert,
+  cacheMatchIgnoreParams,
+  Deferred,
+  executeQuotaErrorCallbacks,
+  getFriendlyURL,
+  logger,
+  SerwistError,
+  timeout,
+} from "@serwist/core/internal";
 
 import type { Strategy } from "./Strategy.js";
 

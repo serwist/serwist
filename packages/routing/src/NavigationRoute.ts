@@ -7,7 +7,7 @@
 */
 
 import type { RouteHandler, RouteMatchCallbackOptions } from "@serwist/core";
-import { assert, logger  } from "@serwist/core";
+import { assert, logger  } from "@serwist/core/internal";
 
 import { Route } from "./Route.js";
 

@@ -6,14 +6,10 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type {
-  RouteHandler,
-  RouteHandlerObject,
-  RouteMatchCallback} from "@serwist/core";
-import { assert 
-} from "@serwist/core";
+import type { RouteHandler, RouteHandlerObject, RouteMatchCallback } from "@serwist/core";
+import { assert } from "@serwist/core/internal";
 
-import type { HTTPMethod} from "./utils/constants.js";
+import type { HTTPMethod } from "./utils/constants.js";
 import { defaultMethod, validMethods } from "./utils/constants.js";
 import { normalizeHandler } from "./utils/normalizeHandler.js";
 
@@ -33,18 +29,14 @@ class Route {
   /**
    * Constructor for Route class.
    *
-   * @param match A callback function that determines whether the 
+   * @param match A callback function that determines whether the
    * route matches a given `fetch` event by returning a non-falsy value.
    * @param handler A callback function that returns a Promise resolving
    * to a Response.
-   * @param method The HTTP method to match the Route against. Defaults 
+   * @param method The HTTP method to match the Route against. Defaults
    * to GET.
    */
-  constructor(
-    match: RouteMatchCallback,
-    handler: RouteHandler,
-    method: HTTPMethod = defaultMethod
-  ) {
+  constructor(match: RouteMatchCallback, handler: RouteHandler, method: HTTPMethod = defaultMethod) {
     if (process.env.NODE_ENV !== "production") {
       assert!.isType(match, "function", {
         moduleName: "@serwist/routing",
@@ -67,7 +59,7 @@ class Route {
 
   /**
    *
-   * @param handler A callback function that returns a Promise resolving 
+   * @param handler A callback function that returns a Promise resolving
    * to a Response.
    */
   setCatchHandler(handler: RouteHandler): void {
