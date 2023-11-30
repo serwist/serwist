@@ -427,7 +427,7 @@ export interface InjectPartial {
    */
   injectionPoint?: string;
   /**
-   * The path and filename of the service worker file that will be read during
+   * The path to the service worker file that will be read during
    * the build process, relative to the current working directory.
    */
   swSrc: string;
@@ -496,7 +496,8 @@ export interface WebpackInjectManifestPartial {
   // set at runtime to the swSrc basename, with the hardcoded extension .js.
   /**
    * The asset path of the service worker file that will be created by this
-   * plugin. If omitted, the path will be based on `swSrc`.
+   * plugin. If omitted, the path will be based on `swSrc` (not applicable for 
+   * `@serwist/next`, which requires this value to always be defined).
    */
   swDest?: string;
   // This can only be set if `compileSrc` is true, but that restriction can't be
