@@ -5,7 +5,7 @@
     { "repo": "serwist/serwist" }
   ],
   "commit": false,
-  "fixed": [],
+  "fixed": [["@serwist/*"]],
   "linked": [],
   "access": "public",
   "baseBranch": "main",
