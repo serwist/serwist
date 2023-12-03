@@ -199,7 +199,7 @@ export async function getManifestEntriesFromCompilation(
 
   const { manifestEntries, size, warnings } = await transformManifest({
     fileDetails,
-    additionalManifestEntries: config.additionalManifestEntries,
+    additionalPrecacheEntries: config.additionalPrecacheEntries,
     dontCacheBustURLsMatching: config.dontCacheBustURLsMatching,
     manifestTransforms: config.manifestTransforms,
     maximumFileSizeToCacheInBytes: config.maximumFileSizeToCacheInBytes,

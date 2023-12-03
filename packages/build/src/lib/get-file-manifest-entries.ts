@@ -8,7 +8,7 @@
 
 import assert from "assert";
 
-import type { FileDetails, GetManifestOptions,GetManifestResult } from "../types.js";
+import type { FileDetails, GetManifestOptions, GetManifestResult } from "../types.js";
 import { errors } from "./errors.js";
 import { getCompositeDetails } from "./get-composite-details.js";
 import { getFileDetails } from "./get-file-details.js";
@@ -16,7 +16,7 @@ import { getStringDetails } from "./get-string-details.js";
 import { transformManifest } from "./transform-manifest.js";
 
 export async function getFileManifestEntries({
-  additionalManifestEntries,
+  additionalPrecacheEntries,
   dontCacheBustURLsMatching,
   globDirectory,
   globFollow,
@@ -65,39 +65,33 @@ export async function getFileManifestEntries({
 
       const dependencies = templatedURLs[url];
       if (Array.isArray(dependencies)) {
-        const details = dependencies.reduce<Array<FileDetails>>(
-          (previous, globPattern) => {
-            try {
-              const { globbedFileDetails, warning } = getFileDetails({
-                globDirectory,
-                globFollow,
-                globIgnores,
-                globPattern,
-                globStrict,
-              });
+        const details = dependencies.reduce<Array<FileDetails>>((previous, globPattern) => {
+          try {
+            const { globbedFileDetails, warning } = getFileDetails({
+              globDirectory,
+              globFollow,
+              globIgnores,
+              globPattern,
+              globStrict,
+            });
 
-              if (warning) {
-                warnings.push(warning);
-              }
-
-              return previous.concat(globbedFileDetails);
-            } catch (error) {
-              const debugObj: { [key: string]: Array<string> } = {};
-              debugObj[url] = dependencies;
-              throw new Error(
-                `${errors["bad-template-urls-asset"]} ` +
-                  `'${globPattern}' from '${JSON.stringify(debugObj)}':\n` +
-                  `${error instanceof Error ? error.toString() : ""}`
-              );
+            if (warning) {
+              warnings.push(warning);
             }
-          },
-          []
-        );
+
+            return previous.concat(globbedFileDetails);
+          } catch (error) {
+            const debugObj: { [key: string]: Array<string> } = {};
+            debugObj[url] = dependencies;
+            throw new Error(
+              `${errors["bad-template-urls-asset"]} ` +
+                `'${globPattern}' from '${JSON.stringify(debugObj)}':\n` +
+                `${error instanceof Error ? error.toString() : ""}`
+            );
+          }
+        }, []);
         if (details.length === 0) {
-          throw new Error(
-            `${errors["bad-template-urls-asset"]} The glob ` +
-              `pattern '${dependencies.toString()}' did not match anything.`
-          );
+          throw new Error(`${errors["bad-template-urls-asset"]} The glob ` + `pattern '${dependencies.toString()}' did not match anything.`);
         }
         allFileDetails.set(url, getCompositeDetails(url, details));
       } else if (typeof dependencies === "string") {
@@ -107,7 +101,7 @@ export async function getFileManifestEntries({
   }
 
   const transformedManifest = await transformManifest({
-    additionalManifestEntries,
+    additionalPrecacheEntries,
     dontCacheBustURLsMatching,
     manifestTransforms,
     maximumFileSizeToCacheInBytes,

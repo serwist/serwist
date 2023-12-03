@@ -19,10 +19,6 @@
   "repository": "serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",
   "homepage": "https://ducanh-next-pwa.vercel.app",
-  "serwist": {
-    "browserNamespace": "serwist.broadcastUpdate",
-    "packageType": "sw"
-  },
   "module": "./dist/index.js",
   "main": "./dist/index.old.cjs",
   "types": "./dist/index.d.ts",
@@ -38,7 +34,8 @@
   },
   "scripts": {
     "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js",
-    "lint": "eslint src --ext ts,tsx,js,jsx,cjs,mjs"
+    "lint": "eslint src --ext ts,tsx,js,jsx,cjs,mjs",
+    "typecheck": "tsc"
   },
   "devDependencies": {
     "@serwist/constants": "workspace:*",

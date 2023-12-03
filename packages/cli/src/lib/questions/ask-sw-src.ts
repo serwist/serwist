@@ -22,7 +22,7 @@ function askQuestion(): Promise<Answers> {
       name,
       message: ol`Where's your existing service worker file? To be used with
       injectManifest, it should include a call to
-      'self.__WB_MANIFEST'`,
+      'self.__SW_MANIFEST'`,
       type: "input",
     },
   ]);

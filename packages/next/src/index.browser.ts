@@ -141,7 +141,7 @@ export const defaultCache: RuntimeCaching[] = [
       // Exclude /api/auth/callback/* to fix OAuth workflow in Safari without having an impact on other environments
       // The above route is the default for next-auth, you may need to change it if your OAuth workflow has a different callback route
       // Issue: https://github.com/shadowwalker/next-pwa/issues/131#issuecomment-821894809
-      if (!sameOrigin || pathname.startsWith("/api/auth/")) {
+      if (!sameOrigin || pathname.startsWith("/api/auth/callback")) {
         return false;
       }
 
@@ -164,10 +164,7 @@ export const defaultCache: RuntimeCaching[] = [
   },
   {
     urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
-      request.headers.get("RSC") === "1" &&
-      request.headers.get("Next-Router-Prefetch") === "1" &&
-      sameOrigin &&
-      !pathname.startsWith("/api/"),
+      request.headers.get("RSC") === "1" && request.headers.get("Next-Router-Prefetch") === "1" && sameOrigin && !pathname.startsWith("/api/"),
     handler: "NetworkFirst",
     options: {
       cacheName: "pages-rsc-prefetch",
@@ -178,10 +175,7 @@ export const defaultCache: RuntimeCaching[] = [
     },
   },
   {
-    urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
-      request.headers.get("RSC") === "1" &&
-      sameOrigin &&
-      !pathname.startsWith("/api/"),
+    urlPattern: ({ request, url: { pathname }, sameOrigin }) => request.headers.get("RSC") === "1" && sameOrigin && !pathname.startsWith("/api/"),
     handler: "NetworkFirst",
     options: {
       cacheName: "pages-rsc",
@@ -192,8 +186,7 @@ export const defaultCache: RuntimeCaching[] = [
     },
   },
   {
-    urlPattern: ({ url: { pathname }, sameOrigin }) =>
-      sameOrigin && !pathname.startsWith("/api/"),
+    urlPattern: ({ url: { pathname }, sameOrigin }) => sameOrigin && !pathname.startsWith("/api/"),
     handler: "NetworkFirst",
     options: {
       cacheName: "pages",

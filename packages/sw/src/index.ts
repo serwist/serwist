@@ -21,7 +21,7 @@ export type SerwistOptions = HandlePrecachingOptions & {
 };
 
 export const installSerwist = ({
-  manifestEntries,
+  precacheEntries,
   precacheOptions,
   cleanupOutdatedCaches,
 
@@ -57,7 +57,7 @@ export const installSerwist = ({
   if (shouldClaimClients) clientsClaim();
 
   handlePrecaching({
-    manifestEntries,
+    precacheEntries,
     precacheOptions,
     cleanupOutdatedCaches,
     ...(options.navigateFallback && {

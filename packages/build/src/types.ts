@@ -1,11 +1,7 @@
 import type { QueueOptions } from "@serwist/background-sync";
 import type { BroadcastCacheUpdateOptions } from "@serwist/broadcast-update";
 import type { CacheableResponseOptions } from "@serwist/cacheable-response";
-import type {
-  RouteHandler,
-  RouteMatchCallback,
-  SerwistPlugin,
-} from "@serwist/core";
+import type { RouteHandler, RouteMatchCallback, SerwistPlugin } from "@serwist/core";
 import type { ExpirationPluginOptions } from "@serwist/expiration";
 import type { GoogleAnalyticsInitializeOptions } from "@serwist/google-analytics/initialize";
 import type { PrecacheRouteOptions } from "@serwist/precaching";
@@ -18,12 +14,7 @@ export interface ManifestEntry {
   url: string;
 }
 
-export type StrategyName =
-  | "CacheFirst"
-  | "CacheOnly"
-  | "NetworkFirst"
-  | "NetworkOnly"
-  | "StaleWhileRevalidate";
+export type StrategyName = "CacheFirst" | "CacheOnly" | "NetworkFirst" | "NetworkOnly" | "StaleWhileRevalidate";
 
 export interface RuntimeCaching {
   /**
@@ -145,7 +136,7 @@ export interface BasePartial {
    * A list of entries to be precached, in addition to any entries that are
    * generated as part of the build configuration.
    */
-  additionalManifestEntries?: Array<string | ManifestEntry>;
+  additionalPrecacheEntries?: Array<string | ManifestEntry>;
   /**
    * Assets that match this will be assumed to be uniquely versioned via their
    * URL, and exempted from the normal HTTP cache-busting that's done when
@@ -423,7 +414,7 @@ export interface InjectPartial {
   /**
    * The string to find inside of the `swSrc` file. Once found, it will be
    * replaced by the generated precache manifest.
-   * @default "self.__WB_MANIFEST"
+   * @default "self.__SW_MANIFEST"
    */
   injectionPoint?: string;
   /**
@@ -496,7 +487,7 @@ export interface WebpackInjectManifestPartial {
   // set at runtime to the swSrc basename, with the hardcoded extension .js.
   /**
    * The asset path of the service worker file that will be created by this
-   * plugin. If omitted, the path will be based on `swSrc` (not applicable for 
+   * plugin. If omitted, the path will be based on `swSrc` (not applicable for
    * `@serwist/next`, which requires this value to always be defined).
    */
   swDest?: string;
@@ -515,20 +506,11 @@ export interface WebpackInjectManifestPartial {
   disablePrecacheManifest?: boolean;
 }
 
-export type GetManifestOptions = BasePartial &
-  GlobPartial &
-  RequiredGlobDirectoryPartial;
+export type GetManifestOptions = BasePartial & GlobPartial & RequiredGlobDirectoryPartial;
 
-export type InjectManifestOptions = BasePartial &
-  GlobPartial &
-  InjectPartial &
-  RequiredSWDestPartial &
-  RequiredGlobDirectoryPartial;
+export type InjectManifestOptions = BasePartial & GlobPartial & InjectPartial & RequiredSWDestPartial & RequiredGlobDirectoryPartial;
 
-export type WebpackInjectManifestOptions = BasePartial &
-  WebpackPartial &
-  InjectPartial &
-  WebpackInjectManifestPartial;
+export type WebpackInjectManifestOptions = BasePartial & WebpackPartial & InjectPartial & WebpackInjectManifestPartial;
 
 export interface GetManifestResult {
   count: number;
@@ -558,21 +540,12 @@ export type BuildType = "dev" | "prod";
 /**
  * @private
  */
-export type SerwistPackageJSON = PackageJson & {
-  serwist?: {
-    browserNamespace?: string;
-    packageType?: string;
-    prodOnly?: boolean;
-  };
-};
+export type SerwistPackageJSON = PackageJson;
 
 /**
  * @private
  */
-export type MethodNames =
-  | "GetManifest"
-  | "InjectManifest"
-  | "WebpackInjectManifest";
+export type MethodNames = "GetManifest" | "InjectManifest" | "WebpackInjectManifest";
 
 /**
  * @private

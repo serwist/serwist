@@ -23,15 +23,13 @@
   "repository": "serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",
   "homepage": "https://github.com/serwist/serwist",
-  "serwist": {
-    "packageType": "node_ts"
-  },
   "bin": {
     "serwist": "dist/bin.js"
   },
   "scripts": {
     "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js",
-    "lint": "eslint src --ext ts,tsx,js,jsx,cjs,mjs"
+    "lint": "eslint src --ext ts,tsx,js,jsx,cjs,mjs",
+    "typecheck": "tsc"
   },
   "dependencies": {
     "@serwist/build": "workspace:*",

@@ -8,8 +8,8 @@
 
 import { getManifest } from "./get-manifest.js";
 import { injectManifest } from "./inject-manifest.js";
-import { getModuleURL } from "./lib/cdn-utils.js";
-import { copySerwistLibraries as copySerwistLibraries } from "./lib/copy-serwist-libraries.js";
+// import { getModuleURL } from "./lib/cdn-utils.js";
+// import { copySerwistLibraries as copySerwistLibraries } from "./lib/copy-serwist-libraries.js";
 import { escapeRegExp } from "./lib/escape-regexp.js";
 import { getSourceMapURL } from "./lib/get-source-map-url.js";
 import { replaceAndUpdateSourceMap } from "./lib/replace-and-update-source-map.js";
@@ -17,10 +17,11 @@ import { transformManifest } from "./lib/transform-manifest.js";
 import { validateWebpackInjectManifestOptions } from "./lib/validate-options.js";
 
 export {
-  copySerwistLibraries,
+  // Reintroduce this feature some time soon.
+  // copySerwistLibraries,
   escapeRegExp,
   getManifest,
-  getModuleURL,
+  // getModuleURL,
   getSourceMapURL,
   injectManifest,
   replaceAndUpdateSourceMap,

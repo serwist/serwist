@@ -2,57 +2,19 @@ import type { WebpackInjectManifestOptions } from "@serwist/build";
 
 type Require<T, U extends keyof T> = T & Required<Pick<T, U>>;
 
-export interface PluginOptions {
-  /**
-   * One or more specifiers used to exclude assets from the precache manifest.
-   * This is interpreted following the same rules as webpack's standard `exclude`
-   * option. Relative to `.next/static` or your custom build folder. Defaults to
-   * [].
-   * @example
-   *   ```ts
-   *   [/chunks\/images\/.*$/];
-   *   ```
-   * @default
-   *   ```ts
-   *   [];
-   *   ```
-   */
-  buildExcludes?: WebpackInjectManifestOptions["exclude"];
+export interface PluginOptions extends Require<WebpackInjectManifestOptions, "swDest"> {
   /**
    * Enable additional route caching when users navigate through pages with
-   * `next/link`. This improves user experience in some cases but it
-   * also adds some overhead because of additional network calls.
+   * `next/link`. This improves the user experience in some cases but it
+   * also adds a bit of overhead due to additional network calls.
    * @default false
    */
   cacheOnFrontEndNav?: boolean;
-  /**
-   * Turn on caching for the start URL. [Discussion on use cases for this
-   * option](https://github.com/shadowwalker/next-pwa/pull/296#issuecomment-1094167025)
-   * @default true
-   */
-  cacheStartUrl?: boolean;
   /**
    * Whether Serwist should be disabled.
    * @default false
    */
   disable?: boolean;
-  /**
-   * If your start URL redirects to another route such as `/login`, it's
-   * recommended to specify this redirected URL for the best user experience.
-   * Effective when `dynamicStartUrl` is set to `true`.
-   * @default undefined
-   */
-  dynamicStartUrlRedirect?: string;
-  /**
-   * An array of glob pattern strings to exclude files in the public folder from
-   * being precached. By default, this plugin excludes `public/noprecache`.
-   * Note that you have to add `!` before each glob pattern for it to work.
-   * @example
-   *   ```ts
-   *   ["!img/super-large-image.jpg", "!fonts/not-used-fonts.otf"];
-   *   ```
-   */
-  publicExcludes?: string[];
   /**
    * URL scope for PWA. Set to `/foo/` so that paths under `/foo/` are PWA while others
    * are not.
@@ -60,10 +22,10 @@ export interface PluginOptions {
    */
   scope?: string;
   /**
-   * The service worker's output filename.
+   * The URL to the service worker.
    * @default "/sw.js"
    */
-  sw?: string;
+  swUrl?: string;
   /**
    * Allow this plugin to automatically register the service worker for you. Set
    * this to `false` if you want to register the service worker yourself, which
@@ -118,8 +80,4 @@ export interface PluginOptions {
    * @default true
    */
   reloadOnOnline?: boolean;
-  /**
-   * Pass options to `@serwist/webpack-plugin`.
-   */
-  buildOptions: Require<WebpackInjectManifestOptions, "swDest">;
 }

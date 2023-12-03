@@ -24,9 +24,6 @@
   "repository": "serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",
   "homepage": "https://ducanh-next-pwa.vercel.app",
-  "serwist": {
-    "packageType": "node_ts"
-  },
   "module": "./dist/index.js",
   "main": "./dist/index.old.cjs",
   "types": "./dist/index.d.ts",
@@ -40,7 +37,8 @@
   },
   "scripts": {
     "build": "rimraf dist && cross-env NODE_OPTIONS='--max-old-space-size=4096' NODE_ENV=production rollup --config rollup.config.js",
-    "lint": "eslint src --ext ts,tsx,js,jsx,cjs,mjs"
+    "lint": "eslint src --ext ts,tsx,js,jsx,cjs,mjs",
+    "typecheck": "tsc"
   },
   "dependencies": {
     "@apideck/better-ajv-errors": "0.3.6",

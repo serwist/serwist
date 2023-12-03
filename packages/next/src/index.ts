@@ -26,15 +26,13 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
       const tsConfigJson = loadTSConfig(options.dir, nextConfig?.typescript?.tsconfigPath);
 
       const {
-        disable = false,
-        sw = "sw.js",
-        publicExcludes = ["!noprecache/**/*"],
-        buildExcludes = [],
         cacheOnFrontEndNav = false,
+        disable = false,
+        scope = basePath,
+        swUrl = "sw.js",
         register = true,
         reloadOnOnline = true,
-        scope = basePath,
-        buildOptions,
+        ...buildOptions
       } = pluginOptions;
 
       if (typeof nextConfig.webpack === "function") {
@@ -52,16 +50,16 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
 
       logger.event(`Compiling for ${options.isServer ? "server" : "client (static)"}...`);
 
-      const _sw = path.posix.join(basePath, sw);
+      const _sw = path.posix.join(basePath, swUrl);
       const _scope = path.posix.join(scope, "/");
 
       config.plugins.push(
         new webpack.DefinePlugin({
-          "self.serwistNextOptions.sw": `'${_sw}'`,
-          "self.serwistNextOptions.scope": `'${_scope}'`,
-          "self.serwistNextOptions.cacheOnFrontEndNav": `${Boolean(cacheOnFrontEndNav)}`,
-          "self.serwistNextOptions.register": `${Boolean(register)}`,
-          "self.serwistNextOptions.reloadOnOnline": `${Boolean(reloadOnOnline)}`,
+          "self.__SERWIST_SW_ENTRY.sw": `'${_sw}'`,
+          "self.__SERWIST_SW_ENTRY.scope": `'${_scope}'`,
+          "self.__SERWIST_SW_ENTRY.cacheOnFrontEndNav": `${Boolean(cacheOnFrontEndNav)}`,
+          "self.__SERWIST_SW_ENTRY.register": `${Boolean(register)}`,
+          "self.__SERWIST_SW_ENTRY.reloadOnOnline": `${Boolean(reloadOnOnline)}`,
         } satisfies Record<`${SerwistNextOptionsKey}.${Exclude<keyof SerwistNextOptions, "swEntryWorker">}`, string | undefined>)
       );
 
@@ -102,7 +100,8 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
         const {
           swSrc: providedSwSrc,
           swDest: providedSwDest,
-          additionalManifestEntries,
+          additionalPrecacheEntries,
+          exclude = [],
           modifyURLPrefix = {},
           manifestTransforms = [],
           ...otherBuildOptions
@@ -137,7 +136,7 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
         }
         config.plugins.push(
           new webpack.DefinePlugin({
-            "self.serwistNextOptions.swEntryWorker": swEntryPublicPath && `'${swEntryPublicPath}'`,
+            "self.__SERWIST_SW_ENTRY.swEntryWorker": swEntryPublicPath && `'${swEntryPublicPath}'`,
           } satisfies Record<`${SerwistNextOptionsKey}.${Extract<keyof SerwistNextOptions, "swEntryWorker">}`, string | undefined>)
         );
 
@@ -147,22 +146,25 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
 
         config.plugins.push(
           new CleanWebpackPlugin({
-            cleanOnceBeforeBuildPatterns: [
-              path.join(destDir, "swe-worker-*.js"),
-              path.join(destDir, "swe-worker-*.js.map"),
-              path.join(destDir, sw),
-              path.join(destDir, `${sw}.map`),
-            ],
+            cleanOnceBeforeBuildPatterns: [path.join(destDir, "swe-worker-*.js"), path.join(destDir, "swe-worker-*.js.map"), swDest],
           })
         );
 
         // Precache files in public folder
-        let resolvedManifestEntries = additionalManifestEntries ?? [];
+        let resolvedManifestEntries = additionalPrecacheEntries ?? [];
 
         if (!resolvedManifestEntries) {
+          const swDestFileName = path.basename(swDest);
           resolvedManifestEntries = fg
             .sync(
-              ["**/*", "!swe-worker-*.js", "!swe-worker-*.js.map", `!${sw.replace(/^\/+/, "")}`, `!${sw.replace(/^\/+/, "")}.map`, ...publicExcludes],
+              [
+                "**/*",
+                // Include these in case the user outputs these files to `public`.
+                "!swe-worker-*.js",
+                "!swe-worker-*.js.map",
+                `!${swDestFileName.replace(/^\/+/, "")}`,
+                `!${swDestFileName.replace(/^\/+/, "")}.map`,
+              ],
               {
                 cwd: "public",
               }
@@ -180,9 +182,9 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
             swSrc,
             swDest,
             disablePrecacheManifest: dev,
-            additionalManifestEntries: dev ? [] : resolvedManifestEntries,
+            additionalPrecacheEntries: dev ? [] : resolvedManifestEntries,
             exclude: [
-              ...buildExcludes,
+              ...exclude,
               ({ asset }: { asset: Asset }) => {
                 if (asset.name.startsWith("server/") || asset.name.match(/^((app-|^)build-manifest\.json|react-loadable-manifest\.json)$/)) {
                   return true;

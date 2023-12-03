@@ -10,25 +10,27 @@ declare global {
 }
 declare const self: Window &
   typeof globalThis & {
-    serwistNextOptions: SerwistNextOptions;
+    // Do not dereference this, use its attributes directly or assign them to other variables.
+    // You should do the latter if you use an attribute multiple times.
+    __SERWIST_SW_ENTRY: SerwistNextOptions;
   };
 
 if (typeof window !== "undefined" && "serviceWorker" in navigator && typeof caches !== "undefined") {
   let swEntryWorker: Worker | undefined;
 
-  if (self.serwistNextOptions.swEntryWorker) {
-    swEntryWorker = new Worker(self.serwistNextOptions.swEntryWorker);
+  if (self.__SERWIST_SW_ENTRY.swEntryWorker) {
+    swEntryWorker = new Worker(self.__SERWIST_SW_ENTRY.swEntryWorker);
   }
 
-  window.serwist = new Serwist(window.location.origin + self.serwistNextOptions.sw, {
-    scope: self.serwistNextOptions.scope,
+  window.serwist = new Serwist(window.location.origin + self.__SERWIST_SW_ENTRY.sw, {
+    scope: self.__SERWIST_SW_ENTRY.scope,
   });
 
-  if (self.serwistNextOptions.register) {
+  if (self.__SERWIST_SW_ENTRY.register) {
     window.serwist.register();
   }
 
-  if (self.serwistNextOptions.cacheOnFrontEndNav) {
+  if (self.__SERWIST_SW_ENTRY.cacheOnFrontEndNav) {
     const cacheOnFrontEndNav = async (url?: string | URL | null | undefined) => {
       if (!window.navigator.onLine || !url) {
         return;
@@ -56,7 +58,7 @@ if (typeof window !== "undefined" && "serviceWorker" in navigator && typeof cach
     });
   }
 
-  if (self.serwistNextOptions.reloadOnOnline) {
+  if (self.__SERWIST_SW_ENTRY.reloadOnOnline) {
     window.addEventListener("online", () => location.reload());
   }
 }

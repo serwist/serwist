@@ -16,14 +16,12 @@ type AdditionalManifestEntriesTransform = {
   };
 };
 
-export function additionalManifestEntriesTransform(
-  additionalManifestEntries: Array<ManifestEntry | string>
-): AdditionalManifestEntriesTransform {
+export function additionalPrecacheEntriesTransform(additionalPrecacheEntries: Array<ManifestEntry | string>): AdditionalManifestEntriesTransform {
   return (manifest: Array<ManifestEntry & { size: number }>) => {
     const warnings: Array<string> = [];
     const stringEntries = new Set<string>();
 
-    for (const additionalEntry of additionalManifestEntries) {
+    for (const additionalEntry of additionalPrecacheEntries) {
       // Warn about either a string or an object that lacks a revision property.
       // (An object with a revision property set to null is okay.)
       if (typeof additionalEntry === "string") {

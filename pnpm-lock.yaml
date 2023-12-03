@@ -86,12 +86,12 @@ importers:
 
   examples/next-basic:
     dependencies:
-      '@serwist/build':
-        specifier: workspace:*
-        version: link:../../packages/build
       '@serwist/next':
         specifier: latest
         version: link:../../packages/next
+      '@serwist/sw':
+        specifier: latest
+        version: link:../../packages/sw
       next:
         specifier: 13.5.5
         version: 13.5.5(@babel/core@7.23.2)(react-dom@18.2.0)(react@18.2.0)
@@ -102,9 +102,9 @@ importers:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
     devDependencies:
-      '@serwist/sw':
-        specifier: workspace:*
-        version: link:../../packages/sw
+      '@serwist/precaching':
+        specifier: latest
+        version: link:../../packages/precaching
       '@types/node':
         specifier: 20.8.7
         version: 20.8.7

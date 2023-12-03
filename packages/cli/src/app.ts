@@ -6,11 +6,11 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { copySerwistLibraries, injectManifest, type InjectManifestOptions } from "@serwist/build";
+import { injectManifest, type InjectManifestOptions } from "@serwist/build";
 import assert from "assert";
 import type { WatchOptions } from "chokidar";
 import { default as chokidar } from "chokidar";
-import { oneLine as ol } from "common-tags";
+// import { oneLine as ol } from "common-tags";
 import type { Result as MeowResult } from "meow";
 import prettyBytes from "pretty-bytes";
 import upath from "upath";
@@ -70,16 +70,17 @@ export const app = async (params: MeowResult<SupportedFlags>): Promise<void> => 
     }
 
     case "copyLibraries": {
-      assert(option, errors["missing-dest-dir-param"]);
-      const parentDirectory = upath.resolve(process.cwd(), option);
+      logger.log("This feature is under maintenance. We are really sorry for the inconvenience.");
+      // assert(option, errors["missing-dest-dir-param"]);
+      // const parentDirectory = upath.resolve(process.cwd(), option);
 
-      const dirName = await copySerwistLibraries(parentDirectory);
-      const fullPath = upath.join(parentDirectory, dirName);
+      // const dirName = await copySerwistLibraries(parentDirectory);
+      // const fullPath = upath.join(parentDirectory, dirName);
 
-      logger.log(`The Serwist libraries were copied to ${fullPath}`);
-      logger.log(ol`Add a call to serwist.setConfig({modulePathPrefix: '...'})
-        to your service worker to use these local libraries.`);
-      logger.log(`See https://goo.gl/Fo9gPX for further documentation.`);
+      // logger.log(`The Serwist libraries were copied to ${fullPath}`);
+      // logger.log(ol`Add a call to serwist.setConfig({modulePathPrefix: '...'})
+      //   to your service worker to use these local libraries.`);
+      // logger.log(`See https://goo.gl/Fo9gPX for further documentation.`);
       break;
     }
 

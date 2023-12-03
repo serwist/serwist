@@ -6,13 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type {
-  BasePartial,
-  FileDetails,
-  ManifestEntry,
-  ManifestTransform,
-} from "../types.js";
-import { additionalManifestEntriesTransform } from "./additional-manifest-entries-transform.js";
+import type { BasePartial, FileDetails, ManifestEntry, ManifestTransform } from "../types.js";
+import { additionalPrecacheEntriesTransform } from "./additional-precache-entries-transform.js";
 import { errors } from "./errors.js";
 import { maximumSizeTransform } from "./maximum-size-transform.js";
 import { modifyURLPrefixTransform } from "./modify-url-prefix-transform.js";
@@ -63,7 +58,7 @@ import { noRevisionForURLsMatchingTransform } from "./no-revision-for-urls-match
  * array of entries, prior to the current transformation.
  * @param compilation When used in the webpack plugins, this param
  * will be set to the current `compilation`.
- * @returns The array of entries with the transformation applied, 
+ * @returns The array of entries with the transformation applied,
  * and optionally, any warnings that should be reported back to the build tool.
  */
 
@@ -74,7 +69,7 @@ interface ManifestTransformResultWithWarnings {
   warnings: string[];
 }
 export async function transformManifest({
-  additionalManifestEntries,
+  additionalPrecacheEntries,
   dontCacheBustURLsMatching,
   fileDetails,
   manifestTransforms,
@@ -110,9 +105,7 @@ export async function transformManifest({
   }
 
   if (dontCacheBustURLsMatching) {
-    transformsToApply.push(
-      noRevisionForURLsMatchingTransform(dontCacheBustURLsMatching)
-    );
+    transformsToApply.push(noRevisionForURLsMatchingTransform(dontCacheBustURLsMatching));
   }
 
   // Run any manifestTransforms functions second-to-last.
@@ -120,15 +113,12 @@ export async function transformManifest({
     transformsToApply.push(...manifestTransforms);
   }
 
-  // Run additionalManifestEntriesTransform last.
-  if (additionalManifestEntries) {
-    transformsToApply.push(
-      additionalManifestEntriesTransform(additionalManifestEntries)
-    );
+  // Run additionalPrecacheEntriesTransform last.
+  if (additionalPrecacheEntries) {
+    transformsToApply.push(additionalPrecacheEntriesTransform(additionalPrecacheEntries));
   }
 
-  let transformedManifest: Array<ManifestEntry & { size: number }> =
-    normalizedManifest;
+  let transformedManifest: Array<ManifestEntry & { size: number }> = normalizedManifest;
   for (const transform of transformsToApply) {
     const result = await transform(transformedManifest, transformParam);
     if (!("manifest" in result)) {
@@ -143,9 +133,7 @@ export async function transformManifest({
   // properties from each entry.
   const count = transformedManifest.length;
   let size = 0;
-  for (const manifestEntry of transformedManifest as Array<
-    ManifestEntry & { size?: number }
-  >) {
+  for (const manifestEntry of transformedManifest as Array<ManifestEntry & { size?: number }>) {
     size += manifestEntry.size || 0;
     delete manifestEntry.size;
   }

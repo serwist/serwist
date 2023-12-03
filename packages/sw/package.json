@@ -14,11 +14,6 @@
     "service worker",
     "sw"
   ],
-  "serwist": {
-    "browserNamespace": "serwist",
-    "packageType": "sw",
-    "prodOnly": true
-  },
   "module": "./dist/index.js",
   "main": "./dist/index.old.cjs",
   "types": "./dist/index.d.ts",
@@ -32,7 +27,8 @@
   },
   "scripts": {
     "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js",
-    "lint": "eslint src --ext ts,tsx,js,jsx,cjs,mjs"
+    "lint": "eslint src --ext ts,tsx,js,jsx,cjs,mjs",
+    "typecheck": "tsc"
   },
   "dependencies": {
     "@serwist/background-sync": "workspace:*",

@@ -93,7 +93,7 @@ export const errors = {
   "bad-manifest-transforms-return-value": ol`The return value from a
     manifestTransform should be an object with 'manifest' and optionally
     'warnings' properties.`,
-  "string-entry-warning": ol`Some items were passed to additionalManifestEntries
+  "string-entry-warning": ol`Some items were passed to additionalPrecacheEntries
     without revisioning info. This is generally NOT safe. Learn more at
     https://bit.ly/wb-precache.`,
   "cant-find-sourcemap": ol`The swSrc file refers to a sourcemap that can't be

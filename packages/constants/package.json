@@ -2,12 +2,8 @@
   "name": "@serwist/constants",
   "version": "7.0.0",
   "type": "module",
-  "description": "This module is used by a number of the other Serwist modules to share constants.",
-  "author": "Serwist's Team",
-  "license": "MIT",
-  "repository": "serwist/serwist",
-  "bugs": "https://github.com/serwist/serwist/issues",
-  "homepage": "https://ducanh-next-pwa.vercel.app",
+  "private": true,
+  "description": "This module is used by a number of the other Serwist modules to share configs.",
   "keywords": [
     "serwist",
     "serwistjs",
@@ -17,6 +13,11 @@
     "sync",
     "serwist-plugin"
   ],
+  "author": "Serwist's Team",
+  "license": "MIT",
+  "repository": "serwist/serwist",
+  "bugs": "https://github.com/serwist/serwist/issues",
+  "homepage": "https://ducanh-next-pwa.vercel.app",
   "exports": {
     "./rollup": {
       "types": "./src/rollup.d.ts",

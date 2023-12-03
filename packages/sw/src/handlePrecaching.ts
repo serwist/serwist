@@ -1,27 +1,27 @@
-import type { ManifestEntry } from "@serwist/build";
-import { cleanupOutdatedCaches, createHandlerBoundToURL, precacheAndRoute, type PrecacheRouteOptions } from "@serwist/precaching";
+import type { PrecacheEntry, PrecacheRouteOptions } from "@serwist/precaching";
+import { cleanupOutdatedCaches, createHandlerBoundToURL, precacheAndRoute } from "@serwist/precaching";
 import { NavigationRoute, registerRoute } from "@serwist/routing";
 
 export type HandlePrecachingOptions = {
-  manifestEntries?: ManifestEntry[];
+  precacheEntries?: (PrecacheEntry | string)[];
   precacheOptions?: PrecacheRouteOptions;
 
   cleanupOutdatedCaches?: boolean;
 } & ({ navigateFallback: string; navigateFallbackAllowlist?: RegExp[]; navigateFallbackDenylist?: RegExp[] } | { navigateFallback?: never });
 
 export const handlePrecaching = ({
-  manifestEntries,
+  precacheEntries,
   precacheOptions,
   cleanupOutdatedCaches: shouldCleanupOutdatedCaches = false,
   ...options
 }: HandlePrecachingOptions) => {
-  if (!!manifestEntries && manifestEntries.length > 0) {
+  if (!!precacheEntries && precacheEntries.length > 0) {
     /**
      * The precacheAndRoute() method efficiently caches and responds to
      * requests for URLs in the manifest.
      * See https://goo.gl/S9QRab
      */
-    precacheAndRoute(manifestEntries, precacheOptions);
+    precacheAndRoute(precacheEntries, precacheOptions);
   }
 
   if (shouldCleanupOutdatedCaches) cleanupOutdatedCaches();

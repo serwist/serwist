@@ -15,10 +15,6 @@
     "sw",
     "serwist-plugin"
   ],
-  "serwist": {
-    "browserNamespace": "serwist.cacheableResponse",
-    "packageType": "sw"
-  },
   "module": "./dist/index.js",
   "main": "./dist/index.old.cjs",
   "types": "./dist/index.d.ts",
@@ -32,7 +28,8 @@
   },
   "scripts": {
     "build": "cross-env NODE_ENV=production rollup --waitForBundleInput --config rollup.config.js",
-    "lint": "eslint src --ext ts,tsx,js,jsx,cjs,mjs"
+    "lint": "eslint src --ext ts,tsx,js,jsx,cjs,mjs",
+    "typecheck": "tsc"
   },
   "dependencies": {
     "@serwist/core": "7.0.0"

@@ -21,12 +21,6 @@ import { printInstallDetails } from "./utils/printInstallDetails.js";
 // Give TypeScript the correct global.
 declare let self: ServiceWorkerGlobalScope;
 
-declare global {
-  interface ServiceWorkerGlobalScope {
-    __WB_MANIFEST: Array<PrecacheEntry | string>;
-  }
-}
-
 interface PrecacheControllerOptions {
   /**
    * The cache to use for precaching.

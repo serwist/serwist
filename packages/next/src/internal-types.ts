@@ -1,4 +1,4 @@
-export type SerwistNextOptionsKey = "self.serwistNextOptions";
+export type SerwistNextOptionsKey = "self.__SERWIST_SW_ENTRY";
 
 export interface SerwistNextOptions {
   sw: string;
