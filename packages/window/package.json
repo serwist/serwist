@@ -3,6 +3,10 @@
   "version": "8.0.0",
   "type": "module",
   "description": "Simplifies communications with Serwist packages running in the service worker",
+  "files": [
+    "dist",
+    "!dist/**/dts"
+  ],
   "keywords": [
     "serwist",
     "serwistjs",

@@ -3,17 +3,21 @@
   "version": "8.0.0",
   "license": "MIT",
   "type": "module",
-  "author": "Google's Web DevRel Team, Serwist's Team",
   "description": "This module makes it easy to get started with the Serwist service worker libraries.",
-  "repository": "serwist/serwist",
-  "bugs": "https://github.com/serwist/serwist/issues",
-  "homepage": "https://ducanh-next-pwa.vercel.app",
+  "files": [
+    "dist",
+    "!dist/**/dts"
+  ],
   "keywords": [
     "serwist",
     "serwistjs",
     "service worker",
     "sw"
   ],
+  "author": "Google's Web DevRel Team, Serwist's Team",
+  "repository": "serwist/serwist",
+  "bugs": "https://github.com/serwist/serwist/issues",
+  "homepage": "https://ducanh-next-pwa.vercel.app",
   "module": "./dist/index.js",
   "main": "./dist/index.old.cjs",
   "types": "./dist/index.d.ts",

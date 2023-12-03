@@ -2,12 +2,11 @@
   "name": "@serwist/cacheable-response",
   "version": "8.0.0",
   "type": "module",
-  "license": "MIT",
-  "author": "Google's Web DevRel Team, Serwist's Team",
   "description": "This library takes a Response object and determines whether it's cacheable based on a specific configuration.",
-  "repository": "serwist/serwist",
-  "bugs": "https://github.com/serwist/serwist/issues",
-  "homepage": "https://ducanh-next-pwa.vercel.app",
+  "files": [
+    "dist",
+    "!dist/**/dts"
+  ],
   "keywords": [
     "serwist",
     "serwistjs",
@@ -15,6 +14,11 @@
     "sw",
     "serwist-plugin"
   ],
+  "author": "Google's Web DevRel Team, Serwist's Team",
+  "license": "MIT",
+  "repository": "serwist/serwist",
+  "bugs": "https://github.com/serwist/serwist/issues",
+  "homepage": "https://ducanh-next-pwa.vercel.app",
   "module": "./dist/index.js",
   "main": "./dist/index.old.cjs",
   "types": "./dist/index.d.ts",
