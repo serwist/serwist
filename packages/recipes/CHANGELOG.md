@@ -1,5 +1,19 @@
 # @serwist/recipes
 
+## 8.0.1
+
+### Patch Changes
+
+- [`15fb388`](https://github.com/serwist/serwist/commit/15fb38839a5b3b06bdaa39994fba29b56d05b301) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(publish): removed declarations map
+
+- Updated dependencies [[`15fb388`](https://github.com/serwist/serwist/commit/15fb38839a5b3b06bdaa39994fba29b56d05b301)]:
+  - @serwist/cacheable-response@8.0.1
+  - @serwist/core@8.0.1
+  - @serwist/expiration@8.0.1
+  - @serwist/precaching@8.0.1
+  - @serwist/routing@8.0.1
+  - @serwist/strategies@8.0.1
+
 ## 8.0.0
 
 ### Major Changes
