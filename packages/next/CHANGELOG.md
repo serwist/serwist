@@ -1,5 +1,17 @@
 # @serwist/next
 
+## 8.0.1
+
+### Patch Changes
+
+- [`15fb388`](https://github.com/serwist/serwist/commit/15fb38839a5b3b06bdaa39994fba29b56d05b301) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(publish): removed declarations map
+
+- Updated dependencies [[`15fb388`](https://github.com/serwist/serwist/commit/15fb38839a5b3b06bdaa39994fba29b56d05b301)]:
+  - @serwist/build@8.0.1
+  - @serwist/core@8.0.1
+  - @serwist/webpack-plugin@8.0.1
+  - @serwist/window@8.0.1
+
 ## 8.0.0
 
 ### Major Changes
