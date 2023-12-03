@@ -6,10 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type {
-  RouteHandler,
-  RouteHandlerCallbackOptions,
-} from "@serwist/core";
+import type { RouteHandler, RouteHandlerCallbackOptions } from "@serwist/core";
 import { matchPrecache } from "@serwist/precaching";
 import { setCatchHandler } from "@serwist/routing";
 
@@ -51,37 +48,25 @@ function offlineFallback(options: OfflineFallbackOptions = {}): void {
       files.push(fontFallback);
     }
 
-    event.waitUntil(
-      self.caches
-        .open("serwist-offline-fallbacks")
-        .then((cache) => cache.addAll(files))
-    );
+    event.waitUntil(self.caches.open("serwist-offline-fallbacks").then((cache) => cache.addAll(files)));
   });
 
-  const handler: RouteHandler = async (
-    options: RouteHandlerCallbackOptions
-  ) => {
+  const handler: RouteHandler = async (options: RouteHandlerCallbackOptions) => {
     const dest = options.request.destination;
     const cache = await self.caches.open("serwist-offline-fallbacks");
 
     if (dest === "document") {
-      const match =
-        (await matchPrecache(pageFallback)) ||
-        (await cache.match(pageFallback));
+      const match = (await matchPrecache(pageFallback)) || (await cache.match(pageFallback));
       return match || Response.error();
     }
 
     if (dest === "image" && imageFallback !== false) {
-      const match =
-        (await matchPrecache(imageFallback)) ||
-        (await cache.match(imageFallback));
+      const match = (await matchPrecache(imageFallback)) || (await cache.match(imageFallback));
       return match || Response.error();
     }
 
     if (dest === "font" && fontFallback !== false) {
-      const match =
-        (await matchPrecache(fontFallback)) ||
-        (await cache.match(fontFallback));
+      const match = (await matchPrecache(fontFallback)) || (await cache.match(fontFallback));
       return match || Response.error();
     }
 

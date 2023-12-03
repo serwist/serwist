@@ -5,7 +5,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 function stripParams(fullURL: string, ignoreParams: string[]) {
   const strippedURL = new URL(fullURL);
   for (const param of ignoreParams) {

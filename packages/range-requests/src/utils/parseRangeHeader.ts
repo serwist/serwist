@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 import { assert, SerwistError } from "@serwist/core/internal";
 
 /**

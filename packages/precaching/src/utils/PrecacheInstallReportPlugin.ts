@@ -6,11 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type {
-  SerwistPlugin,
-  SerwistPluginCallbackParam,
-} from "@serwist/core";
-
+import type { SerwistPlugin, SerwistPluginCallbackParam } from "@serwist/core";
 
 /**
  * A plugin, designed to be used with PrecacheController, to determine the
@@ -22,10 +18,7 @@ class PrecacheInstallReportPlugin implements SerwistPlugin {
   updatedURLs: string[] = [];
   notUpdatedURLs: string[] = [];
 
-  handlerWillStart: SerwistPlugin["handlerWillStart"] = async ({
-    request,
-    state,
-  }: SerwistPluginCallbackParam["handlerWillStart"]) => {
+  handlerWillStart: SerwistPlugin["handlerWillStart"] = async ({ request, state }: SerwistPluginCallbackParam["handlerWillStart"]) => {
     // TODO: `state` should never be undefined...
     if (state) {
       state.originalRequest = request;
@@ -38,11 +31,7 @@ class PrecacheInstallReportPlugin implements SerwistPlugin {
     cachedResponse,
   }: SerwistPluginCallbackParam["cachedResponseWillBeUsed"]) => {
     if (event.type === "install") {
-      if (
-        state &&
-        state.originalRequest &&
-        state.originalRequest instanceof Request
-      ) {
+      if (state && state.originalRequest && state.originalRequest instanceof Request) {
         // TODO: `state` should never be undefined...
         const url = state.originalRequest.url;
 

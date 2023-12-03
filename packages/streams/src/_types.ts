@@ -6,5 +6,4 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 export type StreamSource = Response | ReadableStream | BodyInit;

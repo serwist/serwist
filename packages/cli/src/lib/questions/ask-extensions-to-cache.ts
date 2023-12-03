@@ -32,9 +32,7 @@ async function getAllFileExtensions(globDirectory: string) {
     nodir: true,
     ignore: [
       ...constants.ignoredDirectories.map((directory) => `**/${directory}/**`),
-      ...constants.ignoredFileExtensions.map(
-        (extension) => `**/*.${extension}`
-      ),
+      ...constants.ignoredFileExtensions.map((extension) => `**/*.${extension}`),
     ],
   });
 
@@ -78,9 +76,7 @@ async function askQuestion(globDirectory: string): Promise<Answers> {
   ]);
 }
 
-export async function askExtensionsToCache(
-  globDirectory: string
-): Promise<string[]> {
+export async function askExtensionsToCache(globDirectory: string): Promise<string[]> {
   const answers = await askQuestion(globDirectory);
   // The return value is an array of strings with the selected values
   // and there is a default, the casting is safe.
@@ -89,7 +85,6 @@ export async function askExtensionsToCache(
 
   // glob isn't happy with a single option inside of a {} group, so use a
   // pattern without a {} group when there's only one extension.
-  const extensionsPattern: string =
-    extensions.length === 1 ? extensions[0] : `{${extensions.join(",")}}`;
+  const extensionsPattern: string = extensions.length === 1 ? extensions[0] : `{${extensions.join(",")}}`;
   return [`**/*.${extensionsPattern}`];
 }

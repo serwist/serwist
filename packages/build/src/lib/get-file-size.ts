@@ -18,9 +18,6 @@ export function getFileSize(file: string): number | null {
     }
     return stat.size;
   } catch (err) {
-    throw new Error(
-      errors["unable-to-get-file-size"] +
-        ` '${err instanceof Error && err.message ? err.message : ""}'`
-    );
+    throw new Error(errors["unable-to-get-file-size"] + ` '${err instanceof Error && err.message ? err.message : ""}'`);
   }
 }

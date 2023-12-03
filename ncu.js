@@ -8,10 +8,7 @@ import { run } from "npm-check-updates";
  */
 const updateAndLog = async (runOptions) => {
   const upgraded = await run(runOptions);
-  console.log(
-    `Upgraded dependencies for ${runOptions.packageFile ?? "./package.json"}:`,
-    upgraded
-  );
+  console.log(`Upgraded dependencies for ${runOptions.packageFile ?? "./package.json"}:`, upgraded);
 };
 
 const packageJsonList = await fg("**/package.json", {

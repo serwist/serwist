@@ -21,11 +21,7 @@ const isArray = (value: any[], details: MapLikeObject) => {
   }
 };
 
-const hasMethod = (
-  object: MapLikeObject,
-  expectedMethod: string,
-  details: MapLikeObject
-) => {
+const hasMethod = (object: MapLikeObject, expectedMethod: string, details: MapLikeObject) => {
   const type = typeof object[expectedMethod];
   if (type !== "function") {
     details["expectedMethod"] = expectedMethod;
@@ -33,11 +29,7 @@ const hasMethod = (
   }
 };
 
-const isType = (
-  object: unknown,
-  expectedType: string,
-  details: MapLikeObject
-) => {
+const isType = (object: unknown, expectedType: string, details: MapLikeObject) => {
   if (typeof object !== expectedType) {
     details["expectedType"] = expectedType;
     throw new SerwistError("incorrect-type", details);
@@ -59,9 +51,7 @@ const isInstance = (
 
 const isOneOf = (value: any, validValues: any[], details: MapLikeObject) => {
   if (!validValues.includes(value)) {
-    details["validValueDescription"] = `Valid values are ${JSON.stringify(
-      validValues
-    )}.`;
+    details["validValueDescription"] = `Valid values are ${JSON.stringify(validValues)}.`;
     throw new SerwistError("invalid-value", details);
   }
 };

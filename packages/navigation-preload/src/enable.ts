@@ -28,9 +28,7 @@ function enable(headerValue?: string): void {
         self.registration.navigationPreload.enable().then(() => {
           // Defaults to Service-Worker-Navigation-Preload: true if not set.
           if (headerValue) {
-            void self.registration.navigationPreload.setHeaderValue(
-              headerValue
-            );
+            void self.registration.navigationPreload.setHeaderValue(headerValue);
           }
 
           if (process.env.NODE_ENV !== "production") {

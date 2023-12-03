@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 import { assert, logger, SerwistError } from "@serwist/core/internal";
 
 import { cacheOkAndOpaquePlugin } from "./plugins/cacheOkAndOpaquePlugin.js";
@@ -121,9 +120,7 @@ class NetworkFirst extends Strategy {
     );
 
     if (process.env.NODE_ENV !== "production") {
-      logger.groupCollapsed(
-        messages.strategyStart(this.constructor.name, request)
-      );
+      logger.groupCollapsed(messages.strategyStart(this.constructor.name, request));
       for (const log of logs) {
         logger.log(log);
       }
@@ -155,23 +152,15 @@ class NetworkFirst extends Strategy {
     handler: StrategyHandler;
   }): { promise: Promise<Response | undefined>; id?: number } {
     let timeoutId;
-    const timeoutPromise: Promise<Response | undefined> = new Promise(
-      (resolve) => {
-        const onNetworkTimeout = async () => {
-          if (process.env.NODE_ENV !== "production") {
-            logs.push(
-              `Timing out the network response at ` +
-                `${this._networkTimeoutSeconds} seconds.`
-            );
-          }
-          resolve(await handler.cacheMatch(request));
-        };
-        timeoutId = setTimeout(
-          onNetworkTimeout,
-          this._networkTimeoutSeconds * 1000
-        );
-      }
-    );
+    const timeoutPromise: Promise<Response | undefined> = new Promise((resolve) => {
+      const onNetworkTimeout = async () => {
+        if (process.env.NODE_ENV !== "production") {
+          logs.push(`Timing out the network response at ` + `${this._networkTimeoutSeconds} seconds.`);
+        }
+        resolve(await handler.cacheMatch(request));
+      };
+      timeoutId = setTimeout(onNetworkTimeout, this._networkTimeoutSeconds * 1000);
+    });
 
     return {
       promise: timeoutPromise,
@@ -218,10 +207,7 @@ class NetworkFirst extends Strategy {
       if (response) {
         logs.push(`Got response from network.`);
       } else {
-        logs.push(
-          `Unable to get a response from the network. Will respond ` +
-            `with a cached response.`
-        );
+        logs.push(`Unable to get a response from the network. Will respond ` + `with a cached response.`);
       }
     }
 
@@ -230,9 +216,7 @@ class NetworkFirst extends Strategy {
 
       if (process.env.NODE_ENV !== "production") {
         if (response) {
-          logs.push(
-            `Found a cached response in the '${this.cacheName}'` + ` cache.`
-          );
+          logs.push(`Found a cached response in the '${this.cacheName}'` + ` cache.`);
         } else {
           logs.push(`No response found in the '${this.cacheName}' cache.`);
         }

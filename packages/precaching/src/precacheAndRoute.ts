@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 import type { PrecacheEntry, PrecacheRouteOptions } from "./_types.js";
 import { addRoute } from "./addRoute.js";
 import { precache } from "./precache.js";
@@ -22,10 +21,7 @@ import { precache } from "./precache.js";
  * @param entries Array of entries to precache.
  * @param options See the `@serwist/precaching.PrecacheRoute` options.
  */
-function precacheAndRoute(
-  entries: Array<PrecacheEntry | string>,
-  options?: PrecacheRouteOptions
-): void {
+function precacheAndRoute(entries: Array<PrecacheEntry | string>, options?: PrecacheRouteOptions): void {
   precache(entries);
   addRoute(options);
 }

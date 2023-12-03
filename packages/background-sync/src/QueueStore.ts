@@ -7,10 +7,7 @@
 */
 import { assert } from "@serwist/core/internal";
 
-import type {
-  QueueStoreEntry,
-  UnidentifiedQueueStoreEntry,
-} from "./QueueDb.js";
+import type { QueueStoreEntry, UnidentifiedQueueStoreEntry } from "./QueueDb.js";
 import { QueueDb } from "./QueueDb.js";
 
 /**
@@ -104,9 +101,7 @@ export class QueueStore {
    * @returns
    */
   async popEntry(): Promise<QueueStoreEntry | undefined> {
-    return this._removeEntry(
-      await this._queueDb.getLastEntryByQueueName(this._queueName)
-    );
+    return this._removeEntry(await this._queueDb.getLastEntryByQueueName(this._queueName));
   }
 
   /**
@@ -115,9 +110,7 @@ export class QueueStore {
    * @returns
    */
   async shiftEntry(): Promise<QueueStoreEntry | undefined> {
-    return this._removeEntry(
-      await this._queueDb.getFirstEntryByQueueName(this._queueName)
-    );
+    return this._removeEntry(await this._queueDb.getFirstEntryByQueueName(this._queueName));
   }
 
   /**
@@ -159,9 +152,7 @@ export class QueueStore {
    * @returns
    * @private
    */
-  async _removeEntry(
-    entry?: QueueStoreEntry
-  ): Promise<QueueStoreEntry | undefined> {
+  async _removeEntry(entry?: QueueStoreEntry): Promise<QueueStoreEntry | undefined> {
     if (entry) {
       await this.deleteEntry(entry.id);
     }

@@ -1,4 +1,3 @@
-
 import type { Strategy } from "@serwist/strategies";
 
 export interface WarmStrategyCacheOptions {
@@ -16,7 +15,7 @@ export interface WarmStrategyCacheOptions {
 declare let self: ServiceWorkerGlobalScope;
 
 /**
- * @param options 
+ * @param options
  */
 function warmStrategyCache(options: WarmStrategyCacheOptions): void {
   self.addEventListener("install", (event) => {

@@ -25,5 +25,4 @@ const generatorFunction = (code: string, details = {}) => {
   return message(details);
 };
 
-export const messageGenerator =
-  process.env.NODE_ENV === "production" ? fallback : generatorFunction;
+export const messageGenerator = process.env.NODE_ENV === "production" ? fallback : generatorFunction;

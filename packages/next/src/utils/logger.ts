@@ -4,10 +4,7 @@ const LOGGING_METHOD = ["wait", "error", "warn", "info", "event"] as const;
 
 type LoggingMethods = (typeof LOGGING_METHOD)[number];
 
-const mapLoggingMethodToConsole: Record<
-  LoggingMethods,
-  "log" | "error" | "warn" | "log"
-> = {
+const mapLoggingMethodToConsole: Record<LoggingMethods, "log" | "error" | "warn" | "log"> = {
   wait: "log",
   error: "error",
   warn: "warn",

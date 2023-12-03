@@ -36,31 +36,23 @@ const BUILD_DIR = "build";
  * the new directory of libraries will be created.
  * @returns The name of the newly created directory.
  */
-export async function copySerwistLibraries(
-  destDirectory: string
-): Promise<string> {
+export async function copySerwistLibraries(destDirectory: string): Promise<string> {
   const thisPkg: SerwistPackageJSON = require("../../package.json");
   // Use the version string from @serwist/build in the name of the parent
   // directory. This should be safe, because lerna will bump @serwist/build's
   // pkg.version whenever one of the dependent libraries gets bumped, and we
   // care about versioning the dependent libraries.
-  const workboxDirectoryName = `serwist-v${
-    thisPkg.version ? thisPkg.version : ""
-  }`;
+  const workboxDirectoryName = `serwist-v${thisPkg.version ? thisPkg.version : ""}`;
   const workboxDirectoryPath = upath.join(destDirectory, workboxDirectoryName);
   await fse.ensureDir(workboxDirectoryPath);
 
   const copyPromises: Array<Promise<void>> = [];
-  const librariesToCopy = Object.keys(thisPkg.dependencies || {}).filter(
-    (dependency) => dependency.startsWith(SERWIST_PREFIX)
-  );
+  const librariesToCopy = Object.keys(thisPkg.dependencies || {}).filter((dependency) => dependency.startsWith(SERWIST_PREFIX));
 
   for (const library of librariesToCopy) {
     // Get the path to the package on the user's filesystem by require-ing
     // the package's `package.json` file via the node resolution algorithm.
-    const libraryPath = upath.dirname(
-      require.resolve(`${library}/package.json`)
-    );
+    const libraryPath = upath.dirname(require.resolve(`${library}/package.json`));
 
     const buildPath = upath.join(libraryPath, BUILD_DIR);
 
@@ -73,10 +65,6 @@ export async function copySerwistLibraries(
     await Promise.all(copyPromises);
     return workboxDirectoryName;
   } catch (error) {
-    throw Error(
-      `${errors["unable-to-copy-serwist-libraries"]} ${
-        error instanceof Error ? error.toString() : ""
-      }`
-    );
+    throw Error(`${errors["unable-to-copy-serwist-libraries"]} ${error instanceof Error ? error.toString() : ""}`);
   }
 }

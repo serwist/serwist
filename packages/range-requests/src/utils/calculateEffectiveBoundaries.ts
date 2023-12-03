@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 import { assert, SerwistError } from "@serwist/core/internal";
 
 /**
@@ -18,11 +17,7 @@ import { assert, SerwistError } from "@serwist/core/internal";
  * the effective boundaries to use given the size of the blob.
  * @private
  */
-function calculateEffectiveBoundaries(
-  blob: Blob,
-  start?: number,
-  end?: number
-): { start: number; end: number } {
+function calculateEffectiveBoundaries(blob: Blob, start?: number, end?: number): { start: number; end: number } {
   if (process.env.NODE_ENV !== "production") {
     assert!.isInstance(blob, Blob, {
       moduleName: "@serwist/range-requests",

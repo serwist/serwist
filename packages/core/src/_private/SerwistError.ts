@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 import { messageGenerator } from "../models/messages/messageGenerator.js";
 import type { MapLikeObject } from "../types.js";
 

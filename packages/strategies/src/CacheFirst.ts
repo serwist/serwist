@@ -47,10 +47,7 @@ class CacheFirst extends Strategy {
     let error: Error | undefined = undefined;
     if (!response) {
       if (process.env.NODE_ENV !== "production") {
-        logs.push(
-          `No response found in the '${this.cacheName}' cache. ` +
-            `Will respond with a network request.`
-        );
+        logs.push(`No response found in the '${this.cacheName}' cache. ` + `Will respond with a network request.`);
       }
       try {
         response = await handler.fetchAndCachePut(request);
@@ -74,9 +71,7 @@ class CacheFirst extends Strategy {
     }
 
     if (process.env.NODE_ENV !== "production") {
-      logger.groupCollapsed(
-        messages.strategyStart(this.constructor.name, request)
-      );
+      logger.groupCollapsed(messages.strategyStart(this.constructor.name, request));
       for (const log of logs) {
         logger.log(log);
       }

@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 declare let registration: ServiceWorkerRegistration | undefined;
 
 export interface CacheNameDetails {
@@ -41,12 +40,7 @@ export interface PartialCacheNameDetails {
   [propName: string]: string | undefined;
 }
 
-export type CacheNameDetailsProp =
-  | "googleAnalytics"
-  | "precache"
-  | "prefix"
-  | "runtime"
-  | "suffix";
+export type CacheNameDetailsProp = "googleAnalytics" | "precache" | "prefix" | "runtime" | "suffix";
 
 const _cacheNameDetails: CacheNameDetails = {
   googleAnalytics: "googleAnalytics",
@@ -57,9 +51,7 @@ const _cacheNameDetails: CacheNameDetails = {
 };
 
 const _createCacheName = (cacheName: string): string => {
-  return [_cacheNameDetails.prefix, cacheName, _cacheNameDetails.suffix]
-    .filter((value) => value && value.length > 0)
-    .join("-");
+  return [_cacheNameDetails.prefix, cacheName, _cacheNameDetails.suffix].filter((value) => value && value.length > 0).join("-");
 };
 
 const eachCacheNameDetail = (fn: (key: CacheNameDetailsProp) => void): void => {

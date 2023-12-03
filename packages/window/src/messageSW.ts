@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 /**
  * Sends a data object to a service worker via `postMessage` and resolves with
  * a response (if any).

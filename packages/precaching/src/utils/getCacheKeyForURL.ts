@@ -21,10 +21,7 @@ import { getOrCreatePrecacheController } from "./getOrCreatePrecacheController.j
  *
  * @private
  */
-export const getCacheKeyForURL = (
-  url: string,
-  options: PrecacheRouteOptions
-): string | void => {
+export const getCacheKeyForURL = (url: string, options: PrecacheRouteOptions): string | void => {
   const precacheController = getOrCreatePrecacheController();
 
   const urlsToCacheKeys = precacheController.getURLsToCacheKeys();

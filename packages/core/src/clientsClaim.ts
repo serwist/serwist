@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 // Give TypeScript the correct global.
 declare let self: ServiceWorkerGlobalScope;
 

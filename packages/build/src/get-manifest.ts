@@ -25,10 +25,8 @@ import type { GetManifestOptions, GetManifestResult } from "./types.js";
  *   maximumFileSizeToCacheInBytes: ...,
  * });
  * ```
-  */
-export async function getManifest(
-  config: GetManifestOptions
-): Promise<GetManifestResult> {
+ */
+export async function getManifest(config: GetManifestOptions): Promise<GetManifestResult> {
   const options = validateGetManifestOptions(config);
 
   return await getFileManifestEntries(options);

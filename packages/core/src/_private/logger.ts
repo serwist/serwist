@@ -5,7 +5,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 // logger is used inside of both service workers and the window global scope.
 declare global {
   interface WorkerGlobalScope {
@@ -17,13 +16,7 @@ declare global {
   }
 }
 
-type LoggerMethods =
-  | "debug"
-  | "log"
-  | "warn"
-  | "error"
-  | "groupCollapsed"
-  | "groupEnd";
+type LoggerMethods = "debug" | "log" | "warn" | "error" | "groupCollapsed" | "groupEnd";
 
 const logger = (
   process.env.NODE_ENV === "production"

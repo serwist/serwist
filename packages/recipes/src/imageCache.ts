@@ -7,11 +7,7 @@
 */
 
 import { CacheableResponsePlugin } from "@serwist/cacheable-response";
-import type {
-  RouteMatchCallback,
-  RouteMatchCallbackOptions,
-  SerwistPlugin,
-} from "@serwist/core";
+import type { RouteMatchCallback, RouteMatchCallbackOptions, SerwistPlugin } from "@serwist/core";
 import { ExpirationPlugin } from "@serwist/expiration";
 import { registerRoute } from "@serwist/routing";
 import { CacheFirst } from "@serwist/strategies";
@@ -51,8 +47,7 @@ export interface ImageCacheOptions {
  * @param options
  */
 function imageCache(options: ImageCacheOptions = {}): void {
-  const defaultMatchCallback = ({ request }: RouteMatchCallbackOptions) =>
-    request.destination === "image";
+  const defaultMatchCallback = ({ request }: RouteMatchCallbackOptions) => request.destination === "image";
 
   const cacheName = options.cacheName || "images";
   const matchCallback = options.matchCallback || defaultMatchCallback;

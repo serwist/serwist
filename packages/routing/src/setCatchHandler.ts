@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 import type { RouteHandler } from "@serwist/core";
 
 import { getOrCreateDefaultRouter } from "./utils/getOrCreateDefaultRouter.js";

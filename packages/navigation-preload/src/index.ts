@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 import { disable } from "./disable.js";
 import { enable } from "./enable.js";
 import { isSupported } from "./isSupported.js";

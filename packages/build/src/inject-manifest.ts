@@ -47,10 +47,8 @@ import type { BuildResult, InjectManifestOptions } from "./types.js";
  *   swSrc: '...',
  * });
  * ```
-  */
-export async function injectManifest(
-  config: InjectManifestOptions
-): Promise<BuildResult> {
+ */
+export async function injectManifest(config: InjectManifestOptions): Promise<BuildResult> {
   const options = validateInjectManifestOptions(config);
 
   // Make sure we leave swSrc and swDest out of the precache manifest.
@@ -65,17 +63,12 @@ export async function injectManifest(
 
   const globalRegexp = new RegExp(escapeRegExp(options.injectionPoint!), "g");
 
-  const { count, size, manifestEntries, warnings } =
-    await getFileManifestEntries(options);
+  const { count, size, manifestEntries, warnings } = await getFileManifestEntries(options);
   let swFileContents: string;
   try {
     swFileContents = await fse.readFile(options.swSrc, "utf8");
   } catch (error) {
-    throw new Error(
-      `${errors["invalid-sw-src"]} ${
-        error instanceof Error && error.message ? error.message : ""
-      }`
-    );
+    throw new Error(`${errors["invalid-sw-src"]} ${error instanceof Error && error.message ? error.message : ""}`);
   }
 
   const injectionResults = swFileContents.match(globalRegexp);
@@ -88,21 +81,14 @@ export async function injectManifest(
     throw new Error(`${errors["injection-point-not-found"]} ${injectionPoint}`);
   }
 
-  assert(
-    injectionResults.length === 1,
-    `${errors["multiple-injection-points"]} ${injectionPoint}`
-  );
+  assert(injectionResults.length === 1, `${errors["multiple-injection-points"]} ${injectionPoint}`);
 
   const manifestString = stringify(manifestEntries);
   const filesToWrite: { [key: string]: string } = {};
 
   const url = getSourceMapURL(swFileContents);
   // See https://github.com/GoogleChrome/workbox/issues/2957
-  const { destPath, srcPath, warning } = translateURLToSourcemapPaths(
-    url,
-    options.swSrc,
-    options.swDest
-  );
+  const { destPath, srcPath, warning } = translateURLToSourcemapPaths(url, options.swSrc, options.swDest);
   if (warning) {
     warnings.push(warning);
   }
@@ -131,20 +117,14 @@ export async function injectManifest(
   } else {
     // If there's no sourcemap associated with swSrc, a simple string
     // replacement will suffice.
-    filesToWrite[options.swDest] = swFileContents.replace(
-      globalRegexp,
-      manifestString
-    );
+    filesToWrite[options.swDest] = swFileContents.replace(globalRegexp, manifestString);
   }
 
   for (const [file, contents] of Object.entries(filesToWrite)) {
     try {
       await fse.mkdirp(upath.dirname(file));
     } catch (error: unknown) {
-      throw new Error(
-        errors["unable-to-make-sw-directory"] +
-          ` '${error instanceof Error && error.message ? error.message : ""}'`
-      );
+      throw new Error(errors["unable-to-make-sw-directory"] + ` '${error instanceof Error && error.message ? error.message : ""}'`);
     }
 
     await fse.writeFile(file, contents);

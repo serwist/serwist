@@ -7,17 +7,16 @@
 */
 
 import type { RouteHandler, RouteMatchCallbackOptions } from "@serwist/core";
-import { assert, logger  } from "@serwist/core/internal";
+import { assert, logger } from "@serwist/core/internal";
 
 import { Route } from "./Route.js";
-
 
 export interface NavigationRouteMatchOptions {
   /**
    * If any of these patterns
    * match the URL's pathname and search parameter, the route will handle the
    * request (assuming the denylist doesn't match).
-   * 
+   *
    * @default [/./]
    */
   allowlist?: RegExp[];
@@ -58,10 +57,7 @@ class NavigationRoute extends Route {
    * @param handler A callback function that returns a Promise resulting in a Response.
    * @param options
    */
-  constructor(
-    handler: RouteHandler,
-    { allowlist = [/./], denylist = [] }: NavigationRouteMatchOptions = {}
-  ) {
+  constructor(handler: RouteHandler, { allowlist = [/./], denylist = [] }: NavigationRouteMatchOptions = {}) {
     if (process.env.NODE_ENV !== "production") {
       assert!.isArrayOfClass(allowlist, RegExp, {
         moduleName: "@serwist/routing",
@@ -77,10 +73,7 @@ class NavigationRoute extends Route {
       });
     }
 
-    super(
-      (options: RouteMatchCallbackOptions) => this._match(options),
-      handler
-    );
+    super((options: RouteMatchCallbackOptions) => this._match(options), handler);
 
     this._allowlist = allowlist;
     this._denylist = denylist;
@@ -104,9 +97,7 @@ class NavigationRoute extends Route {
       if (regExp.test(pathnameAndSearch)) {
         if (process.env.NODE_ENV !== "production") {
           logger.log(
-            `The navigation route ${pathnameAndSearch} is not ` +
-              `being used, since the URL matches this denylist pattern: ` +
-              `${regExp.toString()}`
+            `The navigation route ${pathnameAndSearch} is not ` + `being used, since the URL matches this denylist pattern: ` + `${regExp.toString()}`
           );
         }
         return false;
@@ -115,18 +106,14 @@ class NavigationRoute extends Route {
 
     if (this._allowlist.some((regExp) => regExp.test(pathnameAndSearch))) {
       if (process.env.NODE_ENV !== "production") {
-        logger.debug(
-          `The navigation route ${pathnameAndSearch} ` + `is being used.`
-        );
+        logger.debug(`The navigation route ${pathnameAndSearch} ` + `is being used.`);
       }
       return true;
     }
 
     if (process.env.NODE_ENV !== "production") {
       logger.log(
-        `The navigation route ${pathnameAndSearch} is not ` +
-          `being used, since the URL being navigated to doesn't ` +
-          `match the allowlist.`
+        `The navigation route ${pathnameAndSearch} is not ` + `being used, since the URL being navigated to doesn't ` + `match the allowlist.`
       );
     }
     return false;

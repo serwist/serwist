@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 import type { SerwistPlugin } from "@serwist/core";
 
 import { createPartialResponse } from "./createPartialResponse.js";
@@ -26,10 +25,7 @@ class RangeRequestsPlugin implements SerwistPlugin {
    * returned. Otherwise, `cachedResponse` is returned as-is.
    * @private
    */
-  cachedResponseWillBeUsed: SerwistPlugin["cachedResponseWillBeUsed"] = async ({
-    request,
-    cachedResponse,
-  }) => {
+  cachedResponseWillBeUsed: SerwistPlugin["cachedResponseWillBeUsed"] = async ({ request, cachedResponse }) => {
     // Only return a sliced response if there's something valid in the cache,
     // and there's a Range: header in the request.
     if (cachedResponse && request.headers.has("range")) {

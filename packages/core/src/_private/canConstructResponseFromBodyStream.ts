@@ -6,14 +6,13 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 let supportStatus: boolean | undefined;
 
 /**
  * A utility function that determines whether the current browser supports
  * constructing a new `Response` from a `response.body` stream.
  *
- * @returns `true`, if the current browser can successfully construct 
+ * @returns `true`, if the current browser can successfully construct
  * a `Response` from a `response.body` stream, `false` otherwise.
  * @private
  */

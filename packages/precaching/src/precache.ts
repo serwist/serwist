@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 import type { PrecacheEntry } from "./_types.js";
 import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheController.js";
 
@@ -25,7 +24,7 @@ import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheContro
  * `@serwist/precaching.precacheAndRoute`.
  *
  * @param entries Array of entries to precache.
-  */
+ */
 function precache(entries: Array<PrecacheEntry | string>): void {
   const precacheController = getOrCreatePrecacheController();
   precacheController.precache(entries);

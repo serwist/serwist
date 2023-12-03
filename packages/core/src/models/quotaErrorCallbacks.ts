@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 // Callbacks to be executed whenever there's a quota error.
 // Can't change Function type right now.
 // eslint-disable-next-line @typescript-eslint/ban-types

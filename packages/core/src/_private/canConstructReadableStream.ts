@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 let supportStatus: boolean | undefined;
 
 /**

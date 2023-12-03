@@ -6,11 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-
-import type {
-  RouteHandlerCallback,
-  RouteHandlerCallbackOptions,
-} from "@serwist/core";
+import type { RouteHandlerCallback, RouteHandlerCallbackOptions } from "@serwist/core";
 import { logger } from "@serwist/core/internal";
 
 import type { StreamSource } from "./_types.js";
@@ -19,12 +15,7 @@ import { isSupported } from "./isSupported.js";
 import { createHeaders } from "./utils/createHeaders.js";
 
 export interface StreamsHandlerCallback {
-  ({
-    url,
-    request,
-    event,
-    params,
-  }: RouteHandlerCallbackOptions): Promise<StreamSource> | StreamSource;
+  ({ url, request, event, params }: RouteHandlerCallbackOptions): Promise<StreamSource> | StreamSource;
 }
 
 /**
@@ -39,26 +30,15 @@ export interface StreamsHandlerCallback {
  * @param headersInit If there's no `Content-Type` specified, `'text/html'` will be used by default.
  * @returns
  */
-function strategy(
-  sourceFunctions: StreamsHandlerCallback[],
-  headersInit: HeadersInit
-): RouteHandlerCallback {
-  return async ({
-    event,
-    request,
-    url,
-    params,
-  }: RouteHandlerCallbackOptions) => {
+function strategy(sourceFunctions: StreamsHandlerCallback[], headersInit: HeadersInit): RouteHandlerCallback {
+  return async ({ event, request, url, params }: RouteHandlerCallbackOptions) => {
     const sourcePromises = sourceFunctions.map((fn) => {
       // Ensure the return value of the function is always a promise.
       return Promise.resolve(fn({ event, request, url, params }));
     });
 
     if (isSupported()) {
-      const { done, response } = concatenateToResponse(
-        sourcePromises,
-        headersInit
-      );
+      const { done, response } = concatenateToResponse(sourcePromises, headersInit);
 
       if (event) {
         event.waitUntil(done);
@@ -67,10 +47,7 @@ function strategy(
     }
 
     if (process.env.NODE_ENV !== "production") {
-      logger.log(
-        `The current browser doesn't support creating response ` +
-          `streams. Falling back to non-streaming response instead.`
-      );
+      logger.log(`The current browser doesn't support creating response ` + `streams. Falling back to non-streaming response instead.`);
     }
 
     // Fallback to waiting for everything to finish, and concatenating the

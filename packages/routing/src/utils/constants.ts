@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 export type HTTPMethod = "DELETE" | "GET" | "HEAD" | "PATCH" | "POST" | "PUT";
 
 /**
@@ -26,11 +25,4 @@ export const defaultMethod: HTTPMethod = "GET";
  *
  * @private
  */
-export const validMethods: HTTPMethod[] = [
-  "DELETE",
-  "GET",
-  "HEAD",
-  "PATCH",
-  "POST",
-  "PUT",
-];
+export const validMethods: HTTPMethod[] = ["DELETE", "GET", "HEAD", "PATCH", "POST", "PUT"];

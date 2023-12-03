@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 import type { SerwistPlugin } from "@serwist/core";
 
 import type { CacheableResponseOptions } from "./CacheableResponse.js";

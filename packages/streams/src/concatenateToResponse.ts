@@ -24,10 +24,7 @@ import { createHeaders } from "./utils/createHeaders.js";
  * @param headersInit If there's no `Content-Type` specified,`'text/html'` will be used by default.
  * @returns
  */
-function concatenateToResponse(
-  sourcePromises: Promise<StreamSource>[],
-  headersInit: HeadersInit
-): { done: Promise<void>; response: Response } {
+function concatenateToResponse(sourcePromises: Promise<StreamSource>[], headersInit: HeadersInit): { done: Promise<void>; response: Response } {
   const { done, stream } = concatenate(sourcePromises);
 
   const headers = createHeaders(headersInit);

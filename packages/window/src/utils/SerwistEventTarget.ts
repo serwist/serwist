@@ -17,20 +17,14 @@ export type ListenerCallback = (event: SerwistEvent<any>) => any;
  * @private
  */
 export class SerwistEventTarget {
-  private readonly _eventListenerRegistry: Map<
-    keyof SerwistEventMap,
-    Set<ListenerCallback>
-  > = new Map();
+  private readonly _eventListenerRegistry: Map<keyof SerwistEventMap, Set<ListenerCallback>> = new Map();
 
   /**
    * @param type
    * @param listener
    * @private
    */
-  addEventListener<K extends keyof SerwistEventMap>(
-    type: K,
-    listener: (event: SerwistEventMap[K]) => any
-  ): void {
+  addEventListener<K extends keyof SerwistEventMap>(type: K, listener: (event: SerwistEventMap[K]) => any): void {
     const foo = this._getEventListenersByType(type);
     foo.add(listener as ListenerCallback);
   }
@@ -40,10 +34,7 @@ export class SerwistEventTarget {
    * @param listener
    * @private
    */
-  removeEventListener<K extends keyof SerwistEventMap>(
-    type: K,
-    listener: (event: SerwistEventMap[K]) => any
-  ): void {
+  removeEventListener<K extends keyof SerwistEventMap>(type: K, listener: (event: SerwistEventMap[K]) => any): void {
     this._getEventListenersByType(type).delete(listener as ListenerCallback);
   }
 

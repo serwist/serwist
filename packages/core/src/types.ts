@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 export interface MapLikeObject {
   [key: string]: any;
 }
@@ -61,8 +60,8 @@ export declare interface RouteHandlerCallbackOptions {
   params?: string[] | MapLikeObject;
 }
 /**
-* Options passed to a `ManualHandlerCallback` function.
-*/
+ * Options passed to a `ManualHandlerCallback` function.
+ */
 export interface ManualHandlerCallbackOptions {
   /**
    * The event associated with the request.
@@ -74,9 +73,7 @@ export interface ManualHandlerCallbackOptions {
   request: Request | string;
 }
 
-export type HandlerCallbackOptions =
-  | RouteHandlerCallbackOptions
-  | ManualHandlerCallbackOptions;
+export type HandlerCallbackOptions = RouteHandlerCallbackOptions | ManualHandlerCallbackOptions;
 
 /**
  * The "handler" callback is invoked whenever a `Router` matches a URL/Request
@@ -131,7 +128,7 @@ export interface HandlerWillStartCallback {
 
 export interface CacheDidUpdateCallbackParam {
   /**
-   * Name of the cache the responses belong to. This is included in the 
+   * Name of the cache the responses belong to. This is included in the
    * broadcast message.
    */
   cacheName: string;
@@ -178,9 +175,7 @@ export interface CacheWillUpdateCallbackParam {
 }
 
 export interface CacheWillUpdateCallback {
-  (
-    param: CacheWillUpdateCallbackParam
-  ): Promise<Response | void | null | undefined>;
+  (param: CacheWillUpdateCallbackParam): Promise<Response | void | null | undefined>;
 }
 
 export interface CachedResponseWillBeUsedCallbackParam {
@@ -194,7 +189,7 @@ export interface CachedResponseWillBeUsedCallbackParam {
    */
   request: Request;
   /**
-   * The complete cached `Response` object that's been read 
+   * The complete cached `Response` object that's been read
    * from a cache and whose freshness should be checked.
    */
   cachedResponse?: Response;
@@ -204,9 +199,7 @@ export interface CachedResponseWillBeUsedCallbackParam {
 }
 
 export interface CachedResponseWillBeUsedCallback {
-  (
-    param: CachedResponseWillBeUsedCallbackParam
-  ): Promise<Response | void | null | undefined>;
+  (param: CachedResponseWillBeUsedCallbackParam): Promise<Response | void | null | undefined>;
 }
 
 export interface FetchDidFailCallbackParam {

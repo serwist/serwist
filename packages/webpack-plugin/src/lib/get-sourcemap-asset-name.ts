@@ -27,11 +27,7 @@ import type { Compilation } from "webpack";
  * name of that asset. Otherwise, it will return undefined.
  * @private
  */
-export function getSourcemapAssetName(
-  compilation: Compilation,
-  swContents: string,
-  swDest: string
-): string | undefined {
+export function getSourcemapAssetName(compilation: Compilation, swContents: string, swDest: string): string | undefined {
   const url = getSourceMapURL(swContents);
   if (url) {
     // Translate the relative URL to what the presumed name for the webpack
@@ -40,9 +36,7 @@ export function getSourcemapAssetName(
     // was added by another module incidentally.
     // See https://github.com/GoogleChrome/workbox/issues/2250
     const swAssetDirname = upath.dirname(swDest);
-    const sourcemapURLAssetName = upath.normalize(
-      upath.join(swAssetDirname, url)
-    );
+    const sourcemapURLAssetName = upath.normalize(upath.join(swAssetDirname, url));
 
     // Not sure if there's a better way to check for asset existence?
     if (compilation.getAsset(sourcemapURLAssetName)) {

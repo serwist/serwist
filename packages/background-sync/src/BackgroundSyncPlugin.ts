@@ -14,7 +14,7 @@ import { Queue } from "./Queue.js";
 /**
  * A class implementing the `fetchDidFail` lifecycle callback. This makes it
  * easier to add failed requests to a background sync Queue.
-  */
+ */
 class BackgroundSyncPlugin implements SerwistPlugin {
   private readonly _queue: Queue;
 

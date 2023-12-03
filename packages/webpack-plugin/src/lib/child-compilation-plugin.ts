@@ -11,7 +11,7 @@ export interface ChildCompilationPluginOptions {
 
 /**
  * Compile a file by creating a child of the hooked compiler.
- * 
+ *
  * @private
  */
 export class ChildCompilationPlugin implements WebpackPluginInstance {

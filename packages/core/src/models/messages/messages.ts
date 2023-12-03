@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 interface LoggableObject {
   [key: string]: string | number;
 }
@@ -30,48 +29,24 @@ export const messages: MessageMap = {
     if (!moduleName || !className || !funcName || !paramName) {
       throw new Error(`Unexpected input to 'not-an-array' error.`);
     }
-    return (
-      `The parameter '${paramName}' passed into ` +
-      `'${moduleName}.${className}.${funcName}()' must be an array.`
-    );
+    return `The parameter '${paramName}' passed into ` + `'${moduleName}.${className}.${funcName}()' must be an array.`;
   },
 
-  "incorrect-type": ({
-    expectedType,
-    paramName,
-    moduleName,
-    className,
-    funcName,
-  }) => {
+  "incorrect-type": ({ expectedType, paramName, moduleName, className, funcName }) => {
     if (!expectedType || !paramName || !moduleName || !funcName) {
       throw new Error(`Unexpected input to 'incorrect-type' error.`);
     }
     const classNameStr = className ? `${className}.` : "";
-    return (
-      `The parameter '${paramName}' passed into ` +
-      `'${moduleName}.${classNameStr}` +
-      `${funcName}()' must be of type ${expectedType}.`
-    );
+    return `The parameter '${paramName}' passed into ` + `'${moduleName}.${classNameStr}` + `${funcName}()' must be of type ${expectedType}.`;
   },
 
-  "incorrect-class": ({
-    expectedClassName,
-    paramName,
-    moduleName,
-    className,
-    funcName,
-    isReturnValueProblem,
-  }) => {
+  "incorrect-class": ({ expectedClassName, paramName, moduleName, className, funcName, isReturnValueProblem }) => {
     if (!expectedClassName || !moduleName || !funcName) {
       throw new Error(`Unexpected input to 'incorrect-class' error.`);
     }
     const classNameStr = className ? `${className}.` : "";
     if (isReturnValueProblem) {
-      return (
-        `The return value from ` +
-        `'${moduleName}.${classNameStr}${funcName}()' ` +
-        `must be an instance of class ${expectedClassName}.`
-      );
+      return `The return value from ` + `'${moduleName}.${classNameStr}${funcName}()' ` + `must be an instance of class ${expectedClassName}.`;
     }
 
     return (
@@ -81,35 +56,18 @@ export const messages: MessageMap = {
     );
   },
 
-  "missing-a-method": ({
-    expectedMethod,
-    paramName,
-    moduleName,
-    className,
-    funcName,
-  }) => {
-    if (
-      !expectedMethod ||
-      !paramName ||
-      !moduleName ||
-      !className ||
-      !funcName
-    ) {
+  "missing-a-method": ({ expectedMethod, paramName, moduleName, className, funcName }) => {
+    if (!expectedMethod || !paramName || !moduleName || !className || !funcName) {
       throw new Error(`Unexpected input to 'missing-a-method' error.`);
     }
-    return (
-      `${moduleName}.${className}.${funcName}() expected the ` +
-      `'${paramName}' parameter to expose a '${expectedMethod}' method.`
-    );
+    return `${moduleName}.${className}.${funcName}() expected the ` + `'${paramName}' parameter to expose a '${expectedMethod}' method.`;
   },
 
   "add-to-cache-list-unexpected-type": ({ entry }) => {
     return (
       `An unexpected entry was passed to ` +
       `'@serwist/precaching.PrecacheController.addToCacheList()' The entry ` +
-      `'${JSON.stringify(
-        entry
-      )}' isn't supported. You must supply an array of ` +
+      `'${JSON.stringify(entry)}' isn't supported. You must supply an array of ` +
       `strings with one or more characters, objects with a url property or ` +
       `Request objects.`
     );
@@ -117,9 +75,7 @@ export const messages: MessageMap = {
 
   "add-to-cache-list-conflicting-entries": ({ firstEntry, secondEntry }) => {
     if (!firstEntry || !secondEntry) {
-      throw new Error(
-        `Unexpected input to ` + `'add-to-cache-list-duplicate-entries' error.`
-      );
+      throw new Error(`Unexpected input to ` + `'add-to-cache-list-duplicate-entries' error.`);
     }
 
     return (
@@ -133,22 +89,15 @@ export const messages: MessageMap = {
 
   "plugin-error-request-will-fetch": ({ thrownErrorMessage }) => {
     if (!thrownErrorMessage) {
-      throw new Error(
-        `Unexpected input to ` + `'plugin-error-request-will-fetch', error.`
-      );
+      throw new Error(`Unexpected input to ` + `'plugin-error-request-will-fetch', error.`);
     }
 
-    return (
-      `An error was thrown by a plugins 'requestWillFetch()' method. ` +
-      `The thrown error message was: '${thrownErrorMessage}'.`
-    );
+    return `An error was thrown by a plugins 'requestWillFetch()' method. ` + `The thrown error message was: '${thrownErrorMessage}'.`;
   },
 
   "invalid-cache-name": ({ cacheNameId, value }) => {
     if (!cacheNameId) {
-      throw new Error(
-        `Expected a 'cacheNameId' for error 'invalid-cache-name'`
-      );
+      throw new Error(`Expected a 'cacheNameId' for error 'invalid-cache-name'`);
     }
 
     return (
@@ -160,23 +109,14 @@ export const messages: MessageMap = {
 
   "unregister-route-but-not-found-with-method": ({ method }) => {
     if (!method) {
-      throw new Error(
-        `Unexpected input to ` +
-          `'unregister-route-but-not-found-with-method' error.`
-      );
+      throw new Error(`Unexpected input to ` + `'unregister-route-but-not-found-with-method' error.`);
     }
 
-    return (
-      `The route you're trying to unregister was not  previously ` +
-      `registered for the method type '${method}'.`
-    );
+    return `The route you're trying to unregister was not  previously ` + `registered for the method type '${method}'.`;
   },
 
   "unregister-route-route-not-registered": () => {
-    return (
-      `The route you're trying to unregister was not previously ` +
-      `registered.`
-    );
+    return `The route you're trying to unregister was not previously ` + `registered.`;
   },
 
   "queue-replay-failed": ({ name }) => {
@@ -184,25 +124,14 @@ export const messages: MessageMap = {
   },
 
   "duplicate-queue-name": ({ name }) => {
-    return (
-      `The Queue name '${name}' is already being used. ` +
-      `All instances of backgroundSync.Queue must be given unique names.`
-    );
+    return `The Queue name '${name}' is already being used. ` + `All instances of backgroundSync.Queue must be given unique names.`;
   },
 
   "expired-test-without-max-age": ({ methodName, paramName }) => {
-    return (
-      `The '${methodName}()' method can only be used when the ` +
-      `'${paramName}' is used in the constructor.`
-    );
+    return `The '${methodName}()' method can only be used when the ` + `'${paramName}' is used in the constructor.`;
   },
 
-  "unsupported-route-type": ({
-    moduleName,
-    className,
-    funcName,
-    paramName,
-  }) => {
+  "unsupported-route-type": ({ moduleName, className, funcName, paramName }) => {
     return (
       `The supplied '${paramName}' parameter was an unsupported type. ` +
       `Please check the docs for ${moduleName}.${className}.${funcName} for ` +
@@ -210,14 +139,7 @@ export const messages: MessageMap = {
     );
   },
 
-  "not-array-of-class": ({
-    value,
-    expectedClass,
-    moduleName,
-    className,
-    funcName,
-    paramName,
-  }) => {
+  "not-array-of-class": ({ value, expectedClass, moduleName, className, funcName, paramName }) => {
     return (
       `The supplied '${paramName}' parameter must be an array of ` +
       `'${expectedClass}' objects. Received '${JSON.stringify(value)},'. ` +
@@ -227,17 +149,11 @@ export const messages: MessageMap = {
   },
 
   "max-entries-or-age-required": ({ moduleName, className, funcName }) => {
-    return (
-      `You must define either config.maxEntries or config.maxAgeSeconds` +
-      `in ${moduleName}.${className}.${funcName}`
-    );
+    return `You must define either config.maxEntries or config.maxAgeSeconds` + `in ${moduleName}.${className}.${funcName}`;
   },
 
   "statuses-or-headers-required": ({ moduleName, className, funcName }) => {
-    return (
-      `You must define either config.statuses or config.headers` +
-      `in ${moduleName}.${className}.${funcName}`
-    );
+    return `You must define either config.statuses or config.headers` + `in ${moduleName}.${className}.${funcName}`;
   },
 
   "invalid-string": ({ moduleName, funcName, paramName }) => {
@@ -253,34 +169,22 @@ export const messages: MessageMap = {
   },
 
   "channel-name-required": () => {
-    return (
-      `You must provide a channelName to construct a ` +
-      `BroadcastCacheUpdate instance.`
-    );
+    return `You must provide a channelName to construct a ` + `BroadcastCacheUpdate instance.`;
   },
 
   "invalid-responses-are-same-args": () => {
-    return (
-      `The arguments passed into responsesAreSame() appear to be ` +
-      `invalid. Please ensure valid Responses are used.`
-    );
+    return `The arguments passed into responsesAreSame() appear to be ` + `invalid. Please ensure valid Responses are used.`;
   },
 
   "expire-custom-caches-only": () => {
-    return (
-      `You must provide a 'cacheName' property when using the ` +
-      `expiration plugin with a runtime caching strategy.`
-    );
+    return `You must provide a 'cacheName' property when using the ` + `expiration plugin with a runtime caching strategy.`;
   },
 
   "unit-must-be-bytes": ({ normalizedRangeHeader }) => {
     if (!normalizedRangeHeader) {
       throw new Error(`Unexpected input to 'unit-must-be-bytes' error.`);
     }
-    return (
-      `The 'unit' portion of the Range header must be set to 'bytes'. ` +
-      `The Range header provided was "${normalizedRangeHeader}"`
-    );
+    return `The 'unit' portion of the Range header must be set to 'bytes'. ` + `The Range header provided was "${normalizedRangeHeader}"`;
   },
 
   "single-range-only": ({ normalizedRangeHeader }) => {
@@ -310,24 +214,15 @@ export const messages: MessageMap = {
   },
 
   "range-not-satisfiable": ({ size, start, end }) => {
-    return (
-      `The start (${start}) and end (${end}) values in the Range are ` +
-      `not satisfiable by the cached response, which is ${size} bytes.`
-    );
+    return `The start (${start}) and end (${end}) values in the Range are ` + `not satisfiable by the cached response, which is ${size} bytes.`;
   },
 
   "attempt-to-cache-non-get-request": ({ url, method }) => {
-    return (
-      `Unable to cache '${url}' because it is a '${method}' request and ` +
-      `only 'GET' requests can be cached.`
-    );
+    return `Unable to cache '${url}' because it is a '${method}' request and ` + `only 'GET' requests can be cached.`;
   },
 
   "cache-put-with-no-response": ({ url }) => {
-    return (
-      `There was an attempt to cache '${url}' but the response was not ` +
-      `defined.`
-    );
+    return `There was an attempt to cache '${url}' but the response was not ` + `defined.`;
   },
 
   "no-response": ({ url, error }) => {
@@ -339,17 +234,11 @@ export const messages: MessageMap = {
   },
 
   "bad-precaching-response": ({ url, status }) => {
-    return (
-      `The precaching request for '${url}' failed` +
-      (status ? ` with an HTTP status of ${status}.` : `.`)
-    );
+    return `The precaching request for '${url}' failed` + (status ? ` with an HTTP status of ${status}.` : `.`);
   },
 
   "non-precached-url": ({ url }) => {
-    return (
-      `createHandlerBoundToURL('${url}') was called, but that URL is ` +
-      `not precached. Please pass in a URL that is precached instead.`
-    );
+    return `createHandlerBoundToURL('${url}') was called, but that URL is ` + `not precached. Please pass in a URL that is precached instead.`;
   },
 
   "add-to-cache-list-conflicting-integrities": ({ url }) => {
@@ -365,21 +254,13 @@ export const messages: MessageMap = {
   },
 
   "cross-origin-copy-response": ({ origin }) => {
-    return (
-      `@serwist/core.copyResponse() can only be used with same-origin ` +
-      `responses. It was passed a response with origin ${origin}.`
-    );
+    return `@serwist/core.copyResponse() can only be used with same-origin ` + `responses. It was passed a response with origin ${origin}.`;
   },
 
   "opaque-streams-source": ({ type }) => {
-    const message =
-      `One of the @serwist/streams sources resulted in an ` +
-      `'${type}' response.`;
+    const message = `One of the @serwist/streams sources resulted in an ` + `'${type}' response.`;
     if (type === "opaqueredirect") {
-      return (
-        `${message} Please do not use a navigation request that results ` +
-        `in a redirect as a source.`
-      );
+      return `${message} Please do not use a navigation request that results ` + `in a redirect as a source.`;
     }
     return `${message} Please ensure your sources are CORS-enabled.`;
   },

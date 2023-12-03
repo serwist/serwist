@@ -20,9 +20,7 @@ interface ConfigWithConfigLocation {
   configLocation: string;
 }
 
-export async function askQuestions(
-  options = {}
-): Promise<ConfigWithConfigLocation> {
+export async function askQuestions(options = {}): Promise<ConfigWithConfigLocation> {
   const isInjectManifest = "injectManifest" in options;
 
   const globDirectory = await askRootOfWebApp();
@@ -31,9 +29,7 @@ export async function askQuestions(
   const swDest = await askSWDest(globDirectory);
   const configLocation = await askConfigLocation();
   // See https://github.com/GoogleChrome/workbox/issues/2985
-  const ignoreURLParametersMatching = isInjectManifest
-    ? undefined
-    : await askQueryParametersInStartUrl();
+  const ignoreURLParametersMatching = isInjectManifest ? undefined : await askQueryParametersInStartUrl();
 
   const config: { [key: string]: any } = {
     globDirectory,

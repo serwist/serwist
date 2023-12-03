@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 import type { SerwistEventTarget } from "./SerwistEventTarget.js";
 
 /**
@@ -35,8 +34,7 @@ export interface SerwistMessageEvent extends SerwistEvent<"message"> {
   ports: readonly MessagePort[];
 }
 
-export interface SerwistLifecycleEvent
-  extends SerwistEvent<keyof SerwistLifecycleEventMap> {
+export interface SerwistLifecycleEvent extends SerwistEvent<keyof SerwistLifecycleEventMap> {
   isUpdate?: boolean;
 }
 

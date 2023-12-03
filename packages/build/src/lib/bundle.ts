@@ -56,7 +56,7 @@ export async function bundle({
       (replace as unknown as typeof replace.default)({
         // See https://github.com/GoogleChrome/workbox/issues/2769
         preventAssignment: true,
-        delimiters: ['\\b', ''],
+        delimiters: ["\\b", ""],
         "process.env.NODE_ENV": JSON.stringify(mode),
         ...replaceValues,
       }),

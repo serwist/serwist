@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 export interface InstallResult {
   updatedURLs: string[];
   notUpdatedURLs: string[];
@@ -24,7 +23,7 @@ export declare interface PrecacheEntry {
 
 export interface PrecacheRouteOptions {
   /**
-   * The `directoryIndex` will check cache entries for a URLs ending with '/' 
+   * The `directoryIndex` will check cache entries for a URLs ending with '/'
    * to see if there is a hit when appending the `directoryIndex` value.
    */
   directoryIndex?: string;
@@ -33,7 +32,7 @@ export interface PrecacheRouteOptions {
    */
   ignoreURLParametersMatching?: RegExp[];
   /**
-   * The `cleanURLs` option will check the cache for the URL with a `.html` added 
+   * The `cleanURLs` option will check the cache for the URL with a `.html` added
    * to the end of the end.
    */
   cleanURLs?: boolean;
@@ -45,4 +44,3 @@ export interface PrecacheRouteOptions {
 }
 
 export type urlManipulation = ({ url }: { url: URL }) => URL[];
-

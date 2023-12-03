@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 /**
  * Removes any URL search parameters that should be ignored.
  *
@@ -17,10 +16,7 @@
  * @returns The URL with any ignored search parameters removed.
  * @private
  */
-export function removeIgnoredSearchParams(
-  urlObject: URL,
-  ignoreURLParametersMatching: RegExp[] = []
-): URL {
+export function removeIgnoredSearchParams(urlObject: URL, ignoreURLParametersMatching: RegExp[] = []): URL {
   // Convert the iterable into an array at the start of the loop to make sure
   // deletion doesn't mess up iteration.
   for (const paramName of [...urlObject.searchParams.keys()]) {

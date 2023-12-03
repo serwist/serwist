@@ -38,8 +38,7 @@ async function askQuestion(): Promise<{
   globDirectory: string;
   manualDirectoryInput?: string;
 }> {
-  const subdirectories: (string | InstanceType<typeof inquirer.Separator>)[] =
-    await getSubdirectories();
+  const subdirectories: (string | InstanceType<typeof inquirer.Separator>)[] = await getSubdirectories();
 
   if (subdirectories.length > 0) {
     const manualEntryChoice = "Manually enter path";
@@ -49,15 +48,11 @@ async function askQuestion(): Promise<{
         type: "list",
         message: ol`What is the root of your web app (i.e. which directory do
         you deploy)?`,
-        choices: subdirectories.concat([
-          new inquirer.Separator(),
-          manualEntryChoice,
-        ]),
+        choices: subdirectories.concat([new inquirer.Separator(), manualEntryChoice]),
       },
       {
         name: questionManualInput,
-        when: (answers: { globDirectory: string }) =>
-          answers.globDirectory === manualEntryChoice,
+        when: (answers: { globDirectory: string }) => answers.globDirectory === manualEntryChoice,
         message: ROOT_PROMPT,
       },
     ]);

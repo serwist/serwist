@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 /**
  * @typedef {Object} ManifestEntry
  * @property {string} url The URL to the asset in the manifest.
@@ -15,13 +14,13 @@
  * versioning already included in the URL.
  * @property {string} [integrity] Integrity metadata that will be used when
  * making the network request for the URL.
-  */
+ */
 
 /**
  * @typedef {Object} ManifestTransformResult
  * @property {Array<module:workbox-build.ManifestEntry>} manifest
  * @property {Array<string>|undefined} warnings
-  */
+ */
 
 /**
  * @typedef {Object} RuntimeCachingEntry
@@ -110,4 +109,4 @@
  * One or more [additional plugins](https://developers.google.com/web/tools/workbox/guides/using-plugins#custom_plugins)
  * to apply to the handler. Useful when you want a plugin that doesn't have a
  * "shortcut" configuration.
-  */
+ */

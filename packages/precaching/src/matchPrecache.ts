@@ -6,11 +6,10 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheController.js";
 
 /**
- * Helper function that calls `PrecacheController#matchPrecache` 
+ * Helper function that calls `PrecacheController#matchPrecache`
  * on the default `PrecacheController` instance.
  *
  * If you are creating your own `PrecacheController`, then call
@@ -20,10 +19,8 @@ import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheContro
  * @param request The key (without revisioning parameters)
  * to look up in the precache.
  * @returns
-  */
-function matchPrecache(
-  request: string | Request
-): Promise<Response | undefined> {
+ */
+function matchPrecache(request: string | Request): Promise<Response | undefined> {
   const precacheController = getOrCreatePrecacheController();
   return precacheController.matchPrecache(request);
 }

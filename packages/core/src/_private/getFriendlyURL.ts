@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 const getFriendlyURL = (url: URL | string): string => {
   const urlObj = new URL(String(url), location.href);
   // See https://github.com/GoogleChrome/workbox/issues/2323

@@ -5,7 +5,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 import { timeout } from "./timeout.js";
 
 // Give TypeScript the correct global.
@@ -23,9 +22,7 @@ const MAX_RETRY_TIME = 2000;
  * @returns
  * @private
  */
-export async function resultingClientExists(
-  resultingClientId?: string
-): Promise<Client | undefined> {
+export async function resultingClientExists(resultingClientId?: string): Promise<Client | undefined> {
   if (!resultingClientId) {
     return;
   }

@@ -6,13 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-
-import {
-  assert,
-  getFriendlyURL,
-  logger,
-  SerwistError,
-} from "@serwist/core/internal";
+import { assert, getFriendlyURL, logger, SerwistError } from "@serwist/core/internal";
 
 export interface CacheableResponseOptions {
   /**
@@ -20,7 +14,7 @@ export interface CacheableResponseOptions {
    */
   statuses?: number[];
   /**
-   * A mapping of header names and expected values that a `Response` can have and be 
+   * A mapping of header names and expected values that a `Response` can have and be
    * considered cacheable. If multiple headers are provided, only one needs to be present.
    */
   headers?: { [headerName: string]: string };
@@ -112,16 +106,12 @@ class CacheableResponse {
     if (process.env.NODE_ENV !== "production") {
       if (!cacheable) {
         logger.groupCollapsed(
-          `The request for ` +
-            `'${getFriendlyURL(response.url)}' returned a response that does ` +
-            `not meet the criteria for being cached.`
+          `The request for ` + `'${getFriendlyURL(response.url)}' returned a response that does ` + `not meet the criteria for being cached.`
         );
 
         logger.groupCollapsed(`View cacheability criteria here.`);
         logger.log(`Cacheable statuses: ` + JSON.stringify(this._statuses));
-        logger.log(
-          `Cacheable headers: ` + JSON.stringify(this._headers, null, 2)
-        );
+        logger.log(`Cacheable headers: ` + JSON.stringify(this._headers, null, 2));
         logger.groupEnd();
 
         const logFriendlyHeaders: { [key: string]: string } = {};
@@ -131,9 +121,7 @@ class CacheableResponse {
 
         logger.groupCollapsed(`View response status and headers here.`);
         logger.log(`Response status: ${response.status}`);
-        logger.log(
-          `Response headers: ` + JSON.stringify(logFriendlyHeaders, null, 2)
-        );
+        logger.log(`Response headers: ` + JSON.stringify(logFriendlyHeaders, null, 2));
         logger.groupEnd();
 
         logger.groupCollapsed(`View full response details here.`);

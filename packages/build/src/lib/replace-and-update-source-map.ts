@@ -69,14 +69,8 @@ export async function replaceAndUpdateSourceMap({
     lineNum++;
     let searchPos = 0;
     while ((pos = line.indexOf(searchString, searchPos)) !== -1) {
-      src =
-        src.substring(0, filePos + pos) +
-        replaceString +
-        src.substring(filePos + pos + searchString.length);
-      line =
-        line.substring(0, pos) +
-        replaceString +
-        line.substring(pos + searchString.length);
+      src = src.substring(0, filePos + pos) + replaceString + src.substring(filePos + pos + searchString.length);
+      line = line.substring(0, pos) + replaceString + line.substring(pos + searchString.length);
       replacements.push({ line: lineNum, column: pos });
       searchPos = pos + replaceString.length;
     }
@@ -87,10 +81,7 @@ export async function replaceAndUpdateSourceMap({
 
   consumer.eachMapping((mapping) => {
     for (const replacement of replacements) {
-      if (
-        replacement.line === mapping.generatedLine &&
-        mapping.generatedColumn > replacement.column
-      ) {
+      if (replacement.line === mapping.generatedLine && mapping.generatedColumn > replacement.column) {
         const offset = searchString.length - replaceString.length;
         mapping.generatedColumn -= offset;
       }
@@ -117,15 +108,12 @@ export async function replaceAndUpdateSourceMap({
   consumer.destroy();
   // JSON.parse returns any.
   // eslint-disable-next-line  @typescript-eslint/no-unsafe-assignment
-  const updatedSourceMap: RawSourceMap = Object.assign(
-    JSON.parse(generator.toString()),
-    {
-      names: originalMap.names,
-      sourceRoot: originalMap.sourceRoot,
-      sources: originalMap.sources,
-      sourcesContent: originalMap.sourcesContent,
-    }
-  );
+  const updatedSourceMap: RawSourceMap = Object.assign(JSON.parse(generator.toString()), {
+    names: originalMap.names,
+    sourceRoot: originalMap.sourceRoot,
+    sources: originalMap.sources,
+    sourcesContent: originalMap.sourcesContent,
+  });
 
   return {
     map: JSON.stringify(updatedSourceMap),

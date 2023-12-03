@@ -5,7 +5,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 import { registerRoute } from "@serwist/routing";
 
 import type { PrecacheRouteOptions } from "./_types.js";

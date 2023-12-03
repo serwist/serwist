@@ -6,13 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type {
-  SerwistPlugin,
-  SerwistPluginCallbackParam,
-} from "@serwist/core";
+import type { SerwistPlugin, SerwistPluginCallbackParam } from "@serwist/core";
 
 import type { PrecacheController } from "../PrecacheController.js";
-
 
 /**
  * A plugin, designed to be used with PrecacheController, to translate URLs into
@@ -23,28 +19,17 @@ import type { PrecacheController } from "../PrecacheController.js";
 class PrecacheCacheKeyPlugin implements SerwistPlugin {
   private readonly _precacheController: PrecacheController;
 
-  constructor({
-    precacheController,
-  }: {
-    precacheController: PrecacheController;
-  }) {
+  constructor({ precacheController }: { precacheController: PrecacheController }) {
     this._precacheController = precacheController;
   }
 
-  cacheKeyWillBeUsed: SerwistPlugin["cacheKeyWillBeUsed"] = async ({
-    request,
-    params,
-  }: SerwistPluginCallbackParam["cacheKeyWillBeUsed"]) => {
+  cacheKeyWillBeUsed: SerwistPlugin["cacheKeyWillBeUsed"] = async ({ request, params }: SerwistPluginCallbackParam["cacheKeyWillBeUsed"]) => {
     // Params is type any, can't change right now.
     /* eslint-disable */
-    const cacheKey =
-      params?.cacheKey ||
-      this._precacheController.getCacheKeyForURL(request.url);
+    const cacheKey = params?.cacheKey || this._precacheController.getCacheKeyForURL(request.url);
     /* eslint-enable */
 
-    return cacheKey
-      ? new Request(cacheKey, { headers: request.headers })
-      : request;
+    return cacheKey ? new Request(cacheKey, { headers: request.headers }) : request;
   };
 }
 

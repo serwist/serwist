@@ -6,19 +6,13 @@
   https://opensource.org/licenses/MIT.
 */
 
-
-import {
-  assert,
-  dontWaitFor,
-  logger,
-  SerwistError,
-} from "@serwist/core/internal";
+import { assert, dontWaitFor, logger, SerwistError } from "@serwist/core/internal";
 
 import { CacheTimestampsModel } from "./models/CacheTimestampsModel.js";
 
 interface CacheExpirationConfig {
   /**
-   * The maximum number of entries to cache. Entries used the least will 
+   * The maximum number of entries to cache. Entries used the least will
    * be removed as the maximum is reached.
    */
   maxEntries?: number;
@@ -107,14 +101,9 @@ class CacheExpiration {
     }
     this._isRunning = true;
 
-    const minTimestamp = this._maxAgeSeconds
-      ? Date.now() - this._maxAgeSeconds * 1000
-      : 0;
+    const minTimestamp = this._maxAgeSeconds ? Date.now() - this._maxAgeSeconds * 1000 : 0;
 
-    const urlsExpired = await this._timestampModel.expireEntries(
-      minTimestamp,
-      this._maxEntries
-    );
+    const urlsExpired = await this._timestampModel.expireEntries(minTimestamp, this._maxEntries);
 
     // Delete URLs from the cache
     const cache = await self.caches.open(this._cacheName);
@@ -130,9 +119,7 @@ class CacheExpiration {
             `${urlsExpired.length === 1 ? "it" : "them"} from the ` +
             `'${this._cacheName}' cache.`
         );
-        logger.log(
-          `Expired the following ${urlsExpired.length === 1 ? "URL" : "URLs"}:`
-        );
+        logger.log(`Expired the following ${urlsExpired.length === 1 ? "URL" : "URLs"}:`);
         urlsExpired.forEach((url) => logger.log(`    ${url}`));
         logger.groupEnd();
       } else {

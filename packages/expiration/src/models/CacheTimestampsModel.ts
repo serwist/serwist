@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 import type { DBSchema, IDBPDatabase } from "idb";
 import { deleteDB, openDB } from "idb";
 
@@ -140,15 +139,9 @@ class CacheTimestampsModel {
    * @returns
    * @private
    */
-  async expireEntries(
-    minTimestamp: number,
-    maxCount?: number
-  ): Promise<string[]> {
+  async expireEntries(minTimestamp: number, maxCount?: number): Promise<string[]> {
     const db = await this.getDb();
-    let cursor = await db
-      .transaction(CACHE_OBJECT_STORE)
-      .store.index("timestamp")
-      .openCursor(null, "prev");
+    let cursor = await db.transaction(CACHE_OBJECT_STORE).store.index("timestamp").openCursor(null, "prev");
     const entriesToDelete: CacheTimestampsModelEntry[] = [];
     let entriesNotDeletedCount = 0;
     while (cursor) {
@@ -158,10 +151,7 @@ class CacheTimestampsModel {
       if (result.cacheName === this._cacheName) {
         // Delete an entry if it's older than the max age or
         // if we already have the max number allowed.
-        if (
-          (minTimestamp && result.timestamp < minTimestamp) ||
-          (maxCount && entriesNotDeletedCount >= maxCount)
-        ) {
+        if ((minTimestamp && result.timestamp < minTimestamp) || (maxCount && entriesNotDeletedCount >= maxCount)) {
           // TODO(philipwalton): we should be able to delete the
           // entry right here, but doing so causes an iteration
           // bug in Safari stable (fixed in TP). Instead we can

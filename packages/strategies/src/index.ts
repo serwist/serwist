@@ -29,14 +29,6 @@ declare global {
  * There are common caching strategies that most service workers will need
  * and use. This module provides simple implementations of these strategies.
  */
-export {
-  CacheFirst,
-  CacheOnly,
-  NetworkFirst,
-  NetworkOnly,
-  StaleWhileRevalidate,
-  Strategy,
-  StrategyHandler,
-};
+export { CacheFirst, CacheOnly, NetworkFirst, NetworkOnly, StaleWhileRevalidate, Strategy, StrategyHandler };
 
 export type { NetworkFirstOptions, NetworkOnlyOptions, StrategyOptions };

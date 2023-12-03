@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 import type { BroadcastCacheUpdateOptions } from "./BroadcastCacheUpdate.js";
 import { BroadcastCacheUpdate } from "./BroadcastCacheUpdate.js";
 import { BroadcastUpdatePlugin } from "./BroadcastUpdatePlugin.js";

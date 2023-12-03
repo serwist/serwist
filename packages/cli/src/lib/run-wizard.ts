@@ -26,10 +26,7 @@ export async function runWizard(options = {}): Promise<void> {
 
 as part of a build process. See https://goo.gl/fdTQBf for details.`);
 
-  const configDocsURL =
-    "injectManifest" in options
-      ? "https://goo.gl/8bs14N"
-      : "https://goo.gl/gVo87N";
+  const configDocsURL = "injectManifest" in options ? "https://goo.gl/8bs14N" : "https://goo.gl/gVo87N";
 
   logger.log(ol`You can further customize your service worker by making changes
     to ${configLocation}. See ${configDocsURL} for details.`);

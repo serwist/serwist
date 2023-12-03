@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 import { SerwistError } from "@serwist/core/internal";
 
 import type { PrecacheEntry } from "../_types.js";

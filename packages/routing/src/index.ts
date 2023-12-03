@@ -6,11 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type {
-  NavigationRouteMatchOptions} from "./NavigationRoute.js";
-import {
-  NavigationRoute
-} from "./NavigationRoute.js";
+import type { NavigationRouteMatchOptions } from "./NavigationRoute.js";
+import { NavigationRoute } from "./NavigationRoute.js";
 import { RegExpRoute } from "./RegExpRoute.js";
 import { registerRoute } from "./registerRoute.js";
 import { Route } from "./Route.js";
@@ -19,15 +16,6 @@ import { setCatchHandler } from "./setCatchHandler.js";
 import { setDefaultHandler } from "./setDefaultHandler.js";
 import type { HTTPMethod } from "./utils/constants.js";
 
+export { NavigationRoute, RegExpRoute, registerRoute, Route, Router, setCatchHandler, setDefaultHandler };
 
-export {
-  NavigationRoute,
-  RegExpRoute,
-  registerRoute,
-  Route,
-  Router,
-  setCatchHandler,
-  setDefaultHandler,
-};
-
-export type { HTTPMethod,NavigationRouteMatchOptions };
+export type { HTTPMethod, NavigationRouteMatchOptions };

@@ -5,7 +5,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 /**
  * A helper function that prevents a promise from being flagged as unused.
  *

@@ -7,12 +7,8 @@
 */
 
 import { CacheExpiration } from "./CacheExpiration.js";
-import type {
-  ExpirationPluginOptions} from "./ExpirationPlugin.js";
-import {
-  ExpirationPlugin
-} from "./ExpirationPlugin.js";
-
+import type { ExpirationPluginOptions } from "./ExpirationPlugin.js";
+import { ExpirationPlugin } from "./ExpirationPlugin.js";
 
 export { CacheExpiration, ExpirationPlugin };
 

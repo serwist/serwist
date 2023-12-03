@@ -7,11 +7,7 @@
 */
 
 import { CacheableResponsePlugin } from "@serwist/cacheable-response";
-import type {
-  RouteMatchCallback,
-  RouteMatchCallbackOptions,
-  SerwistPlugin,
-} from "@serwist/core";
+import type { RouteMatchCallback, RouteMatchCallbackOptions, SerwistPlugin } from "@serwist/core";
 import { registerRoute } from "@serwist/routing";
 import { NetworkFirst } from "@serwist/strategies";
 
@@ -28,7 +24,7 @@ export interface PageCacheOptions {
   matchCallback?: RouteMatchCallback;
   /**
    * Maximum amount of time, in seconds, to wait on the network before falling back to cache.
-   * 
+   *
    * @default 3
    */
   networkTimeoutSeconds?: number;
@@ -48,8 +44,7 @@ export interface PageCacheOptions {
  * @param options
  */
 function pageCache(options: PageCacheOptions = {}): void {
-  const defaultMatchCallback = ({ request }: RouteMatchCallbackOptions) =>
-    request.mode === "navigate";
+  const defaultMatchCallback = ({ request }: RouteMatchCallbackOptions) => request.mode === "navigate";
 
   const cacheName = options.cacheName || "pages";
   const matchCallback = options.matchCallback || defaultMatchCallback;

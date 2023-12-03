@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 import { addPlugins } from "./addPlugins.js";
 import { addRoute } from "./addRoute.js";
 import { cleanupOutdatedCaches } from "./cleanupOutdatedCaches.js";

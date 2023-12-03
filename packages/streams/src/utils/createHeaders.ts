@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 /**
  * This is a utility method that determines whether the current browser supports
  * the features required to create streamed responses. Currently, it checks if

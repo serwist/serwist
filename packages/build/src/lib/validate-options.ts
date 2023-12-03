@@ -12,12 +12,7 @@ import Ajv from "ajv";
 import { oneLine as ol } from "common-tags";
 
 import { optionsSchemas } from "../schema/index.js";
-import type {
-  GetManifestOptions,
-  InjectManifestOptions,
-  MethodNames,
-  WebpackInjectManifestOptions,
-} from "../types.js";
+import type { GetManifestOptions, InjectManifestOptions, MethodNames, WebpackInjectManifestOptions } from "../types.js";
 import { errors } from "./errors.js";
 
 const ajv = new (Ajv as unknown as typeof Ajv.default)({
@@ -35,10 +30,7 @@ export class SerwistConfigError extends Error {
 
 // Some methods need to do follow-up validation using the JSON schema,
 // so return both the validated options and then schema.
-function validate<T>(
-  input: unknown,
-  methodName: MethodNames
-): [T, JSONSchemaType<T>] {
+function validate<T>(input: unknown, methodName: MethodNames): [T, JSONSchemaType<T>] {
   // Don't mutate input: https://github.com/GoogleChrome/workbox/issues/2158
   const inputCopy = Object.assign({}, input);
   const jsonSchema = optionsSchemas[methodName] as unknown as JSONSchemaType<T>;
@@ -65,18 +57,10 @@ function validate<T>(
   throw new SerwistConfigError(messages.join("\n\n"));
 }
 
-function ensureValidManifestTransforms(
-  options:
-    | GetManifestOptions
-    | InjectManifestOptions
-    | WebpackInjectManifestOptions
-): void {
+function ensureValidManifestTransforms(options: GetManifestOptions | InjectManifestOptions | WebpackInjectManifestOptions): void {
   if (
     "manifestTransforms" in options &&
-    !(
-      Array.isArray(options.manifestTransforms) &&
-      options.manifestTransforms.every((item) => typeof item === "function")
-    )
+    !(Array.isArray(options.manifestTransforms) && options.manifestTransforms.every((item) => typeof item === "function"))
   ) {
     throw new SerwistConfigError(errors["manifest-transforms"]);
   }
@@ -88,20 +72,13 @@ export function validateGetManifestOptions(input: unknown): GetManifestOptions {
   return validatedOptions;
 }
 
-export function validateInjectManifestOptions(
-  input: unknown
-): InjectManifestOptions {
-  const [validatedOptions] = validate<InjectManifestOptions>(
-    input,
-    "InjectManifest"
-  );
+export function validateInjectManifestOptions(input: unknown): InjectManifestOptions {
+  const [validatedOptions] = validate<InjectManifestOptions>(input, "InjectManifest");
 
   return validatedOptions;
 }
 
-export function validateWebpackInjectManifestOptions(
-  input: unknown
-): WebpackInjectManifestOptions {
+export function validateWebpackInjectManifestOptions(input: unknown): WebpackInjectManifestOptions {
   const inputWithExcludeDefault = Object.assign(
     {
       // Make a copy, as exclude can be mutated when used.
@@ -109,10 +86,7 @@ export function validateWebpackInjectManifestOptions(
     },
     input
   );
-  const [validatedOptions] = validate<WebpackInjectManifestOptions>(
-    inputWithExcludeDefault,
-    "WebpackInjectManifest"
-  );
+  const [validatedOptions] = validate<WebpackInjectManifestOptions>(inputWithExcludeDefault, "WebpackInjectManifest");
 
   return validatedOptions;
 }

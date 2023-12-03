@@ -10,7 +10,6 @@ import type { RouteHandler } from "@serwist/core";
 
 import { getOrCreateDefaultRouter } from "./utils/getOrCreateDefaultRouter.js";
 
-
 /**
  * Define a default `handler` that's called when no routes explicitly
  * match the incoming request.

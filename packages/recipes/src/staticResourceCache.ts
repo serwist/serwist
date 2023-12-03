@@ -7,11 +7,7 @@
 */
 
 import { CacheableResponsePlugin } from "@serwist/cacheable-response";
-import type {
-  RouteMatchCallback,
-  RouteMatchCallbackOptions,
-  SerwistPlugin,
-} from "@serwist/core";
+import type { RouteMatchCallback, RouteMatchCallbackOptions, SerwistPlugin } from "@serwist/core";
 import { registerRoute } from "@serwist/routing";
 import { StaleWhileRevalidate } from "@serwist/strategies";
 
@@ -20,13 +16,13 @@ import { warmStrategyCache } from "./warmStrategyCache.js";
 export interface StaticResourceOptions {
   /**
    * Name for cache.
-   * 
+   *
    * @default "static-resources"
    */
   cacheName?: string;
   /**
    * Serwist callback function to call to match to.
-   * 
+   *
    * @default request.destination === 'style' || request.destination === 'script' || request.destination === 'worker'
    */
   matchCallback?: RouteMatchCallback;
@@ -47,9 +43,7 @@ export interface StaticResourceOptions {
  */
 function staticResourceCache(options: StaticResourceOptions = {}): void {
   const defaultMatchCallback = ({ request }: RouteMatchCallbackOptions) =>
-    request.destination === "style" ||
-    request.destination === "script" ||
-    request.destination === "worker";
+    request.destination === "style" || request.destination === "script" || request.destination === "worker";
 
   const cacheName = options.cacheName || "static-resources";
   const matchCallback = options.matchCallback || defaultMatchCallback;

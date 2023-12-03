@@ -5,7 +5,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 /**
  * Returns a promise that resolves and the passed number of milliseconds.
  * This utility is an async/await-friendly version of `setTimeout`.

@@ -9,9 +9,7 @@
 import type { ManifestTransform } from "../types.js";
 import { errors } from "./errors.js";
 
-export function noRevisionForURLsMatchingTransform(
-  regexp: RegExp
-): ManifestTransform {
+export function noRevisionForURLsMatchingTransform(regexp: RegExp): ManifestTransform {
   if (!(regexp instanceof RegExp)) {
     throw new Error(errors["invalid-dont-cache-bust"]);
   }

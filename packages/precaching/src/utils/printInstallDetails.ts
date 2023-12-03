@@ -33,22 +33,15 @@ function _nestedGroup(groupTitle: string, urls: string[]): void {
  * @param  urlsAlreadyPrecached
  * @private
  */
-export function printInstallDetails(
-  urlsToPrecache: string[],
-  urlsAlreadyPrecached: string[]
-): void {
+export function printInstallDetails(urlsToPrecache: string[], urlsAlreadyPrecached: string[]): void {
   const precachedCount = urlsToPrecache.length;
   const alreadyPrecachedCount = urlsAlreadyPrecached.length;
 
   if (precachedCount || alreadyPrecachedCount) {
-    let message = `Precaching ${precachedCount} file${
-      precachedCount === 1 ? "" : "s"
-    }.`;
+    let message = `Precaching ${precachedCount} file${precachedCount === 1 ? "" : "s"}.`;
 
     if (alreadyPrecachedCount > 0) {
-      message +=
-        ` ${alreadyPrecachedCount} ` +
-        `file${alreadyPrecachedCount === 1 ? " is" : "s are"} already cached.`;
+      message += ` ${alreadyPrecachedCount} ` + `file${alreadyPrecachedCount === 1 ? " is" : "s are"} already cached.`;
     }
 
     logger.groupCollapsed(message);

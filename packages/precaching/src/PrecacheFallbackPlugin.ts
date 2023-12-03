@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 import type { SerwistPlugin } from "@serwist/core";
 
 import type { PrecacheController } from "./PrecacheController.js";
@@ -47,21 +46,16 @@ class PrecacheFallbackPlugin implements SerwistPlugin {
    *
    * @param config
    */
-  constructor({
-    fallbackURL,
-    precacheController,
-  }: PrecacheFallbackPluginOptions) {
+  constructor({ fallbackURL, precacheController }: PrecacheFallbackPluginOptions) {
     this._fallbackURL = fallbackURL;
-    this._precacheController =
-      precacheController || getOrCreatePrecacheController();
+    this._precacheController = precacheController || getOrCreatePrecacheController();
   }
 
   /**
    * @returns The precache response for the fallback URL.
    * @private
    */
-  handlerDidError: SerwistPlugin["handlerDidError"] = () =>
-    this._precacheController.matchPrecache(this._fallbackURL);
+  handlerDidError: SerwistPlugin["handlerDidError"] = () => this._precacheController.matchPrecache(this._fallbackURL);
 }
 
 export { PrecacheFallbackPlugin };

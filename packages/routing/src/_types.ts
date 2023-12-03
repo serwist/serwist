@@ -6,7 +6,6 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 // * * * IMPORTANT! * * *
 // ------------------------------------------------------------------------- //
 // jdsoc type definitions cannot be declared above TypeScript definitions or

@@ -6,20 +6,10 @@
   https://opensource.org/licenses/MIT.
 */
 
-
 import type { MapLikeObject } from "@serwist/core";
 import { assert } from "@serwist/core/internal";
 
-type SerializableProperties =
-  | "method"
-  | "referrer"
-  | "referrerPolicy"
-  | "mode"
-  | "credentials"
-  | "cache"
-  | "redirect"
-  | "integrity"
-  | "keepalive";
+type SerializableProperties = "method" | "referrer" | "referrerPolicy" | "mode" | "credentials" | "cache" | "redirect" | "integrity" | "keepalive";
 
 const serializableProperties: SerializableProperties[] = [
   "method",
@@ -73,7 +63,7 @@ class StorableRequest {
 
     request.headers.forEach((value, key) => {
       requestData.headers[key] = value;
-    })
+    });
 
     // Add all other serializable request properties
     for (const prop of serializableProperties) {

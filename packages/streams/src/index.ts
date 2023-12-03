@@ -12,7 +12,6 @@ import { isSupported } from "./isSupported.js";
 import type { StreamsHandlerCallback } from "./strategy.js";
 import { strategy } from "./strategy.js";
 
-
 export { concatenate, concatenateToResponse, isSupported, strategy };
 
 export type { StreamsHandlerCallback };
