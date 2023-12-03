@@ -1,6 +1,6 @@
 {
   "name": "@serwist/broadcast-update",
-  "version": "7.0.0",
+  "version": "8.0.0",
   "type": "module",
   "description": "A service worker helper library that uses the Broadcast Channel API to announce when a cached response has updated",
   "files": [
@@ -25,7 +25,7 @@
   "exports": {
     ".": {
       "import": "./dist/index.js",
-      "require":"./dist/index.old.cjs",
+      "require": "./dist/index.old.cjs",
       "types": "./dist/index.d.ts"
     }
   },

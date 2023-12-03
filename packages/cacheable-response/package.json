@@ -1,6 +1,6 @@
 {
   "name": "@serwist/cacheable-response",
-  "version": "7.0.0",
+  "version": "8.0.0",
   "type": "module",
   "license": "MIT",
   "author": "Google's Web DevRel Team, Serwist's Team",
@@ -32,7 +32,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@serwist/core": "7.0.0"
+    "@serwist/core": "8.0.0"
   },
   "devDependencies": {
     "@serwist/constants": "workspace:*",

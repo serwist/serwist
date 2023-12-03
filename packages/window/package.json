@@ -1,6 +1,6 @@
 {
   "name": "@serwist/window",
-  "version": "7.0.0",
+  "version": "8.0.0",
   "type": "module",
   "description": "Simplifies communications with Serwist packages running in the service worker",
   "keywords": [
@@ -34,7 +34,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@serwist/core": "7.0.0",
+    "@serwist/core": "8.0.0",
     "@types/trusted-types": "2.0.4"
   },
   "devDependencies": {

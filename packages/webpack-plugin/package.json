@@ -1,6 +1,6 @@
 {
   "name": "@serwist/webpack-plugin",
-  "version": "7.0.0",
+  "version": "8.0.0",
   "type": "module",
   "description": "A plugin for your Webpack build process, helping you generate a manifest of local files that should be precached.",
   "files": [
@@ -30,7 +30,9 @@
   "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
-      "internal": ["./dist/index.internal.d.ts"]
+      "internal": [
+        "./dist/index.internal.d.ts"
+      ]
     }
   },
   "exports": {

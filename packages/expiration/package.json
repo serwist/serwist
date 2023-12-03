@@ -1,6 +1,6 @@
 {
   "name": "@serwist/expiration",
-  "version": "7.0.0",
+  "version": "8.0.0",
   "type": "module",
   "description": "A service worker helper library that expires cached responses based on age or maximum number of entries.",
   "files": [

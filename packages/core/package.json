@@ -1,6 +1,6 @@
 {
   "name": "@serwist/core",
-  "version": "7.0.0",
+  "version": "8.0.0",
   "type": "module",
   "description": "This module is used by a number of the other Serwist modules to share common code.",
   "files": [
@@ -23,8 +23,12 @@
   "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
-      "internal": ["./dist/index.internal.d.ts"],
-      "types": ["./dist/types.d.ts"]
+      "internal": [
+        "./dist/index.internal.d.ts"
+      ],
+      "types": [
+        "./dist/types.d.ts"
+      ]
     }
   },
   "exports": {
