@@ -68,9 +68,6 @@ module.exports = {
     //   "packages/constants",
     //   "node_modules",
     // ],
-    next: {
-      rootDir: ["./docs/", "./examples/*/"],
-    },
   },
   overrides: [
     {
@@ -91,6 +88,15 @@ module.exports = {
       },
       rules: {
         "import/no-extraneous-dependencies": "off",
+      },
+    },
+    {
+      files: ["examples/next-*/**"],
+      extends: ["next/core-web-vitals"],
+      settings: {
+        next: {
+          rootDir: ["./docs/", "./examples/*/"],
+        },
       },
     },
   ],
