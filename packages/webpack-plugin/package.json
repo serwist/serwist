@@ -56,11 +56,9 @@
   "dependencies": {
     "@serwist/build": "workspace:*",
     "fast-json-stable-stringify": "2.1.0",
-    "picomatch": "3.0.1",
     "pretty-bytes": "6.1.1",
     "rollup": "3.28.1",
-    "upath": "2.0.1",
-    "webpack-sources": "3.2.3"
+    "upath": "2.0.1"
   },
   "peerDependencies": {
     "webpack": "4.4.0 || ^5.9.0"
