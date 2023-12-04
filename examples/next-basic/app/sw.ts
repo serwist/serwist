@@ -4,7 +4,7 @@ import { installSerwist } from "@serwist/sw";
 
 declare const self: ServiceWorkerGlobalScope & {
   // Change this attribute's name to your `injectionPoint`.
-  __SW_MANIFEST: (PrecacheEntry | string)[];
+  __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
 };
 
 installSerwist({
