@@ -8,7 +8,7 @@ body:
   - type: textarea
     attributes:
       label: Provide environment information
-      description: Please provide the version of `next` and `@ducanh2912/next-pwa` that you are currently using.
+      description: Please provide the versions of relevant packages.
     validations:
       required: true
   - type: textarea

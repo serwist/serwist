@@ -11,6 +11,31 @@ body:
   - type: markdown
     attributes:
       value: 'Feature requests will be converted to the GitHub Discussions "Ideas" section when suitable.'
+  - type: dropdown
+    id: project
+    attributes:
+      multiple: false
+      label: Which project is this feature request for?
+      options:
+        - "@serwist/background-sync"
+        - "@serwist/broadcast-update"
+        - "@serwist/build"
+        - "@serwist/cacheable-response"
+        - "@serwist/cli"
+        - "@serwist/core"
+        - "@serwist/expiration"
+        - "@serwist/google-analytics"
+        - "@serwist/navigation-preload"
+        - "@serwist/next"
+        - "@serwist/precaching"
+        - "@serwist/range-requests"
+        - "@serwist/recipes"
+        - "@serwist/routing"
+        - "@serwist/strategies"
+        - "@serwist/streams"
+        - "@serwist/sw"
+        - "@serwist/webpack-plugin"
+        - "@serwist/window"
   - type: textarea
     attributes:
       label: Describe the feature you'd like to request
