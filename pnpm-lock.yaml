@@ -84,13 +84,25 @@ importers:
         specifier: 5.3.0-dev.20231018
         version: 5.3.0-dev.20231018
 
+  examples:
+    devDependencies:
+      '@serwist/next':
+        specifier: workspace:*
+        version: link:../packages/next
+      '@serwist/precaching':
+        specifier: workspace:*
+        version: link:../packages/precaching
+      '@serwist/sw':
+        specifier: workspace:*
+        version: link:../packages/sw
+
   examples/next-basic:
     dependencies:
       '@serwist/next':
-        specifier: workspace:*
+        specifier: latest
         version: link:../../packages/next
       '@serwist/sw':
-        specifier: workspace:*
+        specifier: latest
         version: link:../../packages/sw
       next:
         specifier: 14.0.3
@@ -103,7 +115,7 @@ importers:
         version: 18.2.0(react@18.2.0)
     devDependencies:
       '@serwist/precaching':
-        specifier: workspace:*
+        specifier: latest
         version: link:../../packages/precaching
       '@types/node':
         specifier: 20.8.7
