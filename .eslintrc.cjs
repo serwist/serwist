@@ -93,10 +93,8 @@ module.exports = {
     {
       files: ["examples/next-*/**"],
       extends: ["next/core-web-vitals"],
-      settings: {
-        next: {
-          rootDir: ["./docs/", "./examples/*/"],
-        },
+      parserOptions: {
+        warnOnUnsupportedTypeScriptVersion: false,
       },
     },
   ],
