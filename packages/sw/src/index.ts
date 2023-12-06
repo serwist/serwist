@@ -16,7 +16,7 @@ export type SerwistOptions = HandlePrecachingOptions & {
   cacheId?: string | undefined;
   clientsClaim?: boolean;
   runtimeCaching?: RuntimeCaching[];
-  offlineAnalyticsConfig?: GoogleAnalyticsInitializeOptions;
+  offlineAnalyticsConfig?: GoogleAnalyticsInitializeOptions | boolean;
   disableDevLogs?: boolean;
 };
 
@@ -69,7 +69,13 @@ export const installSerwist = ({
 
   if (runtimeCaching !== undefined) registerRuntimeCaching(...runtimeCaching);
 
-  if (offlineAnalyticsConfig !== undefined) initialize(offlineAnalyticsConfig);
+  if (offlineAnalyticsConfig !== undefined) {
+    if (typeof offlineAnalyticsConfig === "boolean") {
+      offlineAnalyticsConfig && initialize();
+    } else {
+      initialize(offlineAnalyticsConfig);
+    }
+  }
 
   if (shouldDisableDevLogs) disableDevLogs();
 };
