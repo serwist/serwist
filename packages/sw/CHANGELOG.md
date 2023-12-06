@@ -1,5 +1,26 @@
 # @serwist/sw
 
+## 8.0.2
+
+### Patch Changes
+
+- [`59939b1`](https://github.com/serwist/serwist/commit/59939b19d8db043d5fa70ba71bd85534c288aab1) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(sw): allow `offlineAnalyticsConfig` to be a boolean
+
+  - I actually forgot this...
+
+- Updated dependencies []:
+  - @serwist/background-sync@8.0.2
+  - @serwist/broadcast-update@8.0.2
+  - @serwist/cacheable-response@8.0.2
+  - @serwist/core@8.0.2
+  - @serwist/expiration@8.0.2
+  - @serwist/google-analytics@8.0.2
+  - @serwist/navigation-preload@8.0.2
+  - @serwist/precaching@8.0.2
+  - @serwist/range-requests@8.0.2
+  - @serwist/routing@8.0.2
+  - @serwist/strategies@8.0.2
+
 ## 8.0.1
 
 ### Patch Changes
