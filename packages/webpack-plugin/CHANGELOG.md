@@ -1,5 +1,12 @@
 # @serwist/webpack-plugin
 
+## 8.0.3
+
+### Patch Changes
+
+- Updated dependencies [[`22bc8a8`](https://github.com/serwist/serwist/commit/22bc8a86e14873d8fc335c3ea4db11f46e91aa07)]:
+  - @serwist/build@8.0.3
+
 ## 8.0.2
 
 ### Patch Changes

@@ -1,5 +1,23 @@
 # @serwist/build
 
+## 8.0.3
+
+### Patch Changes
+
+- [`22bc8a8`](https://github.com/serwist/serwist/commit/22bc8a86e14873d8fc335c3ea4db11f46e91aa07) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(serwist/build): removed fsevents
+
+  - Seems that it only supports Darwin, which means that other OSes' users are not be able to install the package (not sure why this doesn't happen to most people, including me). Not that we actually use it anyway.
+
+- Updated dependencies []:
+  - @serwist/background-sync@8.0.3
+  - @serwist/broadcast-update@8.0.3
+  - @serwist/cacheable-response@8.0.3
+  - @serwist/core@8.0.3
+  - @serwist/expiration@8.0.3
+  - @serwist/google-analytics@8.0.3
+  - @serwist/precaching@8.0.3
+  - @serwist/routing@8.0.3
+
 ## 8.0.2
 
 ### Patch Changes
