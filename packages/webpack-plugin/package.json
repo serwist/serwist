@@ -65,7 +65,7 @@
   },
   "devDependencies": {
     "@serwist/constants": "workspace:*",
-    "@types/node": "20.8.7",
-    "@types/webpack": "5.28.3"
+    "@types/node": "20.10.4",
+    "@types/webpack": "5.28.5"
   }
 }

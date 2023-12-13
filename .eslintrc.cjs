@@ -1,5 +1,11 @@
 // @ts-check
-const TSCONFIG_SOURCES = /** @type {const} */ (["tsconfig.json", "tsconfig.eslint.json", "examples/*/tsconfig.json", "packages/*/tsconfig.json"]);
+const TSCONFIG_SOURCES = /** @type {const} */ ([
+  "tsconfig.json",
+  "tsconfig.eslint.json",
+  "docs/tsconfig.json",
+  "examples/*/tsconfig.json",
+  "packages/*/tsconfig.json",
+]);
 
 /** @type {import("eslint").Linter.BaseConfig} */
 module.exports = {

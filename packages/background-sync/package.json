@@ -38,12 +38,12 @@
   },
   "dependencies": {
     "@serwist/core": "workspace:*",
-    "idb": "7.1.1"
+    "idb": "8.0.0"
   },
   "devDependencies": {
     "@serwist/constants": "workspace:*",
     "cross-env": "7.0.3",
     "rollup": "3.28.1",
-    "typescript": "5.2.2"
+    "typescript": "5.4.0-dev.20231213"
   }
 }
