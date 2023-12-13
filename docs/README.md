@@ -1,4 +1,4 @@
-This is Serwist's documentation!
+# This is Serwist's documentation!
 
 ## Getting started
 

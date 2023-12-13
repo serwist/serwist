@@ -28,6 +28,14 @@ CHANGELOG.md
 # typescript
 tsconfig.tsbuildinfo
 
+# docs
+docs/.DS_Store
+docs/build/
+docs/.svelte-kit/
+docs/package/
+docs/vite.config.js.timestamp-*
+docs/vite.config.ts.timestamp-*
+
 # examples
 examples/*/.next
 
