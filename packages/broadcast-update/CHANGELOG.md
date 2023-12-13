@@ -1,5 +1,12 @@
 # @serwist/broadcast-update
 
+## 8.0.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/core@8.0.3
+
 ## 8.0.2
 
 ### Patch Changes
