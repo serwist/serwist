@@ -206,9 +206,6 @@ importers:
       fs-extra:
         specifier: 11.1.1
         version: 11.1.1
-      fsevents:
-        specifier: 2.3.3
-        version: 2.3.3
       glob:
         specifier: 10.3.10
         version: 10.3.10
@@ -4234,6 +4231,7 @@ packages:
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
     requiresBuild: true
+    optional: true
 
   /function-bind@1.1.2:
     resolution: {integrity: sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==}

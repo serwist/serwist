@@ -54,7 +54,6 @@
     "common-tags": "1.8.2",
     "fast-json-stable-stringify": "2.1.0",
     "fs-extra": "11.1.1",
-    "fsevents": "2.3.3",
     "glob": "10.3.10",
     "pretty-bytes": "6.1.1",
     "rollup": "3.28.1",
