@@ -20,7 +20,7 @@ const escapeStr = (str) => {
  * >}
  */
 const lintStagedConfig = {
-  "**/*.{js,jsx,cjs,mjs,ts,tsx}": (filenames) => {
+  "**/*.{js,jsx,cjs,mjs,ts,tsx,svelte}": (filenames) => {
     const escapedFileNames = filenames.map((filename) => (isWin ? filename : escapeStr([filename]))).join(" ");
     return [
       `cross-env NODE_OPTIONS='--max-old-space-size=4096' eslint --fix ${filenames

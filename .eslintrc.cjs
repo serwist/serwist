@@ -20,6 +20,7 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "plugin:import/recommended",
     "plugin:import/typescript",
+    "plugin:svelte/recommended",
     "turbo",
     "prettier",
   ],
@@ -29,6 +30,7 @@ module.exports = {
     ecmaVersion: "latest",
     sourceType: "module",
     warnOnUnsupportedTypeScriptVersion: false,
+    extraFileExtensions: [".svelte"],
   },
   plugins: ["@typescript-eslint", "simple-import-sort"],
   rules: {
@@ -76,6 +78,13 @@ module.exports = {
     // ],
   },
   overrides: [
+    {
+      files: ["*.svelte"],
+      parser: "svelte-eslint-parser",
+      parserOptions: {
+        parser: "@typescript-eslint/parser",
+      },
+    },
     {
       files: ["packages/**"],
       rules: {

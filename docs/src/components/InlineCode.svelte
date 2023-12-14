@@ -15,7 +15,7 @@
   )}
   {...props}
 >
-    {#if children}
-        {@render children()}
-    {/if}
+  {#if children}
+    {@render children()}
+  {/if}
 </code>
