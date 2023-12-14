@@ -54,6 +54,8 @@ module.exports = {
     "no-fallthrough": "off",
     "no-unused-vars": "off",
     "no-extra-boolean-cast": "off",
+    // Doesn't play nice with using stores...
+    "svelte/valid-compile": "off",
     "simple-import-sort/imports": "warn",
     "simple-import-sort/exports": "warn",
     "turbo/no-undeclared-env-vars": "off",

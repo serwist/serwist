@@ -7,7 +7,7 @@
   const isDark = $derived($colorScheme === "dark");
 
   const { deviceType } = $props<{
-	deviceType: "mobile" | "desktop"
+    deviceType: "mobile" | "desktop";
   }>();
 
   const mapDeviceTypeToClass = {

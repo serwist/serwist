@@ -15,17 +15,17 @@
     });
   });
 
-  const title = $derived($page.data.title ? `${$page.data.title} - Serwist` : "Serwist")
+  const title = $derived($page.data.title ? `${$page.data.title} - Serwist` : "Serwist");
 
   const isDark = $derived($colorScheme === "dark");
 </script>
 
 <svelte:head>
-	<title>{title}</title>
-	<meta property="og:title" content={title} />
-	<meta name="twitter:title" content={title} />
-	<link rel="canonical" href={$page.url.href} />
-	<meta name="theme-color" content={isDark ? "#000000" : "#FFFFFF"} />
+  <title>{title}</title>
+  <meta property="og:title" content={title} />
+  <meta name="twitter:title" content={title} />
+  <link rel="canonical" href={$page.url.href} />
+  <meta name="theme-color" content={isDark ? "#000000" : "#FFFFFF"} />
 </svelte:head>
 
 <a class="absolute -top-full z-[100] text-black underline focus:top-0 dark:text-white" href="#main-content">Skip to main content</a>
