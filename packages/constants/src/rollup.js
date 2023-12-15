@@ -1,3 +1,5 @@
+import fs from "node:fs";
+
 import json from "@rollup/plugin-json";
 import nodeResolve from "@rollup/plugin-node-resolve";
 import swc from "@rollup/plugin-swc";
@@ -7,6 +9,24 @@ import { defineConfig } from "rollup";
 import { swcConfig } from "./swc-config.js";
 
 const isPublishMode = process.env.PUBLISH === "true";
+
+/**
+ * @returns {import("rollup").Plugin}
+ */
+function emitDCts() {
+  return {
+    name: "emitDCts",
+    writeBundle: {
+      sequential: true,
+      order: "post",
+      handler({ file }) {
+        if (/dist\/.*?\.old(\.cjs)/.test(file)) {
+          fs.copyFileSync(file.replace(".old.cjs", ".d.ts"), file.replace(".old.cjs", ".old.d.cts"));
+        }
+      },
+    },
+  };
+}
 
 /**
  * @type {typeof import("./rollup.d.ts").getRollupOptions}
@@ -47,6 +67,7 @@ export const getRollupOptions = ({ packageJson, jsFiles, shouldEmitDeclaration }
           swc({
             swc: swcConfig,
           }),
+          emitDCts(),
           ...[plugins ?? []],
         ],
       })

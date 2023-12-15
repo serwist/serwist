@@ -25,26 +25,29 @@
     "*": {
       "internal": [
         "./dist/index.internal.d.ts"
-      ],
-      "types": [
-        "./dist/types.d.ts"
       ]
     }
   },
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.old.cjs",
-      "types": "./dist/index.d.ts"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.old.d.cts",
+        "default": "./dist/index.old.cjs"
+      }
     },
     "./internal": {
-      "import": "./dist/index.internal.js",
-      "require": "./dist/index.internal.old.cjs",
-      "types": "./dist/index.internal.d.ts"
-    },
-    "./types": {
-      "types": "./dist/types.d.ts",
-      "default": null
+      "import": {
+        "types": "./dist/index.internal.d.ts",
+        "default": "./dist/index.internal.js"
+      },
+      "require": {
+        "types": "./dist/index.internal.old.d.cts",
+        "default": "./dist/index.internal.old.cjs"
+      }
     }
   },
   "scripts": {

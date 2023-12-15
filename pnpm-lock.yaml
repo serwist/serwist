@@ -169,6 +169,40 @@ importers:
         specifier: 5.3.3
         version: 5.3.3
 
+  examples/next-basic-cjs:
+    dependencies:
+      '@serwist/next':
+        specifier: latest
+        version: link:../../packages/next
+      '@serwist/sw':
+        specifier: latest
+        version: link:../../packages/sw
+      next:
+        specifier: 14.0.4
+        version: 14.0.4(@babel/core@7.23.2)(react-dom@18.2.0)(react@18.2.0)
+      react:
+        specifier: 18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: 18.2.0
+        version: 18.2.0(react@18.2.0)
+    devDependencies:
+      '@serwist/precaching':
+        specifier: latest
+        version: link:../../packages/precaching
+      '@types/node':
+        specifier: 20.10.4
+        version: 20.10.4
+      '@types/react':
+        specifier: 18.2.45
+        version: 18.2.45
+      '@types/react-dom':
+        specifier: 18.2.17
+        version: 18.2.17
+      typescript:
+        specifier: 5.3.3
+        version: 5.3.3
+
   packages/background-sync:
     dependencies:
       '@serwist/core':
@@ -248,9 +282,6 @@ importers:
       glob:
         specifier: 10.3.10
         version: 10.3.10
-      pretty-bytes:
-        specifier: 6.1.1
-        version: 6.1.1
       rollup:
         specifier: 3.28.1
         version: 3.28.1
@@ -285,6 +316,9 @@ importers:
       '@types/strip-comments':
         specifier: 2.0.4
         version: 2.0.4
+      pretty-bytes:
+        specifier: 6.1.1
+        version: 6.1.1
       type-fest:
         specifier: 4.8.3
         version: 4.8.3
@@ -652,9 +686,6 @@ importers:
       fast-json-stable-stringify:
         specifier: 2.1.0
         version: 2.1.0
-      pretty-bytes:
-        specifier: 6.1.1
-        version: 6.1.1
       rollup:
         specifier: 3.28.1
         version: 3.28.1
@@ -674,6 +705,9 @@ importers:
       '@types/webpack':
         specifier: 5.28.5
         version: 5.28.5
+      pretty-bytes:
+        specifier: 6.1.1
+        version: 6.1.1
 
   packages/window:
     dependencies:
@@ -7547,7 +7581,6 @@ packages:
   /pretty-bytes@6.1.1:
     resolution: {integrity: sha512-mQUvGU6aUFQ+rNvTIAcZuWGRT9a6f6Yrg9bHs4ImKF+HZCEK+plBvnAZYSIQztknZF2qnzNtr6F8s0+IuptdlQ==}
     engines: {node: ^14.13.1 || >=16.0.0}
-    dev: false
 
   /pretty-format@29.7.0:
     resolution: {integrity: sha512-Pdlw/oPxN+aXdmM9R00JVC9WVFoCLTKJvDVLgmJ+qAffBMxsV85l/Lu7sNx4zSzPyoL2euImuEwHhOXdEgNFZQ==}

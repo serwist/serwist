@@ -25,18 +25,32 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.old.cjs",
-      "types": "./dist/index.d.ts"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.old.d.cts",
+        "default": "./dist/index.old.cjs"
+      }
     },
     "./browser": {
-      "import": "./dist/index.browser.js",
-      "require": "./dist/index.browser.old.cjs",
-      "types": "./dist/index.browser.d.ts"
+      "import": {
+        "types": "./dist/index.browser.d.ts",
+        "default": "./dist/index.browser.js"
+      },
+      "require": {
+        "types": "./dist/index.browser.old.d.cts",
+        "default": "./dist/index.browser.old.cjs"
+      }
     },
     "./typings": {
-      "import": "./dist/sw-entry.d.ts",
-      "require": "./dist/sw-entry.d.ts"
+      "import": {
+        "types": "./dist/sw-entry.d.ts"
+      },
+      "require": {
+        "types": "./dist/sw-entry.old.d.cts"
+      }
     },
     "./package.json": "./package.json"
   },

@@ -21,7 +21,6 @@ export default getRollupOptions({
           format: "esm",
         },
       ],
-      external: ["@serwist/webpack-plugin/internal"],
     },
     {
       input: "src/index.browser.ts",
@@ -39,10 +38,17 @@ export default getRollupOptions({
     },
     {
       input: "src/sw-entry.ts",
-      output: {
-        file: "dist/sw-entry.js",
-        format: "esm",
-      },
+      output: [
+        {
+          file: "dist/sw-entry.old.cjs",
+          format: "cjs",
+          exports: "named",
+        },
+        {
+          file: "dist/sw-entry.js",
+          format: "esm",
+        },
+      ],
     },
     {
       input: "src/sw-entry-worker.ts",

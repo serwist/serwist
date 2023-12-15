@@ -26,14 +26,24 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.old.cjs",
-      "types": "./dist/index.d.ts"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.old.d.cts",
+        "default": "./dist/index.old.cjs"
+      }
     },
     "./initialize": {
-      "import": "./dist/initialize.js",
-      "require": "./dist/initialize.old.cjs",
-      "types": "./dist/initialize.d.ts"
+      "import": {
+        "types": "./dist/initialize.d.ts",
+        "default": "./dist/initialize.js"
+      },
+      "require": {
+        "types": "./dist/initialize.old.d.cts",
+        "default": "./dist/initialize.old.cjs"
+      }
     },
     "./package.json": "./package.json"
   },
