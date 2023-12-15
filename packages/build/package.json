@@ -29,9 +29,14 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.old.cjs",
-      "types": "./dist/index.d.ts"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.old.d.cts",
+        "default": "./dist/index.old.cjs"
+      }
     },
     "./package.json": "./package.json"
   },
@@ -55,7 +60,6 @@
     "fast-json-stable-stringify": "2.1.0",
     "fs-extra": "11.2.0",
     "glob": "10.3.10",
-    "pretty-bytes": "6.1.1",
     "rollup": "3.28.1",
     "source-map": "0.8.0-beta.0",
     "stringify-object": "5.0.0",
@@ -69,6 +73,7 @@
     "@types/node": "20.10.4",
     "@types/stringify-object": "4.0.5",
     "@types/strip-comments": "2.0.4",
+    "pretty-bytes": "6.1.1",
     "type-fest": "4.8.3"
   }
 }
