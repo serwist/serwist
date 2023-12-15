@@ -44,9 +44,7 @@
     },
     "globIgnores": {
       "description": "A set of patterns matching files to always exclude when generating the\nprecache manifest. For more information, see the definition of `ignore` in\nthe `glob` [documentation](https://github.com/isaacs/node-glob#options).",
-      "default": [
-        "**/node_modules/**/*"
-      ],
+      "default": ["**/node_modules/**/*"],
       "type": "array",
       "items": {
         "type": "string"
@@ -54,9 +52,7 @@
     },
     "globPatterns": {
       "description": "Files matching any of these patterns will be included in the precache\nmanifest. For more information, see the\n[`glob` primer](https://github.com/isaacs/node-glob#glob-primer).",
-      "default": [
-        "**/*.{js,css,html}"
-      ],
+      "default": ["**/*.{js,css,html}"],
       "type": "array",
       "items": {
         "type": "string"
@@ -102,11 +98,7 @@
       "type": "string"
     }
   },
-  "required": [
-    "globDirectory",
-    "swDest",
-    "swSrc"
-  ],
+  "required": ["globDirectory", "swDest", "swSrc"],
   "definitions": {
     "ManifestEntry": {
       "type": "object",
@@ -115,20 +107,14 @@
           "type": "string"
         },
         "revision": {
-          "type": [
-            "null",
-            "string"
-          ]
+          "type": ["null", "string"]
         },
         "url": {
           "type": "string"
         }
       },
       "additionalProperties": false,
-      "required": [
-        "revision",
-        "url"
-      ]
+      "required": ["revision", "url"]
     },
     "RegExp": {
       "type": "object",
@@ -162,17 +148,7 @@
         }
       },
       "additionalProperties": false,
-      "required": [
-        "dotAll",
-        "flags",
-        "global",
-        "ignoreCase",
-        "lastIndex",
-        "multiline",
-        "source",
-        "sticky",
-        "unicode"
-      ]
+      "required": ["dotAll", "flags", "global", "ignoreCase", "lastIndex", "multiline", "source", "sticky", "unicode"]
     }
   },
   "$schema": "http://json-schema.org/draft-07/schema#"

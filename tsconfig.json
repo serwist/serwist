@@ -17,8 +17,8 @@
     "isolatedModules": true,
     "removeComments": false,
     "noEmit": true,
-    "checkJs": true,
+    "checkJs": true
   },
   "include": ["*.js", "*.cjs", "*.mjs"],
-  "exclude": ["node_modules", "dist"],
+  "exclude": ["node_modules", "dist"]
 }

@@ -47,10 +47,6 @@ coverage/
 
 .DS_Store
 *.pem
-
-*.css
-*.json
-
 .vercel/
 
 **/public/workbox**
@@ -62,5 +58,3 @@ coverage/
 # other files
 LICENSE
 CODE_OF_CONDUCT.md
-*.css
-*.json

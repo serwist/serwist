@@ -16,6 +16,9 @@
     "test": {},
     "typecheck": {
       "outputs": []
+    },
+    "docs#build": {
+      "outputs": [".svelte-kit/**", ".vercel/**"]
     }
   }
 }

@@ -1,12 +1,12 @@
 {
-    "name": "serwist-examples",
-    "version": "1.0.0",
-    "type": "module",
-    "license": "MIT",
-    "private": true,
-    "devDependencies": {
-        "@serwist/next": "workspace:*",
-        "@serwist/sw": "workspace:*",
-        "@serwist/precaching": "workspace:*"
-    }
+  "name": "serwist-examples",
+  "version": "1.0.0",
+  "type": "module",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@serwist/next": "workspace:*",
+    "@serwist/sw": "workspace:*",
+    "@serwist/precaching": "workspace:*"
+  }
 }

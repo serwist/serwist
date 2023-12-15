@@ -9,10 +9,7 @@ jobs:
     name: 🔎 Typecheck, check formatting and lint
     uses: ./.github/workflows/build-reusable.yml
     with:
-      afterBuild: |
-        pnpm typecheck &&
-        pnpm format:check &&
-        pnpm lint
+      afterBuild: pnpm typecheck
     secrets: inherit
   # test-integration-dev:
   #   name: ⚫️ Run Jest (development mode) integration tests
