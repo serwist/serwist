@@ -19,7 +19,7 @@
     "lint:fix": "pnpm lint -- --fix",
     "lint-staged": "lint-staged",
     "prepare": "husky install",
-    "publish-packages": "pnpm typecheck && pnpm lint && cross-env PUBLISH=true pnpm build && changeset publish",
+    "publish-packages": "pnpm typecheck && cross-env PUBLISH=true pnpm build && changeset publish",
     "typecheck": "cross-env FORCE_COLOR=1 turbo run typecheck"
   },
   "devDependencies": {
