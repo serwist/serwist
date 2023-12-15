@@ -1,6 +1,6 @@
 {
   "name": "@serwist/broadcast-update",
-  "version": "8.0.3",
+  "version": "8.0.4",
   "type": "module",
   "description": "A service worker helper library that uses the Broadcast Channel API to announce when a cached response has updated",
   "files": [

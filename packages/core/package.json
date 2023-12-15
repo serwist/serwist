@@ -1,6 +1,6 @@
 {
   "name": "@serwist/core",
-  "version": "8.0.3",
+  "version": "8.0.4",
   "type": "module",
   "description": "This module is used by a number of the other Serwist modules to share common code.",
   "files": [
