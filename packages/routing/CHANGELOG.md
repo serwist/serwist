@@ -1,5 +1,17 @@
 # @serwist/routing
 
+## 8.0.4
+
+### Patch Changes
+
+- [#10](https://github.com/serwist/serwist/pull/10) [`52edfe2`](https://github.com/serwist/serwist/commit/52edfe2f9e4ff2007747dd038023dbc94af52698) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(node-16-cjs): added type support for NodeNext with CommonJS
+
+  - The "fix" is really simple - we copy `.d.ts` to `.old.d.cts` 💀
+  - This also fixes the issue where using `@serwist/build`, `@serwist/webpack-plugin`, and their dependents with CommonJS crashes due to us using `pretty-bytes`, which is an ESM package.
+
+- Updated dependencies [[`52edfe2`](https://github.com/serwist/serwist/commit/52edfe2f9e4ff2007747dd038023dbc94af52698)]:
+  - @serwist/core@8.0.4
+
 ## 8.0.3
 
 ### Patch Changes
