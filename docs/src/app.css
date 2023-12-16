@@ -13,7 +13,6 @@ body {
   @apply box-border bg-gray-100 transition-colors duration-100 dark:bg-neutral-900;
 }
 
-#__next,
 #root-container {
   @apply m-0 flex h-fit min-h-screen w-full flex-col p-0;
 }

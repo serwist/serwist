@@ -53,11 +53,11 @@
     <h1 class="my-2 text-5xl font-semibold tracking-tight text-center">
       Create Progressive Web Apps<br /> with Serwist.
     </h1>
-    <h2 class="my-2 text-2xl font-medium tracking-tight">Serwist enables you to create PWAs with ease.</h2>
-    <a class="text-accent-light dark:text-accent-dark underline text-xl" href="#main-content">
-      {"> Get started"}
+    <h2 class="my-2 text-2xl font-medium tracking-tight text-center">Serwist enables you to create PWAs with ease.</h2>
+    <a class="text-accent-light dark:text-accent-dark underline underline-offset-8 text-xl" href="#main-content">
+      {"~> Get started"}
     </a>
-    <InlineCode dir="ltr">npx create-next-app@latest -e https://github.com/serwist/serwist/tree/main/examples/next-basic</InlineCode>
+    <InlineCode>{"npx create-next-app@latest -e https://github.com/serwist/serwist/tree/main/examples/next-basic"}</InlineCode>
   </div>
   <div class="w-full p-4 md:p-24">
     <div class="grid w-full text-left lg:mb-0 lg:grid-cols-4 lg:gap-2">
