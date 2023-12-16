@@ -1,3 +1,49 @@
+@import "./geist.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html,
+body {
+  @apply m-0 flex h-full w-full p-0;
+}
+body {
+  font-family: "Geist";
+  font-weight: 400;
+  @apply box-border bg-gray-100 transition-colors duration-100 dark:bg-neutral-900;
+}
+
+#__next,
+#root-container {
+  @apply m-0 flex h-fit min-h-screen w-full flex-col p-0;
+}
+#main-content {
+  @apply flex flex-grow;
+}
+
+/* Obviously stolen from the wonderful jh3yy */
+@keyframes move-bg {
+  to {
+    background-position: var(--bg-size) 0;
+  }
+}
+.boujee-text {
+  --bg-size: 400%;
+  --color-one: hsl(15 90% 55%);
+  --color-two: hsl(40 95% 55%);
+  background: linear-gradient(90deg, var(--color-one), var(--color-two), var(--color-one)) 0 0 / var(--bg-size) 100%;
+  color: transparent;
+  background-clip: text;
+  animation: move-bg 8s infinite linear;
+}
+
+@media (prefers-reduced-motion) {
+  html {
+    @apply !animate-none !transition-none;
+  }
+  html *,
+  html *:before,
+  html *:after {
+    @apply !animate-[inherit] !transition-[inherit];
+  }
+}

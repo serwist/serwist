@@ -10,55 +10,52 @@
 
   export const FEATURES_LIST = [
     {
-      icon: "✊",
-      label: "Lorem ipsum",
-      description: "Lorem ipsum...",
+      icon: "✨",
+      label: "Stellar",
+      description: "Beautifully designed APIs to blow your mind away~",
     },
     {
-      icon: "⛏️",
-      label: "Configurable",
-      description: "...yet there are many options available to extend the plugin.",
+      icon: "🪄",
+      label: "Enchanted",
+      description: "SO. MANY. OPTIONS. Why would you want to be locked down to having nothing?",
     },
     {
       icon: "💯",
-      label: "Fast",
-      description: "Blow your user's mind with a website as fast as lightning ⚡",
+      label: "Rapid",
+      description: "A website as fast as lightning ⚡ Who wouldn't want that?",
     },
     {
       icon: "🔌",
-      label: "Offline",
-      description: "Proper offline support. For both App and Pages Router.",
+      label: "Wide-ranging",
+      description: "Do it your way. The API design allows for anything 🚀",
+    },
+    {
+      icon: "💪",
+      label: "Indefatigable",
+      description: "Always working hard as a community! This project wouldn't have come to be otherwise...",
     },
     {
       icon: "🚀",
-      label: "Developer experience",
-      description: "Built-in TypeScript definitions and JSDoc to enable the best DX.",
+      label: "Satisfactory",
+      description: "Built-in TypeScript definitions and JSDoc. NodeNext. ESM. CommonJS. All supported. Just comfortable.",
+    },
+    {
+      icon: "🤝",
+      label: "Trustworthy",
+      description: "Regularly maintained. Completely open. What's there to doubt?",
     },
   ] satisfies Feature[];
 </script>
 
 <div class="w-full self-stretch bg-white text-black dark:bg-black dark:text-white">
-  <div class="flex w-full flex-col items-center justify-center gap-5 px-5 py-40">
-    <h1
-      class={clsx(
-        "my-2 text-5xl font-extrabold tracking-tight",
-        "bg-gradient-to-t from-gray-500 to-black bg-clip-text text-transparent dark:from-gray-400 dark:to-white"
-      )}
-    >
-      Make performant web apps with Serwist.
+  <div class="flex w-full flex-col items-center justify-center gap-5 px-5 py-24">
+    <span class="text-2xl shrink-0 uppercase tracking-widest font-mono">Serwist</span>
+    <h1 class="my-2 text-5xl font-semibold tracking-tight text-center">
+      Create Progressive Web Apps<br /> with Serwist.
     </h1>
-    <h2 class="my-2 text-2xl font-medium tracking-tight opacity-80">Serwist enables you to create PWAs with ease.</h2>
-    <a
-      class={clsx(
-        "rounded-md border px-6 py-3 font-bold transition-colors duration-100",
-        "bg-black text-white dark:bg-white dark:text-black",
-        "hover:border-black hover:bg-white hover:text-black",
-        "hover:dark:border-white hover:dark:bg-black hover:dark:text-white",
-        "focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
-      )}
-      href="#main-content"
-    >
-      Get started
+    <h2 class="my-2 text-2xl font-medium tracking-tight">Serwist enables you to create PWAs with ease.</h2>
+    <a class="text-accent-light dark:text-accent-dark underline text-xl" href="#main-content">
+      {"> Get started"}
     </a>
     <InlineCode dir="ltr">npx create-next-app@latest -e https://github.com/serwist/serwist/tree/main/examples/next-basic</InlineCode>
   </div>
