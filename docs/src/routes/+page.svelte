@@ -1,6 +1,9 @@
 <script lang="ts">
+  import CodeTab from "$components/CodeTab.svelte";
   import InlineCode from "$components/InlineCode.svelte";
   import { clsx } from "$lib/clsx";
+
+  import type { PageData } from "./$types";
 
   interface Feature {
     icon: string;
@@ -45,6 +48,8 @@
       description: "Regularly maintained. Completely open. What's there to doubt?",
     },
   ] satisfies Feature[];
+
+  const { data } = $props<{ data: PageData }>();
 </script>
 
 <div class="w-full self-stretch bg-white text-black dark:bg-black dark:text-white">
@@ -82,6 +87,21 @@
           </p>
         </div>
       {/each}
+    </div>
+  </div>
+  <div class="w-full p-4 md:p-24 flex flex-col md:justify-between md:flex-row gap-4">
+    <div class="md:flex-[1_1_0]">
+      <h2 class="text-3xl font-semibold tracking-tight">Next.js</h2>
+      <h3 class="text-2xl tracking-tight">The good old reliable React framework.</h3>
+    </div>
+    <div class="md:flex-[2_2_0] overflow-hidden">
+      <CodeTab
+        keyPrefix="nextjs-config-showcase"
+        codes={{
+          "next.config.js": data.code.next.configJs,
+          "next.config.mjs": data.code.next.configMjs,
+        }}
+      />
     </div>
   </div>
 </div>

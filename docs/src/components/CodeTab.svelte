@@ -1,37 +1,55 @@
-<script lang="ts">
-  // Merely a prototype.
-  import "highlight.js/styles/github-dark.min.css";
+<script lang="ts" generics="T extends string">
+  import { clsx } from "$lib/clsx";
 
-  import highlightjs from "highlight.js/lib/core";
-  let code = $state("<diV></div>");
-  $effect(() => {
-    const loadHighlightjs = async () => {
-      highlightjs.registerLanguage("javascript", (await import("highlight.js/lib/languages/javascript")).default);
+  interface CodeTabProps {
+    /**
+     * Only use trusted code!
+     * Map tab -> code
+     */
+    codes: Record<T, string>;
+    keyPrefix: string;
+  }
 
-      code = highlightjs.highlight(
-        `const withPWA = require("@ducanh2912/next-pwa").default({
-    dest: "public",
-});
+  const { codes, keyPrefix } = $props<CodeTabProps>();
 
-module.exports = withPWA({
-    // Your Next.js config
-});`,
-        { language: "javascript" }
-      ).value;
-    };
-    loadHighlightjs();
-  });
+  const codeEntries = Object.entries(codes) as [T, string][];
+  const codeKeys = codeEntries.map(([key]) => key);
+
+  let currentTab = $state<T>(codeKeys[0]);
 </script>
 
-<div class="rounded-md bg-[#0d1117] flex flex-col overflow-hidden">
-  <div class="w-full bg-[#010409]">
-    <button class="p-2 bg-[#0d1117] border-t-[#f78166] border-t border-r border-r-[#30363d] text-[#c9d1d9]">next.config.js</button>
+<div class="w-full rounded-xl bg-neutral-50 dark:bg-neutral-950 flex flex-col overflow-hidden border-[0.5px] border-gray-300 dark:border-gray-800">
+  <div class="w-full bg-white dark:bg-black relative flex">
+    {#each codeKeys as tab}
+      {@const isActive = tab === currentTab}
+      <button
+        id={`${keyPrefix}-${tab}-button`}
+        class={clsx(
+          "py-2 px-4 border-gray-300 dark:border-gray-800 relative border-r-[0.5px]",
+          isActive ? "bg-neutral-50 text-black dark:bg-neutral-950 dark:text-white" : "text-gray-600 dark:text-gray-400"
+        )}
+        on:click={() => (currentTab = tab as T)}
+        aria-controls={`${keyPrefix}-${tab}-code`}
+      >
+        {tab}
+        {#if isActive}
+          <span class="w-full h-[1px] z-[2] bg-neutral-50 dark:bg-neutral-950 absolute bottom-0 left-0" />
+        {/if}
+      </button>
+    {/each}
+    <div class="w-full h-[1px] z-[1] bg-gray-300 dark:bg-gray-800 absolute bottom-0 left-0" />
   </div>
-  <div class="margin-0 p-4 overflow-auto">
-    <pre class="whitespace-normal">
+  <div class="margin-0 p-4">
+    {#each codeEntries as [tab, code]}
+      {@const isActive = tab === currentTab}
+      <pre
+        id={`${keyPrefix}-${tab}-code`}
+        class={clsx("whitespace-normal overflow-auto", !isActive && "hidden")}
+        aria-labelledby={`${keyPrefix}-${tab}-button`}>
         <!-- Only use trusted code! -->
         <!-- eslint-disable-next-line svelte/no-at-html-tags -->
         <code class="block w-fit whitespace-pre">{@html code}</code>
-    </pre>
+      </pre>
+    {/each}
   </div>
 </div>

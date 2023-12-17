@@ -52,6 +52,7 @@ module.exports = {
     "import/no-named-as-default": "off",
     "import/no-named-as-default-member": "off",
     "no-fallthrough": "off",
+    "no-undef": "off",
     "no-unused-vars": "off",
     "no-extra-boolean-cast": "off",
     // Doesn't play nice with using stores...
