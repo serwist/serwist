@@ -49,7 +49,12 @@
 
 <div class="w-full self-stretch bg-white text-black dark:bg-black dark:text-white">
   <div class="flex w-full flex-col items-center justify-center gap-5 px-5 py-24">
-    <span class="text-2xl shrink-0 uppercase tracking-widest font-mono">Serwist</span>
+    <enhanced:img
+      src="$images/logo-800x200.png?w=400;200;100"
+      alt="Serwist"
+      class="invert dark:invert-0 w-[150px] md:w-[200px] h-auto"
+      sizes="(min-width:1920px) 400px, (min-width:1080px) 250px, (min-width:768px) 200px"
+    />
     <h1 class="my-2 text-5xl font-semibold tracking-tight text-center">
       Create Progressive Web Apps<br /> with Serwist.
     </h1>

@@ -10,6 +10,7 @@ const config = {
     adapter: adapter(),
     alias: {
       $components: "./src/components",
+      $images: "./src/images",
     },
     inlineStyleThreshold: 2048,
   },

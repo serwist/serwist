@@ -4,11 +4,11 @@
 
   import { page } from "$app/stores";
   import { clsx } from "$lib/clsx";
+  import { GITHUB_REPO_URL } from "$lib/constants";
   import { isLinkActive } from "$lib/isLinkActive";
 
   import NavLink from "./NavLink.svelte";
   import NavToggleScheme from "./NavToggleScheme.svelte";
-  import { GITHUB_REPO_URL } from "$lib/constants";
 
   interface NavHrefInfo {
     link: `/${string}`;
@@ -68,8 +68,8 @@
         <NavToggleScheme deviceType="mobile" />
       </div>
       <div class="flex flex-1 items-center justify-center md:flex-none md:items-stretch md:justify-start">
-        <NavLink href="/" aria-label="Go to home" wideText>
-          <span class="hidden font-mono md:block">Serwist</span>
+        <NavLink href="/" aria-label="Go to home">
+          <enhanced:img src="$images/logo-200x50-transparent.png" alt="Serwist" class="invert dark:invert-0 w-[100px] h-auto" />
         </NavLink>
       </div>
       <div class="absolute inset-y-0 right-0 flex h-full w-fit flex-row items-center gap-[5px] md:static md:w-full">
