@@ -1,5 +1,14 @@
 # @serwist/next
 
+## 8.0.5
+
+### Patch Changes
+
+- Updated dependencies [[`beec2d1`](https://github.com/serwist/serwist/commit/beec2d1d4bf1747acc15567e9accab68e37980cc)]:
+  - @serwist/webpack-plugin@8.0.5
+  - @serwist/build@8.0.5
+  - @serwist/window@8.0.5
+
 ## 8.0.4
 
 ### Patch Changes
