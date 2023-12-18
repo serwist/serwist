@@ -1,9 +1,16 @@
 <script lang="ts">
+  import type { ComponentType, SvelteComponent } from "svelte";
+  import type { SVGAttributes } from "svelte/elements";
+
   import CodeTab from "$components/CodeTab.svelte";
+  import NextjsLogo from "$components/icons/NextjsLogo.svelte";
+  import WebpackLogo from "$components/icons/WebpackLogo.svelte";
   import InlineCode from "$components/InlineCode.svelte";
   import { clsx } from "$lib/clsx";
 
   import type { PageData } from "./$types";
+
+  const { data } = $props<{ data: PageData }>();
 
   interface Feature {
     icon: string;
@@ -11,7 +18,7 @@
     description: string;
   }
 
-  export const FEATURES_LIST = [
+  const FEATURES_LIST = [
     {
       icon: "✨",
       label: "Stellar",
@@ -49,7 +56,58 @@
     },
   ] satisfies Feature[];
 
-  const { data } = $props<{ data: PageData }>();
+  type ToolKey = "nextjs" | "webpack";
+
+  interface Tool {
+    key: ToolKey;
+    label: string;
+    logo: ComponentType<SvelteComponent<SVGAttributes<SVGElement>>>;
+    additionalClass?: string;
+  }
+
+  interface ToolInfo {
+    title: string;
+    description: string;
+    codes: Record<string, string>;
+    defaultTab: string;
+  }
+
+  const TOOLS_LIST = [
+    {
+      key: "nextjs",
+      logo: NextjsLogo,
+      label: "Next.js",
+      additionalClass: "dark:invert",
+    },
+    {
+      key: "webpack",
+      logo: WebpackLogo,
+      label: "webpack",
+    },
+  ] satisfies Tool[];
+
+  const MAP_TOOL_KEY_TO_INFO: Record<ToolKey, ToolInfo> = {
+    nextjs: {
+      title: "Next.js",
+      description: "The classic React framework.",
+      codes: {
+        "next.config.mjs": data.code.next.configMjs,
+        "next.config.js": data.code.next.configJs,
+      },
+      defaultTab: "next.config.mjs",
+    },
+    webpack: {
+      title: "webpack",
+      description: "The good old reliable webpack.",
+      codes: {
+        "webpack.config.js": data.code.webpack.configJs,
+      },
+      defaultTab: "webpack.config.js",
+    },
+  };
+
+  let currentSelectedTool = $state<ToolKey>("nextjs");
+  let currentSelectedToolInfo = $derived(MAP_TOOL_KEY_TO_INFO[currentSelectedTool]);
 </script>
 
 <div class="w-full self-stretch bg-white text-black dark:bg-black dark:text-white">
@@ -91,16 +149,25 @@
   </div>
   <div class="w-full p-4 md:p-24 flex flex-col md:justify-between md:flex-row gap-4">
     <div class="md:flex-[1_1_0]">
-      <h2 class="text-3xl font-semibold tracking-tight">Next.js</h2>
-      <h3 class="text-2xl tracking-tight">The good old reliable React framework.</h3>
+      <div class="flex flex-row gap-4 flex-wrap">
+        {#each TOOLS_LIST as { key, label, logo: Logo, additionalClass }}
+          <button on:click={() => (currentSelectedTool = key)} aria-label={label}>
+            <Logo
+              class={clsx("mb-2 transition-all duration-100", currentSelectedTool !== key && "contrast-0 hover:contrast-100", additionalClass)}
+              width={64}
+              height={64}
+            />
+          </button>
+        {/each}
+      </div>
+      <h2 class="text-3xl font-semibold tracking-tight">{currentSelectedToolInfo.title}</h2>
+      <h3 class="text-2xl tracking-tight">{currentSelectedToolInfo.description}</h3>
     </div>
     <div class="md:flex-[2_2_0] overflow-hidden">
       <CodeTab
-        keyPrefix="nextjs-config-showcase"
-        codes={{
-          "next.config.js": data.code.next.configJs,
-          "next.config.mjs": data.code.next.configMjs,
-        }}
+        idPrefix={`${currentSelectedTool}-config-showcase`}
+        codes={currentSelectedToolInfo.codes}
+        defaultTab={currentSelectedToolInfo.defaultTab}
       />
     </div>
   </div>

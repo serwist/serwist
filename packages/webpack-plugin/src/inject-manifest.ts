@@ -5,8 +5,6 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-import path from "node:path";
-
 import type { WebpackInjectManifestOptions } from "@serwist/build";
 import { escapeRegExp, replaceAndUpdateSourceMap, validateWebpackInjectManifestOptions } from "@serwist/build";
 import stringify from "fast-json-stable-stringify";
@@ -70,7 +68,7 @@ class InjectManifest {
       {
         mode: compiler.options.mode,
         // Use swSrc with a hardcoded .js extension, in case swSrc is a .ts file.
-        swDest: path.join(parsedSwSrc.dir, parsedSwSrc.name + ".js"),
+        swDest: parsedSwSrc.name + ".js",
       },
       this.config
     );
