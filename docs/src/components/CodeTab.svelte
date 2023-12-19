@@ -1,19 +1,21 @@
-<script lang="ts" generics="T extends string">
+<script lang="ts" generics="T extends Record<string, string>">
   import { clsx } from "$lib/clsx";
+
+  type TKeys = keyof T extends infer T ? (T extends string ? T : never) : never;
 
   interface CodeTabProps {
     /**
      * Only use trusted code!
      * Map tab -> code
      */
-    codes: Record<T, string>;
+    codes: T;
     idPrefix: string;
-    defaultTab: T;
+    defaultTab: TKeys;
   }
 
   const { codes, idPrefix, defaultTab } = $props<CodeTabProps>();
 
-  const codeEntries = $derived(Object.entries(codes) as [T, string][]);
+  const codeEntries = $derived(Object.entries(codes) as [TKeys, T[TKeys]][]);
   const codeKeys = $derived(codeEntries.map(([key]) => key));
 
   let currentTab = $state(defaultTab);
@@ -49,7 +51,7 @@
       {@const isActive = tab === currentTab}
       <pre
         id={`${idPrefix}-${tab}-code`}
-        class={clsx("whitespace-normal overflow-auto", !isActive && "hidden")}
+        class={clsx("hljs whitespace-normal overflow-auto !bg-transparent", !isActive && "hidden")}
         aria-labelledby={`${idPrefix}-${tab}-button`}>
         <!-- Only use trusted code! -->
         <!-- eslint-disable-next-line svelte/no-at-html-tags -->

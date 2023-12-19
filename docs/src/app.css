@@ -11,7 +11,7 @@
   body {
     font-family: "Geist";
     font-weight: 400;
-    @apply box-border bg-gray-100 transition-colors duration-100 dark:bg-neutral-900;
+    @apply box-border bg-gray-50 transition-colors duration-100 dark:bg-neutral-950;
   }
 
   #root-container {

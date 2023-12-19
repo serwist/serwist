@@ -122,7 +122,7 @@
       Create Progressive Web Apps<br /> with Serwist.
     </h1>
     <h2 class="my-2 text-2xl font-medium tracking-tight text-center">Serwist enables you to create PWAs with ease.</h2>
-    <a class="text-accent-light dark:text-accent-dark underline underline-offset-8 text-xl" href="#main-content">
+    <a class="text-accent-light dark:text-accent-dark underline underline-offset-8 text-xl" href="/docs">
       {"~> Get started"}
     </a>
     <InlineCode>{"npx create-next-app@latest -e https://github.com/serwist/serwist/tree/main/examples/next-basic"}</InlineCode>
