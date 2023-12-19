@@ -26,7 +26,7 @@
 </script>
 
 <div class="w-full rounded-xl bg-neutral-50 dark:bg-neutral-950 flex flex-col overflow-hidden border-[0.5px] border-gray-300 dark:border-gray-800">
-  <div class="w-full bg-white dark:bg-black relative flex">
+  <div class="w-full bg-white dark:bg-black relative flex overflow-auto">
     {#each codeKeys as tab}
       {@const isActive = tab === currentTab}
       <button

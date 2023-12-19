@@ -16,7 +16,12 @@
   }
 
   const links = $derived(
-    ([{ label: "Home", link: "/" }] satisfies NavHrefInfo[]).map(({ link, ...rest }) => ({
+    (
+      [
+        { label: "Home", link: "/" },
+        { label: "Docs", link: "/docs" },
+      ] satisfies NavHrefInfo[]
+    ).map(({ link, ...rest }) => ({
       link,
       ...rest,
       isActive: isLinkActive(link, $page.url.pathname),

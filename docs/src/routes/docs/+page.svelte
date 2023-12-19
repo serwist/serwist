@@ -9,6 +9,10 @@
 <br />
 <Text>Take a look around:</Text>
 <br />
-<InlineCode>
-  <Link href="/docs/next">@serwist/next</Link>
-</InlineCode>
+<ul>
+  <li>
+    <InlineCode>
+      <Link href="/docs/next">@serwist/next</Link>
+    </InlineCode>
+  </li>
+</ul>
