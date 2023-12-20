@@ -48,13 +48,13 @@
       </aside>
     {/if}
   </span>
-  <nav class="order-last hidden w-[350px] h-screen shrink-0 px-4 print:hidden xl:block" aria-label="Table of contents">
-    <div class="sticky top-0 flex flex-col hyphens-auto pr-4 pt-6 text-sm ltr:-mr-4 rtl:-ml-4">
+  <nav class="sticky top-0 order-last hidden w-[350px] max-h-screen shrink-0 px-4 print:hidden xl:block" aria-label="Table of contents">
+    <div class="flex flex-col hyphens-auto pr-4 pt-6 text-sm ltr:-mr-4 rtl:-ml-4">
       <p class="mb-4 font-semibold tracking-tight text-black dark:text-white">On This Page</p>
       <div class="w-full self-stretch overflow-y-auto pointer-events-none" aria-hidden="true" />
       <div class="sticky bottom-0 mt-8 flex flex-col items-start gap-2 border-t pb-8 pt-8 dark:border-neutral-800">
         <a
-          href="https://github.com/DuCanhGH/next-pwa/issues/new/choose"
+          href="https://github.com/serwist/serwist/issues/new/choose"
           target="_blank"
           rel="noreferrer"
           class="text-xs font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
@@ -62,7 +62,7 @@
           Question? Give us feedback →<span class="sr-only"> (opens in a new tab)</span>
         </a>
         <a
-          href="https://github.com/DuCanhGH/next-pwa/tree/master/docs/content/index.mdx"
+          href="https://github.com/serwist/serwist"
           target="_blank"
           rel="noreferrer"
           class="text-xs font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
