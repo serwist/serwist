@@ -15,7 +15,7 @@
 </script>
 
 <li class="flex flex-col pt-2">
-  <NavLink {href} textCenter={false} isActive={href === $page.url.pathname}>{title}</NavLink>
+  <NavLink {href} textCenter={false} isActive={href === $page.url.pathname || href === `${$page.url.pathname}/`}>{title}</NavLink>
   {#if children}
     <div class="transform-gpu overflow-hidden transition-all ease-in-out motion-reduce:transition-none opacity-100 duration-500 ltr:pr-0 rtl:pl-0">
       <ul
