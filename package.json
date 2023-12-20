@@ -12,6 +12,7 @@
   "scripts": {
     "build": "cross-env FORCE_COLOR=1 turbo run build --filter=./packages/*",
     "deps": "node ncu.js",
+    "docs:build": "cross-env FORCE_COLOR=1 turbo run build --filter=./docs",
     "format": "prettier --write",
     "format:all": "pnpm format .",
     "format:check": "prettier --check .",
