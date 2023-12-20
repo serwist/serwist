@@ -8,7 +8,7 @@
   import InlineCode from "$components/InlineCode.svelte";
   import { clsx } from "$lib/clsx";
 
-  import type { PageData } from "./$types";
+  import type { PageData } from "../$types";
 
   const { data } = $props<{ data: PageData }>();
 

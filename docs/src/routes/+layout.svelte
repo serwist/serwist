@@ -5,7 +5,6 @@
   import highlightjsDark from "highlight.js/styles/github-dark.min.css?inline";
 
   import { page } from "$app/stores";
-  import Navbar from "$components/layouts/Navbar.svelte";
   import { isColorScheme } from "$lib/isColorScheme";
   import { colorScheme } from "$lib/stores/colorScheme";
 
@@ -32,13 +31,10 @@
   <title>{title}</title>
   <meta property="og:title" content={title} />
   <meta name="twitter:title" content={title} />
-  <link rel="canonical" href={$page.url.href} />
+  <link rel="canonical" href={new URL($page.url.pathname, $page.url.origin).href} />
   <meta name="theme-color" content={isDark ? "#000000" : "#FFFFFF"} />
   <style bind:this={highlightStyle}></style>
 </svelte:head>
 
 <a class="absolute -top-full z-[100] text-black underline focus:top-0 dark:text-white" href="#main-content">Skip to main content</a>
-<Navbar />
-<main id="main-content">
-  <slot />
-</main>
+<slot />
