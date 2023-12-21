@@ -1,5 +1,14 @@
 # @serwist/next
 
+## 8.1.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/build@8.1.0
+  - @serwist/webpack-plugin@8.1.0
+  - @serwist/window@8.1.0
+
 ## 8.0.5
 
 ### Patch Changes

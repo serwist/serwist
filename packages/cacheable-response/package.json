@@ -1,6 +1,6 @@
 {
   "name": "@serwist/cacheable-response",
-  "version": "8.0.5",
+  "version": "8.1.0",
   "type": "module",
   "description": "This library takes a Response object and determines whether it's cacheable based on a specific configuration.",
   "files": [

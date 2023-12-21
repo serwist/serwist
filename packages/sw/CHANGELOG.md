@@ -1,5 +1,55 @@
 # @serwist/sw
 
+## 8.1.0
+
+### Minor Changes
+
+- [`4ad112e`](https://github.com/serwist/serwist/commit/4ad112e782dd2b1c341db05ef125c8bbbf9fbf14) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(sw): added fallbacks
+
+  - A removed feature of `@ducanh2912/next-pwa`, renovated.
+  - There are differences from the old counterpart:
+
+    - This feature belongs to `@serwist/sw`, rather than `@serwist/next`.
+    - You are expected to provide a revision key yourself.
+    - Go crazy: `matcher` replaces `request.destination` as the way to check whether a fallback entry is fit for a Request.
+    - Usage example:
+
+    ```js
+    installSerwist({
+      precacheEntries: self.__SW_MANIFEST,
+      skipWaiting: true,
+      clientsClaim: true,
+      navigationPreload: true,
+      runtimeCaching: defaultCache,
+      fallbacks: {
+        entries: [
+          {
+            url: "/~offline",
+            revision,
+            matcher({ request }) {
+              return request.destination === "document";
+            },
+          },
+        ],
+      },
+    });
+    ```
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/background-sync@8.1.0
+  - @serwist/broadcast-update@8.1.0
+  - @serwist/cacheable-response@8.1.0
+  - @serwist/core@8.1.0
+  - @serwist/expiration@8.1.0
+  - @serwist/google-analytics@8.1.0
+  - @serwist/navigation-preload@8.1.0
+  - @serwist/precaching@8.1.0
+  - @serwist/range-requests@8.1.0
+  - @serwist/routing@8.1.0
+  - @serwist/strategies@8.1.0
+
 ## 8.0.5
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @serwist/background-sync
 
+## 8.1.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/core@8.1.0
+
 ## 8.0.5
 
 ### Patch Changes
