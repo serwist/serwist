@@ -18,6 +18,8 @@
   const codeEntries = $derived(Object.entries(codes) as [TKeys, T[TKeys]][]);
   const codeKeys = $derived(codeEntries.map(([key]) => key));
 
+  const getTabId = (tabName: string) => `${idPrefix}-${tabName.replace(/[ ()]/gm, "-")}`;
+
   let currentTab = $state(defaultTab);
 
   $effect(() => {
@@ -29,14 +31,15 @@
   <div class="w-full bg-white dark:bg-black relative flex overflow-auto">
     {#each codeKeys as tab}
       {@const isActive = tab === currentTab}
+      {@const tabId = getTabId(tab)}
       <button
-        id={`${idPrefix}-${tab}-button`}
+        id={`${tabId}-button`}
         class={clsx(
           "py-2 px-4 border-gray-300 dark:border-gray-800 relative border-r-[0.5px]",
           isActive ? "bg-white text-black dark:bg-neutral-950 dark:text-white" : "text-gray-600 dark:text-gray-400"
         )}
         on:click={() => (currentTab = tab)}
-        aria-controls={`${idPrefix}-${tab}-code`}
+        aria-controls={`${tabId}-code`}
       >
         {tab}
         {#if isActive}
@@ -49,20 +52,19 @@
   <div class="margin-0 p-4">
     {#each codeEntries as [tab, code]}
       {@const isActive = tab === currentTab}
+      {@const tabId = getTabId(tab)}
       <div
-        id={`${idPrefix}-${tab}-code`}
-        class={clsx("whitespace-normal overflow-auto", !isActive && "hidden")}
-        aria-labelledby={`${idPrefix}-${tab}-button`}
+        id={`${tabId}-code`}
+        class={clsx("whitespace-normal overflow-auto [&>*]:!bg-transparent", !isActive && "hidden")}
+        aria-labelledby={`${tabId}-button`}
       >
-        <span class="code-tab-dark [&>*]:!bg-transparent">
+        {#if isActive}
           <!-- Only use trusted code! -->
           <!-- eslint-disable-next-line svelte/no-at-html-tags -->
           {@html code.dark}
-        </span>
-        <span class="code-tab-light [&>*]:!bg-transparent">
           <!-- eslint-disable-next-line svelte/no-at-html-tags -->
           {@html code.light}
-        </span>
+        {/if}
       </div>
     {/each}
   </div>
