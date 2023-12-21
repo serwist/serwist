@@ -66,7 +66,7 @@
   "dependencies": {
     "@serwist/build": "workspace:*",
     "fast-json-stable-stringify": "2.1.0",
-    "rollup": "3.28.1",
+    "rollup": "4.9.1",
     "upath": "2.0.1"
   },
   "peerDependencies": {
@@ -74,7 +74,7 @@
   },
   "devDependencies": {
     "@serwist/constants": "workspace:*",
-    "@types/node": "20.10.4",
+    "@types/node": "20.10.5",
     "@types/webpack": "5.28.5",
     "pretty-bytes": "6.1.1"
   }

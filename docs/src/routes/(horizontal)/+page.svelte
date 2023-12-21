@@ -90,18 +90,13 @@
     nextjs: {
       title: "Next.js",
       description: "The classic React framework.",
-      codes: {
-        "next.config.mjs": data.code.next.configMjs,
-        "next.config.js": data.code.next.configJs,
-      },
+      codes: data.code.next,
       defaultTab: "next.config.mjs",
     },
     webpack: {
       title: "webpack",
       description: "The good old reliable webpack.",
-      codes: {
-        "webpack.config.js": data.code.webpack.configJs,
-      },
+      codes: data.code.webpack,
       defaultTab: "webpack.config.js",
     },
   };

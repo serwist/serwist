@@ -78,14 +78,14 @@
   },
   "devDependencies": {
     "@serwist/constants": "workspace:*",
-    "@types/node": "20.10.4",
+    "@types/node": "20.10.5",
     "chalk": "5.3.0",
     "next": "14.0.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "rollup": "3.28.1",
+    "rollup": "4.9.1",
     "type-fest": "4.8.3",
-    "typescript": "5.4.0-dev.20231213",
+    "typescript": "5.4.0-dev.20231220",
     "webpack": "5.89.0"
   },
   "peerDependencies": {

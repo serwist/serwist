@@ -20,6 +20,13 @@
   #main-content {
     @apply flex flex-grow;
   }
+
+  html[data-theme="light"] .shiki.github-dark {
+    display: none !important;
+  }
+  html[data-theme="dark"] .shiki.github-light {
+    display: none !important;
+  }
 }
 
 @media (prefers-reduced-motion) {

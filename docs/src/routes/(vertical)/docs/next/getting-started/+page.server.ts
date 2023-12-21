@@ -1,25 +1,38 @@
-import highlightjs from "highlight.js/lib/core";
+import shiki from "shiki";
+
+import { highlightCode } from "$lib/highlightCode";
 
 import type { PageServerLoad } from "./$types";
 
-highlightjs.registerLanguage("bash", (await import("highlight.js/lib/languages/bash")).default);
-highlightjs.registerLanguage("javascript", (await import("highlight.js/lib/languages/javascript")).default);
-highlightjs.registerLanguage("typescript", (await import("highlight.js/lib/languages/typescript")).default);
-highlightjs.registerLanguage("json", (await import("highlight.js/lib/languages/json")).default);
-
-export const load: PageServerLoad = () => {
+export const load: PageServerLoad = async () => {
+  const highlighter = await shiki.getHighlighter({
+    themes: ["github-light", "github-dark"],
+    langs: ["bash", "typescript", "javascript", "tsx", "jsx", "json"],
+  });
   return {
     code: {
-      install: {
-        npm: highlightjs.highlight(`npm i @serwist/next`, { language: "bash" }).value,
-        yarn: highlightjs.highlight(`yarn add @serwist/next`, { language: "bash" }).value,
-        pnpm: highlightjs.highlight(`pnpm add @serwist/next`, { language: "bash" }).value,
-        bun: highlightjs.highlight(`bun add @serwist/next`, { language: "bash" }).value,
-      },
+      install: highlightCode(highlighter, {
+        npm: {
+          code: `npm i @serwist/next`,
+          lang: "bash",
+        },
+        yarn: {
+          code: `yarn add @serwist/next`,
+          lang: "bash",
+        },
+        pnpm: {
+          code: `pnpm add @serwist/next`,
+          lang: "bash",
+        },
+        bun: {
+          code: `bun add @serwist/next`,
+          lang: "bash",
+        },
+      }),
       basicUsage: {
-        wrapConfig: {
-          configMjs: highlightjs.highlight(
-            `import withSerwistInit from "@serwist/next";
+        wrapConfig: highlightCode(highlighter, {
+          "next.config.mjs": {
+            code: `import withSerwistInit from "@serwist/next";
       
 const withSerwist = withSerwistInit({
     swSrc: "app/sw.ts",
@@ -29,10 +42,10 @@ const withSerwist = withSerwistInit({
 export default withSerwist({
     // Your Next.js config
 });`,
-            { language: "javascript" }
-          ).value,
-          configJs: highlightjs.highlight(
-            `const withSerwist = require("@serwist/next").default({
+            lang: "javascript",
+          },
+          "next.config.js": {
+            code: `const withSerwist = require("@serwist/next").default({
     swSrc: "app/sw.ts",
     swDest: "public/sw.js",
 });
@@ -40,10 +53,10 @@ export default withSerwist({
 module.exports = withSerwist({
     // Your Next.js config
 });`,
-            { language: "javascript" }
-          ).value,
-          lightConfigMjs: highlightjs.highlight(
-            `// If your deployment platform requires your production image's size to not exceed a certain limit,
+            lang: "javascript",
+          },
+          "next.config.mjs (light)": {
+            code: `// If your deployment platform requires your production image's size to not exceed a certain limit,
 // you can also install \`@serwist/next\` as one of your \`devDependencies\` and do this:
 import {
     PHASE_DEVELOPMENT_SERVER,
@@ -60,10 +73,10 @@ export default async (phase) => {
     }
     return nextConfig;
 };`,
-            { language: "javascript" }
-          ).value,
-          lightConfigJs: highlightjs.highlight(
-            `// If your deployment platform requires your production image's size to not exceed a certain limit,
+            lang: "javascript",
+          },
+          "next.config.js (light)": {
+            code: `// If your deployment platform requires your production image's size to not exceed a certain limit,
 // you can also install \`@serwist/next\` as one of your \`devDependencies\` and do this:
 const {
     PHASE_DEVELOPMENT_SERVER,
@@ -80,12 +93,12 @@ module.exports = (phase) => {
     }
     return nextConfig;
 };`,
-            { language: "javascript" }
-          ).value,
-        },
-        createEntry: {
-          ts: highlightjs.highlight(
-            `import { defaultCache } from "@serwist/next/browser";
+            lang: "javascript",
+          },
+        }),
+        createEntry: highlightCode(highlighter, {
+          "app/sw.ts": {
+            code: `import { defaultCache } from "@serwist/next/browser";
 import type { PrecacheEntry } from "@serwist/precaching";
 import { installSerwist } from "@serwist/sw";
 
@@ -101,10 +114,10 @@ installSerwist({
   navigationPreload: true,
   runtimeCaching: defaultCache,
 });`,
-            { language: "typescript" }
-          ).value,
-          js: highlightjs.highlight(
-            `import { defaultCache } from "@serwist/next/browser";
+            lang: "typescript",
+          },
+          "app/sw.js": {
+            code: `import { defaultCache } from "@serwist/next/browser";
 import { installSerwist } from "@serwist/sw";
 
 installSerwist({
@@ -114,43 +127,62 @@ installSerwist({
   navigationPreload: true,
   runtimeCaching: defaultCache,
 });`,
-            { language: "javascript" }
-          ).value,
-        },
-        manifestJson: highlightjs.highlight(
-          `{
-    "name": "My awesome PWA app",
-    "short_name": "PWA App",
-    "icons": [
-      {
-        "src": "/icons/android-chrome-192x192.png",
-        "sizes": "192x192",
-        "type": "image/png",
-        "purpose": "any maskable"
-      },
-      {
-        "src": "/icons/android-chrome-384x384.png",
-        "sizes": "384x384",
-        "type": "image/png"
-      },
-      {
-        "src": "/icons/icon-512x512.png",
-        "sizes": "512x512",
-        "type": "image/png"
-      }
-    ],
-    "theme_color": "#FFFFFF",
-    "background_color": "#FFFFFF",
-    "start_url": "/",
-    "display": "standalone",
-    "orientation": "portrait"
+            lang: "javascript",
+          },
+        }),
+        createEntryAdditionalPackages: highlightCode(highlighter, {
+          npm: {
+            code: `npm i @serwist/precaching @serwist/sw`,
+            lang: "bash",
+          },
+          yarn: {
+            code: `yarn add @serwist/precaching @serwist/sw`,
+            lang: "bash",
+          },
+          pnpm: {
+            code: `pnpm add @serwist/precaching @serwist/sw`,
+            lang: "bash",
+          },
+          bun: {
+            code: `bun add @serwist/precaching @serwist/sw`,
+            lang: "bash",
+          },
+        }),
+        manifestJson: highlightCode(highlighter, {
+          manifest: {
+            code: `{
+  "name": "My awesome PWA app",
+  "short_name": "PWA App",
+  "icons": [
+    {
+      "src": "/icons/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/android-chrome-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#FFFFFF",
+  "background_color": "#FFFFFF",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait"
 }`,
-          { language: "json" }
-        ).value,
-        metaAndLinkTags: {
-          appDir: {
-            ts: highlightjs.highlight(
-              `import type { Metadata } from "next";
+            lang: "json",
+          },
+        }).manifest,
+        metaAndLinkTags: highlightCode(highlighter, {
+          "app/layout.tsx": {
+            code: `import type { Metadata } from "next";
 
 const APP_NAME = "PWA App";
 const APP_DEFAULT_TITLE = "My Awesome PWA App";
@@ -196,10 +228,10 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   themeColor: "#FFFFFF",
 };`,
-              { language: "typescript" }
-            ).value,
-            js: highlightjs.highlight(
-              `const APP_NAME = "PWA App";
+            lang: "typescript",
+          },
+          "app/layout.js": {
+            code: `const APP_NAME = "PWA App";
 const APP_DEFAULT_TITLE = "My Awesome PWA App";
 const APP_TITLE_TEMPLATE = "%s - PWA App";
 const APP_DESCRIPTION = "Best PWA app in the world!";
@@ -243,12 +275,10 @@ export const metadata = {
 export const viewport = {
   themeColor: "#FFFFFF",
 };`,
-              { language: "javascript" }
-            ).value,
+            lang: "javascript",
           },
-          pagesDir: {
-            ts: highlightjs.highlight(
-              `import type { AppProps } from "next/app";
+          "pages/_app.tsx": {
+            code: `import type { AppProps } from "next/app";
 import Head from "next/head";
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -332,10 +362,10 @@ export default function App({ Component, pageProps }: AppProps) {
   );
 }
 `,
-              { language: "typescript" }
-            ).value,
-            js: highlightjs.highlight(
-              `import Head from "next/head";
+            lang: "tsx",
+          },
+          "pages/_app.js": {
+            code: `import Head from "next/head";
 
 export default function App({ Component, pageProps }) {
   return (
@@ -417,10 +447,9 @@ export default function App({ Component, pageProps }) {
     </>
   );
 }`,
-              { language: "javascript" }
-            ).value,
+            lang: "jsx",
           },
-        },
+        }),
       },
     },
   };

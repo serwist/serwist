@@ -44,6 +44,6 @@
   },
   "devDependencies": {
     "@serwist/constants": "workspace:*",
-    "rollup": "3.28.1"
+    "rollup": "4.9.1"
   }
 }

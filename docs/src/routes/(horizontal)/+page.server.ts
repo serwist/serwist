@@ -1,15 +1,19 @@
-import highlightjs from "highlight.js/lib/core";
+import shiki from "shiki";
+
+import { highlightCode } from "$lib/highlightCode";
 
 import type { PageServerLoad } from "./$types";
 
-highlightjs.registerLanguage("javascript", (await import("highlight.js/lib/languages/javascript")).default);
-
-export const load: PageServerLoad = () => {
+export const load: PageServerLoad = async () => {
+  const highlighter = await shiki.getHighlighter({
+    themes: ["github-dark", "github-light"],
+    langs: ["javascript"],
+  });
   return {
     code: {
-      next: {
-        configMjs: highlightjs.highlight(
-          `import withSerwistInit from "@serwist/next";
+      next: highlightCode(highlighter, {
+        "next.config.mjs": {
+          code: `import withSerwistInit from "@serwist/next";
 
 const withSerwist = withSerwistInit({
     swSrc: "app/sw.ts",
@@ -19,10 +23,10 @@ const withSerwist = withSerwistInit({
 export default withSerwist({
     // Your Next.js config
 });`,
-          { language: "javascript" }
-        ).value,
-        configJs: highlightjs.highlight(
-          `const withSerwist = require("@serwist/next").default({
+          lang: "javascript",
+        },
+        "next.config.js": {
+          code: `const withSerwist = require("@serwist/next").default({
     swSrc: "app/sw.ts",
     swDest: "public/sw.js",
 });
@@ -30,12 +34,12 @@ export default withSerwist({
 module.exports = withSerwist({
     // Your Next.js config
 });`,
-          { language: "javascript" }
-        ).value,
-      },
-      webpack: {
-        configJs: highlightjs.highlight(
-          `import fs from "node:fs";
+          lang: "javascript",
+        },
+      }),
+      webpack: highlightCode(highlighter, {
+        "webpack.config.js": {
+          code: `import fs from "node:fs";
 import path from "node:path";
 
 import { InjectManifest } from "@serwist/webpack-plugin";
@@ -77,11 +81,9 @@ export default {
   ],
 };
 `,
-          {
-            language: "javascript",
-          }
-        ).value,
-      },
+          lang: "javascript",
+        },
+      }),
     },
   };
 };

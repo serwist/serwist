@@ -1,4 +1,4 @@
-<script lang="ts" generics="T extends Record<string, string>">
+<script lang="ts" generics="T extends Record<string, { dark: string, light: string }>">
   import { clsx } from "$lib/clsx";
 
   type TKeys = keyof T extends infer T ? (T extends string ? T : never) : never;
@@ -49,14 +49,17 @@
   <div class="margin-0 p-4">
     {#each codeEntries as [tab, code]}
       {@const isActive = tab === currentTab}
-      <pre
+      <div
         id={`${idPrefix}-${tab}-code`}
-        class={clsx("hljs whitespace-normal overflow-auto !bg-transparent", !isActive && "hidden")}
-        aria-labelledby={`${idPrefix}-${tab}-button`}>
+        class={clsx("whitespace-normal overflow-auto [&>*]:!bg-transparent", !isActive && "hidden")}
+        aria-labelledby={`${idPrefix}-${tab}-button`}
+      >
         <!-- Only use trusted code! -->
         <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-        <code class="block w-fit whitespace-pre">{@html code}</code>
-      </pre>
+        {@html code.dark}
+        <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+        {@html code.light}
+      </div>
     {/each}
   </div>
 </div>

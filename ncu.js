@@ -29,7 +29,7 @@ for (const packageFile of packageJsonList) {
       packageFile,
       upgrade: true,
       target: (dependencyName) => {
-        if (dependencyName === "typescript") {
+        if (dependencyName === "typescript" || dependencyName === "svelte") {
           return "@next";
         }
         if (/^react(-dom)?$/.test(dependencyName)) {

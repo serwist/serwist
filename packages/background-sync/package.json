@@ -48,7 +48,7 @@
   "devDependencies": {
     "@serwist/constants": "workspace:*",
     "cross-env": "7.0.3",
-    "rollup": "3.28.1",
-    "typescript": "5.4.0-dev.20231213"
+    "rollup": "4.9.1",
+    "typescript": "5.4.0-dev.20231220"
   }
 }
