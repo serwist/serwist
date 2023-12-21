@@ -21,24 +21,26 @@
 </script>
 
 <div class="w-full rounded-xl bg-white dark:bg-neutral-950 flex flex-col overflow-hidden border-[0.5px] border-gray-300 dark:border-gray-800">
-  <div class="w-full bg-white dark:bg-black relative flex overflow-auto">
-    {#each codes as [tab, id]}
-      {@const isActive = tab === currentTab}
-      <button
-        id={`${id}-button`}
-        class={clsx(
-          "py-2 px-4 border-gray-300 dark:border-gray-800 relative border-r-[0.5px]",
-          isActive ? "bg-white text-black dark:bg-neutral-950 dark:text-white" : "text-gray-600 dark:text-gray-400"
-        )}
-        on:click={() => (currentTab = tab)}
-        aria-controls={`${id}-code`}
-      >
-        {tab}
-        {#if isActive}
-          <span class="w-full h-[1px] z-[2] bg-white dark:bg-neutral-950 absolute bottom-0 left-0 pointer-events-none" aria-hidden="true" />
-        {/if}
-      </button>
-    {/each}
+  <div class="w-full bg-white dark:bg-black relative">
+    <div class="w-full overflow-auto flex">
+      {#each codes as [tab, id]}
+        {@const isActive = tab === currentTab}
+        <button
+          id={`${id}-button`}
+          class={clsx(
+            "py-2 px-4 border-gray-300 dark:border-gray-800 relative border-r-[0.5px]",
+            isActive ? "bg-white text-black dark:bg-neutral-950 dark:text-white" : "text-gray-600 dark:text-gray-400"
+          )}
+          on:click={() => (currentTab = tab)}
+          aria-controls={`${id}-code`}
+        >
+          {tab}
+          {#if isActive}
+            <span class="w-full h-[1px] z-[2] bg-white dark:bg-neutral-950 absolute bottom-0 left-0 pointer-events-none" aria-hidden="true" />
+          {/if}
+        </button>
+      {/each}
+    </div>
     <div class="w-full h-[1px] z-[1] bg-gray-300 dark:bg-gray-800 absolute bottom-0 left-0 pointer-events-none" aria-hidden="true" />
   </div>
   <div class="margin-0 p-4">
