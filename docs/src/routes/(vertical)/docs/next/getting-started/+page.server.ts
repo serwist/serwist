@@ -11,28 +11,34 @@ export const load: PageServerLoad = async () => {
   });
   return {
     code: {
-      install: highlightCode(highlighter, {
-        npm: {
-          code: `npm i @serwist/next`,
-          lang: "bash",
+      install: highlightCode(
+        highlighter,
+        {
+          npm: {
+            code: `npm i @serwist/next`,
+            lang: "bash",
+          },
+          yarn: {
+            code: `yarn add @serwist/next`,
+            lang: "bash",
+          },
+          pnpm: {
+            code: `pnpm add @serwist/next`,
+            lang: "bash",
+          },
+          bun: {
+            code: `bun add @serwist/next`,
+            lang: "bash",
+          },
         },
-        yarn: {
-          code: `yarn add @serwist/next`,
-          lang: "bash",
-        },
-        pnpm: {
-          code: `pnpm add @serwist/next`,
-          lang: "bash",
-        },
-        bun: {
-          code: `bun add @serwist/next`,
-          lang: "bash",
-        },
-      }),
+        { idPrefix: "install-serwist-next-instruction" }
+      ),
       basicUsage: {
-        wrapConfig: highlightCode(highlighter, {
-          "next.config.mjs": {
-            code: `import withSerwistInit from "@serwist/next";
+        wrapConfig: highlightCode(
+          highlighter,
+          {
+            "next.config.mjs": {
+              code: `import withSerwistInit from "@serwist/next";
       
 const withSerwist = withSerwistInit({
     swSrc: "app/sw.ts",
@@ -42,10 +48,10 @@ const withSerwist = withSerwistInit({
 export default withSerwist({
     // Your Next.js config
 });`,
-            lang: "javascript",
-          },
-          "next.config.js": {
-            code: `const withSerwist = require("@serwist/next").default({
+              lang: "javascript",
+            },
+            "next.config.js": {
+              code: `const withSerwist = require("@serwist/next").default({
     swSrc: "app/sw.ts",
     swDest: "public/sw.js",
 });
@@ -53,10 +59,10 @@ export default withSerwist({
 module.exports = withSerwist({
     // Your Next.js config
 });`,
-            lang: "javascript",
-          },
-          "next.config.mjs (light)": {
-            code: `// If your deployment platform requires your production image's size to not exceed a certain limit,
+              lang: "javascript",
+            },
+            "next.config.mjs (light)": {
+              code: `// If your deployment platform requires your production image's size to not exceed a certain limit,
 // you can also install \`@serwist/next\` as one of your \`devDependencies\` and do this:
 import {
     PHASE_DEVELOPMENT_SERVER,
@@ -73,10 +79,10 @@ export default async (phase) => {
     }
     return nextConfig;
 };`,
-            lang: "javascript",
-          },
-          "next.config.js (light)": {
-            code: `// If your deployment platform requires your production image's size to not exceed a certain limit,
+              lang: "javascript",
+            },
+            "next.config.js (light)": {
+              code: `// If your deployment platform requires your production image's size to not exceed a certain limit,
 // you can also install \`@serwist/next\` as one of your \`devDependencies\` and do this:
 const {
     PHASE_DEVELOPMENT_SERVER,
@@ -93,12 +99,16 @@ module.exports = (phase) => {
     }
     return nextConfig;
 };`,
-            lang: "javascript",
+              lang: "javascript",
+            },
           },
-        }),
-        createEntry: highlightCode(highlighter, {
-          "app/sw.ts": {
-            code: `import { defaultCache } from "@serwist/next/browser";
+          { idPrefix: "basic-usage-wrap-config-instruction" }
+        ),
+        createEntry: highlightCode(
+          highlighter,
+          {
+            "app/sw.ts": {
+              code: `import { defaultCache } from "@serwist/next/browser";
 import type { PrecacheEntry } from "@serwist/precaching";
 import { installSerwist } from "@serwist/sw";
 
@@ -114,10 +124,10 @@ installSerwist({
   navigationPreload: true,
   runtimeCaching: defaultCache,
 });`,
-            lang: "typescript",
-          },
-          "app/sw.js": {
-            code: `import { defaultCache } from "@serwist/next/browser";
+              lang: "typescript",
+            },
+            "app/sw.js": {
+              code: `import { defaultCache } from "@serwist/next/browser";
 import { installSerwist } from "@serwist/sw";
 
 installSerwist({
@@ -127,30 +137,38 @@ installSerwist({
   navigationPreload: true,
   runtimeCaching: defaultCache,
 });`,
-            lang: "javascript",
+              lang: "javascript",
+            },
           },
-        }),
-        createEntryAdditionalPackages: highlightCode(highlighter, {
-          npm: {
-            code: `npm i @serwist/precaching @serwist/sw`,
-            lang: "bash",
+          { idPrefix: "basic-usage-create-entry-instruction" }
+        ),
+        createEntryAdditionalPackages: highlightCode(
+          highlighter,
+          {
+            npm: {
+              code: `npm i @serwist/precaching @serwist/sw`,
+              lang: "bash",
+            },
+            yarn: {
+              code: `yarn add @serwist/precaching @serwist/sw`,
+              lang: "bash",
+            },
+            pnpm: {
+              code: `pnpm add @serwist/precaching @serwist/sw`,
+              lang: "bash",
+            },
+            bun: {
+              code: `bun add @serwist/precaching @serwist/sw`,
+              lang: "bash",
+            },
           },
-          yarn: {
-            code: `yarn add @serwist/precaching @serwist/sw`,
-            lang: "bash",
-          },
-          pnpm: {
-            code: `pnpm add @serwist/precaching @serwist/sw`,
-            lang: "bash",
-          },
-          bun: {
-            code: `bun add @serwist/precaching @serwist/sw`,
-            lang: "bash",
-          },
-        }),
-        manifestJson: highlightCode(highlighter, {
-          manifest: {
-            code: `{
+          { idPrefix: "basic-usage-create-usage-additional-packages-instruction" }
+        ),
+        manifestJson: highlightCode(
+          highlighter,
+          {
+            "public/manifest.json": {
+              code: `{
   "name": "My awesome PWA app",
   "short_name": "PWA App",
   "icons": [
@@ -177,12 +195,16 @@ installSerwist({
   "display": "standalone",
   "orientation": "portrait"
 }`,
-            lang: "json",
+              lang: "json",
+            },
           },
-        }).manifest,
-        metaAndLinkTags: highlightCode(highlighter, {
-          "app/layout.tsx": {
-            code: `import type { Metadata } from "next";
+          { idPrefix: "basic-usage-manifest-json-instruction" }
+        )[0],
+        metaAndLinkTags: highlightCode(
+          highlighter,
+          {
+            "app/layout.tsx": {
+              code: `import type { Metadata } from "next";
 
 const APP_NAME = "PWA App";
 const APP_DEFAULT_TITLE = "My Awesome PWA App";
@@ -228,10 +250,10 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   themeColor: "#FFFFFF",
 };`,
-            lang: "typescript",
-          },
-          "app/layout.js": {
-            code: `const APP_NAME = "PWA App";
+              lang: "typescript",
+            },
+            "app/layout.js": {
+              code: `const APP_NAME = "PWA App";
 const APP_DEFAULT_TITLE = "My Awesome PWA App";
 const APP_TITLE_TEMPLATE = "%s - PWA App";
 const APP_DESCRIPTION = "Best PWA app in the world!";
@@ -275,10 +297,10 @@ export const metadata = {
 export const viewport = {
   themeColor: "#FFFFFF",
 };`,
-            lang: "javascript",
-          },
-          "pages/_app.tsx": {
-            code: `import type { AppProps } from "next/app";
+              lang: "javascript",
+            },
+            "pages/_app.tsx": {
+              code: `import type { AppProps } from "next/app";
 import Head from "next/head";
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -362,10 +384,10 @@ export default function App({ Component, pageProps }: AppProps) {
   );
 }
 `,
-            lang: "tsx",
-          },
-          "pages/_app.js": {
-            code: `import Head from "next/head";
+              lang: "tsx",
+            },
+            "pages/_app.js": {
+              code: `import Head from "next/head";
 
 export default function App({ Component, pageProps }) {
   return (
@@ -447,9 +469,11 @@ export default function App({ Component, pageProps }) {
     </>
   );
 }`,
-            lang: "jsx",
+              lang: "jsx",
+            },
           },
-        }),
+          { idPrefix: "basic-usage-meta-and-link-tags-instruction" }
+        ),
       },
     },
   };

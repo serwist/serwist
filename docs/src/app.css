@@ -21,8 +21,8 @@
     @apply flex flex-grow;
   }
 
-  html[data-theme="light"] .shiki.github-dark,
-  html[data-theme="dark"] .shiki.github-light {
+  html[data-theme="light"] .code-tab-dark,
+  html[data-theme="dark"] .code-tab-light {
     @apply !invisible !hidden;
   }
 }

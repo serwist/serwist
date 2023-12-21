@@ -8,7 +8,7 @@
   import InlineCode from "$components/InlineCode.svelte";
   import { clsx } from "$lib/clsx";
 
-  import type { PageData } from "../$types";
+  import type { PageData } from "./$types";
 
   const { data } = $props<{ data: PageData }>();
 
@@ -68,7 +68,7 @@
   interface ToolInfo {
     title: string;
     description: string;
-    codes: Record<string, string>;
+    codes: [string, string, { id: string; dark: string; light: string }][];
     defaultTab: string;
   }
 
@@ -159,11 +159,7 @@
       <h3 class="text-2xl tracking-tight">{currentSelectedToolInfo.description}</h3>
     </div>
     <div class="md:flex-[2_2_0] overflow-hidden">
-      <CodeTab
-        idPrefix={`${currentSelectedTool}-config-showcase`}
-        codes={currentSelectedToolInfo.codes}
-        defaultTab={currentSelectedToolInfo.defaultTab}
-      />
+      <CodeTab codes={currentSelectedToolInfo.codes} defaultTab={currentSelectedToolInfo.defaultTab} />
     </div>
   </div>
 </div>

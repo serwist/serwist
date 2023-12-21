@@ -1,7 +1,7 @@
-<script lang="ts" generics="T extends Record<string, { dark: string, light: string }>">
+<script lang="ts" generics="T extends [string, string, { dark: string, light: string }][]">
   import { clsx } from "$lib/clsx";
 
-  type TKeys = keyof T extends infer T ? (T extends string ? T : never) : never;
+  type TKeys = T[number][0];
 
   interface CodeTabProps {
     /**
@@ -9,17 +9,10 @@
      * Map tab -> code
      */
     codes: T;
-    idPrefix: string;
     defaultTab: TKeys;
   }
 
-  const { codes, idPrefix, defaultTab } = $props<CodeTabProps>();
-
-  const codeEntries = $derived(Object.entries(codes) as [TKeys, T[TKeys]][]);
-  const codeKeys = $derived(codeEntries.map(([key]) => key));
-
-  const getTabId = (tabName: string) => `${idPrefix}-${tabName.replace(/[ ()]/gm, "-")}`;
-
+  const { codes, defaultTab } = $props<CodeTabProps>();
   let currentTab = $state(defaultTab);
 
   $effect(() => {
@@ -29,17 +22,16 @@
 
 <div class="w-full rounded-xl bg-white dark:bg-neutral-950 flex flex-col overflow-hidden border-[0.5px] border-gray-300 dark:border-gray-800">
   <div class="w-full bg-white dark:bg-black relative flex overflow-auto">
-    {#each codeKeys as tab}
+    {#each codes as [tab, id]}
       {@const isActive = tab === currentTab}
-      {@const tabId = getTabId(tab)}
       <button
-        id={`${tabId}-button`}
+        id={`${id}-button`}
         class={clsx(
           "py-2 px-4 border-gray-300 dark:border-gray-800 relative border-r-[0.5px]",
           isActive ? "bg-white text-black dark:bg-neutral-950 dark:text-white" : "text-gray-600 dark:text-gray-400"
         )}
         on:click={() => (currentTab = tab)}
-        aria-controls={`${tabId}-code`}
+        aria-controls={`${id}-code`}
       >
         {tab}
         {#if isActive}
@@ -50,20 +42,19 @@
     <div class="w-full h-[1px] z-[1] bg-gray-300 dark:bg-gray-800 absolute bottom-0 left-0 pointer-events-none" aria-hidden="true" />
   </div>
   <div class="margin-0 p-4">
-    {#each codeEntries as [tab, code]}
+    {#each codes as [tab, id, code]}
       {@const isActive = tab === currentTab}
-      {@const tabId = getTabId(tab)}
-      <div
-        id={`${tabId}-code`}
-        class={clsx("whitespace-normal overflow-auto [&>*]:!bg-transparent", !isActive && "hidden")}
-        aria-labelledby={`${tabId}-button`}
-      >
+      <div id={`${id}-code`} class={clsx("whitespace-normal overflow-auto", !isActive && "hidden")} aria-labelledby={`${id}-button`}>
         {#if isActive}
-          <!-- Only use trusted code! -->
-          <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-          {@html code.dark}
-          <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-          {@html code.light}
+          <span class="code-tab-dark [&>*]:!bg-transparent">
+            <!-- Only use trusted code! -->
+            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+            {@html code.dark}
+          </span>
+          <span class="code-tab-light [&>*]:!bg-transparent">
+            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+            {@html code.light}
+          </span>
         {/if}
       </div>
     {/each}

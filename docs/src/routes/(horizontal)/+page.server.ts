@@ -11,9 +11,11 @@ export const load: PageServerLoad = async () => {
   });
   return {
     code: {
-      next: highlightCode(highlighter, {
-        "next.config.mjs": {
-          code: `import withSerwistInit from "@serwist/next";
+      next: highlightCode(
+        highlighter,
+        {
+          "next.config.mjs": {
+            code: `import withSerwistInit from "@serwist/next";
 
 const withSerwist = withSerwistInit({
     swSrc: "app/sw.ts",
@@ -23,10 +25,10 @@ const withSerwist = withSerwistInit({
 export default withSerwist({
     // Your Next.js config
 });`,
-          lang: "javascript",
-        },
-        "next.config.js": {
-          code: `const withSerwist = require("@serwist/next").default({
+            lang: "javascript",
+          },
+          "next.config.js": {
+            code: `const withSerwist = require("@serwist/next").default({
     swSrc: "app/sw.ts",
     swDest: "public/sw.js",
 });
@@ -34,12 +36,16 @@ export default withSerwist({
 module.exports = withSerwist({
     // Your Next.js config
 });`,
-          lang: "javascript",
+            lang: "javascript",
+          },
         },
-      }),
-      webpack: highlightCode(highlighter, {
-        "webpack.config.js": {
-          code: `import fs from "node:fs";
+        { idPrefix: "nextjs-config-showcase" }
+      ),
+      webpack: highlightCode(
+        highlighter,
+        {
+          "webpack.config.js": {
+            code: `import fs from "node:fs";
 import path from "node:path";
 
 import { InjectManifest } from "@serwist/webpack-plugin";
@@ -81,9 +87,11 @@ export default {
   ],
 };
 `,
-          lang: "javascript",
+            lang: "javascript",
+          },
         },
-      }),
+        { idPrefix: "webpack-config-showcase" }
+      ),
     },
   };
 };
