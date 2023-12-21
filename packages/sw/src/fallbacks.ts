@@ -6,19 +6,35 @@ import { precacheAndRoute } from "@serwist/precaching";
 export type FallbackMatcher = (_: HandlerDidErrorCallbackParam) => boolean;
 
 export interface FallbackEntry {
+  /**
+   * The matcher, which checks whether the fallback entry can be used
+   * for a Request.
+   */
   matcher: FallbackMatcher;
+  /**
+   * The fallback URL.
+   */
   url: URL | string;
+  /**
+   * The revision used for precaching.
+   */
   revision: string;
+  /**
+   * How the Response in the cache should be matched.
+   *
+   * @default
+   * { ignoreSearch: true }
+   */
+  cacheMatchOptions?: MultiCacheQueryOptions;
 }
 
 export interface FallbacksOptions {
   runtimeCaching: RuntimeCaching[];
   entries: FallbackEntry[];
   precacheOptions?: PrecacheRouteOptions;
-  matchOptions?: MultiCacheQueryOptions;
 }
 
-export const fallbacks = ({ runtimeCaching, entries, precacheOptions, matchOptions = { ignoreSearch: true } }: FallbacksOptions) => {
+export const fallbacks = ({ runtimeCaching, entries, precacheOptions }: FallbacksOptions) => {
   precacheAndRoute(
     entries.map(({ url, revision }) => ({ url: typeof url === "string" ? url : url.toString(), revision })),
     precacheOptions
@@ -34,9 +50,9 @@ export const fallbacks = ({ runtimeCaching, entries, precacheOptions, matchOptio
 
     cacheEntry.options.plugins.push({
       async handlerDidError(info) {
-        for (const { matcher, url } of entries) {
+        for (const { matcher, url, cacheMatchOptions = { ignoreSearch: true } } of entries) {
           if (matcher(info)) {
-            return caches.match(url, matchOptions);
+            return caches.match(url, cacheMatchOptions);
           }
         }
         return Response.error();
