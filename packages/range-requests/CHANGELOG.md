@@ -1,5 +1,12 @@
 # @serwist/range-requests
 
+## 8.1.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/core@8.1.1
+
 ## 8.1.0
 
 ### Patch Changes

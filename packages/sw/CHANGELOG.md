@@ -1,5 +1,26 @@
 # @serwist/sw
 
+## 8.1.1
+
+### Patch Changes
+
+- [`b7916b6`](https://github.com/serwist/serwist/commit/b7916b6fd6a765b87a522df3518973547cbc4a02) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(sw): fixed `fallbacks` API
+
+  - `FallbacksOptions.matchOptions` was actually meant to be `FallbackEntry.cacheMatchOptions`. Sorry for the inconvenience :(
+
+- Updated dependencies []:
+  - @serwist/background-sync@8.1.1
+  - @serwist/broadcast-update@8.1.1
+  - @serwist/cacheable-response@8.1.1
+  - @serwist/core@8.1.1
+  - @serwist/expiration@8.1.1
+  - @serwist/google-analytics@8.1.1
+  - @serwist/navigation-preload@8.1.1
+  - @serwist/precaching@8.1.1
+  - @serwist/range-requests@8.1.1
+  - @serwist/routing@8.1.1
+  - @serwist/strategies@8.1.1
+
 ## 8.1.0
 
 ### Minor Changes
