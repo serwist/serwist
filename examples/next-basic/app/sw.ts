@@ -7,6 +7,7 @@ declare const self: ServiceWorkerGlobalScope & {
   __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
 };
 
+// Anything random.
 const revision = crypto.randomUUID();
 
 installSerwist({
@@ -15,13 +16,15 @@ installSerwist({
   clientsClaim: true,
   navigationPreload: true,
   runtimeCaching: defaultCache,
-  fallbackEntries: [
-    {
-      matcher({ request }) {
-        return request.destination === "document";
+  fallbacks: {
+    entries: [
+      {
+        url: "/~offline",
+        revision,
+        matcher({ request }) {
+          return request.destination === "document";
+        },
       },
-      url: "/~offline",
-      revision,
-    },
-  ],
+    ],
+  },
 });

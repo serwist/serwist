@@ -4,24 +4,24 @@ import { type GoogleAnalyticsInitializeOptions, initialize } from "@serwist/goog
 import { enable } from "@serwist/navigation-preload";
 
 import { disableDevLogs } from "./disableDevLogs.js";
-import type { FallbacksOptions } from "./fallbacks.js";
+import type { FallbackEntry, FallbackMatcher, FallbacksOptions } from "./fallbacks.js";
 import { fallbacks } from "./fallbacks.js";
 import { handlePrecaching, type HandlePrecachingOptions } from "./handlePrecaching.js";
 import { registerRuntimeCaching } from "./registerRuntimeCaching.js";
 
 declare const self: ServiceWorkerGlobalScope;
 
-export type SerwistOptions = HandlePrecachingOptions &
-  Partial<FallbacksOptions> & {
-    skipWaiting?: boolean;
-    importScripts?: string[];
-    navigationPreload?: boolean;
-    cacheId?: string | undefined;
-    clientsClaim?: boolean;
-    runtimeCaching?: RuntimeCaching[];
-    offlineAnalyticsConfig?: GoogleAnalyticsInitializeOptions | boolean;
-    disableDevLogs?: boolean;
-  };
+export type SerwistOptions = HandlePrecachingOptions & {
+  skipWaiting?: boolean;
+  importScripts?: string[];
+  navigationPreload?: boolean;
+  cacheId?: string | undefined;
+  clientsClaim?: boolean;
+  runtimeCaching?: RuntimeCaching[];
+  offlineAnalyticsConfig?: GoogleAnalyticsInitializeOptions | boolean;
+  disableDevLogs?: boolean;
+  fallbacks?: Omit<FallbacksOptions, "runtimeCaching">;
+};
 
 export const installSerwist = ({
   precacheEntries,
@@ -36,8 +36,7 @@ export const installSerwist = ({
   runtimeCaching,
   offlineAnalyticsConfig,
   disableDevLogs: shouldDisableDevLogs,
-  fallbackEntries,
-  fallbackEntriesPrecacheOptions,
+  fallbacks: fallbacksOptions,
   ...options
 }: SerwistOptions) => {
   if (!!scriptsToImport && scriptsToImport.length > 0) self.importScripts(...scriptsToImport);
@@ -73,8 +72,11 @@ export const installSerwist = ({
   });
 
   if (runtimeCaching !== undefined) {
-    if (fallbackEntries !== undefined) {
-      runtimeCaching = fallbacks({ runtimeCaching, fallbackEntries, fallbackEntriesPrecacheOptions });
+    if (fallbacksOptions !== undefined) {
+      runtimeCaching = fallbacks({
+        ...fallbacksOptions,
+        runtimeCaching,
+      });
     }
     registerRuntimeCaching(...runtimeCaching);
   }
@@ -90,4 +92,5 @@ export const installSerwist = ({
   if (shouldDisableDevLogs) disableDevLogs();
 };
 
-export { disableDevLogs, handlePrecaching, registerRuntimeCaching };
+export { disableDevLogs, fallbacks, handlePrecaching, registerRuntimeCaching };
+export type { FallbackEntry, FallbackMatcher, FallbacksOptions, HandlePrecachingOptions };

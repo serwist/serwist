@@ -13,14 +13,15 @@ export interface FallbackEntry {
 
 export interface FallbacksOptions {
   runtimeCaching: RuntimeCaching[];
-  fallbackEntries: FallbackEntry[];
-  fallbackEntriesPrecacheOptions?: PrecacheRouteOptions;
+  entries: FallbackEntry[];
+  precacheOptions?: PrecacheRouteOptions;
+  matchOptions?: MultiCacheQueryOptions;
 }
 
-export const fallbacks = ({ runtimeCaching, fallbackEntries, fallbackEntriesPrecacheOptions }: FallbacksOptions) => {
+export const fallbacks = ({ runtimeCaching, entries, precacheOptions, matchOptions = { ignoreSearch: true } }: FallbacksOptions) => {
   precacheAndRoute(
-    fallbackEntries.map(({ url, revision }) => ({ url: typeof url === "string" ? url : url.toString(), revision })),
-    fallbackEntriesPrecacheOptions
+    entries.map(({ url, revision }) => ({ url: typeof url === "string" ? url : url.toString(), revision })),
+    precacheOptions
   );
   runtimeCaching = runtimeCaching.map((cacheEntry) => {
     if (!cacheEntry.options || cacheEntry.options.precacheFallback || cacheEntry.options.plugins?.some((plugin) => "handlerDidError" in plugin)) {
@@ -33,11 +34,9 @@ export const fallbacks = ({ runtimeCaching, fallbackEntries, fallbackEntriesPrec
 
     cacheEntry.options.plugins.push({
       async handlerDidError(info) {
-        for (const { matcher, url } of fallbackEntries) {
+        for (const { matcher, url } of entries) {
           if (matcher(info)) {
-            return caches.match(url, {
-              ignoreSearch: true,
-            });
+            return caches.match(url, matchOptions);
           }
         }
         return Response.error();
