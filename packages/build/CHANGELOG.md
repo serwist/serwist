@@ -1,5 +1,19 @@
 # @serwist/build
 
+## 8.1.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/background-sync@8.1.1
+  - @serwist/broadcast-update@8.1.1
+  - @serwist/cacheable-response@8.1.1
+  - @serwist/core@8.1.1
+  - @serwist/expiration@8.1.1
+  - @serwist/google-analytics@8.1.1
+  - @serwist/precaching@8.1.1
+  - @serwist/routing@8.1.1
+
 ## 8.1.0
 
 ### Patch Changes
