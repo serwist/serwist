@@ -4,21 +4,24 @@ import { type GoogleAnalyticsInitializeOptions, initialize } from "@serwist/goog
 import { enable } from "@serwist/navigation-preload";
 
 import { disableDevLogs } from "./disableDevLogs.js";
+import type { FallbacksOptions } from "./fallbacks.js";
+import { fallbacks } from "./fallbacks.js";
 import { handlePrecaching, type HandlePrecachingOptions } from "./handlePrecaching.js";
 import { registerRuntimeCaching } from "./registerRuntimeCaching.js";
 
 declare const self: ServiceWorkerGlobalScope;
 
-export type SerwistOptions = HandlePrecachingOptions & {
-  skipWaiting?: boolean;
-  importScripts?: string[];
-  navigationPreload?: boolean;
-  cacheId?: string | undefined;
-  clientsClaim?: boolean;
-  runtimeCaching?: RuntimeCaching[];
-  offlineAnalyticsConfig?: GoogleAnalyticsInitializeOptions | boolean;
-  disableDevLogs?: boolean;
-};
+export type SerwistOptions = HandlePrecachingOptions &
+  Partial<FallbacksOptions> & {
+    skipWaiting?: boolean;
+    importScripts?: string[];
+    navigationPreload?: boolean;
+    cacheId?: string | undefined;
+    clientsClaim?: boolean;
+    runtimeCaching?: RuntimeCaching[];
+    offlineAnalyticsConfig?: GoogleAnalyticsInitializeOptions | boolean;
+    disableDevLogs?: boolean;
+  };
 
 export const installSerwist = ({
   precacheEntries,
@@ -33,6 +36,8 @@ export const installSerwist = ({
   runtimeCaching,
   offlineAnalyticsConfig,
   disableDevLogs: shouldDisableDevLogs,
+  fallbackEntries,
+  fallbackEntriesPrecacheOptions,
   ...options
 }: SerwistOptions) => {
   if (!!scriptsToImport && scriptsToImport.length > 0) self.importScripts(...scriptsToImport);
@@ -67,7 +72,12 @@ export const installSerwist = ({
     }),
   });
 
-  if (runtimeCaching !== undefined) registerRuntimeCaching(...runtimeCaching);
+  if (runtimeCaching !== undefined) {
+    if (fallbackEntries !== undefined) {
+      runtimeCaching = fallbacks({ runtimeCaching, fallbackEntries, fallbackEntriesPrecacheOptions });
+    }
+    registerRuntimeCaching(...runtimeCaching);
+  }
 
   if (offlineAnalyticsConfig !== undefined) {
     if (typeof offlineAnalyticsConfig === "boolean") {
