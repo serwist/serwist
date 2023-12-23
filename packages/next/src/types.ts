@@ -16,21 +16,9 @@ export interface PluginOptions extends Require<WebpackInjectManifestOptions, "sw
    */
   disable?: boolean;
   /**
-   * URL scope for PWA. Set to `/foo/` so that paths under `/foo/` are PWA while others
-   * are not.
-   * @default nextConfig.basePath
-   */
-  scope?: string;
-  /**
-   * The URL to the service worker.
-   * @default "/sw.js"
-   */
-  swUrl?: string;
-  /**
-   * Allow this plugin to automatically register the service worker for you. Set
-   * this to `false` if you want to register the service worker yourself, which
-   * can be done by running `window.serwist.register()` in
-   * `componentDidMount` or `useEffect`.
+   * Whether `@serwist/next` should automatically register the service worker for you. If
+   * you want to register the service worker yourself, set this to `false` and run
+   * `window.serwist.register()` in `componentDidMount` or `useEffect`.
    * @example
    *   ```tsx
    *   // app/register-pwa.tsx
@@ -76,8 +64,19 @@ export interface PluginOptions extends Require<WebpackInjectManifestOptions, "sw
    */
   register?: boolean;
   /**
-   * Reload the app when it has gone back online.
+   * Whether Serwist should reload the app when it goes online.
    * @default true
    */
   reloadOnOnline?: boolean;
+  /**
+   * The service worker's URL scope. Set to `/foo/` so that paths under `/foo/` are under the service
+   * worker's control while others are not.
+   * @default nextConfig.basePath
+   */
+  scope?: string;
+  /**
+   * The URL to the service worker.
+   * @default "/sw.js"
+   */
+  swUrl?: string;
 }
