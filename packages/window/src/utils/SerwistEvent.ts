@@ -50,6 +50,7 @@ export interface SerwistLifecycleEventMap {
   activated: SerwistLifecycleEvent;
   controlling: SerwistLifecycleEvent;
   redundant: SerwistLifecycleEvent;
+  updatefound: SerwistLifecycleEvent;
 }
 
 export interface SerwistEventMap extends SerwistLifecycleEventMap {

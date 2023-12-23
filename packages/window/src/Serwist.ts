@@ -339,8 +339,9 @@ export class Serwist extends SerwistEventTarget {
 
   /**
    * @private
+   * @param originalEvent
    */
-  private readonly _onUpdateFound = () => {
+  private readonly _onUpdateFound = (originalEvent: Event) => {
     // `this._registration` will never be `undefined` after an update is found.
     const registration = this._registration!;
     const installingSW = registration.installing as ServiceWorker;
@@ -393,10 +394,13 @@ export class Serwist extends SerwistEventTarget {
           logger.log("Service worker is installing...");
         }
       }
-      // dispatch the `installing` event
+      // dispatch the `installing` event when the SW is installing.
       this.dispatchEvent(
-        new SerwistEvent("installing", {
+        new SerwistEvent(navigator.serviceWorker.controller ? "updatefound" : "installing", {
           sw: installingSW,
+          isUpdate: navigator.serviceWorker.controller ? true : false,
+          isExternal: updateLikelyTriggeredExternally,
+          originalEvent,
         })
       );
     }
@@ -686,5 +690,18 @@ export class Serwist extends SerwistEventTarget {
  * @property {boolean|undefined} isUpdate True if a service worker was already
  *     controlling when this `Workbox` instance called `register()`.
  * @property {string} type `redundant`.
+ * @property {Workbox} target The `Workbox` instance.
+ */
+
+/**
+ * The `installing` event is dispatched if the service-worker
+ * find the new version and start installing.
+ *
+ * @event workbox-window.Workbox#installing
+ * @type {SerwistEvent}
+ * @property {ServiceWorker} sw The installing service worker instance.
+ * @property {Event} originalEvent The original [`statechange`]{@link https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorker/onstatechange}
+ *     event.
+ * @property {string} type `installing`.
  * @property {Workbox} target The `Workbox` instance.
  */
