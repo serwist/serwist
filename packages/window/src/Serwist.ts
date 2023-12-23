@@ -396,7 +396,7 @@ export class Serwist extends SerwistEventTarget {
       }
       // dispatch the `installing` event when the SW is installing.
       this.dispatchEvent(
-        new SerwistEvent(navigator.serviceWorker.controller ? "updatefound" : "installing", {
+        new SerwistEvent("installing", {
           sw: installingSW,
           isUpdate: navigator.serviceWorker.controller ? true : false,
           isExternal: updateLikelyTriggeredExternally,
@@ -702,6 +702,8 @@ export class Serwist extends SerwistEventTarget {
  * @property {ServiceWorker} sw The installing service worker instance.
  * @property {Event} originalEvent The original [`statechange`]{@link https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorker/onstatechange}
  *     event.
+ * @property {boolean|undefined} isUpdate True if a service worker was already
+ *     controlling when this `Workbox` instance called `register()`.
  * @property {string} type `installing`.
  * @property {Workbox} target The `Workbox` instance.
  */
