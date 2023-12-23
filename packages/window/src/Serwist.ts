@@ -394,16 +394,16 @@ export class Serwist extends SerwistEventTarget {
           logger.log("Service worker is installing...");
         }
       }
-      // dispatch the `installing` event when the SW is installing.
-      this.dispatchEvent(
-        new SerwistEvent("installing", {
-          sw: installingSW,
-          isUpdate: navigator.serviceWorker.controller ? true : false,
-          isExternal: updateLikelyTriggeredExternally,
-          originalEvent,
-        })
-      );
     }
+    // dispatch the `installing` event when the SW is installing.
+    this.dispatchEvent(
+      new SerwistEvent("installing", {
+        sw: installingSW,
+        isUpdate: navigator.serviceWorker.controller ? true : false,
+        isExternal: updateLikelyTriggeredExternally,
+        originalEvent,
+      })
+    );
 
     // Increment the `updatefound` count, so future invocations of this
     // method can be sure they were triggered externally.
