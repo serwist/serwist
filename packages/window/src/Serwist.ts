@@ -386,8 +386,6 @@ export class Serwist extends SerwistEventTarget {
       this._ownSWs.add(installingSW);
       this._swDeferred.resolve(installingSW);
 
-      // The `installing` state isn't something we have a dedicated
-      // callback for, but we do log messages for it in development.
       if (process.env.NODE_ENV !== "production") {
         if (navigator.serviceWorker.controller) {
           logger.log("Updated service worker found. Installing now...");
@@ -395,6 +393,12 @@ export class Serwist extends SerwistEventTarget {
           logger.log("Service worker is installing...");
         }
       }
+      // dispatch the `installing` event
+      this.dispatchEvent(
+        new SerwistEvent("installing", {
+          sw: installingSW,
+        })
+      );
     }
 
     // Increment the `updatefound` count, so future invocations of this
