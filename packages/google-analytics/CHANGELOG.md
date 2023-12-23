@@ -1,5 +1,15 @@
 # @serwist/google-analytics
 
+## 8.1.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/background-sync@8.1.1
+  - @serwist/core@8.1.1
+  - @serwist/routing@8.1.1
+  - @serwist/strategies@8.1.1
+
 ## 8.1.0
 
 ### Patch Changes

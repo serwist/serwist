@@ -1,5 +1,12 @@
 # @serwist/webpack-plugin
 
+## 8.1.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/build@8.1.1
+
 ## 8.1.0
 
 ### Patch Changes
