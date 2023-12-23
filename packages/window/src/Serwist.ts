@@ -388,20 +388,21 @@ export class Serwist extends SerwistEventTarget {
       this._swDeferred.resolve(installingSW);
 
       if (process.env.NODE_ENV !== "production") {
-        if (navigator.serviceWorker.controller) {
+        if (this._isUpdate) {
           logger.log("Updated service worker found. Installing now...");
         } else {
           logger.log("Service worker is installing...");
         }
       }
     }
-    // dispatch the `installing` event when the SW is installing.
+
+    // Dispatch the `installing` event when the SW is installing.
     this.dispatchEvent(
       new SerwistEvent("installing", {
         sw: installingSW,
-        isUpdate: navigator.serviceWorker.controller ? true : false,
-        isExternal: updateLikelyTriggeredExternally,
         originalEvent,
+        isExternal: updateLikelyTriggeredExternally,
+        isUpdate: this._isUpdate,
       })
     );
 
@@ -694,8 +695,8 @@ export class Serwist extends SerwistEventTarget {
  */
 
 /**
- * The `installing` event is dispatched if the service-worker
- * find the new version and start installing.
+ * The `installing` event is dispatched if the service worker
+ * finds the new version and starts installing.
  *
  * @event workbox-window.Workbox#installing
  * @type {SerwistEvent}
