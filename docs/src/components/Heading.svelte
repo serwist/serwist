@@ -24,7 +24,7 @@
     },
     "title-large": {
       element: "h2",
-      className: "leading-7 text-3xl font-semibold tracking-tight",
+      className: "leading-10 text-3xl font-semibold tracking-tight",
     },
     display: {
       element: "h1",

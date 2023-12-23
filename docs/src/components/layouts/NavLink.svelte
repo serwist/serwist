@@ -1,4 +1,5 @@
 <script lang="ts">
+  import type { Snippet } from "svelte";
   import type { HTMLAnchorAttributes } from "svelte/elements";
 
   import { clsx } from "$lib/clsx";
@@ -8,22 +9,33 @@
     isActive?: boolean;
     wideText?: boolean;
     textCenter?: boolean;
+    button?: Snippet<void>;
   }
 
-  const { href, isActive = false, wideText = false, textCenter = true, ...props } = $props<NavLinkProps>();
+  const { href, isActive = false, wideText = false, textCenter = true, children, button, ...props } = $props<NavLinkProps>();
 </script>
 
-<a
-  {href}
+<span
   class={clsx(
-    "transition-colors-opacity font-medium text-black duration-100 dark:text-white",
-    "flex gap-2 rounded-md px-3 py-2 items-center",
-    textCenter && "md:justify-center",
-    wideText ? "shrink-0 text-base uppercase tracking-widest" : "text-base md:text-sm",
+    "w-full transition-colors-opacity duration-100 rounded-md flex flex-row justify-between cursor-pointer",
     isActive ? "bg-gray-200 dark:bg-neutral-800" : "hover:bg-gray-200 dark:hover:bg-neutral-800"
   )}
-  aria-current={isActive}
-  {...props}
 >
-  <slot />
-</a>
+  <a
+    {href}
+    class={clsx(
+      "w-full h-full font-medium text-black dark:text-white gap-2 px-3 py-2",
+      textCenter && "text-center",
+      wideText ? "shrink-0 text-base uppercase tracking-widest" : "text-base md:text-sm"
+    )}
+    aria-current={isActive}
+    {...props}
+  >
+    {#if children}
+      {@render children()}
+    {/if}
+  </a>
+  {#if button}
+    {@render button()}
+  {/if}
+</span>
