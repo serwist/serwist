@@ -204,7 +204,7 @@ installSerwist({
           highlighter,
           {
             "app/layout.tsx": {
-              code: `import type { Metadata } from "next";
+              code: `import type { Metadata, Viewport } from "next";
 
 const APP_NAME = "PWA App";
 const APP_DEFAULT_TITLE = "My Awesome PWA App";
