@@ -33,6 +33,19 @@
   "sideEffects": false,
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "browser": [
+        "./dist/index.browser.d.ts"
+      ],
+      "virtual-*": [
+        "./dist/client/*.d.ts"
+      ],
+      "integration-*": [
+        "./dist/integration/*/index.d.ts"
+      ]
+    }
+  },
   "exports": {
     ".": {
       "import": {
@@ -52,6 +65,12 @@
         "default": "./dist/client/*.js"
       }
     },
+    "./integration-*": {
+      "import": {
+        "types": "./dist/integration/*/index.d.ts",
+        "default": "./dist/integration/*/index.js"
+      }
+    },
     "./package.json": "./package.json"
   },
   "scripts": {
@@ -69,6 +88,7 @@
   "devDependencies": {
     "@playwright/test": "1.40.1",
     "@serwist/constants": "workspace:*",
+    "@sveltejs/kit": "2.0.4",
     "@types/debug": "4.1.12",
     "@types/node": "20.10.5",
     "@types/prompts": "2.4.9",
@@ -88,14 +108,18 @@
     "vue": "3.3.13"
   },
   "peerDependencies": {
-    "vite": "^5.0.0",
+    "@sveltejs/kit": "^1.0.0 || ^2.0.0",
     "preact": "^10.0.0",
     "react": "^18.0.0",
     "solid-js": "^1.8.7",
     "svelte": "^4.0.0 || ^5.0.0",
+    "vite": "^5.0.0",
     "vue": "^3.0.0"
   },
   "peerDependenciesMeta": {
+    "@sveltejs/kit": {
+      "optional": true
+    },
     "preact": {
       "optional": true
     },

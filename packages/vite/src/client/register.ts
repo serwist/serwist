@@ -1,13 +1,7 @@
 import type { Serwist } from "@serwist/window";
+import { swAutoUpdate, swScope, swType, swUrl } from "virtual:internal-serwist";
 
 import type { RegisterSWOptions } from "./type.js";
-
-// __SW_AUTO_UPDATE__ will be replaced by virtual module
-const autoUpdateMode = "__SW_AUTO_UPDATE__";
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore replace at build
-const auto = autoUpdateMode === "true";
 
 export type { RegisterSWOptions };
 
@@ -22,7 +16,7 @@ export const registerSW = (options: RegisterSWOptions = {}) => {
 
   const updateServiceWorker = async () => {
     await registerPromise;
-    if (!auto) {
+    if (!swAutoUpdate) {
       await sendSkipWaitingMessage?.();
     }
   };
@@ -30,8 +24,7 @@ export const registerSW = (options: RegisterSWOptions = {}) => {
   const register = async () => {
     if ("serviceWorker" in navigator) {
       const { Serwist } = await import("@serwist/window");
-      // __SW__, __SCOPE__ and __TYPE__ will be replaced by virtual module
-      serwist = new Serwist("__SW__", { scope: "__SCOPE__", type: "__TYPE__" });
+      serwist = new Serwist(swUrl, { scope: swScope, type: swType });
       sendSkipWaitingMessage = async () => {
         // Send a message to the waiting service worker,
         // instructing it to activate.
@@ -39,7 +32,7 @@ export const registerSW = (options: RegisterSWOptions = {}) => {
         // listener in your service worker. See below.
         serwist?.messageSkipWaiting();
       };
-      if (auto) {
+      if (swAutoUpdate) {
         serwist.addEventListener("activated", (event) => {
           if (event.isUpdate || event.isExternal) window.location.reload();
         });
@@ -93,7 +86,7 @@ export const registerSW = (options: RegisterSWOptions = {}) => {
       serwist
         .register({ immediate })
         .then((r) => {
-          onRegisteredSW?.("__SW__", r);
+          onRegisteredSW?.(swUrl, r);
         })
         .catch((e) => {
           onRegisterError?.(e);

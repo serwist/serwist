@@ -100,7 +100,7 @@ export const createApi = (ctx: SerwistViteContext): SerwistViteApi => {
         inline: options.injectRegister === "inline",
         mode: mode === "auto" ? "script" : mode,
         scope: options.scope,
-        inlinePath: path.posix.join(base, options.injectManifest.swUrl),
+        inlinePath: path.posix.join(base, options.swUrl),
         registerPath: `${base}${FILE_SW_REGISTER}`,
         type,
         toScriptTag() {

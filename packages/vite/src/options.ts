@@ -9,7 +9,6 @@ import type { ManifestOptions, PluginOptions, ResolvedPluginOptions } from "./ty
 import { resolveBasePath, slash } from "./utils.js";
 
 export const resolveOptions = async (options: PluginOptions, viteConfig: ResolvedConfig): Promise<ResolvedPluginOptions> => {
-  const root = viteConfig.root;
   const pkg = fs.existsSync("package.json") ? JSON.parse(fs.readFileSync("package.json", "utf-8")) : {};
 
   const {
@@ -85,11 +84,11 @@ export const resolveOptions = async (options: PluginOptions, viteConfig: Resolve
     manifestFilename,
     manifest,
     useCredentials,
+    swUrl,
     injectManifest: {
       dontCacheBustURLsMatching,
-      swUrl,
-      swSrc: path.resolve(root, swSrc),
-      swDest: path.resolve(root, viteConfig.build.outDir, swDest),
+      swSrc: path.resolve(viteConfig.root, swSrc),
+      swDest: path.resolve(viteConfig.root, viteConfig.build.outDir, swDest),
       ...userInjectManifest,
     },
     scope,
@@ -99,7 +98,6 @@ export const resolveOptions = async (options: PluginOptions, viteConfig: Resolve
     disable,
     integration,
     devOptions,
-    rollupFormat,
     buildBase: buildBase ?? basePath,
     injectManifestRollupOptions: {
       plugins,

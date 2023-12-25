@@ -46,7 +46,7 @@ const includeIcons = (icons: Record<string, any>[], globs: string[]) => {
 };
 
 export const configureStaticAssets = async (resolvedPluginOptions: ResolvedPluginOptions, viteConfig: ResolvedConfig) => {
-  const { manifest, injectManifest, includeAssets, includeManifestIcons, manifestFilename } = resolvedPluginOptions;
+  const { manifest, injectManifest, includeAssets, includeManifestIcons } = resolvedPluginOptions;
 
   const { publicDir } = viteConfig;
   const globs: string[] = [];
@@ -84,14 +84,6 @@ export const configureStaticAssets = async (resolvedPluginOptions: ResolvedPlugi
       })
     );
     manifestEntries.push(...assetsEntries);
-  }
-  if (manifest) {
-    const cHash = crypto.createHash("MD5");
-    cHash.update(generateWebManifestFile(resolvedPluginOptions));
-    manifestEntries.push({
-      url: manifestFilename,
-      revision: `${cHash.digest("hex")}`,
-    });
   }
   if (manifestEntries.length > 0) {
     injectManifest.additionalPrecacheEntries = manifestEntries;

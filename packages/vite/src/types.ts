@@ -2,8 +2,6 @@ import type { InjectManifestOptions, ManifestEntry } from "@serwist/build";
 import type { OutputBundle, RollupOptions } from "rollup";
 import type { Plugin, ResolvedConfig } from "vite";
 
-type RequireFields<T, U extends keyof T> = T & Required<Pick<T, U>>;
-
 export type InjectManifestVitePlugins = string[] | ((vitePluginIds: string[]) => string[]);
 export interface CustomInjectManifestOptions extends InjectManifestOptions {
   /**
@@ -36,7 +34,7 @@ export interface CustomInjectManifestOptions extends InjectManifestOptions {
 export interface SerwistViteHooks {
   beforeBuildServiceWorker?: (options: ResolvedPluginOptions) => void | Promise<void>;
   closeBundleOrder?: "pre" | "post" | null;
-  configureOptions?: (viteOptions: ResolvedConfig, options: Partial<PluginOptions>) => void | Promise<void>;
+  configureOptions?: (viteOptions: ResolvedConfig, options: PluginOptions) => void | Promise<void>;
 }
 
 /**
@@ -56,7 +54,7 @@ export interface BasePluginOptions {
   /**
    * The scope to register the Service Worker
    *
-   * @default same as `base` of Vite's config
+   * @default `viteOptions.base`
    */
   scope?: string;
   /**
@@ -156,16 +154,15 @@ export interface BasePluginOptions {
 
 export type PluginOptions = Partial<BasePluginOptions> & CustomInjectManifestOptions;
 
-export interface ResolvedServiceWorkerOptions {
+export interface InjectManifestRollupOptions {
   format: "es" | "iife";
   plugins: Plugin[];
   rollupOptions: RollupOptions;
 }
 
-export interface ResolvedPluginOptions extends Required<BasePluginOptions> {
-  injectManifest: RequireFields<CustomInjectManifestOptions, "swUrl">;
-  rollupFormat: "es" | "iife";
-  injectManifestRollupOptions: ResolvedServiceWorkerOptions;
+export interface ResolvedPluginOptions extends Required<BasePluginOptions>, Required<Pick<CustomInjectManifestOptions, "swUrl">> {
+  injectManifest: InjectManifestOptions;
+  injectManifestRollupOptions: InjectManifestRollupOptions;
 }
 
 export interface ShareTargetFiles {

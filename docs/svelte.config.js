@@ -13,6 +13,9 @@ const config = {
       $images: "./src/images",
     },
     inlineStyleThreshold: 2048,
+    serviceWorker: {
+      register: false,
+    },
   },
 };
 

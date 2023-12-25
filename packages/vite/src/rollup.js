@@ -17,6 +17,13 @@ for (const clientPath of await fg("client/*.ts", { cwd: __dirname })) {
   clientEntries[`client/${parsedClientPath.name}`] = path.join("src", clientPath);
 }
 
+const integrationEntries = /** @type {Record<string, string>} */ ({});
+
+for (const integrationPath of await fg("integration/*/index.ts", { cwd: __dirname })) {
+  const parsedClientPath = path.parse(integrationPath);
+  integrationEntries[`${parsedClientPath.dir}/${parsedClientPath.name}`] = path.join("src", integrationPath);
+}
+
 export default getRollupOptions({
   packageJson,
   jsFiles: [
@@ -25,11 +32,13 @@ export default getRollupOptions({
         index: "src/index.ts",
         "index.browser": "src/index.browser.ts",
         ...clientEntries,
+        ...integrationEntries,
       },
       output: {
         dir: "dist",
         format: "esm",
       },
+      external: ["virtual:internal-serwist"],
     },
   ],
   shouldEmitDeclaration: !isDev,

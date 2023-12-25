@@ -4,7 +4,7 @@ import { DEV_READY_NAME, DEV_REGISTER_SW_NAME, DEV_SW_VIRTUAL, FILE_SW_REGISTER 
 import type { ResolvedPluginOptions } from "./types.js";
 
 export const generateSimpleSwRegister = (options: ResolvedPluginOptions, dev: boolean) => {
-  const swPath = path.posix.join(options.buildBase, options.injectManifest.swUrl);
+  const swPath = path.posix.join("/", options.buildBase, options.swUrl);
 
   // we are using HMR to load this script: DO NOT ADD window::load event listener
   if (dev) {

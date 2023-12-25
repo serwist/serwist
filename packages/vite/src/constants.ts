@@ -1,15 +1,8 @@
-export const FILE_SW_REGISTER = "registerSW.js";
+export const FILE_SW_REGISTER = "register-sw.js";
 
-export const VIRTUAL_MODULES_MAP: Record<string, string> = {
-  "@serwist/vite/virtual-register": "register",
-  "@serwist/vite/virtual-vue": "vue",
-  "@serwist/vite/virtual-svelte": "svelte",
-  "@serwist/vite/virtual-react": "react",
-  "@serwist/vite/virtual-preact": "preact",
-  "@serwist/vite/virtual-solid": "solid",
-};
-export const VIRTUAL_MODULES_RESOLVE_PREFIX = "@serwist/vite/virtual-";
-export const VIRTUAL_MODULES = Object.keys(VIRTUAL_MODULES_MAP);
+export const VIRTUAL_MODULES_RESOLVE_PREFIX = "\0/@serwist/vite/";
+export const INTERNAL_SERWIST_VIRTUAL = "virtual:internal-serwist";
+export const RESOLVED_INTERNAL_SERWIST_VIRTUAL = `\0${INTERNAL_SERWIST_VIRTUAL}`;
 
 export const PWA_INFO_VIRTUAL = "virtual:pwa-info";
 export const RESOLVED_PWA_INFO_VIRTUAL = `\0${PWA_INFO_VIRTUAL}`;

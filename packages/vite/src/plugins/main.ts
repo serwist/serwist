@@ -1,8 +1,9 @@
+import path from "node:path";
+
 import type { Plugin, UserConfig } from "vite";
 
-import { VIRTUAL_MODULES, VIRTUAL_MODULES_MAP, VIRTUAL_MODULES_RESOLVE_PREFIX } from "../constants.js";
+import { INTERNAL_SERWIST_VIRTUAL, RESOLVED_INTERNAL_SERWIST_VIRTUAL } from "../constants.js";
 import type { SerwistViteContext } from "../context.js";
-import { generateRegisterSw } from "../modules.js";
 import { resolveOptions } from "../options.js";
 import type { SerwistViteApi } from "../types.js";
 
@@ -18,18 +19,22 @@ export const mainPlugin = (ctx: SerwistViteContext, api: SerwistViteApi) => {
       };
     },
     async configResolved(config) {
-      ctx.useImportRegister = false;
       ctx.viteConfig = config;
       ctx.userOptions?.integration?.configureOptions?.(config, ctx.userOptions);
       ctx.options = await resolveOptions(ctx.userOptions, config);
     },
-    load(id) {
-      if (!id.startsWith(VIRTUAL_MODULES_RESOLVE_PREFIX)) {
-        return undefined;
+    resolveId(id) {
+      if (id === INTERNAL_SERWIST_VIRTUAL) {
+        return RESOLVED_INTERNAL_SERWIST_VIRTUAL;
       }
-      if (VIRTUAL_MODULES.includes(id)) {
-        ctx.useImportRegister = true;
-        return generateRegisterSw(ctx.options, VIRTUAL_MODULES_MAP[id]);
+      return undefined;
+    },
+    load(id) {
+      if (id === RESOLVED_INTERNAL_SERWIST_VIRTUAL) {
+        return `export const swUrl = "${path.posix.join("/", ctx.options.buildBase, ctx.options.swUrl)}";
+export const swScope = "${ctx.options.scope}";
+export const swType = "${ctx.options.devOptions.enabled ? ctx.options.devOptions.type : "classic"}";
+export const swAutoUpdate = ${ctx.options.registerType === "autoUpdate"};`;
       }
       return undefined;
     },

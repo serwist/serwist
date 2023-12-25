@@ -5,7 +5,7 @@ import type { RegisterSWOptions } from "./type.js";
 
 export type { RegisterSWOptions };
 
-export const useRegisterSW = (options: RegisterSWOptions = {}) => {
+export const registerServiceWorker = (options: RegisterSWOptions = {}) => {
   const { immediate = true, onNeedRefresh, onOfflineReady, onRegisteredSW, onRegisterError } = options;
 
   const needRefresh = writable(false);

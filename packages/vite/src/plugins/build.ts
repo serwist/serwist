@@ -7,11 +7,11 @@ import type { SerwistViteApi } from "../types.js";
 
 export const buildPlugin = (ctx: SerwistViteContext, api: SerwistViteApi) => {
   const transformIndexHtmlHandler = (html: string) => {
-    const { options, useImportRegister } = ctx;
+    const { options } = ctx;
     if (options.disable) return html;
 
     // if virtual register is requested, do not inject.
-    if (options.injectRegister === "auto") options.injectRegister = useImportRegister ? null : "script";
+    if (options.injectRegister === "auto") options.injectRegister = "script";
 
     return injectServiceWorker(html, options, false);
   };
