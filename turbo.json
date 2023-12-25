@@ -18,6 +18,7 @@
       "outputs": []
     },
     "docs#build": {
+      "dependsOn": ["^build"],
       "outputs": [".svelte-kit/**", ".vercel/**"]
     }
   }
