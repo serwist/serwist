@@ -1,0 +1,115 @@
+{
+  "name": "@serwist/vite",
+  "version": "8.1.1",
+  "type": "module",
+  "description": "A module that integrates Serwist into your Vite application.",
+  "files": [
+    "dist",
+    "!dist/dts"
+  ],
+  "keywords": [
+    "react",
+    "remix",
+    "vue",
+    "preact",
+    "svelte",
+    "sveltekit",
+    "solidjs",
+    "vite",
+    "vite-plugin",
+    "serwist",
+    "serwistjs",
+    "pwa",
+    "sw",
+    "service worker",
+    "web",
+    "service-worker"
+  ],
+  "author": "antfu <anthonyfu117@hotmail.com>, Serwist's Team",
+  "license": "MIT",
+  "repository": "serwist/serwist",
+  "bugs": "https://github.com/serwist/serwist/issues",
+  "homepage": "https://serwist.vercel.app",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./browser": {
+      "import": {
+        "types": "./dist/index.browser.d.ts",
+        "default": "./dist/index.browser.js"
+      }
+    },
+    "./virtual-*": {
+      "import": {
+        "types": "./dist/client/*.d.ts",
+        "default": "./dist/client/*.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js",
+    "lint": "eslint src --ext ts,tsx,js,jsx,cjs,mjs",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "@serwist/build": "workspace:*",
+    "@serwist/window": "workspace:*",
+    "debug": "4.3.4",
+    "fast-glob": "3.3.2",
+    "pretty-bytes": "6.1.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.40.1",
+    "@serwist/constants": "workspace:*",
+    "@types/debug": "4.1.12",
+    "@types/node": "20.10.5",
+    "@types/prompts": "2.4.9",
+    "@types/react": "18.2.45",
+    "bumpp": "9.2.1",
+    "eslint": "8.56.0",
+    "kolorist": "1.8.0",
+    "preact": "10.19.3",
+    "prompts": "2.4.2",
+    "publint": "0.2.7",
+    "react": "18.2.0",
+    "rollup": "4.9.1",
+    "solid-js": "1.8.7",
+    "svelte": "4.2.8",
+    "typescript": "5.3.3",
+    "vite": "5.0.10",
+    "vue": "3.3.13"
+  },
+  "peerDependencies": {
+    "vite": "^5.0.0",
+    "preact": "^10.0.0",
+    "react": "^18.0.0",
+    "solid-js": "^1.8.7",
+    "svelte": "^4.0.0 || ^5.0.0",
+    "vue": "^3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "preact": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    },
+    "solid-js": {
+      "optional": true
+    },
+    "svelte": {
+      "optional": true
+    },
+    "vue": {
+      "optional": true
+    }
+  }
+}
