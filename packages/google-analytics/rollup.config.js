@@ -12,7 +12,7 @@ export default getRollupOptions({
       input: "src/index.ts",
       output: [
         {
-          file: "dist/index.old.cjs",
+          file: "dist/index.cjs",
           format: "cjs",
           exports: "named",
         },
@@ -26,7 +26,7 @@ export default getRollupOptions({
       input: "src/initialize.ts",
       output: [
         {
-          file: "dist/initialize.old.cjs",
+          file: "dist/initialize.cjs",
           format: "cjs",
           exports: "named",
         },

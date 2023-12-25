@@ -1,7 +1,6 @@
 {
   "name": "@serwist/sw",
   "version": "8.1.1",
-  "license": "MIT",
   "type": "module",
   "description": "This module makes it easy to get started with the Serwist service worker libraries.",
   "files": [
@@ -15,11 +14,12 @@
     "sw"
   ],
   "author": "Google's Web DevRel Team, Serwist's Team",
+  "license": "MIT",
   "repository": "serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",
-  "homepage": "https://ducanh-next-pwa.vercel.app",
+  "homepage": "https://serwist.vercel.app",
   "module": "./dist/index.js",
-  "main": "./dist/index.old.cjs",
+  "main": "./dist/index.cjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
@@ -28,8 +28,8 @@
         "default": "./dist/index.js"
       },
       "require": {
-        "types": "./dist/index.old.d.cts",
-        "default": "./dist/index.old.cjs"
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
       }
     },
     "./package.json": "./package.json"

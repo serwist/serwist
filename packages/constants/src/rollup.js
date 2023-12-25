@@ -1,9 +1,12 @@
+// @ts-check
 import fs from "node:fs";
+import { copyFile } from "node:fs/promises";
 
 import json from "@rollup/plugin-json";
 import nodeResolve from "@rollup/plugin-node-resolve";
 import swc from "@rollup/plugin-swc";
 import typescript from "@rollup/plugin-typescript";
+import fg from "fast-glob";
 import { defineConfig } from "rollup";
 
 import { swcConfig } from "./swc-config.js";
@@ -19,9 +22,13 @@ function emitDCts() {
     writeBundle: {
       sequential: true,
       order: "post",
-      handler({ file }) {
-        if (/dist\/.*?\.old(\.cjs)/.test(file)) {
-          fs.copyFileSync(file.replace(".old.cjs", ".d.ts"), file.replace(".old.cjs", ".old.d.cts"));
+      async handler({ file, format, dir }) {
+        if (!!file && /dist\/.*?(\.cjs)/.test(file)) {
+          return fs.copyFileSync(file.replace(".cjs", ".d.ts"), file.replace(".cjs", ".d.cts"));
+        }
+        if (file === undefined && format === "cjs" && dir === "dist") {
+          await Promise.all((await fg("dist/**/*.d.ts")).map(async (file) => await copyFile(file, file.replace(".d.ts", ".d.cts"))));
+          return;
         }
       },
     },
@@ -37,13 +44,8 @@ export const getRollupOptions = ({ packageJson, jsFiles, shouldEmitDeclaration }
     ...Object.keys(packageJson.peerDependencies ?? {}).map((e) => new RegExp("^" + e)),
   ];
 
-  /**
-   * @type {import("rollup").RollupOptions[]}
-   */
-  const rollupEntries = [];
-
-  for (const { input, output, external = [], plugins } of jsFiles) {
-    rollupEntries.push(
+  return [
+    ...jsFiles.map(({ input, output, external = [], plugins }) =>
       defineConfig({
         input,
         output,
@@ -55,6 +57,9 @@ export const getRollupOptions = ({ packageJson, jsFiles, shouldEmitDeclaration }
             extensions: [".js", ".ts"],
           }),
           json(),
+          swc({
+            swc: swcConfig,
+          }),
           shouldEmitDeclaration &&
             typescript({
               noForceEmit: true,
@@ -64,15 +69,10 @@ export const getRollupOptions = ({ packageJson, jsFiles, shouldEmitDeclaration }
               declaration: true,
               declarationMap: !isPublishMode,
             }),
-          swc({
-            swc: swcConfig,
-          }),
           emitDCts(),
           ...[plugins ?? []],
         ],
       })
-    );
-  }
-
-  return rollupEntries;
+    ),
+  ];
 };

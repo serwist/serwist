@@ -1,11 +1,14 @@
 <script lang="ts">
   import "../app.css";
 
+  import { useRegisterSW } from "@serwist/vite/virtual/svelte";
+
   import { page } from "$app/stores";
   import { isColorScheme } from "$lib/isColorScheme";
   import { colorScheme } from "$lib/stores/colorScheme";
 
   $effect(() => {
+    useRegisterSW();
     const newTheme = document.documentElement.dataset.theme;
     $colorScheme = isColorScheme(newTheme) ? newTheme : "light";
     colorScheme.subscribe((value) => {

@@ -9,53 +9,25 @@ export default getRollupOptions({
   packageJson,
   jsFiles: [
     {
-      input: "src/index.ts",
-      output: [
-        {
-          file: "dist/index.old.cjs",
-          format: "cjs",
-          exports: "named",
-        },
-        {
-          file: "dist/index.js",
-          format: "esm",
-        },
-      ],
-    },
-    {
-      input: "src/index.browser.ts",
-      output: [
-        {
-          file: "dist/index.browser.old.cjs",
-          format: "cjs",
-          exports: "named",
-        },
-        {
-          file: "dist/index.browser.js",
-          format: "esm",
-        },
-      ],
-    },
-    {
-      input: "src/sw-entry.ts",
-      output: [
-        {
-          file: "dist/sw-entry.old.cjs",
-          format: "cjs",
-          exports: "named",
-        },
-        {
-          file: "dist/sw-entry.js",
-          format: "esm",
-        },
-      ],
-    },
-    {
-      input: "src/sw-entry-worker.ts",
-      output: {
-        file: "dist/sw-entry-worker.js",
-        format: "esm",
+      input: {
+        index: "src/index.ts",
+        "index.browser": "src/index.browser.ts",
+        "sw-entry": "src/sw-entry.ts",
+        "sw-entry-worker": "src/sw-entry-worker.ts",
       },
+      output: [
+        {
+          dir: "dist",
+          entryFileNames: "[name].cjs",
+          format: "cjs",
+          exports: "named",
+        },
+        {
+          dir: "dist",
+          entryFileNames: "[name].js",
+          format: "esm",
+        },
+      ],
     },
   ],
   shouldEmitDeclaration: !isDev,
