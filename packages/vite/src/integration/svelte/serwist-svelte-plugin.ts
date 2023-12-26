@@ -4,7 +4,7 @@ import type { SerwistViteContext } from "../../context.js";
 import { loadSerwistBuild } from "../../modules.js";
 import type { SerwistViteApi } from "../../types.js";
 
-export const serwistSvelte = (ctx: SerwistViteContext, api: SerwistViteApi) => {
+export const serwistSveltePlugin = (ctx: SerwistViteContext, api: SerwistViteApi) => {
   return <Plugin>{
     name: "@serwist/vite/integration-svelte:build",
     apply: "build",

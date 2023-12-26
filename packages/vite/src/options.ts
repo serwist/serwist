@@ -9,6 +9,7 @@ import { resolveBasePath, slash } from "./utils.js";
 
 export const resolveOptions = async (options: PluginOptions, viteConfig: ResolvedConfig): Promise<ResolvedPluginOptions> => {
   const {
+    type = "classic",
     mode = (process.env.NODE_ENV || "production") as "production" | "development",
     injectRegister = "auto",
     registerType = "prompt",
@@ -17,7 +18,6 @@ export const resolveOptions = async (options: PluginOptions, viteConfig: Resolve
     includeAssets = undefined,
     useCredentials = false,
     disable = false,
-    devOptions = { enabled: false, type: "classic" },
     integration = {},
     buildBase,
     ...injectManifest
@@ -35,12 +35,9 @@ export const resolveOptions = async (options: PluginOptions, viteConfig: Resolve
 
   const { plugins = [], rollupOptions = {}, rollupFormat = "es", swUrl = "/sw.js", swSrc, swDest, ...userInjectManifest } = injectManifest || {};
 
-  if (!devOptions.enabled || viteConfig.command !== "serve") {
-    devOptions.enabled = false;
-    devOptions.type = "classic";
-  }
   const resolvedPluginOptions = {
     base: basePath,
+    type,
     mode,
     injectRegister,
     registerType,
@@ -48,16 +45,16 @@ export const resolveOptions = async (options: PluginOptions, viteConfig: Resolve
     swUrl,
     injectManifest: {
       dontCacheBustURLsMatching,
+      ...userInjectManifest,
       swSrc: path.resolve(viteConfig.root, swSrc),
       swDest: path.resolve(viteConfig.root, viteConfig.build.outDir, swDest),
-      ...userInjectManifest,
+      disablePrecacheManifest: !viteConfig.isProduction,
     },
     scope,
     minify,
     includeAssets,
     disable,
     integration,
-    devOptions,
     buildBase: buildBase ?? basePath,
     injectManifestRollupOptions: {
       plugins,
@@ -67,10 +64,7 @@ export const resolveOptions = async (options: PluginOptions, viteConfig: Resolve
   } satisfies ResolvedPluginOptions;
 
   // calculate hash only when required
-  const calculateHash =
-    !resolvedPluginOptions.disable &&
-    resolvedPluginOptions.includeAssets &&
-    (viteConfig.command === "build" || resolvedPluginOptions.devOptions.enabled);
+  const calculateHash = !resolvedPluginOptions.disable && resolvedPluginOptions.includeAssets && viteConfig.command === "build";
 
   if (calculateHash) await configureStaticAssets(resolvedPluginOptions, viteConfig);
 

@@ -10,10 +10,9 @@ export const loadSerwistBuild = async (): Promise<typeof SerwistBuild> => {
   // "@serwist/build" is large and makes config loading slow.
   // Since it is not always used, we only load this when it is needed.
   try {
-    const workbox = await import("@serwist/build");
-    return workbox;
+    return await import("@serwist/build");
   } catch (_) {
-    return require("workbox-build");
+    return require("@serwist/build");
   }
 };
 

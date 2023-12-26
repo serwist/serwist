@@ -33,8 +33,7 @@ export const mainPlugin = (ctx: SerwistViteContext, api: SerwistViteApi) => {
       if (id === RESOLVED_INTERNAL_SERWIST_VIRTUAL) {
         return `export const swUrl = "${path.posix.join(ctx.options.buildBase, ctx.options.swUrl)}";
 export const swScope = "${ctx.options.scope}";
-export const swType = "${ctx.options.devOptions.enabled ? ctx.options.devOptions.type : "classic"}";
-export const swAutoUpdate = ${ctx.options.registerType === "autoUpdate"};`;
+export const swType = "${ctx.devEnvironment ? "module" : ctx.options.type}";`;
       }
       return undefined;
     },

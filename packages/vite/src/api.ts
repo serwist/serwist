@@ -7,9 +7,6 @@ export const createApi = (ctx: SerwistViteContext): SerwistViteApi => {
     get disabled() {
       return ctx?.options?.disable;
     },
-    get pwaInDevEnvironment() {
-      return ctx?.devEnvironment === true;
-    },
     async generateSW() {
       if (ctx.options.disable) {
         return undefined;

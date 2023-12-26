@@ -4,7 +4,7 @@ import type { ResolvedConfig } from "vite";
 
 import { version } from "../../../package.json";
 
-export function logSerwistResult(buildResult: BuildResult, viteOptions: ResolvedConfig) {
+export function logSerwistResult(buildResult: Pick<BuildResult, "count" | "size" | "warnings">, viteOptions: ResolvedConfig) {
   const { logLevel = "info" } = viteOptions;
 
   if (logLevel === "silent") return;
@@ -17,11 +17,8 @@ export function logSerwistResult(buildResult: BuildResult, viteOptions: Resolved
         "",
         `${cyan(`@serwist/vite/integration-svelte v${version}`)} ${green("files generated.")}`,
         `${green("✓")} ${count} precache entries ${dim(`(${(size / 1024).toFixed(2)} KiB)`)}`,
-        "",
+        warnings && warnings.length > 0 ? yellow(["⚠ warnings", ...warnings.map((w) => `  ${w}`), ""].join("\n")) : "",
       ].join("\n")
     );
   }
-
-  // log build warning
-  warnings && warnings.length > 0 && console.warn(yellow(["warnings", "", ...warnings, ""].join("\n")));
 }

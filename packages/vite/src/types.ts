@@ -3,7 +3,7 @@ import type { RollupOptions } from "rollup";
 import type { Plugin, ResolvedConfig } from "vite";
 
 export type InjectManifestVitePlugins = string[] | ((vitePluginIds: string[]) => string[]);
-export interface CustomInjectManifestOptions extends InjectManifestOptions {
+export interface CustomInjectManifestOptions extends Omit<InjectManifestOptions, "disablePrecacheManifest"> {
   /**
    * The URL to the service worker.
    * @default "/sw.js"
@@ -44,9 +44,16 @@ export interface BasePluginOptions {
   /**
    * Build mode
    *
-   * @default process.env.NODE_ENV or "production"
+   * @default
+   * process.env.NODE_ENV // or "production" if undefined
    */
   mode?: "development" | "production";
+  /**
+   * The service worker type.
+   *
+   * @default "classic"
+   */
+  type?: WorkerType;
   /**
    * The scope to register the Service Worker
    *
@@ -119,10 +126,6 @@ export interface BasePluginOptions {
    */
   integration?: SerwistViteHooks;
   /**
-   * Development options.
-   */
-  devOptions?: DevOptions;
-  /**
    * When Vite's build folder is not the same as your base root folder, configure it here.
    *
    * This option will be useful for integrations like `vite-plugin-laravel` where Vite's build folder is `public/build` but Laravel's base path is `public`.
@@ -177,70 +180,11 @@ export interface SerwistViteApi {
    * Is the plugin disabled?
    */
   disabled: boolean;
-  /**
-   * Running on dev server?
-   */
-  pwaInDevEnvironment: boolean;
   extendManifestEntries(fn: ExtendManifestEntriesHook): void;
   /*
-   * Generate the PWA services worker.
+   * Generate the service worker.
    */
   generateSW(): Promise<void>;
 }
 
 export type ExtendManifestEntriesHook = (manifestEntries: (string | ManifestEntry)[]) => (string | ManifestEntry)[] | undefined;
-
-/**
- * Development options.
- */
-export interface DevOptions {
-  /**
-   * Should the service worker be available on development?.
-   *
-   * @default false
-   */
-  enabled?: boolean;
-  /**
-   * The service worker type.
-   *
-   * @default 'classic'
-   */
-  type?: WorkerType;
-  /**
-   * This option will enable you to not use the `runtimeConfig` configured on `workbox.runtimeConfig` plugin option.
-   *
-   * **WARNING**: this option will only be used when using `generateSW` strategy.
-   *
-   * @default false
-   */
-  disableRuntimeConfig?: boolean;
-  /**
-   * This option will allow you to configure the `navigateFallback` when using `registerRoute` for `offline` support:
-   * configure here the corresponding `url`, for example `navigateFallback: 'index.html'`.
-   *
-   * **WARNING**: this option will only be used when using `injectManifest` strategy.
-   */
-  navigateFallback?: string;
-
-  /**
-   * This option will allow you to configure the `navigateFallbackAllowlist`: new option from version `v0.12.4`.
-   *
-   * Since we need at least the entry point in the service worker's precache manifest, we don't want the rest of the assets to be intercepted by the service worker.
-   *
-   * If you configure this option, the plugin will use it instead the default.
-   *
-   * **WARNING**: this option will only be used when using `generateSW` strategy.
-   *
-   * @default [/^\/$/]
-   */
-  navigateFallbackAllowlist?: RegExp[];
-  /**
-   * Where to store generated service worker in development when using `generateSW` strategy.
-   *
-   * Use it with caution, it should be used only by framework integrations.
-   *
-   * @default
-   * resolve(viteConfig.root, 'dev-dist')
-   */
-  resolveTempFolder?: () => string | Promise<string>;
-}

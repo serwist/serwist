@@ -27,6 +27,7 @@ export async function getFileManifestEntries({
   maximumFileSizeToCacheInBytes,
   modifyURLPrefix,
   templatedURLs,
+  disablePrecacheManifest,
 }: GetManifestOptions): Promise<GetManifestResult> {
   const warnings: Array<string> = [];
   const allFileDetails = new Map<string, FileDetails>();
@@ -107,6 +108,7 @@ export async function getFileManifestEntries({
     maximumFileSizeToCacheInBytes,
     modifyURLPrefix,
     fileDetails: Array.from(allFileDetails.values()),
+    disablePrecacheManifest,
   });
 
   transformedManifest.warnings.push(...warnings);
