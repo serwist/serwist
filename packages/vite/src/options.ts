@@ -17,7 +17,7 @@ export const resolveOptions = async (options: PluginOptions, viteConfig: Resolve
     includeAssets = undefined,
     useCredentials = false,
     disable = false,
-    devOptions = { enabled: false, type: "classic", suppressWarnings: false },
+    devOptions = { enabled: false, type: "classic" },
     integration = {},
     buildBase,
     ...injectManifest
