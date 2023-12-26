@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest",
+  "name": "Serwist",
+  "short_name": "Serwist",
+  "theme_color": "#171717",
+  "background_color": "#171717",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [],
+  "splash_pages": null
+}

@@ -37,16 +37,8 @@ const normalizeIconPath = (path: string) => {
   return path.startsWith("/") ? path.substring(1) : path;
 };
 
-const includeIcons = (icons: Record<string, any>[], globs: string[]) => {
-  Object.keys(icons).forEach((key) => {
-    const icon = icons[key as any];
-    const src = normalizeIconPath(icon.src as string);
-    if (!globs.includes(src)) globs.push(src);
-  });
-};
-
 export const configureStaticAssets = async (resolvedPluginOptions: ResolvedPluginOptions, viteConfig: ResolvedConfig) => {
-  const { manifest, injectManifest, includeAssets, includeManifestIcons } = resolvedPluginOptions;
+  const { injectManifest, includeAssets } = resolvedPluginOptions;
 
   const { publicDir } = viteConfig;
   const globs: string[] = [];
@@ -56,13 +48,6 @@ export const configureStaticAssets = async (resolvedPluginOptions: ResolvedPlugi
     // fast-glob will not resolve absolute paths
     if (Array.isArray(includeAssets)) globs.push(...includeAssets.map(normalizeIconPath));
     else globs.push(normalizeIconPath(includeAssets));
-  }
-  if (includeManifestIcons && manifest) {
-    manifest.icons && includeIcons(manifest.icons, globs);
-    manifest.shortcuts &&
-      manifest.shortcuts.forEach((s) => {
-        s.icons && includeIcons(s.icons, globs);
-      });
   }
   if (globs.length > 0) {
     let assets = await fg(globs, {
@@ -88,8 +73,4 @@ export const configureStaticAssets = async (resolvedPluginOptions: ResolvedPlugi
   if (manifestEntries.length > 0) {
     injectManifest.additionalPrecacheEntries = manifestEntries;
   }
-};
-
-export const generateWebManifestFile = (options: ResolvedPluginOptions): string => {
-  return `${JSON.stringify(options.manifest, null, options.minify ? 0 : 2)}\n`;
 };

@@ -1,15 +1,23 @@
 <script lang="ts">
   import "../app.css";
 
-  import { registerServiceWorker } from "@serwist/vite/virtual-svelte";
+  import { getSerwist } from "@serwist/vite/browser";
 
   import { page } from "$app/stores";
+  import { PUBLIC_CANONICAL_URL } from "$env/static/public";
   import { isColorScheme } from "$lib/isColorScheme";
   import { colorScheme } from "$lib/stores/colorScheme";
 
-  const { updateServiceWorker } = registerServiceWorker();
-
-  $effect(() => updateServiceWorker());
+  $effect(() => {
+    const registerSerwist = async () => {
+      const serwist = await getSerwist();
+      if (serwist) {
+        serwist.addEventListener("installed", () => console.log("Serwist installed!"));
+        await serwist.register();
+      }
+    };
+    registerSerwist();
+  });
 
   $effect(() => {
     const newTheme = document.documentElement.dataset.theme;
@@ -27,9 +35,10 @@
 
 <svelte:head>
   <title>{title}</title>
+  <link rel="canonical" href={new URL($page.url.pathname, PUBLIC_CANONICAL_URL).href} />
+  <link rel="manifest" href="/manifest.webmanifest" />
   <meta property="og:title" content={title} />
   <meta name="twitter:title" content={title} />
-  <link rel="canonical" href={new URL($page.url.pathname, $page.url.origin).href} />
   <meta name="theme-color" content={isDark ? "#000000" : "#FFFFFF"} />
   <style>
     :root {

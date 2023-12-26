@@ -1,15 +1,46 @@
-import type { ManifestTransform } from "@serwist/build";
+import path from "node:path";
 
-import type { PluginOptions } from "../../types.js";
+import type { ManifestTransform } from "@serwist/build";
+import type { ResolvedConfig } from "vite";
+
+import type { PluginOptions as BasePluginOptions } from "../../types.js";
 import type { KitOptions } from "./types.js";
 
-export const configurateSvelteKitOptions = (options: PluginOptions) => {
-  // Vite will copy public folder to the globDirectory after pwa plugin runs:
-  // globDirectory is the build folder.
-  // SvelteKit will copy to the globDirectory before pwa plugin runs (via Vite client build in writeBundle hook):
-  // globDirectory is the kit client output folder.
-  // We need to disable includeManifestIcons: any icon in the static folder will be twice in the sw's precache manifest.
-  if (typeof options.includeManifestIcons === "undefined") options.includeManifestIcons = false;
+export const configurateSvelteKitOptions = (viteConfig: ResolvedConfig, kit: KitOptions, options: BasePluginOptions) => {
+  const clientOutDir = path.resolve(viteConfig.root, viteConfig.build.outDir, "../client");
+
+  // Kit fixes the service worker's name to 'service-worker.js'
+  options.swSrc = path.resolve(clientOutDir, "service-worker.js");
+  options.swDest = path.resolve(clientOutDir, "service-worker.js");
+  options.swUrl = "/service-worker.js";
+
+  // SvelteKit's outDir is `.svelte-kit/output/client`.
+  // We need to include the parent folder in globDirectory since SvelteKit will generate SSG in `.svelte-kit/output/prerendered` folder.
+  if (!options.globDirectory) {
+    options.globDirectory = path.resolve(clientOutDir, "..");
+  }
+  if (!options.manifestTransforms) {
+    options.manifestTransforms = [createManifestTransform(viteConfig.base, undefined, kit)];
+  }
+
+  let buildAssetsDir = kit.appDir ?? "_app/";
+  if (buildAssetsDir[0] === "/") buildAssetsDir = buildAssetsDir.slice(1);
+  if (buildAssetsDir[buildAssetsDir.length - 1] !== "/") buildAssetsDir += "/";
+
+  if (!options.modifyURLPrefix) {
+    options.globPatterns = buildGlobPatterns(options.globPatterns);
+    if (kit.includeVersionFile) {
+      options.globPatterns.push(`client/${buildAssetsDir}version.json`);
+    }
+  }
+
+  // Exclude server assets: sw is built on SSR build
+  options.globIgnores = buildGlobIgnores(options.globIgnores);
+
+  // Vite 5 support: allow override dontCacheBustURLsMatching
+  if (!("dontCacheBustURLsMatching" in options)) {
+    options.dontCacheBustURLsMatching = new RegExp(`${buildAssetsDir}immutable/`);
+  }
 };
 
 export function createManifestTransform(base: string, webManifestName?: string, options?: KitOptions): ManifestTransform {

@@ -1,13 +1,10 @@
-import { existsSync, mkdirSync, promises as fs } from "node:fs";
-import { resolve } from "node:path";
+import { promises as fs } from "node:fs";
 
-import type { Plugin, ResolvedConfig, ViteDevServer } from "vite";
+import type { Plugin } from "vite";
 
-import { generateWebManifestFile } from "../assets.js";
-import { DEV_READY_NAME, DEV_REGISTER_SW_NAME, DEV_SW_NAME, DEV_SW_VIRTUAL, FILE_SW_REGISTER, RESOLVED_DEV_SW_VIRTUAL } from "../constants.js";
+import { DEV_SW_NAME, DEV_SW_VIRTUAL, RESOLVED_DEV_SW_VIRTUAL } from "../constants.js";
 import type { SerwistViteContext } from "../context.js";
-import { generateRegisterDevSw, generateSimpleSwRegister, generateSwHmr, injectServiceWorker } from "../html.js";
-import type { ResolvedPluginOptions } from "../types.js";
+import { generateSwHmr } from "../html.js";
 import { normalizePath } from "../utils.js";
 
 export const swDevOptions = {
@@ -17,51 +14,9 @@ export const swDevOptions = {
 };
 
 export const devPlugin = (ctx: SerwistViteContext) => {
-  const transformIndexHtmlHandler = (html: string) => {
-    const { options } = ctx;
-    if (options.disable || !options.manifest || !options.devOptions.enabled) return html;
-
-    html = injectServiceWorker(html, options, true);
-
-    return html.replace(
-      "</body>",
-      `${generateRegisterDevSw(options.base)}
-</body>`
-    );
-  };
-
   return <Plugin>{
     name: "@serwist/vite:dev",
     apply: "serve",
-    transformIndexHtml: {
-      order: "post",
-      async handler(html) {
-        return transformIndexHtmlHandler(html);
-      },
-      enforce: "post", // deprecated since Vite 4
-      async transform(html) {
-        // deprecated since Vite 4
-        return transformIndexHtmlHandler(html);
-      },
-    },
-    configureServer(server) {
-      ctx.devEnvironment = true;
-      const { options } = ctx;
-      if (!options.disable && options.manifest && options.devOptions.enabled) {
-        server.ws.on(DEV_READY_NAME, createSWResponseHandler(server, ctx));
-        const name = `${options.base}${options.manifestFilename}`;
-        server.middlewares.use((req, res, next) => {
-          if (req.url === name) {
-            res.statusCode = 200;
-            res.setHeader("Content-Type", "application/manifest+json");
-            res.write(generateWebManifestFile(options), "utf-8");
-            res.end();
-          } else {
-            next();
-          }
-        });
-      }
-    },
     resolveId(id) {
       if (id === DEV_SW_VIRTUAL) return RESOLVED_DEV_SW_VIRTUAL;
 
@@ -105,52 +60,5 @@ export const devPlugin = (ctx: SerwistViteContext) => {
 
       return undefined;
     },
-  };
-};
-
-const resolveDevDistFolder = async (options: ResolvedPluginOptions, viteConfig: ResolvedConfig) => {
-  return options.devOptions.resolveTempFolder ? await options.devOptions.resolveTempFolder() : resolve(viteConfig.root, "dev-dist");
-};
-
-const createDevRegisterSW = async (options: ResolvedPluginOptions, viteConfig: ResolvedConfig) => {
-  if (options.injectRegister === "script" || options.injectRegister === "script-defer") {
-    const devDist = await resolveDevDistFolder(options, viteConfig);
-    if (!existsSync(devDist)) mkdirSync(devDist);
-
-    const registerSW = resolve(devDist, FILE_SW_REGISTER);
-    if (existsSync(registerSW)) {
-      // since we don't delete the dev-dist folder, we just add it if already exists
-      if (!swDevOptions.workboxPaths.has(registerSW)) swDevOptions.workboxPaths.set(normalizePath(`${options.base}${FILE_SW_REGISTER}`), registerSW);
-
-      return;
-    }
-
-    await fs.writeFile(registerSW, generateSimpleSwRegister(options, true), { encoding: "utf8" });
-    swDevOptions.workboxPaths.set(normalizePath(`${options.base}${FILE_SW_REGISTER}`), registerSW);
-  }
-};
-
-const createSWResponseHandler = (server: ViteDevServer, ctx: SerwistViteContext): (() => Promise<void>) => {
-  return async () => {
-    const { options, useImportRegister } = ctx;
-    const { injectRegister, scope, base } = options;
-    // don't send the sw registration if virtual imported or disabled
-    if (!useImportRegister && injectRegister) {
-      if (injectRegister === "auto") options.injectRegister = "script";
-
-      await createDevRegisterSW(options, ctx.viteConfig);
-
-      server.ws.send({
-        type: "custom",
-        event: DEV_REGISTER_SW_NAME,
-        data: {
-          mode: options.injectRegister,
-          scope,
-          inlinePath: `${base}${DEV_SW_NAME}`,
-          registerPath: `${base}${FILE_SW_REGISTER}`,
-          swType: options.devOptions.type,
-        },
-      });
-    }
   };
 };

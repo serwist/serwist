@@ -93,7 +93,7 @@ export class Serwist extends SerwistEventTarget {
     immediate = false,
   }: {
     /**
-     * Setting this to true will  register the service worker immediately,
+     * Setting this to true will register the service worker immediately,
      * even if the window has not loaded (not recommended).
      */
     immediate?: boolean;

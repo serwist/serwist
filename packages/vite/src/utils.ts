@@ -1,12 +1,10 @@
-import path from "node:path";
-
 export const slash = (str: string) => {
   return str.replace(/\\/g, "/");
 };
 
 export const resolveBasePath = (base: string) => {
   if (isAbsolute(base)) return base;
-  return !base.startsWith("/") ? path.posix.join("/", base) : base;
+  return !base.startsWith("/") && !base.startsWith("./") ? `/${base}` : base;
 };
 
 export const isAbsolute = (url: string) => {

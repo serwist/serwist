@@ -38,8 +38,8 @@
       "browser": [
         "./dist/index.browser.d.ts"
       ],
-      "virtual-*": [
-        "./dist/client/*.d.ts"
+      "worker": [
+        "./dist/index.worker.d.ts"
       ],
       "integration-*": [
         "./dist/integration/*/index.d.ts"
@@ -59,10 +59,10 @@
         "default": "./dist/index.browser.js"
       }
     },
-    "./virtual-*": {
+    "./worker": {
       "import": {
-        "types": "./dist/client/*.d.ts",
-        "default": "./dist/client/*.js"
+        "types": "./dist/index.worker.d.ts",
+        "default": "./dist/index.worker.js"
       }
     },
     "./integration-*": {

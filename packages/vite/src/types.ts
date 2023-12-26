@@ -1,5 +1,5 @@
 import type { InjectManifestOptions, ManifestEntry } from "@serwist/build";
-import type { OutputBundle, RollupOptions } from "rollup";
+import type { RollupOptions } from "rollup";
 import type { Plugin, ResolvedConfig } from "vite";
 
 export type InjectManifestVitePlugins = string[] | ((vitePluginIds: string[]) => string[]);
@@ -22,7 +22,7 @@ export interface CustomInjectManifestOptions extends InjectManifestOptions {
    * If you're using custom configuration for your service worker (for example custom plugins) you can use this option to configure the service worker build.
    * Both configurations cannot be shared, and so you'll need to duplicate the configuration, with the exception of `define`.
    *
-   * **WARN**: this option is for advanced usage, beware, you can break your application build.
+   * **WARN**: this option is for advanced usage, be aware that you may break your application build.
    */
   plugins?: Plugin[];
   /**
@@ -47,10 +47,6 @@ export interface BasePluginOptions {
    * @default process.env.NODE_ENV or "production"
    */
   mode?: "development" | "production";
-  /**
-   * @default 'manifest.webmanifest'
-   */
-  manifestFilename?: string;
   /**
    * The scope to register the Service Worker
    *
@@ -94,10 +90,6 @@ export interface BasePluginOptions {
    */
   minify: boolean;
   /**
-   * The manifest object
-   */
-  manifest: Partial<ManifestOptions> | false;
-  /**
    * Whether to add the `crossorigin="use-credentials"` attribute to `<link rel="manifest">`
    * @default false
    */
@@ -116,14 +108,6 @@ export interface BasePluginOptions {
    * The `public` directory will be resolved from Vite's `publicDir` option directory.
    */
   includeAssets: string | string[] | undefined;
-  /**
-   * By default, the icons listed on `manifest` option will be included
-   * on the service worker *precache* if present under Vite's `publicDir`
-   * option directory.
-   *
-   * @default true
-   */
-  includeManifestIcons: boolean;
   /**
    * Whether Serwist should be disabled.
    *
@@ -389,34 +373,6 @@ export interface WebManifestData {
   toLinkTag: () => string;
 }
 
-export interface RegisterSWData {
-  shouldRegisterSW: boolean;
-  /**
-   * When this flag is `inline` the service worker must be registered via inline script otherwise registered via script with src attribute `registerSW.js`.
-   */
-  mode: "inline" | "script" | "script-defer";
-  /**
-   * The path for the inline script: will contain the service worker url.
-   */
-  inlinePath: string;
-  /**
-   * The path for the src script for `registerSW.js`.
-   */
-  registerPath: string;
-  /**
-   * The scope for the service worker: only required for `inline: true`.
-   */
-  scope: string;
-  /**
-   * The type for the service worker: only required for `inline: true`.
-   */
-  type: WorkerType;
-  /**
-   * Returns the corresponding script tag if `shouldRegisterSW` returns `true`.
-   */
-  toScriptTag: () => string | undefined;
-}
-
 export interface SerwistViteApi {
   /**
    * Is the plugin disabled?
@@ -426,27 +382,9 @@ export interface SerwistViteApi {
    * Running on dev server?
    */
   pwaInDevEnvironment: boolean;
-  /**
-   * Returns the PWA web manifest url for the manifest link:
-   * <link rel="manifest" href="<webManifestUrl>" />
-   *
-   * Will also return if the manifest will require credentials:
-   * <link rel="manifest" href="<webManifestUrl>" crossorigin="use-credentials" />
-   */
-  webManifestData(): WebManifestData | undefined;
-  /**
-   * How the service worker is being registered in the application.
-   *
-   * This option will help some integrations to inject the corresponding script in the head.
-   */
-  registerSWData(): RegisterSWData | undefined;
   extendManifestEntries(fn: ExtendManifestEntriesHook): void;
   /*
-   * Explicitly generate the manifests.
-   */
-  generateBundle(bundle?: OutputBundle): OutputBundle | undefined;
-  /*
-   * Explicitly generate the PWA services worker.
+   * Generate the PWA services worker.
    */
   generateSW(): Promise<void>;
 }
