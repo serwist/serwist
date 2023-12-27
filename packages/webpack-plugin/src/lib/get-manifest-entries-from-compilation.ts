@@ -184,7 +184,7 @@ function filterAssets(compilation: Compilation, config: WebpackInjectManifestOpt
 export async function getManifestEntriesFromCompilation(
   compilation: Compilation,
   config: WebpackInjectManifestOptions
-): Promise<{ size: number; sortedEntries: ManifestEntry[] }> {
+): Promise<{ size: number; sortedEntries: ManifestEntry[] | undefined }> {
   const filteredAssets = filterAssets(compilation, config);
 
   const { publicPath } = compilation.options.output;
@@ -213,7 +213,7 @@ export async function getManifestEntriesFromCompilation(
   }
 
   // Ensure that the entries are properly sorted by URL.
-  const sortedEntries = manifestEntries.sort((a, b) => (a.url === b.url ? 0 : a.url > b.url ? 1 : -1));
+  const sortedEntries = manifestEntries?.sort((a, b) => (a.url === b.url ? 0 : a.url > b.url ? 1 : -1));
 
   return { size, sortedEntries };
 }

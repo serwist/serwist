@@ -24,9 +24,9 @@
   "license": "MIT",
   "repository": "serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",
-  "homepage": "https://ducanh-next-pwa.vercel.app",
+  "homepage": "https://serwist.vercel.app",
   "module": "./dist/index.js",
-  "main": "./dist/index.old.cjs",
+  "main": "./dist/index.cjs",
   "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
@@ -42,8 +42,8 @@
         "default": "./dist/index.js"
       },
       "require": {
-        "types": "./dist/index.old.d.cts",
-        "default": "./dist/index.old.cjs"
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
       }
     },
     "./internal": {
@@ -52,8 +52,8 @@
         "default": "./dist/index.internal.js"
       },
       "require": {
-        "types": "./dist/index.internal.old.d.cts",
-        "default": "./dist/index.internal.old.cjs"
+        "types": "./dist/index.internal.d.cts",
+        "default": "./dist/index.internal.cjs"
       }
     },
     "./package.json": "./package.json"

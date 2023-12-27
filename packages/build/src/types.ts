@@ -138,6 +138,11 @@ export interface BasePartial {
    */
   additionalPrecacheEntries?: Array<string | ManifestEntry>;
   /**
+   * Whether the precache manifest should be set to `undefined`.
+   * @default false
+   */
+  disablePrecacheManifest?: boolean;
+  /**
    * Assets that match this will be assumed to be uniquely versioned via their
    * URL, and exempted from the normal HTTP cache-busting that's done when
    * populating the precache. While not required, it's recommended that if your
@@ -334,11 +339,6 @@ export interface WebpackInjectManifestPartial {
    * input file. Only valid if `compileSrc` is `true`.
    */
   webpackCompilationPlugins?: Array<any>;
-  /**
-   * Whether the precache manifest should be set to `undefined`.
-   * @default false
-   */
-  disablePrecacheManifest?: boolean;
 }
 
 export type GetManifestOptions = BasePartial & GlobPartial & RequiredGlobDirectoryPartial;
@@ -349,7 +349,7 @@ export type WebpackInjectManifestOptions = BasePartial & WebpackPartial & Inject
 
 export interface GetManifestResult {
   count: number;
-  manifestEntries: Array<ManifestEntry>;
+  manifestEntries: Array<ManifestEntry> | undefined;
   size: number;
   warnings: Array<string>;
 }

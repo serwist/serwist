@@ -83,7 +83,7 @@ class InjectManifest {
     if (config.disablePrecacheManifest) {
       return {
         size: 0,
-        sortedEntries: [],
+        sortedEntries: undefined,
         manifestString: "undefined",
       };
     }
@@ -295,7 +295,7 @@ class InjectManifest {
 
     if (compilation.getLogger) {
       const logger = compilation.getLogger(this.constructor.name);
-      logger.info(`The service worker at ${config.swDest ?? ""} will precache ${sortedEntries.length} URLs, totaling ${prettyBytes(size)}.`);
+      logger.info(`The service worker at ${config.swDest ?? ""} will precache ${sortedEntries?.length ?? 0} URLs, totaling ${prettyBytes(size)}.`);
     }
   }
 }

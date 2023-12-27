@@ -26,7 +26,7 @@
             <button
               on:click={() => (isExpanded = !isExpanded)}
               class={clsx(
-                "rounded w-full h-full text-black dark:text-white transition-all duration-100",
+                "rounded px-1 w-full h-full text-black dark:text-white transition-all duration-100",
                 "hover:bg-gray-300 hover:text-gray-900 dark:hover:bg-neutral-600 dark:hover:text-gray-50"
               )}
               aria-label={`${isExpanded ? "Collapse" : "Expand"} section`}

@@ -65,7 +65,7 @@ import { noRevisionForURLsMatchingTransform } from "./no-revision-for-urls-match
 interface ManifestTransformResultWithWarnings {
   count: number;
   size: number;
-  manifestEntries: ManifestEntry[];
+  manifestEntries: ManifestEntry[] | undefined;
   warnings: string[];
 }
 export async function transformManifest({
@@ -76,12 +76,22 @@ export async function transformManifest({
   maximumFileSizeToCacheInBytes,
   modifyURLPrefix,
   transformParam,
+  disablePrecacheManifest,
 }: BasePartial & {
   fileDetails: Array<FileDetails>;
   // When this is called by the webpack plugin, transformParam will be the
   // current webpack compilation.
   transformParam?: unknown;
 }): Promise<ManifestTransformResultWithWarnings> {
+  if (disablePrecacheManifest) {
+    return {
+      count: 0,
+      size: 0,
+      manifestEntries: undefined,
+      warnings: [],
+    };
+  }
+
   const allWarnings: Array<string> = [];
 
   // Take the array of fileDetail objects and convert it into an array of

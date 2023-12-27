@@ -96,7 +96,7 @@
   {#if isNavMobileMenuOpened}
     <ul class="space-y-1 px-2 pb-3 pt-2 md:hidden" id="navbar-mobile-menu" transition:slide={{ duration: 200, easing: quintOut, axis: "y" }}>
       {#each links as { label, link, isActive }}
-        <li><NavLink href={link} {isActive}>{label}</NavLink></li>
+        <li><NavLink href={link} textCenter={false} {isActive}>{label}</NavLink></li>
       {/each}
     </ul>
   {/if}

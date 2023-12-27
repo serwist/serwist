@@ -15,7 +15,7 @@ import type { Asset } from "webpack";
  *
  * @private
  */
-export function getAssetHash(asset: Asset): string | null {
+export const getAssetHash = (asset: Asset): string | null => {
   // If webpack has the asset marked as immutable, then we don't need to
   // use an out-of-band revision for it.
   // See https://github.com/webpack/webpack/issues/9038
@@ -24,4 +24,4 @@ export function getAssetHash(asset: Asset): string | null {
   }
 
   return crypto.createHash("md5").update(Buffer.from(asset.source.source())).digest("hex");
-}
+};

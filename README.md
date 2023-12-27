@@ -8,10 +8,12 @@ It is a fork of Workbox that came to be due to the its development being stagnat
 
 ## Documentation
 
-- [Overview](https://developers.google.com/web/tools/workbox/) ([site source](https://github.com/google/WebFundamentals/tree/main/src/content/en/tools/workbox))
-- [Get started](https://developers.google.com/web/tools/workbox/guides/get-started)
+- [Overview](https://serwist.vercel.app) ([site source](https://github.com/serwist/serwist/tree/main/docs))
 - [Contribute](/CONTRIBUTING.md)
 
-## Contributing
+## Original works
 
-Please see [our contributing guide](/CONTRIBUTING.md).
+- [Workbox](https://github.com/GoogleChrome/workbox/commits/v7)
+- [`next-pwa`](https://github.com/shadowwalker/next-pwa/commits/master)
+- [`@ducanh2912/next-pwa`](https://github.com/DuCanhGH/next-pwa/commits/master)
+- [`vite-plugin-pwa`](https://github.com/vite-pwa/vite-plugin-pwa/commits/main)

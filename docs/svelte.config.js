@@ -1,3 +1,4 @@
+// @ts-check
 import adapter from "@sveltejs/adapter-static";
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 
@@ -13,6 +14,12 @@ const config = {
       $images: "./src/images",
     },
     inlineStyleThreshold: 2048,
+    serviceWorker: {
+      register: false,
+    },
+    paths: {
+      relative: false,
+    },
   },
 };
 

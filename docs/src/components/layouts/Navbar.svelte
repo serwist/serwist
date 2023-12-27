@@ -64,9 +64,11 @@
         <NavToggleScheme deviceType="mobile" />
       </div>
       <div class="flex flex-1 items-center justify-center md:flex-none md:items-stretch md:justify-start">
-        <NavLink href="/" aria-label="Go to home">
-          <enhanced:img src="$images/logo-200x50-transparent.png" alt="Serwist" class="invert dark:invert-0 w-[100px] h-auto" />
-        </NavLink>
+        <span>
+          <NavLink href="/" aria-label="Go to home">
+            <enhanced:img src="$images/logo-200x50-transparent.png" alt="Serwist" class="invert dark:invert-0 w-[100px] h-auto" />
+          </NavLink>
+        </span>
       </div>
       <div class="absolute inset-y-0 right-0 flex h-full w-fit flex-row items-center gap-[5px] md:static md:w-full">
         <div class="hidden h-full grow items-center overflow-x-hidden pr-2 md:ml-6 md:flex md:pr-0">
@@ -99,7 +101,7 @@
   {#if isNavMobileMenuOpened}
     <ul class="space-y-1 px-2 pb-3 pt-2 md:hidden" id="navbar-mobile-menu" transition:slide={{ duration: 200, easing: quintOut, axis: "y" }}>
       {#each links as { label, link, isActive }}
-        <li><NavLink href={link} {isActive}>{label}</NavLink></li>
+        <li><NavLink href={link} textCenter={false} {isActive}>{label}</NavLink></li>
       {/each}
     </ul>
   {/if}
