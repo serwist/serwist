@@ -1,8 +1,11 @@
+import "./App.css";
+
 import { getSerwist } from "@serwist/vite/browser";
 import { useEffect } from "react";
-import reactLogo from "./assets/react.svg";
+
 import viteLogo from "/vite.svg";
-import "./App.css";
+
+import reactLogo from "./assets/react.svg";
 
 function App() {
   useEffect(() => {

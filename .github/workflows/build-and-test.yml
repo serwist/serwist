@@ -6,7 +6,7 @@ env:
   TURBO_REMOTE_ONLY: true
 jobs:
   build_and_lint_check:
-    name: 🔎 Typecheck, check formatting and lint
+    name: 🔎 Typecheck #, check formatting, and lint
     uses: ./.github/workflows/build-reusable.yml
     with:
       afterBuild: pnpm typecheck

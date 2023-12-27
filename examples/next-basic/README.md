@@ -14,7 +14,7 @@ pnpm start
 
 or
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), [pnpm](https://pnpm.io), or [bun](https://bun.sh) to bootstrap the example:
 
 ```bash
 npx create-next-app --example https://github.com/serwist/serwist/tree/main/examples/next-basic my-app
@@ -28,9 +28,16 @@ yarn create next-app --example https://github.com/serwist/serwist/tree/main/exam
 pnpm create next-app --example https://github.com/serwist/serwist/tree/main/examples/next-basic my-app
 ```
 
+```bash
+bun create next-app --example https://github.com/serwist/serwist/tree/main/examples/next-basic my-app
+```
+
 ## Recommended `.gitignore`
 
 ```gitignore
-**/public/serwist-*.js
-**/public/sw.js
+**/public/serwist**
+**/public/sw**
+**/public/worker**
+**/public/fallback**
+**/public/precache**
 ```
