@@ -339,8 +339,9 @@ export class Serwist extends SerwistEventTarget {
 
   /**
    * @private
+   * @param originalEvent
    */
-  private readonly _onUpdateFound = () => {
+  private readonly _onUpdateFound = (originalEvent: Event) => {
     // `this._registration` will never be `undefined` after an update is found.
     const registration = this._registration!;
     const installingSW = registration.installing as ServiceWorker;
@@ -386,16 +387,24 @@ export class Serwist extends SerwistEventTarget {
       this._ownSWs.add(installingSW);
       this._swDeferred.resolve(installingSW);
 
-      // The `installing` state isn't something we have a dedicated
-      // callback for, but we do log messages for it in development.
       if (process.env.NODE_ENV !== "production") {
-        if (navigator.serviceWorker.controller) {
+        if (this._isUpdate) {
           logger.log("Updated service worker found. Installing now...");
         } else {
           logger.log("Service worker is installing...");
         }
       }
     }
+
+    // Dispatch the `installing` event when the SW is installing.
+    this.dispatchEvent(
+      new SerwistEvent("installing", {
+        sw: installingSW,
+        originalEvent,
+        isExternal: updateLikelyTriggeredExternally,
+        isUpdate: this._isUpdate,
+      })
+    );
 
     // Increment the `updatefound` count, so future invocations of this
     // method can be sure they were triggered externally.
@@ -682,5 +691,20 @@ export class Serwist extends SerwistEventTarget {
  * @property {boolean|undefined} isUpdate True if a service worker was already
  *     controlling when this `Workbox` instance called `register()`.
  * @property {string} type `redundant`.
+ * @property {Workbox} target The `Workbox` instance.
+ */
+
+/**
+ * The `installing` event is dispatched if the service worker
+ * finds the new version and starts installing.
+ *
+ * @event workbox-window.Workbox#installing
+ * @type {SerwistEvent}
+ * @property {ServiceWorker} sw The installing service worker instance.
+ * @property {Event} originalEvent The original [`statechange`]{@link https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorker/onstatechange}
+ *     event.
+ * @property {boolean|undefined} isUpdate True if a service worker was already
+ *     controlling when this `Workbox` instance called `register()`.
+ * @property {string} type `installing`.
  * @property {Workbox} target The `Workbox` instance.
  */
