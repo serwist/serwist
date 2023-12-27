@@ -12,7 +12,9 @@ export const buildPlugin = (ctx: SerwistViteContext, api: SerwistViteApi) => {
       sequential: true,
       order: ctx.userOptions?.integration?.closeBundleOrder,
       async handler() {
-        if (!ctx.viteConfig.build.ssr && !ctx.options.disable) await api.generateSW();
+        if (!ctx.viteConfig.build.ssr && !ctx.options.disable) {
+          await api.generateSW();
+        }
       },
     },
     async buildEnd(error) {
