@@ -12,6 +12,11 @@ yarn.lock
 
 # production
 dist/
+.next/
+out/
+.svelte-kit/
+.turbo/
+build/
 
 # misc
 .DS_Store
@@ -32,10 +37,6 @@ CHANGELOG.md
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-# examples
-.next/
-out/
 
 build/
 

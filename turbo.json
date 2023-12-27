@@ -8,7 +8,7 @@
     },
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**", "out/**", "dist/**"]
+      "outputs": [".next/**", "!.next/cache/**", "out/**", "dist/**", ".svelte-kit/**", ".vercel/**"]
     },
     "lint": {
       "outputs": []
@@ -16,10 +16,6 @@
     "test": {},
     "typecheck": {
       "outputs": []
-    },
-    "docs#build": {
-      "dependsOn": ["^build"],
-      "outputs": [".svelte-kit/**", ".vercel/**"]
     }
   }
 }

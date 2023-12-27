@@ -1,6 +1,6 @@
 {
   "name": "@serwist/next",
-  "version": "8.1.1",
+  "version": "8.2.0",
   "type": "module",
   "description": "A module that integrates Serwist into your Next.js application.",
   "files": [
@@ -85,7 +85,7 @@
     "react-dom": "18.2.0",
     "rollup": "4.9.1",
     "type-fest": "4.8.3",
-    "typescript": "5.4.0-dev.20231220",
+    "typescript": "5.4.0-dev.20231226",
     "webpack": "5.89.0"
   },
   "peerDependencies": {

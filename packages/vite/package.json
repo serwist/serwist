@@ -1,6 +1,6 @@
 {
   "name": "@serwist/vite",
-  "version": "8.1.1",
+  "version": "8.2.0",
   "type": "module",
   "description": "A module that integrates Serwist into your Vite application.",
   "files": [
@@ -88,7 +88,7 @@
   "devDependencies": {
     "@playwright/test": "1.40.1",
     "@serwist/constants": "workspace:*",
-    "@sveltejs/kit": "2.0.4",
+    "@sveltejs/kit": "2.0.6",
     "@types/debug": "4.1.12",
     "@types/node": "20.10.5",
     "@types/prompts": "2.4.9",
@@ -102,8 +102,8 @@
     "react": "18.2.0",
     "rollup": "4.9.1",
     "solid-js": "1.8.7",
-    "svelte": "4.2.8",
-    "typescript": "5.3.3",
+    "svelte": "5.0.0-next.26",
+    "typescript": "5.4.0-dev.20231226",
     "vite": "5.0.10",
     "vue": "3.3.13"
   },

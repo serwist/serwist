@@ -5,6 +5,7 @@ const TSCONFIG_SOURCES = /** @type {const} */ ([
   "docs/tsconfig.json",
   "docs/tsconfig.eslint.json",
   "examples/*/tsconfig.json",
+  "examples/vite-*/tsconfig.*.json",
   "packages/*/tsconfig.json",
 ]);
 
@@ -117,6 +118,14 @@ module.exports = {
       extends: ["next/core-web-vitals"],
       parserOptions: {
         warnOnUnsupportedTypeScriptVersion: false,
+      },
+    },
+    {
+      files: ["examples/vite-*/**"],
+      extends: ["plugin:react-hooks/recommended"],
+      plugins: ["react-refresh"],
+      rules: {
+        "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
       },
     },
   ],
