@@ -10,8 +10,6 @@ import reactLogo from "./assets/react.svg";
 function App() {
   useEffect(() => {
     const registerSerwist = async () => {
-      // dev is not supported yet.
-      if (import.meta.env.DEV) return;
       const serwist = await getSerwist();
       if (serwist) {
         serwist.addEventListener("installed", () => console.log("Serwist installed!"));
