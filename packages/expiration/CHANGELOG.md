@@ -1,5 +1,12 @@
 # @serwist/expiration
 
+## 8.3.0
+
+### Patch Changes
+
+- Updated dependencies [[`bd75087`](https://github.com/serwist/serwist/commit/bd7508722a50bc2191d24a1e6e55a835060ba350)]:
+  - @serwist/core@8.3.0
+
 ## 8.2.0
 
 ### Patch Changes
