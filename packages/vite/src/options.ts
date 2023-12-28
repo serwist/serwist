@@ -20,6 +20,7 @@ export const resolveOptions = async (options: PluginOptions, viteConfig: Resolve
     disable = false,
     integration = {},
     buildBase,
+    devOptions,
     ...injectManifest
   } = options;
 
@@ -29,6 +30,11 @@ export const resolveOptions = async (options: PluginOptions, viteConfig: Resolve
 
   let assetsDir = slash(viteConfig.build.assetsDir ?? "assets");
   if (assetsDir[assetsDir.length - 1] !== "/") assetsDir += "/";
+
+  const resolvedDevOptions: ResolvedPluginOptions["devOptions"] = {
+    bundle: true,
+    ...devOptions,
+  };
 
   // remove './' prefix from assetsDir
   const dontCacheBustURLsMatching = new RegExp(`^${assetsDir.replace(/^\.*?\//, "")}`);
@@ -61,6 +67,7 @@ export const resolveOptions = async (options: PluginOptions, viteConfig: Resolve
       rollupOptions,
       format: rollupFormat,
     },
+    devOptions: resolvedDevOptions,
   } satisfies ResolvedPluginOptions;
 
   // calculate hash only when required

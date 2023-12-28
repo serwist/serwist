@@ -1,17 +1,31 @@
+import crypto from "node:crypto";
+import os from "node:os";
 import path from "node:path";
 
 import type { ManifestTransform } from "@serwist/build";
+import { errors } from "@serwist/build";
 import type { ResolvedConfig } from "vite";
 
 import type { PluginOptions as BasePluginOptions } from "../../types.js";
+import { resolveEntry } from "../../utils.js";
 import type { KitOptions } from "./types.js";
 
 export const configurateSvelteKitOptions = (viteConfig: ResolvedConfig, kit: KitOptions, options: BasePluginOptions) => {
   const clientOutDir = path.resolve(viteConfig.root, viteConfig.build.outDir, "../client");
 
   // Kit fixes the service worker's name to 'service-worker.js'
-  options.swSrc = path.resolve(clientOutDir, "service-worker.js");
-  options.swDest = path.resolve(clientOutDir, "service-worker.js");
+  if (viteConfig.isProduction) {
+    options.swSrc = path.resolve(clientOutDir, "service-worker.js");
+    options.swDest = path.resolve(clientOutDir, "service-worker.js");
+  } else {
+    const swSrc = resolveEntry(path.join(viteConfig.root, kit.files?.serviceWorker ?? "src/service-worker"));
+    if (swSrc) {
+      options.swSrc = swSrc;
+      options.swDest = path.join(os.tmpdir(), `serwist-vite-integration-svelte-${crypto.randomUUID()}.js`);
+    } else {
+      throw new Error(errors["invalid-sw-src"]);
+    }
+  }
   options.swUrl = "/service-worker.js";
 
   // SvelteKit's outDir is `.svelte-kit/output/client`.
@@ -40,6 +54,10 @@ export const configurateSvelteKitOptions = (viteConfig: ResolvedConfig, kit: Kit
   // Vite 5 support: allow override dontCacheBustURLsMatching
   if (!("dontCacheBustURLsMatching" in options)) {
     options.dontCacheBustURLsMatching = new RegExp(`${buildAssetsDir}immutable/`);
+  }
+
+  if (!options.injectionPoint) {
+    options.injectionPoint = "self.__SW_MANIFEST";
   }
 };
 

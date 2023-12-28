@@ -1,3 +1,6 @@
+import fs from "node:fs";
+import path from "node:path";
+
 export const slash = (str: string) => {
   return str.replace(/\\/g, "/");
 };
@@ -13,4 +16,30 @@ export const isAbsolute = (url: string) => {
 
 export const normalizePath = (path: string) => {
   return path.replace(/\\/g, "/");
+};
+
+// Source: https://github.com/sveltejs/kit/blob/6419d3eaa7bf1b0a756b28f06a73f71fe042de0a/packages/kit/src/utils/filesystem.js
+// License: MIT
+export const resolveEntry = (entry: string): string | null => {
+  if (fs.existsSync(entry)) {
+    const stats = fs.statSync(entry);
+    if (stats.isDirectory()) {
+      return resolveEntry(path.join(entry, "index"));
+    }
+
+    return entry;
+  } else {
+    const dir = path.dirname(entry);
+
+    if (fs.existsSync(dir)) {
+      const base = path.basename(entry);
+      const files = fs.readdirSync(dir);
+
+      const found = files.find((file) => file.replace(/\.[^.]+$/, "") === base);
+
+      if (found) return path.join(dir, found);
+    }
+  }
+
+  return null;
 };

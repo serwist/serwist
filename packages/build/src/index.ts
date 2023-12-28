@@ -5,7 +5,7 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-
+import { errors } from "./lib/errors.js";
 import { getManifest } from "./get-manifest.js";
 import { injectManifest } from "./inject-manifest.js";
 // import { getModuleURL } from "./lib/cdn-utils.js";
@@ -20,6 +20,7 @@ export {
   // Reintroduce this feature some time soon.
   // copySerwistLibraries,
   escapeRegExp,
+  errors,
   getManifest,
   // getModuleURL,
   getSourceMapURL,

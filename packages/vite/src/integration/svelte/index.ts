@@ -20,7 +20,7 @@ export const serwist = (userOptions: PluginOptions = {}): Plugin[] => {
   userOptions.integration.configureOptions = (viteConfig, options) => configurateSvelteKitOptions(viteConfig, userOptions.kit ?? {}, options);
   const ctx = createContext(userOptions as BasePluginOptions);
   const api = createApi(ctx);
-  return [mainPlugin(ctx, api), devPlugin(ctx), serwistSveltePlugin(ctx, api)];
+  return [mainPlugin(ctx, api), devPlugin(ctx, api), serwistSveltePlugin(ctx, api)];
 };
 
 export * from "./types.js";

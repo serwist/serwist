@@ -15,7 +15,7 @@ import type { PluginOptions } from "./types.js";
 export const serwist = (userOptions: PluginOptions): Plugin[] => {
   const ctx = createContext(userOptions);
   const api = createApi(ctx);
-  return [mainPlugin(ctx, api), buildPlugin(ctx, api), devPlugin(ctx)];
+  return [mainPlugin(ctx, api), buildPlugin(ctx, api), devPlugin(ctx, api)];
 };
 
 export * from "./types.js";

@@ -29,6 +29,15 @@ export async function getFileManifestEntries({
   templatedURLs,
   disablePrecacheManifest,
 }: GetManifestOptions): Promise<GetManifestResult> {
+  if (disablePrecacheManifest) {
+    return {
+      count: 0,
+      size: 0,
+      manifestEntries: undefined,
+      warnings: [],
+    };
+  }
+
   const warnings: Array<string> = [];
   const allFileDetails = new Map<string, FileDetails>();
 

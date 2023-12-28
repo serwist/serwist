@@ -3,7 +3,7 @@ import type { KitConfig } from "@sveltejs/kit";
 import type { PluginOptions as BasePluginOptions } from "../../types.js";
 import type { Optional } from "../../utils-types.js";
 
-export interface KitOptions extends Pick<KitConfig, "appDir"> {
+export interface KitOptions extends Pick<KitConfig, "appDir" | "files"> {
   /**
    * @see https://kit.svelte.dev/docs/adapter-static#options-fallback
    */

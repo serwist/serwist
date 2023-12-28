@@ -37,6 +37,18 @@ export interface SerwistViteHooks {
   configureOptions?: (viteOptions: ResolvedConfig, options: PluginOptions) => void | Promise<void>;
 }
 
+export interface DevOptions {
+  /**
+   * Whether the service worker should be bundled in development mode.
+   *
+   * [Many browsers still do not support ES Modules in service workers.](https://caniuse.com/mdn-api_serviceworker_ecmascript_modules) However, in development
+   * mode, certain frameworks, such as SvelteKit, do not bundle the service worker. As a result, trying to register that service worker on browsers lacking
+   * support, such as Firefox or Safari, will fail, but doing so on browsers not lacking support will not fail. This option is provided to prevent that from
+   * happening. What the plugin does is intercepting any request to the service worker (requests for `swUrl`) and returning a bundled one.
+   */
+  bundle?: boolean;
+}
+
 /**
  * Plugin options.
  */
@@ -139,7 +151,9 @@ export interface BasePluginOptions {
   buildBase?: string;
 }
 
-export type PluginOptions = Partial<BasePluginOptions> & CustomInjectManifestOptions;
+export interface PluginOptions extends Partial<BasePluginOptions>, CustomInjectManifestOptions {
+  devOptions?: DevOptions;
+}
 
 export interface InjectManifestRollupOptions {
   format: "es" | "iife";
@@ -150,6 +164,7 @@ export interface InjectManifestRollupOptions {
 export interface ResolvedPluginOptions extends Required<BasePluginOptions>, Required<Pick<CustomInjectManifestOptions, "swUrl">> {
   injectManifest: InjectManifestOptions;
   injectManifestRollupOptions: InjectManifestRollupOptions;
+  devOptions: Required<DevOptions>;
 }
 
 export interface ShareTargetFiles {

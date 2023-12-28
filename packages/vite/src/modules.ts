@@ -1,9 +1,9 @@
+import fs from "node:fs/promises";
 import path from "node:path";
 
 import type * as SerwistBuild from "@serwist/build";
 import type { ResolvedConfig } from "vite";
 
-import { logSerwistResult } from "./log.js";
 import type { ResolvedPluginOptions } from "./types.js";
 
 export const loadSerwistBuild = async (): Promise<typeof SerwistBuild> => {
@@ -34,32 +34,38 @@ export const generateInjectManifest = async (options: ResolvedPluginOptions, vit
 
   const parsedSwDest = path.parse(options.injectManifest.swDest);
 
-  await build({
-    root: viteOptions.root,
-    base: viteOptions.base,
-    resolve: viteOptions.resolve,
-    // Don't copy anything from public folder
-    publicDir: false,
-    build: {
-      sourcemap: viteOptions.build.sourcemap,
-      lib: {
-        entry: options.injectManifest.swSrc,
-        name: "app",
-        formats: [format],
-      },
-      rollupOptions: {
-        ...rollupOptions,
-        plugins,
-        output: {
-          entryFileNames: parsedSwDest.base,
+  if (viteOptions.isProduction || options.devOptions.bundle) {
+    await build({
+      logLevel: viteOptions.isProduction ? "info" : "warn",
+      root: viteOptions.root,
+      base: viteOptions.base,
+      resolve: viteOptions.resolve,
+      // Don't copy anything from public folder
+      publicDir: false,
+      build: {
+        sourcemap: viteOptions.build.sourcemap,
+        lib: {
+          entry: options.injectManifest.swSrc,
+          name: "app",
+          formats: [format],
         },
+        rollupOptions: {
+          ...rollupOptions,
+          plugins,
+          output: {
+            entryFileNames: parsedSwDest.base,
+          },
+        },
+        outDir: parsedSwDest.dir,
+        emptyOutDir: false,
+        minify: viteOptions.isProduction,
       },
-      outDir: parsedSwDest.dir,
-      emptyOutDir: false,
-    },
-    configFile: false,
-    define,
-  });
+      configFile: false,
+      define,
+    });
+  } else {
+    await fs.copyFile(options.injectManifest.swSrc, options.injectManifest.swDest);
+  }
 
   // If the user doesn't have an injectionPoint, skip injectManifest.
   if (!options.injectManifest.injectionPoint) return;
@@ -75,8 +81,5 @@ export const generateInjectManifest = async (options: ResolvedPluginOptions, vit
   const { injectManifest } = await loadSerwistBuild();
 
   // Inject the manifest
-  const buildResult = await injectManifest(resolvedInjectManifestOptions);
-
-  // Log workbox result
-  logSerwistResult(buildResult, viteOptions);
+  return await injectManifest(resolvedInjectManifestOptions);
 };

@@ -10,8 +10,6 @@
 
   $effect(() => {
     const registerSerwist = async () => {
-      // dev mode is not supported at the moment.
-      if (import.meta.env.DEV) return;
       const serwist = await getSerwist();
       if (serwist) {
         serwist.addEventListener("installed", () => console.log("Serwist installed!"));

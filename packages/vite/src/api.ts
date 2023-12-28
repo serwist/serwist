@@ -1,4 +1,7 @@
+import { yellow } from "kolorist";
+
 import type { SerwistViteContext } from "./context.js";
+import { logSerwistResult } from "./log.js";
 import { generateInjectManifest } from "./modules.js";
 import type { ExtendManifestEntriesHook, SerwistViteApi } from "./types.js";
 
@@ -11,7 +14,15 @@ export const createApi = (ctx: SerwistViteContext): SerwistViteApi => {
       if (ctx.options.disable) {
         return undefined;
       }
-      return await generateInjectManifest(ctx.options, ctx.viteConfig);
+      const buildResult = await generateInjectManifest(ctx.options, ctx.viteConfig);
+      if (buildResult) {
+        if (ctx.viteConfig.isProduction) {
+          // Log Serwist result
+          logSerwistResult(buildResult, ctx.viteConfig);
+        } else if (buildResult.warnings && buildResult.warnings.length > 0) {
+          console.warn(yellow(["[@serwist/vite] Warnings", ...buildResult.warnings.map((w) => ` - ${w}`), ""].join("\n")));
+        }
+      }
     },
     extendManifestEntries(fn: ExtendManifestEntriesHook) {
       const { options } = ctx;
