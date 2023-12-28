@@ -1,5 +1,18 @@
 # @serwist/next
 
+## 8.3.0
+
+### Patch Changes
+
+- [`bd75087`](https://github.com/serwist/serwist/commit/bd7508722a50bc2191d24a1e6e55a835060ba350) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(cjs): fixed CommonJS builds crashing
+
+  - Turns out we also need `chunkFileNames`, otherwise Rollup would always use ".js" for all the chunks. What in the world.
+
+- Updated dependencies [[`0bb9635`](https://github.com/serwist/serwist/commit/0bb96358f7574b80fac060b0d8208528f8d92ff8), [`bd75087`](https://github.com/serwist/serwist/commit/bd7508722a50bc2191d24a1e6e55a835060ba350)]:
+  - @serwist/window@8.3.0
+  - @serwist/webpack-plugin@8.3.0
+  - @serwist/build@8.3.0
+
 ## 8.2.0
 
 ### Patch Changes

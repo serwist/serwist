@@ -1,5 +1,18 @@
 # @serwist/window
 
+## 8.3.0
+
+### Minor Changes
+
+- [#17](https://github.com/serwist/serwist/pull/17) [`0bb9635`](https://github.com/serwist/serwist/commit/0bb96358f7574b80fac060b0d8208528f8d92ff8) Thanks [@Doctor-wu](https://github.com/Doctor-wu)! - feat(window): dispatch the `installing` event
+
+  - Seems to be a missing event.
+
+### Patch Changes
+
+- Updated dependencies [[`bd75087`](https://github.com/serwist/serwist/commit/bd7508722a50bc2191d24a1e6e55a835060ba350)]:
+  - @serwist/core@8.3.0
+
 ## 8.2.0
 
 ### Patch Changes

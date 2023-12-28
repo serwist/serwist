@@ -1,5 +1,25 @@
 # @serwist/vite
 
+## 8.3.0
+
+### Minor Changes
+
+- [`d368225`](https://github.com/serwist/serwist/commit/d368225e7b0aea842b6f7b8ea71ebe93b2516179) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(vite): support development mode
+
+  - This is a bit different to how `vite-plugin-pwa` does it. In dev, the plugin handles the service worker in two ways:
+    - If `devOptions.bundle` is enabled, hook a middleware that bundles the service worker through `api.generateSW()` and returns the result into Vite's dev server.
+    - Otherwise, run `injectManifest` and return the service worker through `async load(id)`. Although `precacheEntries` is always `undefined`, we still do this to check the user's `injectManifest` options in dev mode.
+
+### Patch Changes
+
+- [`bd75087`](https://github.com/serwist/serwist/commit/bd7508722a50bc2191d24a1e6e55a835060ba350) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(cjs): fixed CommonJS builds crashing
+
+  - Turns out we also need `chunkFileNames`, otherwise Rollup would always use ".js" for all the chunks. What in the world.
+
+- Updated dependencies [[`0bb9635`](https://github.com/serwist/serwist/commit/0bb96358f7574b80fac060b0d8208528f8d92ff8)]:
+  - @serwist/window@8.3.0
+  - @serwist/build@8.3.0
+
 ## 8.2.0
 
 ### Minor Changes
