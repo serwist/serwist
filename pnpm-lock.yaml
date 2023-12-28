@@ -826,9 +826,6 @@ importers:
       fast-json-stable-stringify:
         specifier: 2.1.0
         version: 2.1.0
-      rollup:
-        specifier: 4.9.1
-        version: 4.9.1
       upath:
         specifier: 2.0.1
         version: 2.0.1
@@ -848,6 +845,9 @@ importers:
       pretty-bytes:
         specifier: 6.1.1
         version: 6.1.1
+      rollup:
+        specifier: 4.9.1
+        version: 4.9.1
 
   packages/window:
     dependencies:

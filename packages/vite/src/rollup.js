@@ -38,6 +38,8 @@ export default getRollupOptions({
       output: {
         dir: "dist",
         format: "esm",
+        entryFileNames: "[name].js",
+        chunkFileNames: "[name].js",
       },
       external: ["virtual:internal-serwist"],
     },

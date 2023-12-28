@@ -17,12 +17,14 @@ export default getRollupOptions({
         {
           dir: "dist",
           entryFileNames: "[name].cjs",
+          chunkFileNames: "[name].cjs",
           format: "cjs",
           exports: "named",
         },
         {
           dir: "dist",
           entryFileNames: "[name].js",
+          chunkFileNames: "[name].js",
           format: "esm",
         },
       ],
