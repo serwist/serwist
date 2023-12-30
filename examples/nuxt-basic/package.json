@@ -3,11 +3,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
+    "build": "npm run prep && nuxt build",
+    "dev": "npm run prep && nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "prep": "nuxt prepare"
   },
   "devDependencies": {
     "@serwist/nuxt": "latest",
