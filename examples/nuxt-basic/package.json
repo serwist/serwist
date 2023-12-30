@@ -1,0 +1,20 @@
+{
+  "name": "@serwist-example/nuxt-basic",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@serwist/nuxt": "latest",
+    "@serwist/precaching": "latest",
+    "@serwist/sw": "latest",
+    "nuxt": "3.9.0",
+    "vue": "3.4.3",
+    "vue-router": "4.2.5"
+  }
+}

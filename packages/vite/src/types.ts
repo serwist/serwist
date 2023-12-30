@@ -1,6 +1,6 @@
 import type { InjectManifestOptions, ManifestEntry } from "@serwist/build";
 import type { RollupOptions } from "rollup";
-import type { Plugin, ResolvedConfig } from "vite";
+import type { BuildOptions, Plugin, ResolvedConfig } from "vite";
 
 export type InjectManifestVitePlugins = string[] | ((vitePluginIds: string[]) => string[]);
 export interface CustomInjectManifestOptions extends Omit<InjectManifestOptions, "disablePrecacheManifest"> {
@@ -47,6 +47,7 @@ export interface DevOptions {
    * happening. What the plugin does is intercepting any request to the service worker (requests for `swUrl`) and returning a bundled one.
    */
   bundle?: boolean;
+  minify?: BuildOptions["minify"];
 }
 
 /**

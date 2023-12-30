@@ -1,5 +1,5 @@
 {
-  "name": "@serwist-example/vite-react",
+  "name": "@serwist-example/vite-react-basic",
   "version": "1.0.0",
   "type": "module",
   "license": "MIT",
@@ -15,7 +15,7 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "@serwist/vite": "workspace:*",
+    "@serwist/vite": "latest",
     "@types/react": "18.2.45",
     "@types/react-dom": "18.2.18",
     "@typescript-eslint/eslint-plugin": "6.16.0",

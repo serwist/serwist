@@ -14,7 +14,7 @@ import { escapeRegExp } from "./lib/escape-regexp.js";
 import { getSourceMapURL } from "./lib/get-source-map-url.js";
 import { replaceAndUpdateSourceMap } from "./lib/replace-and-update-source-map.js";
 import { transformManifest } from "./lib/transform-manifest.js";
-import { validateWebpackInjectManifestOptions } from "./lib/validate-options.js";
+import { validateInjectManifestOptions, validateWebpackInjectManifestOptions } from "./lib/validate-options.js";
 
 export {
   // Reintroduce this feature some time soon.
@@ -27,6 +27,7 @@ export {
   injectManifest,
   replaceAndUpdateSourceMap,
   transformManifest,
+  validateInjectManifestOptions,
   validateWebpackInjectManifestOptions,
 };
 

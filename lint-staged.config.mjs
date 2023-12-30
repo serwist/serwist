@@ -23,7 +23,7 @@ const lintStagedConfig = {
   "**/*.{js,jsx,cjs,mjs,ts,tsx,svelte}": (filenames) => {
     const escapedFileNames = filenames.map((filename) => (isWin ? filename : escapeStr([filename]))).join(" ");
     return [
-      `cross-env NODE_OPTIONS='--max-old-space-size=4096' eslint --fix ${filenames
+      `cross-env NODE_OPTIONS='--max-old-space-size=8192' eslint --fix ${filenames
         .filter(async (file) => !(await eslint.isPathIgnored(file)))
         .map((f) => `"${f}"`)
         .join(" ")}`,

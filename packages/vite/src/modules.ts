@@ -58,7 +58,7 @@ export const generateInjectManifest = async (options: ResolvedPluginOptions, vit
         },
         outDir: parsedSwDest.dir,
         emptyOutDir: false,
-        minify: viteOptions.isProduction,
+        minify: viteOptions.isProduction || options.devOptions.minify,
       },
       configFile: false,
       define,

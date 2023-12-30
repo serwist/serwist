@@ -121,7 +121,7 @@ module.exports = {
       },
     },
     {
-      files: ["examples/vite-*/**"],
+      files: ["examples/vite-react-*/**"],
       extends: ["plugin:react-hooks/recommended"],
       plugins: ["react-refresh"],
       rules: {

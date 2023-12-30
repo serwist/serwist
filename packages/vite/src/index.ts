@@ -6,6 +6,7 @@ import { buildPlugin } from "./plugins/build.js";
 import { devPlugin } from "./plugins/dev.js";
 import { mainPlugin } from "./plugins/main.js";
 import type { PluginOptions } from "./types.js";
+import { resolveEntry, toFs } from "./utils.js";
 
 /**
  * Integrates Serwist into your Vite app.
@@ -18,4 +19,7 @@ export const serwist = (userOptions: PluginOptions): Plugin[] => {
   return [mainPlugin(ctx, api), buildPlugin(ctx, api), devPlugin(ctx, api)];
 };
 
+// Allows for customization.
+export { buildPlugin as build, createApi, createContext, devPlugin as dev, mainPlugin as main, resolveEntry, toFs };
+export type { SerwistViteContext } from "./context.js";
 export * from "./types.js";

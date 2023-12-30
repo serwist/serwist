@@ -6,7 +6,9 @@
   "private": true,
   "devDependencies": {
     "@serwist/next": "workspace:*",
+    "@serwist/nuxt": "workspace:*",
     "@serwist/sw": "workspace:*",
+    "@serwist/vite": "workspace:*",
     "@serwist/precaching": "workspace:*"
   }
 }
