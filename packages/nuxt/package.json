@@ -90,7 +90,11 @@
     "rimraf": "5.0.5",
     "serve": "14.2.1",
     "typescript": "5.3.3",
+    "vite": "5.0.10",
     "vitest": "1.1.0",
     "vue-tsc": "1.8.27"
+  },
+  "peerDependencies": {
+    "vite": "^5.0.0"
   }
 }
