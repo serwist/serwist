@@ -1,10 +1,3 @@
 {
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "rootDir": "src",
-    "module": "NodeNext",
-    "types": ["vite/client"]
-  },
-  "include": ["src/**/*.ts", "src/**/*.js"],
-  "exclude": ["dist", "node_modules"]
+  "extends": "./.nuxt/tsconfig.json"
 }

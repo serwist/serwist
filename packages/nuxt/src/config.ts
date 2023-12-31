@@ -4,7 +4,6 @@ import fs from "node:fs/promises";
 
 import type { Nuxt } from "@nuxt/schema";
 import type { ManifestTransform } from "@serwist/build";
-// @ts-expect-error they don't handle ESM properly.
 import type { NitroConfig } from "nitropack";
 import pathe from "pathe";
 

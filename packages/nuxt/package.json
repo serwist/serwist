@@ -25,21 +25,10 @@
   "homepage": "https://serwist.vercel.app",
   "main": "./dist/module.mjs",
   "types": "./dist/types.d.ts",
-  "typesVersions": {
-    "*": {
-      "configuration": [
-        "./dist/runtime/configuration.d.ts"
-      ]
-    }
-  },
   "exports": {
     ".": {
       "types": "./dist/types.d.mts",
       "default": "./dist/module.mjs"
-    },
-    "./configuration": {
-      "types": "./dist/runtime/configuration.d.ts",
-      "default": "./dist/runtime/configuration.mjs"
     }
   },
   "build": {
@@ -74,6 +63,8 @@
     "@nuxt/kit": "3.9.0",
     "@serwist/build": "workspace:*",
     "@serwist/vite": "workspace:*",
+    "@serwist/window": "workspace:*",
+    "fast-json-stable-stringify": "2.1.0",
     "pathe": "1.1.1",
     "ufo": "1.3.2"
   },

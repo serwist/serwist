@@ -1,6 +1,6 @@
 import path from "node:path";
 
-import { createResolver, defineNuxtModule, extendWebpackConfig } from "@nuxt/kit";
+import { addPlugin, createResolver, defineNuxtModule, extendWebpackConfig } from "@nuxt/kit";
 import type { SerwistViteApi, SerwistViteContext } from "@serwist/vite";
 import { createApi, createContext, dev, main, resolveEntry } from "@serwist/vite";
 
@@ -31,7 +31,6 @@ export default defineNuxtModule<RequiredFields<ModuleOptions, "swUrl" | "swSrc" 
       injectRegister: false,
       client: {
         registerPlugin: true,
-        periodicSyncForUpdates: 0,
       },
       // Try to find `service-worker.{ts,js}` or `service-worker/index.{ts,js}`. If not found,
       // force the user to provide a `swSrc` themself.
@@ -47,30 +46,23 @@ export default defineNuxtModule<RequiredFields<ModuleOptions, "swUrl" | "swSrc" 
 
     let ctx: SerwistViteContext | undefined, api: SerwistViteApi | undefined;
 
-    const { client: _client, ...userOptions } = options;
+    const { manifest: manifestPath, client: _client, ...userOptions } = options;
 
-    const client = { registerPlugin: true, periodicSyncForUpdates: 0, ..._client } satisfies ClientOptions;
+    const client = { registerPlugin: true, ..._client } satisfies ClientOptions;
 
     const runtimeDir = resolver.resolve("./runtime");
 
     if (!nuxt.options.ssr) nuxt.options.build.transpile.push(runtimeDir);
 
-    // if (client.registerPlugin) {
-    //   addPlugin({
-    //     src: resolver.resolve(runtimeDir, "plugins/pwa.client"),
-    //     mode: "client",
-    //   });
-    // }
+    if (client.registerPlugin) {
+      addPlugin({
+        src: resolver.resolve(runtimeDir, "plugins/client"),
+        mode: "client",
+      });
+    }
 
-    // nuxt.hook("prepare:types", ({ references }) => {
-    //   // references.push({ path: resolver.resolve(runtimeDir, "plugins/types") });
-    // });
-
-    const manifestDir = path.join(nuxt.options.buildDir, "manifests");
-    nuxt.options.nitro.publicAssets = nuxt.options.nitro.publicAssets || [];
-    nuxt.options.nitro.publicAssets.push({
-      dir: manifestDir,
-      maxAge: 0,
+    nuxt.hook("prepare:types", ({ references }) => {
+      references.push({ path: resolver.resolve(runtimeDir, "plugins/augmentation") });
     });
 
     nuxt.hook("nitro:init", (nitro) => {
@@ -105,11 +97,11 @@ export default defineNuxtModule<RequiredFields<ModuleOptions, "swUrl" | "swSrc" 
             }
             return undefined;
           },
-          load(id) {
+          async load(id) {
             if (id === resolvedConfiguration) {
-              return `export const enabled = ${client.registerPlugin};
-export const periodicSyncForUpdates = ${typeof client.periodicSyncForUpdates === "number" ? client.periodicSyncForUpdates : 0};`;
+              return `export const enabled = ${client.registerPlugin};`;
             }
+
             return undefined;
           },
         });

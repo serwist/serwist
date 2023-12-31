@@ -4,16 +4,13 @@ import type { OptionalFields } from "./utils-types.js";
 
 export interface ClientOptions {
   /**
-   * Exposes the plugin: defaults to true.
+   * Whether this plugin should be registered.
    */
   registerPlugin?: boolean;
-  /**
-   * Registers a periodic sync for updates interval: value in seconds.
-   */
-  periodicSyncForUpdates?: number;
 }
 
 export interface ModuleOptions extends OptionalFields<PluginOptions, "swSrc" | "swDest" | "globDirectory"> {
+  manifest?: string;
   /**
    * Options for plugin.
    */

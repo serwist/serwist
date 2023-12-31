@@ -2,7 +2,5 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ["@serwist/nuxt"],
-  serwist: {
-    rollupFormat: "iife",
-  },
+  serwist: {},
 });
