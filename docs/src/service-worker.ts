@@ -4,7 +4,7 @@
 /// <reference types="@sveltejs/kit" />
 import type { PrecacheEntry } from "@serwist/precaching";
 import { installSerwist } from "@serwist/sw";
-import { defaultCache } from "@serwist/vite/worker";
+// import { defaultCache } from "@serwist/vite/worker";
 
 declare const self: ServiceWorkerGlobalScope & {
   // Change this attribute's name to your `injectionPoint`.
@@ -17,5 +17,5 @@ installSerwist({
   clientsClaim: true,
   navigationPreload: true,
   disableDevLogs: true,
-  runtimeCaching: defaultCache,
+  runtimeCaching: [],
 });
