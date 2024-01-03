@@ -9,6 +9,7 @@ import { configurateSvelteKitOptions } from "./config.js";
 import { serwistSveltePlugin } from "./serwist-svelte-plugin.js";
 import type { PluginOptions } from "./types.js";
 
+// TODO: handle SvelteKit build errors.
 /**
  * Integrates Serwist into your SvelteKit app.
  * @param userOptions

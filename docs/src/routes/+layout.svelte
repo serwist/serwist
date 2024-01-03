@@ -1,22 +1,23 @@
 <script lang="ts">
   import "../app.css";
 
-  // import { getSerwist } from "@serwist/vite/browser";
+  import { getSerwist } from "@serwist/vite/browser";
+
   import { page } from "$app/stores";
   import { PUBLIC_CANONICAL_URL } from "$env/static/public";
   import { isColorScheme } from "$lib/isColorScheme";
   import { colorScheme } from "$lib/stores/colorScheme";
 
-  // $effect(() => {
-  //   const registerSerwist = async () => {
-  //     const serwist = await getSerwist();
-  //     if (serwist) {
-  //       serwist.addEventListener("installed", () => console.log("Serwist installed!"));
-  //       await serwist.register();
-  //     }
-  //   };
-  //   registerSerwist();
-  // });
+  $effect(() => {
+    const registerSerwist = async () => {
+      const serwist = await getSerwist();
+      if (serwist) {
+        serwist.addEventListener("installed", () => console.log("Serwist installed!"));
+        await serwist.register();
+      }
+    };
+    registerSerwist();
+  });
 
   $effect(() => {
     const newTheme = document.documentElement.dataset.theme;
