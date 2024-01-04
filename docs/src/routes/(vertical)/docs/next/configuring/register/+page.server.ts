@@ -8,6 +8,7 @@ export const load = async () => {
     langs: ["javascript", "jsx"],
   });
   return {
+    title: "register - Configuring - @serwist/next",
     code: {
       usage: {
         config: highlightCode(

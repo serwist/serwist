@@ -24,8 +24,8 @@
 
 <nav
   class={clsx(
-    "sticky top-0 z-[50] h-fit max-h-screen border-b-[0.25px] transition-colors-opacity duration-100",
-    "border-neutral-300 bg-white dark:border-gray-700 dark:bg-black"
+    "sticky top-0 z-[50] h-fit max-h-dvh border-b-[0.25px] transition-colors-opacity duration-100",
+    "border-neutral-300 bg-white dark:border-gray-700 dark:bg-black overflow-y-auto"
   )}
 >
   <div class="mx-auto max-w-7xl px-2 md:px-6 lg:px-8">

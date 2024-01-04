@@ -10,6 +10,7 @@ export const load: PageServerLoad = async () => {
     langs: ["bash", "typescript", "javascript", "tsx", "jsx", "json"],
   });
   return {
+    title: "Getting started - @serwist/next",
     code: {
       install: highlightCode(
         highlighter,

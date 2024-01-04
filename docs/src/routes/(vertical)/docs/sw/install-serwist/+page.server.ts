@@ -11,6 +11,7 @@ export const load: PageServerLoad = async () => {
   });
 
   return {
+    title: "installSerwist - @serwist/sw",
     code: {
       basicUsage: highlightCode(
         highlighter,

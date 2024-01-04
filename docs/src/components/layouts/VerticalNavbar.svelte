@@ -22,7 +22,7 @@
   let isNavMobileMenuOpened = $state(false);
 </script>
 
-<nav class="z-[50] h-fit max-h-screen transition-colors-opacity duration-100">
+<nav class="z-[50] h-fit max-h-dvh transition-colors-opacity duration-100 overflow-y-auto">
   <div class="mx-auto max-w-7xl">
     <div class="relative flex justify-between flex-col">
       <div class="absolute inset-y-0 left-0 flex items-center gap-2 md:hidden">
@@ -66,7 +66,7 @@
       <div class="absolute inset-y-0 right-0 flex h-full w-fit gap-[5px] md:static md:w-full flex-col">
         <div class="hidden h-full grow overflow-x-hidden pr-2 md:flex md:pr-0">
           <div class="overflow-x-overlay hidden h-full grow flex-row gap-[5px] overflow-x-auto md:flex">
-            <ul class="w-full flex max-h-full gap-[inherit] flex-col">
+            <ul class="w-full flex max-h-full overflow-y-auto gap-[inherit] flex-col">
               {#each links as { label, link, isActive }}
                 <li class="w-full"><NavLink href={link} textCenter={false} {isActive}>{label}</NavLink></li>
               {/each}

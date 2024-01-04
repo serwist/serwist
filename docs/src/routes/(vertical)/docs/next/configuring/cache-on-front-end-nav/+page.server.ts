@@ -8,6 +8,7 @@ export const load = async () => {
     langs: ["javascript"],
   });
   return {
+    title: "cacheOnFrontEndNav - Configuring - @serwist/next",
     code: {
       usage: highlightCode(
         highligher,

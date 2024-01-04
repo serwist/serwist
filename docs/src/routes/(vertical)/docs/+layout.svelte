@@ -13,11 +13,11 @@
 </script>
 
 <div class="flex h-full w-full flex-col md:flex-row">
-  <span
+  <div
     class={clsx(
-      "print:hidden w-full max-h-screen md:w-80 md:shrink-0 md:self-start z-10",
+      "print:hidden w-full max-h-dvh md:w-80 md:shrink-0 md:self-start z-10",
       "transform-gpu transition-all duration-150 ease-out sticky top-0",
-      "px-2 md:px-4 pt-2 mb-6 md:mb-0 flex flex-col bg-white dark:bg-black md:bg-transparent dark:md:bg-transparent",
+      "px-2 md:px-4 pt-2 flex flex-col bg-white dark:bg-black md:bg-transparent dark:md:bg-transparent",
       "border-neutral-300 border-b-[0.25px] md:border-b-0 dark:border-gray-700"
     )}
   >
@@ -47,7 +47,7 @@
         </ul>
       </aside>
     {/if}
-  </span>
+  </div>
   <nav class="sticky top-0 order-last hidden w-[350px] max-h-screen shrink-0 px-4 print:hidden xl:block" aria-label="Table of contents">
     <div class="flex flex-col hyphens-auto pr-4 pt-6 text-sm ltr:-mr-4 rtl:-ml-4">
       <p class="mb-4 font-semibold tracking-tight text-black dark:text-white">On This Page</p>

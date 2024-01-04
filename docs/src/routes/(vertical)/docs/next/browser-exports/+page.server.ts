@@ -9,6 +9,7 @@ export const load = async () => {
   });
 
   return {
+    title: "Browser exports - @serwist/next",
     code: {
       defaultCache: {
         usage: highlightCode(

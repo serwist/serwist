@@ -10,6 +10,7 @@ export const load: PageServerLoad = async () => {
     langs: ["javascript"],
   });
   return {
+    title: "Home",
     code: {
       next: highlightCode(
         highlighter,
