@@ -14,7 +14,6 @@
     "@serwist/precaching": "workspace:*",
     "@serwist/sw": "workspace:*",
     "@serwist/vite": "workspace:*",
-    "@sveltejs/adapter-cloudflare": "3.0.1",
     "@sveltejs/adapter-static": "3.0.1",
     "@sveltejs/enhanced-img": "0.1.7",
     "@sveltejs/kit": "2.0.6",
