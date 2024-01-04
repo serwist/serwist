@@ -1,15 +1,13 @@
 <script>
-  import Heading from "$components/Heading.svelte";
   import InlineCode from "$components/InlineCode.svelte";
-  import Text from "$components/Text.svelte";
 </script>
 
 <div>
-  <Heading type="display">Welcome to <InlineCode>@serwist/sw</InlineCode>!</Heading>
+  <h1>Welcome to <InlineCode>@serwist/sw</InlineCode>!</h1>
   <br /><br />
-  <Heading type="title-large">What is <InlineCode>@serwist/sw</InlineCode>?</Heading>
+  <h2>What is <InlineCode>@serwist/sw</InlineCode>?</h2>
   <br />
-  <Text>
+  <p>
     <InlineCode>@serwist/sw</InlineCode> is a set of tools that help you use Serwist with ease.
-  </Text>
+  </p>
 </div>

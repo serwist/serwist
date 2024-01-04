@@ -1,20 +1,17 @@
 <script>
-  import Heading from "$components/Heading.svelte";
   import InlineCode from "$components/InlineCode.svelte";
-  import Link from "$components/Link.svelte";
-  import Text from "$components/Text.svelte";
 </script>
 
-<Heading type="display">Welcome to <InlineCode>@serwist/next</InlineCode>!</Heading>
+<h1>Welcome to <InlineCode>@serwist/next</InlineCode>!</h1>
 <br /><br />
-<Heading type="title-large">What is <InlineCode>@serwist/next</InlineCode>?</Heading>
+<h2>What is <InlineCode>@serwist/next</InlineCode>?</h2>
 <br />
-<Text>
+<p>
   <InlineCode>@serwist/next</InlineCode> is a plugin for Next.js that allows you to create a PWA with it.
-</Text>
+</p>
 <br /><br />
-<Heading type="title-large">How to install <InlineCode>@serwist/next</InlineCode>?</Heading>
+<h2>How to install <InlineCode>@serwist/next</InlineCode>?</h2>
 <br />
-<Text>
-  See <Link href="/docs/next/getting-started">Getting started</Link>. It should have ample information on how to set up!
-</Text>
+<p>
+  See <a class="link" href="/docs/next/getting-started">Getting started</a>. It should have ample information on how to set up!
+</p>

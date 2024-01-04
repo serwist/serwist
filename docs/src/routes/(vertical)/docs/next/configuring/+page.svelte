@@ -1,47 +1,44 @@
 <script>
-  import Heading from "$components/Heading.svelte";
   import InlineCode from "$components/InlineCode.svelte";
-  import Link from "$components/Link.svelte";
-  import Text from "$components/Text.svelte";
 </script>
 
-<Heading type="display">Configuring</Heading>
+<h1>Configuring</h1>
 <br /><br />
-<Heading type="title-large">Available options</Heading>
+<h2>Available options</h2>
 <br />
-<Text>There are various options you can use to customize the behaviour of the plugin:</Text>
+<p>There are various options you can use to customize the behaviour of the plugin:</p>
 <br />
 <ul class="list">
   <li>
     <InlineCode>
-      <Link href="/docs/next/configuring/cache-on-front-end-nav">cacheOnFrontEndNav</Link>
+      <a class="link" href="/docs/next/configuring/cache-on-front-end-nav">cacheOnFrontEndNav</a>
     </InlineCode>
   </li>
   <li>
     <InlineCode>
-      <Link href="/docs/next/configuring/disable">disable</Link>
+      <a class="link" href="/docs/next/configuring/disable">disable</a>
     </InlineCode>
   </li>
   <li>
     <InlineCode>
-      <Link href="/docs/next/configuring/scope">scope</Link>
+      <a class="link" href="/docs/next/configuring/scope">scope</a>
     </InlineCode>
   </li>
   <li>
     <InlineCode>
-      <Link href="/docs/next/configuring/sw-url">swUrl</Link>
+      <a class="link" href="/docs/next/configuring/sw-url">swUrl</a>
     </InlineCode>
   </li>
   <li>
     <InlineCode>
-      <Link href="/docs/next/configuring/register">register</Link>
+      <a class="link" href="/docs/next/configuring/register">register</a>
     </InlineCode>
   </li>
   <li>
     <InlineCode>
-      <Link href="/docs/next/configuring/reload-on-online">reloadOnOnline</Link>
+      <a class="link" href="/docs/next/configuring/reload-on-online">reloadOnOnline</a>
     </InlineCode>
   </li>
 </ul>
 <br />
-<Text>Aside from these, all options of <InlineCode>@serwist/build.injectManifest</InlineCode> are available!</Text>
+<p>Aside from these, all options of <InlineCode>@serwist/build.injectManifest</InlineCode> are available!</p>

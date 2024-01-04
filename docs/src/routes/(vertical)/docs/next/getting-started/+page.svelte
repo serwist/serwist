@@ -1,54 +1,52 @@
 <script lang="ts">
   import CodeTab from "$components/CodeTab.svelte";
-  import Heading from "$components/Heading.svelte";
   import InlineCode from "$components/InlineCode.svelte";
-  import Text from "$components/Text.svelte";
 
   import type { PageData } from "./$types";
 
   const { data } = $props<{ data: PageData }>();
 </script>
 
-<Heading type="display">Getting started</Heading>
+<h1>Getting started</h1>
 <br /><br />
-<Heading type="title-large">Install</Heading>
+<h2>Install</h2>
 <br />
-<Text>Run the following command:</Text>
+<p>Run the following command:</p>
 <br />
 <CodeTab codes={data.code.install} defaultTab="npm" />
 <br /><br />
-<Heading type="title-large">Basic usage</Heading>
+<h2>Basic usage</h2>
 <br />
-<Heading type="title">
-  Step 1: Wrap your Next.js config with <span class="inline-block"><InlineCode>withSerwist</InlineCode></span>
-</Heading>
+<h3>
+  Step 1: Wrap your Next.js config with <InlineCode>withSerwist</InlineCode>
+</h3>
 <br />
-<Text>Update or create next.config.js with the following content:</Text>
+<p>Update or create next.config.js with the following content:</p>
 <br />
 <CodeTab codes={data.code.basicUsage.wrapConfig} defaultTab="next.config.mjs" />
 <br /><br />
-<Heading type="title">
+<h3>
   Step 2: Create {"app/sw.{ts,js}"} with:
-</Heading>
+</h3>
 <br />
 <CodeTab codes={data.code.basicUsage.createEntry} defaultTab="app/sw.ts" />
 <br />
-<Text>Note: if you follow the above template, you have to install these additional packages:</Text>
+<p>Note: if you follow the above template, you have to install these additional packages:</p>
 <br />
 <CodeTab codes={data.code.basicUsage.createEntryAdditionalPackages} defaultTab="npm" />
 <br /><br />
-<Heading type="title">Step 3: Add a manifest.json file:</Heading>
+<h3>Step 3: Add a manifest.json file:</h3>
 <br />
-<Text>Create a manifest.json file in your public folder:</Text>
+<p>Create a manifest.json file in your public folder:</p>
 <br />
 <CodeTab codes={[data.code.basicUsage.manifestJson]} defaultTab="public/manifest.json" />
 <br /><br />
-<Heading type="title">
+<h3>
   Step 4: Add <InlineCode>{"<meta />"}</InlineCode> and <InlineCode>{"<link />"}</InlineCode> tags to your <InlineCode>{"<head />"}</InlineCode>
-</Heading>
+</h3>
 <br />
-<Text>
+<p>
   Add the following to your {"app/layout.{tsx,js,jsx}"} or {"pages/_app.{tsx,js,jsx}"}:
-</Text>
+</p>
 <br />
 <CodeTab codes={data.code.basicUsage.metaAndLinkTags} defaultTab="app/layout.tsx" />

@@ -1,35 +1,33 @@
 <script lang="ts">
   import Callout from "$components/Callout.svelte";
   import CodeTab from "$components/CodeTab.svelte";
-  import Heading from "$components/Heading.svelte";
   import InlineCode from "$components/InlineCode.svelte";
-  import Text from "$components/Text.svelte";
 
   import type { PageData } from "./$types";
 
   const { data } = $props<{ data: PageData }>();
 </script>
 
-<Heading type="display">Browser exports</Heading>
+<h1>Browser exports</h1>
 <br /><br />
-<Heading type="title-large">Why?</Heading>
+<h2>Why?</h2>
 <br />
-<Text>
+<p>
   <InlineCode>@serwist/next</InlineCode> exports a few things for the service worker to consume. These values cannot be exported with things that use Node.js-specific
   APIs, hence <InlineCode>@serwist/next/browser</InlineCode> was created.
-</Text>
+</p>
 <br /><br />
-<Heading type="title-large">Exported values</Heading>
+<h2>Exported values</h2>
 <br />
 <ul>
   <li>
-    <Heading type="title"><InlineCode>defaultCache</InlineCode></Heading>
+    <h3><InlineCode>defaultCache</InlineCode></h3>
     <br />
-    <Text>Type: <InlineCode>RuntimeCaching[]</InlineCode></Text>
+    <p>Type: <InlineCode>RuntimeCaching[]</InlineCode></p>
     <br />
-    <Text>What: the default, recommended <InlineCode>runtimeCaching</InlineCode> array of <InlineCode>@serwist/next</InlineCode>.</Text>
+    <p>What: the default, recommended <InlineCode>runtimeCaching</InlineCode> array of <InlineCode>@serwist/next</InlineCode>.</p>
     <br />
-    <Text>How to use:</Text>
+    <p>How to use:</p>
     <br />
     <CodeTab codes={data.code.defaultCache.usage} defaultTab="app/sw.ts" />
     <br />

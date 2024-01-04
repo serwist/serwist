@@ -1,18 +1,15 @@
 <script>
-  import Heading from "$components/Heading.svelte";
   import InlineCode from "$components/InlineCode.svelte";
-  import Link from "$components/Link.svelte";
-  import Text from "$components/Text.svelte";
 </script>
 
-<Heading type="display">Welcome to Serwist!</Heading>
+<h1>Welcome to Serwist!</h1>
 <br />
-<Text>Take a look around:</Text>
+<p>Take a look around:</p>
 <br />
 <ul class="list">
   <li>
     <InlineCode>
-      <Link href="/docs/next">@serwist/next</Link>
+      <a class="link" href="/docs/next">@serwist/next</a>
     </InlineCode>
   </li>
 </ul>

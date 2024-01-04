@@ -1,28 +1,26 @@
 <script lang="ts">
   import Code from "$components/Code.svelte";
   import CodeTab from "$components/CodeTab.svelte";
-  import Heading from "$components/Heading.svelte";
-  import Text from "$components/Text.svelte";
 
   import type { PageData } from "./$types";
 
   const { data } = $props<{ data: PageData }>();
 </script>
 
-<Heading type="display">disable</Heading>
+<h1>disable</h1>
 <br /><br />
-<Heading type="title-large">First added</Heading>
+<h2>First added</h2>
 <br />
 <Code>next-pwa</Code>
 <br /><br />
-<Heading type="title-large">Default</Heading>
+<h2>Default</h2>
 <br />
 <Code>false</Code>
 <br /><br />
-<Heading type="title-large">About</Heading>
+<h2>About</h2>
 <br />
-<Text>Whether Serwist should be disabled.</Text>
+<p>Whether Serwist should be disabled.</p>
 <br /><br />
-<Heading type="title-large">Usage</Heading>
+<h2>Usage</h2>
 <br />
 <CodeTab codes={data.code.usage} defaultTab="next.config.mjs" />

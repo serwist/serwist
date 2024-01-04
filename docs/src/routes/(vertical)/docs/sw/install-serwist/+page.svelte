@@ -64,7 +64,8 @@
         Its <InlineCode>skipWaiting</InlineCode> is set to <InlineCode>true.</InlineCode>
       </li>
       <li>
-        Otherwise, a message with the argument <InlineCode>type</InlineCode> equal to <InlineCode>"SKIP_WAITING"</InlineCode> is sent to the service worker.
+        Otherwise, when a message with the argument <InlineCode>type</InlineCode> equal to <InlineCode>"SKIP_WAITING"</InlineCode> is sent to the service
+        worker.
       </li>
     </ul>
   </li>
