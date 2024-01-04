@@ -8,7 +8,7 @@ It is a fork of Workbox that came to be due to the its development being stagnat
 
 ## Documentation
 
-- [Overview](https://serwist.vercel.app) ([site source](https://github.com/serwist/serwist/tree/main/docs))
+- [Overview](https://serwist.pages.dev) ([site source](https://github.com/serwist/serwist/tree/main/docs))
 - [Contribute](/CONTRIBUTING.md)
 
 ## Original works

@@ -24,7 +24,7 @@
   "license": "MIT",
   "repository": "serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",
-  "homepage": "https://serwist.vercel.app",
+  "homepage": "https://serwist.pages.dev",
   "module": "./dist/index.js",
   "main": "./dist/index.cjs",
   "types": "./dist/index.d.ts",

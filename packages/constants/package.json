@@ -17,7 +17,7 @@
   "license": "MIT",
   "repository": "serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",
-  "homepage": "https://serwist.vercel.app",
+  "homepage": "https://serwist.pages.dev",
   "exports": {
     "./rollup": {
       "types": "./src/rollup.d.ts",

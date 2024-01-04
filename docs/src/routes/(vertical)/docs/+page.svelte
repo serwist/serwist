@@ -9,7 +9,7 @@
 <br />
 <Text>Take a look around:</Text>
 <br />
-<ul>
+<ul class="list">
   <li>
     <InlineCode>
       <Link href="/docs/next">@serwist/next</Link>

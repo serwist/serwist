@@ -11,7 +11,7 @@
 <br />
 <Text>There are various options you can use to customize the behaviour of the plugin:</Text>
 <br />
-<ul class="list-inside list-disc marker:text-black dark:marker:text-white">
+<ul class="list">
   <li>
     <InlineCode>
       <Link href="/docs/next/configuring/cache-on-front-end-nav">cacheOnFrontEndNav</Link>

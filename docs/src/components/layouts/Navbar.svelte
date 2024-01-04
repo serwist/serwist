@@ -80,13 +80,7 @@
             </ul>
           </div>
         </div>
-        <a
-          href={GITHUB_REPO_URL}
-          target="_blank"
-          rel="noreferrer"
-          class="p-2 text-current dark:invert"
-          aria-label="Our Github repo (opens in a new tab)"
-        >
+        <a href={GITHUB_REPO_URL} target="_blank" rel="noreferrer" class="p-2 text-current" aria-label="Our Github repo (opens in a new tab)">
           <svg width={24} height={24} fill="currentColor" viewBox="3 3 18 18" aria-hidden>
             <title>GitHub</title>
             <path

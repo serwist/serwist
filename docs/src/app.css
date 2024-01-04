@@ -10,7 +10,28 @@
   body {
     font-family: "Geist";
     font-weight: 400;
-    @apply box-border bg-gray-50 transition-colors duration-100 dark:bg-neutral-950;
+    @apply box-border bg-gray-50 text-black transition-colors duration-100 dark:bg-neutral-950 dark:text-white;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  blockquote {
+    @apply text-balance;
+  }
+  h1 {
+    @apply text-4xl font-semibold leading-10 tracking-tight;
+  }
+  h2 {
+    @apply text-3xl font-semibold leading-10 tracking-tight;
+  }
+  h3 {
+    @apply text-2xl leading-7 tracking-tight;
+  }
+  h4 {
+    @apply text-base leading-5 tracking-tight;
   }
 
   #root-container {
@@ -23,6 +44,15 @@
   html[data-theme="light"] .code-tab-dark,
   html[data-theme="dark"] .code-tab-light {
     @apply !invisible !hidden;
+  }
+}
+
+@layer utilities {
+  .link {
+    @apply text-accent-light dark:text-accent-dark underline underline-offset-[6px];
+  }
+  .list {
+    @apply list-inside list-disc pl-4 marker:text-black dark:marker:text-white;
   }
 }
 

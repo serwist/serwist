@@ -23,6 +23,10 @@ export type SerwistOptions = HandlePrecachingOptions & {
   fallbacks?: Omit<FallbacksOptions, "runtimeCaching">;
 };
 
+/**
+ * A function that abstracts away the core APIs of Serwist.
+ * @param options - `installSerwist` options.
+ */
 export const installSerwist = ({
   precacheEntries,
   precacheOptions,

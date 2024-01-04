@@ -120,7 +120,7 @@
     <a class="text-accent-light dark:text-accent-dark underline underline-offset-8 text-xl" href="/docs">
       {"~> Get started"}
     </a>
-    <InlineCode>{"npx create-next-app@latest -e https://github.com/serwist/serwist/tree/main/examples/next-basic"}</InlineCode>
+    <InlineCode showIcon>{"npx create-next-app@latest -e https://github.com/serwist/serwist/tree/main/examples/next-basic"}</InlineCode>
   </div>
   <div class="w-full p-4 md:p-24">
     <div class="grid w-full text-left lg:mb-0 lg:grid-cols-4 lg:gap-2">

@@ -7,6 +7,8 @@
 </script>
 
 <script lang="ts">
+  import { untrack } from "svelte";
+
   import { page } from "$app/stores";
   import ChevronRight from "$components/icons/ChevronRight.svelte";
   import NavLink from "$components/layouts/NavLink.svelte";
@@ -14,6 +16,12 @@
 
   const { title, href, children } = $props<SidebarLinkProps>();
   let isExpanded = $state($page.url.pathname.startsWith(href));
+
+  $effect(() => {
+    if (untrack(() => !isExpanded)) {
+      isExpanded = $page.url.pathname.startsWith(href);
+    }
+  });
 </script>
 
 <li class="flex flex-col pt-2">
