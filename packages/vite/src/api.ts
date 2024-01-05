@@ -14,7 +14,7 @@ export const createApi = (ctx: SerwistViteContext): SerwistViteApi => {
       if (ctx.options.disable) {
         return undefined;
       }
-      const buildResult = await generateInjectManifest(ctx.options, ctx.viteConfig);
+      const buildResult = await generateInjectManifest(ctx);
       if (buildResult) {
         if (ctx.viteConfig.isProduction) {
           // Log Serwist result

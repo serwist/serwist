@@ -19,7 +19,7 @@ export const serwist = (userOptions: PluginOptions): Plugin[] => {
   return [mainPlugin(ctx, api), buildPlugin(ctx, api), devPlugin(ctx, api)];
 };
 
-// Allows for customization.
+// This allows for customization.
 export { buildPlugin as build, createApi, createContext, devPlugin as dev, mainPlugin as main, resolveEntry, toFs };
 export type { SerwistViteContext } from "./context.js";
 export * from "./types.js";

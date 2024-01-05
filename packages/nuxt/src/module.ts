@@ -109,7 +109,7 @@ export default defineNuxtModule<RequiredFields<ModuleOptions, "swUrl" | "swSrc" 
 
       ctx = createContext(userOptions);
       api = createApi(ctx);
-
+      ctx.framework = "nuxt";
       const plugins = [main(ctx, api), dev(ctx, api)];
       viteInlineConfig.plugins.push(plugins);
     });
@@ -118,13 +118,14 @@ export default defineNuxtModule<RequiredFields<ModuleOptions, "swUrl" | "swSrc" 
       throw new Error("Webpack is not supported: @serwist/nuxt can only be used with Vite!");
     });
 
-    // TODO: handle dev
-    nuxt.hook("nitro:build:public-assets", async () => {
-      if (!api || api.disabled) {
-        return;
-      }
-      await api.generateSW();
-    });
+    if (!nuxt.options.dev) {
+      nuxt.hook("nitro:build:public-assets", () => {
+        if (!api || api.disabled) {
+          return;
+        }
+        void api.generateSW();
+      });
+    }
   },
 });
 

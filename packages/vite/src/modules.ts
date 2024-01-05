@@ -2,9 +2,8 @@ import fs from "node:fs/promises";
 import path from "node:path";
 
 import type * as SerwistBuild from "@serwist/build";
-import type { ResolvedConfig } from "vite";
 
-import type { ResolvedPluginOptions } from "./types.js";
+import type { SerwistViteContext } from "./context.js";
 
 export const loadSerwistBuild = async (): Promise<typeof SerwistBuild> => {
   // "@serwist/build" is large and makes config loading slow.
@@ -12,40 +11,39 @@ export const loadSerwistBuild = async (): Promise<typeof SerwistBuild> => {
   try {
     return await import("@serwist/build");
   } catch (_) {
+    // We don't have a default export, don't worry.
     return require("@serwist/build");
   }
 };
 
-export const generateInjectManifest = async (options: ResolvedPluginOptions, viteOptions: ResolvedConfig) => {
-  // We will have something like this from swSrc:
-  /*
-  // sw.js
-  import { precacheAndRoute } from 'workbox-precaching'
-  // self.__WB_MANIFEST is default injection point
-  precacheAndRoute(self.__WB_MANIFEST)
-  */
-
+export const generateInjectManifest = async (ctx: SerwistViteContext) => {
   const { build } = await import("vite");
 
-  const define: Record<string, any> = { ...(viteOptions.define ?? {}) };
-  define["process.env.NODE_ENV"] = JSON.stringify(options.mode);
+  const define: Record<string, any> = {
+    // Nuxt does some really weird stuff. During the build, they MANUALLY
+    // set browser APIs, such as window, document, location,..., to `undefined`??
+    // Probably some Vue or server stuff. Their `define` doesn't seem to have anything
+    // particularly useful for the service worker anyway, so we don't extend it.
+    ...(ctx.framework === "nuxt" ? undefined : ctx.viteConfig.define),
+    "process.env.NODE_ENV": `"${ctx.options.mode}"`,
+  };
 
-  const { format, plugins, rollupOptions } = options.injectManifestRollupOptions;
+  const { format, plugins, rollupOptions } = ctx.options.injectManifestRollupOptions;
 
-  const parsedSwDest = path.parse(options.injectManifest.swDest);
+  const parsedSwDest = path.parse(ctx.options.injectManifest.swDest);
 
-  if (viteOptions.isProduction || options.devOptions.bundle) {
+  if (ctx.viteConfig.isProduction || ctx.options.devOptions.bundle) {
     await build({
-      logLevel: viteOptions.isProduction ? "info" : "warn",
-      root: viteOptions.root,
-      base: viteOptions.base,
-      resolve: viteOptions.resolve,
+      logLevel: ctx.viteConfig.isProduction ? "info" : "warn",
+      root: ctx.viteConfig.root,
+      base: ctx.viteConfig.base,
+      resolve: ctx.viteConfig.resolve,
       // Don't copy anything from public folder
       publicDir: false,
       build: {
-        sourcemap: viteOptions.build.sourcemap,
+        sourcemap: ctx.viteConfig.build.sourcemap,
         lib: {
-          entry: options.injectManifest.swSrc,
+          entry: ctx.options.injectManifest.swSrc,
           name: "app",
           formats: [format],
         },
@@ -58,24 +56,24 @@ export const generateInjectManifest = async (options: ResolvedPluginOptions, vit
         },
         outDir: parsedSwDest.dir,
         emptyOutDir: false,
-        minify: viteOptions.isProduction || options.devOptions.minify,
+        minify: ctx.viteConfig.isProduction || ctx.options.devOptions.minify,
       },
       configFile: false,
       define,
     });
   } else {
-    await fs.copyFile(options.injectManifest.swSrc, options.injectManifest.swDest);
+    await fs.copyFile(ctx.options.injectManifest.swSrc, ctx.options.injectManifest.swDest);
   }
 
   // If the user doesn't have an injectionPoint, skip injectManifest.
-  if (!options.injectManifest.injectionPoint) return;
+  if (!ctx.options.injectManifest.injectionPoint) return;
 
-  await options.integration?.beforeBuildServiceWorker?.(options);
+  await ctx.options.integration?.beforeBuildServiceWorker?.(ctx.options);
 
   const resolvedInjectManifestOptions = {
-    ...options.injectManifest,
+    ...ctx.options.injectManifest,
     // This will not fail since there is an injectionPoint
-    swSrc: options.injectManifest.swDest,
+    swSrc: ctx.options.injectManifest.swDest,
   };
 
   const { injectManifest } = await loadSerwistBuild();

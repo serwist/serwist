@@ -83,7 +83,7 @@ export async function injectManifest(config: InjectManifestOptions): Promise<Bui
 
   assert(injectionResults.length === 1, `${errors["multiple-injection-points"]} ${injectionPoint}`);
 
-  const manifestString = stringify(manifestEntries);
+  const manifestString = manifestEntries === undefined ? "undefined" : stringify(manifestEntries);
   const filesToWrite: { [key: string]: string } = {};
 
   const url = getSourceMapURL(swFileContents);

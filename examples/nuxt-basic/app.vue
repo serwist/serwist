@@ -9,6 +9,6 @@ void $serwist?.register({ immediate: true });
 </script>
 <template>
   <div>
-    <NuxtWelcome />
+    <h1>Nuxt + Serwist</h1>
   </div>
 </template>
