@@ -6,6 +6,37 @@ export const SIDEBAR_LINKS = [
     href: "/docs",
   },
   {
+    title: "@serwist/build",
+    href: "/docs/build",
+    children: [
+      {
+        title: "Configuring",
+        href: "/docs/build/configuring",
+        children: [
+          {
+            title: "Base options",
+            href: "/docs/build/configuring/base-options",
+            children: [
+              { title: "additionalPrecacheEntries", href: "/docs/build/configuring/base-options/additional-precache-entries" },
+              { title: "disablePrecacheManifest", href: "/docs/build/configuring/base-options/disable-precache-manifest" },
+              { title: "dontCacheBustURLsMatching", href: "/docs/build/configuring/base-options/dont-cache-bust-urls-matching" },
+              { title: "manifestTransforms", href: "/docs/build/configuring/base-options/manifest-transforms" },
+              { title: "maximumFileSizeToCacheInBytes", href: "/docs/build/configuring/base-options/maximum-file-size-to-cache-in-bytes" },
+              { title: "modifyURLPrefix", href: "/docs/build/configuring/base-options/modify-url-prefix" },
+            ],
+          },
+          { title: "Glob options", href: "/docs/build/configuring/glob-options" },
+        ],
+      },
+      {
+        title: "InjectManifest",
+        href: "/docs/build/inject-manifest",
+        children: [{ title: "Configuring", href: "/docs/build/inject-manifest/configuring" }],
+      },
+      { title: "GetManifest", href: "/docs/build/get-manifest" },
+    ],
+  },
+  {
     title: "@serwist/next",
     href: "/docs/next",
     children: [
@@ -29,5 +60,10 @@ export const SIDEBAR_LINKS = [
     title: "@serwist/sw",
     href: "/docs/sw",
     children: [{ title: "installSerwist", href: "/docs/sw/install-serwist" }],
+  },
+  {
+    title: "@serwist/vite",
+    href: "/docs/vite",
+    children: [],
   },
 ] satisfies SidebarLinkProps[];

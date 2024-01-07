@@ -138,7 +138,8 @@ export interface BasePartial {
    */
   additionalPrecacheEntries?: Array<string | ManifestEntry>;
   /**
-   * Whether the precache manifest should be set to `undefined`.
+   * Whether the precache manifest should be set to `undefined`. Essentially whether `@serwist/build` should
+   * be disabled. Mostly useful when you want it to only check if the provided options are valid.
    * @default false
    */
   disablePrecacheManifest?: boolean;
