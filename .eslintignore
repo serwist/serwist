@@ -39,6 +39,7 @@ CHANGELOG.md
 next-env.d.ts
 
 build/
+!packages/build/
 
 coverage/
 

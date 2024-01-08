@@ -17,7 +17,7 @@
     "format": "prettier --write",
     "format:all": "pnpm format .",
     "format:check": "prettier --check .",
-    "lint": "cross-env NODE_OPTIONS='--max-old-space-size=4096' FORCE_COLOR=1 turbo run lint --concurrency=50% --filter=./packages/*",
+    "lint": "cross-env FORCE_COLOR=1 turbo run lint --concurrency=50% --filter=./packages/*",
     "lint:fix": "pnpm lint -- --fix",
     "lint-staged": "lint-staged",
     "prepare": "husky install",

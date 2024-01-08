@@ -1,8 +1,8 @@
 import type { MethodNames } from "../types.js";
 import getManifestOptionsSchema from "./GetManifestOptions.json";
 import injectManifestOptionsSchema from "./InjectManifestOptions.json";
-import webpackInjectManifestOptionsSchema from "./WebpackInjectManifestOptions.json";
 import viteInjectManifestOptionsSchema from "./ViteInjectManifestOptions.json";
+import webpackInjectManifestOptionsSchema from "./WebpackInjectManifestOptions.json";
 
 export const optionsSchemas = {
   GetManifest: getManifestOptionsSchema,
