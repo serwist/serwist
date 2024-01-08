@@ -1,10 +1,10 @@
 import path from "node:path";
 import process from "node:process";
 
-import { validateInjectManifestOptions } from "@serwist/build";
 import type { ResolvedConfig } from "vite";
 
 import { configureStaticAssets } from "./assets.js";
+import { loadSerwistBuild } from "./modules.js";
 import type { PluginOptions, ResolvedPluginOptions } from "./types.js";
 import { resolveBasePath, slash } from "./utils.js";
 
@@ -46,7 +46,9 @@ export const resolveOptions = async (options: PluginOptions, viteConfig: Resolve
   // remove './' prefix from assetsDir
   const dontCacheBustURLsMatching = new RegExp(`^${assetsDir.replace(/^\.*?\//, "")}`);
 
-  validateInjectManifestOptions(injectManifest);
+  const { validateViteInjectManifestOptions } = await loadSerwistBuild();
+
+  validateViteInjectManifestOptions(injectManifest);
 
   const { swSrc, swDest, ...userInjectManifest } = injectManifest || {};
 
