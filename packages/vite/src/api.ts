@@ -2,7 +2,7 @@ import { yellow } from "kolorist";
 
 import type { SerwistViteContext } from "./context.js";
 import { logSerwistResult } from "./log.js";
-import { generateInjectManifest } from "./modules.js";
+import { generateServiceWorker } from "./modules.js";
 import type { ExtendManifestEntriesHook, SerwistViteApi } from "./types.js";
 
 export const createApi = (ctx: SerwistViteContext): SerwistViteApi => {
@@ -14,7 +14,7 @@ export const createApi = (ctx: SerwistViteContext): SerwistViteApi => {
       if (ctx.options.disable) {
         return undefined;
       }
-      const buildResult = await generateInjectManifest(ctx);
+      const buildResult = await generateServiceWorker(ctx);
       if (buildResult) {
         if (ctx.viteConfig.isProduction) {
           // Log Serwist result

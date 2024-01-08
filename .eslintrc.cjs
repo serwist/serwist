@@ -1,14 +1,4 @@
 // @ts-check
-const TSCONFIG_SOURCES = /** @type {const} */ ([
-  "tsconfig.json",
-  "tsconfig.eslint.json",
-  "docs/tsconfig.json",
-  "docs/tsconfig.eslint.json",
-  "examples/*/tsconfig.json",
-  "examples/vite-*/tsconfig.*.json",
-  "packages/*/tsconfig.json",
-]);
-
 /** @type {import("eslint").Linter.BaseConfig} */
 module.exports = {
   parser: "@typescript-eslint/parser",
@@ -28,7 +18,7 @@ module.exports = {
   ],
   parserOptions: {
     tsconfigRootDir: __dirname,
-    project: TSCONFIG_SOURCES,
+    project: "tsconfig.eslint.json",
     ecmaVersion: "latest",
     sourceType: "module",
     warnOnUnsupportedTypeScriptVersion: false,
@@ -70,7 +60,7 @@ module.exports = {
     "import/resolver": {
       typescript: {
         alwaysTryTypes: true,
-        project: TSCONFIG_SOURCES,
+        project: "tsconfig.eslint.json",
       },
     },
     "import/internal-regex": "^@ducanh2912/",

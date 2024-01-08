@@ -20,6 +20,11 @@
   );
 
   let isNavMobileMenuOpened = $state(false);
+
+  $effect(() => {
+    $page.url.pathname;
+    isNavMobileMenuOpened = false;
+  });
 </script>
 
 <nav class="z-[50] h-fit max-h-dvh transition-colors-opacity duration-100 overflow-y-auto">

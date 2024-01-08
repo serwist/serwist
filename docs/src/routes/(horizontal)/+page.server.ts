@@ -1,11 +1,11 @@
-import shiki from "shiki";
+import { getHighlighter } from "shiki";
 
 import { highlightCode } from "$lib/highlightCode";
 
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async () => {
-  const highlighter = await shiki.getHighlighter({
+  const highlighter = await getHighlighter({
     themes: ["github-dark", "github-light"],
     langs: ["javascript"],
   });

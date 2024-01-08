@@ -12,7 +12,7 @@ import Ajv from "ajv";
 import { oneLine as ol } from "common-tags";
 
 import { optionsSchemas } from "../schema/index.js";
-import type { GetManifestOptions, InjectManifestOptions, MethodNames, WebpackInjectManifestOptions } from "../types.js";
+import type { GetManifestOptions, InjectManifestOptions, MethodNames, ViteInjectManifestOptions, WebpackInjectManifestOptions } from "../types.js";
 import { errors } from "./errors.js";
 
 const ajv = new (Ajv as unknown as typeof Ajv.default)({
@@ -90,3 +90,9 @@ export function validateWebpackInjectManifestOptions(input: unknown): WebpackInj
 
   return validatedOptions;
 }
+
+export const validateViteInjectManifestOptions = (input: unknown): ViteInjectManifestOptions => {
+  const [validatedOptions] = validate<ViteInjectManifestOptions>(input, "ViteInjectManifest");
+
+  return validatedOptions;
+};

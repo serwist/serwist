@@ -2,7 +2,7 @@ import path from "node:path";
 
 import { addPlugin, createResolver, defineNuxtModule, extendWebpackConfig } from "@nuxt/kit";
 import type { SerwistViteApi, SerwistViteContext } from "@serwist/vite";
-import { createApi, createContext, dev, main, resolveEntry } from "@serwist/vite";
+import { createApi, createContext, dev as devPlugin, main as mainPlugin, resolveEntry } from "@serwist/vite";
 
 import { version } from "../package.json";
 import { configurePwaOptions } from "./config.js";
@@ -107,10 +107,9 @@ export default defineNuxtModule<RequiredFields<ModuleOptions, "swUrl" | "swSrc" 
         });
       }
 
-      ctx = createContext(userOptions);
+      ctx = createContext(userOptions, "nuxt");
       api = createApi(ctx);
-      ctx.framework = "nuxt";
-      const plugins = [main(ctx, api), dev(ctx, api)];
+      const plugins = [mainPlugin(ctx, api), devPlugin(ctx, api)];
       viteInlineConfig.plugins.push(plugins);
     });
 

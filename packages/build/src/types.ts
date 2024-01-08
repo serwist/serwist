@@ -138,7 +138,8 @@ export interface BasePartial {
    */
   additionalPrecacheEntries?: Array<string | ManifestEntry>;
   /**
-   * Whether the precache manifest should be set to `undefined`.
+   * Whether the precache manifest should be set to `undefined`. Essentially whether `@serwist/build` should
+   * be disabled. Mostly useful when you want it to only check if the provided options are valid.
    * @default false
    */
   disablePrecacheManifest?: boolean;
@@ -210,29 +211,35 @@ export interface GlobPartial {
   /**
    * Determines whether or not symlinks are followed when generating the
    * precache manifest. For more information, see the definition of `follow` in
-   * the `glob` [documentation](https://github.com/isaacs/node-glob#options).
+   * [glob's documentation](https://github.com/isaacs/node-glob#options).
    * @default true
    */
   globFollow?: boolean;
   /**
    * A set of patterns matching files to always exclude when generating the
    * precache manifest. For more information, see the definition of `ignore` in
-   * the `glob` [documentation](https://github.com/isaacs/node-glob#options).
-   * @default ["**\/node_modules\/**\/*"]
+   * [glob's documentation](https://github.com/isaacs/node-glob#options).
+   * @default
+   * ```
+   * ["**\/node_modules\/**\/*"]
+   * ```
    */
   globIgnores?: Array<string>;
   /**
    * Files matching any of these patterns will be included in the precache
-   * manifest. For more information, see the
-   * [`glob` primer](https://github.com/isaacs/node-glob#glob-primer).
-   * @default ["**\/*.{js,css,html}"]
+   * manifest. For more information, see
+   * [glob's Glob Primer](https://github.com/isaacs/node-glob#glob-primer).
+   * @default
+   * ```
+   * ["**\/*.{js,css,html}"]
+   * ```
    */
   globPatterns?: Array<string>;
   /**
    * If true, an error reading a directory when generating a precache manifest
    * will cause the build to fail. If false, the problematic directory will be
-   * skipped. For more information, see the definition of `strict` in the `glob`
-   * [documentation](https://github.com/isaacs/node-glob#options).
+   * skipped. For more information, see the definition of `strict` in
+   * [glob's documentation](https://github.com/isaacs/node-glob#options).
    * @default true
    */
   globStrict?: boolean;
@@ -347,6 +354,8 @@ export type InjectManifestOptions = BasePartial & GlobPartial & InjectPartial & 
 
 export type WebpackInjectManifestOptions = BasePartial & WebpackPartial & InjectPartial & WebpackInjectManifestPartial;
 
+export type ViteInjectManifestOptions = BasePartial & GlobPartial & InjectPartial & RequiredSWDestPartial & RequiredGlobDirectoryPartial;
+
 export interface GetManifestResult {
   count: number;
   manifestEntries: Array<ManifestEntry> | undefined;
@@ -380,7 +389,7 @@ export type SerwistPackageJSON = PackageJson;
 /**
  * @private
  */
-export type MethodNames = "GetManifest" | "InjectManifest" | "WebpackInjectManifest";
+export type MethodNames = "GetManifest" | "InjectManifest" | "WebpackInjectManifest" | "ViteInjectManifest";
 
 /**
  * @private

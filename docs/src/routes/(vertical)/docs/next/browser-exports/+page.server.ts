@@ -1,9 +1,9 @@
-import shiki from "shiki";
+import { getHighlighter } from "shiki";
 
 import { highlightCode } from "$lib/highlightCode";
 
 export const load = async () => {
-  const highligher = await shiki.getHighlighter({
+  const highligher = await getHighlighter({
     themes: ["github-dark", "github-light"],
     langs: ["typescript", "javascript"],
   });
