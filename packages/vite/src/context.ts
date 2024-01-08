@@ -2,6 +2,8 @@ import type { ResolvedConfig } from "vite";
 
 import type { PluginOptions, ResolvedPluginOptions } from "./types.js";
 
+export type SerwistViteFrameworks = "nuxt" | "sveltekit";
+
 export interface SerwistViteContext {
   /**
    * Resolved Vite config.
@@ -28,16 +30,16 @@ export interface SerwistViteContext {
    */
   devEnvironment: boolean;
   /** To tailor our APIs to these frameworks. */
-  framework: "nuxt" | "sveltekit" | undefined;
+  framework: SerwistViteFrameworks | undefined;
 }
 
-export const createContext = (userOptions: PluginOptions): SerwistViteContext => {
+export const createContext = (userOptions: PluginOptions, framework: SerwistViteFrameworks | undefined): SerwistViteContext => {
   return {
     userOptions,
     options: undefined!,
     viteConfig: undefined!,
     useImportRegister: false,
     devEnvironment: false,
-    framework: undefined,
+    framework,
   };
 };

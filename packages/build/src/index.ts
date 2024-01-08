@@ -5,29 +5,41 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-import { errors } from "./lib/errors.js";
+import stringify from "fast-json-stable-stringify";
+
 import { getManifest } from "./get-manifest.js";
 import { injectManifest } from "./inject-manifest.js";
+import { errors } from "./lib/errors.js";
 // import { getModuleURL } from "./lib/cdn-utils.js";
 // import { copySerwistLibraries as copySerwistLibraries } from "./lib/copy-serwist-libraries.js";
 import { escapeRegExp } from "./lib/escape-regexp.js";
+import { getFileManifestEntries } from "./lib/get-file-manifest-entries.js";
 import { getSourceMapURL } from "./lib/get-source-map-url.js";
+import { rebasePath } from "./lib/rebase-path.js";
 import { replaceAndUpdateSourceMap } from "./lib/replace-and-update-source-map.js";
+import { stringifyWithoutComments } from "./lib/stringify-without-comments.js";
 import { transformManifest } from "./lib/transform-manifest.js";
-import { validateInjectManifestOptions, validateWebpackInjectManifestOptions } from "./lib/validate-options.js";
+import { translateURLToSourcemapPaths } from "./lib/translate-url-to-sourcemap-paths.js";
+import { validateInjectManifestOptions, validateViteInjectManifestOptions, validateWebpackInjectManifestOptions } from "./lib/validate-options.js";
 
 export {
+  errors,
   // Reintroduce this feature some time soon.
   // copySerwistLibraries,
   escapeRegExp,
-  errors,
-  getManifest,
   // getModuleURL,
+  getFileManifestEntries,
+  getManifest,
   getSourceMapURL,
   injectManifest,
+  rebasePath,
   replaceAndUpdateSourceMap,
+  stringify,
+  stringifyWithoutComments,
   transformManifest,
+  translateURLToSourcemapPaths,
   validateInjectManifestOptions,
+  validateViteInjectManifestOptions,
   validateWebpackInjectManifestOptions,
 };
 

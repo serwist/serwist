@@ -14,7 +14,7 @@ import { resolveEntry, toFs } from "./utils.js";
  * @returns
  */
 export const serwist = (userOptions: PluginOptions): Plugin[] => {
-  const ctx = createContext(userOptions);
+  const ctx = createContext(userOptions, undefined);
   const api = createApi(ctx);
   return [mainPlugin(ctx, api), buildPlugin(ctx, api), devPlugin(ctx, api)];
 };

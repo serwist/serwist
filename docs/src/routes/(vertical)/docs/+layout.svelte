@@ -2,6 +2,7 @@
   import { quintOut } from "svelte/easing";
   import { slide } from "svelte/transition";
 
+  import { page } from "$app/stores";
   import ChevronRight from "$components/icons/ChevronRight.svelte";
   import VerticalNavbar from "$components/layouts/VerticalNavbar.svelte";
   import { clsx } from "$lib/clsx";
@@ -10,6 +11,11 @@
   import SidebarLink from "./SidebarLink.svelte";
 
   let mobileSidebarHidden = $state<boolean>(true);
+
+  $effect(() => {
+    $page.url.pathname;
+    mobileSidebarHidden = true;
+  });
 </script>
 
 <div class="flex h-full w-full flex-col md:flex-row">
@@ -72,7 +78,7 @@
       </div>
     </div>
   </nav>
-  <main id="main-content" class="w-full min-w-0 md:py-8">
+  <main id="main-content" class="w-full min-w-0 md:py-8 mt-6 md:mt-0">
     <article class="w-full min-w-0 max-w-6xl px-6 py-4 md:px-12">
       <slot />
     </article>

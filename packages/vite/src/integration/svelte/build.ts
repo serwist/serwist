@@ -1,7 +1,6 @@
 import type { Plugin } from "vite";
 
 import type { SerwistViteContext } from "../../context.js";
-import { loadSerwistBuild } from "../../modules.js";
 import type { SerwistViteApi } from "../../types.js";
 
 export const buildPlugin = (ctx: SerwistViteContext, api: SerwistViteApi) => {
@@ -14,14 +13,7 @@ export const buildPlugin = (ctx: SerwistViteContext, api: SerwistViteApi) => {
       enforce: "pre",
       async handler() {
         if (api && !api.disabled && ctx.viteConfig.build.ssr) {
-          const [injectManifest, logSerwistResult] = await Promise.all([
-            loadSerwistBuild().then((m) => m.injectManifest),
-            import("./log.js").then((m) => m.logSerwistResult),
-          ]);
-          // Inject the manifest
-          const buildResult = await injectManifest(ctx.options.injectManifest);
-          // Log Serwist result
-          logSerwistResult(buildResult, ctx.viteConfig);
+          await api.generateSW();
         }
       },
     },

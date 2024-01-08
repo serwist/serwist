@@ -7,7 +7,6 @@ import fg from "fast-glob";
 
 import packageJson from "../package.json" assert { type: "json" };
 
-const isDev = process.env.NODE_ENV === "development";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const clientEntries = /** @type {Record<string, string>} */ ({});
@@ -44,5 +43,5 @@ export default getRollupOptions({
       external: ["virtual:internal-serwist"],
     },
   ],
-  shouldEmitDeclaration: !isDev,
+  shouldEmitDeclaration: true,
 });

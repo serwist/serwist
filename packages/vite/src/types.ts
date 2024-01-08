@@ -1,9 +1,9 @@
-import type { InjectManifestOptions, ManifestEntry } from "@serwist/build";
+import type { ManifestEntry, ViteInjectManifestOptions } from "@serwist/build";
 import type { RollupOptions } from "rollup";
 import type { BuildOptions, Plugin, ResolvedConfig } from "vite";
 
 export type InjectManifestVitePlugins = string[] | ((vitePluginIds: string[]) => string[]);
-export interface CustomInjectManifestOptions extends Omit<InjectManifestOptions, "disablePrecacheManifest"> {
+export interface CustomInjectManifestOptions extends Omit<ViteInjectManifestOptions, "disablePrecacheManifest"> {
   /**
    * The URL to the service worker.
    * @default "/sw.js"
@@ -163,7 +163,7 @@ export interface InjectManifestRollupOptions {
 }
 
 export interface ResolvedPluginOptions extends Required<BasePluginOptions>, Required<Pick<CustomInjectManifestOptions, "swUrl">> {
-  injectManifest: InjectManifestOptions;
+  injectManifest: ViteInjectManifestOptions;
   injectManifestRollupOptions: InjectManifestRollupOptions;
   devOptions: Required<DevOptions>;
 }

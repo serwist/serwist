@@ -13,6 +13,13 @@ import { toFs } from "../utils.js";
 // - Otherwise, run `injectManifest` and return the service worker through `async load(id)`. Although
 // `precacheEntries` is always `undefined`, we still do this to check the user's `injectManifest` options
 // in dev mode.
+/**
+ * Internal dev plugin used by `@serwist/vite`.
+ * @internal
+ * @param ctx
+ * @param api
+ * @returns
+ */
 export const devPlugin = (ctx: SerwistViteContext, api: SerwistViteApi): Plugin => {
   return {
     name: "@serwist/vite:dev",

@@ -41,4 +41,4 @@
   </li>
 </ul>
 <br />
-<p>Aside from these, all options of <InlineCode>@serwist/build.injectManifest</InlineCode> are available!</p>
+<p>Aside from these, all <a class="link" href="/docs/build/inject-manifest/configuring">InjectManifest</a> options are available!</p>

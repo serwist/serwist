@@ -1,11 +1,11 @@
-import shiki from "shiki";
+import { getHighlighter } from "shiki";
 
 import { highlightCode } from "$lib/highlightCode";
 
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async () => {
-  const highlighter = await shiki.getHighlighter({
+  const highlighter = await getHighlighter({
     langs: ["javascript", "typescript"],
     themes: ["github-dark", "github-light"],
   });
@@ -24,17 +24,17 @@ import { installSerwist } from "@serwist/sw";
 import { defaultCache } from "@serwist/vite/worker";
 
 declare const self: ServiceWorkerGlobalScope & {
-  // Change this attribute's name to your \`injectionPoint\`.
-  __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+    // Change this attribute's name to your \`injectionPoint\`.
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
 };
 
 installSerwist({
-  precacheEntries: self.__SW_MANIFEST,
-  skipWaiting: true,
-  clientsClaim: true,
-  navigationPreload: true,
-  disableDevLogs: true,
-  runtimeCaching: defaultCache,
+    precacheEntries: self.__SW_MANIFEST,
+    skipWaiting: true,
+    clientsClaim: true,
+    navigationPreload: true,
+    disableDevLogs: true,
+    runtimeCaching: defaultCache,
 });`,
             lang: "typescript",
           },
@@ -45,12 +45,12 @@ installSerwist({
 import { defaultCache } from "@serwist/vite/worker";
 
 installSerwist({
-  precacheEntries: self.__SW_MANIFEST,
-  skipWaiting: true,
-  clientsClaim: true,
-  navigationPreload: true,
-  disableDevLogs: true,
-  runtimeCaching: defaultCache,
+    precacheEntries: self.__SW_MANIFEST,
+    skipWaiting: true,
+    clientsClaim: true,
+    navigationPreload: true,
+    disableDevLogs: true,
+    runtimeCaching: defaultCache,
 });`,
             lang: "javascript",
           },

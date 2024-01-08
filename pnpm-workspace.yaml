@@ -3,4 +3,5 @@ packages:
   - "packages/**"
   - "examples/**"
   - "!examples/**/.next"
+  - "!examples/**/.output"
   - "serwist-e2e-test"

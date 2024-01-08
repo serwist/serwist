@@ -11,6 +11,10 @@ yarn.lock
 
 # production
 dist/
+.next/
+out/
+.nuxt/
+.output/
 
 # misc
 .DS_Store
@@ -38,10 +42,6 @@ docs/vite.config.ts.timestamp-*
 
 # examples
 examples/*/.next
-
-# next.js
-.next/
-out/
 
 coverage/
 

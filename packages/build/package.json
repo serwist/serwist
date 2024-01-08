@@ -42,6 +42,7 @@
   },
   "scripts": {
     "build": "rimraf dist && cross-env NODE_OPTIONS='--max-old-space-size=4096' NODE_ENV=production rollup --config rollup.config.js",
+    "dev": "rollup --config rollup.config.js --watch",
     "lint": "eslint src --ext ts,tsx,js,jsx,cjs,mjs",
     "typecheck": "tsc"
   },

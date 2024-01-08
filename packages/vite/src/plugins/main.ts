@@ -7,6 +7,13 @@ import type { SerwistViteContext } from "../context.js";
 import { resolveOptions } from "../options.js";
 import type { SerwistViteApi } from "../types.js";
 
+/**
+ * Internal plugin used by `@serwist/vite`.
+ * @internal
+ * @param ctx
+ * @param api
+ * @returns
+ */
 export const mainPlugin = (ctx: SerwistViteContext, api: SerwistViteApi) => {
   return <Plugin>{
     name: "@serwist/vite",

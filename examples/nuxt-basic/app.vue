@@ -3,7 +3,7 @@
 const { $serwist } = useNuxtApp();
 $serwist?.addEventListener("installed", () => {
   console.log("Serwist installed!");
-})
+});
 // Doesn't work... yet.
 void $serwist?.register({ immediate: true });
 </script>

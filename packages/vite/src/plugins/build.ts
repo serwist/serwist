@@ -3,6 +3,13 @@ import type { Plugin } from "vite";
 import type { SerwistViteContext } from "../context.js";
 import type { SerwistViteApi } from "../types.js";
 
+/**
+ * Internal build plugin used by `@serwist/vite`.
+ * @internal
+ * @param ctx
+ * @param api
+ * @returns
+ */
 export const buildPlugin = (ctx: SerwistViteContext, api: SerwistViteApi) => {
   return <Plugin>{
     name: "@serwist/vite:build",

@@ -24,7 +24,7 @@
   <a
     {href}
     class={clsx(
-      "w-full h-full font-medium text-black dark:text-white gap-2 px-3 py-2",
+      "w-full h-full font-medium text-black dark:text-white gap-2 px-3 py-2 break-words",
       textCenter && "text-center",
       wideText ? "shrink-0 text-base uppercase tracking-widest" : "text-base md:text-sm"
     )}

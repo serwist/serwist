@@ -19,8 +19,7 @@ export const serwist = (userOptions: PluginOptions = {}): Plugin[] => {
   if (!userOptions.integration) userOptions.integration = {};
   userOptions.integration.closeBundleOrder = "pre";
   userOptions.integration.configureOptions = (viteConfig, options) => configurateSvelteKitOptions(viteConfig, userOptions.kit ?? {}, options);
-  const ctx = createContext(userOptions as BasePluginOptions);
-  ctx.framework = "sveltekit";
+  const ctx = createContext(userOptions as BasePluginOptions, "sveltekit");
   const api = createApi(ctx);
   return [mainPlugin(ctx, api), devPlugin(ctx, api), buildPlugin(ctx, api)];
 };

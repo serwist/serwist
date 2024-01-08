@@ -1,3 +1,4 @@
 {
-  "include": ["**/*.js", "**/*.jsx", "**/*.cjs", "**/*.mjs", "**/.eslintrc.cjs", "**/.ncurc.js"]
+  "include": ["packages/**/*.ts", "packages/**/*.js", "examples/**/*.ts", "docs/**/*.ts", ".eslintrc.cjs", "*.js", "*.cjs", "*.mjs"],
+  "exclude": ["node_modules", ".vercel", ".svelte-kit", ".next", ".output", "build", "dist"]
 }
