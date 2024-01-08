@@ -219,14 +219,20 @@ export interface GlobPartial {
    * A set of patterns matching files to always exclude when generating the
    * precache manifest. For more information, see the definition of `ignore` in
    * the `glob` [documentation](https://github.com/isaacs/node-glob#options).
-   * @default ["**\/node_modules\/**\/*"]
+   * @default
+   * ```
+   * ["**\/node_modules\/**\/*"]
+   * ```
    */
   globIgnores?: Array<string>;
   /**
    * Files matching any of these patterns will be included in the precache
    * manifest. For more information, see the
    * [`glob` primer](https://github.com/isaacs/node-glob#glob-primer).
-   * @default ["**\/*.{js,css,html}"]
+   * @default
+   * ```
+   * ["**\/*.{js,css,html}"]
+   * ```
    */
   globPatterns?: Array<string>;
   /**
@@ -348,6 +354,8 @@ export type InjectManifestOptions = BasePartial & GlobPartial & InjectPartial & 
 
 export type WebpackInjectManifestOptions = BasePartial & WebpackPartial & InjectPartial & WebpackInjectManifestPartial;
 
+export type ViteInjectManifestOptions = BasePartial & GlobPartial & InjectPartial & RequiredSWDestPartial & RequiredGlobDirectoryPartial;
+
 export interface GetManifestResult {
   count: number;
   manifestEntries: Array<ManifestEntry> | undefined;
@@ -381,7 +389,7 @@ export type SerwistPackageJSON = PackageJson;
 /**
  * @private
  */
-export type MethodNames = "GetManifest" | "InjectManifest" | "WebpackInjectManifest";
+export type MethodNames = "GetManifest" | "InjectManifest" | "WebpackInjectManifest" | "ViteInjectManifest";
 
 /**
  * @private
