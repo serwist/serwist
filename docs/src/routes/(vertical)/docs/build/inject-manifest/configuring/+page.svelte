@@ -14,8 +14,8 @@
 <br />
 <ul class="list">
   <li>
-    <InlineCode>injectionPoint</InlineCode> - The string to find inside of the `swSrc` file. Once found, it will be replaced by the generated precache
-    manifest.
+    <InlineCode>injectionPoint</InlineCode> - The string to find inside of the <InlineCode>swSrc</InlineCode> file. Once found, it will be replaced by
+    the generated precache manifest.
   </li>
   <li>
     <InlineCode>swSrc</InlineCode> - The path to the service worker file that will be read during the build process, relative to the current working directory.
