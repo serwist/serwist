@@ -1,5 +1,16 @@
 # @serwist/routing
 
+## 8.4.0
+
+### Patch Changes
+
+- [#32](https://github.com/serwist/serwist/pull/32) [`87fea3c`](https://github.com/serwist/serwist/commit/87fea3c8ce51eab78404e64887b3840b9f633d9d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(docs): changed docs's URL
+
+  - Currently we deploy at Cloudflare Pages.
+
+- Updated dependencies [[`87fea3c`](https://github.com/serwist/serwist/commit/87fea3c8ce51eab78404e64887b3840b9f633d9d)]:
+  - @serwist/core@8.4.0
+
 ## 8.3.0
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@serwist/navigation-preload",
-  "version": "8.3.0",
+  "version": "8.4.0",
   "type": "module",
   "description": "This library allows developers to opt-in to using Navigation Preload in their service worker.",
   "files": [

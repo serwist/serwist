@@ -1,5 +1,24 @@
 # @serwist/vite
 
+## 8.4.0
+
+### Minor Changes
+
+- [#32](https://github.com/serwist/serwist/pull/32) [`87fea3c`](https://github.com/serwist/serwist/commit/87fea3c8ce51eab78404e64887b3840b9f633d9d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(vite): disintegrate `@serwist/vite` from `@serwist/build`
+
+  - What this means is that we don't use `@serwist/build.injectManifest` anymore. Using `define` just works™️
+  - The benefit of owning the entire codebase... :D
+
+### Patch Changes
+
+- [#32](https://github.com/serwist/serwist/pull/32) [`87fea3c`](https://github.com/serwist/serwist/commit/87fea3c8ce51eab78404e64887b3840b9f633d9d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(docs): changed docs's URL
+
+  - Currently we deploy at Cloudflare Pages.
+
+- Updated dependencies [[`87fea3c`](https://github.com/serwist/serwist/commit/87fea3c8ce51eab78404e64887b3840b9f633d9d)]:
+  - @serwist/window@8.4.0
+  - @serwist/build@8.4.0
+
 ## 8.3.0
 
 ### Minor Changes
