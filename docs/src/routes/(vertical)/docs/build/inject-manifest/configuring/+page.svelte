@@ -25,8 +25,4 @@
     <InlineCode>swDest</InlineCode> - The path and filename of the service worker file that will be created by the build process, relative to the current
     working directory. It must end in '.js'.
   </li>
-  <li>
-    <InlineCode>globDirectory</InlineCode> - The local directory you wish to match <InlineCode>globPatterns</InlineCode> against. The path is relative
-    to the current directory.
-  </li>
 </ul>

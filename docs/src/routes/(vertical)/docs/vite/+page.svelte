@@ -9,3 +9,7 @@
 <p>
   <InlineCode>@serwist/vite</InlineCode> is a module that integrates Serwist into your Vite application.
 </p>
+<br /><br />
+<h2>Documentation</h2>
+<br />
+<p>Work-in-progress!</p>

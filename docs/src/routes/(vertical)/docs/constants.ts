@@ -25,7 +25,18 @@ export const SIDEBAR_LINKS = [
               { title: "modifyURLPrefix", href: "/docs/build/configuring/base-options/modify-url-prefix" },
             ],
           },
-          { title: "Glob options", href: "/docs/build/configuring/glob-options" },
+          {
+            title: "Glob options",
+            href: "/docs/build/configuring/glob-options",
+            children: [
+              { title: "globDirectory", href: "/docs/build/configuring/glob-options/glob-directory" },
+              { title: "globFollow", href: "/docs/build/configuring/glob-options/glob-follow" },
+              { title: "globIgnores", href: "/docs/build/configuring/glob-options/glob-ignores" },
+              { title: "globPatterns", href: "/docs/build/configuring/glob-options/glob-patterns" },
+              { title: "globStrict", href: "/docs/build/configuring/glob-options/glob-strict" },
+              { title: "templatedURLs", href: "/docs/build/configuring/glob-options/templated-urls" },
+            ],
+          },
         ],
       },
       {
@@ -33,7 +44,11 @@ export const SIDEBAR_LINKS = [
         href: "/docs/build/inject-manifest",
         children: [{ title: "Configuring", href: "/docs/build/inject-manifest/configuring" }],
       },
-      { title: "GetManifest", href: "/docs/build/get-manifest" },
+      {
+        title: "GetManifest",
+        href: "/docs/build/get-manifest",
+        children: [{ title: "Configuring", href: "/docs/build/get-manifest/configuring" }],
+      },
     ],
   },
   {

@@ -211,14 +211,14 @@ export interface GlobPartial {
   /**
    * Determines whether or not symlinks are followed when generating the
    * precache manifest. For more information, see the definition of `follow` in
-   * the `glob` [documentation](https://github.com/isaacs/node-glob#options).
+   * [glob's documentation](https://github.com/isaacs/node-glob#options).
    * @default true
    */
   globFollow?: boolean;
   /**
    * A set of patterns matching files to always exclude when generating the
    * precache manifest. For more information, see the definition of `ignore` in
-   * the `glob` [documentation](https://github.com/isaacs/node-glob#options).
+   * [glob's documentation](https://github.com/isaacs/node-glob#options).
    * @default
    * ```
    * ["**\/node_modules\/**\/*"]
@@ -227,8 +227,8 @@ export interface GlobPartial {
   globIgnores?: Array<string>;
   /**
    * Files matching any of these patterns will be included in the precache
-   * manifest. For more information, see the
-   * [`glob` primer](https://github.com/isaacs/node-glob#glob-primer).
+   * manifest. For more information, see
+   * [glob's Glob Primer](https://github.com/isaacs/node-glob#glob-primer).
    * @default
    * ```
    * ["**\/*.{js,css,html}"]
@@ -238,8 +238,8 @@ export interface GlobPartial {
   /**
    * If true, an error reading a directory when generating a precache manifest
    * will cause the build to fail. If false, the problematic directory will be
-   * skipped. For more information, see the definition of `strict` in the `glob`
-   * [documentation](https://github.com/isaacs/node-glob#options).
+   * skipped. For more information, see the definition of `strict` in
+   * [glob's documentation](https://github.com/isaacs/node-glob#options).
    * @default true
    */
   globStrict?: boolean;

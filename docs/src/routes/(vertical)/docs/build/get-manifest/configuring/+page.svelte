@@ -9,12 +9,5 @@
 <p>
   GetManifest inherits <a class="link" href="/docs/build/configuring/base-options">base</a> and
   <a class="link" href="/docs/build/configuring/glob-options">glob</a>
-  <InlineCode>@serwist/build</InlineCode> options and provides a few more:
+  <InlineCode>@serwist/build</InlineCode> options.
 </p>
-<br />
-<ul class="list">
-  <li>
-    <InlineCode>globDirectory</InlineCode> - The local directory you wish to match <InlineCode>globPatterns</InlineCode> against. The path is relative
-    to the current directory.
-  </li>
-</ul>

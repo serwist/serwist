@@ -8,7 +8,12 @@
 <br />
 <p>There are various options you can use to customize <InlineCode>@serwist/build</InlineCode>'s glob behaviour:</p>
 <br />
-<!-- <ul class="list">
+<ul class="list">
+  <li>
+    <InlineCode>
+      <a class="link" href="/docs/build/configuring/glob-options/glob-directory">globDirectory</a>
+    </InlineCode>
+  </li>
   <li>
     <InlineCode>
       <a class="link" href="/docs/build/configuring/glob-options/glob-follow">globFollow</a>
@@ -34,4 +39,4 @@
       <a class="link" href="/docs/build/configuring/glob-options/templated-urls">templatedURLs</a>
     </InlineCode>
   </li>
-</ul> -->
+</ul>
