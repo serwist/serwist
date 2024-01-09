@@ -140,8 +140,9 @@ class PrecacheController {
       this._urlsToCacheModes.set(url, cacheMode);
 
       if (urlsToWarnAbout.length > 0) {
-        const warningMessage =
-          `Serwist is precaching URLs without revision info: ${urlsToWarnAbout.join(", ")}\nThis is generally NOT safe. Learn more at https://bit.ly/wb-precache`;
+        const warningMessage = `Serwist is precaching URLs without revision info: ${urlsToWarnAbout.join(
+          ", ",
+        )}\nThis is generally NOT safe. Learn more at https://bit.ly/wb-precache`;
         if (process.env.NODE_ENV === "production") {
           // Use console directly to display this warning without bloating
           // bundle sizes by pulling in all of the logger codebase in prod.

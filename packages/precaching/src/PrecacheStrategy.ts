@@ -97,9 +97,7 @@ class PrecacheStrategy extends Strategy {
     // Fallback to the network if we're configured to do so.
     if (this._fallbackToNetwork) {
       if (process.env.NODE_ENV !== "production") {
-        logger.warn(
-          `The precached response for ${getFriendlyURL(request.url)} in ${this.cacheName} was not found. Falling back to the network.`,
-        );
+        logger.warn(`The precached response for ${getFriendlyURL(request.url)} in ${this.cacheName} was not found. Falling back to the network.`);
       }
 
       const integrityInManifest = params.integrity;

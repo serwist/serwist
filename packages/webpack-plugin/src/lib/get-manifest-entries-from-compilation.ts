@@ -39,9 +39,9 @@ function checkConditions(
       return condition({ asset, compilation });
       //return compilation !== null;
     }
-      if (webpack.ModuleFilenameHelpers.matchPart(asset.name, condition)) {
-        return true;
-      }
+    if (webpack.ModuleFilenameHelpers.matchPart(asset.name, condition)) {
+      return true;
+    }
   }
 
   // We'll only get here if none of the conditions applied.
@@ -68,10 +68,10 @@ function getNamesOfAssetsInChunkOrGroup(compilation: Compilation, chunkOrGroup: 
     }
     return assetNames;
   }
-    const chunk = compilation.namedChunks?.get(chunkOrGroup);
-    if (chunk) {
-      return getNamesOfAssetsInChunk(chunk);
-    }
+  const chunk = compilation.namedChunks?.get(chunkOrGroup);
+  if (chunk) {
+    return getNamesOfAssetsInChunk(chunk);
+  }
 
   // If we get here, there's no chunkGroup or chunk with that name.
   return null;
@@ -124,9 +124,7 @@ function filterAssets(compilation: Compilation, config: WebpackInjectManifestOpt
         }
       } else {
         compilation.warnings.push(
-          new Error(
-            `The chunk '${name}' was provided in your Serwist chunks config, but was not found in the compilation.`,
-          ) as WebpackError,
+          new Error(`The chunk '${name}' was provided in your Serwist chunks config, but was not found in the compilation.`) as WebpackError,
         );
       }
     }

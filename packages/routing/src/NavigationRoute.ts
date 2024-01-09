@@ -112,9 +112,7 @@ class NavigationRoute extends Route {
     }
 
     if (process.env.NODE_ENV !== "production") {
-      logger.log(
-        `The navigation route ${pathnameAndSearch} is not being used, since the URL being navigated to doesn't match the allowlist.`,
-      );
+      logger.log(`The navigation route ${pathnameAndSearch} is not being used, since the URL being navigated to doesn't match the allowlist.`);
     }
     return false;
   }

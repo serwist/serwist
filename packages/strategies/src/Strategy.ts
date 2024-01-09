@@ -146,9 +146,12 @@ abstract class Strategy implements RouteHandlerObject {
 
       if (!response) {
         throw error;
-      }if (process.env.NODE_ENV !== "production") {
+      }
+      if (process.env.NODE_ENV !== "production") {
         throw logger.log(
-          `While responding to '${getFriendlyURL(request.url)}', an ${error instanceof Error ? error.toString() : ""} error occurred. Using a fallback response provided by a handlerDidError plugin.`,
+          `While responding to '${getFriendlyURL(request.url)}', an ${
+            error instanceof Error ? error.toString() : ""
+          } error occurred. Using a fallback response provided by a handlerDidError plugin.`,
         );
       }
     }

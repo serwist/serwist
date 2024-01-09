@@ -8,6 +8,6 @@
 
 // Callbacks to be executed whenever there's a quota error.
 // biome-ignore lint/complexity/noBannedTypes: Can't change Function type right now.
-const  quotaErrorCallbacks: Set<Function> = new Set();
+const quotaErrorCallbacks: Set<Function> = new Set();
 
 export { quotaErrorCallbacks };

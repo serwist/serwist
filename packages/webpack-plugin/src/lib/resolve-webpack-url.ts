@@ -23,5 +23,5 @@ export function resolveWebpackURL(publicPath: string, ...paths: Array<string>): 
   if (publicPath === "auto") {
     return paths.join("");
   }
-    return [publicPath, ...paths].join("");
+  return [publicPath, ...paths].join("");
 }

@@ -64,9 +64,9 @@ export const messages: MessageMap = {
   },
 
   "add-to-cache-list-unexpected-type": ({ entry }) => {
-    return (
-      `An unexpected entry was passed to '@serwist/precaching.PrecacheController.addToCacheList()' The entry '${JSON.stringify(entry)}' isn't supported. You must supply an array of strings with one or more characters, objects with a url property or Request objects.`
-    );
+    return `An unexpected entry was passed to '@serwist/precaching.PrecacheController.addToCacheList()' The entry '${JSON.stringify(
+      entry,
+    )}' isn't supported. You must supply an array of strings with one or more characters, objects with a url property or Request objects.`;
   },
 
   "add-to-cache-list-conflicting-entries": ({ firstEntry, secondEntry }) => {
@@ -74,9 +74,7 @@ export const messages: MessageMap = {
       throw new Error("Unexpected input to " + `'add-to-cache-list-duplicate-entries' error.`);
     }
 
-    return (
-      `Two of the entries passed to '@serwist/precaching.PrecacheController.addToCacheList()' had the URL ${firstEntry} but different revision details. Serwist is unable to cache and version the asset correctly. Please remove one of the entries.`
-    );
+    return `Two of the entries passed to '@serwist/precaching.PrecacheController.addToCacheList()' had the URL ${firstEntry} but different revision details. Serwist is unable to cache and version the asset correctly. Please remove one of the entries.`;
   },
 
   "plugin-error-request-will-fetch": ({ thrownErrorMessage }) => {
@@ -92,9 +90,9 @@ export const messages: MessageMap = {
       throw new Error(`Expected a 'cacheNameId' for error 'invalid-cache-name'`);
     }
 
-    return (
-      `You must provide a name containing at least one character for setCacheDetails({${cacheNameId}: '...'}). Received a value of '${JSON.stringify(value)}'`
-    );
+    return `You must provide a name containing at least one character for setCacheDetails({${cacheNameId}: '...'}). Received a value of '${JSON.stringify(
+      value,
+    )}'`;
   },
 
   "unregister-route-but-not-found-with-method": ({ method }) => {
@@ -122,15 +120,13 @@ export const messages: MessageMap = {
   },
 
   "unsupported-route-type": ({ moduleName, className, funcName, paramName }) => {
-    return (
-      `The supplied '${paramName}' parameter was an unsupported type. Please check the docs for ${moduleName}.${className}.${funcName} for valid input types.`
-    );
+    return `The supplied '${paramName}' parameter was an unsupported type. Please check the docs for ${moduleName}.${className}.${funcName} for valid input types.`;
   },
 
   "not-array-of-class": ({ value, expectedClass, moduleName, className, funcName, paramName }) => {
-    return (
-      `The supplied '${paramName}' parameter must be an array of '${expectedClass}' objects. Received '${JSON.stringify(value)},'. Please check the call to ${moduleName}.${className}.${funcName}() to fix the issue.`
-    );
+    return `The supplied '${paramName}' parameter must be an array of '${expectedClass}' objects. Received '${JSON.stringify(
+      value,
+    )},'. Please check the call to ${moduleName}.${className}.${funcName}() to fix the issue.`;
   },
 
   "max-entries-or-age-required": ({ moduleName, className, funcName }) => {
@@ -145,9 +141,7 @@ export const messages: MessageMap = {
     if (!paramName || !moduleName || !funcName) {
       throw new Error(`Unexpected input to 'invalid-string' error.`);
     }
-    return (
-      `When using strings, the '${paramName}' parameter must start with 'http' (for cross-origin matches) or '/' (for same-origin matches). Please see the docs for ${moduleName}.${funcName}() for more info.`
-    );
+    return `When using strings, the '${paramName}' parameter must start with 'http' (for cross-origin matches) or '/' (for same-origin matches). Please see the docs for ${moduleName}.${funcName}() for more info.`;
   },
 
   "channel-name-required": () => {
@@ -173,18 +167,14 @@ export const messages: MessageMap = {
     if (!normalizedRangeHeader) {
       throw new Error(`Unexpected input to 'single-range-only' error.`);
     }
-    return (
-      `Multiple ranges are not supported. Please use a  single start value, and optional end value. The Range header provided was "${normalizedRangeHeader}"`
-    );
+    return `Multiple ranges are not supported. Please use a  single start value, and optional end value. The Range header provided was "${normalizedRangeHeader}"`;
   },
 
   "invalid-range-values": ({ normalizedRangeHeader }) => {
     if (!normalizedRangeHeader) {
       throw new Error(`Unexpected input to 'invalid-range-values' error.`);
     }
-    return (
-      `The Range header is missing both start and end values. At least one of those values is needed. The Range header provided was "${normalizedRangeHeader}"`
-    );
+    return `The Range header is missing both start and end values. At least one of those values is needed. The Range header provided was "${normalizedRangeHeader}"`;
   },
 
   "no-range-header": () => {
@@ -220,9 +210,7 @@ export const messages: MessageMap = {
   },
 
   "add-to-cache-list-conflicting-integrities": ({ url }) => {
-    return (
-      `Two of the entries passed to '@serwist/precaching.PrecacheController.addToCacheList()' had the URL ${url} with different integrity values. Please remove one of them.`
-    );
+    return `Two of the entries passed to '@serwist/precaching.PrecacheController.addToCacheList()' had the URL ${url} with different integrity values. Please remove one of them.`;
   },
 
   "missing-precache-entry": ({ cacheName, url }) => {

@@ -42,8 +42,8 @@ export async function resultingClientExists(resultingClientId?: string): Promise
         // If we have a `resultingClientId`, we can match on that.
         return w.id === resultingClientId;
       }
-        // Otherwise match on finding a window not in `existingWindowIds`.
-        return !existingWindowIds.has(w.id);
+      // Otherwise match on finding a window not in `existingWindowIds`.
+      return !existingWindowIds.has(w.id);
     });
 
     if (resultingWindow) {

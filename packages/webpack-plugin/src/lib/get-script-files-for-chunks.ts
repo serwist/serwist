@@ -26,9 +26,7 @@ export function getScriptFilesForChunks(compilation: Compilation, chunkNames: Ar
         }
       }
     } else {
-      compilation.warnings.push(
-        new Error(`${chunkName} was provided to importScriptsViaChunks, but didn't match any named chunks.`) as WebpackError,
-      );
+      compilation.warnings.push(new Error(`${chunkName} was provided to importScriptsViaChunks, but didn't match any named chunks.`) as WebpackError);
     }
   }
 
