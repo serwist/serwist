@@ -1,5 +1,7 @@
 # @serwist/core
 
+## 8.4.1
+
 ## 8.4.0
 
 ### Patch Changes

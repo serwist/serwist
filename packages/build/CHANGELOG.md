@@ -1,5 +1,24 @@
 # @serwist/build
 
+## 8.4.1
+
+### Patch Changes
+
+- [#36](https://github.com/serwist/serwist/pull/36) [`d45c7a3`](https://github.com/serwist/serwist/commit/d45c7a3e62cd98eab3110038f3f90240bd5e6831) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(build): fixed CommonJS build crashing (again)
+
+  - It is `stringify-object` this time.
+  - A test has been added to help avoid this issue.
+
+- Updated dependencies []:
+  - @serwist/background-sync@8.4.1
+  - @serwist/broadcast-update@8.4.1
+  - @serwist/cacheable-response@8.4.1
+  - @serwist/core@8.4.1
+  - @serwist/expiration@8.4.1
+  - @serwist/google-analytics@8.4.1
+  - @serwist/precaching@8.4.1
+  - @serwist/routing@8.4.1
+
 ## 8.4.0
 
 ### Patch Changes

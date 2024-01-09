@@ -1,5 +1,12 @@
 # @serwist/cli
 
+## 8.4.1
+
+### Patch Changes
+
+- Updated dependencies [[`d45c7a3`](https://github.com/serwist/serwist/commit/d45c7a3e62cd98eab3110038f3f90240bd5e6831)]:
+  - @serwist/build@8.4.1
+
 ## 8.4.0
 
 ### Patch Changes
