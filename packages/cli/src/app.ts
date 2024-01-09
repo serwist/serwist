@@ -6,8 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { injectManifest, type InjectManifestOptions } from "@serwist/build";
 import assert from "assert";
+import { type InjectManifestOptions, injectManifest } from "@serwist/build";
 import type { WatchOptions } from "chokidar";
 import { default as chokidar } from "chokidar";
 // import { oneLine as ol } from "common-tags";

@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert, getFriendlyURL, logger, SerwistError } from "@serwist/core/internal";
+import { assert, SerwistError, getFriendlyURL, logger } from "@serwist/core/internal";
 
 export interface CacheableResponseOptions {
   /**

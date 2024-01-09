@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { logger, SerwistError } from "@serwist/core/internal";
+import { SerwistError, logger } from "@serwist/core/internal";
 
 /**
  * Given two `Response's`, compares several header values to see if they are

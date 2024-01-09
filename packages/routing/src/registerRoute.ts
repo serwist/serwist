@@ -7,7 +7,7 @@
 */
 
 import type { RouteHandler, RouteMatchCallback } from "@serwist/core";
-import { logger, SerwistError } from "@serwist/core/internal";
+import { SerwistError, logger } from "@serwist/core/internal";
 
 import { RegExpRoute } from "./RegExpRoute.js";
 import { Route } from "./Route.js";

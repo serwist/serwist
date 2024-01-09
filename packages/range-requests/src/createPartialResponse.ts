@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert, logger, SerwistError } from "@serwist/core/internal";
+import { assert, SerwistError, logger } from "@serwist/core/internal";
 
 import { calculateEffectiveBoundaries } from "./utils/calculateEffectiveBoundaries.js";
 import { parseRangeHeader } from "./utils/parseRangeHeader.js";

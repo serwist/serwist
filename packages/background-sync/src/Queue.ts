@@ -5,7 +5,7 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-import { assert, getFriendlyURL, logger, SerwistError } from "@serwist/core/internal";
+import { assert, SerwistError, getFriendlyURL, logger } from "@serwist/core/internal";
 
 import type { QueueStoreEntry, UnidentifiedQueueStoreEntry } from "./QueueDb.js";
 import { QueueStore } from "./QueueStore.js";

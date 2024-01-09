@@ -6,12 +6,12 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert, logger, SerwistError } from "@serwist/core/internal";
+import { assert, SerwistError, logger } from "@serwist/core/internal";
 
-import { cacheOkAndOpaquePlugin } from "./plugins/cacheOkAndOpaquePlugin.js";
 import type { StrategyOptions } from "./Strategy.js";
 import { Strategy } from "./Strategy.js";
 import type { StrategyHandler } from "./StrategyHandler.js";
+import { cacheOkAndOpaquePlugin } from "./plugins/cacheOkAndOpaquePlugin.js";
 import { messages } from "./utils/messages.js";
 
 /**

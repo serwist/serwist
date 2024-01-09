@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert, logger, SerwistError, timeout } from "@serwist/core/internal";
+import { assert, SerwistError, logger, timeout } from "@serwist/core/internal";
 
 import type { StrategyOptions } from "./Strategy.js";
 import { Strategy } from "./Strategy.js";

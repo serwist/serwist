@@ -8,7 +8,7 @@
 
 import type { SerwistPlugin } from "@serwist/core";
 import { registerQuotaErrorCallback } from "@serwist/core";
-import { assert, dontWaitFor, getFriendlyURL, logger, privateCacheNames, SerwistError } from "@serwist/core/internal";
+import { assert, SerwistError, dontWaitFor, getFriendlyURL, logger, privateCacheNames } from "@serwist/core/internal";
 
 import { CacheExpiration } from "./CacheExpiration.js";
 

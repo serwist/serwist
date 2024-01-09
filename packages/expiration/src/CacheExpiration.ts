@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert, dontWaitFor, logger, SerwistError } from "@serwist/core/internal";
+import { assert, SerwistError, dontWaitFor, logger } from "@serwist/core/internal";
 
 import { CacheTimestampsModel } from "./models/CacheTimestampsModel.js";
 

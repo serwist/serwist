@@ -17,7 +17,7 @@ describe("@serwist/build - CommonJS basic test", () => {
         const msg = data.toString();
         cliOutput += msg;
       });
-      
+
       build.on("close", (code) => {
         exitCode = code;
         resolve();

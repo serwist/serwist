@@ -11,12 +11,7 @@ const { injectManifest } = require("@serwist/build");
   });
 
   if (warnings.length > 0) {
-    console.warn(
-      "[@serwist/build] Oopsie, there are warnings from Serwist:",
-      warnings
-    );
+    console.warn("[@serwist/build] Oopsie, there are warnings from Serwist:", warnings);
   }
-  console.log(
-    `[@serwist/build] Manifest injected: ${count} files, totaling ${size} bytes.`
-  );
+  console.log(`[@serwist/build] Manifest injected: ${count} files, totaling ${size} bytes.`);
 })();

@@ -7,7 +7,7 @@
 */
 
 import type { HandlerCallbackOptions, RouteHandlerObject, SerwistPlugin } from "@serwist/core";
-import { getFriendlyURL, logger, privateCacheNames, SerwistError } from "@serwist/core/internal";
+import { SerwistError, getFriendlyURL, logger, privateCacheNames } from "@serwist/core/internal";
 
 import { StrategyHandler } from "./StrategyHandler.js";
 
