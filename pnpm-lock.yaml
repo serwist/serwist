@@ -62,15 +62,9 @@ importers:
 
   __tests__:
     devDependencies:
-      '@swc/jest':
-        specifier: 0.2.29
-        version: 0.2.29(@swc/core@1.3.101)
       '@types/jest':
         specifier: 29.5.11
         version: 29.5.11
-      jest:
-        specifier: 29.7.0
-        version: 29.7.0(@types/node@20.10.5)(ts-node@10.9.2)
 
   __tests__/build:
     devDependencies:
@@ -86,11 +80,18 @@ importers:
       '@serwist/sw':
         specifier: workspace:*
         version: link:../../packages/sw
-      '@types/jest':
-        specifier: 29.5.11
-        version: 29.5.11
+      jest:
+        specifier: 29.7.0
+        version: 29.7.0(@types/node@20.10.5)(ts-node@10.9.2)
 
-  __tests__/config: {}
+  __tests__/config:
+    devDependencies:
+      '@swc/jest':
+        specifier: 0.2.29
+        version: 0.2.29(@swc/core@1.3.101)
+      jest:
+        specifier: 29.7.0
+        version: 29.7.0(@types/node@20.10.5)(ts-node@10.9.2)
 
   docs:
     devDependencies:
