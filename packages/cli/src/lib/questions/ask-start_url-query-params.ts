@@ -45,7 +45,7 @@ async function askQuestion(): Promise<{
 }
 
 export async function askQueryParametersInStartUrl(
-  defaultIgnoredSearchParameters: RegExp[] = constants.ignoreURLParametersMatching
+  defaultIgnoredSearchParameters: RegExp[] = constants.ignoreURLParametersMatching,
 ): Promise<RegExp[]> {
   const { shouldAskForIgnoreURLParametersMatching, ignoreURLParametersMatching = "" } = await askQuestion();
 
@@ -60,7 +60,7 @@ export async function askQueryParametersInStartUrl(
   assert(ignoreSearchParameters.length > 0, errors["no-search-parameters-supplied"]);
   assert(
     ignoreSearchParameters.every((param) => !param.match(/^[^\w|-]/g)),
-    errors["invalid-search-parameters-supplied"]
+    errors["invalid-search-parameters-supplied"],
   );
 
   return defaultIgnoredSearchParameters.concat(ignoreSearchParameters.map((searchParam) => new RegExp(`^${searchParam}`)));

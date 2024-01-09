@@ -27,7 +27,7 @@ export const normalizeHandler = (handler: RouteHandler): RouteHandlerObject => {
       });
     }
     return handler;
-  } else {
+  }
     if (process.env.NODE_ENV !== "production") {
       assert!.isType(handler, "function", {
         moduleName: "@serwist/routing",
@@ -37,5 +37,4 @@ export const normalizeHandler = (handler: RouteHandler): RouteHandlerObject => {
       });
     }
     return { handle: handler };
-  }
 };

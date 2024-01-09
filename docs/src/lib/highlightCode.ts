@@ -7,7 +7,7 @@ interface HighlightCodeOptions {
 export const highlightCode = <T extends string>(
   highlighter: Highlighter,
   codes: Record<T, { code: string; lang: Lang }>,
-  { idPrefix }: HighlightCodeOptions
+  { idPrefix }: HighlightCodeOptions,
 ) => {
   const codeEntries = Object.entries(codes) as [T, (typeof codes)[T]][];
   const result = [] as [T, string, { dark: string; light: string }][];

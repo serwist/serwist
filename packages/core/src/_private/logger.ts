@@ -31,15 +31,15 @@ const logger = (
         let inGroup = false;
 
         const methodToColorMap: { [methodName: string]: string | null } = {
-          debug: `#7f8c8d`, // Gray
-          log: `#2ecc71`, // Green
-          warn: `#f39c12`, // Yellow
-          error: `#c0392b`, // Red
-          groupCollapsed: `#3498db`, // Blue
+          debug: "#7f8c8d", // Gray
+          log: "#2ecc71", // Green
+          warn: "#f39c12", // Yellow
+          error: "#c0392b", // Red
+          groupCollapsed: "#3498db", // Blue
           groupEnd: null, // No colored prefix on groupEnd
         };
 
-        const print = function (method: LoggerMethods, args: any[]) {
+        const print = (method: LoggerMethods, args: any[]) => {
           if (self.__WB_DISABLE_DEV_LOGS) {
             return;
           }
@@ -55,10 +55,10 @@ const logger = (
 
           const styles = [
             `background: ${methodToColorMap[method]!}`,
-            `border-radius: 0.5em`,
-            `color: white`,
-            `font-weight: bold`,
-            `padding: 2px 0.5em`,
+            "border-radius: 0.5em",
+            "color: white",
+            "font-weight: bold",
+            "padding: 2px 0.5em",
           ];
 
           // When in a group, the serwist prefix is not displayed.
@@ -73,7 +73,7 @@ const logger = (
             inGroup = false;
           }
         };
-        // eslint-disable-next-line @typescript-eslint/ban-types
+        // biome-ignore lint/complexity/noBannedTypes: Unknown reason
         const api: { [methodName: string]: Function } = {};
         const loggerMethods = Object.keys(methodToColorMap);
 

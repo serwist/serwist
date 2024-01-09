@@ -27,7 +27,7 @@ export class ChildCompilationPlugin implements WebpackPluginInstance {
     compiler.hooks.make.tapPromise(this.constructor.name, (compilation) =>
       this.performChildCompilation(compilation, compiler).catch((error: webpack.WebpackError) => {
         compilation.errors.push(error);
-      })
+      }),
     );
   }
   async performChildCompilation(compilation: webpack.Compilation, parentCompiler: webpack.Compiler): Promise<void> {

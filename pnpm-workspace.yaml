@@ -1,4 +1,5 @@
 packages:
+  - "__tests__"
   - "docs"
   - "packages/**"
   - "examples/**"

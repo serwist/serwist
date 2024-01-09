@@ -50,7 +50,7 @@ installSerwist({
               lang: "javascript",
             },
           },
-          { idPrefix: "default-cache-usage-example" }
+          { idPrefix: "default-cache-usage-example" },
         ),
       },
     },

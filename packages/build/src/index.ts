@@ -17,7 +17,6 @@ import { getFileManifestEntries } from "./lib/get-file-manifest-entries.js";
 import { getSourceMapURL } from "./lib/get-source-map-url.js";
 import { rebasePath } from "./lib/rebase-path.js";
 import { replaceAndUpdateSourceMap } from "./lib/replace-and-update-source-map.js";
-import { stringifyWithoutComments } from "./lib/stringify-without-comments.js";
 import { transformManifest } from "./lib/transform-manifest.js";
 import { translateURLToSourcemapPaths } from "./lib/translate-url-to-sourcemap-paths.js";
 import { validateInjectManifestOptions, validateViteInjectManifestOptions, validateWebpackInjectManifestOptions } from "./lib/validate-options.js";
@@ -35,7 +34,6 @@ export {
   rebasePath,
   replaceAndUpdateSourceMap,
   stringify,
-  stringifyWithoutComments,
   transformManifest,
   translateURLToSourcemapPaths,
   validateInjectManifestOptions,

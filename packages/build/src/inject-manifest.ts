@@ -57,7 +57,7 @@ export async function injectManifest(config: InjectManifestOptions): Promise<Bui
       rebasePath({
         file,
         baseDirectory: options.globDirectory,
-      })
+      }),
     );
   }
 
@@ -124,7 +124,7 @@ export async function injectManifest(config: InjectManifestOptions): Promise<Bui
     try {
       await fse.mkdirp(upath.dirname(file));
     } catch (error: unknown) {
-      throw new Error(errors["unable-to-make-sw-directory"] + ` '${error instanceof Error && error.message ? error.message : ""}'`);
+      throw new Error(`${errors["unable-to-make-sw-directory"]} '${error instanceof Error && error.message ? error.message : ""}'`);
     }
 
     await fse.writeFile(file, contents);

@@ -31,7 +31,7 @@ export const handlePrecaching = ({
       new NavigationRoute(createHandlerBoundToURL(options.navigateFallback), {
         allowlist: options.navigateFallbackAllowlist,
         denylist: options.navigateFallbackDenylist,
-      })
+      }),
     );
   }
 };

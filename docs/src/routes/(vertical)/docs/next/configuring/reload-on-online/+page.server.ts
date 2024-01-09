@@ -40,7 +40,7 @@ module.exports = withSerwist({
             lang: "javascript",
           },
         },
-        { idPrefix: "usage-example" }
+        { idPrefix: "usage-example" },
       ),
     },
   };

@@ -19,7 +19,7 @@ export function maximumSizeTransform(maximumFileSizeToCacheInBytes: number): Man
       }
 
       warnings.push(
-        `${entry.url} is ${prettyBytes(entry.size)}, and won't ` + `be precached. Configure maximumFileSizeToCacheInBytes to change ` + `this limit.`
+        `${entry.url} is ${prettyBytes(entry.size)}, and won't be precached. Configure maximumFileSizeToCacheInBytes to change this limit.`,
       );
       return false;
     });

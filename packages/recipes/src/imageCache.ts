@@ -57,13 +57,13 @@ function imageCache(options: ImageCacheOptions = {}): void {
   plugins.push(
     new CacheableResponsePlugin({
       statuses: [0, 200],
-    })
+    }),
   );
   plugins.push(
     new ExpirationPlugin({
       maxEntries,
       maxAgeSeconds,
-    })
+    }),
   );
 
   const strategy = new CacheFirst({

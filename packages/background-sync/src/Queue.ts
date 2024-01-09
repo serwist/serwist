@@ -50,7 +50,7 @@ export interface QueueOptions {
   onSync?: OnSyncCallback;
 }
 
-interface QueueEntry {
+export interface QueueEntry {
   /**
    * The request to store in the queue.
    */
@@ -123,9 +123,8 @@ class Queue {
     // Ensure the store name is not already being used
     if (queueNames.has(name)) {
       throw new SerwistError("duplicate-queue-name", { name });
-    } else {
-      queueNames.add(name);
     }
+    queueNames.add(name);
 
     this._name = name;
     this._onSync = onSync || this.replayRequests;
@@ -321,9 +320,9 @@ class Queue {
       }
 
       return convertEntry(entry);
-    } else {
-      return undefined;
     }
+
+    return undefined;
   }
 
   /**
@@ -332,7 +331,7 @@ class Queue {
    * the queue (which registers a retry for the next sync event).
    */
   async replayRequests(): Promise<void> {
-    let entry;
+    let entry: QueueEntry | undefined = undefined;
     while ((entry = await this.shiftRequest())) {
       try {
         await fetch(entry.request.clone());
@@ -350,7 +349,7 @@ class Queue {
       }
     }
     if (process.env.NODE_ENV !== "production") {
-      logger.log(`All requests in queue '${this.name}' have successfully ` + `replayed; the queue is now empty!`);
+      logger.log(`All requests in queue '${this.name}' have successfully replayed; the queue is now empty!`);
     }
   }
 
@@ -385,13 +384,13 @@ class Queue {
       self.addEventListener("sync", (event: SyncEvent) => {
         if (event.tag === `${TAG_PREFIX}:${this._name}`) {
           if (process.env.NODE_ENV !== "production") {
-            logger.log(`Background sync for tag '${event.tag}' ` + `has been received`);
+            logger.log(`Background sync for tag '${event.tag}' has been received`);
           }
 
           const syncComplete = async () => {
             this._syncInProgress = true;
 
-            let syncError;
+            let syncError: Error | undefined = undefined;
             try {
               await this._onSync({ queue: this });
             } catch (error) {
@@ -421,7 +420,7 @@ class Queue {
       });
     } else {
       if (process.env.NODE_ENV !== "production") {
-        logger.log(`Background sync replaying without background sync event`);
+        logger.log("Background sync replaying without background sync event");
       }
       // If the browser doesn't support background sync, or the developer has
       // opted-in to not using it, retry every time the service worker starts up

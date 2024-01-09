@@ -19,7 +19,7 @@ export const logSerwistResult = (buildResult: Pick<BuildResult, "count" | "size"
         `${green("✓")} ${count} precache entries ${dim(`(${(size / 1024).toFixed(2)} KiB)`)}`,
         // log build warning
         warnings && warnings.length > 0 ? yellow(["⚠ warnings", ...warnings.map((w) => `  ${w}`), ""].join("\n")) : "",
-      ].join("\n")
+      ].join("\n"),
     );
   }
 };

@@ -14,7 +14,7 @@ declare let self: ServiceWorkerGlobalScope;
  * navigation preload.
  */
 function isSupported(): boolean {
-  return Boolean(self.registration && self.registration.navigationPreload);
+  return Boolean(self.registration?.navigationPreload);
 }
 
 export { isSupported };

@@ -1,0 +1,20 @@
+{
+  "name": "@serwist-internals/tests",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Serwist's tests",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Serwist's Team",
+  "license": "MIT",
+  "repository": "serwist/serwist",
+  "bugs": "https://github.com/serwist/serwist/issues",
+  "homepage": "https://serwist.pages.dev",
+  "devDependencies": {
+    "@serwist/build": "workspace:*",
+    "@serwist/precaching": "workspace:*",
+    "@serwist/sw": "workspace:*"
+  }
+}

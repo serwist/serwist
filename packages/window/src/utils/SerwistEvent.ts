@@ -22,7 +22,7 @@ export class SerwistEvent<K extends keyof SerwistEventMap> {
 
   constructor(
     public type: K,
-    props: Omit<SerwistEventMap[K], "target" | "type">
+    props: Omit<SerwistEventMap[K], "target" | "type">,
   ) {
     Object.assign(this, props);
   }

@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 import { BackgroundSyncPlugin } from "./BackgroundSyncPlugin.js";
-import type { QueueOptions } from "./Queue.js";
+import type { QueueOptions, QueueEntry } from "./Queue.js";
 import { Queue } from "./Queue.js";
 import { QueueStore } from "./QueueStore.js";
 import { StorableRequest } from "./StorableRequest.js";
@@ -34,4 +34,4 @@ declare global {
 
 export { BackgroundSyncPlugin, Queue, QueueStore, StorableRequest };
 
-export type { QueueOptions };
+export type { QueueOptions, QueueEntry };

@@ -29,7 +29,7 @@ async function cacheMatchIgnoreParams(
   cache: Cache,
   request: Request,
   ignoreParams: string[],
-  matchOptions?: CacheQueryOptions
+  matchOptions?: CacheQueryOptions,
 ): Promise<Response | undefined> {
   const strippedRequestURL = stripParams(request.url, ignoreParams);
 

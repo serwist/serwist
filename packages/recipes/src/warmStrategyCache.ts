@@ -24,7 +24,7 @@ function warmStrategyCache(options: WarmStrategyCacheOptions): void {
         options.strategy.handleAll({
           event,
           request: new Request(path),
-        })[1]
+        })[1],
     );
 
     event.waitUntil(Promise.all(done));

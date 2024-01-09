@@ -123,7 +123,7 @@ export interface HandlerWillStartCallbackParam {
 }
 
 export interface HandlerWillStartCallback {
-  (param: HandlerWillStartCallbackParam): Promise<void | null | undefined>;
+  (param: HandlerWillStartCallbackParam): Promise<any>;
 }
 
 export interface CacheDidUpdateCallbackParam {
@@ -152,7 +152,7 @@ export interface CacheDidUpdateCallbackParam {
 }
 
 export interface CacheDidUpdateCallback {
-  (param: CacheDidUpdateCallbackParam): Promise<void | null | undefined>;
+  (param: CacheDidUpdateCallbackParam): Promise<any>;
 }
 
 export interface CacheKeyWillBeUsedCallbackParam {
@@ -175,7 +175,7 @@ export interface CacheWillUpdateCallbackParam {
 }
 
 export interface CacheWillUpdateCallback {
-  (param: CacheWillUpdateCallbackParam): Promise<Response | void | null | undefined>;
+  (param: CacheWillUpdateCallbackParam): Promise<any>;
 }
 
 export interface CachedResponseWillBeUsedCallbackParam {
@@ -199,7 +199,7 @@ export interface CachedResponseWillBeUsedCallbackParam {
 }
 
 export interface CachedResponseWillBeUsedCallback {
-  (param: CachedResponseWillBeUsedCallbackParam): Promise<Response | void | null | undefined>;
+  (param: CachedResponseWillBeUsedCallbackParam): Promise<any>;
 }
 
 export interface FetchDidFailCallbackParam {
@@ -211,7 +211,7 @@ export interface FetchDidFailCallbackParam {
 }
 
 export interface FetchDidFailCallback {
-  (param: FetchDidFailCallbackParam): Promise<void | null | undefined>;
+  (param: FetchDidFailCallbackParam): Promise<any>;
 }
 
 export interface FetchDidSucceedCallbackParam {
@@ -265,7 +265,7 @@ export interface HandlerDidRespondCallbackParam {
 }
 
 export interface HandlerDidRespondCallback {
-  (param: HandlerDidRespondCallbackParam): Promise<void | null | undefined>;
+  (param: HandlerDidRespondCallbackParam): Promise<any>;
 }
 
 export interface HandlerDidCompleteCallbackParam {
@@ -277,7 +277,7 @@ export interface HandlerDidCompleteCallbackParam {
 }
 
 export interface HandlerDidCompleteCallback {
-  (param: HandlerDidCompleteCallbackParam): Promise<void | null | undefined>;
+  (param: HandlerDidCompleteCallbackParam): Promise<any>;
 }
 
 /**

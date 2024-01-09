@@ -46,8 +46,8 @@ export function printInstallDetails(urlsToPrecache: string[], urlsAlreadyPrecach
 
     logger.groupCollapsed(message);
 
-    _nestedGroup(`View newly precached URLs.`, urlsToPrecache);
-    _nestedGroup(`View previously precached URLs.`, urlsAlreadyPrecached);
+    _nestedGroup("View newly precached URLs.", urlsToPrecache);
+    _nestedGroup("View previously precached URLs.", urlsAlreadyPrecached);
     logger.groupEnd();
   }
 }

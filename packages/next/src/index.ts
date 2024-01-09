@@ -40,7 +40,7 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
       }
 
       if (disable) {
-        options.isServer && logger.info("PWA support is disabled.");
+        options.isServer && logger.info("Serwist is disabled.");
         return config;
       }
 
@@ -60,7 +60,7 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
           "self.__SERWIST_SW_ENTRY.cacheOnFrontEndNav": `${Boolean(cacheOnFrontEndNav)}`,
           "self.__SERWIST_SW_ENTRY.register": `${Boolean(register)}`,
           "self.__SERWIST_SW_ENTRY.reloadOnOnline": `${Boolean(reloadOnOnline)}`,
-        } satisfies Record<`${SerwistNextOptionsKey}.${Exclude<keyof SerwistNextOptions, "swEntryWorker">}`, string | undefined>)
+        } satisfies Record<`${SerwistNextOptionsKey}.${Exclude<keyof SerwistNextOptions, "swEntryWorker">}`, string | undefined>),
       );
 
       const swEntryJs = path.join(__dirname, "sw-entry.js");
@@ -87,10 +87,10 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
       if (!options.isServer) {
         if (!register) {
           logger.info(
-            "Service worker won't be automatically registered as per the config, please call the following code in componentDidMount or useEffect:"
+            "Service worker won't be automatically registered as per the config, please call the following code in componentDidMount or useEffect:",
           );
 
-          logger.info(`  window.serwist.register()`);
+          logger.info("  window.serwist.register()");
 
           if (!tsConfigJson?.compilerOptions?.types?.includes("@serwist/next/typings")) {
             logger.info("You may also want to add @serwist/next/typings to compilerOptions.types in your tsconfig.json/jsconfig.json.");
@@ -107,8 +107,8 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
           ...otherBuildOptions
         } = buildOptions;
 
-        let swSrc = providedSwSrc,
-          swDest = providedSwDest;
+        let swSrc = providedSwSrc;
+        let swDest = providedSwDest;
 
         if (!path.isAbsolute(swSrc)) {
           swSrc = path.join(options.dir, swSrc);
@@ -123,7 +123,7 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
         let swEntryPublicPath: string | undefined = undefined;
 
         if (shouldBuildSWEntryWorker) {
-          const swEntryWorkerSrc = path.join(__dirname, `sw-entry-worker.js`);
+          const swEntryWorkerSrc = path.join(__dirname, "sw-entry-worker.js");
           const swEntryName = `swe-worker-${getContentHash(swEntryWorkerSrc, dev)}.js`;
           swEntryPublicPath = path.posix.join(basePath, swEntryName);
           const swEntryWorkerDest = path.join(destDir, swEntryName);
@@ -131,13 +131,13 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
             new ChildCompilationPlugin({
               src: swEntryWorkerSrc,
               dest: swEntryWorkerDest,
-            })
+            }),
           );
         }
         config.plugins.push(
           new webpack.DefinePlugin({
             "self.__SERWIST_SW_ENTRY.swEntryWorker": swEntryPublicPath && `'${swEntryPublicPath}'`,
-          } satisfies Record<`${SerwistNextOptionsKey}.${Extract<keyof SerwistNextOptions, "swEntryWorker">}`, string | undefined>)
+          } satisfies Record<`${SerwistNextOptionsKey}.${Extract<keyof SerwistNextOptions, "swEntryWorker">}`, string | undefined>),
         );
 
         logger.info(`Service worker: ${swDest}`);
@@ -147,7 +147,7 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
         config.plugins.push(
           new CleanWebpackPlugin({
             cleanOnceBeforeBuildPatterns: [path.join(destDir, "swe-worker-*.js"), path.join(destDir, "swe-worker-*.js.map"), swDest],
-          })
+          }),
         );
 
         // Precache files in public folder
@@ -167,7 +167,7 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
               ],
               {
                 cwd: "public",
-              }
+              },
             )
             .map((f) => ({
               url: path.posix.join(basePath, f),
@@ -220,7 +220,7 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
               },
             ],
             ...otherBuildOptions,
-          })
+          }),
         );
       }
 

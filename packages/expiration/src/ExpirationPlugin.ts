@@ -157,9 +157,7 @@ class ExpirationPlugin implements SerwistPlugin {
           // The event may not be a fetch event; only log the URL if it is.
           if ("request" in event) {
             logger.warn(
-              `Unable to ensure service worker stays alive when ` +
-                `updating cache entry for ` +
-                `'${getFriendlyURL((event as FetchEvent).request.url)}'.`
+              `Unable to ensure service worker stays alive when updating cache entry for '${getFriendlyURL((event as FetchEvent).request.url)}'.`,
             );
           }
         }
@@ -214,7 +212,7 @@ class ExpirationPlugin implements SerwistPlugin {
 
     // If the Date header was invalid for some reason, parsedDate.getTime()
     // will return NaN.
-    if (isNaN(headerTime)) {
+    if (Number.isNaN(headerTime)) {
       return null;
     }
 

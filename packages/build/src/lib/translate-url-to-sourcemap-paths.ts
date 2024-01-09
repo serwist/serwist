@@ -14,7 +14,7 @@ import { errors } from "./errors.js";
 export function translateURLToSourcemapPaths(
   url: string | null,
   swSrc: string,
-  swDest: string
+  swDest: string,
 ): {
   destPath: string | undefined;
   srcPath: string | undefined;

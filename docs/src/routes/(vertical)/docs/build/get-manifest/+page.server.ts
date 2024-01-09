@@ -37,7 +37,7 @@ void bundleServiceWorker({
             lang: "javascript",
           },
         },
-        { idPrefix: "getting-started" }
+        { idPrefix: "getting-started" },
       ),
     },
   };

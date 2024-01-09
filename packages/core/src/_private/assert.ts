@@ -24,43 +24,43 @@ const isArray = (value: any[], details: MapLikeObject) => {
 const hasMethod = (object: MapLikeObject, expectedMethod: string, details: MapLikeObject) => {
   const type = typeof object[expectedMethod];
   if (type !== "function") {
-    details["expectedMethod"] = expectedMethod;
+    details.expectedMethod = expectedMethod;
     throw new SerwistError("missing-a-method", details);
   }
 };
 
 const isType = (object: unknown, expectedType: string, details: MapLikeObject) => {
+  // biome-ignore lint/suspicious/useValidTypeof: Know to not make a mistake...
   if (typeof object !== expectedType) {
-    details["expectedType"] = expectedType;
+    details.expectedType = expectedType;
     throw new SerwistError("incorrect-type", details);
   }
 };
 
 const isInstance = (
   object: unknown,
-  // Need the general type to do the check later.
-  // eslint-disable-next-line @typescript-eslint/ban-types
+  // biome-ignore lint/complexity/noBannedTypes: Need the general type to do the check later.
   expectedClass: Function,
-  details: MapLikeObject
+  details: MapLikeObject,
 ) => {
   if (!(object instanceof expectedClass)) {
-    details["expectedClassName"] = expectedClass.name;
+    details.expectedClassName = expectedClass.name;
     throw new SerwistError("incorrect-class", details);
   }
 };
 
 const isOneOf = (value: any, validValues: any[], details: MapLikeObject) => {
   if (!validValues.includes(value)) {
-    details["validValueDescription"] = `Valid values are ${JSON.stringify(validValues)}.`;
+    details.validValueDescription = `Valid values are ${JSON.stringify(validValues)}.`;
     throw new SerwistError("invalid-value", details);
   }
 };
 
 const isArrayOfClass = (
   value: any,
-  // Need general type to do check later.
-  expectedClass: Function, // eslint-disable-line
-  details: MapLikeObject
+  // biome-ignore lint/complexity/noBannedTypes: Need general type to do check later.
+  expectedClass: Function,
+  details: MapLikeObject,
 ) => {
   const error = new SerwistError("not-array-of-class", details);
   if (!Array.isArray(value)) {

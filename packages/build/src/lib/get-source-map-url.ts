@@ -10,20 +10,7 @@
 // See https://github.com/GoogleChrome/workbox/issues/3019
 const innerRegex = /[#@] sourceMappingURL=([^\s'"]*)/;
 const regex = RegExp(
-  "(?:" +
-    "/\\*" +
-    "(?:\\s*\r?\n(?://)?)?" +
-    "(?:" +
-    innerRegex.source +
-    ")" +
-    "\\s*" +
-    "\\*/" +
-    "|" +
-    "//(?:" +
-    innerRegex.source +
-    ")" +
-    ")" +
-    "\\s*"
+  `(?:/\\*(?:\\s*\r?\n(?://)?)?(?:${innerRegex.source})\\s*\\*/|//(?:${innerRegex.source}))\\s*`,
 );
 
 export function getSourceMapURL(srcContents: string): string | null {

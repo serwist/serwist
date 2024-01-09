@@ -40,7 +40,7 @@ module.exports = withSerwist({
             lang: "javascript",
           },
         },
-        { idPrefix: "nextjs-config-showcase" }
+        { idPrefix: "nextjs-config-showcase" },
       ),
       webpack: highlightCode(
         highlighter,
@@ -91,7 +91,7 @@ export default {
             lang: "javascript",
           },
         },
-        { idPrefix: "webpack-config-showcase" }
+        { idPrefix: "webpack-config-showcase" },
       ),
     },
   };

@@ -38,7 +38,7 @@ class PrecacheRoute extends Route {
         }
       }
       if (process.env.NODE_ENV !== "production") {
-        logger.debug(`Precaching did not find a match for ` + getFriendlyURL(request.url));
+        logger.debug(`Precaching did not find a match for ${getFriendlyURL(request.url)}`);
       }
       return;
     };

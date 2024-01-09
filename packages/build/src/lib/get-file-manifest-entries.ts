@@ -96,7 +96,7 @@ export async function getFileManifestEntries({
             throw new Error(
               `${errors["bad-template-urls-asset"]} ` +
                 `'${globPattern}' from '${JSON.stringify(debugObj)}':\n` +
-                `${error instanceof Error ? error.toString() : ""}`
+                `${error instanceof Error ? error.toString() : ""}`,
             );
           }
         }, []);

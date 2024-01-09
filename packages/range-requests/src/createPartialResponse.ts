@@ -76,8 +76,8 @@ async function createPartialResponse(request: Request, originalResponse: Respons
     return slicedResponse;
   } catch (error) {
     if (process.env.NODE_ENV !== "production") {
-      logger.warn(`Unable to construct a partial response; returning a ` + `416 Range Not Satisfiable response instead.`);
-      logger.groupCollapsed(`View details here.`);
+      logger.warn("Unable to construct a partial response; returning a " + "416 Range Not Satisfiable response instead.");
+      logger.groupCollapsed("View details here.");
       logger.log(error);
       logger.log(request);
       logger.log(originalResponse);

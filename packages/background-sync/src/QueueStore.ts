@@ -54,6 +54,7 @@ export class QueueStore {
     }
 
     // Don't specify an ID since one is automatically generated.
+    // biome-ignore lint/performance/noDelete: I don't understand this part yet.
     delete entry.id;
     entry.queueName = this._queueName;
 
@@ -88,7 +89,7 @@ export class QueueStore {
       entry.id = firstId - 1;
     } else {
       // Otherwise let the auto-incrementor assign the ID.
-      delete entry.id;
+      entry.id = undefined;
     }
     entry.queueName = this._queueName;
 

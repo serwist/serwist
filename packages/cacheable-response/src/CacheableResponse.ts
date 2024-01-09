@@ -106,12 +106,12 @@ class CacheableResponse {
     if (process.env.NODE_ENV !== "production") {
       if (!cacheable) {
         logger.groupCollapsed(
-          `The request for ` + `'${getFriendlyURL(response.url)}' returned a response that does ` + `not meet the criteria for being cached.`
+          `The request for '${getFriendlyURL(response.url)}' returned a response that does not meet the criteria for being cached.`,
         );
 
-        logger.groupCollapsed(`View cacheability criteria here.`);
-        logger.log(`Cacheable statuses: ` + JSON.stringify(this._statuses));
-        logger.log(`Cacheable headers: ` + JSON.stringify(this._headers, null, 2));
+        logger.groupCollapsed("View cacheability criteria here.");
+        logger.log(`Cacheable statuses: ${JSON.stringify(this._statuses)}`);
+        logger.log(`Cacheable headers: ${JSON.stringify(this._headers, null, 2)}`);
         logger.groupEnd();
 
         const logFriendlyHeaders: { [key: string]: string } = {};
@@ -119,12 +119,12 @@ class CacheableResponse {
           logFriendlyHeaders[key] = value;
         });
 
-        logger.groupCollapsed(`View response status and headers here.`);
+        logger.groupCollapsed("View response status and headers here.");
         logger.log(`Response status: ${response.status}`);
-        logger.log(`Response headers: ` + JSON.stringify(logFriendlyHeaders, null, 2));
+        logger.log(`Response headers: ${JSON.stringify(logFriendlyHeaders, null, 2)}`);
         logger.groupEnd();
 
-        logger.groupCollapsed(`View full response details here.`);
+        logger.groupCollapsed("View full response details here.");
         logger.log(response.headers);
         logger.log(response);
         logger.groupEnd();

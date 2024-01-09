@@ -182,7 +182,8 @@ export type Display = "fullscreen" | "standalone" | "minimal-ui" | "browser";
 export type DisplayOverride = Display | "window-controls-overlay";
 export type IconPurpose = "monochrome" | "maskable" | "any";
 
-interface Nothing {}
+// biome-ignore lint/complexity/noBannedTypes: We intentionally have this.
+type Nothing = {};
 
 /**
  * type StringLiteralUnion<'maskable'> = 'maskable' | string

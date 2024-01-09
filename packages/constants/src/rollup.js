@@ -72,7 +72,7 @@ export const getRollupOptions = ({ packageJson, jsFiles, shouldEmitDeclaration }
           emitDCts(),
           ...[plugins ?? []],
         ],
-      })
+      }),
     ),
   ];
 };

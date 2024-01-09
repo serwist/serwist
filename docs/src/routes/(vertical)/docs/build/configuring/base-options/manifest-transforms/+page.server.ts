@@ -66,7 +66,7 @@ console.log(\`[@serwist/build] Manifest injected: \${count} files, totaling \${s
             lang: "javascript",
           },
         },
-        { idPrefix: "usage-example" }
+        { idPrefix: "usage-example" },
       ),
     },
   };

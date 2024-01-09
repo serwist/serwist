@@ -37,7 +37,7 @@ for (const packageFile of packageJsonList) {
         }
         return "latest";
       },
-    })
+    }),
   );
 }
 
@@ -46,7 +46,7 @@ for (const packageFile of examplesPackageJsonList) {
     updateAndLog({
       packageFile,
       upgrade: true,
-    })
+    }),
   );
 }
 

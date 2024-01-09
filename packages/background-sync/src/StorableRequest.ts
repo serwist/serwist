@@ -100,8 +100,8 @@ class StorableRequest {
 
     // If the request's mode is `navigate`, convert it to `same-origin` since
     // navigation requests can't be constructed via script.
-    if (requestData["mode"] === "navigate") {
-      requestData["mode"] = "same-origin";
+    if (requestData.mode === "navigate") {
+      requestData.mode = "same-origin";
     }
 
     this._requestData = requestData;

@@ -123,7 +123,7 @@ class StrategyHandler {
       const possiblePreloadResponse = (await event.preloadResponse) as Response | undefined;
       if (possiblePreloadResponse) {
         if (process.env.NODE_ENV !== "production") {
-          logger.log(`Using a preloaded navigation response for ` + `'${getFriendlyURL(request.url)}'`);
+          logger.log(`Using a preloaded navigation response for '${getFriendlyURL(request.url)}'`);
         }
         return possiblePreloadResponse;
       }
@@ -158,7 +158,7 @@ class StrategyHandler {
       fetchResponse = await fetch(request, request.mode === "navigate" ? undefined : this._strategy.fetchOptions);
 
       if (process.env.NODE_ENV !== "production") {
-        logger.debug(`Network request for ` + `'${getFriendlyURL(request.url)}' returned a response with ` + `status '${fetchResponse.status}'.`);
+        logger.debug(`Network request for '${getFriendlyURL(request.url)}' returned a response with status '${fetchResponse.status}'.`);
       }
 
       for (const callback of this.iterateCallbacks("fetchDidSucceed")) {
@@ -171,7 +171,7 @@ class StrategyHandler {
       return fetchResponse;
     } catch (error) {
       if (process.env.NODE_ENV !== "production") {
-        logger.log(`Network request for ` + `'${getFriendlyURL(request.url)}' threw an error.`, error);
+        logger.log(`Network request for '${getFriendlyURL(request.url)}' threw an error.`, error);
       }
 
       // `originalRequest` will only exist if a `fetchDidFail` callback
@@ -286,17 +286,16 @@ class StrategyHandler {
       const vary = response.headers.get("Vary");
       if (vary) {
         logger.debug(
-          `The response for ${getFriendlyURL(effectiveRequest.url)} ` +
-            `has a 'Vary: ${vary}' header. ` +
-            `Consider setting the {ignoreVary: true} option on your strategy ` +
-            `to ensure cache matching and deletion works as expected.`
+          `The response for ${getFriendlyURL(
+            effectiveRequest.url,
+          )} has a 'Vary: ${vary}' header. Consider setting the {ignoreVary: true} option on your strategy to ensure cache matching and deletion works as expected.`,
         );
       }
     }
 
     if (!response) {
       if (process.env.NODE_ENV !== "production") {
-        logger.error(`Cannot cache non-existent response for ` + `'${getFriendlyURL(effectiveRequest.url)}'.`);
+        logger.error(`Cannot cache non-existent response for '${getFriendlyURL(effectiveRequest.url)}'.`);
       }
 
       throw new SerwistError("cache-put-with-no-response", {
@@ -308,7 +307,7 @@ class StrategyHandler {
 
     if (!responseToCache) {
       if (process.env.NODE_ENV !== "production") {
-        logger.debug(`Response '${getFriendlyURL(effectiveRequest.url)}' ` + `will not be cached.`, responseToCache);
+        logger.debug(`Response '${getFriendlyURL(effectiveRequest.url)}' will not be cached.`, responseToCache);
       }
       return false;
     }
@@ -325,7 +324,7 @@ class StrategyHandler {
           cache,
           effectiveRequest.clone(),
           ["__WB_REVISION__"],
-          matchOptions
+          matchOptions,
         )
       : null;
 
@@ -382,7 +381,7 @@ class StrategyHandler {
             event: this.event,
             // params has a type any can't change right now.
             params: this.params, // eslint-disable-line
-          })
+          }),
         );
       }
 
@@ -480,7 +479,7 @@ class StrategyHandler {
    * prior to your work completing.
    */
   async doneWaiting(): Promise<void> {
-    let promise;
+    let promise: Promise<any> | undefined = undefined;
     while ((promise = this._extendLifetimePromises.shift())) {
       await promise;
     }
@@ -529,14 +528,10 @@ class StrategyHandler {
           if (responseToCache.status !== 200) {
             if (responseToCache.status === 0) {
               logger.warn(
-                `The response for '${this.request.url}' ` +
-                  `is an opaque response. The caching strategy that you're ` +
-                  `using will not cache opaque responses by default.`
+                `The response for '${this.request.url}' is an opaque response. The caching strategy that you're using will not cache opaque responses by default.`,
               );
             } else {
-              logger.debug(
-                `The response for '${this.request.url}' ` + `returned a status code of '${response.status}' and won't ` + `be cached as a result.`
-              );
+              logger.debug(`The response for '${this.request.url}' returned a status code of '${response.status}' and won't be cached as a result.`);
             }
           }
         }

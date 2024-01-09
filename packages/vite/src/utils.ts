@@ -37,7 +37,7 @@ export const resolveEntry = (entry: string): string | null => {
     }
 
     return entry;
-  } else {
+  }
     const dir = path.dirname(entry);
 
     if (fs.existsSync(dir)) {
@@ -48,7 +48,6 @@ export const resolveEntry = (entry: string): string | null => {
 
       if (found) return path.join(dir, found);
     }
-  }
 
   return null;
 };

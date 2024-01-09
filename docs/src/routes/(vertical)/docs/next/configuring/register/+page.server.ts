@@ -41,7 +41,7 @@ module.exports = withSerwist({
               lang: "javascript",
             },
           },
-          { idPrefix: "usage-config-example" }
+          { idPrefix: "usage-config-example" },
         ),
         app: highlightCode(
           highligher,
@@ -61,7 +61,7 @@ export default function RegisterPWA() {
               lang: "jsx",
             },
           },
-          { idPrefix: "usage-app-example" }
+          { idPrefix: "usage-app-example" },
         ),
       },
     },
