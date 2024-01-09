@@ -1,0 +1,16 @@
+{
+  "name": "@serwist-tests/build",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest"
+  },
+  "devDependencies": {
+    "@serwist-tests/config": "workspace:*",
+    "@serwist/build": "workspace:*",
+    "@serwist/precaching": "workspace:*",
+    "@serwist/sw": "workspace:*",
+    "@types/jest": "29.5.11"
+  }
+}

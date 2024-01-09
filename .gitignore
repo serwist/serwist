@@ -14,7 +14,9 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # env files
-.env*
+.env
+.env.*
+!.env.example
 
 # turbo
 .turbo
@@ -22,6 +24,8 @@ yarn-error.log*
 # production
 dist/
 build/
+!__tests__/build/
+!packages/build/
 .svelte-kit/
 .next/
 .nuxt/
@@ -35,11 +39,6 @@ output/
 
 # rollup
 .rollup.cache
-
-# envs
-.env
-.env.*
-!.env.example
 
 # vite
 vite.config.js.timestamp-*

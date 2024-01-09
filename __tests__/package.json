@@ -1,5 +1,5 @@
 {
-  "name": "@serwist-internals/tests",
+  "name": "@serwist-tests/base",
   "version": "1.0.0",
   "type": "module",
   "description": "Serwist's tests",
@@ -10,8 +10,8 @@
   "bugs": "https://github.com/serwist/serwist/issues",
   "homepage": "https://serwist.pages.dev",
   "devDependencies": {
-    "@serwist/build": "workspace:*",
-    "@serwist/precaching": "workspace:*",
-    "@serwist/sw": "workspace:*"
+    "@swc/jest": "0.2.29",
+    "@types/jest": "29.5.11",
+    "jest": "29.7.0"
   }
 }

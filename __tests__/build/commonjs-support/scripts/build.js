@@ -4,9 +4,9 @@ const { injectManifest } = require("@serwist/build");
 
 (async () => {
   const { count, size, warnings } = await injectManifest({
-    swSrc: path.join(__dirname, "service-worker/index.js"),
-    swDest: path.join(__dirname, "dist/service-worker.js"),
-    globDirectory: path.join(__dirname, "public"),
+    swSrc: path.join(__dirname, "../service-worker/index.js"),
+    swDest: path.join(__dirname, "../dist/service-worker.js"),
+    globDirectory: path.join(__dirname, "../public"),
     globPatterns: ["**/*.{js,css,html,png}"],
   });
 

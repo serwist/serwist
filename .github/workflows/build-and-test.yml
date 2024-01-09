@@ -9,12 +9,5 @@ jobs:
     name: 🔎 Typecheck #, check formatting, and lint
     uses: ./.github/workflows/build-reusable.yml
     with:
-      afterBuild: pnpm typecheck
-    secrets: inherit
-  test-serwist-build:
-    name: ⚫️ Run Jest (development mode) integration tests
-    uses: ./.github/workflows/build-reusable.yml
-    with:
-      afterBuild: |
-        pnpm test -- -- __tests__/build --ci --runInBand
+      afterBuild: pnpm typecheck && pnpm test
     secrets: inherit

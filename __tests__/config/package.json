@@ -1,0 +1,8 @@
+{
+  "name": "@serwist-tests/config",
+  "private": true,
+  "version": "1.0.0",
+  "exports": {
+    "./jest": "./src/jest.ts"
+  }
+}

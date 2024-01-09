@@ -6,7 +6,7 @@ describe("@serwist/build - CommonJS basic test", () => {
     let exitCode: number | null = null;
 
     await new Promise<void>((resolve) => {
-      const build = spawn("node", ["build.js"], { cwd: __dirname });
+      const build = spawn("node", ["scripts/build.js"], { cwd: __dirname });
 
       build.stdout.on("data", (data: Buffer) => {
         const msg = data.toString();
