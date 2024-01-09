@@ -44,7 +44,8 @@ export default defineNuxtModule<RequiredFields<ModuleOptions, "swUrl" | "swSrc" 
   async setup(options, nuxt) {
     const resolver = createResolver(import.meta.url);
 
-    let ctx: SerwistViteContext | undefined, api: SerwistViteApi | undefined;
+    let ctx: SerwistViteContext | undefined;
+    let api: SerwistViteApi | undefined;
 
     const { manifest: manifestPath, client: _client, ...userOptions } = options;
 
@@ -130,9 +131,9 @@ export default defineNuxtModule<RequiredFields<ModuleOptions, "swUrl" | "swSrc" 
 
 declare module "@nuxt/schema" {
   interface NuxtConfig {
-    ["serwist"]?: ModuleOptions;
+    serwist?: ModuleOptions;
   }
   interface NuxtOptions {
-    ["serwist"]?: ModuleOptions;
+    serwist?: ModuleOptions;
   }
 }

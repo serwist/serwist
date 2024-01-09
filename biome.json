@@ -6,6 +6,9 @@
     "defaultBranch": "main",
     "useIgnoreFile": true
   },
+  "files": {
+    "ignoreUnknown": true
+  },
   "organizeImports": {
     "enabled": true
   },
@@ -20,6 +23,9 @@
       "suspicious": {
         "noExplicitAny": "off",
         "noAssignInExpressions": "off"
+      },
+      "complexity": {
+        "noForEach": "off"
       }
     }
   },

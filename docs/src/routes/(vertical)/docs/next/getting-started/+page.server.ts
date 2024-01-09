@@ -16,19 +16,19 @@ export const load: PageServerLoad = async () => {
         highlighter,
         {
           npm: {
-            code: `npm i @serwist/next`,
+            code: "npm i @serwist/next",
             lang: "bash",
           },
           yarn: {
-            code: `yarn add @serwist/next`,
+            code: "yarn add @serwist/next",
             lang: "bash",
           },
           pnpm: {
-            code: `pnpm add @serwist/next`,
+            code: "pnpm add @serwist/next",
             lang: "bash",
           },
           bun: {
-            code: `bun add @serwist/next`,
+            code: "bun add @serwist/next",
             lang: "bash",
           },
         },
@@ -147,19 +147,19 @@ installSerwist({
           highlighter,
           {
             npm: {
-              code: `npm i @serwist/precaching @serwist/sw`,
+              code: "npm i @serwist/precaching @serwist/sw",
               lang: "bash",
             },
             yarn: {
-              code: `yarn add @serwist/precaching @serwist/sw`,
+              code: "yarn add @serwist/precaching @serwist/sw",
               lang: "bash",
             },
             pnpm: {
-              code: `pnpm add @serwist/precaching @serwist/sw`,
+              code: "pnpm add @serwist/precaching @serwist/sw",
               lang: "bash",
             },
             bun: {
-              code: `bun add @serwist/precaching @serwist/sw`,
+              code: "bun add @serwist/precaching @serwist/sw",
               lang: "bash",
             },
           },

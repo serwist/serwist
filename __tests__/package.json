@@ -4,9 +4,6 @@
   "type": "module",
   "description": "Serwist's tests",
   "private": true,
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "author": "Serwist's Team",
   "license": "MIT",
   "repository": "serwist/serwist",

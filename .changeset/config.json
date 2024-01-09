@@ -7,5 +7,5 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["@serwist-example/*", "@serwist-internals/*", "docs"]
+  "ignore": ["@serwist-example/*", "docs"]
 }

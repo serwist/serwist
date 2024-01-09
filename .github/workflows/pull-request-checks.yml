@@ -37,6 +37,7 @@ jobs:
     uses: ./.github/workflows/build-and-test.yml
     secrets: inherit
   quality:
+    name: 🔎 Ensure that the code meets our quality standard
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
