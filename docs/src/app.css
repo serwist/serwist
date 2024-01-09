@@ -19,7 +19,7 @@
   h5,
   h6,
   blockquote {
-    @apply text-balance;
+    @apply text-balance break-words;
   }
   h1 {
     @apply text-4xl font-semibold leading-10 tracking-tight;
