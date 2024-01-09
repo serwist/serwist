@@ -18,8 +18,6 @@ export const load: PageServerLoad = async () => {
             code: `import { getManifest } from "@serwist/build";
 // Build something...
 const { manifestEntries, count, size, warnings } = await getManifest({
-    swSrc: "app/sw.js",
-    swDest: ".tmp/sw.js",
     globDirectory: "dist/static",
 });
 if (warnings.length > 0) {
@@ -28,7 +26,7 @@ if (warnings.length > 0) {
 console.log(\`[@serwist/build] Manifest generated: \${count} files, totaling \${size} bytes.\`);
 // Implement it yourself!
 void bundleServiceWorker({
-    swSrc: ".tmp/sw.js",
+    swSrc: "app/sw.js",
     swDest: "dist/service-worker.js",
     define: {
         "self.__SW_MANIFEST": JSON.stringify(manifestEntries),
