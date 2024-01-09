@@ -1,5 +1,13 @@
 # @serwist/vite
 
+## 8.4.1
+
+### Patch Changes
+
+- Updated dependencies [[`d45c7a3`](https://github.com/serwist/serwist/commit/d45c7a3e62cd98eab3110038f3f90240bd5e6831)]:
+  - @serwist/build@8.4.1
+  - @serwist/window@8.4.1
+
 ## 8.4.0
 
 ### Minor Changes
@@ -98,7 +106,7 @@
       const serwist = await getSerwist();
       if (serwist) {
         serwist.addEventListener("installed", () =>
-          console.log("Serwist installed!"),
+          console.log("Serwist installed!")
         );
         await serwist.register();
       }
@@ -154,7 +162,7 @@
         const serwist = await getSerwist();
         if (serwist) {
           serwist.addEventListener("installed", () =>
-            console.log("Serwist installed!"),
+            console.log("Serwist installed!")
           );
           await serwist.register();
         }

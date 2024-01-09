@@ -1,5 +1,13 @@
 # @serwist/streams
 
+## 8.4.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/core@8.4.1
+  - @serwist/routing@8.4.1
+
 ## 8.4.0
 
 ### Patch Changes
