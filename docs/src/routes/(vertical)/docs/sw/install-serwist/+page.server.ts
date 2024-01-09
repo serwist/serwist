@@ -55,7 +55,7 @@ installSerwist({
             lang: "javascript",
           },
         },
-        { idPrefix: "basic-usage" }
+        { idPrefix: "basic-usage" },
       ),
     },
   };

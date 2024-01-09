@@ -7,7 +7,7 @@
 */
 
 import type { HandlerCallbackOptions, RouteHandlerObject, SerwistPlugin } from "@serwist/core";
-import { getFriendlyURL, logger, privateCacheNames, SerwistError } from "@serwist/core/internal";
+import { SerwistError, getFriendlyURL, logger, privateCacheNames } from "@serwist/core/internal";
 
 import { StrategyHandler } from "./StrategyHandler.js";
 
@@ -146,11 +146,12 @@ abstract class Strategy implements RouteHandlerObject {
 
       if (!response) {
         throw error;
-      } else if (process.env.NODE_ENV !== "production") {
+      }
+      if (process.env.NODE_ENV !== "production") {
         throw logger.log(
-          `While responding to '${getFriendlyURL(request.url)}', ` +
-            `an ${error instanceof Error ? error.toString() : ""} error occurred. Using a fallback response provided by ` +
-            `a handlerDidError plugin.`
+          `While responding to '${getFriendlyURL(request.url)}', an ${
+            error instanceof Error ? error.toString() : ""
+          } error occurred. Using a fallback response provided by a handlerDidError plugin.`,
         );
       }
     }
@@ -163,8 +164,8 @@ abstract class Strategy implements RouteHandlerObject {
   }
 
   async _awaitComplete(responseDone: Promise<Response>, handler: StrategyHandler, request: Request, event: ExtendableEvent): Promise<void> {
-    let response;
-    let error;
+    let response: Response | undefined = undefined;
+    let error: Error | undefined = undefined;
 
     try {
       response = await responseDone;
@@ -191,7 +192,7 @@ abstract class Strategy implements RouteHandlerObject {
       event,
       request,
       response,
-      error: error as Error,
+      error,
     });
     handler.destroy();
 

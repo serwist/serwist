@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert, Deferred, logger, SerwistError } from "@serwist/core/internal";
+import { assert, Deferred, SerwistError, logger } from "@serwist/core/internal";
 
 import type { StreamSource } from "./_types.js";
 
@@ -72,9 +72,8 @@ function concatenate(sourcePromises: Promise<StreamSource>[]): {
         .then((reader) => {
           if (reader instanceof ReadableStreamDefaultReader) {
             return reader.read();
-          } else {
-            return;
           }
+          return;
         })
         .then((result) => {
           if (result?.done) {
@@ -105,9 +104,8 @@ function concatenate(sourcePromises: Promise<StreamSource>[]): {
 
             // The `pull` method is defined because we're inside it.
             return this.pull!(controller);
-          } else {
-            controller.enqueue(result?.value);
           }
+          controller.enqueue(result?.value);
         })
         .catch((error) => {
           if (process.env.NODE_ENV !== "production") {

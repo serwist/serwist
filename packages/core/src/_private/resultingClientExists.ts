@@ -30,7 +30,7 @@ export async function resultingClientExists(resultingClientId?: string): Promise
   let existingWindows = await self.clients.matchAll({ type: "window" });
   const existingWindowIds = new Set(existingWindows.map((w) => w.id));
 
-  let resultingWindow;
+  let resultingWindow: Client | undefined = undefined;
   const startTime = performance.now();
 
   // Only wait up to `MAX_RETRY_TIME` to find a matching client.
@@ -41,10 +41,9 @@ export async function resultingClientExists(resultingClientId?: string): Promise
       if (resultingClientId) {
         // If we have a `resultingClientId`, we can match on that.
         return w.id === resultingClientId;
-      } else {
-        // Otherwise match on finding a window not in `existingWindowIds`.
-        return !existingWindowIds.has(w.id);
       }
+      // Otherwise match on finding a window not in `existingWindowIds`.
+      return !existingWindowIds.has(w.id);
     });
 
     if (resultingWindow) {

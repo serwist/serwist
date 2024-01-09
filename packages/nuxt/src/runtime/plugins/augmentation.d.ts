@@ -17,5 +17,3 @@ declare module "@vue/runtime-core" {
     $serwist: Serwist | undefined;
   }
 }
-
-export {};

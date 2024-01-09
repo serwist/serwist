@@ -31,7 +31,7 @@ const logGroup = (groupTitle: string, deletedURLs: string[]) => {
 export function printCleanupDetails(deletedURLs: string[]): void {
   const deletionCount = deletedURLs.length;
   if (deletionCount > 0) {
-    logger.groupCollapsed(`During precaching cleanup, ` + `${deletionCount} cached ` + `request${deletionCount === 1 ? " was" : "s were"} deleted.`);
+    logger.groupCollapsed(`During precaching cleanup, ${deletionCount} cached request${deletionCount === 1 ? " was" : "s were"} deleted.`);
     logGroup("Deleted Cache Requests", deletedURLs);
     logger.groupEnd();
   }

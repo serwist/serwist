@@ -32,16 +32,15 @@ function checkConditions(
   conditions: Array<
     //eslint-disable-next-line @typescript-eslint/ban-types
     string | RegExp | ((arg0: any) => boolean)
-  > = []
+  > = [],
 ): boolean {
   for (const condition of conditions) {
     if (typeof condition === "function") {
       return condition({ asset, compilation });
       //return compilation !== null;
-    } else {
-      if (webpack.ModuleFilenameHelpers.matchPart(asset.name, condition)) {
-        return true;
-      }
+    }
+    if (webpack.ModuleFilenameHelpers.matchPart(asset.name, condition)) {
+      return true;
     }
   }
 
@@ -61,18 +60,17 @@ function checkConditions(
  * @private
  */
 function getNamesOfAssetsInChunkOrGroup(compilation: Compilation, chunkOrGroup: string): Array<string> | null {
-  const chunkGroup = compilation.namedChunkGroups && compilation.namedChunkGroups.get(chunkOrGroup);
+  const chunkGroup = compilation.namedChunkGroups?.get(chunkOrGroup);
   if (chunkGroup) {
     const assetNames = [];
     for (const chunk of chunkGroup.chunks) {
       assetNames.push(...getNamesOfAssetsInChunk(chunk));
     }
     return assetNames;
-  } else {
-    const chunk = compilation.namedChunks && compilation.namedChunks.get(chunkOrGroup);
-    if (chunk) {
-      return getNamesOfAssetsInChunk(chunk);
-    }
+  }
+  const chunk = compilation.namedChunks?.get(chunkOrGroup);
+  if (chunk) {
+    return getNamesOfAssetsInChunk(chunk);
   }
 
   // If we get here, there's no chunkGroup or chunk with that name.
@@ -126,7 +124,7 @@ function filterAssets(compilation: Compilation, config: WebpackInjectManifestOpt
         }
       } else {
         compilation.warnings.push(
-          new Error(`The chunk '${name}' was ` + `provided in your Serwist chunks config, but was not found in the ` + `compilation.`) as WebpackError
+          new Error(`The chunk '${name}' was provided in your Serwist chunks config, but was not found in the compilation.`) as WebpackError,
         );
       }
     }
@@ -183,7 +181,7 @@ function filterAssets(compilation: Compilation, config: WebpackInjectManifestOpt
 
 export async function getManifestEntriesFromCompilation(
   compilation: Compilation,
-  config: WebpackInjectManifestOptions
+  config: WebpackInjectManifestOptions,
 ): Promise<{ size: number; sortedEntries: ManifestEntry[] | undefined }> {
   const filteredAssets = filterAssets(compilation, config);
 

@@ -6,10 +6,10 @@
   https://opensource.org/licenses/MIT.
 */
 
+import { SerwistError } from "./_private/SerwistError.js";
 import { assert } from "./_private/assert.js";
 import type { PartialCacheNameDetails } from "./_private/cacheNames.js";
 import { cacheNames } from "./_private/cacheNames.js";
-import { SerwistError } from "./_private/SerwistError.js";
 
 /**
  * Modifies the default cache names used by the Serwist packages.
@@ -19,32 +19,32 @@ import { SerwistError } from "./_private/SerwistError.js";
  */
 function setCacheNameDetails(details: PartialCacheNameDetails): void {
   if (process.env.NODE_ENV !== "production") {
-    Object.keys(details).forEach((key) => {
+    for (const key of Object.keys(details)) {
       assert!.isType(details[key], "string", {
         moduleName: "@serwist/core",
         funcName: "setCacheNameDetails",
         paramName: `details.${key}`,
       });
-    });
+    }
 
-    if (details["precache"]?.length === 0) {
+    if (details.precache?.length === 0) {
       throw new SerwistError("invalid-cache-name", {
         cacheNameId: "precache",
-        value: details["precache"],
+        value: details.precache,
       });
     }
 
-    if (details["runtime"]?.length === 0) {
+    if (details.runtime?.length === 0) {
       throw new SerwistError("invalid-cache-name", {
         cacheNameId: "runtime",
-        value: details["runtime"],
+        value: details.runtime,
       });
     }
 
-    if (details["googleAnalytics"]?.length === 0) {
+    if (details.googleAnalytics?.length === 0) {
       throw new SerwistError("invalid-cache-name", {
         cacheNameId: "googleAnalytics",
-        value: details["googleAnalytics"],
+        value: details.googleAnalytics,
       });
     }
   }

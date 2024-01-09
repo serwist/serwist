@@ -9,33 +9,5 @@ jobs:
     name: 🔎 Typecheck #, check formatting, and lint
     uses: ./.github/workflows/build-reusable.yml
     with:
-      afterBuild: pnpm typecheck
+      afterBuild: pnpm typecheck && pnpm test
     secrets: inherit
-  # test-integration-dev:
-  #   name: ⚫️ Run Jest (development mode) integration tests
-  #   uses: ./.github/workflows/build-reusable.yml
-  #   with:
-  #     afterBuild: |
-  #       NEXT_TEST_MODE=dev pnpm test -- -- __tests__/integration --ci --runInBand
-  #   secrets: inherit
-  # test-integration-prod:
-  #   name: ⚫️ Run Jest (production mode) integration tests
-  #   uses: ./.github/workflows/build-reusable.yml
-  #   with:
-  #     afterBuild: |
-  #       NEXT_TEST_MODE=start pnpm test -- -- __tests__/integration --ci --runInBand
-  #   secrets: inherit
-  # test-e2e-dev:
-  #   name: ⚫️ Run Jest (development mode) E2E tests
-  #   uses: ./.github/workflows/build-reusable.yml
-  #   with:
-  #     afterBuild: |
-  #       NEXT_TEST_MODE=dev pnpm test -- -- __tests__/e2e --ci --runInBand
-  #   secrets: inherit
-  # test-e2e-prod:
-  #   name: ⚫️ Run Jest (production mode) E2E tests
-  #   uses: ./.github/workflows/build-reusable.yml
-  #   with:
-  #     afterBuild: |
-  #       NEXT_TEST_MODE=start pnpm test -- -- __tests__/e2e --ci --runInBand
-  #   secrets: inherit

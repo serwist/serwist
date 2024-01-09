@@ -10,8 +10,8 @@ import type { RouteMatchCallback, RouteMatchCallbackOptions } from "@serwist/cor
 import { getFriendlyURL, logger } from "@serwist/core/internal";
 import { Route } from "@serwist/routing";
 
-import type { PrecacheRouteOptions } from "./_types.js";
 import type { PrecacheController } from "./PrecacheController.js";
+import type { PrecacheRouteOptions } from "./_types.js";
 import { generateURLVariations } from "./utils/generateURLVariations.js";
 
 /**
@@ -38,7 +38,7 @@ class PrecacheRoute extends Route {
         }
       }
       if (process.env.NODE_ENV !== "production") {
-        logger.debug(`Precaching did not find a match for ` + getFriendlyURL(request.url));
+        logger.debug(`Precaching did not find a match for ${getFriendlyURL(request.url)}`);
       }
       return;
     };

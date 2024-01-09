@@ -47,7 +47,7 @@ function strategy(sourceFunctions: StreamsHandlerCallback[], headersInit: Header
     }
 
     if (process.env.NODE_ENV !== "production") {
-      logger.log(`The current browser doesn't support creating response ` + `streams. Falling back to non-streaming response instead.`);
+      logger.log(`The current browser doesn't support creating response ` + "streams. Falling back to non-streaming response instead.");
     }
 
     // Fallback to waiting for everything to finish, and concatenating the
@@ -56,13 +56,12 @@ function strategy(sourceFunctions: StreamsHandlerCallback[], headersInit: Header
       const source = await sourcePromise;
       if (source instanceof Response) {
         return source.blob();
-      } else {
-        // Technically, a `StreamSource` object can include any valid
-        // `BodyInit` type, including `FormData` and `URLSearchParams`, which
-        // cannot be passed to the Blob constructor directly, so we have to
-        // convert them to actual Blobs first.
-        return new Response(source).blob();
       }
+      // Technically, a `StreamSource` object can include any valid
+      // `BodyInit` type, including `FormData` and `URLSearchParams`, which
+      // cannot be passed to the Blob constructor directly, so we have to
+      // convert them to actual Blobs first.
+      return new Response(source).blob();
     });
     const blobParts = await Promise.all(blobPartsPromises);
     const headers = createHeaders(headersInit);

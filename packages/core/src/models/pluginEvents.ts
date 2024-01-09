@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-export const enum pluginEvents {
+export enum pluginEvents {
   CACHE_DID_UPDATE = "cacheDidUpdate",
   CACHE_KEY_WILL_BE_USED = "cacheKeyWillBeUsed",
   CACHE_WILL_UPDATE = "cacheWillUpdate",

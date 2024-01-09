@@ -128,7 +128,7 @@ export interface ManifestTransformResult {
 
 export type ManifestTransform = (
   manifestEntries: Array<ManifestEntry & { size: number }>,
-  compilation?: unknown
+  compilation?: unknown,
 ) => Promise<ManifestTransformResult> | ManifestTransformResult;
 
 export interface BasePartial {

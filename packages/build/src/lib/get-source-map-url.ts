@@ -9,22 +9,7 @@
 // Adapted from https://github.com/lydell/source-map-url/blob/master/source-map-url.js
 // See https://github.com/GoogleChrome/workbox/issues/3019
 const innerRegex = /[#@] sourceMappingURL=([^\s'"]*)/;
-const regex = RegExp(
-  "(?:" +
-    "/\\*" +
-    "(?:\\s*\r?\n(?://)?)?" +
-    "(?:" +
-    innerRegex.source +
-    ")" +
-    "\\s*" +
-    "\\*/" +
-    "|" +
-    "//(?:" +
-    innerRegex.source +
-    ")" +
-    ")" +
-    "\\s*"
-);
+const regex = RegExp(`(?:/\\*(?:\\s*\r?\n(?://)?)?(?:${innerRegex.source})\\s*\\*/|//(?:${innerRegex.source}))\\s*`);
 
 export function getSourceMapURL(srcContents: string): string | null {
   const match = srcContents.match(regex);

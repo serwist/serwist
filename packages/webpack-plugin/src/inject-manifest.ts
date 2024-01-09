@@ -68,9 +68,9 @@ class InjectManifest {
       {
         mode: compiler.options.mode,
         // Use swSrc with a hardcoded .js extension, in case swSrc is a .ts file.
-        swDest: parsedSwSrc.name + ".js",
+        swDest: `${parsedSwSrc.name}.js`,
       },
-      this.config
+      this.config,
     );
   }
 
@@ -90,12 +90,7 @@ class InjectManifest {
 
     // See https://github.com/GoogleChrome/workbox/issues/1790
     if (this.alreadyCalled) {
-      const warningMessage =
-        `${this.constructor.name} has been called ` +
-        `multiple times, perhaps due to running webpack in --watch mode. The ` +
-        `precache manifest generated after the first call may be inaccurate! ` +
-        `Please see https://github.com/GoogleChrome/workbox/issues/1790 for ` +
-        `more information.`;
+      const warningMessage = `${this.constructor.name} has been called multiple times, perhaps due to running webpack in --watch mode. The precache manifest generated after the first call may be inaccurate! Please see https://github.com/GoogleChrome/workbox/issues/1790 for more information.`;
 
       if (!compilation.warnings.some((warning) => warning instanceof Error && warning.message === warningMessage)) {
         compilation.warnings.push(new Error(warningMessage) as webpack.WebpackError);
@@ -135,7 +130,7 @@ class InjectManifest {
     compiler.hooks.make.tapPromise(this.constructor.name, (compilation) =>
       this.handleMake(compilation, compiler).catch((error: webpack.WebpackError) => {
         compilation.errors.push(error);
-      })
+      }),
     );
 
     const { PROCESS_ASSETS_STAGE_OPTIMIZE_TRANSFER } = webpack.Compilation;
@@ -152,7 +147,7 @@ class InjectManifest {
         () =>
           this.addAssets(compilation).catch((error: webpack.WebpackError) => {
             compilation.errors.push(error);
-          })
+          }),
       );
     });
   }
@@ -234,7 +229,7 @@ class InjectManifest {
       // can't validate it easily.
       if (Array.isArray(this.config.webpackCompilationPlugins) && this.config.webpackCompilationPlugins.length > 0) {
         compilation.warnings.push(
-          new Error("compileSrc is false, so the " + "webpackCompilationPlugins option will be ignored.") as webpack.WebpackError
+          new Error("compileSrc is false, so the " + "webpackCompilationPlugins option will be ignored.") as webpack.WebpackError,
         );
       }
     }
@@ -265,9 +260,7 @@ class InjectManifest {
     }
     if (injectionResults.length !== 1) {
       throw new Error(
-        `Multiple instances of ${config.injectionPoint} were ` +
-          "found in your SW source. Include it only once. For more info, see " +
-          "https://github.com/GoogleChrome/workbox/issues/2681"
+        `Multiple instances of ${config.injectionPoint} were found in your SW source. Include it only once. For more info, see https://github.com/GoogleChrome/workbox/issues/2681`,
       );
     }
 

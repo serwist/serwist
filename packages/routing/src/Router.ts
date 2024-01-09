@@ -7,7 +7,7 @@
 */
 
 import type { RouteHandler, RouteHandlerCallbackOptions, RouteHandlerObject, RouteMatchCallbackOptions } from "@serwist/core";
-import { assert, getFriendlyURL, logger, SerwistError } from "@serwist/core/internal";
+import { assert, SerwistError, getFriendlyURL, logger } from "@serwist/core/internal";
 
 import type { Route } from "./Route.js";
 import type { HTTPMethod } from "./utils/constants.js";
@@ -103,7 +103,7 @@ class Router {
         const { payload }: CacheURLsMessageData = event.data;
 
         if (process.env.NODE_ENV !== "production") {
-          logger.debug(`Caching URLs from the window`, payload.urlsToCache);
+          logger.debug("Caching URLs from the window", payload.urlsToCache);
         }
 
         const requestPromises = Promise.all(
@@ -118,13 +118,13 @@ class Router {
             // TODO(philipwalton): TypeScript errors without this typecast for
             // some reason (probably a bug). The real type here should work but
             // doesn't: `Array<Promise<Response> | undefined>`.
-          }) as any[]
+          }) as any[],
         ); // TypeScript
 
         event.waitUntil(requestPromises);
 
         // If a MessageChannel was used, reply to the message on success.
-        if (event.ports && event.ports[0]) {
+        if (event.ports?.[0]) {
           void requestPromises.then(() => event.ports[0].postMessage(true));
         }
       }
@@ -177,12 +177,12 @@ class Router {
       sameOrigin,
       url,
     });
-    let handler = route && route.handler;
+    let handler = route?.handler;
 
     const debugMessages = [];
     if (process.env.NODE_ENV !== "production") {
       if (handler) {
-        debugMessages.push([`Found a route to handle this request:`, route]);
+        debugMessages.push(["Found a route to handle this request:", route]);
 
         if (params) {
           debugMessages.push([`Passing the following params to the route's handler:`, params]);
@@ -195,7 +195,7 @@ class Router {
     const method = request.method as HTTPMethod;
     if (!handler && this._defaultHandlerMap.has(method)) {
       if (process.env.NODE_ENV !== "production") {
-        debugMessages.push(`Failed to find a matching route. Falling ` + `back to the default handler for ${method}.`);
+        debugMessages.push(`Failed to find a matching route. Falling back to the default handler for ${method}.`);
       }
       handler = this._defaultHandlerMap.get(method);
     }
@@ -214,20 +214,20 @@ class Router {
       // print the routing details to the console.
       logger.groupCollapsed(`Router is responding to: ${getFriendlyURL(url)}`);
 
-      debugMessages.forEach((msg) => {
+      for (const msg of debugMessages) {
         if (Array.isArray(msg)) {
           logger.log(...msg);
         } else {
           logger.log(msg);
         }
-      });
+      }
 
       logger.groupEnd();
     }
 
     // Wrap in try and catch in case the handle method throws a synchronous
     // error. It should still callback to the catch handler.
-    let responsePromise;
+    let responsePromise: Promise<Response>;
     try {
       responsePromise = handler.handle({ url, request, event, params });
     } catch (err) {
@@ -235,7 +235,7 @@ class Router {
     }
 
     // Get route's catch handler, if it exists
-    const catchHandler = route && route.catchHandler;
+    const catchHandler = route?.catchHandler;
 
     if (responsePromise instanceof Promise && (this._catchHandler || catchHandler)) {
       responsePromise = responsePromise.catch(async (err) => {
@@ -244,8 +244,8 @@ class Router {
           if (process.env.NODE_ENV !== "production") {
             // Still include URL here as it will be async from the console group
             // and may not make sense without the URL
-            logger.groupCollapsed(`Error thrown when responding to: ` + ` ${getFriendlyURL(url)}. Falling back to route's Catch Handler.`);
-            logger.error(`Error thrown by:`, route);
+            logger.groupCollapsed(`Error thrown when responding to:  ${getFriendlyURL(url)}. Falling back to route's Catch Handler.`);
+            logger.error("Error thrown by:", route);
             logger.error(err);
             logger.groupEnd();
           }
@@ -263,8 +263,8 @@ class Router {
           if (process.env.NODE_ENV !== "production") {
             // Still include URL here as it will be async from the console group
             // and may not make sense without the URL
-            logger.groupCollapsed(`Error thrown when responding to: ` + ` ${getFriendlyURL(url)}. Falling back to global Catch Handler.`);
-            logger.error(`Error thrown by:`, route);
+            logger.groupCollapsed(`Error thrown when responding to:  ${getFriendlyURL(url)}. Falling back to global Catch Handler.`);
+            logger.error("Error thrown by:", route);
             logger.error(err);
             logger.groupEnd();
           }
@@ -303,10 +303,10 @@ class Router {
           // not the right thing to do.
           if (matchResult instanceof Promise) {
             logger.warn(
-              `While routing ${getFriendlyURL(url)}, an async ` +
-                `matchCallback function was used. Please convert the ` +
-                `following route to use a synchronous matchCallback function:`,
-              route
+              `While routing ${getFriendlyURL(
+                url,
+              )}, an async matchCallback function was used. Please convert the following route to use a synchronous matchCallback function:`,
+              route,
             );
           }
         }

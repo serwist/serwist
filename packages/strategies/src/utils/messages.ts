@@ -12,7 +12,7 @@ export const messages = {
   strategyStart: (strategyName: string, request: Request): string => `Using ${strategyName} to respond to '${getFriendlyURL(request.url)}'`,
   printFinalResponse: (response?: Response): void => {
     if (response) {
-      logger.groupCollapsed(`View the final response here.`);
+      logger.groupCollapsed("View the final response here.");
       logger.log(response || "[No response returned]");
       logger.groupEnd();
     }

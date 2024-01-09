@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
-import { normalizePath, type Plugin } from "vite";
+import { type Plugin, normalizePath } from "vite";
 
 import type { SerwistViteContext } from "../context.js";
 import type { SerwistViteApi } from "../types.js";

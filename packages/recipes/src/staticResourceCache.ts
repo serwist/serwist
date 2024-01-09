@@ -51,7 +51,7 @@ function staticResourceCache(options: StaticResourceOptions = {}): void {
   plugins.push(
     new CacheableResponsePlugin({
       statuses: [0, 200],
-    })
+    }),
   );
 
   const strategy = new StaleWhileRevalidate({

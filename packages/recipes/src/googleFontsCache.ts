@@ -42,7 +42,7 @@ function googleFontsCache(options: GoogleFontCacheOptions = {}): void {
     ({ url }) => url.origin === "https://fonts.googleapis.com",
     new StaleWhileRevalidate({
       cacheName: sheetCacheName,
-    })
+    }),
   );
 
   // Cache the underlying font files with a cache-first strategy for 1 year.
@@ -59,7 +59,7 @@ function googleFontsCache(options: GoogleFontCacheOptions = {}): void {
           maxEntries,
         }),
       ],
-    })
+    }),
   );
 }
 

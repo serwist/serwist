@@ -32,14 +32,14 @@ function enable(headerValue?: string): void {
           }
 
           if (process.env.NODE_ENV !== "production") {
-            logger.log(`Navigation preload is enabled.`);
+            logger.log("Navigation preload is enabled.");
           }
-        })
+        }),
       );
     });
   } else {
     if (process.env.NODE_ENV !== "production") {
-      logger.log(`Navigation preload is not supported in this browser.`);
+      logger.log("Navigation preload is not supported in this browser.");
     }
   }
 }

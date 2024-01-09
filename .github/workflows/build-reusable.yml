@@ -24,7 +24,7 @@ env:
   TURBO_REMOTE_ONLY: true
 jobs:
   build:
-    name: ⬣, 🔎, 🔨 Typecheck, lint, and build on Node ${{ matrix.node-version }} and ${{ matrix.os }}
+    name: ⬣ Build on Node ${{ matrix.node-version }} and ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:

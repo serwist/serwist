@@ -1,7 +1,9 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
+.DS_Store
 node_modules/
+package/
 .pnp/
 .pnp.js
 
@@ -12,16 +14,39 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # env files
-.env*
+.env
+.env.*
+!.env.example
 
 # turbo
 .turbo
 
 # production
 dist/
+build/
+!__tests__/build/
+!packages/build/
+.svelte-kit/
+.next/
+.nuxt/
+out/
+.vercel/
+.output/
+output/
 
 # vscode
 .vscode
 
 # rollup
 .rollup.cache
+
+# vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# serwist
+**/public/serwist**
+**/public/sw**
+**/public/worker**
+**/public/fallback**
+**/public/precache**

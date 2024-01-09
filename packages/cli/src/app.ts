@@ -6,8 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { injectManifest, type InjectManifestOptions } from "@serwist/build";
 import assert from "assert";
+import { type InjectManifestOptions, injectManifest } from "@serwist/build";
 import type { WatchOptions } from "chokidar";
 import { default as chokidar } from "chokidar";
 // import { oneLine as ol } from "common-tags";
@@ -45,14 +45,14 @@ async function runBuildCommand({ config, watch }: BuildCommand) {
     const message = filePaths
       .sort()
       .map((filePath) => `  • ${filePath}`)
-      .join(`\n`);
+      .join("\n");
     logger.log(`The service worker files were written to:\n${message}`);
   }
 
   logger.log(`The service worker will precache ${count} URLs, ` + `totaling ${prettyBytes(size)}.`);
 
   if (watch) {
-    logger.log(`\nWatching for changes...`);
+    logger.log("\nWatching for changes...");
   }
 }
 
@@ -143,12 +143,13 @@ export const app = async (params: MeowResult<SupportedFlags>): Promise<void> => 
       break;
     }
 
+    // biome-ignore lint/suspicious/noFallthroughSwitchClause: Biome.js doesn't handle functions that return `never`... yet.
     case "help": {
       params.showHelp();
     }
 
     default: {
-      throw new Error(errors["unknown-command"] + ` ` + command);
+      throw new Error(`${errors["unknown-command"]} ${command}`);
     }
   }
 };

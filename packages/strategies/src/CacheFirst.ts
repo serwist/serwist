@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert, logger, SerwistError } from "@serwist/core/internal";
+import { assert, SerwistError, logger } from "@serwist/core/internal";
 
 import { Strategy } from "./Strategy.js";
 import type { StrategyHandler } from "./StrategyHandler.js";
@@ -47,7 +47,7 @@ class CacheFirst extends Strategy {
     let error: Error | undefined = undefined;
     if (!response) {
       if (process.env.NODE_ENV !== "production") {
-        logs.push(`No response found in the '${this.cacheName}' cache. ` + `Will respond with a network request.`);
+        logs.push(`No response found in the '${this.cacheName}' cache. Will respond with a network request.`);
       }
       try {
         response = await handler.fetchAndCachePut(request);
@@ -59,9 +59,9 @@ class CacheFirst extends Strategy {
 
       if (process.env.NODE_ENV !== "production") {
         if (response) {
-          logs.push(`Got response from network.`);
+          logs.push("Got response from network.");
         } else {
-          logs.push(`Unable to get a response from the network.`);
+          logs.push("Unable to get a response from the network.");
         }
       }
     } else {

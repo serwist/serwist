@@ -59,14 +59,14 @@ export const configureStaticAssets = async (resolvedPluginOptions: ResolvedPlugi
     if (manifestEntries.length > 0) {
       const included = manifestEntries.map((me) => {
         if (typeof me === "string") return me;
-        else return me.url;
+        return me.url;
       });
       assets = assets.filter((a) => !included.includes(a));
     }
     const assetsEntries = await Promise.all(
       assets.map((a) => {
         return buildManifestEntry(publicDir, a);
-      })
+      }),
     );
     manifestEntries.push(...assetsEntries);
   }

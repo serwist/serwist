@@ -36,3 +36,17 @@ jobs:
     name: ⬣, 🔎, 🔨 Test PR
     uses: ./.github/workflows/build-and-test.yml
     secrets: inherit
+  quality:
+    name: 🔎 Ensure that the code meets our quality standard
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Biome
+        uses: biomejs/setup-biome@v1
+        with:
+          version: latest
+      - name: Run Biome
+        run: biome ci .

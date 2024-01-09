@@ -6,12 +6,12 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert, logger, SerwistError } from "@serwist/core/internal";
+import { assert, SerwistError, logger } from "@serwist/core/internal";
 
-import { cacheOkAndOpaquePlugin } from "./plugins/cacheOkAndOpaquePlugin.js";
 import type { StrategyOptions } from "./Strategy.js";
 import { Strategy } from "./Strategy.js";
 import type { StrategyHandler } from "./StrategyHandler.js";
+import { cacheOkAndOpaquePlugin } from "./plugins/cacheOkAndOpaquePlugin.js";
 import { messages } from "./utils/messages.js";
 
 export interface NetworkFirstOptions extends StrategyOptions {
@@ -116,7 +116,7 @@ class NetworkFirst extends Strategy {
           // have to check to see if it's still "in flight".
           (await networkPromise)
         );
-      })()
+      })(),
     );
 
     if (process.env.NODE_ENV !== "production") {
@@ -151,11 +151,12 @@ class NetworkFirst extends Strategy {
     logs: any[];
     handler: StrategyHandler;
   }): { promise: Promise<Response | undefined>; id?: number } {
+    // biome-ignore lint/suspicious/noImplicitAnyLet: setTimeout is typed with Node.js's typings, so we can't use number | undefined here.
     let timeoutId;
     const timeoutPromise: Promise<Response | undefined> = new Promise((resolve) => {
       const onNetworkTimeout = async () => {
         if (process.env.NODE_ENV !== "production") {
-          logs.push(`Timing out the network response at ` + `${this._networkTimeoutSeconds} seconds.`);
+          logs.push(`Timing out the network response at ${this._networkTimeoutSeconds} seconds.`);
         }
         resolve(await handler.cacheMatch(request));
       };
@@ -189,8 +190,8 @@ class NetworkFirst extends Strategy {
     timeoutId?: number;
     handler: StrategyHandler;
   }): Promise<Response | undefined> {
-    let error;
-    let response;
+    let error: Error | undefined = undefined;
+    let response: Response | undefined = undefined;
     try {
       response = await handler.fetchAndCachePut(request);
     } catch (fetchError) {
@@ -205,9 +206,9 @@ class NetworkFirst extends Strategy {
 
     if (process.env.NODE_ENV !== "production") {
       if (response) {
-        logs.push(`Got response from network.`);
+        logs.push("Got response from network.");
       } else {
-        logs.push(`Unable to get a response from the network. Will respond ` + `with a cached response.`);
+        logs.push("Unable to get a response from the network. Will respond " + "with a cached response.");
       }
     }
 
@@ -216,7 +217,7 @@ class NetworkFirst extends Strategy {
 
       if (process.env.NODE_ENV !== "production") {
         if (response) {
-          logs.push(`Found a cached response in the '${this.cacheName}'` + ` cache.`);
+          logs.push(`Found a cached response in the '${this.cacheName}' cache.`);
         } else {
           logs.push(`No response found in the '${this.cacheName}' cache.`);
         }

@@ -19,8 +19,7 @@
  * @param data An object to send to the service worker.
  * @returns
  */
-// Better not change type of data.
-// eslint-disable-next-line @typescript-eslint/ban-types
+// biome-ignore lint/complexity/noBannedTypes: Better not change type of data.
 function messageSW(sw: ServiceWorker, data: {}): Promise<any> {
   return new Promise((resolve) => {
     const messageChannel = new MessageChannel();

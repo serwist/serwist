@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert, logger, SerwistError } from "@serwist/core/internal";
+import { assert, SerwistError, logger } from "@serwist/core/internal";
 
 import { calculateEffectiveBoundaries } from "./utils/calculateEffectiveBoundaries.js";
 import { parseRangeHeader } from "./utils/parseRangeHeader.js";
@@ -76,8 +76,8 @@ async function createPartialResponse(request: Request, originalResponse: Respons
     return slicedResponse;
   } catch (error) {
     if (process.env.NODE_ENV !== "production") {
-      logger.warn(`Unable to construct a partial response; returning a ` + `416 Range Not Satisfiable response instead.`);
-      logger.groupCollapsed(`View details here.`);
+      logger.warn("Unable to construct a partial response; returning a " + "416 Range Not Satisfiable response instead.");
+      logger.groupCollapsed("View details here.");
       logger.log(error);
       logger.log(request);
       logger.log(originalResponse);

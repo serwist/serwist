@@ -16,23 +16,23 @@ export const load: PageServerLoad = async () => {
         highlighter,
         {
           npm: {
-            code: `npm i @serwist/next`,
+            code: "npm i @serwist/next",
             lang: "bash",
           },
           yarn: {
-            code: `yarn add @serwist/next`,
+            code: "yarn add @serwist/next",
             lang: "bash",
           },
           pnpm: {
-            code: `pnpm add @serwist/next`,
+            code: "pnpm add @serwist/next",
             lang: "bash",
           },
           bun: {
-            code: `bun add @serwist/next`,
+            code: "bun add @serwist/next",
             lang: "bash",
           },
         },
-        { idPrefix: "install-serwist-next-instruction" }
+        { idPrefix: "install-serwist-next-instruction" },
       ),
       basicUsage: {
         wrapConfig: highlightCode(
@@ -103,7 +103,7 @@ module.exports = (phase) => {
               lang: "javascript",
             },
           },
-          { idPrefix: "basic-usage-wrap-config-instruction" }
+          { idPrefix: "basic-usage-wrap-config-instruction" },
         ),
         createEntry: highlightCode(
           highlighter,
@@ -141,29 +141,29 @@ installSerwist({
               lang: "javascript",
             },
           },
-          { idPrefix: "basic-usage-create-entry-instruction" }
+          { idPrefix: "basic-usage-create-entry-instruction" },
         ),
         createEntryAdditionalPackages: highlightCode(
           highlighter,
           {
             npm: {
-              code: `npm i @serwist/precaching @serwist/sw`,
+              code: "npm i @serwist/precaching @serwist/sw",
               lang: "bash",
             },
             yarn: {
-              code: `yarn add @serwist/precaching @serwist/sw`,
+              code: "yarn add @serwist/precaching @serwist/sw",
               lang: "bash",
             },
             pnpm: {
-              code: `pnpm add @serwist/precaching @serwist/sw`,
+              code: "pnpm add @serwist/precaching @serwist/sw",
               lang: "bash",
             },
             bun: {
-              code: `bun add @serwist/precaching @serwist/sw`,
+              code: "bun add @serwist/precaching @serwist/sw",
               lang: "bash",
             },
           },
-          { idPrefix: "basic-usage-create-usage-additional-packages-instruction" }
+          { idPrefix: "basic-usage-create-usage-additional-packages-instruction" },
         ),
         manifestJson: highlightCode(
           highlighter,
@@ -199,7 +199,7 @@ installSerwist({
               lang: "json",
             },
           },
-          { idPrefix: "basic-usage-manifest-json-instruction" }
+          { idPrefix: "basic-usage-manifest-json-instruction" },
         )[0],
         metaAndLinkTags: highlightCode(
           highlighter,
@@ -473,7 +473,7 @@ export default function App({ Component, pageProps }) {
               lang: "jsx",
             },
           },
-          { idPrefix: "basic-usage-meta-and-link-tags-instruction" }
+          { idPrefix: "basic-usage-meta-and-link-tags-instruction" },
         ),
       },
     },

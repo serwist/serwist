@@ -7,7 +7,7 @@
 */
 
 import type { RouteHandler, RouteMatchCallback } from "@serwist/core";
-import { logger, SerwistError } from "@serwist/core/internal";
+import { SerwistError, logger } from "@serwist/core/internal";
 
 import { RegExpRoute } from "./RegExpRoute.js";
 import { Route } from "./Route.js";
@@ -25,7 +25,7 @@ import { getOrCreateDefaultRouter } from "./utils/getOrCreateDefaultRouter.js";
  * @returns The generated `Route`.
  */
 function registerRoute(capture: RegExp | string | RouteMatchCallback | Route, handler?: RouteHandler, method?: HTTPMethod): Route {
-  let route;
+  let route: Route;
 
   if (typeof capture === "string") {
     const captureUrl = new URL(capture, location.href);
@@ -47,9 +47,7 @@ function registerRoute(capture: RegExp | string | RouteMatchCallback | Route, ha
       const wildcards = "[*:?+]";
       if (new RegExp(`${wildcards}`).exec(valueToCheck)) {
         logger.debug(
-          `The '$capture' parameter contains an Express-style wildcard ` +
-            `character (${wildcards}). Strings are now always interpreted as ` +
-            `exact matches; use a RegExp for partial or wildcard matches.`
+          `The '$capture' parameter contains an Express-style wildcard character (${wildcards}). Strings are now always interpreted as exact matches; use a RegExp for partial or wildcard matches.`,
         );
       }
     }
@@ -58,9 +56,7 @@ function registerRoute(capture: RegExp | string | RouteMatchCallback | Route, ha
       if (process.env.NODE_ENV !== "production") {
         if (url.pathname === captureUrl.pathname && url.origin !== captureUrl.origin) {
           logger.debug(
-            `${capture} only partially matches the cross-origin URL ` +
-              `${url.toString()}. This route will only handle cross-origin requests ` +
-              `if they match the entire URL.`
+            `${capture} only partially matches the cross-origin URL ${url.toString()}. This route will only handle cross-origin requests if they match the entire URL.`,
           );
         }
       }

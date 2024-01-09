@@ -16,8 +16,7 @@ import { quotaErrorCallbacks } from "./models/quotaErrorCallbacks.js";
  *
  * @param callback
  */
-// Can't change Function type
-// eslint-disable-next-line @typescript-eslint/ban-types
+// biome-ignore lint/complexity/noBannedTypes: Can't change Function type
 function registerQuotaErrorCallback(callback: Function): void {
   if (process.env.NODE_ENV !== "production") {
     assert!.isType(callback, "function", {

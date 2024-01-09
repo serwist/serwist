@@ -55,9 +55,7 @@ class RegExpRoute extends Route {
       if (url.origin !== location.origin && result.index !== 0) {
         if (process.env.NODE_ENV !== "production") {
           logger.debug(
-            `The regular expression '${regExp.toString()}' only partially matched ` +
-              `against the cross-origin URL '${url.toString()}'. RegExpRoute's will only ` +
-              `handle cross-origin requests if they match the entire URL.`
+            `The regular expression '${regExp.toString()}' only partially matched against the cross-origin URL '${url.toString()}'. RegExpRoute's will only handle cross-origin requests if they match the entire URL.`,
           );
         }
 

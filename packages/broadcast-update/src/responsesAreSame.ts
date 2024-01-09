@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { logger, SerwistError } from "@serwist/core/internal";
+import { SerwistError, logger } from "@serwist/core/internal";
 
 /**
  * Given two `Response's`, compares several header values to see if they are
@@ -30,8 +30,8 @@ const responsesAreSame = (firstResponse: Response, secondResponse: Response, hea
 
   if (!atLeastOneHeaderAvailable) {
     if (process.env.NODE_ENV !== "production") {
-      logger.warn(`Unable to determine where the response has been updated ` + `because none of the headers that would be checked are present.`);
-      logger.debug(`Attempting to compare the following: `, firstResponse, secondResponse, headersToCheck);
+      logger.warn("Unable to determine where the response has been updated " + "because none of the headers that would be checked are present.");
+      logger.debug("Attempting to compare the following: ", firstResponse, secondResponse, headersToCheck);
     }
 
     // Just return true, indicating the that responses are the same, since we

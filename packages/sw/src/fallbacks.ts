@@ -37,7 +37,7 @@ export interface FallbacksOptions {
 export const fallbacks = ({ runtimeCaching, entries, precacheOptions }: FallbacksOptions) => {
   precacheAndRoute(
     entries.map(({ url, revision }) => ({ url: typeof url === "string" ? url : url.toString(), revision })),
-    precacheOptions
+    precacheOptions,
   );
   runtimeCaching = runtimeCaching.map((cacheEntry) => {
     if (!cacheEntry.options || cacheEntry.options.precacheFallback || cacheEntry.options.plugins?.some((plugin) => "handlerDidError" in plugin)) {

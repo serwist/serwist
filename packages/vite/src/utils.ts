@@ -37,17 +37,16 @@ export const resolveEntry = (entry: string): string | null => {
     }
 
     return entry;
-  } else {
-    const dir = path.dirname(entry);
+  }
+  const dir = path.dirname(entry);
 
-    if (fs.existsSync(dir)) {
-      const base = path.basename(entry);
-      const files = fs.readdirSync(dir);
+  if (fs.existsSync(dir)) {
+    const base = path.basename(entry);
+    const files = fs.readdirSync(dir);
 
-      const found = files.find((file) => file.replace(/\.[^.]+$/, "") === base);
+    const found = files.find((file) => file.replace(/\.[^.]+$/, "") === base);
 
-      if (found) return path.join(dir, found);
-    }
+    if (found) return path.join(dir, found);
   }
 
   return null;

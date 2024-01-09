@@ -51,7 +51,7 @@ function validate<T>(input: unknown, methodName: MethodNames): [T, JSONSchemaTyp
   });
   const messages = betterErrors.map(
     (err) => ol`[${err.path}] ${err.message}.
-    ${err.suggestion ? err.suggestion : ""}`
+    ${err.suggestion ? err.suggestion : ""}`,
   );
 
   throw new SerwistConfigError(messages.join("\n\n"));
@@ -84,7 +84,7 @@ export function validateWebpackInjectManifestOptions(input: unknown): WebpackInj
       // Make a copy, as exclude can be mutated when used.
       exclude: Array.from(DEFAULT_EXCLUDE_VALUE),
     },
-    input
+    input,
   );
   const [validatedOptions] = validate<WebpackInjectManifestOptions>(inputWithExcludeDefault, "WebpackInjectManifest");
 

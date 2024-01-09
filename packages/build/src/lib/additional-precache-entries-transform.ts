@@ -10,7 +10,9 @@ import type { ManifestEntry } from "../types.js";
 import { errors } from "./errors.js";
 
 type AdditionalManifestEntriesTransform = {
-  (manifest: Array<ManifestEntry & { size: number }>): {
+  (
+    manifest: Array<ManifestEntry & { size: number }>,
+  ): {
     manifest: Array<ManifestEntry & { size: number }>;
     warnings: string[];
   };

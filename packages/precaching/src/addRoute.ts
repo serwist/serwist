@@ -7,8 +7,8 @@
 
 import { registerRoute } from "@serwist/routing";
 
-import type { PrecacheRouteOptions } from "./_types.js";
 import { PrecacheRoute } from "./PrecacheRoute.js";
+import type { PrecacheRouteOptions } from "./_types.js";
 import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheController.js";
 
 /**

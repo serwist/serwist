@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert, logger, SerwistError } from "@serwist/core/internal";
+import { assert, SerwistError, logger } from "@serwist/core/internal";
 
 import { Strategy } from "./Strategy.js";
 import type { StrategyHandler } from "./StrategyHandler.js";
@@ -42,7 +42,7 @@ class CacheOnly extends Strategy {
     if (process.env.NODE_ENV !== "production") {
       logger.groupCollapsed(messages.strategyStart(this.constructor.name, request));
       if (response) {
-        logger.log(`Found a cached response in the '${this.cacheName}' ` + `cache.`);
+        logger.log(`Found a cached response in the '${this.cacheName}' cache.`);
         messages.printFinalResponse(response);
       } else {
         logger.log(`No response found in the '${this.cacheName}' cache.`);

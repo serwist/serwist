@@ -27,15 +27,14 @@ export const normalizeHandler = (handler: RouteHandler): RouteHandlerObject => {
       });
     }
     return handler;
-  } else {
-    if (process.env.NODE_ENV !== "production") {
-      assert!.isType(handler, "function", {
-        moduleName: "@serwist/routing",
-        className: "Route",
-        funcName: "constructor",
-        paramName: "handler",
-      });
-    }
-    return { handle: handler };
   }
+  if (process.env.NODE_ENV !== "production") {
+    assert!.isType(handler, "function", {
+      moduleName: "@serwist/routing",
+      className: "Route",
+      funcName: "constructor",
+      paramName: "handler",
+    });
+  }
+  return { handle: handler };
 };

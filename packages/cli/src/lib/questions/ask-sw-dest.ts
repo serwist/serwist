@@ -24,7 +24,7 @@ function askQuestion(defaultDir: string): Promise<Answers> {
   return inquirer.prompt([
     {
       name,
-      message: `Where would you like your service worker file to be saved?`,
+      message: "Where would you like your service worker file to be saved?",
       type: "input",
       default: upath.join(defaultDir, "sw.js"),
     },

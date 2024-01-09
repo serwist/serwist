@@ -40,8 +40,8 @@ function emitDCts() {
  */
 export const getRollupOptions = ({ packageJson, jsFiles, shouldEmitDeclaration }) => {
   const forcedExternals = [
-    ...Object.keys(packageJson.dependencies ?? {}).map((e) => new RegExp("^" + e)),
-    ...Object.keys(packageJson.peerDependencies ?? {}).map((e) => new RegExp("^" + e)),
+    ...Object.keys(packageJson.dependencies ?? {}).map((e) => new RegExp(`^${e}`)),
+    ...Object.keys(packageJson.peerDependencies ?? {}).map((e) => new RegExp(`^${e}`)),
   ];
 
   return [
@@ -72,7 +72,7 @@ export const getRollupOptions = ({ packageJson, jsFiles, shouldEmitDeclaration }
           emitDCts(),
           ...[plugins ?? []],
         ],
-      })
+      }),
     ),
   ];
 };

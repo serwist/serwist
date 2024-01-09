@@ -97,7 +97,7 @@ class NavigationRoute extends Route {
       if (regExp.test(pathnameAndSearch)) {
         if (process.env.NODE_ENV !== "production") {
           logger.log(
-            `The navigation route ${pathnameAndSearch} is not ` + `being used, since the URL matches this denylist pattern: ` + `${regExp.toString()}`
+            `The navigation route ${pathnameAndSearch} is not being used, since the URL matches this denylist pattern: ${regExp.toString()}`,
           );
         }
         return false;
@@ -106,15 +106,13 @@ class NavigationRoute extends Route {
 
     if (this._allowlist.some((regExp) => regExp.test(pathnameAndSearch))) {
       if (process.env.NODE_ENV !== "production") {
-        logger.debug(`The navigation route ${pathnameAndSearch} ` + `is being used.`);
+        logger.debug(`The navigation route ${pathnameAndSearch} is being used.`);
       }
       return true;
     }
 
     if (process.env.NODE_ENV !== "production") {
-      logger.log(
-        `The navigation route ${pathnameAndSearch} is not ` + `being used, since the URL being navigated to doesn't ` + `match the allowlist.`
-      );
+      logger.log(`The navigation route ${pathnameAndSearch} is not being used, since the URL being navigated to doesn't match the allowlist.`);
     }
     return false;
   }

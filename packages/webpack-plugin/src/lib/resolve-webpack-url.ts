@@ -22,7 +22,6 @@ export function resolveWebpackURL(publicPath: string, ...paths: Array<string>): 
   // See https://github.com/jantimon/html-webpack-plugin/pull/1516
   if (publicPath === "auto") {
     return paths.join("");
-  } else {
-    return [publicPath, ...paths].join("");
   }
+  return [publicPath, ...paths].join("");
 }

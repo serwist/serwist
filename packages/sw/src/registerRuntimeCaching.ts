@@ -56,7 +56,7 @@ export const registerRuntimeCaching = (...runtimeCachingList: RuntimeCaching[]) 
             precacheFallback && new PrecacheFallbackPlugin(precacheFallback),
             rangeRequests ? new RangeRequestsPlugin() : undefined,
           ].filter(nonNullable),
-        })
+        }),
       );
     } else {
       registerRoute(rcEntry.urlPattern, rcEntry.handler, rcEntry.method);

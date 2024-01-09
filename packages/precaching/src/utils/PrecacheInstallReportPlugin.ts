@@ -31,7 +31,7 @@ class PrecacheInstallReportPlugin implements SerwistPlugin {
     cachedResponse,
   }: SerwistPluginCallbackParam["cachedResponseWillBeUsed"]) => {
     if (event.type === "install") {
-      if (state && state.originalRequest && state.originalRequest instanceof Request) {
+      if (state?.originalRequest && state.originalRequest instanceof Request) {
         // TODO: `state` should never be undefined...
         const url = state.originalRequest.url;
 

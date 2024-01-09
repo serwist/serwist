@@ -7,14 +7,14 @@
 */
 
 import type { RouteHandlerCallback, SerwistPlugin } from "@serwist/core";
-import { assert, logger, privateCacheNames, SerwistError, waitUntil } from "@serwist/core/internal";
+import { assert, SerwistError, logger, privateCacheNames, waitUntil } from "@serwist/core/internal";
 import type { Strategy } from "@serwist/strategies";
 
-import type { CleanupResult, InstallResult, PrecacheEntry } from "./_types.js";
 import { PrecacheStrategy } from "./PrecacheStrategy.js";
-import { createCacheKey } from "./utils/createCacheKey.js";
+import type { CleanupResult, InstallResult, PrecacheEntry } from "./_types.js";
 import { PrecacheCacheKeyPlugin } from "./utils/PrecacheCacheKeyPlugin.js";
 import { PrecacheInstallReportPlugin } from "./utils/PrecacheInstallReportPlugin.js";
+import { createCacheKey } from "./utils/createCacheKey.js";
 import { printCleanupDetails } from "./utils/printCleanupDetails.js";
 import { printInstallDetails } from "./utils/printInstallDetails.js";
 
@@ -140,10 +140,9 @@ class PrecacheController {
       this._urlsToCacheModes.set(url, cacheMode);
 
       if (urlsToWarnAbout.length > 0) {
-        const warningMessage =
-          `Serwist is precaching URLs without revision ` +
-          `info: ${urlsToWarnAbout.join(", ")}\nThis is generally NOT safe. ` +
-          `Learn more at https://bit.ly/wb-precache`;
+        const warningMessage = `Serwist is precaching URLs without revision info: ${urlsToWarnAbout.join(
+          ", ",
+        )}\nThis is generally NOT safe. Learn more at https://bit.ly/wb-precache`;
         if (process.env.NODE_ENV === "production") {
           // Use console directly to display this warning without bloating
           // bundle sizes by pulling in all of the logger codebase in prod.
@@ -189,7 +188,7 @@ class PrecacheController {
             params: { cacheKey },
             request,
             event,
-          })
+          }),
         );
       }
 

@@ -6,6 +6,10 @@
   https://opensource.org/licenses/MIT.
 */
 
+import { PrecacheController } from "./PrecacheController.js";
+import { PrecacheFallbackPlugin } from "./PrecacheFallbackPlugin.js";
+import { PrecacheRoute } from "./PrecacheRoute.js";
+import { PrecacheStrategy } from "./PrecacheStrategy.js";
 import { addPlugins } from "./addPlugins.js";
 import { addRoute } from "./addRoute.js";
 import { cleanupOutdatedCaches } from "./cleanupOutdatedCaches.js";
@@ -14,10 +18,6 @@ import { getCacheKeyForURL } from "./getCacheKeyForURL.js";
 import { matchPrecache } from "./matchPrecache.js";
 import { precache } from "./precache.js";
 import { precacheAndRoute } from "./precacheAndRoute.js";
-import { PrecacheController } from "./PrecacheController.js";
-import { PrecacheFallbackPlugin } from "./PrecacheFallbackPlugin.js";
-import { PrecacheRoute } from "./PrecacheRoute.js";
-import { PrecacheStrategy } from "./PrecacheStrategy.js";
 
 /**
  * Most consumers of this module will want to use the

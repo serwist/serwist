@@ -20,7 +20,12 @@ import { removeIgnoredSearchParams } from "./removeIgnoredSearchParams.js";
  */
 export function* generateURLVariations(
   url: string,
-  { ignoreURLParametersMatching = [/^utm_/, /^fbclid$/], directoryIndex = "index.html", cleanURLs = true, urlManipulation }: PrecacheRouteOptions = {}
+  {
+    ignoreURLParametersMatching = [/^utm_/, /^fbclid$/],
+    directoryIndex = "index.html",
+    cleanURLs = true,
+    urlManipulation,
+  }: PrecacheRouteOptions = {},
 ): Generator<string, void, unknown> {
   const urlObject = new URL(url, location.href);
   urlObject.hash = "";

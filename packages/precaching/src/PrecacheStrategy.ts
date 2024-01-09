@@ -8,7 +8,7 @@
 
 import type { SerwistPlugin } from "@serwist/core";
 import { copyResponse } from "@serwist/core";
-import { getFriendlyURL, logger, privateCacheNames, SerwistError } from "@serwist/core/internal";
+import { SerwistError, getFriendlyURL, logger, privateCacheNames } from "@serwist/core/internal";
 import type { StrategyHandler, StrategyOptions } from "@serwist/strategies";
 import { Strategy } from "@serwist/strategies";
 
@@ -88,7 +88,7 @@ class PrecacheStrategy extends Strategy {
   }
 
   async _handleFetch(request: Request, handler: StrategyHandler): Promise<Response> {
-    let response;
+    let response: Response | undefined = undefined;
     const params = (handler.params || {}) as {
       cacheKey?: string;
       integrity?: string;
@@ -97,9 +97,7 @@ class PrecacheStrategy extends Strategy {
     // Fallback to the network if we're configured to do so.
     if (this._fallbackToNetwork) {
       if (process.env.NODE_ENV !== "production") {
-        logger.warn(
-          `The precached response for ` + `${getFriendlyURL(request.url)} in ${this.cacheName} was not ` + `found. Falling back to the network.`
-        );
+        logger.warn(`The precached response for ${getFriendlyURL(request.url)} in ${this.cacheName} was not found. Falling back to the network.`);
       }
 
       const integrityInManifest = params.integrity;
@@ -111,7 +109,7 @@ class PrecacheStrategy extends Strategy {
       response = await handler.fetch(
         new Request(request, {
           integrity: request.mode !== "no-cors" ? integrityInRequest || integrityInManifest : undefined,
-        })
+        }),
       );
 
       // It's only "safe" to repair the cache if we're using SRI to guarantee
@@ -126,7 +124,7 @@ class PrecacheStrategy extends Strategy {
         const wasCached = await handler.cachePut(request, response.clone());
         if (process.env.NODE_ENV !== "production") {
           if (wasCached) {
-            logger.log(`A response for ${getFriendlyURL(request.url)} ` + `was used to "repair" the precache.`);
+            logger.log(`A response for ${getFriendlyURL(request.url)} was used to "repair" the precache.`);
           }
         }
       }
@@ -144,14 +142,14 @@ class PrecacheStrategy extends Strategy {
 
       // Serwist is going to handle the route.
       // print the routing details to the console.
-      logger.groupCollapsed(`Precaching is responding to: ` + getFriendlyURL(request.url));
+      logger.groupCollapsed(`Precaching is responding to: ${getFriendlyURL(request.url)}`);
       logger.log(`Serving the precached url: ${getFriendlyURL(cacheKey instanceof Request ? cacheKey.url : cacheKey)}`);
 
-      logger.groupCollapsed(`View request details here.`);
+      logger.groupCollapsed("View request details here.");
       logger.log(request);
       logger.groupEnd();
 
-      logger.groupCollapsed(`View response details here.`);
+      logger.groupCollapsed("View response details here.");
       logger.log(response);
       logger.groupEnd();
 

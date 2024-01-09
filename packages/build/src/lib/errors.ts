@@ -9,7 +9,7 @@
 import { oneLine as ol } from "common-tags";
 
 export const errors = {
-  "unable-to-get-rootdir": `Unable to get the root directory of your web app.`,
+  "unable-to-get-rootdir": "Unable to get the root directory of your web app.",
   "no-extension": ol`Unable to detect a usable extension for a file in your web
     app directory.`,
   "invalid-file-manifest-name": ol`The File Manifest Name must have at least one

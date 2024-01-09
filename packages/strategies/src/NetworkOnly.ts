@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert, logger, SerwistError, timeout } from "@serwist/core/internal";
+import { assert, SerwistError, logger, timeout } from "@serwist/core/internal";
 
 import type { StrategyOptions } from "./Strategy.js";
 import { Strategy } from "./Strategy.js";
@@ -69,7 +69,7 @@ class NetworkOnly extends Strategy {
 
       response = await Promise.race(promises);
       if (!response) {
-        throw new Error(`Timed out the network response after ` + `${this._networkTimeoutSeconds} seconds.`);
+        throw new Error(`Timed out the network response after ${this._networkTimeoutSeconds} seconds.`);
       }
     } catch (err) {
       if (err instanceof Error) {
@@ -80,9 +80,9 @@ class NetworkOnly extends Strategy {
     if (process.env.NODE_ENV !== "production") {
       logger.groupCollapsed(messages.strategyStart(this.constructor.name, request));
       if (response) {
-        logger.log(`Got response from network.`);
+        logger.log("Got response from network.");
       } else {
-        logger.log(`Unable to get a response from the network.`);
+        logger.log("Unable to get a response from the network.");
       }
       messages.printFinalResponse(response);
       logger.groupEnd();

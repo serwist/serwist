@@ -53,7 +53,7 @@ function pageCache(options: PageCacheOptions = {}): void {
   plugins.push(
     new CacheableResponsePlugin({
       statuses: [0, 200],
-    })
+    }),
   );
 
   const strategy = new NetworkFirst({

@@ -52,7 +52,7 @@ export const generateServiceWorker = async (ctx: SerwistViteContext) => {
 
   if ((isProduction && ctx.framework === "sveltekit") || (isDev && !ctx.options.devOptions.bundle)) {
     if (!injectManifestResult) {
-      throw new Error(`injectManifest failed to generate results. This is likely a bug.`);
+      throw new Error("injectManifest failed to generate results. This is likely a bug.");
     }
 
     const { errors, escapeRegExp, getSourceMapURL, rebasePath, replaceAndUpdateSourceMap, translateURLToSourcemapPaths } = await loadSerwistBuild();
@@ -63,7 +63,7 @@ export const generateServiceWorker = async (ctx: SerwistViteContext) => {
         rebasePath({
           file,
           baseDirectory: ctx.options.injectManifest.globDirectory,
-        })
+        }),
       );
     }
 
@@ -122,7 +122,7 @@ export const generateServiceWorker = async (ctx: SerwistViteContext) => {
       try {
         await fs.mkdir(path.dirname(file), { recursive: true });
       } catch (error: unknown) {
-        throw new Error(errors["unable-to-make-sw-directory"] + ` '${error instanceof Error && error.message ? error.message : ""}'`);
+        throw new Error(`${errors["unable-to-make-sw-directory"]} '${error instanceof Error && error.message ? error.message : ""}'`);
       }
 
       await fs.writeFile(file, contents);

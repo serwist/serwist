@@ -14,11 +14,11 @@ export function cleanupStackTrace(error: Error, moduleName: string): string {
   if (!error.stack) {
     return "";
   }
-  const frames = error.stack.split(`\n`);
+  const frames = error.stack.split("\n");
   let startFrame: number | undefined;
   let lastFrame = 0;
   frames.forEach((frame, index) => {
-    if (startFrame === undefined && frame.includes(`    at `)) {
+    if (startFrame === undefined && frame.includes("    at ")) {
       startFrame = index;
     }
 
@@ -26,5 +26,5 @@ export function cleanupStackTrace(error: Error, moduleName: string): string {
       lastFrame = index;
     }
   });
-  return frames.slice(startFrame, lastFrame + 1).join(`\n`);
+  return frames.slice(startFrame, lastFrame + 1).join("\n");
 }

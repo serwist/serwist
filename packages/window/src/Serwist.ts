@@ -69,7 +69,7 @@ export class Serwist extends SerwistEventTarget {
    * @param registerOptions The service worker options associated
    *     with this instance.
    */
-  // eslint-disable-next-line @typescript-eslint/ban-types
+  // biome-ignore lint/complexity/noBannedTypes: Unknown reason
   constructor(scriptURL: string | TrustedScriptURL, registerOptions: {} = {}) {
     super();
 
@@ -149,12 +149,12 @@ export class Serwist extends SerwistEventTarget {
             new SerwistEvent("waiting", {
               sw: waitingSW,
               wasWaitingBeforeRegister: true,
-            })
+            }),
           );
           if (process.env.NODE_ENV !== "production") {
             logger.warn("A service worker was already waiting to activate " + "before this script was registered...");
           }
-        })
+        }),
       );
     }
 
@@ -174,7 +174,7 @@ export class Serwist extends SerwistEventTarget {
           logger.debug(
             "A service worker with a different script URL is " +
               "currently controlling the page. The browser is now fetching " +
-              "the new script now..."
+              "the new script now...",
           );
         }
       }
@@ -288,7 +288,7 @@ export class Serwist extends SerwistEventTarget {
    * calling this will have no effect.
    */
   messageSkipWaiting(): void {
-    if (this._registration && this._registration.waiting) {
+    if (this._registration?.waiting) {
       void messageSW(this._registration.waiting, SKIP_WAITING_MESSAGE);
     }
   }
@@ -304,9 +304,8 @@ export class Serwist extends SerwistEventTarget {
     const controller = navigator.serviceWorker.controller;
     if (controller && urlsMatch(controller.scriptURL, this._scriptURL.toString())) {
       return controller;
-    } else {
-      return undefined;
     }
+    return undefined;
   }
 
   /**
@@ -403,7 +402,7 @@ export class Serwist extends SerwistEventTarget {
         originalEvent,
         isExternal: updateLikelyTriggeredExternally,
         isUpdate: this._isUpdate,
-      })
+      }),
     );
 
     // Increment the `updatefound` count, so future invocations of this
@@ -490,7 +489,7 @@ export class Serwist extends SerwistEventTarget {
               logger.warn(
                 "The registered service worker is active but " +
                   "not yet controlling the page. Reload or run " +
-                  "`clients.claim()` in the service worker."
+                  "`clients.claim()` in the service worker.",
               );
             }
           }
@@ -524,7 +523,7 @@ export class Serwist extends SerwistEventTarget {
         originalEvent,
         sw,
         isUpdate: this._isUpdate,
-      })
+      }),
     );
 
     if (!isExternal) {
@@ -563,7 +562,7 @@ export class Serwist extends SerwistEventTarget {
           originalEvent,
           ports,
           sw: source as ServiceWorker,
-        })
+        }),
       );
     }
   };

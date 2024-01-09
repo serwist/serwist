@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { Queue } from "@serwist/background-sync";
+import type { Queue, QueueEntry } from "@serwist/background-sync";
 import { BackgroundSyncPlugin } from "@serwist/background-sync";
 import type { RouteMatchCallbackOptions } from "@serwist/core";
 import { getFriendlyURL, logger, privateCacheNames } from "@serwist/core/internal";
@@ -56,7 +56,7 @@ export interface GoogleAnalyticsInitializeOptions {
  */
 const createOnSyncCallback = (config: GoogleAnalyticsInitializeOptions) => {
   return async ({ queue }: { queue: Queue }) => {
-    let entry;
+    let entry: QueueEntry | undefined = undefined;
     while ((entry = await queue.shiftRequest())) {
       const { request, timestamp } = entry;
       const url = new URL(request.url);
@@ -96,23 +96,23 @@ const createOnSyncCallback = (config: GoogleAnalyticsInitializeOptions) => {
             mode: "cors",
             credentials: "omit",
             headers: { "Content-Type": "text/plain" },
-          })
+          }),
         );
 
         if (process.env.NODE_ENV !== "production") {
-          logger.log(`Request for '${getFriendlyURL(url.href)}' ` + `has been replayed`);
+          logger.log(`Request for '${getFriendlyURL(url.href)}' has been replayed`);
         }
       } catch (err) {
         await queue.unshiftRequest(entry);
 
         if (process.env.NODE_ENV !== "production") {
-          logger.log(`Request for '${getFriendlyURL(url.href)}' ` + `failed to replay, putting it back in the queue.`);
+          logger.log(`Request for '${getFriendlyURL(url.href)}' failed to replay, putting it back in the queue.`);
         }
         throw err;
       }
     }
     if (process.env.NODE_ENV !== "production") {
-      logger.log(`All Google Analytics request successfully replayed; ` + `the queue is now empty!`);
+      logger.log("All Google Analytics request successfully replayed; " + "the queue is now empty!");
     }
   };
 };

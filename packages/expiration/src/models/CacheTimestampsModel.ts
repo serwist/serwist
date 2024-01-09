@@ -193,7 +193,7 @@ class CacheTimestampsModel {
     // Creating an ID from the URL and cache name won't be necessary once
     // Edge switches to Chromium and all browsers we support work with
     // array keyPaths.
-    return this._cacheName + "|" + normalizeURL(url);
+    return `${this._cacheName}|${normalizeURL(url)}`;
   }
 
   /**

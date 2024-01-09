@@ -1,0 +1,15 @@
+{
+  "name": "@serwist-tests/base",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Serwist's tests",
+  "private": true,
+  "author": "Serwist's Team",
+  "license": "MIT",
+  "repository": "serwist/serwist",
+  "bugs": "https://github.com/serwist/serwist/issues",
+  "homepage": "https://serwist.pages.dev",
+  "devDependencies": {
+    "@types/jest": "29.5.11"
+  }
+}

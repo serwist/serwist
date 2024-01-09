@@ -23,10 +23,10 @@ function cleanupOutdatedCaches(): void {
       deleteOutdatedCaches(cacheName).then((cachesDeleted) => {
         if (process.env.NODE_ENV !== "production") {
           if (cachesDeleted.length > 0) {
-            logger.log(`The following out-of-date precaches were cleaned up ` + `automatically:`, cachesDeleted);
+            logger.log("The following out-of-date precaches were cleaned up " + "automatically:", cachesDeleted);
           }
         }
-      })
+      }),
     );
   }) as EventListener);
 }

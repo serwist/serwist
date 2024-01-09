@@ -6,7 +6,7 @@ import { enable } from "@serwist/navigation-preload";
 import { disableDevLogs } from "./disableDevLogs.js";
 import type { FallbackEntry, FallbackMatcher, FallbacksOptions } from "./fallbacks.js";
 import { fallbacks } from "./fallbacks.js";
-import { handlePrecaching, type HandlePrecachingOptions } from "./handlePrecaching.js";
+import { type HandlePrecachingOptions, handlePrecaching } from "./handlePrecaching.js";
 import { registerRuntimeCaching } from "./registerRuntimeCaching.js";
 
 declare const self: ServiceWorkerGlobalScope;

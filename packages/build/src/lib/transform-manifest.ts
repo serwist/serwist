@@ -145,6 +145,7 @@ export async function transformManifest({
   let size = 0;
   for (const manifestEntry of transformedManifest as Array<ManifestEntry & { size?: number }>) {
     size += manifestEntry.size || 0;
+    // biome-ignore lint/performance/noDelete: I don't understand this part yet.
     delete manifestEntry.size;
   }
 

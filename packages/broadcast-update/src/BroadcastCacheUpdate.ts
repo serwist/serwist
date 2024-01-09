@@ -136,7 +136,7 @@ class BroadcastCacheUpdate {
 
     if (!responsesAreSame(options.oldResponse, options.newResponse, this._headersToCheck)) {
       if (process.env.NODE_ENV !== "production") {
-        logger.log(`Newer response found (and cached) for:`, options.request.url);
+        logger.log("Newer response found (and cached) for:", options.request.url);
       }
 
       const messageData = {

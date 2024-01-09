@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert, dontWaitFor, logger, SerwistError } from "@serwist/core/internal";
+import { assert, SerwistError, dontWaitFor, logger } from "@serwist/core/internal";
 
 import { CacheTimestampsModel } from "./models/CacheTimestampsModel.js";
 
@@ -117,13 +117,15 @@ class CacheExpiration {
           `Expired ${urlsExpired.length} ` +
             `${urlsExpired.length === 1 ? "entry" : "entries"} and removed ` +
             `${urlsExpired.length === 1 ? "it" : "them"} from the ` +
-            `'${this._cacheName}' cache.`
+            `'${this._cacheName}' cache.`,
         );
         logger.log(`Expired the following ${urlsExpired.length === 1 ? "URL" : "URLs"}:`);
-        urlsExpired.forEach((url) => logger.log(`    ${url}`));
+        for (const url of urlsExpired) {
+          logger.log(`    ${url}`);
+        }
         logger.groupEnd();
       } else {
-        logger.debug(`Cache expiration ran and found no entries to remove.`);
+        logger.debug("Cache expiration ran and found no entries to remove.");
       }
     }
 
@@ -168,17 +170,16 @@ class CacheExpiration {
   async isURLExpired(url: string): Promise<boolean> {
     if (!this._maxAgeSeconds) {
       if (process.env.NODE_ENV !== "production") {
-        throw new SerwistError(`expired-test-without-max-age`, {
+        throw new SerwistError("expired-test-without-max-age", {
           methodName: "isURLExpired",
           paramName: "maxAgeSeconds",
         });
       }
       return false;
-    } else {
-      const timestamp = await this._timestampModel.getTimestamp(url);
-      const expireOlderThan = Date.now() - this._maxAgeSeconds * 1000;
-      return timestamp !== undefined ? timestamp < expireOlderThan : true;
     }
+    const timestamp = await this._timestampModel.getTimestamp(url);
+    const expireOlderThan = Date.now() - this._maxAgeSeconds * 1000;
+    return timestamp !== undefined ? timestamp < expireOlderThan : true;
   }
 
   /**

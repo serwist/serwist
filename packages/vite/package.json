@@ -76,7 +76,7 @@
   "scripts": {
     "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js",
     "dev": "rollup --config rollup.config.js --watch",
-    "lint": "eslint src --ext ts,tsx,js,jsx,cjs,mjs",
+    "lint": "biome lint ./src",
     "typecheck": "tsc"
   },
   "dependencies": {
@@ -95,7 +95,6 @@
     "@types/prompts": "2.4.9",
     "@types/react": "18.2.45",
     "bumpp": "9.2.1",
-    "eslint": "8.56.0",
     "kolorist": "1.8.0",
     "preact": "10.19.3",
     "prompts": "2.4.2",
