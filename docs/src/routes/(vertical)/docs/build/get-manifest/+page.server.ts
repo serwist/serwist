@@ -1,5 +1,5 @@
-import { getHighlighter } from "shiki";
 import { highlightCode } from "$lib/highlightCode";
+import { getHighlighter } from "shiki";
 
 import type { PageServerLoad } from "./$types";
 
