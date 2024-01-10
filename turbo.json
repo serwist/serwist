@@ -13,7 +13,10 @@
     "lint": {
       "outputs": []
     },
-    "test": {},
+    "test": {
+      "dependsOn": ["build"],
+      "outputs": []
+    },
     "typecheck": {
       "outputs": []
     }

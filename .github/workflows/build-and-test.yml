@@ -5,8 +5,8 @@ env:
   TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
   TURBO_REMOTE_ONLY: true
 jobs:
-  build_and_lint_check:
-    name: 🔎 Typecheck #, check formatting, and lint
+  build_typecheck_test:
+    name: 🔎 Typecheck and test
     uses: ./.github/workflows/build-reusable.yml
     with:
       afterBuild: pnpm typecheck && pnpm test
