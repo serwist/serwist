@@ -1,6 +1,6 @@
 {
   "name": "@serwist/background-sync",
-  "version": "8.4.1",
+  "version": "8.4.2",
   "type": "module",
   "description": "Queues failed requests and uses the Background Sync API to replay them when the network is available",
   "files": [

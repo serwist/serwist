@@ -1,5 +1,18 @@
 # @serwist/next
 
+## 8.4.2
+
+### Patch Changes
+
+- [`e454e63`](https://github.com/serwist/serwist/commit/e454e63d66967b3b02355666796596dfe5a5f785) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(next): fixed `additionalPrecacheEntries` not having a default
+
+  - This is an age-old bug of `@ducanh2912/next-pwa` caused by an extra `?? []`, which results in the nullish check following the declaration to always be `false`.
+
+- Updated dependencies []:
+  - @serwist/build@8.4.2
+  - @serwist/webpack-plugin@8.4.2
+  - @serwist/window@8.4.2
+
 ## 8.4.1
 
 ### Patch Changes
