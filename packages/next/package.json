@@ -1,6 +1,6 @@
 {
   "name": "@serwist/next",
-  "version": "8.4.1",
+  "version": "8.4.2",
   "type": "module",
   "description": "A module that integrates Serwist into your Next.js application.",
   "files": [

@@ -1,5 +1,13 @@
 # @serwist/vite
 
+## 8.4.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/build@8.4.2
+  - @serwist/window@8.4.2
+
 ## 8.4.1
 
 ### Patch Changes

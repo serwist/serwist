@@ -1,6 +1,6 @@
 {
   "name": "@serwist/build",
-  "version": "8.4.1",
+  "version": "8.4.2",
   "type": "module",
   "description": "A module that integrates into your build process, helping you generate a manifest of local files that should be precached.",
   "files": [

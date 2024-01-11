@@ -1,5 +1,14 @@
 # @serwist/precaching
 
+## 8.4.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/core@8.4.2
+  - @serwist/routing@8.4.2
+  - @serwist/strategies@8.4.2
+
 ## 8.4.1
 
 ### Patch Changes
