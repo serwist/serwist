@@ -65,24 +65,24 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
 
       const swEntryJs = path.join(__dirname, "sw-entry.js");
       const entry = config.entry as () => Promise<Record<string, string[] | string>>;
-      config.entry = () =>
-        entry().then((entries) => {
-          if (entries["main.js"] && !entries["main.js"].includes(swEntryJs)) {
-            if (Array.isArray(entries["main.js"])) {
-              entries["main.js"].unshift(swEntryJs);
-            } else if (typeof entries["main.js"] === "string") {
-              entries["main.js"] = [swEntryJs, entries["main.js"]];
-            }
+      config.entry = async () => {
+        const entries = await entry();
+        if (entries["main.js"] && !entries["main.js"].includes(swEntryJs)) {
+          if (Array.isArray(entries["main.js"])) {
+            entries["main.js"].unshift(swEntryJs);
+          } else if (typeof entries["main.js"] === "string") {
+            entries["main.js"] = [swEntryJs, entries["main.js"]];
           }
-          if (entries["main-app"] && !entries["main-app"].includes(swEntryJs)) {
-            if (Array.isArray(entries["main-app"])) {
-              entries["main-app"].unshift(swEntryJs);
-            } else if (typeof entries["main-app"] === "string") {
-              entries["main-app"] = [swEntryJs, entries["main-app"]];
-            }
+        }
+        if (entries["main-app"] && !entries["main-app"].includes(swEntryJs)) {
+          if (Array.isArray(entries["main-app"])) {
+            entries["main-app"].unshift(swEntryJs);
+          } else if (typeof entries["main-app"] === "string") {
+            entries["main-app"] = [swEntryJs, entries["main-app"]];
           }
-          return entries;
-        });
+        }
+        return entries;
+      };
 
       if (!options.isServer) {
         if (!register) {
@@ -151,7 +151,7 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
         );
 
         // Precache files in public folder
-        let resolvedManifestEntries = additionalPrecacheEntries ?? [];
+        let resolvedManifestEntries = additionalPrecacheEntries;
 
         if (!resolvedManifestEntries) {
           const swDestFileName = path.basename(swDest);
