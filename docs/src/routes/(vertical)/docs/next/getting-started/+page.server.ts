@@ -115,6 +115,8 @@ import { installSerwist } from "@serwist/sw";
 
 declare const self: ServiceWorkerGlobalScope & {
   // Change this attribute's name to your \`injectionPoint\`.
+  // \`injectionPoint\` is an InjectManifest option.
+  // See https://serwist.pages.dev/docs/build/inject-manifest/configuring
   __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
 };
 
@@ -164,6 +166,31 @@ installSerwist({
             },
           },
           { idPrefix: "basic-usage-create-usage-additional-packages-instruction" },
+        ),
+        tsConfig: highlightCode(
+          highlighter,
+          {
+            "tsconfig.json": {
+              code: `{
+  // Other stuff...
+  "compilerOptions": {
+    // Other options...
+    "types": [
+      // Other types...
+      // This allows Serwist to type \`window.serwist\`.
+      "@serwist/next/typings"
+    ],
+    "lib": [
+      // Other libs...
+      // Add this! Doing so adds WebWorker and ServiceWorker types to the global.
+      "webworker"
+    ],
+  },
+}`,
+              lang: "json",
+            },
+          },
+          { idPrefix: "basic-usage-tsconfig-instruction" },
         ),
         manifestJson: highlightCode(
           highlighter,

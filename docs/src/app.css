@@ -31,7 +31,7 @@
     @apply text-2xl leading-7 tracking-tight;
   }
   h4 {
-    @apply text-base leading-5 tracking-tight;
+    @apply text-xl leading-5 tracking-tight;
   }
 
   #root-container {
