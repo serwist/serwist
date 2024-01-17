@@ -1,5 +1,14 @@
 # @serwist/nuxt
 
+## 8.4.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/build@8.4.3
+  - @serwist/vite@8.4.3
+  - @serwist/window@8.4.3
+
 ## 8.4.2
 
 ### Patch Changes

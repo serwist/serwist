@@ -1,6 +1,6 @@
 {
   "name": "@serwist/precaching",
-  "version": "8.4.2",
+  "version": "8.4.3",
   "type": "module",
   "description": "This module efficiently precaches assets.",
   "files": [
