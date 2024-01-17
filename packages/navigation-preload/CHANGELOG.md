@@ -1,5 +1,12 @@
 # @serwist/navigation-preload
 
+## 8.4.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/core@8.4.3
+
 ## 8.4.2
 
 ### Patch Changes

@@ -1,5 +1,26 @@
 # @serwist/sw
 
+## 8.4.3
+
+### Patch Changes
+
+- [`6a1986c`](https://github.com/serwist/serwist/commit/6a1986cff4d004d240c49b2fbc5775e38d29ee25) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(sw): handle `RuntimeCaching.method` for `RuntimeCaching.handler` of type `"string"`
+
+  - There really should be something that prevents us from encountering issues like this again... I am imagining a test, but not sure how that should be done.
+
+- Updated dependencies []:
+  - @serwist/background-sync@8.4.3
+  - @serwist/broadcast-update@8.4.3
+  - @serwist/cacheable-response@8.4.3
+  - @serwist/core@8.4.3
+  - @serwist/expiration@8.4.3
+  - @serwist/google-analytics@8.4.3
+  - @serwist/navigation-preload@8.4.3
+  - @serwist/precaching@8.4.3
+  - @serwist/range-requests@8.4.3
+  - @serwist/routing@8.4.3
+  - @serwist/strategies@8.4.3
+
 ## 8.4.2
 
 ### Patch Changes
