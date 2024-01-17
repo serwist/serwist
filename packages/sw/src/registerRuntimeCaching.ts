@@ -6,7 +6,13 @@ import { ExpirationPlugin } from "@serwist/expiration";
 import { PrecacheFallbackPlugin } from "@serwist/precaching";
 import { RangeRequestsPlugin } from "@serwist/range-requests";
 import { registerRoute } from "@serwist/routing";
-import { CacheFirst, CacheOnly, NetworkFirst, NetworkOnly, StaleWhileRevalidate } from "@serwist/strategies";
+import {
+  CacheFirst,
+  CacheOnly,
+  NetworkFirst,
+  NetworkOnly,
+  StaleWhileRevalidate,
+} from "@serwist/strategies";
 
 import { nonNullable } from "./nonNullable.js";
 
@@ -18,7 +24,9 @@ const HANDLER_NAME_TO_METHOD = {
   StaleWhileRevalidate,
 } satisfies Record<StrategyName, unknown>;
 
-export const registerRuntimeCaching = (...runtimeCachingList: RuntimeCaching[]) => {
+export const registerRuntimeCaching = (
+  ...runtimeCachingList: RuntimeCaching[]
+) => {
   for (const rcEntry of runtimeCachingList) {
     if (typeof rcEntry.handler === "string") {
       const {
@@ -44,7 +52,11 @@ export const registerRuntimeCaching = (...runtimeCachingList: RuntimeCaching[]) 
           matchOptions,
           plugins: [
             ...(plugins ?? []),
-            backgroundSync && new BackgroundSyncPlugin(backgroundSync.name, backgroundSync.options),
+            backgroundSync &&
+              new BackgroundSyncPlugin(
+                backgroundSync.name,
+                backgroundSync.options
+              ),
             broadcastUpdate &&
               new BroadcastUpdatePlugin({
                 // @ts-expect-error weird...
@@ -57,6 +69,7 @@ export const registerRuntimeCaching = (...runtimeCachingList: RuntimeCaching[]) 
             rangeRequests ? new RangeRequestsPlugin() : undefined,
           ].filter(nonNullable),
         }),
+        rcEntry.method
       );
     } else {
       registerRoute(rcEntry.urlPattern, rcEntry.handler, rcEntry.method);
