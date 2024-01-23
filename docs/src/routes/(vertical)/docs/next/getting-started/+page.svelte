@@ -23,15 +23,14 @@
 <br />
 <CodeTab codes={data.code.basicUsage.wrapConfig} defaultTab="next.config.mjs" />
 <br /><br />
-<h3>Step 2: Create app/sw.ts or app/sw.js</h3>
+<h3>Step 2: Create a app/sw.ts or app/sw.js file</h3>
 <br />
 <p>Basic template:</p>
 <br />
 <CodeTab codes={data.code.basicUsage.createEntry} defaultTab="app/sw.ts" />
 <br />
 <p>
-  If you follow the above template, you have to install these additional
-  packages:
+  If you use the template shown above, make sure you also install the following additional dependencies:
 </p>
 <br />
 <CodeTab
@@ -39,24 +38,17 @@
   defaultTab="npm"
 />
 <br /><br />
-<h3>Step 3: Change your tsconfig.json if you use TypeScript</h3>
+<h3>Step 3: Add a manifest.(json|webmanifest) file</h3>
 <br />
-<CodeTab
-  codes={data.code.basicUsage.tsConfig}
-  defaultTab="tsconfig.json"
-/>
-<br /><br />
-<h3>Step 4: Add a manifest.json file</h3>
-<br />
-<p>Create a manifest.json file in your public folder:</p>
+<p>Create or generate a manifest file in the root of your /app folder:</p>
 <br />
 <CodeTab
   codes={[data.code.basicUsage.manifestJson]}
-  defaultTab="public/manifest.json"
+  defaultTab="app/manifest.json"
 />
 <br /><br />
 <h3>
-  Step 5: Add <InlineCode>{"<meta />"}</InlineCode> and
+  Step 4: Add <InlineCode>{"<meta />"}</InlineCode> and
   <InlineCode>{"<link />"}</InlineCode> tags to your
   <InlineCode>{"<head />"}</InlineCode>
 </h3>
@@ -66,4 +58,12 @@
 <CodeTab
   codes={data.code.basicUsage.metaAndLinkTags}
   defaultTab="app/layout.tsx"
+/>
+<br /><br />
+<h3>Step 5: Typescript</h3>
+<br />
+<p>When using Typescript, you can add the following config to your tsconfig.json file in order to get the correct types:</p>
+<CodeTab
+  codes={data.code.basicUsage.tsConfig}
+  defaultTab="tsconfig.json"
 />

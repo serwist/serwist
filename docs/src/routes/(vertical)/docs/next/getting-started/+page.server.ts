@@ -195,7 +195,7 @@ installSerwist({
         manifestJson: highlightCode(
           highlighter,
           {
-            "public/manifest.json": {
+            "app/manifest.json": {
               code: `{
   "name": "My awesome PWA app",
   "short_name": "PWA App",
@@ -222,6 +222,7 @@ installSerwist({
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait"
+  // ...
 }`,
               lang: "json",
             },
