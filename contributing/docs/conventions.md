@@ -6,7 +6,7 @@
 
 ## Grammar
 
-- Attempt to make as few grammar errors as possible. Thank you. A distinct lack of grammar errors... simply delivers the professionalism I struggle to find anywhere else. Consider this my selfish request.
+- Attempt to make as few grammar errors as possible. Thank you. A distinct lack of grammar errors... simply delivers a sense of professionalism I struggle to find anywhere else. Consider this my selfish request.
 
 ## Code
 
