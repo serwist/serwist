@@ -23,11 +23,22 @@
 <br />
 <CodeTab codes={data.code.basicUsage.wrapConfig} defaultTab="next.config.mjs" />
 <br /><br />
-<h3>Step 2: Create a app/sw.ts or app/sw.js file</h3>
+<h3>Step 2: Update tsconfig.json</h3>
 <br />
-<p>Basic template:</p>
+<p>If you use TypeScript, you should add the following content to tsconfig.json in order to get the correct types:</p>
 <br />
-<CodeTab codes={data.code.basicUsage.createEntry} defaultTab="app/sw.ts" />
+<CodeTab
+  codes={data.code.basicUsage.tsConfig}
+  defaultTab="tsconfig.json"
+/>
+<br />
+<p>Otherwise, safely skip this step.</p>
+<br /><br />
+<h3>Step 3: Create a service worker</h3>
+<br />
+<p>Basic service worker template to get Serwist up and running:</p>
+<br />
+<CodeTab codes={data.code.basicUsage.createEntry} defaultTab="sw.ts" />
 <br />
 <p>
   If you use the template shown above, make sure you also install the following additional dependencies:
@@ -38,32 +49,22 @@
   defaultTab="npm"
 />
 <br /><br />
-<h3>Step 3: Add a manifest.(json|webmanifest) file</h3>
+<h3>Step 4: Add a web application manifest</h3>
 <br />
-<p>Create or generate a manifest file in the root of your /app folder:</p>
+<p>Update app/manifest.json (App Router) or public/manifest.json (Pages Router) with the following content:</p>
 <br />
 <CodeTab
   codes={[data.code.basicUsage.manifestJson]}
-  defaultTab="app/manifest.json"
+  defaultTab="manifest.json"
 />
 <br /><br />
 <h3>
-  Step 4: Add <InlineCode>{"<meta />"}</InlineCode> and
-  <InlineCode>{"<link />"}</InlineCode> tags to your
-  <InlineCode>{"<head />"}</InlineCode>
+  Step 5: Add metadata to <InlineCode>{"<head />"}</InlineCode>
 </h3>
 <br />
-<p>Add the following to your app/layout.tsx or pages/_app.tsx:</p>
+<p>Add the following content to app/layout.tsx or pages/_app.tsx:</p>
 <br />
 <CodeTab
   codes={data.code.basicUsage.metaAndLinkTags}
   defaultTab="app/layout.tsx"
-/>
-<br /><br />
-<h3>Step 5: Typescript</h3>
-<br />
-<p>When using Typescript, you can add the following config to your tsconfig.json file in order to get the correct types:</p>
-<CodeTab
-  codes={data.code.basicUsage.tsConfig}
-  defaultTab="tsconfig.json"
 />

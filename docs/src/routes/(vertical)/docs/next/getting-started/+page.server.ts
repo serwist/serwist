@@ -32,7 +32,7 @@ export const load: PageServerLoad = async () => {
             lang: "bash",
           },
         },
-        { idPrefix: "install-serwist-next-instruction" },
+        { idPrefix: "install-serwist-next-instruction" }
       ),
       basicUsage: {
         wrapConfig: highlightCode(
@@ -42,6 +42,8 @@ export const load: PageServerLoad = async () => {
               code: `import withSerwistInit from "@serwist/next";
       
 const withSerwist = withSerwistInit({
+    // Note: This is only an example. If you use Pages Router,
+    // use something else that works, such as "service-worker/index.ts".
     swSrc: "app/sw.ts",
     swDest: "public/sw.js",
 });
@@ -53,10 +55,12 @@ export default withSerwist({
             },
             "next.config.js": {
               code: `const withSerwist = require("@serwist/next").default({
+    // Note: This is only an example. If you use Pages Router,
+    // use something else that works, such as "service-worker/index.ts".
     swSrc: "app/sw.ts",
     swDest: "public/sw.js",
 });
-      
+
 module.exports = withSerwist({
     // Your Next.js config
 });`,
@@ -73,6 +77,8 @@ import {
 export default async (phase) => {
     if (phase === PHASE_DEVELOPMENT_SERVER || phase === PHASE_PRODUCTION_BUILD) {
         const withSerwist = (await import("@serwist/next")).default({
+            // Note: This is only an example. If you use Pages Router,
+            // use something else that works, such as "service-worker/index.ts".
             swSrc: "app/sw.ts",
             swDest: "public/sw.js",
         });
@@ -93,6 +99,8 @@ const {
 module.exports = (phase) => {
     if (phase === PHASE_DEVELOPMENT_SERVER || phase === PHASE_PRODUCTION_BUILD) {
         const withSerwist = require("@serwist/next").default({
+            // Note: This is only an example. If you use Pages Router,
+            // use something else that works, such as "service-worker/index.ts".
             swSrc: "app/sw.ts",
             swDest: "public/sw.js",
         });
@@ -103,12 +111,12 @@ module.exports = (phase) => {
               lang: "javascript",
             },
           },
-          { idPrefix: "basic-usage-wrap-config-instruction" },
+          { idPrefix: "basic-usage-wrap-config-instruction" }
         ),
         createEntry: highlightCode(
           highlighter,
           {
-            "app/sw.ts": {
+            "sw.ts": {
               code: `import { defaultCache } from "@serwist/next/browser";
 import type { PrecacheEntry } from "@serwist/precaching";
 import { installSerwist } from "@serwist/sw";
@@ -129,7 +137,7 @@ installSerwist({
 });`,
               lang: "typescript",
             },
-            "app/sw.js": {
+            "sw.js": {
               code: `import { defaultCache } from "@serwist/next/browser";
 import { installSerwist } from "@serwist/sw";
 
@@ -143,7 +151,7 @@ installSerwist({
               lang: "javascript",
             },
           },
-          { idPrefix: "basic-usage-create-entry-instruction" },
+          { idPrefix: "basic-usage-create-entry-instruction" }
         ),
         createEntryAdditionalPackages: highlightCode(
           highlighter,
@@ -165,7 +173,10 @@ installSerwist({
               lang: "bash",
             },
           },
-          { idPrefix: "basic-usage-create-usage-additional-packages-instruction" },
+          {
+            idPrefix:
+              "basic-usage-create-usage-additional-packages-instruction",
+          }
         ),
         tsConfig: highlightCode(
           highlighter,
@@ -190,12 +201,12 @@ installSerwist({
               lang: "json",
             },
           },
-          { idPrefix: "basic-usage-tsconfig-instruction" },
+          { idPrefix: "basic-usage-tsconfig-instruction" }
         ),
         manifestJson: highlightCode(
           highlighter,
           {
-            "app/manifest.json": {
+            "manifest.json": {
               code: `{
   "name": "My awesome PWA app",
   "short_name": "PWA App",
@@ -227,13 +238,14 @@ installSerwist({
               lang: "json",
             },
           },
-          { idPrefix: "basic-usage-manifest-json-instruction" },
+          { idPrefix: "basic-usage-manifest-json-instruction" }
         )[0],
         metaAndLinkTags: highlightCode(
           highlighter,
           {
             "app/layout.tsx": {
               code: `import type { Metadata, Viewport } from "next";
+import type { ReactNode } from "react";
 
 const APP_NAME = "PWA App";
 const APP_DEFAULT_TITLE = "My Awesome PWA App";
@@ -247,7 +259,6 @@ export const metadata: Metadata = {
     template: APP_TITLE_TEMPLATE,
   },
   description: APP_DESCRIPTION,
-  manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
@@ -278,8 +289,17 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: "#FFFFFF",
-};`,
-              lang: "typescript",
+};
+
+export default function RootLayout({ children }: { children: ReactNode }) {
+  return (
+    <html lang="en" dir="ltr">
+      <head />
+      <body>{children}</body>
+    </html>
+  );
+}`,
+              lang: "tsx",
             },
             "app/layout.js": {
               code: `const APP_NAME = "PWA App";
@@ -325,7 +345,16 @@ export const metadata = {
 
 export const viewport = {
   themeColor: "#FFFFFF",
-};`,
+};
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en" dir="ltr">
+      <head />
+      <body>{children}</body>
+    </html>
+  );
+}`,
               lang: "javascript",
             },
             "pages/_app.tsx": {
@@ -501,7 +530,7 @@ export default function App({ Component, pageProps }) {
               lang: "jsx",
             },
           },
-          { idPrefix: "basic-usage-meta-and-link-tags-instruction" },
+          { idPrefix: "basic-usage-meta-and-link-tags-instruction" }
         ),
       },
     },
