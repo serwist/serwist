@@ -32,7 +32,7 @@ export const load: PageServerLoad = async () => {
             lang: "bash",
           },
         },
-        { idPrefix: "install-serwist-next-instruction" }
+        { idPrefix: "install-serwist-next-instruction" },
       ),
       basicUsage: {
         wrapConfig: highlightCode(
@@ -111,7 +111,7 @@ module.exports = (phase) => {
               lang: "javascript",
             },
           },
-          { idPrefix: "basic-usage-wrap-config-instruction" }
+          { idPrefix: "basic-usage-wrap-config-instruction" },
         ),
         createEntry: highlightCode(
           highlighter,
@@ -151,7 +151,7 @@ installSerwist({
               lang: "javascript",
             },
           },
-          { idPrefix: "basic-usage-create-entry-instruction" }
+          { idPrefix: "basic-usage-create-entry-instruction" },
         ),
         createEntryAdditionalPackages: highlightCode(
           highlighter,
@@ -174,9 +174,8 @@ installSerwist({
             },
           },
           {
-            idPrefix:
-              "basic-usage-create-usage-additional-packages-instruction",
-          }
+            idPrefix: "basic-usage-create-usage-additional-packages-instruction",
+          },
         ),
         tsConfig: highlightCode(
           highlighter,
@@ -201,7 +200,7 @@ installSerwist({
               lang: "json",
             },
           },
-          { idPrefix: "basic-usage-tsconfig-instruction" }
+          { idPrefix: "basic-usage-tsconfig-instruction" },
         ),
         manifestJson: highlightCode(
           highlighter,
@@ -238,7 +237,7 @@ installSerwist({
               lang: "json",
             },
           },
-          { idPrefix: "basic-usage-manifest-json-instruction" }
+          { idPrefix: "basic-usage-manifest-json-instruction" },
         )[0],
         metaAndLinkTags: highlightCode(
           highlighter,
@@ -530,7 +529,7 @@ export default function App({ Component, pageProps }) {
               lang: "jsx",
             },
           },
-          { idPrefix: "basic-usage-meta-and-link-tags-instruction" }
+          { idPrefix: "basic-usage-meta-and-link-tags-instruction" },
         ),
       },
     },
