@@ -3,7 +3,7 @@
 - The development branch is `main`.
 - All pull requests should be opened against `main`.
 
-To develop locally:
+## Developing locally:
 
 1. Clone the Serwist repository:
    ```bash
@@ -27,7 +27,7 @@ To develop locally:
    pnpm dev
    ```
 
-   And then edit the content in `docs/content`. The app should automatically reflect the changes!
+   And then edit the content in `docs/src/routes`. The app should automatically reflect the changes!
 
 1. When your changes are finished, commit them to the branch:
    ```
@@ -39,3 +39,11 @@ To develop locally:
    git remote set-url origin https://github.com/YOURNAME/serwist
    git push
    ```
+
+## Why not Markdown?
+
+- Although Markdown itself is a great technology, one found it to be... rather difficult to setup and maintain, especially with SvelteKit. The documentation site of `@ducanh2912/next-pwa` serves as a painful example of having to jump through hoops so as to use this technology (certain dependencies... simply can't be updated, and the code behind the docs was rather... an eyesore). As such, we use Svelte itself to write the documentation. Although doing so involves more manual work, it is easier to read and maintain, less hacky, more foolproof, and more customizable.
+
+## Conventions
+
+- See [Conventions](./conventions.md)
