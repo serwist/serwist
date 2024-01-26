@@ -354,7 +354,7 @@ export default function RootLayout({ children }) {
     </html>
   );
 }`,
-              lang: "javascript",
+              lang: "jsx",
             },
             "pages/_app.tsx": {
               code: `import type { AppProps } from "next/app";
