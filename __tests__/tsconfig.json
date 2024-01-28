@@ -1,6 +1,7 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
+    "allowImportingTsExtensions": true,
     "module": "NodeNext",
   },
   "include": ["globals.d.ts", "**/*.ts", "**/*.js"],

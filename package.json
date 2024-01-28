@@ -22,7 +22,7 @@
     "lint:all": "biome lint --max-diagnostics=100 --log-kind=compact .",
     "lint:fix": "pnpm lint -- --apply",
     "publish-packages": "pnpm typecheck && cross-env PUBLISH=true pnpm build && changeset publish",
-    "test": "cross-env FORCE_COLOR=1 turbo run test --filter=./__tests__/*",
+    "test": "cross-env FORCE_COLOR=1 turbo run test",
     "typecheck": "cross-env FORCE_COLOR=1 turbo run typecheck"
   },
   "devDependencies": {
