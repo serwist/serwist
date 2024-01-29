@@ -102,7 +102,6 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
           swDest: providedSwDest,
           additionalPrecacheEntries,
           exclude = [],
-          modifyURLPrefix = {},
           manifestTransforms = [],
           ...otherBuildOptions
         } = buildOptions;
@@ -195,16 +194,14 @@ const withPWAInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) =
                 return false;
               },
             ],
-            modifyURLPrefix: {
-              ...modifyURLPrefix,
-              "/_next/../public/": "/",
-            },
             manifestTransforms: [
               ...manifestTransforms,
               async (manifestEntries, compilation) => {
                 const manifest = manifestEntries.map((m) => {
-                  m.url = m.url.replace("/_next//static/image", "/_next/static/image");
-                  m.url = m.url.replace("/_next//static/media", "/_next/static/media");
+                  m.url = m.url
+                    .replace("/_next//static/image", "/_next/static/image")
+                    .replace("/_next//static/media", "/_next/static/media")
+                    .replace("/_next/../public", "");
                   if (m.revision === null) {
                     let key = m.url;
                     if (typeof publicPath === "string" && key.startsWith(publicPath)) {
