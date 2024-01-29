@@ -1,5 +1,19 @@
 # @serwist/next
 
+## 8.4.4
+
+### Patch Changes
+
+- [#56](https://github.com/serwist/serwist/pull/56) [`905e827`](https://github.com/serwist/serwist/commit/905e8278af5c8340df8dcf8018e143ad37442477) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(next): fixed invalid precache manifest being generated when `basePath` is set
+
+  - This is caused by "/\_next/../public" in `modifyURLPrefix` not being matched when `basePath` is set, since the URL is actually "${basePath}/\_next/../public/\*\*/\*".
+  - We now use `manifestTransforms` instead of `modifyURLPrefix`.
+
+- Updated dependencies []:
+  - @serwist/build@8.4.4
+  - @serwist/webpack-plugin@8.4.4
+  - @serwist/window@8.4.4
+
 ## 8.4.3
 
 ### Patch Changes

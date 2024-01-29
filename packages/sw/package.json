@@ -1,6 +1,6 @@
 {
   "name": "@serwist/sw",
-  "version": "8.4.3",
+  "version": "8.4.4",
   "type": "module",
   "description": "This module makes it easy to get started with the Serwist service worker libraries.",
   "files": [

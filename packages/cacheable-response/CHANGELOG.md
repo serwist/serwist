@@ -1,5 +1,12 @@
 # @serwist/cacheable-response
 
+## 8.4.4
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/core@8.4.4
+
 ## 8.4.3
 
 ### Patch Changes

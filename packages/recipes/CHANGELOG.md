@@ -1,5 +1,17 @@
 # @serwist/recipes
 
+## 8.4.4
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/cacheable-response@8.4.4
+  - @serwist/core@8.4.4
+  - @serwist/expiration@8.4.4
+  - @serwist/precaching@8.4.4
+  - @serwist/routing@8.4.4
+  - @serwist/strategies@8.4.4
+
 ## 8.4.3
 
 ### Patch Changes
