@@ -5,9 +5,30 @@ env:
   TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
   TURBO_REMOTE_ONLY: true
 jobs:
-  build_typecheck_test:
-    name: 🔎 Typecheck and test
+  build_typecheck:
+    name: 🔎 Build and typecheck
     uses: ./.github/workflows/build-reusable.yml
     with:
-      afterBuild: pnpm typecheck && pnpm test
+      afterBuild: pnpm typecheck
+    secrets: inherit
+  test-next-dev:
+    name: ⚫️ Run Jest (development mode) tests for @serwist/next
+    uses: ./.github/workflows/build-reusable.yml
+    with:
+      afterBuild: |
+        NEXT_TEST_MODE=dev pnpm test -- -- __tests__/next --ci --runInBand
+    secrets: inherit
+  test-next-prod:
+    name: ⚫️ Run Jest (production mode) tests for @serwist/next
+    uses: ./.github/workflows/build-reusable.yml
+    with:
+      afterBuild: |
+        NEXT_TEST_MODE=start pnpm test -- -- __tests__/next --ci --runInBand
+    secrets: inherit
+  test-build:
+    name: ⚫️ Run Jest tests for @serwist/build
+    uses: ./.github/workflows/build-reusable.yml
+    with:
+      afterBuild: |
+        NEXT_TEST_MODE=dev pnpm test -- -- __tests__/build --ci --runInBand
     secrets: inherit

@@ -7,7 +7,6 @@ import { getURLFromLog } from "./utils.ts";
 export class NextInstanceDev extends NextInstance {
   public async spawn() {
     const spawnOpts: SpawnOptionsWithoutStdio = {
-      cwd: this._appTestDir,
       shell: false,
       env: {
         ...process.env,
@@ -20,7 +19,7 @@ export class NextInstanceDev extends NextInstance {
 
     return new Promise<void>((resolve) => {
       try {
-        this._process = spawn("pnpm", ["next", "dev"], spawnOpts);
+        this._process = spawn("pnpm", ["next", "dev", this._appTestDir], spawnOpts);
         this._process.stdout.on("data", (chunk: Buffer) => {
           const msg = chunk.toString();
           this._cliOutput += msg;

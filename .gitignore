@@ -27,6 +27,7 @@ examples/**/build/
 docs/build/
 .svelte-kit/
 .next/
+next-env.d.ts
 .nuxt/
 out/
 .vercel/
@@ -44,5 +45,7 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
 # serwist
+__tests__/next/*/public/sw.js*
+__tests__/next/*/public/swe-worker-*.js*
 examples/next-*/public/sw.js
 examples/next-*/public/swe-worker-*.js

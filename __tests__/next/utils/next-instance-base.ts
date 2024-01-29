@@ -1,4 +1,6 @@
 import type { ChildProcessWithoutNullStreams } from "node:child_process";
+import fs from "node:fs/promises";
+import path from "node:path";
 
 import * as cheerio from "cheerio";
 import type { PackageJson } from "type-fest";
@@ -12,7 +14,6 @@ export interface NextInstanceOpts {
 
 export abstract class NextInstance {
   protected _isDestroyed: boolean;
-  protected _testDir: string;
   protected _appTestDir: string;
   protected _url: string;
   protected _skipInstall: boolean;
@@ -22,7 +23,6 @@ export abstract class NextInstance {
   constructor(opts: NextInstanceOpts) {
     this._isDestroyed = false;
     this._url = "";
-    this._testDir = "";
     this._appTestDir = "";
     this._skipInstall = opts.skipInstall;
     this._cliOutput = "";
@@ -36,10 +36,17 @@ export abstract class NextInstance {
     return this._appTestDir;
   }
   protected async clean() {
-    // Do nothing.
+    try {
+      await Promise.all([
+        fs.rm(path.join(this._appTestDir, ".next"), { recursive: true, force: true, maxRetries: 10, retryDelay: 1000 }),
+        fs.rm(path.join(this._appTestDir, "public/sw.js"), { maxRetries: 10, force: true }),
+        fs.rm(path.join(this._appTestDir, "next-env.d.ts"), { maxRetries: 10, force: true }),
+      ]);
+    } catch (err) {
+      console.error("failed to clean up test dir", err);
+    }
   }
   async setup(sourceDir: string) {
-    this._testDir = process.cwd();
     this._appTestDir = sourceDir;
   }
   abstract spawn(): Promise<void>;
@@ -59,7 +66,7 @@ export abstract class NextInstance {
           if (this._process?.pid) {
             treeKill(this._process.pid, "SIGKILL", (err) => {
               if (err) {
-                console.error("Failed to kill tree of process", this._process?.pid, "err:", err);
+                console.error("failed to kill tree of process", this._process?.pid, "err:", err);
               }
               resolve();
             });
@@ -68,16 +75,16 @@ export abstract class NextInstance {
         this._process.kill("SIGKILL");
         await exitPromise;
         this._process = undefined;
-        console.log("Stopped next server");
+        console.log("stopped next server");
       } catch (err) {
-        console.error("Failed to stop next server", err);
+        console.error("failed to stop next server", err);
       }
     }
     await this.clean();
   }
   public async fetch(pathname: string, init?: RequestInit) {
     if (this._url === "") {
-      throw new Error("fetch error: base url not defined.");
+      throw new Error("fetch error: base URL not defined.");
     }
     return await fetch(new URL(pathname, this._url), init);
   }

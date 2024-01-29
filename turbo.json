@@ -8,15 +8,19 @@
     },
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**", "out/**", "dist/**", ".svelte-kit/**", ".vercel/**"]
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        "out/**",
+        "dist/**",
+        ".svelte-kit/**",
+        ".vercel/**"
+      ]
     },
     "lint": {
       "outputs": []
     },
-    "test": {
-      "dependsOn": ["build"],
-      "outputs": []
-    },
+    "test": {},
     "typecheck": {
       "outputs": []
     }
