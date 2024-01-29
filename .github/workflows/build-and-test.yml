@@ -16,19 +16,19 @@ jobs:
     uses: ./.github/workflows/build-reusable.yml
     with:
       afterBuild: |
-        NEXT_TEST_MODE=dev pnpm test -- -- __tests__/next --ci --runInBand
+        NEXT_TEST_MODE=dev pnpm test --filter=./__tests__/next -- --ci --runInBand
     secrets: inherit
   test-next-prod:
     name: ⚫️ Run Jest (production mode) tests for @serwist/next
     uses: ./.github/workflows/build-reusable.yml
     with:
       afterBuild: |
-        NEXT_TEST_MODE=start pnpm test -- -- __tests__/next --ci --runInBand
+        NEXT_TEST_MODE=start pnpm test --filter=./__tests__/next -- --ci --runInBand
     secrets: inherit
   test-build:
     name: ⚫️ Run Jest tests for @serwist/build
     uses: ./.github/workflows/build-reusable.yml
     with:
       afterBuild: |
-        NEXT_TEST_MODE=dev pnpm test -- -- __tests__/build --ci --runInBand
+        NEXT_TEST_MODE=dev pnpm test --filter=./__tests__/build -- --ci --runInBand
     secrets: inherit
