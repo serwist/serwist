@@ -288,7 +288,6 @@ export interface WebpackPartial {
    * as `webpack`'s standard `exclude` option.
    * If not provided, the default value is `[/\.map$/, /^manifest.*\.js$]`.
    */
-  //eslint-disable-next-line @typescript-eslint/ban-types
   exclude?: Array<string | RegExp | ((arg0: any) => boolean)>;
   /**
    * One or more chunk names whose corresponding output files should be excluded
@@ -301,7 +300,6 @@ export interface WebpackPartial {
    * [the same rules](https://webpack.js.org/configuration/module/#condition)
    * as `webpack`'s standard `include` option.
    */
-  //eslint-disable-next-line @typescript-eslint/ban-types
   include?: Array<string | RegExp | ((arg0: any) => boolean)>;
   /**
    * If set to 'production', then an optimized service worker bundle that

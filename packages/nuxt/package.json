@@ -50,7 +50,7 @@
   },
   "scripts": {
     "build": "nuxt-module-build prepare && nuxt-module-build build",
-    "dev": "nuxi dev playground",
+    "dev": "nuxi dev playground --port 5173",
     "dev:generate": "nuxi generate playground",
     "dev:generate:netlify": "NITRO_PRESET=netlify nuxi generate playground",
     "dev:generate:vercel": "NITRO_PRESET=vercel nuxi generate playground",

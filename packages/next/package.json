@@ -72,6 +72,7 @@
   },
   "dependencies": {
     "@serwist/build": "workspace:*",
+    "@serwist/core": "workspace:*",
     "@serwist/webpack-plugin": "workspace:*",
     "@serwist/window": "workspace:*",
     "clean-webpack-plugin": "4.0.0",
