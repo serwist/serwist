@@ -206,9 +206,9 @@ const withSerwistInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfi
             manifestTransforms: [
               ...manifestTransforms,
               async (manifestEntries, compilation) => {
+                // This path always uses forward slashes, so it is safe to use it in the following string replace.
+                const publicDirRelativeOutput = relativeToOutputPath(compilation as Compilation, publicDir);
                 const manifest = manifestEntries.map((m) => {
-                  // This path always uses forward slashes, so it is safe to use it in the following string replace.
-                  const publicDirRelativeOutput = relativeToOutputPath(compilation as Compilation, publicDir);
                   // `publicPath` is always `${assetPrefix}/_next/` for Next.js apps.
                   // We remove `${publicPath}/${publicDirRelativeOutput}` because `assetPrefix`
                   // is not intended for files that are in the public directory and we also want
