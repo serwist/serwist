@@ -8,6 +8,7 @@ import type { FallbackEntry, FallbackMatcher, FallbacksOptions } from "./fallbac
 import { fallbacks } from "./fallbacks.js";
 import { type HandlePrecachingOptions, handlePrecaching } from "./handlePrecaching.js";
 import { registerRuntimeCaching } from "./registerRuntimeCaching.js";
+import { logger } from "@serwist/core/internal";
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -76,13 +77,17 @@ export const installSerwist = ({
   });
 
   if (runtimeCaching !== undefined) {
-    if (fallbacksOptions !== undefined) {
-      runtimeCaching = fallbacks({
-        ...fallbacksOptions,
-        runtimeCaching,
-      });
+    if (process.env.NODE_ENV === "production") {
+      if (fallbacksOptions !== undefined) {
+        runtimeCaching = fallbacks({
+          ...fallbacksOptions,
+          runtimeCaching,
+        });
+      }
+      registerRuntimeCaching(...runtimeCaching);
+    } else {
+      logger.info("runtimeCaching and fallbacks are disabled in development mode.");
     }
-    registerRuntimeCaching(...runtimeCaching);
   }
 
   if (offlineAnalyticsConfig !== undefined) {

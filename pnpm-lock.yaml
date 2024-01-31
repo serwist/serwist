@@ -598,6 +598,9 @@ importers:
       '@serwist/build':
         specifier: workspace:*
         version: link:../build
+      '@serwist/core':
+        specifier: workspace:*
+        version: link:../core
       '@serwist/webpack-plugin':
         specifier: workspace:*
         version: link:../webpack-plugin
@@ -884,6 +887,9 @@ importers:
       '@serwist/constants':
         specifier: workspace:*
         version: link:../constants
+      '@serwist/core':
+        specifier: workspace:*
+        version: link:../core
       '@sveltejs/kit':
         specifier: 2.0.6
         version: 2.0.6(@sveltejs/vite-plugin-svelte@3.0.1)(svelte@5.0.0-next.26)(vite@5.0.10)
