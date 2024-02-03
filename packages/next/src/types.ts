@@ -1,6 +1,7 @@
 import type { WebpackInjectManifestOptions } from "@serwist/build";
+import type { Pattern as GlobPattern } from "fast-glob";
 
-type Require<T, U extends keyof T> = T & Required<Pick<T, U>>;
+import type { Require } from "./internal-types.js";
 
 export interface PluginOptions extends Require<WebpackInjectManifestOptions, "swDest"> {
   /**
@@ -79,4 +80,14 @@ export interface PluginOptions extends Require<WebpackInjectManifestOptions, "sw
    * @default "/sw.js"
    */
   swUrl?: string;
+  /**
+   * Files in the public directory matching any of these patterns
+   * will be included in the precache manifest. For more information,
+   * see [`fast-glob`'s documentation](https://github.com/mrmlnc/fast-glob?tab=readme-ov-file#pattern-syntax).
+   * @default
+   * ```
+   * ["**\/*"]
+   * ```
+   */
+  globPublicPatterns?: GlobPattern | GlobPattern[];
 }

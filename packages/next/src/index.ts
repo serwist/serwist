@@ -19,7 +19,7 @@ const withSerwistInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfi
     ...nextConfig,
     webpack(config: Configuration, options) {
       const webpack: typeof Webpack = options.webpack;
-      const { buildId, dev } = options;
+      const { dev } = options;
 
       const basePath = options.config.basePath || "/";
 
@@ -32,6 +32,7 @@ const withSerwistInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfi
         swUrl = "sw.js",
         register = true,
         reloadOnOnline = true,
+        globPublicPatterns,
         ...buildOptions
       } = pluginOptions;
 
@@ -159,24 +160,24 @@ const withSerwistInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfi
 
         if (!resolvedManifestEntries) {
           const swDestFileName = path.basename(swDest);
-          resolvedManifestEntries = fg
-            .sync(
-              [
-                "**/*",
-                // Include these in case the user outputs these files to `public`.
-                "!swe-worker-*.js",
-                "!swe-worker-*.js.map",
-                `!${swDestFileName.replace(/^\/+/, "")}`,
-                `!${swDestFileName.replace(/^\/+/, "")}.map`,
-              ],
-              {
-                cwd: publicDir,
-              },
-            )
-            .map((f) => ({
-              url: path.posix.join(basePath, f),
-              revision: getFileHash(`public/${f}`),
-            }));
+          const userPublicGlob = typeof globPublicPatterns === "string" ? [globPublicPatterns] : globPublicPatterns ?? ["**/*"];
+          const publicScan = fg.sync(
+            [
+              ...userPublicGlob,
+              // Forcibly include these in case the user outputs these files to `public`.
+              "!swe-worker-*.js",
+              "!swe-worker-*.js.map",
+              `!${swDestFileName.replace(/^\/+/, "")}`,
+              `!${swDestFileName.replace(/^\/+/, "")}.map`,
+            ],
+            {
+              cwd: publicDir,
+            },
+          );
+          resolvedManifestEntries = publicScan.map((f) => ({
+            url: path.posix.join(basePath, f),
+            revision: getFileHash(`public/${f}`),
+          }));
         }
 
         const publicPath = config.output?.publicPath;
@@ -218,14 +219,6 @@ const withSerwistInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfi
                   // we resolve files in the public directory.
                   if (m.url.startsWith(publicFilesPrefix)) {
                     m.url = path.posix.join(basePath, m.url.replace(publicFilesPrefix, ""));
-                  }
-                  if (m.revision === null) {
-                    let key = m.url;
-                    if (typeof publicPath === "string" && key.startsWith(publicPath)) {
-                      key = m.url.substring(publicPath.length);
-                    }
-                    const asset = (compilation as any).assetsInfo.get(key);
-                    m.revision = asset ? asset.contenthash : buildId;
                   }
                   m.url = m.url.replace(/\[/g, "%5B").replace(/\]/g, "%5D");
                   return m;

@@ -14,7 +14,7 @@ import { timeout } from "./_private/timeout.js";
 import { waitUntil } from "./_private/waitUntil.js";
 
 // Serwist's internal functions, classes, variables, and more. Feel free to use them,
-// but they are not documented.
+// but they are not documented. Note: they do follow semver.
 export {
   assert,
   cacheMatchIgnoreParams,

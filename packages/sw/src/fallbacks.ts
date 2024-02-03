@@ -1,7 +1,8 @@
-import type { RuntimeCaching } from "@serwist/build";
 import type { HandlerDidErrorCallbackParam } from "@serwist/core";
 import type { PrecacheRouteOptions } from "@serwist/precaching";
 import { precacheAndRoute } from "@serwist/precaching";
+
+import type { RuntimeCaching } from "./types.js";
 
 export type FallbackMatcher = (_: HandlerDidErrorCallbackParam) => boolean;
 

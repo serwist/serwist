@@ -1,4 +1,4 @@
-import type { RuntimeCaching } from "@serwist/build";
+import type { RuntimeCaching } from "@serwist/sw";
 
 // Serwist RuntimeCaching config: https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-build#.RuntimeCachingEntry
 export const defaultCache: RuntimeCaching[] = [
