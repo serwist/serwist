@@ -62,8 +62,8 @@ export const resolveEntry = (entry: string): string | null => {
  * @param api
  * @returns
  */
-export function toFs(str: string) {
+export const toFs = (str: string) => {
   str = str.replace(/\\/g, "/");
   // Windows/Linux separation - Windows starts with a drive letter, we need a / in front there
   return `/@fs${str.startsWith("/") ? "" : "/"}${str}`;
-}
+};
