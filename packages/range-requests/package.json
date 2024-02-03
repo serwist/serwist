@@ -50,6 +50,15 @@
   },
   "devDependencies": {
     "@serwist/constants": "workspace:*",
-    "rollup": "4.9.1"
+    "rollup": "4.9.6",
+    "typescript": "5.4.0-dev.20240203"
+  },
+  "peerDependencies": {
+    "typescript": ">=5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    }
   }
 }
