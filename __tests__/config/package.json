@@ -6,7 +6,7 @@
     "./jest": "./src/jest.ts"
   },
   "devDependencies": {
-    "@swc/jest": "0.2.29",
+    "@swc/jest": "0.2.34",
     "jest": "29.7.0"
   }
 }

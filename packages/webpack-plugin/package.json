@@ -69,14 +69,22 @@
     "fast-json-stable-stringify": "2.1.0",
     "upath": "2.0.1"
   },
-  "peerDependencies": {
-    "webpack": "4.4.0 || ^5.9.0"
-  },
   "devDependencies": {
     "@serwist/constants": "workspace:*",
-    "@types/node": "20.10.5",
+    "@types/node": "20.11.16",
     "@types/webpack": "5.28.5",
     "pretty-bytes": "6.1.1",
-    "rollup": "4.9.1"
+    "rollup": "4.9.6",
+    "typescript": "5.4.0-dev.20240203",
+    "webpack": "5.90.1"
+  },
+  "peerDependencies": {
+    "typescript": ">=5.0.0",
+    "webpack": "4.4.0 || ^5.9.0"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    }
   }
 }

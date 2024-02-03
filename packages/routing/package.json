@@ -15,9 +15,6 @@
     "router",
     "routing"
   ],
-  "engines": {
-    "node": ">=18.0.0"
-  },
   "author": "Google's Web DevRel Team, Serwist's Team",
   "license": "MIT",
   "repository": "serwist/serwist",
@@ -50,7 +47,8 @@
   },
   "devDependencies": {
     "@serwist/constants": "workspace:*",
-    "rollup": "4.9.1"
+    "rollup": "4.9.6",
+    "typescript": "5.4.0-dev.20240203"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0"

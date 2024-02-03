@@ -25,6 +25,9 @@
     "web",
     "service-worker"
   ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "author": "antfu <anthonyfu117@hotmail.com>, Serwist's Team",
   "license": "MIT",
   "repository": "serwist/serwist",
@@ -87,26 +90,26 @@
     "pretty-bytes": "6.1.1"
   },
   "devDependencies": {
-    "@playwright/test": "1.40.1",
+    "@playwright/test": "1.41.2",
     "@serwist/constants": "workspace:*",
     "@serwist/sw": "workspace:*",
-    "@sveltejs/kit": "2.0.6",
+    "@sveltejs/kit": "2.5.0",
     "@types/debug": "4.1.12",
-    "@types/node": "20.10.5",
+    "@types/node": "20.11.16",
     "@types/prompts": "2.4.9",
-    "@types/react": "18.2.45",
-    "bumpp": "9.2.1",
+    "@types/react": "18.2.52",
+    "bumpp": "9.3.0",
     "kolorist": "1.8.0",
     "preact": "10.19.3",
     "prompts": "2.4.2",
     "publint": "0.2.7",
     "react": "18.2.0",
-    "rollup": "4.9.1",
-    "solid-js": "1.8.7",
-    "svelte": "5.0.0-next.26",
-    "typescript": "5.4.0-dev.20231226",
-    "vite": "5.0.10",
-    "vue": "3.3.13"
+    "rollup": "4.9.6",
+    "solid-js": "1.8.12",
+    "svelte": "5.0.0-next.45",
+    "typescript": "5.4.0-dev.20240203",
+    "vite": "5.0.12",
+    "vue": "3.4.15"
   },
   "peerDependencies": {
     "@serwist/sw": "workspace:*",

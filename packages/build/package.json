@@ -61,7 +61,7 @@
     "fast-json-stable-stringify": "2.1.0",
     "fs-extra": "11.2.0",
     "glob": "10.3.10",
-    "rollup": "4.9.1",
+    "rollup": "4.9.6",
     "source-map": "0.8.0-beta.0",
     "upath": "2.0.1"
   },
@@ -69,10 +69,11 @@
     "@serwist/constants": "workspace:*",
     "@types/common-tags": "1.8.4",
     "@types/fs-extra": "11.0.4",
-    "@types/node": "20.10.5",
+    "@types/node": "20.11.16",
     "@types/stringify-object": "4.0.5",
     "pretty-bytes": "6.1.1",
-    "type-fest": "4.8.3"
+    "typescript": "5.4.0-dev.20240203",
+    "type-fest": "4.10.2"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0"
