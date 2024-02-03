@@ -38,7 +38,7 @@ export async function getFileManifestEntries({
     };
   }
 
-  const warnings: Array<string> = [];
+  const warnings: string[] = [];
   const allFileDetails = new Map<string, FileDetails>();
 
   try {
@@ -75,7 +75,7 @@ export async function getFileManifestEntries({
 
       const dependencies = templatedURLs[url];
       if (Array.isArray(dependencies)) {
-        const details = dependencies.reduce<Array<FileDetails>>((previous, globPattern) => {
+        const details = dependencies.reduce<FileDetails[]>((previous, globPattern) => {
           try {
             const { globbedFileDetails, warning } = getFileDetails({
               globDirectory,
@@ -91,7 +91,7 @@ export async function getFileManifestEntries({
 
             return previous.concat(globbedFileDetails);
           } catch (error) {
-            const debugObj: { [key: string]: Array<string> } = {};
+            const debugObj: { [key: string]: string[] } = {};
             debugObj[url] = dependencies;
             throw new Error(
               `${errors["bad-template-urls-asset"]} ` +

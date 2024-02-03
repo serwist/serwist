@@ -18,7 +18,7 @@ export const defaultMethod = "GET" satisfies HTTPMethod;
 
 /**
  * The list of valid HTTP methods associated with requests that could be routed.
- * 
+ *
  * @private
  */
 export const validMethods = ["DELETE", "GET", "HEAD", "PATCH", "POST", "PUT"] satisfies HTTPMethod[];

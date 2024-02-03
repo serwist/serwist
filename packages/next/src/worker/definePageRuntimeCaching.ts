@@ -14,7 +14,7 @@ export interface DefinePageRuntimeCachingOptions {
 /**
  * Conveniently define three `runtimeCaching` entries for Next.js pages.
  * @param options
- * @returns 
+ * @returns
  */
 export const definePageRuntimeCaching = ({ rscPrefetch, rsc, html }: DefinePageRuntimeCachingOptions): RuntimeCaching[] => {
   const pageRcs = [rscPrefetch, rsc, html] as RuntimeCaching[];

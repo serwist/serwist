@@ -59,7 +59,7 @@ function checkConditions(
  * @returns
  * @private
  */
-function getNamesOfAssetsInChunkOrGroup(compilation: Compilation, chunkOrGroup: string): Array<string> | null {
+function getNamesOfAssetsInChunkOrGroup(compilation: Compilation, chunkOrGroup: string): string[] | null {
   const chunkGroup = compilation.namedChunkGroups?.get(chunkOrGroup);
   if (chunkGroup) {
     const assetNames = [];
@@ -84,8 +84,8 @@ function getNamesOfAssetsInChunkOrGroup(compilation: Compilation, chunkOrGroup: 
  * @returns
  * @private
  */
-function getNamesOfAssetsInChunk(chunk: Chunk): Array<string> {
-  const assetNames: Array<string> = [];
+function getNamesOfAssetsInChunk(chunk: Chunk): string[] {
+  const assetNames: string[] = [];
 
   assetNames.push(...chunk.files);
 

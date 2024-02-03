@@ -73,7 +73,7 @@ export interface RuntimeCaching {
      * `@serwist/expiration.ExpirationPlugin`). The plugins provided here
      * will be added to the `@serwist/strategies` configured in `handler`.
      */
-    plugins?: Array<SerwistPlugin>;
+    plugins?: SerwistPlugin[];
     /**
      * Configuring this will add a
      * `@serwist/precaching.PrecacheFallbackPlugin` instance to

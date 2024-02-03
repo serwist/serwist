@@ -82,7 +82,7 @@ class PrecacheController {
    *
    * @param entries Array of entries to precache.
    */
-  precache(entries: Array<PrecacheEntry | string>): void {
+  precache(entries: (PrecacheEntry | string)[]): void {
     this.addToCacheList(entries);
 
     if (!this._installAndActiveListenersAdded) {
@@ -98,7 +98,7 @@ class PrecacheController {
    *
    * @param entries Array of entries to precache.
    */
-  addToCacheList(entries: Array<PrecacheEntry | string>): void {
+  addToCacheList(entries: (PrecacheEntry | string)[]): void {
     if (process.env.NODE_ENV !== "production") {
       assert!.isArray(entries, {
         moduleName: "@serwist/precaching",
@@ -252,7 +252,7 @@ class PrecacheController {
    *
    * @returns The precached URLs.
    */
-  getCachedURLs(): Array<string> {
+  getCachedURLs(): string[] {
     return [...this._urlsToCacheKeys.keys()];
   }
 

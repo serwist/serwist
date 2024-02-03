@@ -23,10 +23,10 @@ export declare interface PrecacheEntry {
 
 export interface PrecacheRouteOptions {
   /**
-   * The `directoryIndex` will check cache entries for a URLs ending with '/'
+   * The `directoryIndex` will check cache entries for a URL ending with '/'
    * to see if there is a hit when appending the `directoryIndex` value.
    */
-  directoryIndex?: string;
+  directoryIndex?: string | null;
   /**
    * An array of RegExp's to remove search params when looking for a cache match.
    */

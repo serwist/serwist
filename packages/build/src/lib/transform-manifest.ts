@@ -78,7 +78,7 @@ export async function transformManifest({
   transformParam,
   disablePrecacheManifest,
 }: BasePartial & {
-  fileDetails: Array<FileDetails>;
+  fileDetails: FileDetails[];
   // When this is called by the webpack plugin, transformParam will be the
   // current webpack compilation.
   transformParam?: unknown;
@@ -92,7 +92,7 @@ export async function transformManifest({
     };
   }
 
-  const allWarnings: Array<string> = [];
+  const allWarnings: string[] = [];
 
   // Take the array of fileDetail objects and convert it into an array of
   // {url, revision, size} objects, with \ replaced with /.
@@ -104,7 +104,7 @@ export async function transformManifest({
     };
   });
 
-  const transformsToApply: Array<ManifestTransform> = [];
+  const transformsToApply: ManifestTransform[] = [];
 
   if (maximumFileSizeToCacheInBytes) {
     transformsToApply.push(maximumSizeTransform(maximumFileSizeToCacheInBytes));
@@ -128,7 +128,7 @@ export async function transformManifest({
     transformsToApply.push(additionalPrecacheEntriesTransform(additionalPrecacheEntries));
   }
 
-  let transformedManifest: Array<ManifestEntry & { size: number }> = normalizedManifest;
+  let transformedManifest: (ManifestEntry & { size: number })[] = normalizedManifest;
   for (const transform of transformsToApply) {
     const result = await transform(transformedManifest, transformParam);
     if (!("manifest" in result)) {
@@ -143,7 +143,7 @@ export async function transformManifest({
   // properties from each entry.
   const count = transformedManifest.length;
   let size = 0;
-  for (const manifestEntry of transformedManifest as Array<ManifestEntry & { size?: number }>) {
+  for (const manifestEntry of transformedManifest as (ManifestEntry & { size?: number })[]) {
     size += manifestEntry.size || 0;
     // biome-ignore lint/performance/noDelete: I don't understand this part yet.
     delete manifestEntry.size;
@@ -152,7 +152,7 @@ export async function transformManifest({
   return {
     count,
     size,
-    manifestEntries: transformedManifest as Array<ManifestEntry>,
+    manifestEntries: transformedManifest as ManifestEntry[],
     warnings: allWarnings,
   };
 }

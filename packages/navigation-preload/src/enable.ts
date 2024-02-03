@@ -42,4 +42,4 @@ export const enable = (headerValue?: string): void => {
       logger.log("Navigation preload is not supported in this browser.");
     }
   }
-}
+};

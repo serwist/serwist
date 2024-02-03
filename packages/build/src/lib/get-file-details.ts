@@ -30,10 +30,10 @@ export function getFileDetails({
   globDirectory: string;
   globPattern: string;
 }): {
-  globbedFileDetails: Array<FileDetails>;
+  globbedFileDetails: FileDetails[];
   warning: string;
 } {
-  let globbedFiles: Array<string>;
+  let globbedFiles: string[];
   let warning = "";
 
   try {
@@ -50,7 +50,7 @@ export function getFileDetails({
     warning = `${errors["useless-glob-pattern"]} ${JSON.stringify({ globDirectory, globPattern, globIgnores }, null, 2)}`;
   }
 
-  const globbedFileDetails: Array<FileDetails> = [];
+  const globbedFileDetails: FileDetails[] = [];
   for (const file of globbedFiles) {
     const fullPath = upath.join(globDirectory, file);
     const fileSize = getFileSize(fullPath);

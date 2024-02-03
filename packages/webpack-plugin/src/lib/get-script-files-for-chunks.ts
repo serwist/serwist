@@ -11,7 +11,7 @@ import type { Compilation, WebpackError } from "webpack";
 
 import { resolveWebpackURL } from "./resolve-webpack-url.js";
 
-export function getScriptFilesForChunks(compilation: Compilation, chunkNames: Array<string>): Array<string> {
+export function getScriptFilesForChunks(compilation: Compilation, chunkNames: string[]): string[] {
   const { chunks } = compilation.getStats().toJson({ chunks: true });
   const { publicPath } = compilation.options.output;
   const scriptFiles = new Set<string>();

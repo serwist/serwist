@@ -30,7 +30,7 @@ export const registerRuntimeCaching = (...runtimeCachingList: RuntimeCaching[]) 
     logger.info("registerRuntimeCaching is disabled in development mode.");
     return;
   }
-  
+
   for (const rcEntry of runtimeCachingList) {
     if (typeof rcEntry.handler === "string") {
       const {
