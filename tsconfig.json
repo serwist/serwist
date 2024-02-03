@@ -15,6 +15,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "isolatedModules": true,
+    "verbatimModuleSyntax": true,
     "removeComments": false,
     "noEmit": true,
     "checkJs": true

@@ -1,6 +1,5 @@
 import { BackgroundSyncPlugin } from "@serwist/background-sync";
 import { BroadcastUpdatePlugin } from "@serwist/broadcast-update";
-import type { RuntimeCaching, StrategyName } from "@serwist/build";
 import { CacheableResponsePlugin } from "@serwist/cacheable-response";
 import { logger } from "@serwist/core/internal";
 import { ExpirationPlugin } from "@serwist/expiration";
@@ -10,6 +9,7 @@ import { registerRoute } from "@serwist/routing";
 import { CacheFirst, CacheOnly, NetworkFirst, NetworkOnly, StaleWhileRevalidate } from "@serwist/strategies";
 
 import { nonNullable } from "./nonNullable.js";
+import type { RuntimeCaching, StrategyName } from "./types.js";
 
 const HANDLER_NAME_TO_METHOD = {
   CacheFirst,
