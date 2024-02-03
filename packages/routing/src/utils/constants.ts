@@ -12,17 +12,13 @@ export type HTTPMethod = "DELETE" | "GET" | "HEAD" | "PATCH" | "POST" | "PUT";
  * The default HTTP method, 'GET', used when there's no specific method
  * configured for a route.
  *
- * @type {string}
- *
  * @private
  */
-export const defaultMethod: HTTPMethod = "GET";
+export const defaultMethod = "GET" satisfies HTTPMethod;
 
 /**
  * The list of valid HTTP methods associated with requests that could be routed.
- *
- * @type {Array<string>}
- *
+ * 
  * @private
  */
-export const validMethods: HTTPMethod[] = ["DELETE", "GET", "HEAD", "PATCH", "POST", "PUT"];
+export const validMethods = ["DELETE", "GET", "HEAD", "PATCH", "POST", "PUT"] satisfies HTTPMethod[];

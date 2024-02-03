@@ -16,7 +16,7 @@ export const load = async () => {
           highligher,
           {
             "app/sw.ts": {
-              code: `import { defaultCache } from "@serwist/next/browser";
+              code: `import { defaultCache } from "@serwist/next/worker";
 import type { PrecacheEntry } from "@serwist/precaching";
 import { installSerwist } from "@serwist/sw";
 
@@ -36,7 +36,7 @@ installSerwist({
               lang: "typescript",
             },
             "app/sw.js": {
-              code: `import { defaultCache } from "@serwist/next/browser";
+              code: `import { defaultCache } from "@serwist/next/worker";
 import { installSerwist } from "@serwist/sw";
 
 installSerwist({

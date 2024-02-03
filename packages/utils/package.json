@@ -1,0 +1,29 @@
+{
+  "name": "@serwist/utils",
+  "version": "8.4.4",
+  "type": "module",
+  "description": "This module contains utilities used by Serwist packages.",
+  "private": true,
+  "files": [
+    "src"
+  ],
+  "keywords": [
+    "serwist",
+    "serwistjs",
+    "service worker",
+    "sw"
+  ],
+  "author": "Serwist's Team",
+  "license": "MIT",
+  "repository": "serwist/serwist",
+  "bugs": "https://github.com/serwist/serwist/issues",
+  "homepage": "https://serwist.pages.dev",
+  "exports": {
+    ".": "./src/index.ts",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "lint": "biome lint ./src",
+    "typecheck": "tsc"
+  }
+}

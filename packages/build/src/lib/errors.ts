@@ -74,10 +74,6 @@ export const errors = {
     'templatedURLs'.`,
   "invalid-runtime-caching": ol`The 'runtimeCaching' parameter must an an
     array of objects with at least a 'urlPattern' and 'handler'.`,
-  "static-file-globs-deprecated": ol`'staticFileGlobs' is deprecated.
-    Please use 'globPatterns' instead.`,
-  "dynamic-url-deprecated": ol`'dynamicURLToDependencies' is deprecated.
-    Please use 'templatedURLs' instead.`,
   "urlPattern-is-required": ol`The 'urlPattern' option is required when using
     'runtimeCaching'.`,
   "handler-is-required": ol`The 'handler' option is required when using

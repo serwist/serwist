@@ -35,7 +35,7 @@ interface CacheURLsMessageData {
  * If a request matches multiple routes, the **earliest** registered route will
  * be used to respond to the request.
  */
-class Router {
+export class Router {
   private readonly _routes: Map<HTTPMethod, Route[]>;
   private readonly _defaultHandlerMap: Map<HTTPMethod, RouteHandlerObject>;
   private _catchHandler?: RouteHandlerObject;
@@ -438,5 +438,3 @@ class Router {
     }
   }
 }
-
-export { Router };

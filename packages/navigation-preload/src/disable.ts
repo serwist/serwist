@@ -16,7 +16,7 @@ declare let self: ServiceWorkerGlobalScope;
 /**
  * If the browser supports Navigation Preload, then this will disable it.
  */
-function disable(): void {
+export const disable = (): void => {
   if (isSupported()) {
     self.addEventListener("activate", (event: ExtendableEvent) => {
       event.waitUntil(
@@ -32,6 +32,4 @@ function disable(): void {
       logger.log("Navigation preload is not supported in this browser.");
     }
   }
-}
-
-export { disable };
+};

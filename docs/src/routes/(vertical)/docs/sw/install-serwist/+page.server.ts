@@ -20,7 +20,7 @@ export const load: PageServerLoad = async () => {
             code: `import type { PrecacheEntry } from "@serwist/precaching";
 import { installSerwist } from "@serwist/sw";
 // This import depends on your framework. For example, if you use Next.js, it should
-// be @serwist/next/browser rather than @serwist/vite/worker.
+// be @serwist/next/worker rather than @serwist/vite/worker.
 import { defaultCache } from "@serwist/vite/worker";
 
 declare const self: ServiceWorkerGlobalScope & {
@@ -41,7 +41,7 @@ installSerwist({
           "sw.js": {
             code: `import { installSerwist } from "@serwist/sw";
 // This import depends on your framework. For example, if you use Next.js, it should
-// be @serwist/next/browser rather than @serwist/vite/worker.
+// be @serwist/next/worker rather than @serwist/vite/worker.
 import { defaultCache } from "@serwist/vite/worker";
 
 installSerwist({

@@ -1,7 +1,8 @@
 import type { RuntimeCaching } from "@serwist/sw";
+import { definePageRuntimeCaching } from "./definePageRuntimeCaching.js";
 
 // Serwist RuntimeCaching config: https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-build#.RuntimeCachingEntry
-export const defaultCache: RuntimeCaching[] = [
+export const defaultCache = [
   {
     urlPattern: /^https:\/\/fonts\.(?:gstatic)\.com\/.*/i,
     handler: "CacheFirst",
@@ -162,34 +163,45 @@ export const defaultCache: RuntimeCaching[] = [
       networkTimeoutSeconds: 10, // fallback to cache if API does not response within 10 seconds
     },
   },
-  {
-    urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
-      request.headers.get("RSC") === "1" && request.headers.get("Next-Router-Prefetch") === "1" && sameOrigin && !pathname.startsWith("/api/"),
-    handler: "NetworkFirst",
-    options: {
-      cacheName: "pages-rsc-prefetch",
-      expiration: {
-        maxEntries: 32,
-        maxAgeSeconds: 24 * 60 * 60, // 24 hours
+  ...definePageRuntimeCaching({
+    rscPrefetch: {
+      urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
+        request.headers.get("RSC") === "1" && request.headers.get("Next-Router-Prefetch") === "1" && sameOrigin && !pathname.startsWith("/api/"),
+      handler: "NetworkFirst",
+      options: {
+        expiration: {
+          maxEntries: 32,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        },
       },
     },
-  },
-  {
-    urlPattern: ({ request, url: { pathname }, sameOrigin }) => request.headers.get("RSC") === "1" && sameOrigin && !pathname.startsWith("/api/"),
-    handler: "NetworkFirst",
-    options: {
-      cacheName: "pages-rsc",
-      expiration: {
-        maxEntries: 32,
-        maxAgeSeconds: 24 * 60 * 60, // 24 hours
+    rsc: {
+      urlPattern: ({ request, url: { pathname }, sameOrigin }) => request.headers.get("RSC") === "1" && sameOrigin && !pathname.startsWith("/api/"),
+      handler: "NetworkFirst",
+      options: {
+        expiration: {
+          maxEntries: 32,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        },
       },
     },
-  },
+    html: {
+      urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
+        request.headers.get("Content-Type")?.includes("text/html") && sameOrigin && !pathname.startsWith("/api/"),
+      handler: "NetworkFirst",
+      options: {
+        expiration: {
+          maxEntries: 32,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        },
+      },
+    },
+  }),
   {
     urlPattern: ({ url: { pathname }, sameOrigin }) => sameOrigin && !pathname.startsWith("/api/"),
     handler: "NetworkFirst",
     options: {
-      cacheName: "pages",
+      cacheName: "others",
       expiration: {
         maxEntries: 32,
         maxAgeSeconds: 24 * 60 * 60, // 24 hours
@@ -208,4 +220,4 @@ export const defaultCache: RuntimeCaching[] = [
       networkTimeoutSeconds: 10,
     },
   },
-];
+] satisfies RuntimeCaching[];

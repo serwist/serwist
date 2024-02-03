@@ -19,7 +19,7 @@ import type { HTTPMethod } from "./utils/constants.js";
  * requests against third-party servers, you must define a RegExp that matches
  * the start of the URL.
  */
-class RegExpRoute extends Route {
+export class RegExpRoute extends Route {
   /**
    * If the regular expression contains
    * [capture groups](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp#grouping-back-references),
@@ -72,5 +72,3 @@ class RegExpRoute extends Route {
     super(match, handler, method);
   }
 }
-
-export { RegExpRoute };

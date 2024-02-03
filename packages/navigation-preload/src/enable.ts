@@ -21,7 +21,7 @@ declare let self: ServiceWorkerGlobalScope;
  * the value of the `Service-Worker-Navigation-Preload` header which will be
  * sent to the server when making the navigation request.
  */
-function enable(headerValue?: string): void {
+export const enable = (headerValue?: string): void => {
   if (isSupported()) {
     self.addEventListener("activate", (event: ExtendableEvent) => {
       event.waitUntil(
@@ -43,5 +43,3 @@ function enable(headerValue?: string): void {
     }
   }
 }
-
-export { enable };
