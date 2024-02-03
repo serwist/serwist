@@ -73,5 +73,13 @@
     "@types/stringify-object": "4.0.5",
     "pretty-bytes": "6.1.1",
     "type-fest": "4.8.3"
+  },
+  "peerDependencies": {
+    "typescript": ">=5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    }
   }
 }

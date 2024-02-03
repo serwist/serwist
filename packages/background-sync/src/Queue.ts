@@ -220,7 +220,7 @@ class Queue {
    *
    * @returns
    */
-  async getAll(): Promise<Array<QueueEntry>> {
+  async getAll(): Promise<QueueEntry[]> {
     const allEntries = await this._queueStore.getAll();
     const now = Date.now();
 

@@ -409,6 +409,9 @@ importers:
       source-map:
         specifier: 0.8.0-beta.0
         version: 0.8.0-beta.0
+      typescript:
+        specifier: '>=5.0.0'
+        version: 5.3.3
       upath:
         specifier: 2.0.1
         version: 2.0.1
@@ -620,6 +623,9 @@ importers:
       '@serwist/sw':
         specifier: workspace:*
         version: link:../sw
+      '@serwist/utils':
+        specifier: workspace:*
+        version: link:../utils
       '@types/node':
         specifier: 20.10.5
         version: 20.10.5
@@ -783,6 +789,9 @@ importers:
       '@serwist/core':
         specifier: workspace:*
         version: link:../core
+      typescript:
+        specifier: '>=5.0.0'
+        version: 5.3.3
     devDependencies:
       '@serwist/constants':
         specifier: workspace:*
@@ -862,9 +871,14 @@ importers:
       '@serwist/constants':
         specifier: workspace:*
         version: link:../constants
+      '@serwist/utils':
+        specifier: workspace:*
+        version: link:../utils
       rollup:
         specifier: 4.9.1
         version: 4.9.1
+
+  packages/utils: {}
 
   packages/vite:
     dependencies:
@@ -890,6 +904,9 @@ importers:
       '@serwist/constants':
         specifier: workspace:*
         version: link:../constants
+      '@serwist/sw':
+        specifier: workspace:*
+        version: link:../sw
       '@sveltejs/kit':
         specifier: 2.0.6
         version: 2.0.6(@sveltejs/vite-plugin-svelte@3.0.1)(svelte@5.0.0-next.26)(vite@5.0.10)
@@ -13491,7 +13508,6 @@ packages:
     resolution: {integrity: sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==}
     engines: {node: '>=14.17'}
     hasBin: true
-    dev: true
 
   /typescript@5.4.0-dev.20231226:
     resolution: {integrity: sha512-UHOgBgQgky4SUZ2Z0tFVgzulKJSJBUkAtcBggBJ3swOUyIwn3PJBvZxHLtK94lszCq/FCR9ozErD+UABxmXyYQ==}

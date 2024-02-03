@@ -28,7 +28,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node-version: ${{ fromJson(inputs.nodeVersion || '["18.x"]') }}
+        node-version: ${{ fromJson(inputs.nodeVersion || '["20.x"]') }}
         pnpm-version: ${{ fromJson(inputs.pnpmVersion || '["8.x"]') }}
         os: [ubuntu-latest]
     steps:

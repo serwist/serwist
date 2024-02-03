@@ -7,12 +7,12 @@ export interface ManifestEntry {
 }
 
 export interface ManifestTransformResult {
-  manifest: Array<ManifestEntry & { size: number }>;
-  warnings?: Array<string>;
+  manifest: (ManifestEntry & { size: number })[];
+  warnings?: string[];
 }
 
 export type ManifestTransform = (
-  manifestEntries: Array<ManifestEntry & { size: number }>,
+  manifestEntries: (ManifestEntry & { size: number })[],
   compilation?: unknown,
 ) => Promise<ManifestTransformResult> | ManifestTransformResult;
 
@@ -21,7 +21,7 @@ export interface BasePartial {
    * A list of entries to be precached, in addition to any entries that are
    * generated as part of the build configuration.
    */
-  additionalPrecacheEntries?: Array<string | ManifestEntry>;
+  additionalPrecacheEntries?: (string | ManifestEntry)[];
   /**
    * Whether the precache manifest should be set to `undefined`. Essentially whether `@serwist/build` should
    * be disabled. Mostly useful when you want it to only check if the provided options are valid.
@@ -42,7 +42,7 @@ export interface BasePartial {
    * generated manifest. If `modifyURLPrefix` or `dontCacheBustURLsMatching` are
    * also specified, their corresponding transformations will be applied first.
    */
-  manifestTransforms?: Array<ManifestTransform>;
+  manifestTransforms?: ManifestTransform[];
   /**
    * This value can be used to determine the maximum size of files that will be
    * precached. This prevents you from inadvertently precaching very large files
@@ -109,7 +109,7 @@ export interface GlobPartial {
    * ["**\/node_modules\/**\/*"]
    * ```
    */
-  globIgnores?: Array<string>;
+  globIgnores?: string[];
   /**
    * Files matching any of these patterns will be included in the precache
    * manifest. For more information, see
@@ -119,7 +119,7 @@ export interface GlobPartial {
    * ["**\/*.{js,css,html}"]
    * ```
    */
-  globPatterns?: Array<string>;
+  globPatterns?: string[];
   /**
    * If true, an error reading a directory when generating a precache manifest
    * will cause the build to fail. If false, the problematic directory will be
@@ -138,7 +138,7 @@ export interface GlobPartial {
    * information that you've generated for a given URL.
    */
   templatedURLs?: {
-    [key: string]: string | Array<string>;
+    [key: string]: string | string[];
   };
 }
 
@@ -161,9 +161,9 @@ export interface WebpackPartial {
    * One or more chunk names whose corresponding output files should be included
    * in the precache manifest.
    */
-  chunks?: Array<string>;
+  chunks?: string[];
   // We can't use the @default annotation here to assign the value via AJV, as
-  // an Array<RegExp> can't be serialized into JSON.
+  // an (RegExp)[] can't be serialized into JSON.
   // The default value of [/\.map$/, /^manifest.*\.js$/] will be assigned by
   // the validation function, and we need to reflect that in the docs.
   /**
@@ -173,19 +173,19 @@ export interface WebpackPartial {
    * as `webpack`'s standard `exclude` option.
    * If not provided, the default value is `[/\.map$/, /^manifest.*\.js$]`.
    */
-  exclude?: Array<string | RegExp | ((arg0: any) => boolean)>;
+  exclude?: (string | RegExp | ((arg0: any) => boolean))[];
   /**
    * One or more chunk names whose corresponding output files should be excluded
    * from the precache manifest.
    */
-  excludeChunks?: Array<string>;
+  excludeChunks?: string[];
   /**
    * One or more specifiers used to include assets in the precache manifest.
    * This is interpreted following
    * [the same rules](https://webpack.js.org/configuration/module/#condition)
    * as `webpack`'s standard `include` option.
    */
-  include?: Array<string | RegExp | ((arg0: any) => boolean)>;
+  include?: (string | RegExp | ((arg0: any) => boolean))[];
   /**
    * If set to 'production', then an optimized service worker bundle that
    * excludes debugging info will be produced. If not explicitly configured
@@ -228,7 +228,7 @@ export interface WebpackInjectManifestPartial {
    * Optional `webpack` plugins that will be used when compiling the `swSrc`
    * input file. Only valid if `compileSrc` is `true`.
    */
-  webpackCompilationPlugins?: Array<any>;
+  webpackCompilationPlugins?: any[];
 }
 
 export type GetManifestOptions = BasePartial & GlobPartial & RequiredGlobDirectoryPartial;
@@ -241,13 +241,13 @@ export type ViteInjectManifestOptions = BasePartial & GlobPartial & InjectPartia
 
 export interface GetManifestResult {
   count: number;
-  manifestEntries: Array<ManifestEntry> | undefined;
+  manifestEntries: ManifestEntry[] | undefined;
   size: number;
-  warnings: Array<string>;
+  warnings: string[];
 }
 
 export type BuildResult = Omit<GetManifestResult, "manifestEntries"> & {
-  filePaths: Array<string>;
+  filePaths: string[];
 };
 
 /**

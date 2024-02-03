@@ -16,7 +16,7 @@ import { CacheableResponse } from "./CacheableResponse.js";
  * easier to add in cacheability checks to requests made via Serwist's built-in
  * strategies.
  */
-class CacheableResponsePlugin implements SerwistPlugin {
+export class CacheableResponsePlugin implements SerwistPlugin {
   private readonly _cacheableResponse: CacheableResponse;
 
   /**
@@ -44,5 +44,3 @@ class CacheableResponsePlugin implements SerwistPlugin {
     return null;
   };
 }
-
-export { CacheableResponsePlugin };

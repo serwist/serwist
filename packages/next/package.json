@@ -37,14 +37,14 @@
         "default": "./dist/index.cjs"
       }
     },
-    "./browser": {
+    "./worker": {
       "import": {
-        "types": "./dist/index.browser.d.ts",
-        "default": "./dist/index.browser.js"
+        "types": "./dist/index.worker.d.ts",
+        "default": "./dist/index.worker.js"
       },
       "require": {
-        "types": "./dist/index.browser.d.cts",
-        "default": "./dist/index.browser.cjs"
+        "types": "./dist/index.worker.d.cts",
+        "default": "./dist/index.worker.cjs"
       }
     },
     "./typings": {
@@ -59,8 +59,8 @@
   },
   "typesVersions": {
     "*": {
-      "browser": [
-        "./dist/index.browser.d.ts"
+      "worker": [
+        "./dist/index.worker.d.ts"
       ],
       "typings": [
         "./dist/sw-entry.d.ts"
@@ -84,6 +84,7 @@
   "devDependencies": {
     "@serwist/constants": "workspace:*",
     "@serwist/sw": "workspace:*",
+    "@serwist/utils": "workspace:*",
     "@types/node": "20.10.5",
     "chalk": "5.3.0",
     "next": "14.0.4",

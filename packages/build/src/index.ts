@@ -10,8 +10,6 @@ import stringify from "fast-json-stable-stringify";
 import { getManifest } from "./get-manifest.js";
 import { injectManifest } from "./inject-manifest.js";
 import { errors } from "./lib/errors.js";
-// import { getModuleURL } from "./lib/cdn-utils.js";
-// import { copySerwistLibraries as copySerwistLibraries } from "./lib/copy-serwist-libraries.js";
 import { escapeRegExp } from "./lib/escape-regexp.js";
 import { getFileManifestEntries } from "./lib/get-file-manifest-entries.js";
 import { getSourceMapURL } from "./lib/get-source-map-url.js";
@@ -23,10 +21,7 @@ import { validateInjectManifestOptions, validateViteInjectManifestOptions, valid
 
 export {
   errors,
-  // Reintroduce this feature some time soon.
-  // copySerwistLibraries,
   escapeRegExp,
-  // getModuleURL,
   getFileManifestEntries,
   getManifest,
   getSourceMapURL,
@@ -41,4 +36,4 @@ export {
   validateWebpackInjectManifestOptions,
 };
 
-export * from "./types.js";
+export type * from "./types.js";

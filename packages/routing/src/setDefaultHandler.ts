@@ -11,7 +11,7 @@ import type { RouteHandler } from "@serwist/core";
 import { getOrCreateDefaultRouter } from "./utils/getOrCreateDefaultRouter.js";
 
 /**
- * Define a default `handler` that's called when no routes explicitly
+ * Defines a default `handler` that's called when no routes explicitly
  * match the incoming request.
  *
  * Without a default handler, unmatched requests will go against the
@@ -19,9 +19,7 @@ import { getOrCreateDefaultRouter } from "./utils/getOrCreateDefaultRouter.js";
  *
  * @param handler A callback function that returns a Promise resulting in a Response.
  */
-function setDefaultHandler(handler: RouteHandler): void {
+export const setDefaultHandler = (handler: RouteHandler): void => {
   const defaultRouter = getOrCreateDefaultRouter();
   defaultRouter.setDefaultHandler(handler);
-}
-
-export { setDefaultHandler };
+};

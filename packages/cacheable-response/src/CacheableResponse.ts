@@ -26,7 +26,7 @@ export interface CacheableResponseOptions {
  * [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response)
  * to be considered cacheable.
  */
-class CacheableResponse {
+export class CacheableResponse {
   private readonly _statuses?: CacheableResponseOptions["statuses"];
   private readonly _headers?: CacheableResponseOptions["headers"];
 
@@ -136,5 +136,3 @@ class CacheableResponse {
     return cacheable;
   }
 }
-
-export { CacheableResponse };

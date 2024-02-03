@@ -78,7 +78,12 @@ export const installSerwist = ({
   });
 
   if (runtimeCaching !== undefined) {
-    if (process.env.NODE_ENV === "production") {
+    if (!("__WB_FORCE_RUNTIME_CACHING" in globalThis)) {
+      self.__WB_FORCE_RUNTIME_CACHING = false;
+    }
+    if (!self.__WB_FORCE_RUNTIME_CACHING && process.env.NODE_ENV !== "production") {
+      logger.info("runtimeCaching and fallbacks are disabled in development mode.");
+    } else {
       if (fallbacks !== undefined) {
         runtimeCaching = fallbacksImpl({
           ...fallbacks,
@@ -86,8 +91,6 @@ export const installSerwist = ({
         });
       }
       registerRuntimeCaching(...runtimeCaching);
-    } else {
-      logger.info("runtimeCaching and fallbacks are disabled in development mode.");
     }
   }
 

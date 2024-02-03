@@ -16,9 +16,7 @@ import { getOrCreateDefaultRouter } from "./utils/getOrCreateDefaultRouter.js";
  *
  * @param handler A callback function that returns a Promise resulting in a Response.
  */
-function setCatchHandler(handler: RouteHandler): void {
+export const setCatchHandler = (handler: RouteHandler): void => {
   const defaultRouter = getOrCreateDefaultRouter();
   defaultRouter.setCatchHandler(handler);
-}
-
-export { setCatchHandler };
+};

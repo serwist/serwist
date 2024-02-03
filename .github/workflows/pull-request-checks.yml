@@ -15,7 +15,7 @@ jobs:
     runs-on: [ubuntu-latest]
     strategy:
       matrix:
-        node-version: ["18.x"]
+        node-version: ["20.x"]
         pnpm-version: ["8.x"]
     if: "${{ !contains(github.event.pull_request.title, 'chore(packages): publish packages') }}"
     steps:

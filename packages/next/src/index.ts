@@ -237,4 +237,4 @@ const withSerwistInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfi
 };
 
 export default withSerwistInit;
-export * from "./types.js";
+export type { PluginOptions };

@@ -20,7 +20,7 @@ import { normalizeHandler } from "./utils/normalizeHandler.js";
  * is called when there is a match and should return a Promise that resolves
  * to a `Response`.
  */
-class Route {
+export class Route {
   handler: RouteHandlerObject;
   match: RouteMatchCallback;
   method: HTTPMethod;
@@ -66,5 +66,3 @@ class Route {
     this.catchHandler = normalizeHandler(handler);
   }
 }
-
-export { Route };

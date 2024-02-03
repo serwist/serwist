@@ -9,8 +9,6 @@
     "serwistjs",
     "service worker",
     "sw",
-    "background",
-    "sync",
     "serwist-plugin"
   ],
   "author": "Serwist's Team",

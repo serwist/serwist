@@ -35,7 +35,7 @@ export interface NavigationRouteMatchOptions {
  * You can optionally only apply this route to a subset of navigation requests
  * by using one or both of the `denylist` and `allowlist` parameters.
  */
-class NavigationRoute extends Route {
+export class NavigationRoute extends Route {
   private readonly _allowlist: RegExp[];
   private readonly _denylist: RegExp[];
 
@@ -117,5 +117,3 @@ class NavigationRoute extends Route {
     return false;
   }
 }
-
-export { NavigationRoute };

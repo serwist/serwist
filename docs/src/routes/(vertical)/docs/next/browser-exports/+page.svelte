@@ -14,7 +14,7 @@
 <br />
 <p>
   <InlineCode>@serwist/next</InlineCode> exports a few things for the service worker to consume. These values cannot be exported with things that use Node.js-specific
-  APIs, hence <InlineCode>@serwist/next/browser</InlineCode> was created.
+  APIs, hence <InlineCode>@serwist/next/worker</InlineCode> was created.
 </p>
 <br /><br />
 <h2>Exported values</h2>

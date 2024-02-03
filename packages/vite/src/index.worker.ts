@@ -1,4 +1,4 @@
-import type { RuntimeCaching } from "@serwist/build";
+import type { RuntimeCaching } from "@serwist/sw";
 
 export const defaultCache: RuntimeCaching[] = [
   {

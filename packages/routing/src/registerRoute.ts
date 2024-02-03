@@ -15,7 +15,7 @@ import type { HTTPMethod } from "./utils/constants.js";
 import { getOrCreateDefaultRouter } from "./utils/getOrCreateDefaultRouter.js";
 
 /**
- * Easily register a RegExp, string, or function with a caching
+ * Registers a RegExp, string, or function with a caching
  * strategy to a singleton Router instance.
  *
  * @param capture If the capture param is a `Route`, all other arguments will be ignored.
@@ -24,7 +24,7 @@ import { getOrCreateDefaultRouter } from "./utils/getOrCreateDefaultRouter.js";
  * @param method The HTTP method to match the Route against. Defaults to GET.
  * @returns The generated `Route`.
  */
-function registerRoute(capture: RegExp | string | RouteMatchCallback | Route, handler?: RouteHandler, method?: HTTPMethod): Route {
+export const registerRoute = (capture: RegExp | string | RouteMatchCallback | Route, handler?: RouteHandler, method?: HTTPMethod): Route => {
   let route: Route;
 
   if (typeof capture === "string") {
@@ -86,6 +86,4 @@ function registerRoute(capture: RegExp | string | RouteMatchCallback | Route, ha
   defaultRouter.registerRoute(route);
 
   return route;
-}
-
-export { registerRoute };
+};
