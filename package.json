@@ -14,7 +14,7 @@
     "code-check": "biome check --max-diagnostics=150 --log-kind=compact .",
     "code-check:apply": "pnpm code-check --apply",
     "deps": "node ncu.js",
-    "dev": "cross-env FORCE_COLOR=1 turbo run dev --concurrency=23 --filter=./packages/*",
+    "dev": "cross-env FORCE_COLOR=1 turbo run dev --concurrency=24 --filter=./packages/*",
     "docs:build": "cross-env FORCE_COLOR=1 turbo run build --filter=./docs",
     "format:all": "biome format --max-diagnostics=100 --log-kind=compact .",
     "format:write": "pnpm format:all --write",

@@ -45,6 +45,7 @@
       "vite",
       "@nuxt/kit",
       "@serwist/build",
+      "@serwist/core",
       "@serwist/vite",
       "pathe",
       "ufo",

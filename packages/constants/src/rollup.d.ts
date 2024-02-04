@@ -7,5 +7,4 @@ export type FileEntry = Pick<RollupOptions, "input" | "output" | "plugins"> & {
 export declare const getRollupOptions: (options: {
   packageJson: PackageJson;
   jsFiles: FileEntry[];
-  shouldEmitDeclaration: boolean;
 }) => RollupOptions[];

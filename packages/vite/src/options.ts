@@ -48,9 +48,9 @@ export const resolveOptions = async (options: PluginOptions, viteConfig: Resolve
 
   const { validateViteInjectManifestOptions } = await loadSerwistBuild();
 
-  validateViteInjectManifestOptions(injectManifest);
+  const validatedInjectManifest = await validateViteInjectManifestOptions(injectManifest);
 
-  const { swSrc, swDest, ...userInjectManifest } = injectManifest || {};
+  const { swSrc, swDest, ...userInjectManifest } = validatedInjectManifest || {};
 
   const resolvedPluginOptions = {
     base: basePath,

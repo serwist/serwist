@@ -18,7 +18,7 @@ import type { Compilation } from "webpack";
  *
  * @private
  */
-export function relativeToOutputPath(compilation: Compilation, path: string): string {
+export const relativeToOutputPath = (compilation: Compilation, path: string): string => {
   // See https://github.com/jantimon/html-webpack-plugin/pull/266/files#diff-168726dbe96b3ce427e7fedce31bb0bcR38
   if (upath.resolve(path) === upath.normalize(path)) {
     return upath.relative(compilation.options.output.path!, path);
@@ -26,4 +26,4 @@ export function relativeToOutputPath(compilation: Compilation, path: string): st
 
   // Otherwise, return swDest as-is.
   return path;
-}
+};

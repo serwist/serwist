@@ -23,7 +23,7 @@ interface BuildResult extends SerwistBuild.GetManifestResult {
 
 export const injectManifest = async (config: SerwistBuild.ViteInjectManifestOptions): Promise<BuildResult> => {
   const { validateViteInjectManifestOptions, getFileManifestEntries, stringify } = await loadSerwistBuild();
-  const options = validateViteInjectManifestOptions(config);
+  const options = await validateViteInjectManifestOptions(config);
   const { count, size, manifestEntries, warnings } = await getFileManifestEntries(options);
   const manifestString = manifestEntries === undefined ? "undefined" : stringify(manifestEntries);
   return {
