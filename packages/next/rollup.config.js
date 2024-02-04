@@ -13,22 +13,12 @@ export default getRollupOptions({
         "sw-entry": "src/sw-entry.ts",
         "sw-entry-worker": "src/sw-entry-worker.ts",
       },
-      output: [
-        {
-          dir: "dist",
-          entryFileNames: "[name].cjs",
-          chunkFileNames: "[name].cjs",
-          format: "cjs",
-          exports: "named",
-        },
-        {
-          dir: "dist",
-          entryFileNames: "[name].js",
-          chunkFileNames: "[name].js",
-          format: "esm",
-        },
-      ],
+      output: {
+        dir: "dist",
+        entryFileNames: "[name].js",
+        chunkFileNames: "chunks/[name].js",
+        format: "esm",
+      },
     },
   ],
-  shouldEmitDeclaration: true,
 });

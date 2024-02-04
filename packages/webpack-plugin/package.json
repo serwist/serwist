@@ -4,8 +4,8 @@
   "type": "module",
   "description": "A plugin for your Webpack build process, helping you generate a manifest of local files that should be precached.",
   "files": [
-    "dist",
-    "!dist/**/dts"
+    "src",
+    "dist"
   ],
   "keywords": [
     "serwist",
@@ -25,36 +25,23 @@
   "repository": "serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",
   "homepage": "https://serwist.pages.dev",
-  "module": "./dist/index.js",
-  "main": "./dist/index.cjs",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./src/index.ts",
   "typesVersions": {
     "*": {
       "internal": [
-        "./dist/index.internal.d.ts"
+        "./src/index.internal.ts"
       ]
     }
   },
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      }
+      "types": "./src/index.ts",
+      "default": "./dist/index.js"
     },
     "./internal": {
-      "import": {
-        "types": "./dist/index.internal.d.ts",
-        "default": "./dist/index.internal.js"
-      },
-      "require": {
-        "types": "./dist/index.internal.d.cts",
-        "default": "./dist/index.internal.cjs"
-      }
+      "types": "./src/index.internal.ts",
+      "default": "./dist/index.internal.js"
     },
     "./package.json": "./package.json"
   },

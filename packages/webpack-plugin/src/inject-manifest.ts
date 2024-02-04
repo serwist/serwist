@@ -43,7 +43,7 @@ const _generatedAssetNames = new Set<string>();
  * });
  * ```
  */
-class InjectManifest {
+export class InjectManifest {
   protected config: WebpackInjectManifestOptions;
   private alreadyCalled: boolean;
 
@@ -210,14 +210,7 @@ class InjectManifest {
    * @private
    */
   async handleMake(compilation: webpack.Compilation, parentCompiler: webpack.Compiler): Promise<void> {
-    try {
-      this.config = validateWebpackInjectManifestOptions(this.config);
-    } catch (error) {
-      if (error instanceof Error) {
-        throw new Error(`Please check your ${this.constructor.name} plugin ` + `configuration:\n${error.message}`);
-      }
-    }
-
+    this.config = await validateWebpackInjectManifestOptions(this.config);
     this.config.swDest = relativeToOutputPath(compilation, this.config.swDest!);
     _generatedAssetNames.add(this.config.swDest);
 
@@ -292,5 +285,3 @@ class InjectManifest {
     }
   }
 }
-
-export { InjectManifest };

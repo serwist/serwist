@@ -17,11 +17,11 @@
  * @returns Joined file path
  * @private
  */
-export function resolveWebpackURL(publicPath: string, ...paths: string[]): string {
+export const resolveWebpackURL = (publicPath: string, ...paths: string[]): string => {
   // This is a change in webpack v5.
   // See https://github.com/jantimon/html-webpack-plugin/pull/1516
   if (publicPath === "auto") {
     return paths.join("");
   }
   return [publicPath, ...paths].join("");
-}
+};

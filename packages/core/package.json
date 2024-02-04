@@ -4,8 +4,8 @@
   "type": "module",
   "description": "This module is used by a number of the other Serwist modules to share common code.",
   "files": [
-    "dist",
-    "!dist/**/dts"
+    "src",
+    "dist"
   ],
   "keywords": [
     "serwist",
@@ -19,35 +19,22 @@
   "bugs": "https://github.com/serwist/serwist/issues",
   "homepage": "https://serwist.pages.dev",
   "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "types": "./src/index.ts",
   "typesVersions": {
     "*": {
       "internal": [
-        "./dist/index.internal.d.ts"
+        "./src/index.internal.ts"
       ]
     }
   },
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      }
+      "types": "./src/index.ts",
+      "default": "./dist/index.js"
     },
     "./internal": {
-      "import": {
-        "types": "./dist/index.internal.d.ts",
-        "default": "./dist/index.internal.js"
-      },
-      "require": {
-        "types": "./dist/index.internal.d.cts",
-        "default": "./dist/index.internal.cjs"
-      }
+      "types": "./src/index.internal.ts",
+      "default": "./dist/index.internal.js"
     }
   },
   "scripts": {

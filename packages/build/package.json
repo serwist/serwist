@@ -4,8 +4,8 @@
   "type": "module",
   "description": "A module that integrates into your build process, helping you generate a manifest of local files that should be precached.",
   "files": [
-    "dist",
-    "!dist/**/dts"
+    "src",
+    "dist"
   ],
   "keywords": [
     "serwist",
@@ -24,19 +24,12 @@
   "repository": "serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",
   "homepage": "https://serwist.pages.dev",
-  "module": "./dist/index.js",
-  "main": "./dist/index.cjs",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./src/index.ts",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      }
+      "types": "./src/index.ts",
+      "default": "./dist/index.js"
     },
     "./package.json": "./package.json"
   },
@@ -47,7 +40,6 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@apideck/better-ajv-errors": "0.3.6",
     "@serwist/background-sync": "workspace:*",
     "@serwist/broadcast-update": "workspace:*",
     "@serwist/cacheable-response": "workspace:*",
@@ -56,14 +48,14 @@
     "@serwist/google-analytics": "workspace:*",
     "@serwist/precaching": "workspace:*",
     "@serwist/routing": "workspace:*",
-    "ajv": "8.12.0",
     "common-tags": "1.8.2",
     "fast-json-stable-stringify": "2.1.0",
     "fs-extra": "11.2.0",
     "glob": "10.3.10",
     "rollup": "4.9.6",
     "source-map": "0.8.0-beta.0",
-    "upath": "2.0.1"
+    "upath": "2.0.1",
+    "zod": "3.22.4"
   },
   "devDependencies": {
     "@serwist/constants": "workspace:*",
@@ -72,8 +64,8 @@
     "@types/node": "20.11.16",
     "@types/stringify-object": "4.0.5",
     "pretty-bytes": "6.1.1",
-    "typescript": "5.4.0-dev.20240203",
-    "type-fest": "4.10.2"
+    "type-fest": "4.10.2",
+    "typescript": "5.4.0-dev.20240203"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0"

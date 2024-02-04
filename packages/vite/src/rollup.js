@@ -43,5 +43,4 @@ export default getRollupOptions({
       external: ["virtual:internal-serwist"],
     },
   ],
-  shouldEmitDeclaration: true,
 });

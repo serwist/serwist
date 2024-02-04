@@ -7,33 +7,16 @@ export default getRollupOptions({
   packageJson,
   jsFiles: [
     {
-      input: "src/index.ts",
-      output: [
-        {
-          file: "dist/index.cjs",
-          format: "cjs",
-          exports: "named",
-        },
-        {
-          file: "dist/index.js",
-          format: "esm",
-        },
-      ],
-    },
-    {
-      input: "src/initialize.ts",
-      output: [
-        {
-          file: "dist/initialize.cjs",
-          format: "cjs",
-          exports: "named",
-        },
-        {
-          file: "dist/initialize.js",
-          format: "esm",
-        },
-      ],
+      input: {
+        index: "src/index.ts",
+        initialize: "src/initialize.ts",
+      },
+      output: {
+        dir: "dist",
+        entryFileNames: "[name].js",
+        chunkFileNames: "chunks/[name].js",
+        format: "esm",
+      },
     },
   ],
-  shouldEmitDeclaration: true,
 });
