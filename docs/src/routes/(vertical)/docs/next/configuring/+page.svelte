@@ -11,7 +11,7 @@
 <ul class="list">
   <li>
     <InlineCode>
-      <a class="link" href="/docs/next/configuring/cache-on-front-end-nav">cacheOnFrontEndNav</a>
+      <a class="link" href="/docs/next/configuring/cache-on-navigation">cacheOnNavigation</a>
     </InlineCode>
   </li>
   <li>

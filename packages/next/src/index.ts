@@ -27,7 +27,7 @@ const withSerwistInit = (pluginOptions: NextInjectManifestOptions): ((nextConfig
       const tsConfigJson = loadTSConfig(options.dir, nextConfig?.typescript?.tsconfigPath);
 
       const {
-        cacheOnFrontEndNav,
+        cacheOnNavigation,
         disable,
         scope = basePath,
         swUrl,
@@ -59,7 +59,7 @@ const withSerwistInit = (pluginOptions: NextInjectManifestOptions): ((nextConfig
         new webpack.DefinePlugin({
           "self.__SERWIST_SW_ENTRY.sw": `'${_sw}'`,
           "self.__SERWIST_SW_ENTRY.scope": `'${_scope}'`,
-          "self.__SERWIST_SW_ENTRY.cacheOnFrontEndNav": `${cacheOnFrontEndNav}`,
+          "self.__SERWIST_SW_ENTRY.cacheOnNavigation": `${cacheOnNavigation}`,
           "self.__SERWIST_SW_ENTRY.register": `${register}`,
           "self.__SERWIST_SW_ENTRY.reloadOnOnline": `${reloadOnOnline}`,
         } satisfies Record<`${SerwistNextOptionsKey}.${Exclude<keyof SerwistNextOptions, "swEntryWorker">}`, string | undefined>),
@@ -124,7 +124,7 @@ const withSerwistInit = (pluginOptions: NextInjectManifestOptions): ((nextConfig
         const publicDir = path.resolve(options.dir, "public");
         const destDir = path.dirname(swDest);
 
-        const shouldBuildSWEntryWorker = cacheOnFrontEndNav;
+        const shouldBuildSWEntryWorker = cacheOnNavigation;
         let swEntryPublicPath: string | undefined = undefined;
         let swEntryWorkerDest: string | undefined = undefined;
 

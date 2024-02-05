@@ -60,7 +60,7 @@ export const SIDEBAR_LINKS = [
         title: "Configuring",
         href: "/docs/next/configuring",
         children: [
-          { title: "cacheOnFrontEndNav", href: "/docs/next/configuring/cache-on-front-end-nav" },
+          { title: "cacheOnNavigation", href: "/docs/next/configuring/cache-on-navigation" },
           { title: "disable", href: "/docs/next/configuring/disable" },
           { title: "register", href: "/docs/next/configuring/register" },
           { title: "reloadOnOnline", href: "/docs/next/configuring/reload-on-online" },

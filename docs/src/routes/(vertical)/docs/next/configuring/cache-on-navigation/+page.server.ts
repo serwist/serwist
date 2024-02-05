@@ -8,7 +8,7 @@ export const load = async () => {
     langs: ["javascript"],
   });
   return {
-    title: "cacheOnFrontEndNav - Configuring - @serwist/next",
+    title: "cacheOnNavigation - Configuring - @serwist/next",
     code: {
       usage: highlightCode(
         highligher,
@@ -19,7 +19,7 @@ export const load = async () => {
 const withSerwist = withSerwistInit({
     swSrc: "app/sw.ts",
     swDest: "public/sw.js",
-    cacheOnFrontEndNav: true,
+    cacheOnNavigation: true,
 });
          
 export default withSerwist({
@@ -31,7 +31,7 @@ export default withSerwist({
             code: `const withSerwist = require("@serwist/next").default({
     swSrc: "app/sw.ts",
     swDest: "public/sw.js",
-    cacheOnFrontEndNav: true,
+    cacheOnNavigation: true,
 });
       
 module.exports = withSerwist({

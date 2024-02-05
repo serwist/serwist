@@ -11,7 +11,7 @@ import { webpackInjectManifestOptions } from "./webpack.js";
 
 export const nextInjectManifestPartial = z
   .object({
-    cacheOnFrontEndNav: z.boolean().default(false),
+    cacheOnNavigation: z.boolean().default(false),
     disable: z.boolean().default(false),
     register: z.boolean().default(true),
     reloadOnOnline: z.boolean().default(true),

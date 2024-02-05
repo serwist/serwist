@@ -38,7 +38,7 @@ refactor(js): migrate to ESM-only
     ```js
     // @ts-check
     const withSerwist = require("@serwist/next").default({
-      cacheOnFrontEndNav: true,
+      cacheOnNavigation: true,
       swSrc: "app/sw.ts",
       swDest: "public/sw.js",
     });
@@ -61,7 +61,7 @@ refactor(js): migrate to ESM-only
 
     module.exports = async () => {
       const withSerwist = (await import("@serwist/next")).default({
-        cacheOnFrontEndNav: true,
+        cacheOnNavigation: true,
         swSrc: "app/sw.ts",
         swDest: "public/sw.js",
       });

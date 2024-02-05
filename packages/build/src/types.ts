@@ -254,7 +254,7 @@ export interface NextInjectManifestPartial {
    * also adds a bit of overhead due to additional network calls.
    * @default false
    */
-  cacheOnFrontEndNav?: boolean;
+  cacheOnNavigation?: boolean;
   /**
    * Whether Serwist should be disabled.
    * @default false
@@ -338,7 +338,7 @@ export interface NextInjectManifestPartial {
 
 export type NextInjectManifestResolved = Require<
   NextInjectManifestPartial,
-  "cacheOnFrontEndNav" | "disable" | "register" | "reloadOnOnline" | "swUrl" | "globPublicPatterns"
+  "cacheOnNavigation" | "disable" | "register" | "reloadOnOnline" | "swUrl" | "globPublicPatterns"
 >;
 
 export type GetManifestOptions = BasePartial & GlobPartial & RequiredGlobDirectoryPartial;

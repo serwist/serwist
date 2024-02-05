@@ -57,7 +57,7 @@
       ```js
       // @ts-check
       const withSerwist = require("@serwist/next").default({
-        cacheOnFrontEndNav: true,
+        cacheOnNavigation: true,
         swSrc: "app/sw.ts",
         swDest: "public/sw.js",
       });
@@ -80,7 +80,7 @@
 
       module.exports = async () => {
         const withSerwist = (await import("@serwist/next")).default({
-          cacheOnFrontEndNav: true,
+          cacheOnNavigation: true,
           swSrc: "app/sw.ts",
           swDest: "public/sw.js",
         });

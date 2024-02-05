@@ -6,7 +6,7 @@ const nextConfig = {
 
 module.exports = async () => {
   const withSerwist = (await import("@serwist/next")).default({
-    cacheOnFrontEndNav: true,
+    cacheOnNavigation: true,
     swSrc: "app/sw.ts",
     swDest: "public/sw.js",
   });

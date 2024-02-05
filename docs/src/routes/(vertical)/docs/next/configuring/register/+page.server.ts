@@ -32,7 +32,7 @@ export default withSerwist({
               code: `const withSerwist = require("@serwist/next").default({
     swSrc: "app/sw.ts",
     swDest: "public/sw.js",
-    cacheOnFrontEndNav: true,
+    cacheOnNavigation: true,
 });
       
 module.exports = withSerwist({

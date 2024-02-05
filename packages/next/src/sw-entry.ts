@@ -30,8 +30,8 @@ if (typeof window !== "undefined" && "serviceWorker" in navigator && typeof cach
     window.serwist.register();
   }
 
-  if (self.__SERWIST_SW_ENTRY.cacheOnFrontEndNav) {
-    const cacheOnFrontEndNav = async (url?: string | URL | null | undefined) => {
+  if (self.__SERWIST_SW_ENTRY.cacheOnNavigation) {
+    const cacheOnNavigation = async (url?: string | URL | null | undefined) => {
       if (!window.navigator.onLine || !url) {
         return;
       }
@@ -44,17 +44,17 @@ if (typeof window !== "undefined" && "serviceWorker" in navigator && typeof cach
     const pushState = history.pushState;
     history.pushState = (...args) => {
       pushState.apply(history, args);
-      cacheOnFrontEndNav(args[2]);
+      cacheOnNavigation(args[2]);
     };
 
     const replaceState = history.replaceState;
     history.replaceState = (...args) => {
       replaceState.apply(history, args);
-      cacheOnFrontEndNav(args[2]);
+      cacheOnNavigation(args[2]);
     };
 
     window.addEventListener("online", () => {
-      cacheOnFrontEndNav(window.location.pathname);
+      cacheOnNavigation(window.location.pathname);
     });
   }
 
