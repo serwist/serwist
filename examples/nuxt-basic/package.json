@@ -1,7 +1,9 @@
 {
   "name": "@serwist-example/nuxt-basic",
-  "private": true,
+  "version": "1.0.0",
   "type": "module",
+  "license": "MIT",
+  "private": true,
   "scripts": {
     "build": "npm run prep && nuxt build",
     "dev": "npm run prep && nuxt dev",
