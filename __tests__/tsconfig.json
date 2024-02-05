@@ -2,6 +2,7 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": false,
     "module": "NodeNext",
   },
   "include": ["globals.d.ts", "**/*.ts", "**/*.js"],
