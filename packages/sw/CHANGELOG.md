@@ -1,5 +1,119 @@
 # @serwist/sw
 
+## 9.0.0-preview.0
+
+### Major Changes
+
+- [`30e4c25`](https://github.com/serwist/serwist/commit/30e4c25ac9fc319902c75682b16a5ba31bfbae58) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(peerDeps): bump minimum supported TypeScript and Node.js version
+
+  - From now, we only support TypeScript versions later than 5.0.0 and Node.js ones later than 18.0.0.
+  - To migrate, simply update these tools.
+
+  ```bash
+  # Change to your preferred way of updating Node.js
+  nvm use 18
+  # Change to your package manager
+  npm i -D typescript@5
+  ```
+
+- [`defdd5a`](https://github.com/serwist/serwist/commit/defdd5a50f80e6c58e00dff8c608466c02fdc459) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(js): migrate to ESM-only
+
+  - Serwist is now an ESM-only project.
+  - This was done because our tooling around supporting CJS had always been crappy: it was slow, had no way of supporting emitting `.d.cts` (we used to copy `.d.ts` to `.d.cts`), and was too error-prone (there were various issues of our builds crashing due to an ESM-only package slipping in).
+  - If you already use ESM, there's nothing to be done. Great! Otherwise, to migrate:
+
+    - Migrate to ESM if possible.
+    - Otherwise, use dynamic imports. For example, to migrate to the new `@serwist/next`:
+
+      - Old:
+
+      ```js
+      // @ts-check
+      const withSerwist = require("@serwist/next").default({
+        cacheOnFrontEndNav: true,
+        swSrc: "app/sw.ts",
+        swDest: "public/sw.js",
+      });
+      /** @type {import("next").NextConfig} */
+      const nextConfig = {
+        reactStrictMode: true,
+      };
+
+      module.exports = withSerwist(nextConfig);
+      ```
+
+      - New:
+
+      ```js
+      // @ts-check
+      /** @type {import("next").NextConfig} */
+      const nextConfig = {
+        reactStrictMode: true,
+      };
+
+      module.exports = async () => {
+        const withSerwist = (await import("@serwist/next")).default({
+          cacheOnFrontEndNav: true,
+          swSrc: "app/sw.ts",
+          swDest: "public/sw.js",
+        });
+        return withSerwist(nextConfig);
+      };
+      ```
+
+  - I know that most of our current userbase use Next.js, which still suggests using a CJS config file, so I am really sorry for the trouble I have caused for you :( However, what needs to be done has to be done. It was time to migrate and get rid of old, legacy things.
+
+- [`30e4c25`](https://github.com/serwist/serwist/commit/30e4c25ac9fc319902c75682b16a5ba31bfbae58) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(sw): disable `runtimeCaching`, `fallbacks`, and `registerRuntimeCaching` in development mode
+
+  - In development mode, these features are now forcibly disabled. This is to prevent files from being accidentally served outdated.
+  - If you want to override this, simply add the following:
+
+  ```ts
+  import { installSerwist } from "@serwist/sw";
+
+  declare global {
+    interface WorkerGlobalScope {
+      __WB_FORCE_RUNTIME_CACHING: boolean;
+    }
+  }
+
+  self.__WB_FORCE_RUNTIME_CACHING = true;
+
+  installSerwist({
+    runtimeCaching: [
+      // ...
+    ],
+  });
+  ```
+
+- [`04d2619`](https://github.com/serwist/serwist/commit/04d26194b19936ba0425bf7b7e6c5e2ca9183813) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(sw): moved `@serwist/build.RuntimeCaching` to `@serwist/sw`
+
+  - Since `runtimeCaching` is now a part of `@serwist/sw` rather than `@serwist/build`, it makes more sense to move the types there as well.
+  - To migrate, simply update the imports.
+    - Old:
+    ```ts
+    import type { StrategyName, RuntimeCaching } from "@serwist/build";
+    ```
+    - New:
+    ```ts
+    import type { StrategyName, RuntimeCaching } from "@serwist/sw";
+    ```
+
+### Patch Changes
+
+- Updated dependencies [[`30e4c25`](https://github.com/serwist/serwist/commit/30e4c25ac9fc319902c75682b16a5ba31bfbae58), [`defdd5a`](https://github.com/serwist/serwist/commit/defdd5a50f80e6c58e00dff8c608466c02fdc459)]:
+  - @serwist/cacheable-response@9.0.0-preview.0
+  - @serwist/navigation-preload@9.0.0-preview.0
+  - @serwist/routing@9.0.0-preview.0
+  - @serwist/core@9.0.0-preview.0
+  - @serwist/broadcast-update@9.0.0-preview.0
+  - @serwist/google-analytics@9.0.0-preview.0
+  - @serwist/background-sync@9.0.0-preview.0
+  - @serwist/range-requests@9.0.0-preview.0
+  - @serwist/expiration@9.0.0-preview.0
+  - @serwist/precaching@9.0.0-preview.0
+  - @serwist/strategies@9.0.0-preview.0
+
 ## 8.4.4
 
 ### Patch Changes

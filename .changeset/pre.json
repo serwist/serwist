@@ -28,7 +28,16 @@
     "@serwist/utils": "8.4.4",
     "@serwist/vite": "8.4.4",
     "@serwist/webpack-plugin": "8.4.4",
-    "@serwist/window": "8.4.4"
+    "@serwist/window": "8.4.4",
+    "@serwist-example/nuxt-basic": "1.0.0"
   },
-  "changesets": []
+  "changesets": [
+    "lovely-tools-march",
+    "orange-weeks-brush",
+    "popular-deers-live",
+    "red-dolls-yell",
+    "red-planes-behave",
+    "slimy-toes-report",
+    "tiny-gorillas-sell"
+  ]
 }
