@@ -2,6 +2,7 @@
 import json from "@rollup/plugin-json";
 import nodeResolve from "@rollup/plugin-node-resolve";
 import swc from "@rollup/plugin-swc";
+import typescript from "@rollup/plugin-typescript";
 import { defineConfig } from "rollup";
 
 import { swcConfig } from "./swc-config.js";
@@ -30,6 +31,14 @@ export const getRollupOptions = ({ packageJson, jsFiles }) => {
           json(),
           swc({
             swc: swcConfig,
+          }),
+          typescript({
+            noForceEmit: true,
+            noEmit: false,
+            emitDeclarationOnly: true,
+            outDir: "dist",
+            declaration: true,
+            declarationMap: true,
           }),
           ...[plugins ?? []],
         ],

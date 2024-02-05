@@ -1,6 +1,8 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import type { NextInjectManifestOptions } from "@serwist/build";
+import { validateNextInjectManifestOptions } from "@serwist/build/next";
 import { InjectManifest } from "@serwist/webpack-plugin";
 import { ChildCompilationPlugin, relativeToOutputPath } from "@serwist/webpack-plugin/internal";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
@@ -9,12 +11,11 @@ import type { NextConfig } from "next";
 import type { Compilation, Configuration, default as Webpack } from "webpack";
 
 import type { ExcludeParams, SerwistNextOptions, SerwistNextOptionsKey } from "./internal-types.js";
-import type { PluginOptions } from "./types.js";
 import { getContentHash, getFileHash, loadTSConfig, logger } from "./utils/index.js";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
-const withSerwistInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfig) => NextConfig) => {
+const withSerwistInit = (pluginOptions: NextInjectManifestOptions): ((nextConfig?: NextConfig) => NextConfig) => {
   return (nextConfig = {}) => ({
     ...nextConfig,
     webpack(config: Configuration, options) {
@@ -26,15 +27,15 @@ const withSerwistInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfi
       const tsConfigJson = loadTSConfig(options.dir, nextConfig?.typescript?.tsconfigPath);
 
       const {
-        cacheOnFrontEndNav = false,
-        disable = false,
+        cacheOnFrontEndNav,
+        disable,
         scope = basePath,
-        swUrl = "sw.js",
-        register = true,
-        reloadOnOnline = true,
+        swUrl,
+        register,
+        reloadOnOnline,
         globPublicPatterns,
         ...buildOptions
-      } = pluginOptions;
+      } = validateNextInjectManifestOptions(pluginOptions);
 
       if (typeof nextConfig.webpack === "function") {
         config = nextConfig.webpack(config, options);
@@ -237,4 +238,4 @@ const withSerwistInit = (pluginOptions: PluginOptions): ((nextConfig?: NextConfi
 };
 
 export default withSerwistInit;
-export type { PluginOptions };
+export type { NextInjectManifestOptions as PluginOptions };

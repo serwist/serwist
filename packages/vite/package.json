@@ -35,27 +35,27 @@
   "homepage": "https://serwist.pages.dev",
   "sideEffects": false,
   "main": "./dist/index.js",
-  "types": "./src/index.ts",
+  "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
       "browser": [
-        "./src/index.browser.ts"
+        "./dist/index.browser.d.ts"
       ],
       "worker": [
-        "./src/index.worker.ts"
+        "./dist/index.worker.d.ts"
       ],
       "integration-*": [
-        "./src/integration/*/index.d.ts"
+        "./dist/integration/*/index.d.ts"
       ]
     }
   },
   "exports": {
     ".": {
-      "types": "./src/index.ts",
+      "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
     "./browser": {
-      "types": "./src/index.browser.ts",
+      "types": "./dist/index.browser.d.ts",
       "default": "./dist/index.browser.js"
     },
     "./worker": {
@@ -63,7 +63,7 @@
       "default": "./dist/index.worker.js"
     },
     "./integration-*": {
-      "types": "./src/integration/*/index.ts",
+      "types": "./dist/integration/*/index.d.ts",
       "default": "./dist/integration/*/index.js"
     },
     "./package.json": "./package.json"

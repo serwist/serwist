@@ -5,45 +5,43 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-
 import { validationErrorMap } from "../schema/validationErrorMap.js";
-import type { GetManifestOptions, InjectManifestOptions, ViteInjectManifestOptions, WebpackInjectManifestOptions } from "../types.js";
+import type {
+  GetManifestOptionsComplete,
+  InjectManifestOptionsComplete,
+  ViteInjectManifestOptionsComplete,
+  WebpackInjectManifestOptionsComplete,
+} from "../types.js";
+import { SerwistConfigError } from "./serwist-config-error.js";
 
-export class SerwistConfigError extends Error {
-  constructor(message?: string) {
-    super(`Received an invalid Serwist configuration: ${message}`);
-    Object.setPrototypeOf(this, new.target.prototype);
-  }
-}
-
-export const validateGetManifestOptions = async (input: unknown): Promise<GetManifestOptions> => {
-  const result = await (await import("../schema/getManifestOptions.js")).getManifestOptions.spa(input, { errorMap: validationErrorMap });
+export const validateGetManifestOptions = async (input: unknown): Promise<GetManifestOptionsComplete> => {
+  const result = await (await import("../schema/getManifest.js")).getManifestOptions.spa(input, { errorMap: validationErrorMap });
   if (!result.success) {
-    throw new SerwistConfigError(JSON.stringify(result.error.format(), null, 2));
-  }
-  return result.data;
-};
-
-export const validateInjectManifestOptions = async (input: unknown): Promise<InjectManifestOptions> => {
-  const result = await (await import("../schema/injectManifestOptions.js")).injectManifestOptions.spa(input, { errorMap: validationErrorMap });
-  if (!result.success) {
-    throw new SerwistConfigError(JSON.stringify(result.error.format(), null, 2));
+    throw new SerwistConfigError({ moduleName: "@serwist/build", message: JSON.stringify(result.error.format(), null, 2) });
   }
   return result.data;
 };
 
-export const validateWebpackInjectManifestOptions = async (input: unknown): Promise<WebpackInjectManifestOptions> => {
-  const result = await (await import("../schema/injectManifestOptions.js")).webpackInjectManifestOptions.spa(input, { errorMap: validationErrorMap });
+export const validateInjectManifestOptions = async (input: unknown): Promise<InjectManifestOptionsComplete> => {
+  const result = await (await import("../schema/injectManifest.js")).injectManifestOptions.spa(input, { errorMap: validationErrorMap });
   if (!result.success) {
-    throw new SerwistConfigError(JSON.stringify(result.error.format(), null, 2));
+    throw new SerwistConfigError({ moduleName: "@serwist/build", message: JSON.stringify(result.error.format(), null, 2) });
   }
   return result.data;
 };
 
-export const validateViteInjectManifestOptions = async (input: unknown): Promise<ViteInjectManifestOptions> => {
-  const result = await (await import("../schema/injectManifestOptions.js")).viteInjectManifestOptions.spa(input, { errorMap: validationErrorMap });
+export const validateWebpackInjectManifestOptions = async (input: unknown): Promise<WebpackInjectManifestOptionsComplete> => {
+  const result = await (await import("../schema/webpack.js")).webpackInjectManifestOptions.spa(input, { errorMap: validationErrorMap });
   if (!result.success) {
-    throw new SerwistConfigError(JSON.stringify(result.error.format(), null, 2));
+    throw new SerwistConfigError({ moduleName: "@serwist/webpack-plugin", message: JSON.stringify(result.error.format(), null, 2) });
+  }
+  return result.data;
+};
+
+export const validateViteInjectManifestOptions = async (input: unknown): Promise<ViteInjectManifestOptionsComplete> => {
+  const result = await (await import("../schema/vite.js")).viteInjectManifestOptions.spa(input, { errorMap: validationErrorMap });
+  if (!result.success) {
+    throw new SerwistConfigError({ moduleName: "@serwist/vite", message: JSON.stringify(result.error.format(), null, 2) });
   }
   return result.data;
 };
