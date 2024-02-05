@@ -25,11 +25,22 @@
   "bugs": "https://github.com/serwist/serwist/issues",
   "homepage": "https://serwist.pages.dev",
   "main": "./dist/index.js",
-  "types": "./src/index.ts",
+  "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "next": [
+        "./dist/index.next.d.ts"
+      ]
+    }
+  },
   "exports": {
     ".": {
-      "types": "./src/index.ts",
+      "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
+    },
+    "./next": {
+      "types": "./dist/index.next.d.ts",
+      "default": "./dist/index.next.js"
     },
     "./package.json": "./package.json"
   },
@@ -49,6 +60,7 @@
     "@serwist/precaching": "workspace:*",
     "@serwist/routing": "workspace:*",
     "common-tags": "1.8.2",
+    "fast-glob": "3.3.2",
     "fast-json-stable-stringify": "2.1.0",
     "fs-extra": "11.2.0",
     "glob": "10.3.10",
@@ -59,6 +71,7 @@
   },
   "devDependencies": {
     "@serwist/constants": "workspace:*",
+    "@serwist/utils": "workspace:*",
     "@types/common-tags": "1.8.4",
     "@types/fs-extra": "11.0.4",
     "@types/node": "20.11.16",

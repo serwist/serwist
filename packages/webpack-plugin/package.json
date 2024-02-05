@@ -26,21 +26,21 @@
   "bugs": "https://github.com/serwist/serwist/issues",
   "homepage": "https://serwist.pages.dev",
   "main": "./dist/index.js",
-  "types": "./src/index.ts",
+  "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
       "internal": [
-        "./src/index.internal.ts"
+        "./dist/index.internal.d.ts"
       ]
     }
   },
   "exports": {
     ".": {
-      "types": "./src/index.ts",
+      "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
     "./internal": {
-      "types": "./src/index.internal.ts",
+      "types": "./dist/index.internal.d.ts",
       "default": "./dist/index.internal.js"
     },
     "./package.json": "./package.json"

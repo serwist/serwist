@@ -24,28 +24,28 @@
   "bugs": "https://github.com/serwist/serwist/issues",
   "homepage": "https://serwist.pages.dev",
   "main": "./dist/index.js",
-  "types": "./src/index.ts",
+  "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
       "worker": [
-        "./src/index.worker.ts"
+        "./dist/index.worker.d.ts"
       ],
       "typings": [
-        "./src/sw-entry.ts"
+        "./dist/sw-entry.d.ts"
       ]
     }
   },
   "exports": {
     ".": {
-      "types": "./src/index.ts",
+      "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
     "./worker": {
-      "types": "./src/index.worker.ts",
+      "types": "./dist/index.worker.d.ts",
       "default": "./dist/index.worker.js"
     },
     "./typings": {
-      "types": "./src/sw-entry.ts"
+      "types": "./dist/sw-entry.d.ts"
     },
     "./package.json": "./package.json"
   },

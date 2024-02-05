@@ -391,6 +391,9 @@ importers:
       common-tags:
         specifier: 1.8.2
         version: 1.8.2
+      fast-glob:
+        specifier: 3.3.2
+        version: 3.3.2
       fast-json-stable-stringify:
         specifier: 2.1.0
         version: 2.1.0
@@ -416,6 +419,9 @@ importers:
       '@serwist/constants':
         specifier: workspace:*
         version: link:../constants
+      '@serwist/utils':
+        specifier: workspace:*
+        version: link:../utils
       '@types/common-tags':
         specifier: 1.8.4
         version: 1.8.4
