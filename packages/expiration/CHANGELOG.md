@@ -1,5 +1,12 @@
 # @serwist/expiration
 
+## 9.0.0-preview.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/core@9.0.0-preview.1
+
 ## 9.0.0-preview.0
 
 ### Major Changes
