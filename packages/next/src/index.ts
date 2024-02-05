@@ -100,16 +100,16 @@ const withSerwistInit = (pluginOptions: NextInjectManifestOptions): ((nextConfig
         }
 
         const {
-          swSrc: providedSwSrc,
-          swDest: providedSwDest,
+          swSrc: userSwSrc,
+          swDest: userSwDest,
           additionalPrecacheEntries,
-          exclude = [],
+          exclude,
           manifestTransforms = [],
           ...otherBuildOptions
         } = buildOptions;
 
-        let swSrc = providedSwSrc;
-        let swDest = providedSwDest;
+        let swSrc = userSwSrc;
+        let swDest = userSwDest;
 
         // If these two paths are not absolute, they will be resolved from `compilation.options.output.path`,
         // which is `${options.dir}/${nextConfig.destDir}` for Next.js apps, rather than `${options.dir}`
