@@ -54,13 +54,13 @@
   "dependencies": {
     "@serwist/build": "workspace:*",
     "fast-json-stable-stringify": "2.1.0",
+    "pretty-bytes": "6.1.1",
     "upath": "2.0.1"
   },
   "devDependencies": {
     "@serwist/constants": "workspace:*",
     "@types/node": "20.11.16",
     "@types/webpack": "5.28.5",
-    "pretty-bytes": "6.1.1",
     "rollup": "4.9.6",
     "typescript": "5.4.0-dev.20240203",
     "webpack": "5.90.1"

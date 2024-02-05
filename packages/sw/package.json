@@ -47,7 +47,6 @@
     "@serwist/strategies": "workspace:*"
   },
   "devDependencies": {
-    "@serwist/build": "workspace:*",
     "@serwist/constants": "workspace:*",
     "@serwist/utils": "workspace:*",
     "rollup": "4.9.6",
