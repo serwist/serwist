@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - "9.0.0"
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
