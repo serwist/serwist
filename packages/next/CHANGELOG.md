@@ -1,5 +1,49 @@
 # @serwist/next
 
+## 9.0.0-preview.1
+
+### Major Changes
+
+- [`837cd0d`](https://github.com/serwist/serwist/commit/837cd0d7caaa03e0d3334bbf707ac9147a844285) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(next): renamed `cacheOnFrontEndNav` to `cacheOnNavigation`
+
+  - I intended to make this breaking change in 8.0.0, but forgot. To clarify, generally, we avoids abbreviations (except for acronyms) when naming our APIs.
+  - To migrate, simply replace `cacheOnFrontEndNav` with `cacheOnNavigation`:
+
+    - Old:
+
+    ```js
+    const withSerwist = withSerwistInit({
+      cacheOnFrontEndNav: true,
+    });
+
+    /** @type {import("next").NextConfig} */
+    const nextConfig = {};
+
+    export default withSerwist(nextConfig);
+    ```
+
+    - New:
+
+    ```js
+    const withSerwist = withSerwistInit({
+      cacheOnNavigation: true,
+    });
+
+    /** @type {import("next").NextConfig} */
+    const nextConfig = {};
+
+    export default withSerwist(nextConfig);
+    ```
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/build@9.0.0-preview.1
+  - @serwist/core@9.0.0-preview.1
+  - @serwist/sw@9.0.0-preview.1
+  - @serwist/webpack-plugin@9.0.0-preview.1
+  - @serwist/window@9.0.0-preview.1
+
 ## 9.0.0-preview.0
 
 ### Major Changes

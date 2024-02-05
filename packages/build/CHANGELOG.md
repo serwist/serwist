@@ -1,5 +1,19 @@
 # @serwist/build
 
+## 9.0.0-preview.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/background-sync@9.0.0-preview.1
+  - @serwist/broadcast-update@9.0.0-preview.1
+  - @serwist/cacheable-response@9.0.0-preview.1
+  - @serwist/core@9.0.0-preview.1
+  - @serwist/expiration@9.0.0-preview.1
+  - @serwist/google-analytics@9.0.0-preview.1
+  - @serwist/precaching@9.0.0-preview.1
+  - @serwist/routing@9.0.0-preview.1
+
 ## 9.0.0-preview.0
 
 ### Major Changes
