@@ -177,7 +177,7 @@ const withSerwistInit = (pluginOptions: NextInjectManifestOptions): ((nextConfig
           );
           resolvedManifestEntries = publicScan.map((f) => ({
             url: path.posix.join(basePath, f),
-            revision: getFileHash(`public/${f}`),
+            revision: getFileHash(path.join(publicDir, f)),
           }));
         }
 
