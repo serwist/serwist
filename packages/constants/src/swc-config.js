@@ -14,6 +14,10 @@ export const swcConfig = {
     },
     target: "esnext",
     loose: false,
+    minify: {
+      compress: false,
+      mangle: false,
+    },
   },
   minify: false,
 };
