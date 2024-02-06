@@ -31,6 +31,6 @@ pnpm create next-app --example https://github.com/serwist/serwist/tree/main/exam
 ## Recommended `.gitignore`
 
 ```gitignore
-**/public/serwist-*.js
-**/public/sw.js
+**/public/sw**
+**/public/swe**
 ```

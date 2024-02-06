@@ -12,7 +12,7 @@
 <br /><br />
 <h2>First added</h2>
 <br />
-<Code>@serwist/build@8.0.0</Code>
+<p>8.0.0</p>
 <br /><br />
 <h2>Default</h2>
 <br />

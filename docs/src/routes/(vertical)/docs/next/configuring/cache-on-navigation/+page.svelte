@@ -21,7 +21,7 @@
 <h2>About</h2>
 <br />
 <p>
-  Enable additional route caching when users navigate through pages with
+  Enables additional route caching when users navigate through pages with
   <InlineCode>next/link</InlineCode>. This improves the user experience in some cases but it also adds a bit of overhead due to additional network
   calls.
 </p>

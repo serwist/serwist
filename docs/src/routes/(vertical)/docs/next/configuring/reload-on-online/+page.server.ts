@@ -17,25 +17,25 @@ export const load = async () => {
             code: `import withSerwistInit from "@serwist/next";
       
 const withSerwist = withSerwistInit({
-    swSrc: "app/sw.ts",
-    swDest: "public/sw.js",
-    reloadOnOnline: true,
+  swSrc: "app/sw.ts",
+  swDest: "public/sw.js",
+  reloadOnOnline: true,
 });
          
 export default withSerwist({
-    // Your Next.js config
+  // Your Next.js config
 });`,
             lang: "javascript",
           },
           "next.config.js": {
             code: `const withSerwist = require("@serwist/next").default({
-    swSrc: "app/sw.ts",
-    swDest: "public/sw.js",
-    reloadOnOnline: true,
+  swSrc: "app/sw.ts",
+  swDest: "public/sw.js",
+  reloadOnOnline: true,
 });
 
 module.exports = withSerwist({
-    // Your Next.js config
+  // Your Next.js config
 });`,
             lang: "javascript",
           },

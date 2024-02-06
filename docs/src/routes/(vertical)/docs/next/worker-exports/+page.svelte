@@ -8,7 +8,7 @@
   const { data } = $props<{ data: PageData }>();
 </script>
 
-<h1>Browser exports</h1>
+<h1>Worker exports</h1>
 <br /><br />
 <h2>Why?</h2>
 <br />

@@ -68,13 +68,34 @@ export const SIDEBAR_LINKS = [
           { title: "swUrl", href: "/docs/next/configuring/sw-url" },
         ],
       },
-      { title: "Browser exports", href: "/docs/next/browser-exports" },
+      { title: "Worker exports", href: "/docs/next/worker-exports" },
     ],
   },
   {
     title: "@serwist/sw",
     href: "/docs/sw",
-    children: [{ title: "installSerwist", href: "/docs/sw/install-serwist" }],
+    children: [
+      {
+        title: "disableDevLogs",
+        href: "/docs/sw/disable-dev-logs",
+      },
+      {
+        title: "fallbacks",
+        href: "/docs/sw/fallbacks",
+      },
+      {
+        title: "handlePrecaching",
+        href: "/docs/sw/handle-precaching",
+      },
+      {
+        title: "installSerwist",
+        href: "/docs/sw/install-serwist",
+      },
+      {
+        title: "registerRuntimeCaching",
+        href: "/docs/sw/register-runtime-caching",
+      },
+    ],
   },
   {
     title: "@serwist/vite",

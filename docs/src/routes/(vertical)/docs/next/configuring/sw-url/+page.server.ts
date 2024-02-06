@@ -17,25 +17,13 @@ export const load = async () => {
             code: `import withSerwistInit from "@serwist/next";
       
 const withSerwist = withSerwistInit({
-    swSrc: "app/sw.ts",
-    swDest: "public/weird-sw.js",
-    swUrl: "/weird-sw.js",
+  swSrc: "app/sw.ts",
+  swDest: "public/weird-sw.js",
+  swUrl: "/weird-sw.js",
 });
          
 export default withSerwist({
-    // Your Next.js config
-});`,
-            lang: "javascript",
-          },
-          "next.config.js": {
-            code: `const withSerwist = require("@serwist/next").default({
-    swSrc: "app/sw.ts",
-    swDest: "public/weird-sw.js",
-    swUrl: "/weird-sw.js",
-});
-      
-module.exports = withSerwist({
-    // Your Next.js config
+  // Your Next.js config
 });`,
             lang: "javascript",
           },

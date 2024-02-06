@@ -30,12 +30,29 @@ export interface FallbackEntry {
 }
 
 export interface FallbacksOptions {
+  /**
+   * Your previous `RuntimeCaching` array.
+   */
   runtimeCaching: RuntimeCaching[];
+  /**
+   * A list of fallback entries.
+   */
   entries: FallbackEntry[];
+  /**
+   * Precache options that will be used for your
+   * fallback entries.
+   */
   precacheOptions?: PrecacheRouteOptions;
 }
 
-export const fallbacks = ({ runtimeCaching, entries, precacheOptions }: FallbacksOptions) => {
+/**
+ * Precaches routes so that they can be used as a fallback when 
+ * a `RuntimeCaching` handler fails.
+ * @param options
+ * @returns The modified `RuntimeCaching` array. Using this value 
+ * is not needed, as it is simply the provided array.
+ */
+export const fallbacks = ({ runtimeCaching, entries, precacheOptions }: FallbacksOptions): RuntimeCaching[] => {
   precacheAndRoute(
     entries.map(({ url, revision }) => ({ url: typeof url === "string" ? url : url.toString(), revision })),
     precacheOptions,

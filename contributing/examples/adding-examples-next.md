@@ -45,10 +45,7 @@ bun create next-app --example https://github.com/serwist/serwist/tree/main/examp
 ## Recommended `.gitignore`
 
 ```gitignore
-**/public/serwist**
 **/public/sw**
-**/public/worker**
-**/public/fallback**
-**/public/precache**
+**/public/swe**
 ```
 ````

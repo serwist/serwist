@@ -21,6 +21,12 @@ const HANDLER_NAME_TO_METHOD = {
   StaleWhileRevalidate,
 } satisfies Record<StrategyName, unknown>;
 
+/**
+ * Registers caching strategies to a singleton Router instance. It is a simple
+ * syntatic sugar for `@serwist/routing.registerRoute`.
+ * @param runtimeCachingList
+ * @returns
+ */
 export const registerRuntimeCaching = (...runtimeCachingList: RuntimeCaching[]) => {
   if (!("__WB_FORCE_RUNTIME_CACHING" in globalThis)) {
     self.__WB_FORCE_RUNTIME_CACHING = false;

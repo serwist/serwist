@@ -19,12 +19,12 @@ export const load: PageServerLoad = async () => {
 // Build something...
 // Bundle the service worker...
 const { count, size, warnings } = await injectManifest({
-    swSrc: "app/sw.js",
-    swDest: "dist/sw.js",
-    globDirectory: "dist/static",
+  swSrc: "app/sw.js",
+  swDest: "dist/sw.js",
+  globDirectory: "dist/static",
 });
 if (warnings.length > 0) {
-    console.warn("[@serwist/build] Oopsie, there are warnings from Serwist:", warnings);
+  console.warn("[@serwist/build] Oopsie, there are warnings from Serwist:", warnings);
 }
 console.log(\`[@serwist/build] Manifest injected: \${count} files, totaling \${size} bytes.\`);`,
             lang: "javascript",

@@ -42,27 +42,14 @@ export const load: PageServerLoad = async () => {
               code: `import withSerwistInit from "@serwist/next";
       
 const withSerwist = withSerwistInit({
-    // Note: This is only an example. If you use Pages Router,
-    // use something else that works, such as "service-worker/index.ts".
-    swSrc: "app/sw.ts",
-    swDest: "public/sw.js",
+  // Note: This is only an example. If you use Pages Router,
+  // use something else that works, such as "service-worker/index.ts".
+  swSrc: "app/sw.ts",
+  swDest: "public/sw.js",
 });
          
 export default withSerwist({
-    // Your Next.js config
-});`,
-              lang: "javascript",
-            },
-            "next.config.js": {
-              code: `const withSerwist = require("@serwist/next").default({
-    // Note: This is only an example. If you use Pages Router,
-    // use something else that works, such as "service-worker/index.ts".
-    swSrc: "app/sw.ts",
-    swDest: "public/sw.js",
-});
-
-module.exports = withSerwist({
-    // Your Next.js config
+  // Your Next.js config
 });`,
               lang: "javascript",
             },
@@ -75,38 +62,44 @@ import {
 } from "next/constants.js";
 
 export default async (phase) => {
-    if (phase === PHASE_DEVELOPMENT_SERVER || phase === PHASE_PRODUCTION_BUILD) {
-        const withSerwist = (await import("@serwist/next")).default({
-            // Note: This is only an example. If you use Pages Router,
-            // use something else that works, such as "service-worker/index.ts".
-            swSrc: "app/sw.ts",
-            swDest: "public/sw.js",
-        });
-        return withSerwist(nextConfig);
-    }
-    return nextConfig;
+  /** @type {import("next").NextConfig} */
+  const nextConfig = {};
+
+  if (phase === PHASE_DEVELOPMENT_SERVER || phase === PHASE_PRODUCTION_BUILD) {
+    const withSerwist = (await import("@serwist/next")).default({
+      // Note: This is only an example. If you use Pages Router,
+      // use something else that works, such as "service-worker/index.ts".
+      swSrc: "app/sw.ts",
+      swDest: "public/sw.js",
+    });
+    return withSerwist(nextConfig);
+  }
+  
+  return nextConfig;
 };`,
               lang: "javascript",
             },
-            "next.config.js (light)": {
-              code: `// If your deployment platform requires your production image's size to not exceed a certain limit,
-// you can also install \`@serwist/next\` as one of your \`devDependencies\` and do this:
-const {
+            "next.config.js": {
+              code: `const {
     PHASE_DEVELOPMENT_SERVER,
     PHASE_PRODUCTION_BUILD,
 } = require("next/constants");
 
 module.exports = (phase) => {
-    if (phase === PHASE_DEVELOPMENT_SERVER || phase === PHASE_PRODUCTION_BUILD) {
-        const withSerwist = require("@serwist/next").default({
-            // Note: This is only an example. If you use Pages Router,
-            // use something else that works, such as "service-worker/index.ts".
-            swSrc: "app/sw.ts",
-            swDest: "public/sw.js",
-        });
-        return withSerwist(nextConfig);
-    }
-    return nextConfig;
+  /** @type {import("next").NextConfig} */
+  const nextConfig = {};
+
+  if (phase === PHASE_DEVELOPMENT_SERVER || phase === PHASE_PRODUCTION_BUILD) {
+    const withSerwist = (await import("@serwist/next")).default({
+      // Note: This is only an example. If you use Pages Router,
+      // use something else that works, such as "service-worker/index.ts".
+      swSrc: "app/sw.ts",
+      swDest: "public/sw.js",
+    });
+    return withSerwist(nextConfig);
+  }
+
+  return nextConfig;
 };`,
               lang: "javascript",
             },

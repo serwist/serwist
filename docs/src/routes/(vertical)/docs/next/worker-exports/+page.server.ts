@@ -9,7 +9,7 @@ export const load = async () => {
   });
 
   return {
-    title: "Browser exports - @serwist/next",
+    title: "Worker exports - @serwist/next",
     code: {
       defaultCache: {
         usage: highlightCode(
@@ -31,8 +31,7 @@ installSerwist({
   clientsClaim: true,
   navigationPreload: true,
   runtimeCaching: defaultCache,
-});
-`,
+});`,
               lang: "typescript",
             },
             "app/sw.js": {
@@ -45,8 +44,7 @@ installSerwist({
   clientsClaim: true,
   navigationPreload: true,
   runtimeCaching: defaultCache,
-});
-`,
+});`,
               lang: "javascript",
             },
           },

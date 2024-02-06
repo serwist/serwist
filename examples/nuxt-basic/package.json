@@ -15,7 +15,7 @@
     "@serwist/nuxt": "latest",
     "@serwist/precaching": "latest",
     "@serwist/sw": "latest",
-    "nuxt": "3.10.0",
+    "nuxt": "3.10.1",
     "vue": "3.4.15",
     "vue-router": "4.2.5"
   }

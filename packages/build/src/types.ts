@@ -249,7 +249,7 @@ export type WebpackInjectManifestResolved = Require<WebpackInjectManifestPartial
 
 export interface NextInjectManifestPartial {
   /**
-   * Enable additional route caching when users navigate through pages with
+   * Enables additional route caching when users navigate through pages with
    * `next/link`. This improves the user experience in some cases but it
    * also adds a bit of overhead due to additional network calls.
    * @default false

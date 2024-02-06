@@ -78,7 +78,7 @@
     "@types/node": "20.11.16",
     "@types/stringify-object": "4.0.5",
     "type-fest": "4.10.2",
-    "typescript": "5.4.0-dev.20240203"
+    "typescript": "5.4.0-dev.20240206"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0"

@@ -54,6 +54,9 @@
   .list {
     @apply list-inside list-disc pl-4 marker:text-black dark:marker:text-white;
   }
+  .list > li {
+    @apply mb-2;
+  }
 }
 
 @media (prefers-reduced-motion) {
