@@ -57,8 +57,8 @@ export default withSerwist({
               code: `// If your deployment platform requires your production image's size to not exceed a certain limit,
 // you can also install \`@serwist/next\` as one of your \`devDependencies\` and do this:
 import {
-    PHASE_DEVELOPMENT_SERVER,
-    PHASE_PRODUCTION_BUILD,
+  PHASE_DEVELOPMENT_SERVER,
+  PHASE_PRODUCTION_BUILD,
 } from "next/constants.js";
 
 export default async (phase) => {
@@ -81,8 +81,8 @@ export default async (phase) => {
             },
             "next.config.js": {
               code: `const {
-    PHASE_DEVELOPMENT_SERVER,
-    PHASE_PRODUCTION_BUILD,
+  PHASE_DEVELOPMENT_SERVER,
+  PHASE_PRODUCTION_BUILD,
 } = require("next/constants");
 
 module.exports = (phase) => {
