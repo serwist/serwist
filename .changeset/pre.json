@@ -29,7 +29,8 @@
     "@serwist/vite": "8.4.4",
     "@serwist/webpack-plugin": "8.4.4",
     "@serwist/window": "8.4.4",
-    "@serwist-example/nuxt-basic": "1.0.0"
+    "@serwist-example/nuxt-basic": "1.0.0",
+    "@serwist-example/next-web-push": "1.0.0"
   },
   "changesets": [
     "lovely-tools-march",
@@ -39,6 +40,7 @@
     "red-planes-behave",
     "slimy-toes-report",
     "tame-apples-agree",
-    "tiny-gorillas-sell"
+    "tiny-gorillas-sell",
+    "wild-donuts-leave"
   ]
 }
