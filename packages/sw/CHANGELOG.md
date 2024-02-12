@@ -1,5 +1,26 @@
 # @serwist/sw
 
+## 9.0.0-preview.2
+
+### Patch Changes
+
+- [`85bc781`](https://github.com/serwist/serwist/commit/85bc7812ed38f52bb04bbc79333950beafa75e42) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(sw): fixed `installSerwist` crashing
+
+  - `logger.info` is not a valid method...
+
+- Updated dependencies []:
+  - @serwist/background-sync@9.0.0-preview.2
+  - @serwist/broadcast-update@9.0.0-preview.2
+  - @serwist/cacheable-response@9.0.0-preview.2
+  - @serwist/core@9.0.0-preview.2
+  - @serwist/expiration@9.0.0-preview.2
+  - @serwist/google-analytics@9.0.0-preview.2
+  - @serwist/navigation-preload@9.0.0-preview.2
+  - @serwist/precaching@9.0.0-preview.2
+  - @serwist/range-requests@9.0.0-preview.2
+  - @serwist/routing@9.0.0-preview.2
+  - @serwist/strategies@9.0.0-preview.2
+
 ## 9.0.0-preview.1
 
 ### Patch Changes
