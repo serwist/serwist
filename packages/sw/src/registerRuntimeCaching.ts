@@ -33,7 +33,7 @@ export const registerRuntimeCaching = (...runtimeCachingList: RuntimeCaching[]) 
   }
 
   if (!self.__WB_FORCE_RUNTIME_CACHING && process.env.NODE_ENV !== "production") {
-    logger.info("registerRuntimeCaching is disabled in development mode.");
+    logger.log("registerRuntimeCaching is disabled in development mode.");
     return;
   }
 

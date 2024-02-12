@@ -82,7 +82,7 @@ export const installSerwist = ({
       self.__WB_FORCE_RUNTIME_CACHING = false;
     }
     if (!self.__WB_FORCE_RUNTIME_CACHING && process.env.NODE_ENV !== "production") {
-      logger.info("runtimeCaching and fallbacks are disabled in development mode.");
+      logger.log("runtimeCaching and fallbacks are disabled in development mode.");
     } else {
       if (fallbacks !== undefined) {
         runtimeCaching = fallbacksImpl({

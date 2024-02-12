@@ -16,11 +16,9 @@ declare global {
   }
 }
 
-type LoggerMethods = "debug" | "log" | "warn" | "error" | "groupCollapsed" | "groupEnd";
-
-const logger = (
+export const logger =
   process.env.NODE_ENV === "production"
-    ? null
+    ? null!
     : (() => {
         // Don't overwrite this value if it's already set.
         // See https://github.com/GoogleChrome/workbox/pull/2284#issuecomment-560470923
@@ -30,7 +28,7 @@ const logger = (
 
         let inGroup = false;
 
-        const methodToColorMap: { [methodName: string]: string | null } = {
+        const methodToColorMap = {
           debug: "#7f8c8d", // Gray
           log: "#2ecc71", // Green
           warn: "#f39c12", // Yellow
@@ -38,6 +36,8 @@ const logger = (
           groupCollapsed: "#3498db", // Blue
           groupEnd: null, // No colored prefix on groupEnd
         };
+
+        type LoggerMethods = keyof typeof methodToColorMap;
 
         const print = (method: LoggerMethods, args: any[]) => {
           if (self.__WB_DISABLE_DEV_LOGS) {
@@ -73,20 +73,16 @@ const logger = (
             inGroup = false;
           }
         };
-        // biome-ignore lint/complexity/noBannedTypes: Unknown reason
-        const api: { [methodName: string]: Function } = {};
-        const loggerMethods = Object.keys(methodToColorMap);
 
-        for (const key of loggerMethods) {
-          const method = key as LoggerMethods;
+        const loggerMethods = Object.keys(methodToColorMap) as LoggerMethods[];
 
-          api[method] = (...args: any[]) => {
-            print(method, args);
-          };
-        }
-
-        return api as unknown;
-      })()
-) as Console;
-
-export { logger };
+        return loggerMethods.reduce(
+          (api, method) => {
+            api[method] = (...args: any[]) => {
+              print(method, args);
+            };
+            return api;
+          },
+          {} as { [method in LoggerMethods]: (...args: any[]) => void },
+        );
+      })();
