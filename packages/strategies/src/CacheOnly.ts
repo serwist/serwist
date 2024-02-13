@@ -13,14 +13,14 @@ import type { StrategyHandler } from "./StrategyHandler.js";
 import { messages } from "./utils/messages.js";
 
 /**
- * An implementation of a [cache only](https://developer.chrome.com/docs/workbox/caching-strategies-overview/#cache-only)
+ * An implementation of the [cache only](https://developer.chrome.com/docs/workbox/caching-strategies-overview/#cache-only)
  * request strategy.
  *
  * This class is useful if you want to take advantage of any Serwist plugin.
  *
  * If there is no cache match, this will throw a `SerwistError` exception.
  */
-class CacheOnly extends Strategy {
+export class CacheOnly extends Strategy {
   /**
    * @private
    * @param request A request to run this strategy for.
@@ -56,5 +56,3 @@ class CacheOnly extends Strategy {
     return response;
   }
 }
-
-export { CacheOnly };

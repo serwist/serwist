@@ -131,7 +131,7 @@ export const defaultCache = [
   },
   {
     urlPattern: /\/_next\/data\/.+\/.+\.json$/i,
-    handler: new StaleWhileRevalidate({
+    handler: new NetworkFirst({
       cacheName: "next-data",
       plugins: [
         new ExpirationPlugin({

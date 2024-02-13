@@ -13,7 +13,7 @@ import type { StrategyHandler } from "./StrategyHandler.js";
 import { messages } from "./utils/messages.js";
 
 /**
- * An implementation of a [cache first](https://developer.chrome.com/docs/workbox/caching-strategies-overview/#cache-first-falling-back-to-network)
+ * An implementation of the [cache first](https://developer.chrome.com/docs/workbox/caching-strategies-overview/#cache-first-falling-back-to-network)
  * request strategy.
  *
  * A cache first strategy is useful for assets that have been revisioned,
@@ -23,7 +23,7 @@ import { messages } from "./utils/messages.js";
  * If the network request fails, and there is no cache match, this will throw
  * a `SerwistError` exception.
  */
-class CacheFirst extends Strategy {
+export class CacheFirst extends Strategy {
   /**
    * @private
    * @param request A request to run this strategy for.
@@ -85,5 +85,3 @@ class CacheFirst extends Strategy {
     return response;
   }
 }
-
-export { CacheFirst };
