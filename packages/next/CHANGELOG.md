@@ -1,5 +1,19 @@
 # @serwist/next
 
+## 9.0.0-preview.3
+
+### Patch Changes
+
+- Updated dependencies [[`10c3c17`](https://github.com/serwist/serwist/commit/10c3c17a0021c87886c47c2588d8beca1cb21535)]:
+  - @serwist/sw@9.0.0-preview.3
+  - @serwist/build@9.0.0-preview.3
+  - @serwist/core@9.0.0-preview.3
+  - @serwist/expiration@9.0.0-preview.3
+  - @serwist/range-requests@9.0.0-preview.3
+  - @serwist/strategies@9.0.0-preview.3
+  - @serwist/webpack-plugin@9.0.0-preview.3
+  - @serwist/window@9.0.0-preview.3
+
 ## 9.0.0-preview.2
 
 ### Patch Changes
