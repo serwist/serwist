@@ -14,8 +14,7 @@
 <h2>About</h2>
 <br />
 <p>
-  Precaches routes so that they can be used as a fallback when a
-  <InlineCode>RuntimeCaching</InlineCode> handler fails.
+  Precaches routes so that they can be used as a fallback when a Strategy fails to generate a response.
 </p>
 <br /><br />
 <h2>How it works</h2>

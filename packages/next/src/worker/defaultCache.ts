@@ -1,141 +1,157 @@
+import { ExpirationPlugin } from "@serwist/expiration";
+import { RangeRequestsPlugin } from "@serwist/range-requests";
+import { CacheFirst, NetworkFirst, StaleWhileRevalidate } from "@serwist/strategies";
 import type { RuntimeCaching } from "@serwist/sw";
-import { definePageRuntimeCaching } from "./definePageRuntimeCaching.js";
 
-// Serwist RuntimeCaching config: https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-build#.RuntimeCachingEntry
+import { PAGES_CACHE_NAME } from "./constants.js";
+
+// Serwist RuntimeCaching config: https://serwist.pages.dev/docs/sw/register-runtime-caching
 export const defaultCache = [
   {
     urlPattern: /^https:\/\/fonts\.(?:gstatic)\.com\/.*/i,
-    handler: "CacheFirst",
-    options: {
+    handler: new CacheFirst({
       cacheName: "google-fonts-webfonts",
-      expiration: {
-        maxEntries: 4,
-        maxAgeSeconds: 365 * 24 * 60 * 60, // 365 days
-      },
-    },
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 4,
+          maxAgeSeconds: 365 * 24 * 60 * 60, // 365 days
+        }),
+      ],
+    }),
   },
   {
     urlPattern: /^https:\/\/fonts\.(?:googleapis)\.com\/.*/i,
-    handler: "StaleWhileRevalidate",
-    options: {
+    handler: new StaleWhileRevalidate({
       cacheName: "google-fonts-stylesheets",
-      expiration: {
-        maxEntries: 4,
-        maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
-      },
-    },
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 4,
+          maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+        }),
+      ],
+    }),
   },
   {
     urlPattern: /\.(?:eot|otf|ttc|ttf|woff|woff2|font.css)$/i,
-    handler: "StaleWhileRevalidate",
-    options: {
+    handler: new StaleWhileRevalidate({
       cacheName: "static-font-assets",
-      expiration: {
-        maxEntries: 4,
-        maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
-      },
-    },
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 4,
+          maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+        }),
+      ],
+    }),
   },
   {
     urlPattern: /\.(?:jpg|jpeg|gif|png|svg|ico|webp)$/i,
-    handler: "StaleWhileRevalidate",
-    options: {
+    handler: new StaleWhileRevalidate({
       cacheName: "static-image-assets",
-      expiration: {
-        maxEntries: 64,
-        maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
-      },
-    },
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 64,
+          maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
+        }),
+      ],
+    }),
   },
   {
     urlPattern: /\/_next\/static.+\.js$/i,
-    handler: "CacheFirst",
-    options: {
+    handler: new CacheFirst({
       cacheName: "next-static-js-assets",
-      expiration: {
-        maxEntries: 64,
-        maxAgeSeconds: 24 * 60 * 60, // 24 hours
-      },
-    },
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 64,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        }),
+      ],
+    }),
   },
   {
     urlPattern: /\/_next\/image\?url=.+$/i,
-    handler: "StaleWhileRevalidate",
-    options: {
+    handler: new StaleWhileRevalidate({
       cacheName: "next-image",
-      expiration: {
-        maxEntries: 64,
-        maxAgeSeconds: 24 * 60 * 60, // 24 hours
-      },
-    },
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 64,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        }),
+      ],
+    }),
   },
   {
     urlPattern: /\.(?:mp3|wav|ogg)$/i,
-    handler: "CacheFirst",
-    options: {
-      rangeRequests: true,
+    handler: new CacheFirst({
       cacheName: "static-audio-assets",
-      expiration: {
-        maxEntries: 32,
-        maxAgeSeconds: 24 * 60 * 60, // 24 hours
-      },
-    },
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 32,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        }),
+        new RangeRequestsPlugin(),
+      ],
+    }),
   },
   {
     urlPattern: /\.(?:mp4|webm)$/i,
-    handler: "CacheFirst",
-    options: {
-      rangeRequests: true,
+    handler: new CacheFirst({
       cacheName: "static-video-assets",
-      expiration: {
-        maxEntries: 32,
-        maxAgeSeconds: 24 * 60 * 60, // 24 hours
-      },
-    },
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 32,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        }),
+        new RangeRequestsPlugin(),
+      ],
+    }),
   },
   {
     urlPattern: /\.(?:js)$/i,
-    handler: "StaleWhileRevalidate",
-    options: {
+    handler: new StaleWhileRevalidate({
       cacheName: "static-js-assets",
-      expiration: {
-        maxEntries: 48,
-        maxAgeSeconds: 24 * 60 * 60, // 24 hours
-      },
-    },
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 48,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        }),
+      ],
+    }),
   },
   {
     urlPattern: /\.(?:css|less)$/i,
-    handler: "StaleWhileRevalidate",
-    options: {
+    handler: new StaleWhileRevalidate({
       cacheName: "static-style-assets",
-      expiration: {
-        maxEntries: 32,
-        maxAgeSeconds: 24 * 60 * 60, // 24 hours
-      },
-    },
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 32,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        }),
+      ],
+    }),
   },
   {
     urlPattern: /\/_next\/data\/.+\/.+\.json$/i,
-    handler: "StaleWhileRevalidate",
-    options: {
+    handler: new StaleWhileRevalidate({
       cacheName: "next-data",
-      expiration: {
-        maxEntries: 32,
-        maxAgeSeconds: 24 * 60 * 60, // 24 hours
-      },
-    },
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 32,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        }),
+      ],
+    }),
   },
   {
     urlPattern: /\.(?:json|xml|csv)$/i,
-    handler: "NetworkFirst",
-    options: {
+    handler: new NetworkFirst({
       cacheName: "static-data-assets",
-      expiration: {
-        maxEntries: 32,
-        maxAgeSeconds: 24 * 60 * 60, // 24 hours
-      },
-    },
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 32,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        }),
+      ],
+    }),
   },
   {
     urlPattern: ({ sameOrigin, url: { pathname } }) => {
@@ -152,72 +168,79 @@ export const defaultCache = [
 
       return false;
     },
-    handler: "NetworkFirst",
     method: "GET",
-    options: {
+    handler: new NetworkFirst({
       cacheName: "apis",
-      expiration: {
-        maxEntries: 16,
-        maxAgeSeconds: 24 * 60 * 60, // 24 hours
-      },
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 16,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        }),
+      ],
       networkTimeoutSeconds: 10, // fallback to cache if API does not response within 10 seconds
-    },
+    }),
   },
-  ...definePageRuntimeCaching({
-    rscPrefetch: {
-      urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
-        request.headers.get("RSC") === "1" && request.headers.get("Next-Router-Prefetch") === "1" && sameOrigin && !pathname.startsWith("/api/"),
-      handler: "NetworkFirst",
-      options: {
-        expiration: {
+  {
+    urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
+      request.headers.get("RSC") === "1" && request.headers.get("Next-Router-Prefetch") === "1" && sameOrigin && !pathname.startsWith("/api/"),
+    handler: new NetworkFirst({
+      cacheName: PAGES_CACHE_NAME.rscPrefetch,
+      plugins: [
+        new ExpirationPlugin({
           maxEntries: 32,
           maxAgeSeconds: 24 * 60 * 60, // 24 hours
-        },
-      },
-    },
-    rsc: {
-      urlPattern: ({ request, url: { pathname }, sameOrigin }) => request.headers.get("RSC") === "1" && sameOrigin && !pathname.startsWith("/api/"),
-      handler: "NetworkFirst",
-      options: {
-        expiration: {
+        }),
+      ],
+    }),
+  },
+  {
+    urlPattern: ({ request, url: { pathname }, sameOrigin }) => request.headers.get("RSC") === "1" && sameOrigin && !pathname.startsWith("/api/"),
+    handler: new NetworkFirst({
+      cacheName: PAGES_CACHE_NAME.rsc,
+      plugins: [
+        new ExpirationPlugin({
           maxEntries: 32,
           maxAgeSeconds: 24 * 60 * 60, // 24 hours
-        },
-      },
-    },
-    html: {
-      urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
-        request.headers.get("Content-Type")?.includes("text/html") && sameOrigin && !pathname.startsWith("/api/"),
-      handler: "NetworkFirst",
-      options: {
-        expiration: {
+        }),
+      ],
+    }),
+  },
+  {
+    urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
+      request.headers.get("Content-Type")?.includes("text/html") && sameOrigin && !pathname.startsWith("/api/"),
+    handler: new NetworkFirst({
+      cacheName: PAGES_CACHE_NAME.html,
+      plugins: [
+        new ExpirationPlugin({
           maxEntries: 32,
           maxAgeSeconds: 24 * 60 * 60, // 24 hours
-        },
-      },
-    },
-  }),
+        }),
+      ],
+    }),
+  },
   {
     urlPattern: ({ url: { pathname }, sameOrigin }) => sameOrigin && !pathname.startsWith("/api/"),
-    handler: "NetworkFirst",
-    options: {
+    handler: new NetworkFirst({
       cacheName: "others",
-      expiration: {
-        maxEntries: 32,
-        maxAgeSeconds: 24 * 60 * 60, // 24 hours
-      },
-    },
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 32,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        }),
+      ],
+    }),
   },
   {
     urlPattern: ({ sameOrigin }) => !sameOrigin,
-    handler: "NetworkFirst",
-    options: {
+    handler: new NetworkFirst({
       cacheName: "cross-origin",
-      expiration: {
-        maxEntries: 32,
-        maxAgeSeconds: 60 * 60, // 1 hour
-      },
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 32,
+          maxAgeSeconds: 60 * 60, // 1 hour
+        }),
+      ],
       networkTimeoutSeconds: 10,
-    },
+    }),
   },
 ] satisfies RuntimeCaching[];

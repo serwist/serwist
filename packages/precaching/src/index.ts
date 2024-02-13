@@ -8,6 +8,7 @@
 
 import { PrecacheController } from "./PrecacheController.js";
 import { PrecacheFallbackPlugin } from "./PrecacheFallbackPlugin.js";
+import type { PrecacheFallbackEntry, PrecacheFallbackPluginOptions } from "./PrecacheFallbackPlugin.js";
 import { PrecacheRoute } from "./PrecacheRoute.js";
 import { PrecacheStrategy } from "./PrecacheStrategy.js";
 import { addPlugins } from "./addPlugins.js";
@@ -45,4 +46,6 @@ export {
   PrecacheStrategy,
 };
 
-export * from "./_types.js";
+export type * from "./_types.js";
+
+export type { PrecacheFallbackPluginOptions, PrecacheFallbackEntry };

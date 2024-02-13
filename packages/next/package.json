@@ -58,6 +58,9 @@
   "dependencies": {
     "@serwist/build": "workspace:*",
     "@serwist/core": "workspace:*",
+    "@serwist/expiration": "workspace:*",
+    "@serwist/range-requests": "workspace:*",
+    "@serwist/strategies": "workspace:*",
     "@serwist/webpack-plugin": "workspace:*",
     "@serwist/window": "workspace:*",
     "chalk": "5.3.0",

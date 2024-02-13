@@ -13,8 +13,8 @@ export const load = async () => {
       usage: highlightCode(
         highligher,
         {
-            "sw.ts": {
-              code: `import { clientsClaim } from "@serwist/core";
+          "sw.ts": {
+            code: `import { clientsClaim } from "@serwist/core";
 import type { PrecacheEntry } from "@serwist/precaching";
 import { fallbacks, handlePrecaching, registerRuntimeCaching } from "@serwist/sw";
 import { defaultCache } from "@serwist/vite/worker";
@@ -51,10 +51,10 @@ const runtimeCaching = fallbacks({
 });
 
 registerRuntimeCaching(...runtimeCaching);`,
-              lang: "typescript",
-            },
-            "sw.js": {
-              code: `import { clientsClaim } from "@serwist/core";
+            lang: "typescript",
+          },
+          "sw.js": {
+            code: `import { clientsClaim } from "@serwist/core";
 import { fallbacks, handlePrecaching, registerRuntimeCaching } from "@serwist/sw";
 import { defaultCache } from "@serwist/vite/worker";
 

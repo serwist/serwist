@@ -17,28 +17,15 @@ const base64ToUint8Array = (base64: string) => {
 
 export default function SendNotification() {
   const [isSubscribed, setIsSubscribed] = useState(false);
-  const [subscription, setSubscription] = useState<PushSubscription | null>(
-    null
-  );
-  const [registration, setRegistration] =
-    useState<ServiceWorkerRegistration | null>(null);
+  const [subscription, setSubscription] = useState<PushSubscription | null>(null);
+  const [registration, setRegistration] = useState<ServiceWorkerRegistration | null>(null);
 
   useEffect(() => {
-    if (
-      typeof window !== "undefined" &&
-      "serviceWorker" in navigator &&
-      window.serwist !== undefined
-    ) {
+    if (typeof window !== "undefined" && "serviceWorker" in navigator && window.serwist !== undefined) {
       // run only in browser
       navigator.serviceWorker.ready.then((reg) => {
         reg.pushManager.getSubscription().then((sub) => {
-          if (
-            sub &&
-            !(
-              sub.expirationTime &&
-              Date.now() > sub.expirationTime - 5 * 60 * 1000
-            )
-          ) {
+          if (sub && !(sub.expirationTime && Date.now() > sub.expirationTime - 5 * 60 * 1000)) {
             setSubscription(sub);
             setIsSubscribed(true);
           }
@@ -48,9 +35,7 @@ export default function SendNotification() {
     }
   }, []);
 
-  const subscribeButtonOnClick: MouseEventHandler<HTMLButtonElement> = async (
-    event
-  ) => {
+  const subscribeButtonOnClick: MouseEventHandler<HTMLButtonElement> = async (event) => {
     if (!process.env.NEXT_PUBLIC_WEB_PUSH_PUBLIC_KEY) {
       throw new Error("Environment variables supplied not sufficient.");
     }
@@ -61,9 +46,7 @@ export default function SendNotification() {
     event.preventDefault();
     const sub = await registration.pushManager.subscribe({
       userVisibleOnly: true,
-      applicationServerKey: base64ToUint8Array(
-        process.env.NEXT_PUBLIC_WEB_PUSH_PUBLIC_KEY
-      ),
+      applicationServerKey: base64ToUint8Array(process.env.NEXT_PUBLIC_WEB_PUSH_PUBLIC_KEY),
     });
     // TODO: you should call your API to save subscription data on the server in order to send web push notification from the server
     setSubscription(sub);
@@ -72,9 +55,7 @@ export default function SendNotification() {
     console.log(sub);
   };
 
-  const unsubscribeButtonOnClick: MouseEventHandler<HTMLButtonElement> = async (
-    event
-  ) => {
+  const unsubscribeButtonOnClick: MouseEventHandler<HTMLButtonElement> = async (event) => {
     if (!subscription) {
       console.error("Web push not subscribed");
       return;
@@ -87,9 +68,7 @@ export default function SendNotification() {
     console.log("Web push unsubscribed!");
   };
 
-  const sendNotificationButtonOnClick: MouseEventHandler<
-    HTMLButtonElement
-  > = async (event) => {
+  const sendNotificationButtonOnClick: MouseEventHandler<HTMLButtonElement> = async (event) => {
     event.preventDefault();
 
     if (!subscription) {
@@ -113,9 +92,7 @@ export default function SendNotification() {
         if (err.name === "TimeoutError") {
           console.error("Timeout: It took too long to get the result.");
         } else if (err.name === "AbortError") {
-          console.error(
-            "Fetch aborted by user action (browser stop button, closing tab, etc.)"
-          );
+          console.error("Fetch aborted by user action (browser stop button, closing tab, etc.)");
         } else if (err.name === "TypeError") {
           console.error("The AbortSignal.timeout() method is not supported.");
         } else {
@@ -131,25 +108,13 @@ export default function SendNotification() {
 
   return (
     <>
-      <button
-        type="button"
-        onClick={subscribeButtonOnClick}
-        disabled={isSubscribed}
-      >
+      <button type="button" onClick={subscribeButtonOnClick} disabled={isSubscribed}>
         Subscribe
       </button>
-      <button
-        type="button"
-        onClick={unsubscribeButtonOnClick}
-        disabled={!isSubscribed}
-      >
+      <button type="button" onClick={unsubscribeButtonOnClick} disabled={!isSubscribed}>
         Unsubscribe
       </button>
-      <button
-        type="button"
-        onClick={sendNotificationButtonOnClick}
-        disabled={!isSubscribed}
-      >
+      <button type="button" onClick={sendNotificationButtonOnClick} disabled={!isSubscribed}>
         Send Notification
       </button>
     </>

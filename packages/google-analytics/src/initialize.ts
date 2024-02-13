@@ -182,7 +182,7 @@ const createGtmJsRoute = (cacheName: string) => {
 /**
  * @param options
  */
-const initialize = (options: GoogleAnalyticsInitializeOptions = {}): void => {
+export const initialize = (options: GoogleAnalyticsInitializeOptions = {}): void => {
   const cacheName = privateCacheNames.getGoogleAnalyticsName(options.cacheName);
 
   const bgSyncPlugin = new BackgroundSyncPlugin(QUEUE_NAME, {
@@ -199,5 +199,3 @@ const initialize = (options: GoogleAnalyticsInitializeOptions = {}): void => {
 
   router.addFetchListener();
 };
-
-export { initialize };

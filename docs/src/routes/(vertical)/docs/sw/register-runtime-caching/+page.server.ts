@@ -13,9 +13,11 @@ export const load = async () => {
       usage: highlightCode(
         highligher,
         {
-            "sw.ts": {
-              code: `import { clientsClaim } from "@serwist/core";
+          "sw.ts": {
+            code: `import { clientsClaim } from "@serwist/core";
+import { ExpirationPlugin } from "@serwist/expiration";
 import type { PrecacheEntry } from "@serwist/precaching";
+import { CacheFirst, NetworkFirst, StaleWhileRevalidate } from "@serwist/strategies";
 import { handlePrecaching, registerRuntimeCaching } from "@serwist/sw";
 
 declare const self: ServiceWorkerGlobalScope & {
@@ -33,109 +35,218 @@ handlePrecaching({ precacheEntries: self.__SW_MANIFEST });
 registerRuntimeCaching(
   {
     urlPattern: /^https:\\/\\/fonts\\.(?:googleapis|gstatic)\\.com\\/.*/i,
-    handler: "CacheFirst",
-    options: {
+    handler: new CacheFirst({
       cacheName: "google-fonts",
-      expiration: {
-        maxEntries: 4,
-        maxAgeSeconds: 365 * 24 * 60 * 60, // 365 days
-      },
-    },
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 4,
+          maxAgeSeconds: 365 * 24 * 60 * 60, // 365 days
+        }),
+      ],
+    }),
   },
   {
     urlPattern: /\\.(?:eot|otf|ttc|ttf|woff|woff2|font.css)$/i,
-    handler: "StaleWhileRevalidate",
-    options: {
+    handler: new StaleWhileRevalidate({
       cacheName: "static-font-assets",
-      expiration: {
-        maxEntries: 4,
-        maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
-      },
-    },
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 4,
+          maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+        }),
+      ],
+    }),
   },
   {
     urlPattern: /\\.(?:jpg|jpeg|gif|png|svg|ico|webp)$/i,
-    handler: "StaleWhileRevalidate",
-    options: {
+    handler: new StaleWhileRevalidate({
       cacheName: "static-image-assets",
-      expiration: {
-        maxEntries: 64,
-        maxAgeSeconds: 24 * 60 * 60, // 24 hours
-      },
-    },
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 64,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        }),
+      ],
+    }),
   },
   {
     urlPattern: /\\.(?:js)$/i,
-    handler: "StaleWhileRevalidate",
-    options: {
+    handler: new StaleWhileRevalidate({
       cacheName: "static-js-assets",
-      expiration: {
-        maxEntries: 32,
-        maxAgeSeconds: 24 * 60 * 60, // 24 hours
-      },
-    },
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 32,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        }),
+      ],
+    }),
   },
   {
     urlPattern: /\\.(?:css|less)$/i,
-    handler: "StaleWhileRevalidate",
-    options: {
+    handler: new StaleWhileRevalidate({
       cacheName: "static-style-assets",
-      expiration: {
-        maxEntries: 32,
-        maxAgeSeconds: 24 * 60 * 60, // 24 hours
-      },
-    },
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 32,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        }),
+      ],
+    }),
   },
   {
     urlPattern: /\\.(?:json|xml|csv)$/i,
-    handler: "NetworkFirst",
-    options: {
+    handler: new NetworkFirst({
       cacheName: "static-data-assets",
-      expiration: {
-        maxEntries: 32,
-        maxAgeSeconds: 24 * 60 * 60, // 24 hours
-      },
-    },
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 32,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        }),
+      ],
+    }),
   },
   {
     urlPattern: /\\/api\\/.*$/i,
-    handler: "NetworkFirst",
     method: "GET",
-    options: {
+    handler: new NetworkFirst({
       cacheName: "apis",
-      expiration: {
-        maxEntries: 16,
-        maxAgeSeconds: 24 * 60 * 60, // 24 hours
-      },
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 16,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        }),
+      ],
       networkTimeoutSeconds: 10, // fallback to cache if API does not response within 10 seconds
-    },
+    }),
   },
   {
     urlPattern: /.*/i,
-    handler: "NetworkFirst",
-    options: {
+    handler: new NetworkFirst({
       cacheName: "others",
-      expiration: {
-        maxEntries: 32,
-        maxAgeSeconds: 24 * 60 * 60, // 24 hours
-      },
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 32,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        }),
+      ],
       networkTimeoutSeconds: 10,
-    },
+    }),
   },
 );`,
-              lang: "typescript",
-            },
-            "sw.js": {
-              code: `import { clientsClaim } from "@serwist/core";
+            lang: "typescript",
+          },
+          "sw.js": {
+            code: `import { clientsClaim } from "@serwist/core";
+import { ExpirationPlugin } from "@serwist/expiration";
+import { CacheFirst, NetworkFirst, StaleWhileRevalidate } from "@serwist/strategies";
 import { handlePrecaching, registerRuntimeCaching } from "@serwist/sw";
-import { defaultCache } from "@serwist/vite/worker";
 
 self.skipWaiting();
 clientsClaim();
 
 handlePrecaching({ precacheEntries: self.__SW_MANIFEST });
 
-registerRuntimeCaching(...defaultCache);`,
+registerRuntimeCaching(
+  {
+    urlPattern: /^https:\\/\\/fonts\\.(?:googleapis|gstatic)\\.com\\/.*/i,
+    handler: new CacheFirst({
+      cacheName: "google-fonts",
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 4,
+          maxAgeSeconds: 365 * 24 * 60 * 60, // 365 days
+        }),
+      ],
+    }),
+  },
+  {
+    urlPattern: /\\.(?:eot|otf|ttc|ttf|woff|woff2|font.css)$/i,
+    handler: new StaleWhileRevalidate({
+      cacheName: "static-font-assets",
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 4,
+          maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+        }),
+      ],
+    }),
+  },
+  {
+    urlPattern: /\\.(?:jpg|jpeg|gif|png|svg|ico|webp)$/i,
+    handler: new StaleWhileRevalidate({
+      cacheName: "static-image-assets",
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 64,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        }),
+      ],
+    }),
+  },
+  {
+    urlPattern: /\\.(?:js)$/i,
+    handler: new StaleWhileRevalidate({
+      cacheName: "static-js-assets",
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 32,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        }),
+      ],
+    }),
+  },
+  {
+    urlPattern: /\\.(?:css|less)$/i,
+    handler: new StaleWhileRevalidate({
+      cacheName: "static-style-assets",
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 32,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        }),
+      ],
+    }),
+  },
+  {
+    urlPattern: /\\.(?:json|xml|csv)$/i,
+    handler: new NetworkFirst({
+      cacheName: "static-data-assets",
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 32,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        }),
+      ],
+    }),
+  },
+  {
+    urlPattern: /\\/api\\/.*$/i,
+    method: "GET",
+    handler: new NetworkFirst({
+      cacheName: "apis",
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 16,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        }),
+      ],
+      networkTimeoutSeconds: 10, // fallback to cache if API does not response within 10 seconds
+    }),
+  },
+  {
+    urlPattern: /.*/i,
+    handler: new NetworkFirst({
+      cacheName: "others",
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 32,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        }),
+      ],
+      networkTimeoutSeconds: 10,
+    }),
+  },
+);`,
             lang: "javascript",
           },
         },

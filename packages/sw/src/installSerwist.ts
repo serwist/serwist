@@ -1,11 +1,11 @@
 import { clientsClaim as clientsClaimImpl, setCacheNameDetails } from "@serwist/core";
-import { logger } from "@serwist/core/internal";
 import { type GoogleAnalyticsInitializeOptions, initialize } from "@serwist/google-analytics/initialize";
 import { enable } from "@serwist/navigation-preload";
 
+import { logger } from "@serwist/core/internal";
 import { disableDevLogs as disableDevLogsImpl } from "./disableDevLogs.js";
-import type { FallbacksOptions } from "./fallbacks.js";
 import { fallbacks as fallbacksImpl } from "./fallbacks.js";
+import type { FallbacksOptions } from "./fallbacks.js";
 import { type HandlePrecachingOptions, handlePrecaching } from "./handlePrecaching.js";
 import { registerRuntimeCaching } from "./registerRuntimeCaching.js";
 import type { RuntimeCaching } from "./types.js";
@@ -13,14 +13,61 @@ import type { RuntimeCaching } from "./types.js";
 declare const self: ServiceWorkerGlobalScope;
 
 export type InstallSerwistOptions = HandlePrecachingOptions & {
+  /**
+   * Forces the waiting service worker to become the active one.
+   *
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerGlobalScope/skipWaiting
+   */
   skipWaiting?: boolean;
+  /**
+   * Imports external scripts. They are executed in the order they
+   * are passed.
+   *
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/WorkerGlobalScope/importScripts
+   */
   importScripts?: string[];
+  /**
+   * Enables Navigation Preload if it is supported.
+   *
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/navigationPreload
+   */
   navigationPreload?: boolean;
+  /**
+   * Modifies the prefix of the default cache names used by Serwist packages.
+   */
   cacheId?: string | undefined;
+  /**
+   * Claims any currently available clients once the service worker
+   * becomes active. This is normally used in conjunction with `skipWaiting()`.
+   *
+   * @default false
+   */
   clientsClaim?: boolean;
+  /**
+   * A list of caching strategies.
+   *
+   * @see https://serwist.pages.dev/docs/sw/register-runtime-caching
+   */
   runtimeCaching?: RuntimeCaching[];
+  /**
+   * Your configuration for `@serwist/google-analytics`. This plugin is
+   * only initialized when this option is not `undefined` or `false`.
+   */
   offlineAnalyticsConfig?: GoogleAnalyticsInitializeOptions | boolean;
+  /**
+   * Disables Serwist's logging in development mode.
+   *
+   * @default false
+   * @see https://serwist.pages.dev/docs/sw/disable-dev-logs
+   */
   disableDevLogs?: boolean;
+  /**
+   * Precaches routes so that they can be used as a fallback when
+   * a Strategy fails to generate a response.
+   * Note: This option mutates `runtimeCaching`!
+   *
+   * @see https://serwist.pages.dev/docs/sw/fallbacks
+   */
   fallbacks?: Omit<FallbacksOptions, "runtimeCaching">;
 };
 
@@ -40,10 +87,10 @@ export const installSerwist = ({
   clientsClaim = false,
   runtimeCaching,
   offlineAnalyticsConfig,
-  disableDevLogs,
+  disableDevLogs = false,
   fallbacks,
   ...options
-}: InstallSerwistOptions) => {
+}: InstallSerwistOptions): void => {
   if (!!importScripts && importScripts.length > 0) self.importScripts(...importScripts);
 
   if (navigationPreload) enable();
@@ -85,10 +132,7 @@ export const installSerwist = ({
       logger.log("runtimeCaching and fallbacks are disabled in development mode.");
     } else {
       if (fallbacks !== undefined) {
-        runtimeCaching = fallbacksImpl({
-          ...fallbacks,
-          runtimeCaching,
-        });
+        fallbacksImpl({ ...fallbacks, runtimeCaching });
       }
       registerRuntimeCaching(...runtimeCaching);
     }

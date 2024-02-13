@@ -671,6 +671,15 @@ importers:
       '@serwist/core':
         specifier: workspace:*
         version: link:../core
+      '@serwist/expiration':
+        specifier: workspace:*
+        version: link:../expiration
+      '@serwist/range-requests':
+        specifier: workspace:*
+        version: link:../range-requests
+      '@serwist/strategies':
+        specifier: workspace:*
+        version: link:../strategies
       '@serwist/webpack-plugin':
         specifier: workspace:*
         version: link:../webpack-plugin
@@ -967,6 +976,12 @@ importers:
       '@serwist/build':
         specifier: workspace:*
         version: link:../build
+      '@serwist/expiration':
+        specifier: workspace:*
+        version: link:../expiration
+      '@serwist/strategies':
+        specifier: workspace:*
+        version: link:../strategies
       '@serwist/window':
         specifier: workspace:*
         version: link:../window

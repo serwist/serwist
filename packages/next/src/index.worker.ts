@@ -1,5 +1,4 @@
+import { PAGES_CACHE_NAME } from "./worker/constants.js";
 import { defaultCache } from "./worker/defaultCache.js";
-import { type DefinePageRuntimeCachingOptions, type PageRuntimeCaching, definePageRuntimeCaching } from "./worker/definePageRuntimeCaching.js";
 
-export { defaultCache, definePageRuntimeCaching };
-export type { DefinePageRuntimeCachingOptions, PageRuntimeCaching };
+export { defaultCache, PAGES_CACHE_NAME };

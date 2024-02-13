@@ -33,7 +33,7 @@ export interface NetworkFirstOptions extends StrategyOptions {
  * If the network request fails, and there is no cache match, this will throw
  * a `SerwistError` exception.
  */
-class NetworkFirst extends Strategy {
+export class NetworkFirst extends Strategy {
   private readonly _networkTimeoutSeconds: number;
 
   /**
@@ -227,5 +227,3 @@ class NetworkFirst extends Strategy {
     return response;
   }
 }
-
-export { NetworkFirst };

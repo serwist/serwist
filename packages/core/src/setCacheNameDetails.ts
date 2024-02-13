@@ -12,7 +12,7 @@ import type { PartialCacheNameDetails } from "./_private/cacheNames.js";
 import { cacheNames } from "./_private/cacheNames.js";
 
 /**
- * Modifies the default cache names used by the Serwist packages.
+ * Modifies the default cache names used by Serwist packages.
  * Cache names are generated as `<prefix>-<Cache Name>-<suffix>`.
  *
  * @param details

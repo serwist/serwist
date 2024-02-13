@@ -13,7 +13,7 @@ export type HandlePrecachingOptions = {
   precacheOptions?: PrecacheRouteOptions;
   /**
    * Whether outdated caches should be removed.
-   * 
+   *
    * @default false
    */
   cleanupOutdatedCaches?: boolean;
@@ -40,9 +40,11 @@ export type HandlePrecachingOptions = {
 
 /**
  * Handles a list of precache entries and cleans up outdated caches.
+ *
+ * @see https://serwist.pages.dev/docs/sw/handlePrecaching
  * @param options
  */
-export const handlePrecaching = ({ precacheEntries, precacheOptions, cleanupOutdatedCaches = false, ...options }: HandlePrecachingOptions) => {
+export const handlePrecaching = ({ precacheEntries, precacheOptions, cleanupOutdatedCaches = false, ...options }: HandlePrecachingOptions): void => {
   if (!!precacheEntries && precacheEntries.length > 0) {
     /**
      * The precacheAndRoute() method efficiently caches and responds to

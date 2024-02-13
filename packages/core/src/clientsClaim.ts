@@ -10,7 +10,7 @@
 declare let self: ServiceWorkerGlobalScope;
 
 /**
- * Claim any currently available clients once the service worker
+ * Claims any currently available clients once the service worker
  * becomes active. This is normally used in conjunction with `skipWaiting()`.
  */
 function clientsClaim(): void {

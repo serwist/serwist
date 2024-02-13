@@ -76,6 +76,8 @@
   },
   "dependencies": {
     "@serwist/build": "workspace:*",
+    "@serwist/expiration": "workspace:*",
+    "@serwist/strategies": "workspace:*",
     "@serwist/window": "workspace:*",
     "debug": "4.3.4",
     "fast-glob": "3.3.2",

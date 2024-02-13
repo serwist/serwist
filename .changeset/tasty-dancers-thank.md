@@ -1,17 +1,19 @@
 ---
-"@serwist/next": minor
+"@serwist/sw": major
 ---
 
-feat(next): added `@serwist/next/worker.PAGES_CACHE_NAME`
+refactor(sw): removed support for string handlers in `registerRuntimeCaching`
 
-- Due to the fact that App Router pages use RSC, we define 3 `runtimeCaching` entries in `defaultCache`, which are `"pages-rsc-prefetch"`, `"pages-rsc"`, and `"pages"`. This simply re-exports these `cacheName`'s for the users so that they can use them in their own extensions of our `defaultCache`.
+- `@serwist/sw.registerRuntimeCaching` no longer supports string handlers, such as `"NetworkFirst"`, `"NetworkOnly"`, `"CacheFirst"`, etc. You should migrate to passing `@serwist/strategies` instances yourself.
 
-- If you previously copied these values from the source code, it is recommended that you migrate to this constant:
+- I believe that by supporting this, a relic of GenerateSW, we are simply adding unwarranted complexity to the codebase.
+
+- Usually, if you only use the `defaultCache` array from a Serwist framework integration, you don't need to do anything. Otherwise, to migrate:
 
   - Old:
 
   ```ts
-  import { defaultCache } from "@serwist/next/browser";
+  import { defaultCache } from "@serwist/next/worker";
   import { installSerwist } from "@serwist/sw";
 
   installSerwist({
@@ -23,6 +25,7 @@ feat(next): added `@serwist/next/worker.PAGES_CACHE_NAME`
           request.headers.get("Next-Router-Prefetch") === "1" &&
           sameOrigin &&
           !pathname.startsWith("/api/"),
+        // OLD: a string handler alongside `options`.
         handler: "NetworkFirst",
         options: {
           cacheName: "pages-rsc-prefetch",
@@ -37,6 +40,7 @@ feat(next): added `@serwist/next/worker.PAGES_CACHE_NAME`
           request.headers.get("RSC") === "1" &&
           sameOrigin &&
           !pathname.startsWith("/api/"),
+        // OLD: a string handler alongside `options`.
         handler: "NetworkFirst",
         options: {
           cacheName: "pages-rsc",
@@ -51,6 +55,7 @@ feat(next): added `@serwist/next/worker.PAGES_CACHE_NAME`
           request.headers.get("Content-Type")?.includes("text/html") &&
           sameOrigin &&
           !pathname.startsWith("/api/"),
+        // OLD: a string handler alongside `options`.
         handler: "NetworkFirst",
         options: {
           cacheName: "pages",
@@ -80,6 +85,7 @@ feat(next): added `@serwist/next/worker.PAGES_CACHE_NAME`
           request.headers.get("Next-Router-Prefetch") === "1" &&
           sameOrigin &&
           !pathname.startsWith("/api/"),
+        // NEW: an initialized instance.
         handler: new NetworkFirst({
           cacheName: PAGES_CACHE_NAME.rscPrefetch,
           plugins: [
@@ -95,6 +101,7 @@ feat(next): added `@serwist/next/worker.PAGES_CACHE_NAME`
           request.headers.get("RSC") === "1" &&
           sameOrigin &&
           !pathname.startsWith("/api/"),
+        // NEW: an initialized instance.
         handler: new NetworkFirst({
           cacheName: PAGES_CACHE_NAME.rsc,
           plugins: [
@@ -110,6 +117,7 @@ feat(next): added `@serwist/next/worker.PAGES_CACHE_NAME`
           request.headers.get("Content-Type")?.includes("text/html") &&
           sameOrigin &&
           !pathname.startsWith("/api/"),
+        // NEW: an initialized instance.
         handler: new NetworkFirst({
           cacheName: PAGES_CACHE_NAME.html,
           plugins: [

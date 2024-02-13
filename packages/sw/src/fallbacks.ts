@@ -1,32 +1,18 @@
 import type { HandlerDidErrorCallbackParam } from "@serwist/core";
 import type { PrecacheRouteOptions } from "@serwist/precaching";
-import { precacheAndRoute } from "@serwist/precaching";
+import { PrecacheFallbackPlugin, precacheAndRoute } from "@serwist/precaching";
+import type { PrecacheFallbackEntry } from "@serwist/precaching";
 
+import { Strategy } from "@serwist/strategies";
 import type { RuntimeCaching } from "./types.js";
 
 export type FallbackMatcher = (_: HandlerDidErrorCallbackParam) => boolean;
 
-export interface FallbackEntry {
-  /**
-   * The matcher, which checks whether the fallback entry can be used
-   * for a Request.
-   */
-  matcher: FallbackMatcher;
-  /**
-   * The fallback URL.
-   */
-  url: URL | string;
+export interface FallbackEntry extends PrecacheFallbackEntry {
   /**
    * The revision used for precaching.
    */
   revision: string;
-  /**
-   * How the Response in the cache should be matched.
-   *
-   * @default
-   * { ignoreSearch: true }
-   */
-  cacheMatchOptions?: MultiCacheQueryOptions;
 }
 
 export interface FallbacksOptions {
@@ -46,38 +32,34 @@ export interface FallbacksOptions {
 }
 
 /**
- * Precaches routes so that they can be used as a fallback when 
- * a `RuntimeCaching` handler fails.
+ * Precaches routes so that they can be used as a fallback when
+ * a Strategy fails to generate a response.
+ *
+ * Note: This function mutates `runtimeCaching`!
+ *
+ * @see https://serwist.pages.dev/docs/sw/fallbacks
  * @param options
- * @returns The modified `RuntimeCaching` array. Using this value 
- * is not needed, as it is simply the provided array.
+ * @returns The modified `RuntimeCaching` array. Using this value
+ * is not needed, as it is simply the array in `options`.
  */
 export const fallbacks = ({ runtimeCaching, entries, precacheOptions }: FallbacksOptions): RuntimeCaching[] => {
-  precacheAndRoute(
-    entries.map(({ url, revision }) => ({ url: typeof url === "string" ? url : url.toString(), revision })),
-    precacheOptions,
-  );
-  runtimeCaching = runtimeCaching.map((cacheEntry) => {
-    if (!cacheEntry.options || cacheEntry.options.precacheFallback || cacheEntry.options.plugins?.some((plugin) => "handlerDidError" in plugin)) {
-      return cacheEntry;
-    }
+  precacheAndRoute(entries, precacheOptions);
 
-    if (!cacheEntry.options.plugins) {
-      cacheEntry.options.plugins = [];
-    }
+  const fallbackPlugin = new PrecacheFallbackPlugin({
+    fallbackUrls: entries,
+  });
 
-    cacheEntry.options.plugins.push({
-      async handlerDidError(info) {
-        for (const { matcher, url, cacheMatchOptions = { ignoreSearch: true } } of entries) {
-          if (matcher(info)) {
-            return caches.match(url, cacheMatchOptions);
-          }
-        }
-        return Response.error();
-      },
-    });
+  runtimeCaching.forEach((cacheEntry) => {
+    if (
+      cacheEntry.handler instanceof Strategy &&
+      // PrecacheFallbackPlugin also has `handlerDidError`, so we don't need to check for its instances.
+      !cacheEntry.handler.plugins.some((plugin) => "handlerDidError" in plugin)
+    ) {
+      cacheEntry.handler.plugins.push(fallbackPlugin);
+    }
 
     return cacheEntry;
   });
+
   return runtimeCaching;
 };
