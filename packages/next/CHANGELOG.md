@@ -1,5 +1,27 @@
 # @serwist/next
 
+## 9.0.0-preview.4
+
+### Major Changes
+
+- [`7524712`](https://github.com/serwist/serwist/commit/75247128031de3067676b08b21833b5d2e1d1f14) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(next): changed `defaultCache`'s `"next-data"`'s handler to NetworkFirst
+
+  - Using `StaleWhileRevalidate` seems to affect `getServerSideProps`. See https://github.com/serwist/serwist/issues/74 for more details.
+
+  - There's nothing to be done on your side.
+
+### Patch Changes
+
+- Updated dependencies [[`6c3e789`](https://github.com/serwist/serwist/commit/6c3e789724533dab23a6f5afb2a0f40d8f26bf16)]:
+  - @serwist/sw@9.0.0-preview.4
+  - @serwist/build@9.0.0-preview.4
+  - @serwist/webpack-plugin@9.0.0-preview.4
+  - @serwist/core@9.0.0-preview.4
+  - @serwist/expiration@9.0.0-preview.4
+  - @serwist/range-requests@9.0.0-preview.4
+  - @serwist/strategies@9.0.0-preview.4
+  - @serwist/window@9.0.0-preview.4
+
 ## 9.0.0-preview.3
 
 ### Patch Changes

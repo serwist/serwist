@@ -1,5 +1,17 @@
 # @serwist/recipes
 
+## 9.0.0-preview.4
+
+### Patch Changes
+
+- Updated dependencies [[`6c3e789`](https://github.com/serwist/serwist/commit/6c3e789724533dab23a6f5afb2a0f40d8f26bf16)]:
+  - @serwist/precaching@9.0.0-preview.4
+  - @serwist/cacheable-response@9.0.0-preview.4
+  - @serwist/core@9.0.0-preview.4
+  - @serwist/expiration@9.0.0-preview.4
+  - @serwist/routing@9.0.0-preview.4
+  - @serwist/strategies@9.0.0-preview.4
+
 ## 9.0.0-preview.3
 
 ### Patch Changes
