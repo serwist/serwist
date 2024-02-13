@@ -1,5 +1,13 @@
 # @serwist/streams
 
+## 9.0.0-preview.4
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/core@9.0.0-preview.4
+  - @serwist/routing@9.0.0-preview.4
+
 ## 9.0.0-preview.3
 
 ### Patch Changes

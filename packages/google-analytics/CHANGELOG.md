@@ -1,5 +1,15 @@
 # @serwist/google-analytics
 
+## 9.0.0-preview.4
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/background-sync@9.0.0-preview.4
+  - @serwist/core@9.0.0-preview.4
+  - @serwist/routing@9.0.0-preview.4
+  - @serwist/strategies@9.0.0-preview.4
+
 ## 9.0.0-preview.3
 
 ### Patch Changes
