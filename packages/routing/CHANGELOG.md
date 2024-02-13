@@ -1,5 +1,12 @@
 # @serwist/routing
 
+## 9.0.0-preview.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/core@9.0.0-preview.3
+
 ## 9.0.0-preview.2
 
 ### Patch Changes
