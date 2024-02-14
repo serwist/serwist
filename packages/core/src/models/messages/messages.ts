@@ -13,7 +13,7 @@ interface MessageMap {
   [messageID: string]: (param: LoggableObject) => string;
 }
 
-export const messages: MessageMap = {
+export const messages = {
   "invalid-value": ({ paramName, validValueDescription, value }) => {
     if (!paramName || !validValueDescription) {
       throw new Error(`Unexpected input to 'invalid-value' error.`);
@@ -82,7 +82,7 @@ export const messages: MessageMap = {
       throw new Error("Unexpected input to " + `'plugin-error-request-will-fetch', error.`);
     }
 
-    return `An error was thrown by a plugins 'requestWillFetch()' method. The thrown error message was: '${thrownErrorMessage}'.`;
+    return `An error was thrown by a plugin's 'requestWillFetch()' method. The thrown error message was: '${thrownErrorMessage}'.`;
   },
 
   "invalid-cache-name": ({ cacheNameId, value }) => {
@@ -228,4 +228,6 @@ export const messages: MessageMap = {
     }
     return `${message} Please ensure your sources are CORS-enabled.`;
   },
-};
+} satisfies MessageMap;
+
+export type MessageKey = keyof typeof messages;

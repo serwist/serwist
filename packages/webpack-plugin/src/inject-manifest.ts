@@ -60,13 +60,12 @@ export class InjectManifest {
    *
    * @private
    */
-  propagateWebpackConfig(compiler: webpack.Compiler): void {
+  propagateWebpackConfig(): void {
     const parsedSwSrc = upath.parse(this.config.swSrc);
     // Because this.config is listed last, properties that are already set
     // there take precedence over derived properties from the compiler.
     this.config = Object.assign(
       {
-        mode: compiler.options.mode,
         // Use swSrc with a hardcoded .js extension, in case swSrc is a .ts file.
         swDest: `${parsedSwSrc.name}.js`,
       },
@@ -125,7 +124,7 @@ export class InjectManifest {
    * @private
    */
   apply(compiler: webpack.Compiler): void {
-    this.propagateWebpackConfig(compiler);
+    this.propagateWebpackConfig();
 
     compiler.hooks.make.tapPromise(this.constructor.name, (compilation) =>
       this.handleMake(compilation, compiler).catch((error: webpack.WebpackError) => {

@@ -39,7 +39,7 @@ export interface StrategyOptions {
  * fetching and cache logic, which will ensure all relevant cache, cache options,
  * fetch options and plugins are used (per the current strategy instance).
  */
-abstract class Strategy implements RouteHandlerObject {
+export abstract class Strategy implements RouteHandlerObject {
   cacheName: string;
   plugins: SerwistPlugin[];
   fetchOptions?: RequestInit;
@@ -201,5 +201,3 @@ abstract class Strategy implements RouteHandlerObject {
     }
   }
 }
-
-export { Strategy };

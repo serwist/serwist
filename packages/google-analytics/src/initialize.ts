@@ -10,7 +10,7 @@ import type { Queue, QueueEntry } from "@serwist/background-sync";
 import { BackgroundSyncPlugin } from "@serwist/background-sync";
 import type { RouteMatchCallbackOptions } from "@serwist/core";
 import { getFriendlyURL, logger, privateCacheNames } from "@serwist/core/internal";
-import { Route, Router } from "@serwist/routing";
+import { Route, registerRoute } from "@serwist/routing";
 import { NetworkFirst, NetworkOnly } from "@serwist/strategies";
 
 import {
@@ -192,10 +192,7 @@ export const initialize = (options: GoogleAnalyticsInitializeOptions = {}): void
 
   const routes = [createGtmJsRoute(cacheName), createAnalyticsJsRoute(cacheName), createGtagJsRoute(cacheName), ...createCollectRoutes(bgSyncPlugin)];
 
-  const router = new Router();
   for (const route of routes) {
-    router.registerRoute(route);
+    registerRoute(route);
   }
-
-  router.addFetchListener();
 };

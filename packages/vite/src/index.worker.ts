@@ -4,7 +4,7 @@ import type { RuntimeCaching } from "@serwist/sw";
 
 export const defaultCache = [
   {
-    urlPattern: /^https:\/\/fonts\.(?:googleapis|gstatic)\.com\/.*/i,
+    matcher: /^https:\/\/fonts\.(?:googleapis|gstatic)\.com\/.*/i,
     handler: new CacheFirst({
       cacheName: "google-fonts",
       plugins: [
@@ -16,7 +16,7 @@ export const defaultCache = [
     }),
   },
   {
-    urlPattern: /\.(?:eot|otf|ttc|ttf|woff|woff2|font.css)$/i,
+    matcher: /\.(?:eot|otf|ttc|ttf|woff|woff2|font.css)$/i,
     handler: new StaleWhileRevalidate({
       cacheName: "static-font-assets",
       plugins: [
@@ -28,7 +28,7 @@ export const defaultCache = [
     }),
   },
   {
-    urlPattern: /\.(?:jpg|jpeg|gif|png|svg|ico|webp)$/i,
+    matcher: /\.(?:jpg|jpeg|gif|png|svg|ico|webp)$/i,
     handler: new StaleWhileRevalidate({
       cacheName: "static-image-assets",
       plugins: [
@@ -40,7 +40,7 @@ export const defaultCache = [
     }),
   },
   {
-    urlPattern: /\.(?:js)$/i,
+    matcher: /\.(?:js)$/i,
     handler: new StaleWhileRevalidate({
       cacheName: "static-js-assets",
       plugins: [
@@ -52,7 +52,7 @@ export const defaultCache = [
     }),
   },
   {
-    urlPattern: /\.(?:css|less)$/i,
+    matcher: /\.(?:css|less)$/i,
     handler: new StaleWhileRevalidate({
       cacheName: "static-style-assets",
       plugins: [
@@ -64,7 +64,7 @@ export const defaultCache = [
     }),
   },
   {
-    urlPattern: /\.(?:json|xml|csv)$/i,
+    matcher: /\.(?:json|xml|csv)$/i,
     handler: new NetworkFirst({
       cacheName: "static-data-assets",
       plugins: [
@@ -76,7 +76,7 @@ export const defaultCache = [
     }),
   },
   {
-    urlPattern: /\/api\/.*$/i,
+    matcher: /\/api\/.*$/i,
     method: "GET",
     handler: new NetworkFirst({
       cacheName: "apis",
@@ -90,7 +90,7 @@ export const defaultCache = [
     }),
   },
   {
-    urlPattern: /.*/i,
+    matcher: /.*/i,
     handler: new NetworkFirst({
       cacheName: "others",
       plugins: [

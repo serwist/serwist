@@ -80,7 +80,7 @@ refactor(sw): removed support for string handlers in `registerRuntimeCaching`
     // Other options...
     runtimeCaching: [
       {
-        urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
+        matcher: ({ request, url: { pathname }, sameOrigin }) =>
           request.headers.get("RSC") === "1" &&
           request.headers.get("Next-Router-Prefetch") === "1" &&
           sameOrigin &&
@@ -97,7 +97,7 @@ refactor(sw): removed support for string handlers in `registerRuntimeCaching`
         }),
       },
       {
-        urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
+        matcher: ({ request, url: { pathname }, sameOrigin }) =>
           request.headers.get("RSC") === "1" &&
           sameOrigin &&
           !pathname.startsWith("/api/"),
@@ -113,7 +113,7 @@ refactor(sw): removed support for string handlers in `registerRuntimeCaching`
         }),
       },
       {
-        urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
+        matcher: ({ request, url: { pathname }, sameOrigin }) =>
           request.headers.get("Content-Type")?.includes("text/html") &&
           sameOrigin &&
           !pathname.startsWith("/api/"),

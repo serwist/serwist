@@ -72,12 +72,6 @@ export const errors = {
     Please remove or fix the following: `,
   "bad-template-urls-asset": ol`There was an issue using one of the provided
     'templatedURLs'.`,
-  "invalid-runtime-caching": ol`The 'runtimeCaching' parameter must an an
-    array of objects with at least a 'urlPattern' and 'handler'.`,
-  "urlPattern-is-required": ol`The 'urlPattern' option is required when using
-    'runtimeCaching'.`,
-  "handler-is-required": ol`The 'handler' option is required when using
-    runtimeCaching.`,
   "invalid-generate-file-manifest-arg": ol`The input to generateFileManifest()
     must be an Object.`,
   "invalid-sw-src": `The 'swSrc' file can't be read.`,

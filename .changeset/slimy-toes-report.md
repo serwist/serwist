@@ -75,7 +75,7 @@ feat(next): added `@serwist/next/worker.PAGES_CACHE_NAME`
     // Other options...
     runtimeCaching: [
       {
-        urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
+        matcher: ({ request, url: { pathname }, sameOrigin }) =>
           request.headers.get("RSC") === "1" &&
           request.headers.get("Next-Router-Prefetch") === "1" &&
           sameOrigin &&
@@ -91,7 +91,7 @@ feat(next): added `@serwist/next/worker.PAGES_CACHE_NAME`
         }),
       },
       {
-        urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
+        matcher: ({ request, url: { pathname }, sameOrigin }) =>
           request.headers.get("RSC") === "1" &&
           sameOrigin &&
           !pathname.startsWith("/api/"),
@@ -106,7 +106,7 @@ feat(next): added `@serwist/next/worker.PAGES_CACHE_NAME`
         }),
       },
       {
-        urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
+        matcher: ({ request, url: { pathname }, sameOrigin }) =>
           request.headers.get("Content-Type")?.includes("text/html") &&
           sameOrigin &&
           !pathname.startsWith("/api/"),

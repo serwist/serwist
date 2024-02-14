@@ -7,7 +7,7 @@
 */
 
 /**
- * Returns true if two URLs have the same `.href` property. The URLS can be
+ * Returns true if two URLs have the same `.href` property. The URLs can be
  * relative, and if they are the current location href is used to resolve URLs.
  *
  * @private

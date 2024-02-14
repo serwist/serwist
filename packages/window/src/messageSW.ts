@@ -19,8 +19,7 @@
  * @param data An object to send to the service worker.
  * @returns
  */
-// biome-ignore lint/complexity/noBannedTypes: Better not change type of data.
-function messageSW(sw: ServiceWorker, data: {}): Promise<any> {
+export const messageSW = (sw: ServiceWorker, data: any): Promise<any> => {
   return new Promise((resolve) => {
     const messageChannel = new MessageChannel();
     messageChannel.port1.onmessage = (event: MessageEvent) => {
@@ -28,6 +27,4 @@ function messageSW(sw: ServiceWorker, data: {}): Promise<any> {
     };
     sw.postMessage(data, [messageChannel.port2]);
   });
-}
-
-export { messageSW };
+};

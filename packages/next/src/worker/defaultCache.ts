@@ -8,7 +8,7 @@ import { PAGES_CACHE_NAME } from "./constants.js";
 // Serwist RuntimeCaching config: https://serwist.pages.dev/docs/sw/register-runtime-caching
 export const defaultCache = [
   {
-    urlPattern: /^https:\/\/fonts\.(?:gstatic)\.com\/.*/i,
+    matcher: /^https:\/\/fonts\.(?:gstatic)\.com\/.*/i,
     handler: new CacheFirst({
       cacheName: "google-fonts-webfonts",
       plugins: [
@@ -20,7 +20,7 @@ export const defaultCache = [
     }),
   },
   {
-    urlPattern: /^https:\/\/fonts\.(?:googleapis)\.com\/.*/i,
+    matcher: /^https:\/\/fonts\.(?:googleapis)\.com\/.*/i,
     handler: new StaleWhileRevalidate({
       cacheName: "google-fonts-stylesheets",
       plugins: [
@@ -32,7 +32,7 @@ export const defaultCache = [
     }),
   },
   {
-    urlPattern: /\.(?:eot|otf|ttc|ttf|woff|woff2|font.css)$/i,
+    matcher: /\.(?:eot|otf|ttc|ttf|woff|woff2|font.css)$/i,
     handler: new StaleWhileRevalidate({
       cacheName: "static-font-assets",
       plugins: [
@@ -44,7 +44,7 @@ export const defaultCache = [
     }),
   },
   {
-    urlPattern: /\.(?:jpg|jpeg|gif|png|svg|ico|webp)$/i,
+    matcher: /\.(?:jpg|jpeg|gif|png|svg|ico|webp)$/i,
     handler: new StaleWhileRevalidate({
       cacheName: "static-image-assets",
       plugins: [
@@ -56,7 +56,7 @@ export const defaultCache = [
     }),
   },
   {
-    urlPattern: /\/_next\/static.+\.js$/i,
+    matcher: /\/_next\/static.+\.js$/i,
     handler: new CacheFirst({
       cacheName: "next-static-js-assets",
       plugins: [
@@ -68,7 +68,7 @@ export const defaultCache = [
     }),
   },
   {
-    urlPattern: /\/_next\/image\?url=.+$/i,
+    matcher: /\/_next\/image\?url=.+$/i,
     handler: new StaleWhileRevalidate({
       cacheName: "next-image",
       plugins: [
@@ -80,7 +80,7 @@ export const defaultCache = [
     }),
   },
   {
-    urlPattern: /\.(?:mp3|wav|ogg)$/i,
+    matcher: /\.(?:mp3|wav|ogg)$/i,
     handler: new CacheFirst({
       cacheName: "static-audio-assets",
       plugins: [
@@ -93,7 +93,7 @@ export const defaultCache = [
     }),
   },
   {
-    urlPattern: /\.(?:mp4|webm)$/i,
+    matcher: /\.(?:mp4|webm)$/i,
     handler: new CacheFirst({
       cacheName: "static-video-assets",
       plugins: [
@@ -106,7 +106,7 @@ export const defaultCache = [
     }),
   },
   {
-    urlPattern: /\.(?:js)$/i,
+    matcher: /\.(?:js)$/i,
     handler: new StaleWhileRevalidate({
       cacheName: "static-js-assets",
       plugins: [
@@ -118,7 +118,7 @@ export const defaultCache = [
     }),
   },
   {
-    urlPattern: /\.(?:css|less)$/i,
+    matcher: /\.(?:css|less)$/i,
     handler: new StaleWhileRevalidate({
       cacheName: "static-style-assets",
       plugins: [
@@ -130,7 +130,7 @@ export const defaultCache = [
     }),
   },
   {
-    urlPattern: /\/_next\/data\/.+\/.+\.json$/i,
+    matcher: /\/_next\/data\/.+\/.+\.json$/i,
     handler: new NetworkFirst({
       cacheName: "next-data",
       plugins: [
@@ -142,7 +142,7 @@ export const defaultCache = [
     }),
   },
   {
-    urlPattern: /\.(?:json|xml|csv)$/i,
+    matcher: /\.(?:json|xml|csv)$/i,
     handler: new NetworkFirst({
       cacheName: "static-data-assets",
       plugins: [
@@ -154,7 +154,7 @@ export const defaultCache = [
     }),
   },
   {
-    urlPattern: ({ sameOrigin, url: { pathname } }) => {
+    matcher: ({ sameOrigin, url: { pathname } }) => {
       // Exclude /api/auth/callback/* to fix OAuth workflow in Safari without having an impact on other environments
       // The above route is the default for next-auth, you may need to change it if your OAuth workflow has a different callback route
       // Issue: https://github.com/shadowwalker/next-pwa/issues/131#issuecomment-821894809
@@ -181,7 +181,7 @@ export const defaultCache = [
     }),
   },
   {
-    urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
+    matcher: ({ request, url: { pathname }, sameOrigin }) =>
       request.headers.get("RSC") === "1" && request.headers.get("Next-Router-Prefetch") === "1" && sameOrigin && !pathname.startsWith("/api/"),
     handler: new NetworkFirst({
       cacheName: PAGES_CACHE_NAME.rscPrefetch,
@@ -194,7 +194,7 @@ export const defaultCache = [
     }),
   },
   {
-    urlPattern: ({ request, url: { pathname }, sameOrigin }) => request.headers.get("RSC") === "1" && sameOrigin && !pathname.startsWith("/api/"),
+    matcher: ({ request, url: { pathname }, sameOrigin }) => request.headers.get("RSC") === "1" && sameOrigin && !pathname.startsWith("/api/"),
     handler: new NetworkFirst({
       cacheName: PAGES_CACHE_NAME.rsc,
       plugins: [
@@ -206,7 +206,7 @@ export const defaultCache = [
     }),
   },
   {
-    urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
+    matcher: ({ request, url: { pathname }, sameOrigin }) =>
       request.headers.get("Content-Type")?.includes("text/html") && sameOrigin && !pathname.startsWith("/api/"),
     handler: new NetworkFirst({
       cacheName: PAGES_CACHE_NAME.html,
@@ -219,7 +219,7 @@ export const defaultCache = [
     }),
   },
   {
-    urlPattern: ({ url: { pathname }, sameOrigin }) => sameOrigin && !pathname.startsWith("/api/"),
+    matcher: ({ url: { pathname }, sameOrigin }) => sameOrigin && !pathname.startsWith("/api/"),
     handler: new NetworkFirst({
       cacheName: "others",
       plugins: [
@@ -231,7 +231,7 @@ export const defaultCache = [
     }),
   },
   {
-    urlPattern: ({ sameOrigin }) => !sameOrigin,
+    matcher: ({ sameOrigin }) => !sameOrigin,
     handler: new NetworkFirst({
       cacheName: "cross-origin",
       plugins: [

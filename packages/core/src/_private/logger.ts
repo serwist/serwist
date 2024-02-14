@@ -16,6 +16,13 @@ declare global {
   }
 }
 
+/**
+ * The logger used by Serwist inside of both service workers and the window global scope.
+ *
+ * Note: This is forcibly `null` in production mode to reduce bundle size. Do check whether
+ * you are currently in development mode (by using `process.env.NODE_ENV !== "production"`)
+ * before using it.
+ */
 export const logger =
   process.env.NODE_ENV === "production"
     ? null!

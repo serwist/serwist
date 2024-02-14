@@ -13,13 +13,13 @@ export interface RuntimeCaching {
    * This match criteria determines whether the configured handler will
    * generate a response for any requests that don't match one of the precached
    * URLs. If multiple `RuntimeCaching` routes are defined, then the first one
-   * whose `urlPattern` matches will be the one that responds.
+   * whose `matcher` matches will be the one that responds.
    *
    * This value directly maps to the first parameter passed to
    * `@serwist/routing.registerRoute`. It's recommended to use a
    * `@serwist/core.RouteMatchCallback` function for greatest flexibility.
    */
-  urlPattern: RegExp | string | RouteMatchCallback;
+  matcher: RegExp | string | RouteMatchCallback;
   /**
    * This determines how the runtime route will generate a response. It
    * can be a `@serwist/core.RouteHandler` callback function with custom

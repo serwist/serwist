@@ -11,7 +11,7 @@ import { resolveBasePath, slash } from "./utils.js";
 export const resolveOptions = async (options: PluginOptions, viteConfig: ResolvedConfig): Promise<ResolvedPluginOptions> => {
   const {
     type = "classic",
-    mode = (process.env.NODE_ENV || "production") as "production" | "development",
+    mode = process.env.NODE_ENV === "production" || process.env.NODE_ENV === "development" ? process.env.NODE_ENV : "production",
     injectRegister = "auto",
     registerType = "prompt",
     minify = true,

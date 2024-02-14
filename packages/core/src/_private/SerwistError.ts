@@ -7,6 +7,7 @@
 */
 
 import { messageGenerator } from "../models/messages/messageGenerator.js";
+import type { MessageKey } from "../models/messages/messages.js";
 import type { MapLikeObject } from "../types.js";
 
 /**
@@ -29,7 +30,7 @@ class SerwistError extends Error {
    * that will help developers identify issues should
    * be added as a key on the context object.
    */
-  constructor(errorCode: string, details?: MapLikeObject) {
+  constructor(errorCode: MessageKey, details?: MapLikeObject) {
     const message = messageGenerator(errorCode, details);
 
     super(message);

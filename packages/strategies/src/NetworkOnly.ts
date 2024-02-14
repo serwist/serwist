@@ -30,7 +30,7 @@ export class NetworkOnly extends Strategy {
    * This class is useful if you want to take advantage of any Serwist plugin.
    *
    * If the network request fails, this will throw a `SerwistError` exception.
-   * 
+   *
    * @param options
    */
   constructor(options: NetworkOnlyOptions = {}) {

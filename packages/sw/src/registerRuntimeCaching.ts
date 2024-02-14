@@ -22,7 +22,7 @@ export const registerRuntimeCaching = (...runtimeCachingList: RuntimeCaching[]):
     logger.log("registerRuntimeCaching is disabled in development mode.");
   } else {
     for (const entry of runtimeCachingList) {
-      registerRoute(entry.urlPattern, entry.handler, entry.method);
+      registerRoute(entry.matcher, entry.handler, entry.method);
     }
   }
 };

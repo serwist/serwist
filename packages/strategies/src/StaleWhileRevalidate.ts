@@ -14,7 +14,7 @@ import type { StrategyHandler } from "./StrategyHandler.js";
 import { cacheOkAndOpaquePlugin } from "./plugins/cacheOkAndOpaquePlugin.js";
 import { messages } from "./utils/messages.js";
 
-class StaleWhileRevalidate extends Strategy {
+export class StaleWhileRevalidate extends Strategy {
   /**
    * An implementation of the
    * [stale-while-revalidate](https://developer.chrome.com/docs/workbox/caching-strategies-overview/#stale-while-revalidate)
@@ -106,5 +106,3 @@ class StaleWhileRevalidate extends Strategy {
     return response;
   }
 }
-
-export { StaleWhileRevalidate };

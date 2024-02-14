@@ -194,13 +194,6 @@ export interface WebpackPartial {
    * as `webpack`'s standard `include` option.
    */
   include?: (string | RegExp | ((arg0: any) => boolean))[];
-  /**
-   * If set to 'production', then an optimized service worker bundle that
-   * excludes debugging info will be produced. If not explicitly configured
-   * here, the `mode` value configured in the current `webpack` compilation
-   * will be used.
-   */
-  mode?: string | null;
 }
 
 export type WebpackResolved = Require<WebpackPartial, "exclude">;
