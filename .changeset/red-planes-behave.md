@@ -8,12 +8,11 @@ fix(sw): disable `runtimeCaching`, `fallbacks`, and `registerRuntimeCaching` in 
 - If you want to override this, simply add the following:
 
 ```ts
+import type { SerwistGlobalConfig } from "@serwist/core";
 import { installSerwist } from "@serwist/sw";
 
 declare global {
-  interface WorkerGlobalScope {
-    __WB_FORCE_RUNTIME_CACHING: boolean;
-  }
+  interface WorkerGlobalScope extends SerwistGlobalConfig {}
 }
 
 self.__WB_FORCE_RUNTIME_CACHING = true;
