@@ -23,11 +23,9 @@ import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheContro
  *
  * @param options See the `@serwist/precaching.PrecacheRoute` options.
  */
-function addRoute(options?: PrecacheRouteOptions): void {
+export const addRoute = (options?: PrecacheRouteOptions): void => {
   const precacheController = getOrCreatePrecacheController();
 
   const precacheRoute = new PrecacheRoute(precacheController, options);
   registerRoute(precacheRoute);
-}
-
-export { addRoute };
+};

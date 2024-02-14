@@ -313,3 +313,9 @@ export interface SerwistPluginCallbackParam {
   handlerWillStart: HandlerWillStartCallbackParam;
   requestWillFetch: RequestWillFetchCallbackParam;
 }
+
+export interface SerwistGlobalConfig {
+  __WB_DISABLE_DEV_LOGS: boolean;
+  __WB_FORCE_RUNTIME_CACHING: boolean;
+  __WB_CONCURRENT_PRECACHING: number;
+}

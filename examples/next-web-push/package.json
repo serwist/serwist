@@ -19,6 +19,7 @@
     "web-push": "3.6.7"
   },
   "devDependencies": {
+    "@serwist/core": "latest",
     "@serwist/precaching": "latest",
     "@types/node": "20.11.16",
     "@types/react": "18.2.54",

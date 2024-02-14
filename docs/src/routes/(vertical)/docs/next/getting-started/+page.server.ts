@@ -110,16 +110,21 @@ module.exports = (phase) => {
           highlighter,
           {
             "sw.ts": {
-              code: `import { defaultCache } from "@serwist/next/worker";
+              code: `import type { SerwistGlobalConfig } from "@serwist/core";
+import { defaultCache } from "@serwist/next/worker";
 import type { PrecacheEntry } from "@serwist/precaching";
 import { installSerwist } from "@serwist/sw";
 
-declare const self: ServiceWorkerGlobalScope & {
-  // Change this attribute's name to your \`injectionPoint\`.
-  // \`injectionPoint\` is an InjectManifest option.
-  // See https://serwist.pages.dev/docs/build/inject-manifest/configuring
-  __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
-};
+declare global {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {
+    // Change this attribute's name to your \`injectionPoint\`.
+    // \`injectionPoint\` is an InjectManifest option.
+    // See https://serwist.pages.dev/docs/build/inject-manifest/configuring
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+  }
+}
+
+declare const self: ServiceWorkerGlobalScope;
 
 installSerwist({
   precacheEntries: self.__SW_MANIFEST,
@@ -150,19 +155,19 @@ installSerwist({
           highlighter,
           {
             npm: {
-              code: "npm i @serwist/precaching @serwist/sw",
+              code: "npm i -D @serwist/core @serwist/precaching @serwist/sw",
               lang: "bash",
             },
             yarn: {
-              code: "yarn add @serwist/precaching @serwist/sw",
+              code: "yarn add -D @serwist/core @serwist/precaching @serwist/sw",
               lang: "bash",
             },
             pnpm: {
-              code: "pnpm add @serwist/precaching @serwist/sw",
+              code: "pnpm add -D @serwist/core @serwist/precaching @serwist/sw",
               lang: "bash",
             },
             bun: {
-              code: "bun add @serwist/precaching @serwist/sw",
+              code: "bun add -D @serwist/core @serwist/precaching @serwist/sw",
               lang: "bash",
             },
           },

@@ -46,7 +46,7 @@ export interface ImageCacheOptions {
  *
  * @param options
  */
-function imageCache(options: ImageCacheOptions = {}): void {
+export const imageCache = (options: ImageCacheOptions = {}): void => {
   const defaultMatchCallback = ({ request }: RouteMatchCallbackOptions) => request.destination === "image";
 
   const cacheName = options.cacheName || "images";
@@ -77,6 +77,4 @@ function imageCache(options: ImageCacheOptions = {}): void {
   if (options.warmCache) {
     warmStrategyCache({ urls: options.warmCache, strategy });
   }
-}
-
-export { imageCache };
+};

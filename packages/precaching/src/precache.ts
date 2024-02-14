@@ -25,9 +25,7 @@ import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheContro
  *
  * @param entries Array of entries to precache.
  */
-function precache(entries: (PrecacheEntry | string)[]): void {
+export const precache = (entries: (PrecacheEntry | string)[]): void => {
   const precacheController = getOrCreatePrecacheController();
   precacheController.precache(entries);
-}
-
-export { precache };
+};

@@ -12,6 +12,7 @@
     "prep": "nuxt prepare"
   },
   "devDependencies": {
+    "@serwist/core": "latest",
     "@serwist/nuxt": "latest",
     "@serwist/precaching": "latest",
     "@serwist/sw": "latest",

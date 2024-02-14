@@ -14,10 +14,8 @@
  * @returns
  * @private
  */
-function waitUntil(event: ExtendableEvent, asyncFn: () => Promise<any>): Promise<any> {
+export const waitUntil = <T = any>(event: ExtendableEvent, asyncFn: () => Promise<T>): Promise<T> => {
   const returnPromise = asyncFn();
   event.waitUntil(returnPromise);
   return returnPromise;
-}
-
-export { waitUntil };
+};

@@ -14,6 +14,8 @@ import type { HTTPMethod } from "./utils/constants.js";
 import { defaultMethod } from "./utils/constants.js";
 import { normalizeHandler } from "./utils/normalizeHandler.js";
 
+declare const self: ServiceWorkerGlobalScope;
+
 type RequestArgs = string | [string, RequestInit?];
 
 interface CacheURLsMessageData {
@@ -61,14 +63,13 @@ export class Router {
    * the event's request.
    */
   addFetchListener(): void {
-    // See https://github.com/Microsoft/TypeScript/issues/28357#issuecomment-436484705
-    self.addEventListener("fetch", ((event: FetchEvent) => {
+    self.addEventListener("fetch", (event) => {
       const { request } = event;
       const responsePromise = this.handleRequest({ request, event });
       if (responsePromise) {
         event.respondWith(responsePromise);
       }
-    }) as EventListener);
+    });
   }
 
   /**
@@ -94,12 +95,8 @@ export class Router {
    * ```
    */
   addCacheListener(): void {
-    // See https://github.com/Microsoft/TypeScript/issues/28357#issuecomment-436484705
-    self.addEventListener("message", ((event: ExtendableMessageEvent) => {
-      // event.data is type 'any'
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    self.addEventListener("message", (event) => {
       if (event.data && event.data.type === "CACHE_URLS") {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const { payload }: CacheURLsMessageData = event.data;
 
         if (process.env.NODE_ENV !== "production") {
@@ -124,7 +121,7 @@ export class Router {
           void requestPromises.then(() => event.ports[0].postMessage(true));
         }
       }
-    }) as EventListener);
+    });
   }
 
   /**
@@ -291,7 +288,6 @@ export class Router {
     for (const route of routes) {
       let params: Promise<any> | undefined;
       // route.match returns type any, not possible to change right now.
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const matchResult = route.match({ url, sameOrigin, request, event });
       if (matchResult) {
         if (process.env.NODE_ENV !== "production") {

@@ -21,9 +21,7 @@ import { precache } from "./precache.js";
  * @param entries Array of entries to precache.
  * @param options See the `@serwist/precaching.PrecacheRoute` options.
  */
-function precacheAndRoute(entries: (PrecacheEntry | string)[], options?: PrecacheRouteOptions): void {
+export const precacheAndRoute = (entries: (PrecacheEntry | string)[], options?: PrecacheRouteOptions): void => {
   precache(entries);
   addRoute(options);
-}
-
-export { precacheAndRoute };
+};

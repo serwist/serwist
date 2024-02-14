@@ -5,6 +5,7 @@
   "license": "MIT",
   "private": true,
   "devDependencies": {
+    "@serwist/core": "workspace:*",
     "@serwist/next": "workspace:*",
     "@serwist/nuxt": "workspace:*",
     "@serwist/sw": "workspace:*",

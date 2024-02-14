@@ -9,6 +9,7 @@
 import type { RouteHandlerCallback, SerwistPlugin } from "@serwist/core";
 import { assert, SerwistError, logger, privateCacheNames, waitUntil } from "@serwist/core/internal";
 import type { Strategy } from "@serwist/strategies";
+import { parallel } from "@serwist/utils";
 
 import { PrecacheStrategy } from "./PrecacheStrategy.js";
 import type { CleanupResult, InstallResult, PrecacheEntry } from "./_types.js";
@@ -19,7 +20,7 @@ import { printCleanupDetails } from "./utils/printCleanupDetails.js";
 import { printInstallDetails } from "./utils/printInstallDetails.js";
 
 // Give TypeScript the correct global.
-declare let self: ServiceWorkerGlobalScope;
+declare const self: ServiceWorkerGlobalScope;
 
 interface PrecacheControllerOptions {
   /**
@@ -36,13 +37,21 @@ interface PrecacheControllerOptions {
    * a precache miss.
    */
   fallbackToNetwork?: boolean;
+  /**
+   * A number of how many precache requests should be made concurrently.
+   * By default, this value is set to 1, but this can be overriden by
+   * setting this option or `self.__WB_CONCURRENT_PRECACHING`. The former takes
+   * precedence over the latter.
+   */
+  concurrentPrecaching?: number;
 }
 
 /**
  * Performs efficient precaching of assets.
  */
-class PrecacheController {
+export class PrecacheController {
   private _installAndActiveListenersAdded?: boolean;
+  private _concurrentPrecaching: number | undefined;
   private readonly _strategy: Strategy;
   private readonly _urlsToCacheKeys: Map<string, string> = new Map();
   private readonly _urlsToCacheModes: Map<string, "reload" | "default" | "no-store" | "no-cache" | "force-cache" | "only-if-cached"> = new Map();
@@ -53,12 +62,13 @@ class PrecacheController {
    *
    * @param options
    */
-  constructor({ cacheName, plugins = [], fallbackToNetwork = true }: PrecacheControllerOptions = {}) {
+  constructor({ cacheName, plugins = [], fallbackToNetwork = true, concurrentPrecaching }: PrecacheControllerOptions = {}) {
     this._strategy = new PrecacheStrategy({
       cacheName: privateCacheNames.getPrecacheName(cacheName),
       plugins: [...plugins, new PrecacheCacheKeyPlugin({ precacheController: this })],
       fallbackToNetwork,
     });
+    this._concurrentPrecaching = concurrentPrecaching;
 
     // Bind the install and activate methods to the instance.
     this.install = this.install.bind(this);
@@ -165,15 +175,20 @@ class PrecacheController {
    * @returns
    */
   install(event: ExtendableEvent): Promise<InstallResult> {
-    // waitUntil returns Promise<any>
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return waitUntil(event, async () => {
+    return waitUntil<InstallResult>(event, async () => {
       const installReportPlugin = new PrecacheInstallReportPlugin();
       this.strategy.plugins.push(installReportPlugin);
 
-      // Cache entries one at a time.
-      // See https://github.com/GoogleChrome/workbox/issues/2528
-      for (const [url, cacheKey] of this._urlsToCacheKeys) {
+      let concurrents = this._concurrentPrecaching;
+
+      if (concurrents === undefined) {
+        if (!("__WB_CONCURRENT_PRECACHING" in globalThis)) {
+          self.__WB_CONCURRENT_PRECACHING = 1;
+        }
+        concurrents = self.__WB_CONCURRENT_PRECACHING;
+      }
+
+      await parallel(concurrents, Array.from(this._urlsToCacheKeys.entries()), async ([url, cacheKey]) => {
         const integrity = this._cacheKeysToIntegrities.get(cacheKey);
         const cacheMode = this._urlsToCacheModes.get(url);
 
@@ -190,7 +205,7 @@ class PrecacheController {
             event,
           }),
         );
-      }
+      });
 
       const { updatedURLs, notUpdatedURLs } = installReportPlugin;
 
@@ -213,26 +228,25 @@ class PrecacheController {
    * @returns
    */
   activate(event: ExtendableEvent): Promise<CleanupResult> {
-    // waitUntil returns Promise<any>
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return waitUntil(event, async () => {
+    return waitUntil<CleanupResult>(event, async () => {
       const cache = await self.caches.open(this.strategy.cacheName);
       const currentlyCachedRequests = await cache.keys();
       const expectedCacheKeys = new Set(this._urlsToCacheKeys.values());
 
-      const deletedURLs = [];
+      const deletedCacheRequests: string[] = [];
+
       for (const request of currentlyCachedRequests) {
         if (!expectedCacheKeys.has(request.url)) {
           await cache.delete(request);
-          deletedURLs.push(request.url);
+          deletedCacheRequests.push(request.url);
         }
       }
 
       if (process.env.NODE_ENV !== "production") {
-        printCleanupDetails(deletedURLs);
+        printCleanupDetails(deletedCacheRequests);
       }
 
-      return { deletedURLs };
+      return { deletedCacheRequests };
     });
   }
 
@@ -327,5 +341,3 @@ class PrecacheController {
     };
   }
 }
-
-export { PrecacheController };

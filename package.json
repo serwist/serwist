@@ -15,6 +15,7 @@
     "code-check:apply": "pnpm code-check --apply",
     "deps": "node ncu.js",
     "dev": "cross-env FORCE_COLOR=1 turbo run dev --concurrency=24 --filter=./packages/*",
+    "dev:no-server": "cross-env FORCE_COLOR=1 turbo run dev --concurrency=24 --filter=./packages/* --filter=!./packages/nuxt",
     "docs:build": "cross-env FORCE_COLOR=1 turbo run build --filter=./docs",
     "format:all": "biome format --max-diagnostics=100 --log-kind=compact .",
     "format:write": "pnpm format:all --write",

@@ -128,6 +128,9 @@ importers:
 
   docs:
     devDependencies:
+      '@serwist/core':
+        specifier: workspace:9.0.0-preview.5
+        version: link:../packages/core
       '@serwist/precaching':
         specifier: workspace:*
         version: link:../packages/precaching
@@ -179,6 +182,9 @@ importers:
 
   examples:
     devDependencies:
+      '@serwist/core':
+        specifier: workspace:*
+        version: link:../packages/core
       '@serwist/next':
         specifier: workspace:*
         version: link:../packages/next
@@ -213,6 +219,9 @@ importers:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
     devDependencies:
+      '@serwist/core':
+        specifier: latest
+        version: link:../../packages/core
       '@serwist/precaching':
         specifier: latest
         version: link:../../packages/precaching
@@ -247,6 +256,9 @@ importers:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
     devDependencies:
+      '@serwist/core':
+        specifier: latest
+        version: link:../../packages/core
       '@serwist/precaching':
         specifier: latest
         version: link:../../packages/precaching
@@ -284,6 +296,9 @@ importers:
         specifier: 3.6.7
         version: 3.6.7
     devDependencies:
+      '@serwist/core':
+        specifier: latest
+        version: link:../../packages/core
       '@serwist/precaching':
         specifier: latest
         version: link:../../packages/precaching
@@ -305,6 +320,9 @@ importers:
 
   examples/nuxt-basic:
     devDependencies:
+      '@serwist/core':
+        specifier: latest
+        version: link:../../packages/core
       '@serwist/nuxt':
         specifier: latest
         version: link:../../packages/nuxt
@@ -333,6 +351,9 @@ importers:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
     devDependencies:
+      '@serwist/core':
+        specifier: latest
+        version: link:../../packages/core
       '@serwist/vite':
         specifier: latest
         version: link:../../packages/vite
@@ -815,6 +836,9 @@ importers:
       '@serwist/constants':
         specifier: workspace:*
         version: link:../constants
+      '@serwist/utils':
+        specifier: workspace:*
+        version: link:../utils
       rollup:
         specifier: 4.9.6
         version: 4.9.6

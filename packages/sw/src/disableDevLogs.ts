@@ -1,6 +1,4 @@
-declare const self: WorkerGlobalScope & {
-  __WB_DISABLE_DEV_LOGS: boolean;
-};
+declare const self: ServiceWorkerGlobalScope;
 
 /**
  * Disables Serwist's logging in development mode.

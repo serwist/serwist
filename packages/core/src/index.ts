@@ -17,4 +17,4 @@ import { setCacheNameDetails } from "./setCacheNameDetails.js";
  */
 export { cacheNames, clientsClaim, copyResponse, registerQuotaErrorCallback, setCacheNameDetails };
 
-export * from "./types.js";
+export type * from "./types.js";

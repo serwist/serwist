@@ -2,10 +2,14 @@ import { defaultCache } from "@serwist/next/worker";
 import type { PrecacheEntry } from "@serwist/precaching";
 import { installSerwist } from "@serwist/sw";
 
-declare const self: ServiceWorkerGlobalScope & {
-  // Change this attribute's name to your `injectionPoint`.
-  __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
-};
+declare global {
+  interface WorkerGlobalScope {
+    // Change this attribute's name to your `injectionPoint`.
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+  }
+}
+
+declare const self: ServiceWorkerGlobalScope;
 
 // Anything random.
 const revision = crypto.randomUUID();
