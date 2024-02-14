@@ -1,5 +1,22 @@
 # @serwist/precaching
 
+## 9.0.0-preview.6
+
+### Minor Changes
+
+- [`cbf3e46`](https://github.com/serwist/serwist/commit/cbf3e4603388257a799e4da5ba1f32bca58aba4b) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(precaching): support concurrent precaching
+
+  - `PrecacheController` now accepts a new option, "concurrentPrecaching", which should be a number of how many precache requests should be made concurrently.
+
+  - By default, we precache things sequentially, but this can be changed by setting this option or `self.__WB_CONCURRENT_PRECACHING`. The former takes precedence over the latter.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/core@9.0.0-preview.6
+  - @serwist/routing@9.0.0-preview.6
+  - @serwist/strategies@9.0.0-preview.6
+
 ## 9.0.0-preview.5
 
 ### Patch Changes
