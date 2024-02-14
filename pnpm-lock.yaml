@@ -129,7 +129,7 @@ importers:
   docs:
     devDependencies:
       '@serwist/core':
-        specifier: workspace:9.0.0-preview.5
+        specifier: workspace:*
         version: link:../packages/core
       '@serwist/precaching':
         specifier: workspace:*
