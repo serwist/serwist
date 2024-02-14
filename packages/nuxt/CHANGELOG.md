@@ -1,5 +1,14 @@
 # @serwist/nuxt
 
+## 9.0.0-preview.7
+
+### Patch Changes
+
+- Updated dependencies [[`db9f327`](https://github.com/serwist/serwist/commit/db9f3275cd2f78287516668b50a62cff7c1a4d1d)]:
+  - @serwist/vite@9.0.0-preview.7
+  - @serwist/build@9.0.0-preview.7
+  - @serwist/window@9.0.0-preview.7
+
 ## 9.0.0-preview.6
 
 ### Patch Changes

@@ -30,9 +30,11 @@
     "@serwist/webpack-plugin": "8.4.4",
     "@serwist/window": "8.4.4",
     "@serwist-example/nuxt-basic": "1.0.0",
-    "@serwist-example/next-web-push": "1.0.0"
+    "@serwist-example/next-web-push": "1.0.0",
+    "@serwist/svelte": "9.0.0-preview.6"
   },
   "changesets": [
+    "dirty-planets-change",
     "lovely-tools-march",
     "many-schools-think",
     "modern-moons-brush",

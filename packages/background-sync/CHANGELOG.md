@@ -1,5 +1,12 @@
 # @serwist/background-sync
 
+## 9.0.0-preview.7
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/core@9.0.0-preview.7
+
 ## 9.0.0-preview.6
 
 ### Patch Changes
