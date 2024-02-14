@@ -1,5 +1,122 @@
 # @serwist/sw
 
+## 9.0.0-preview.5
+
+### Major Changes
+
+- [`dc12dda`](https://github.com/serwist/serwist/commit/dc12ddad60526db921b557f8dc5808ba17fc4d8e) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(sw): renamed `urlPattern` to `matcher`
+
+  - Quoting jeffposnick:
+
+  > Workbox used to go all-in on RegExp based routing for runtime caching, and the runtimeCaching options in our build tools use the property named urlPattern to configure the match criteria. This criteria is passed in under the hood to the first parameter of registerRoute(), which is overloaded and takes either a string, a RegExp, or a matchCallback function.
+  >
+  > Beyond the fact that this overloaded can be confusing, I think it's doubly-confusing that the runtimeCaching property is called urlPattern, in that it makes it seem like only a RegExp pattern is supported.
+  >
+  > I'd like to change that name to match as an alias for urlPattern, and then eventually deprecate urlPattern in a future release of Workbox.
+
+  - To migrate, simply rename `urlPattern` to `matcher`.
+
+    - Old:
+
+    ```ts
+    registerRuntimeCaching(
+      {
+        urlPattern: /\.(?:jpg|jpeg|gif|png|svg|ico|webp)$/i,
+        handler: new StaleWhileRevalidate({
+          cacheName: "static-image-assets",
+          plugins: [
+            new ExpirationPlugin({
+              maxEntries: 64,
+              maxAgeSeconds: 24 * 60 * 60, // 24 hours
+            }),
+          ],
+        }),
+      },
+      {
+        urlPattern: /\.(?:js)$/i,
+        handler: new StaleWhileRevalidate({
+          cacheName: "static-js-assets",
+          plugins: [
+            new ExpirationPlugin({
+              maxEntries: 32,
+              maxAgeSeconds: 24 * 60 * 60, // 24 hours
+            }),
+          ],
+        }),
+      },
+      {
+        urlPattern: /\.(?:css|less)$/i,
+        handler: new StaleWhileRevalidate({
+          cacheName: "static-style-assets",
+          plugins: [
+            new ExpirationPlugin({
+              maxEntries: 32,
+              maxAgeSeconds: 24 * 60 * 60, // 24 hours
+            }),
+          ],
+        }),
+      }
+    );
+    ```
+
+    - New:
+
+    ```ts
+    registerRuntimeCaching(
+      {
+        matcher: /\.(?:jpg|jpeg|gif|png|svg|ico|webp)$/i,
+        handler: new StaleWhileRevalidate({
+          cacheName: "static-image-assets",
+          plugins: [
+            new ExpirationPlugin({
+              maxEntries: 64,
+              maxAgeSeconds: 24 * 60 * 60, // 24 hours
+            }),
+          ],
+        }),
+      },
+      {
+        matcher: /\.(?:js)$/i,
+        handler: new StaleWhileRevalidate({
+          cacheName: "static-js-assets",
+          plugins: [
+            new ExpirationPlugin({
+              maxEntries: 32,
+              maxAgeSeconds: 24 * 60 * 60, // 24 hours
+            }),
+          ],
+        }),
+      },
+      {
+        matcher: /\.(?:css|less)$/i,
+        handler: new StaleWhileRevalidate({
+          cacheName: "static-style-assets",
+          plugins: [
+            new ExpirationPlugin({
+              maxEntries: 32,
+              maxAgeSeconds: 24 * 60 * 60, // 24 hours
+            }),
+          ],
+        }),
+      }
+    );
+    ```
+
+### Patch Changes
+
+- Updated dependencies [[`dc12dda`](https://github.com/serwist/serwist/commit/dc12ddad60526db921b557f8dc5808ba17fc4d8e)]:
+  - @serwist/google-analytics@9.0.0-preview.5
+  - @serwist/background-sync@9.0.0-preview.5
+  - @serwist/broadcast-update@9.0.0-preview.5
+  - @serwist/cacheable-response@9.0.0-preview.5
+  - @serwist/core@9.0.0-preview.5
+  - @serwist/expiration@9.0.0-preview.5
+  - @serwist/navigation-preload@9.0.0-preview.5
+  - @serwist/precaching@9.0.0-preview.5
+  - @serwist/range-requests@9.0.0-preview.5
+  - @serwist/routing@9.0.0-preview.5
+  - @serwist/strategies@9.0.0-preview.5
+
 ## 9.0.0-preview.4
 
 ### Major Changes

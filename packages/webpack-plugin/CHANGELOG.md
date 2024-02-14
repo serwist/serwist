@@ -1,5 +1,19 @@
 # @serwist/webpack-plugin
 
+## 9.0.0-preview.5
+
+### Major Changes
+
+- [`dc12dda`](https://github.com/serwist/serwist/commit/dc12ddad60526db921b557f8dc5808ba17fc4d8e) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(webpack-plugin): removed `mode`
+
+  - This option was already a no-op before that, so this simply removes it from the types.
+  - To migrate, just remove `mode` from your options.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/build@9.0.0-preview.5
+
 ## 9.0.0-preview.4
 
 ### Patch Changes
