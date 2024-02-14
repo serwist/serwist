@@ -43,9 +43,6 @@
       ],
       "worker": [
         "./dist/index.worker.d.ts"
-      ],
-      "integration-*": [
-        "./dist/integration/*/index.d.ts"
       ]
     }
   },
@@ -61,10 +58,6 @@
     "./worker": {
       "types": "./dist/index.worker.d.ts",
       "default": "./dist/index.worker.js"
-    },
-    "./integration-*": {
-      "types": "./dist/integration/*/index.d.ts",
-      "default": "./dist/integration/*/index.js"
     },
     "./package.json": "./package.json"
   },

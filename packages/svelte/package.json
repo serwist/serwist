@@ -1,8 +1,8 @@
 {
-  "name": "@serwist/next",
+  "name": "@serwist/svelte",
   "version": "9.0.0-preview.6",
   "type": "module",
-  "description": "A module that integrates Serwist into your Next.js application.",
+  "description": "A module that integrates Serwist into your Svelte application.",
   "files": [
     "src",
     "dist"
@@ -16,41 +16,26 @@
     "web",
     "service-worker",
     "progressive-web-apps",
-    "next",
-    "next.js",
+    "svelte",
+    "sveltekit",
     "pwa"
   ],
-  "engines": {
-    "node": ">=18.0.0"
-  },
   "author": "Serwist's Team",
   "license": "MIT",
   "repository": "serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",
   "homepage": "https://serwist.pages.dev",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
       "worker": [
         "./dist/index.worker.d.ts"
-      ],
-      "typings": [
-        "./dist/sw-entry.d.ts"
       ]
     }
   },
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    },
     "./worker": {
       "types": "./dist/index.worker.d.ts",
       "default": "./dist/index.worker.js"
-    },
-    "./typings": {
-      "types": "./dist/sw-entry.d.ts"
     },
     "./package.json": "./package.json"
   },
@@ -61,35 +46,20 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@serwist/build": "workspace:*",
-    "@serwist/core": "workspace:*",
     "@serwist/expiration": "workspace:*",
-    "@serwist/range-requests": "workspace:*",
-    "@serwist/strategies": "workspace:*",
-    "@serwist/webpack-plugin": "workspace:*",
-    "@serwist/window": "workspace:*",
-    "chalk": "5.3.0",
-    "clean-webpack-plugin": "4.0.0",
-    "fast-glob": "3.3.2"
+    "@serwist/strategies": "workspace:*"
   },
   "devDependencies": {
     "@serwist/constants": "workspace:*",
+    "@serwist/precaching": "workspace:*",
     "@serwist/sw": "workspace:*",
-    "@serwist/utils": "workspace:*",
-    "@types/node": "20.11.16",
-    "next": "14.1.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "rollup": "4.9.6",
-    "type-fest": "4.10.2",
-    "typescript": "5.4.0-dev.20240206",
-    "webpack": "5.90.1"
+    "@sveltejs/kit": "2.5.0",
+    "rollup": "4.9.6"
   },
   "peerDependencies": {
     "@serwist/sw": "workspace:*",
-    "next": ">=14.0.0",
-    "typescript": ">=5.0.0",
-    "webpack": ">=5.9.0"
+    "@sveltejs/kit": ">=2.0.0",
+    "typescript": ">=5.0.0"
   },
   "peerDependenciesMeta": {
     "@serwist/sw": {

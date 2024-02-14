@@ -3,14 +3,11 @@
 /// <reference lib="webworker" />
 /// <reference types="@sveltejs/kit" />
 import type { SerwistGlobalConfig } from "@serwist/core";
-import type { PrecacheEntry } from "@serwist/precaching";
+import { defaultCache, defaultIgnoreUrlParameters, getPrecacheManifest } from "@serwist/svelte/worker";
 import { installSerwist } from "@serwist/sw";
-import { defaultCache } from "@serwist/vite/worker";
 
 declare global {
-  interface WorkerGlobalScope extends SerwistGlobalConfig {
-    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
-  }
+  interface WorkerGlobalScope extends SerwistGlobalConfig {}
 }
 
 declare const self: ServiceWorkerGlobalScope;
@@ -18,7 +15,11 @@ declare const self: ServiceWorkerGlobalScope;
 self.__WB_CONCURRENT_PRECACHING = 10;
 
 installSerwist({
-  precacheEntries: self.__SW_MANIFEST,
+  precacheEntries: getPrecacheManifest(),
+  precacheOptions: {
+    ignoreURLParametersMatching: defaultIgnoreUrlParameters,
+  },
+  cleanupOutdatedCaches: true,
   skipWaiting: true,
   clientsClaim: true,
   navigationPreload: true,

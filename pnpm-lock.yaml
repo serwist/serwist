@@ -134,12 +134,15 @@ importers:
       '@serwist/precaching':
         specifier: workspace:*
         version: link:../packages/precaching
+      '@serwist/svelte':
+        specifier: workspace:*
+        version: link:../packages/svelte
       '@serwist/sw':
         specifier: workspace:*
         version: link:../packages/sw
-      '@serwist/vite':
+      '@serwist/window':
         specifier: workspace:*
-        version: link:../packages/vite
+        version: link:../packages/window
       '@sveltejs/adapter-static':
         specifier: 3.0.1
         version: 3.0.1(@sveltejs/kit@2.5.0)
@@ -943,6 +946,34 @@ importers:
       typescript:
         specifier: 5.4.0-dev.20240206
         version: 5.4.0-dev.20240206
+
+  packages/svelte:
+    dependencies:
+      '@serwist/expiration':
+        specifier: workspace:*
+        version: link:../expiration
+      '@serwist/strategies':
+        specifier: workspace:*
+        version: link:../strategies
+      typescript:
+        specifier: '>=5.0.0'
+        version: 5.3.3
+    devDependencies:
+      '@serwist/constants':
+        specifier: workspace:*
+        version: link:../constants
+      '@serwist/precaching':
+        specifier: workspace:*
+        version: link:../precaching
+      '@serwist/sw':
+        specifier: workspace:*
+        version: link:../sw
+      '@sveltejs/kit':
+        specifier: 2.5.0
+        version: 2.5.0(@sveltejs/vite-plugin-svelte@3.0.2)(svelte@5.0.0-next.48)(vite@5.0.12)
+      rollup:
+        specifier: 4.9.6
+        version: 4.9.6
 
   packages/sw:
     dependencies:
@@ -4243,7 +4274,7 @@ packages:
       esm-env: 1.0.0
       import-meta-resolve: 4.0.0
       kleur: 4.1.5
-      magic-string: 0.30.5
+      magic-string: 0.30.7
       mrmime: 2.0.0
       sade: 1.8.1
       set-cookie-parser: 2.6.0
@@ -8872,7 +8903,7 @@ packages:
   /is-reference@1.2.1:
     resolution: {integrity: sha512-U82MsXXiFIrjCK4otLT+o2NA2Cd2g5MLoOVXUZjIOhLurrRxpEXzI8O0KZHr3IjLvlAH1kTPYSuqer5T9ZVBKQ==}
     dependencies:
-      '@types/estree': 1.0.3
+      '@types/estree': 1.0.5
     dev: true
 
   /is-reference@3.0.2:
@@ -13862,7 +13893,6 @@ packages:
     resolution: {integrity: sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==}
     engines: {node: '>=14.17'}
     hasBin: true
-    dev: true
 
   /typescript@5.4.0-dev.20240206:
     resolution: {integrity: sha512-8P1XYxDbG/AyGE5tB8+JpeiQfS5ye1BTvIVDZaHhoK9nJuCn4nkB0L66lvfwYB+46hA4rLo3vE3WkIToSYtqQA==}

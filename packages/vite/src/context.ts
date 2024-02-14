@@ -2,7 +2,7 @@ import type { ResolvedConfig } from "vite";
 
 import type { PluginOptions, ResolvedPluginOptions } from "./types.js";
 
-export type SerwistViteFrameworks = "nuxt" | "sveltekit";
+export type SerwistViteFrameworks = "nuxt";
 
 export interface SerwistViteContext {
   /**

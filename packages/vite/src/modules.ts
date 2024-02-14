@@ -50,7 +50,7 @@ export const generateServiceWorker = async (ctx: SerwistViteContext) => {
   const isProduction = ctx.options.mode === "production";
   const isDev = ctx.options.mode === "development";
 
-  if ((isProduction && ctx.framework === "sveltekit") || (isDev && !ctx.options.devOptions.bundle)) {
+  if (isDev && !ctx.options.devOptions.bundle) {
     if (!injectManifestResult) {
       throw new Error("injectManifest failed to generate results. This is likely a bug.");
     }

@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "incremental": true,
     "noErrorTruncation": true,
     "target": "ESNext",
     "module": "NodeNext",

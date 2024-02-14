@@ -10,25 +10,24 @@ import { logger, privateCacheNames } from "@serwist/core/internal";
 
 import { deleteOutdatedCaches } from "./utils/deleteOutdatedCaches.js";
 
+declare const self: ServiceWorkerGlobalScope;
+
 /**
  * Adds an `activate` event listener which will clean up incompatible
  * precaches that were created by older versions of Serwist.
  */
-function cleanupOutdatedCaches(): void {
-  // See https://github.com/Microsoft/TypeScript/issues/28357#issuecomment-436484705
-  self.addEventListener("activate", ((event: ExtendableEvent) => {
+export const cleanupOutdatedCaches = (): void => {
+  self.addEventListener("activate", (event: ExtendableEvent) => {
     const cacheName = privateCacheNames.getPrecacheName();
 
     event.waitUntil(
       deleteOutdatedCaches(cacheName).then((cachesDeleted) => {
         if (process.env.NODE_ENV !== "production") {
           if (cachesDeleted.length > 0) {
-            logger.log("The following out-of-date precaches were cleaned up " + "automatically:", cachesDeleted);
+            logger.log("The following out-of-date precaches were cleaned up automatically:", cachesDeleted);
           }
         }
       }),
     );
-  }) as EventListener);
-}
-
-export { cleanupOutdatedCaches };
+  });
+};

@@ -94,14 +94,14 @@ export async function getFileManifestEntries({
             const debugObj: { [key: string]: string[] } = {};
             debugObj[url] = dependencies;
             throw new Error(
-              `${errors["bad-template-urls-asset"]} ` +
-                `'${globPattern}' from '${JSON.stringify(debugObj)}':\n` +
-                `${error instanceof Error ? error.toString() : ""}`,
+              `${errors["bad-template-urls-asset"]} '${globPattern}' from '${JSON.stringify(debugObj)}':\n${
+                error instanceof Error ? error.toString() : ""
+              }`,
             );
           }
         }, []);
         if (details.length === 0) {
-          throw new Error(`${errors["bad-template-urls-asset"]} The glob ` + `pattern '${dependencies.toString()}' did not match anything.`);
+          throw new Error(`${errors["bad-template-urls-asset"]} The glob pattern '${dependencies.toString()}' did not match anything.`);
         }
         allFileDetails.set(url, getCompositeDetails(url, details));
       } else if (typeof dependencies === "string") {

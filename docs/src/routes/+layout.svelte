@@ -1,8 +1,7 @@
 <script lang="ts">
   import "../app.css";
 
-  import { getSerwist } from "@serwist/vite/browser";
-
+  import { dev } from "$app/environment";
   import { page } from "$app/stores";
   import { PUBLIC_CANONICAL_URL } from "$env/static/public";
   import { isColorScheme } from "$lib/isColorScheme";
@@ -10,11 +9,15 @@
 
   $effect(() => {
     const registerSerwist = async () => {
-      const serwist = await getSerwist();
-      if (serwist) {
-        serwist.addEventListener("installed", () => console.log("Serwist installed!"));
-        await serwist.register();
-      }
+      if (dev) return;
+      const serwist = new (await import("@serwist/window")).Serwist(
+        "/service-worker.js",
+        { scope: "/", type: "classic" }
+      );
+      serwist.addEventListener("installed", () => {
+        console.log("Serwist installed!");
+      });
+      await serwist.register();
     };
     registerSerwist();
   });
@@ -28,21 +31,27 @@
     });
   });
 
-  const title = $derived($page.data.title ? `${$page.data.title} - Serwist` : "Serwist");
+  const title = $derived(
+    $page.data.title ? `${$page.data.title} - Serwist` : "Serwist"
+  );
 
   const isDark = $derived($colorScheme === "dark");
 </script>
 
 <svelte:head>
   <title>{title}</title>
-  <link rel="canonical" href={new URL($page.url.pathname, PUBLIC_CANONICAL_URL).href} />
+  <link
+    rel="canonical"
+    href={new URL($page.url.pathname, PUBLIC_CANONICAL_URL).href}
+  />
   <link rel="manifest" href="/manifest.webmanifest" />
   <meta property="og:title" content={title} />
   <meta name="twitter:title" content={title} />
   <meta name="theme-color" content={isDark ? "#000000" : "#FFFFFF"} />
   <style>
     :root {
-      --latin-unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074,
+      --latin-unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC,
+        U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074,
         U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
     }
 
@@ -129,5 +138,8 @@
   </style>
 </svelte:head>
 
-<a class="absolute -top-full z-[100] text-black underline focus:top-0 dark:text-white" href="#main-content">Skip to main content</a>
+<a
+  class="absolute -top-full z-[100] text-black underline focus:top-0 dark:text-white"
+  href="#main-content">Skip to main content</a
+>
 <slot />

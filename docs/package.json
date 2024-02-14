@@ -13,8 +13,9 @@
   "devDependencies": {
     "@serwist/core": "workspace:*",
     "@serwist/precaching": "workspace:*",
+    "@serwist/svelte": "workspace:*",
     "@serwist/sw": "workspace:*",
-    "@serwist/vite": "workspace:*",
+    "@serwist/window": "workspace:*",
     "@sveltejs/adapter-static": "3.0.1",
     "@sveltejs/enhanced-img": "0.1.8",
     "@sveltejs/kit": "2.5.0",
