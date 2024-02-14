@@ -73,7 +73,7 @@ export default defineNuxtModule<RequiredFields<ModuleOptions, "swUrl" | "swSrc" 
     nuxt.hook("vite:extend", ({ config }) => {
       const plugin = config.plugins?.find((p) => p && typeof p === "object" && "name" in p && p.name === "@serwist/vite");
       if (plugin) {
-        throw new Error("Remove @serwist/vite from your Vite configuration! Do not use it alongside @serwist/nuxt.");
+        throw new Error("Remove '@serwist/vite' from your Vite configuration! Do not use it alongside '@serwist/nuxt'.");
       }
     });
 
@@ -83,7 +83,7 @@ export default defineNuxtModule<RequiredFields<ModuleOptions, "swUrl" | "swSrc" 
       }
       const plugin = viteInlineConfig.plugins.find((p) => p && typeof p === "object" && "name" in p && p.name === "@serwist/vite");
       if (plugin) {
-        throw new Error("Remove @serwist/vite from your Vite conoptionsfiguration! Do not use it alongside @serwist/nuxt.");
+        throw new Error("Remove '@serwist/vite' from your Vite configuration! Do not use it alongside '@serwist/nuxt'.");
       }
 
       if (isClient) {
@@ -115,7 +115,7 @@ export default defineNuxtModule<RequiredFields<ModuleOptions, "swUrl" | "swSrc" 
     });
 
     extendWebpackConfig(() => {
-      throw new Error("Webpack is not supported: @serwist/nuxt can only be used with Vite!");
+      throw new Error("Webpack is not supported: '@serwist/nuxt' can only be used with Vite!");
     });
 
     if (!nuxt.options.dev) {
