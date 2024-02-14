@@ -1,5 +1,19 @@
 # @serwist/build
 
+## 9.0.0-preview.5
+
+### Patch Changes
+
+- Updated dependencies [[`dc12dda`](https://github.com/serwist/serwist/commit/dc12ddad60526db921b557f8dc5808ba17fc4d8e)]:
+  - @serwist/google-analytics@9.0.0-preview.5
+  - @serwist/background-sync@9.0.0-preview.5
+  - @serwist/broadcast-update@9.0.0-preview.5
+  - @serwist/cacheable-response@9.0.0-preview.5
+  - @serwist/core@9.0.0-preview.5
+  - @serwist/expiration@9.0.0-preview.5
+  - @serwist/precaching@9.0.0-preview.5
+  - @serwist/routing@9.0.0-preview.5
+
 ## 9.0.0-preview.4
 
 ### Patch Changes

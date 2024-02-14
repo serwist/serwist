@@ -1,5 +1,23 @@
 # @serwist/google-analytics
 
+## 9.0.0-preview.5
+
+### Major Changes
+
+- [`dc12dda`](https://github.com/serwist/serwist/commit/dc12ddad60526db921b557f8dc5808ba17fc4d8e) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(google-analytics): migrated to the singleton Router instance
+
+  - We now use `@serwist/routing.registerRoute`, rather than `@serwist/routing.Router` like in the past, for `initialize`.
+
+  - You don't need to do anything to migrate.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/background-sync@9.0.0-preview.5
+  - @serwist/core@9.0.0-preview.5
+  - @serwist/routing@9.0.0-preview.5
+  - @serwist/strategies@9.0.0-preview.5
+
 ## 9.0.0-preview.4
 
 ### Patch Changes
