@@ -1,5 +1,12 @@
 # @serwist/range-requests
 
+## 9.0.0-preview.10
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/core@9.0.0-preview.10
+
 ## 9.0.0-preview.9
 
 ### Patch Changes
