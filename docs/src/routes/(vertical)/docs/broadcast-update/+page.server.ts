@@ -9,7 +9,7 @@ export const load: PageServerLoad = async () => {
     themes: ["github-dark", "github-light"],
   });
   return {
-    title: "@serwist/background-sync",
+    title: "@serwist/broadcast-update",
     toc: [
       {
         title: "Welcome",
