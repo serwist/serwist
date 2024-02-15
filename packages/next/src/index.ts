@@ -1,3 +1,4 @@
+import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -5,8 +6,7 @@ import type { NextInjectManifestOptions } from "@serwist/build";
 import { validateNextInjectManifestOptions } from "@serwist/build/next";
 import { InjectManifest } from "@serwist/webpack-plugin";
 import { ChildCompilationPlugin, relativeToOutputPath } from "@serwist/webpack-plugin/internal";
-import { CleanWebpackPlugin } from "clean-webpack-plugin";
-import fg from "fast-glob";
+import { globSync } from "glob";
 import type { NextConfig } from "next";
 import type { Compilation, Configuration, default as Webpack } from "webpack";
 
@@ -122,7 +122,19 @@ const withSerwistInit = (pluginOptions: NextInjectManifestOptions): ((nextConfig
         }
 
         const publicDir = path.resolve(options.dir, "public");
-        const destDir = path.dirname(swDest);
+        const { dir: destDir, base: destBase } = path.parse(swDest);
+
+        const cleanUpList = globSync(["swe-worker-*.js", "swe-worker-*.js.map", destBase, `${destBase}.map`], {
+          absolute: true,
+          nodir: true,
+          cwd: destDir,
+        });
+
+        for (const file of cleanUpList) {
+          fs.rm(file, { force: true }, (err) => {
+            if (err) throw err;
+          });
+        }
 
         const shouldBuildSWEntryWorker = cacheOnNavigation;
         let swEntryPublicPath: string | undefined = undefined;
@@ -150,28 +162,22 @@ const withSerwistInit = (pluginOptions: NextInjectManifestOptions): ((nextConfig
         logger.info(`  URL: ${_sw}`);
         logger.info(`  Scope: ${_scope}`);
 
-        config.plugins.push(
-          new CleanWebpackPlugin({
-            cleanOnceBeforeBuildPatterns: [path.join(destDir, "swe-worker-*.js"), path.join(destDir, "swe-worker-*.js.map"), swDest],
-          }),
-        );
-
         // Precache files in public folder
         let resolvedManifestEntries = additionalPrecacheEntries;
 
         if (!resolvedManifestEntries) {
-          const swDestFileName = path.basename(swDest);
           const userPublicGlob = typeof globPublicPatterns === "string" ? [globPublicPatterns] : globPublicPatterns ?? ["**/*"];
-          const publicScan = fg.sync(
+          const publicScan = globSync(
             [
               ...userPublicGlob,
               // Forcibly include these in case the user outputs these files to `public`.
               "!swe-worker-*.js",
               "!swe-worker-*.js.map",
-              `!${swDestFileName.replace(/^\/+/, "")}`,
-              `!${swDestFileName.replace(/^\/+/, "")}.map`,
+              `!${destBase}`,
+              `!${destBase}.map`,
             ],
             {
+              nodir: true,
               cwd: publicDir,
             },
           );

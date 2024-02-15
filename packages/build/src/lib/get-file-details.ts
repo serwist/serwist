@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { glob } from "glob";
+import { globSync } from "glob";
 import upath from "upath";
 
 import type { GlobPartial } from "../types.js";
@@ -20,7 +20,7 @@ interface FileDetails {
   size: number;
 }
 
-export function getFileDetails({
+export const getFileDetails = ({
   globDirectory,
   globFollow,
   globIgnores,
@@ -32,12 +32,12 @@ export function getFileDetails({
 }): {
   globbedFileDetails: FileDetails[];
   warning: string;
-} {
+} => {
   let globbedFiles: string[];
   let warning = "";
 
   try {
-    globbedFiles = glob.sync(globPattern, {
+    globbedFiles = globSync(globPattern, {
       cwd: globDirectory,
       follow: globFollow,
       ignore: globIgnores,
@@ -65,4 +65,4 @@ export function getFileDetails({
   }
 
   return { globbedFileDetails, warning };
-}
+};
