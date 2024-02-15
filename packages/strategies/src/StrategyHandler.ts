@@ -30,7 +30,7 @@ function toRequest(input: RequestInfo) {
  * and keeps track of when the strategy is "done" (i.e. all added `event.waitUntil()` promises
  * have resolved).
  */
-class StrategyHandler {
+export class StrategyHandler {
   /**
    * The request the strategy is performing (passed to the strategy's
    * `handle()` or `handleAll()` method).
@@ -281,16 +281,6 @@ class StrategyHandler {
           method: effectiveRequest.method,
         });
       }
-
-      // See https://github.com/GoogleChrome/workbox/issues/2818
-      const vary = response.headers.get("Vary");
-      if (vary) {
-        logger.debug(
-          `The response for ${getFriendlyURL(
-            effectiveRequest.url,
-          )} has a 'Vary: ${vary}' header. Consider setting the {ignoreVary: true} option on your strategy to ensure cache matching and deletion works as expected.`,
-        );
-      }
     }
 
     if (!response) {
@@ -315,6 +305,18 @@ class StrategyHandler {
     const { cacheName, matchOptions } = this._strategy;
     const cache = await self.caches.open(cacheName);
 
+    if (process.env.NODE_ENV !== "production") {
+      // See https://github.com/GoogleChrome/workbox/issues/2818
+      const vary = response.headers.get("Vary");
+      if (vary && matchOptions?.ignoreVary !== true) {
+        logger.debug(
+          `The response for ${getFriendlyURL(
+            effectiveRequest.url,
+          )} has a 'Vary: ${vary}' header. Consider setting the {ignoreVary: true} option on your strategy to ensure cache matching and deletion works as expected.`,
+        );
+      }
+    }
+
     const hasCacheUpdateCallback = this.hasCallback("cacheDidUpdate");
     const oldResponse = hasCacheUpdateCallback
       ? await cacheMatchIgnoreParams(
@@ -329,7 +331,7 @@ class StrategyHandler {
       : null;
 
     if (process.env.NODE_ENV !== "production") {
-      logger.debug(`Updating the '${cacheName}' cache with a new Response ` + `for ${getFriendlyURL(effectiveRequest.url)}.`);
+      logger.debug(`Updating the '${cacheName}' cache with a new Response for ${getFriendlyURL(effectiveRequest.url)}.`);
     }
 
     try {
@@ -379,8 +381,7 @@ class StrategyHandler {
             mode,
             request: effectiveRequest,
             event: this.event,
-            // params has a type any can't change right now.
-            params: this.params, // eslint-disable-line
+            params: this.params,
           }),
         );
       }
@@ -541,5 +542,3 @@ class StrategyHandler {
     return responseToCache;
   }
 }
-
-export { StrategyHandler };
