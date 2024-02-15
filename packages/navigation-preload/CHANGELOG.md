@@ -1,5 +1,18 @@
 # @serwist/navigation-preload
 
+## 9.0.0-preview.8
+
+### Major Changes
+
+- [`b1df273`](https://github.com/serwist/serwist/commit/b1df273379ee018fd850f962345740874c9fd54d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(core): allow non-Promise return types for `SerwistPlugin` callbacks
+
+  - Usually you don't need to do anything to migrate, but we still mark it as a breaking change because changing a function's signature is considered a breaking one in this project.
+
+### Patch Changes
+
+- Updated dependencies [[`b1df273`](https://github.com/serwist/serwist/commit/b1df273379ee018fd850f962345740874c9fd54d)]:
+  - @serwist/core@9.0.0-preview.8
+
 ## 9.0.0-preview.7
 
 ### Patch Changes
