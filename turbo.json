@@ -14,7 +14,8 @@
         "out/**",
         "dist/**",
         ".svelte-kit/**",
-        ".vercel/**"
+        ".vercel/**",
+        "public/*.js"
       ]
     },
     "lint": {
@@ -27,7 +28,8 @@
         "out/**",
         "dist/**",
         ".svelte-kit/**",
-        ".vercel/**"
+        ".vercel/**",
+        "public/*.js"
       ]
     },
     "typecheck": {
