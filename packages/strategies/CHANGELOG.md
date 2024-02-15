@@ -1,5 +1,16 @@
 # @serwist/strategies
 
+## 9.0.0-preview.9
+
+### Patch Changes
+
+- [`7e42ad9`](https://github.com/serwist/serwist/commit/7e42ad912d96fdda160a7aad9a5548e7c046bc27) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(strategies): only log Vary warning if `matchOptions?.ignoreVary` is not `true`
+
+  - Doesn't make sense to have this logged even when `matchOptions?.ignoreVary` is already `true`.
+
+- Updated dependencies []:
+  - @serwist/core@9.0.0-preview.9
+
 ## 9.0.0-preview.8
 
 ### Major Changes

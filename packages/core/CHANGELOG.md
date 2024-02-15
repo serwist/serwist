@@ -1,5 +1,7 @@
 # @serwist/core
 
+## 9.0.0-preview.9
+
 ## 9.0.0-preview.8
 
 ### Major Changes
