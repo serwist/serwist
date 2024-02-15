@@ -5,6 +5,7 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
+export type PromiseOrNot<T> = T | Promise<T>;
 
 export interface MapLikeObject {
   [key: string]: any;
@@ -152,7 +153,7 @@ export interface CacheDidUpdateCallbackParam {
 }
 
 export interface CacheDidUpdateCallback {
-  (param: CacheDidUpdateCallbackParam): Promise<any>;
+  (param: CacheDidUpdateCallbackParam): PromiseOrNot<any>;
 }
 
 export interface CacheKeyWillBeUsedCallbackParam {
@@ -164,7 +165,7 @@ export interface CacheKeyWillBeUsedCallbackParam {
 }
 
 export interface CacheKeyWillBeUsedCallback {
-  (param: CacheKeyWillBeUsedCallbackParam): Promise<Request | string>;
+  (param: CacheKeyWillBeUsedCallbackParam): PromiseOrNot<Request | string>;
 }
 
 export interface CacheWillUpdateCallbackParam {
@@ -175,7 +176,7 @@ export interface CacheWillUpdateCallbackParam {
 }
 
 export interface CacheWillUpdateCallback {
-  (param: CacheWillUpdateCallbackParam): Promise<any>;
+  (param: CacheWillUpdateCallbackParam): PromiseOrNot<any>;
 }
 
 export interface CachedResponseWillBeUsedCallbackParam {
@@ -199,7 +200,7 @@ export interface CachedResponseWillBeUsedCallbackParam {
 }
 
 export interface CachedResponseWillBeUsedCallback {
-  (param: CachedResponseWillBeUsedCallbackParam): Promise<any>;
+  (param: CachedResponseWillBeUsedCallbackParam): PromiseOrNot<any>;
 }
 
 export interface FetchDidFailCallbackParam {
@@ -211,7 +212,7 @@ export interface FetchDidFailCallbackParam {
 }
 
 export interface FetchDidFailCallback {
-  (param: FetchDidFailCallbackParam): Promise<any>;
+  (param: FetchDidFailCallbackParam): PromiseOrNot<any>;
 }
 
 export interface FetchDidSucceedCallbackParam {
@@ -222,7 +223,7 @@ export interface FetchDidSucceedCallbackParam {
 }
 
 export interface FetchDidSucceedCallback {
-  (param: FetchDidSucceedCallbackParam): Promise<Response>;
+  (param: FetchDidSucceedCallbackParam): PromiseOrNot<Response>;
 }
 
 export interface RequestWillFetchCallbackParam {
@@ -232,7 +233,7 @@ export interface RequestWillFetchCallbackParam {
 }
 
 export interface RequestWillFetchCallback {
-  (param: RequestWillFetchCallbackParam): Promise<Request>;
+  (param: RequestWillFetchCallbackParam): PromiseOrNot<Request>;
 }
 
 export interface HandlerWillRespondCallbackParam {
@@ -243,7 +244,7 @@ export interface HandlerWillRespondCallbackParam {
 }
 
 export interface HandlerWillRespondCallback {
-  (param: HandlerWillRespondCallbackParam): Promise<Response>;
+  (param: HandlerWillRespondCallbackParam): PromiseOrNot<Response>;
 }
 
 export interface HandlerDidErrorCallbackParam {
@@ -254,7 +255,7 @@ export interface HandlerDidErrorCallbackParam {
 }
 
 export interface HandlerDidErrorCallback {
-  (param: HandlerDidErrorCallbackParam): Promise<Response | undefined>;
+  (param: HandlerDidErrorCallbackParam): PromiseOrNot<Response | undefined>;
 }
 
 export interface HandlerDidRespondCallbackParam {
@@ -265,7 +266,7 @@ export interface HandlerDidRespondCallbackParam {
 }
 
 export interface HandlerDidRespondCallback {
-  (param: HandlerDidRespondCallbackParam): Promise<any>;
+  (param: HandlerDidRespondCallbackParam): PromiseOrNot<any>;
 }
 
 export interface HandlerDidCompleteCallbackParam {
@@ -277,7 +278,7 @@ export interface HandlerDidCompleteCallbackParam {
 }
 
 export interface HandlerDidCompleteCallback {
-  (param: HandlerDidCompleteCallbackParam): Promise<any>;
+  (param: HandlerDidCompleteCallbackParam): PromiseOrNot<any>;
 }
 
 /**

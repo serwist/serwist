@@ -34,7 +34,7 @@ declare let self: ServiceWorkerGlobalScope;
 
  * @param options
  */
-function offlineFallback(options: OfflineFallbackOptions = {}): void {
+export const offlineFallback = (options: OfflineFallbackOptions = {}): void => {
   const pageFallback = options.pageFallback || "offline.html";
   const imageFallback = options.imageFallback || false;
   const fontFallback = options.fontFallback || false;
@@ -74,6 +74,4 @@ function offlineFallback(options: OfflineFallbackOptions = {}): void {
   };
 
   setCatchHandler(handler);
-}
-
-export { offlineFallback };
+};

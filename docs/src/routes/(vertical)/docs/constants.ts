@@ -6,6 +6,15 @@ export const SIDEBAR_LINKS = [
     href: "/docs",
   },
   {
+    title: "@serwist/background-sync",
+    href: "/docs/background-sync",
+  },
+  {
+    title: "@serwist/broadcast-update",
+    href: "/docs/broadcast-update",
+    children: [],
+  },
+  {
     title: "@serwist/build",
     href: "/docs/build",
     children: [
@@ -50,6 +59,26 @@ export const SIDEBAR_LINKS = [
         children: [{ title: "Configuring", href: "/docs/build/get-manifest/configuring" }],
       },
     ],
+  },
+  {
+    title: "@serwist/cacheable-response",
+    href: "/docs/cacheable-response",
+    children: [],
+  },
+  {
+    title: "@serwist/expiration",
+    href: "/docs/expiration",
+    children: [],
+  },
+  {
+    title: "@serwist/google-analytics",
+    href: "/docs/google-analytics",
+    children: [],
+  },
+  {
+    title: "@serwist/navigation-preload",
+    href: "/docs/navigation-preload",
+    children: [],
   },
   {
     title: "@serwist/next",

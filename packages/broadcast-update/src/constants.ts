@@ -8,5 +8,5 @@
 
 export const CACHE_UPDATED_MESSAGE_TYPE = "CACHE_UPDATED";
 export const CACHE_UPDATED_MESSAGE_META = "serwist-broadcast-update";
-export const NOTIFY_ALL_CLIENTS = true;
-export const DEFAULT_HEADERS_TO_CHECK: string[] = ["content-length", "etag", "last-modified"];
+export const defaultNotifyAllClients = true;
+export const defaultHeadersToCheck = ["content-length", "etag", "last-modified"];

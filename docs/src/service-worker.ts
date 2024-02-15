@@ -3,7 +3,7 @@
 /// <reference lib="webworker" />
 /// <reference types="@sveltejs/kit" />
 import type { SerwistGlobalConfig } from "@serwist/core";
-import { type StaticRevisions, staticAssets, defaultCache, defaultIgnoreUrlParameters, getPrecacheManifest } from "@serwist/svelte/worker";
+import { type StaticRevisions, defaultCache, defaultIgnoreUrlParameters, getPrecacheManifest, staticAssets } from "@serwist/svelte/worker";
 import { installSerwist } from "@serwist/sw";
 
 declare global {

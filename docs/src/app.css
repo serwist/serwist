@@ -57,6 +57,15 @@
   .list > li {
     @apply mb-2;
   }
+  .text-toc {
+    @apply text-xs font-medium transition-colors duration-100;
+  }
+  .text-toc.inactive {
+    @apply text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100;
+  }
+  .text-toc.active {
+    @apply text-accent-light dark:text-accent-dark;
+  }
 }
 
 @media (prefers-reduced-motion) {

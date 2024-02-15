@@ -6,17 +6,16 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { SerwistPlugin } from "@serwist/core";
-import { dontWaitFor } from "@serwist/core/internal";
+import type { CacheDidUpdateCallbackParam, SerwistPlugin } from "@serwist/core";
 
-import type { BroadcastCacheUpdateOptions } from "./BroadcastCacheUpdate.js";
 import { BroadcastCacheUpdate } from "./BroadcastCacheUpdate.js";
+import type { BroadcastCacheUpdateOptions } from "./types.js";
 
 /**
  * This plugin will automatically broadcast a message whenever a cached response
  * is updated.
  */
-class BroadcastUpdatePlugin implements SerwistPlugin {
+export class BroadcastUpdatePlugin implements SerwistPlugin {
   private readonly _broadcastUpdate: BroadcastCacheUpdate;
 
   /**
@@ -38,9 +37,7 @@ class BroadcastUpdatePlugin implements SerwistPlugin {
    * @private
    * @param options The input object to this function.
    */
-  cacheDidUpdate: SerwistPlugin["cacheDidUpdate"] = async (options) => {
-    dontWaitFor(this._broadcastUpdate.notifyIfUpdated(options));
-  };
+  cacheDidUpdate(options: CacheDidUpdateCallbackParam) {
+    void this._broadcastUpdate.notifyIfUpdated(options);
+  }
 }
-
-export { BroadcastUpdatePlugin };

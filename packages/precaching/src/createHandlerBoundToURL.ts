@@ -24,9 +24,7 @@ import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheContro
  * response from the network if there's a precache miss.
  * @return
  */
-function createHandlerBoundToURL(url: string): RouteHandlerCallback {
+export const createHandlerBoundToURL = (url: string): RouteHandlerCallback => {
   const precacheController = getOrCreatePrecacheController();
   return precacheController.createHandlerBoundToURL(url);
-}
-
-export { createHandlerBoundToURL };
+};

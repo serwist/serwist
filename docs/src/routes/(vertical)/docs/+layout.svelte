@@ -9,12 +9,45 @@
 
   import { SIDEBAR_LINKS } from "./constants";
   import SidebarLink from "./SidebarLink.svelte";
+  import type { TableOfContents } from "$lib/types";
+  import TocRenderer from "./TocRenderer.svelte";
 
   let mobileSidebarHidden = $state<boolean>(true);
+  let activeId = $state<string | null>(null);
+  let observer = $state<IntersectionObserver | null>(null);
+  const toc = $derived($page.data.toc) as TableOfContents[] | undefined;
 
   $effect(() => {
     $page.url.pathname;
     mobileSidebarHidden = true;
+  });
+
+  $effect(() => {
+    if (!("IntersectionObserver" in globalThis)) return;
+
+    observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            activeId = entry.target.id;
+          }
+        });
+      },
+      {
+        rootMargin: "0% 0% -35% 0%",
+      }
+    );
+    return () => observer?.disconnect();
+  });
+
+  $effect(() => {
+    if (!toc || !observer) return;
+
+    document
+      .querySelectorAll("h1,h2,h3,h4,h5,h6")
+      .forEach((elem) => observer?.observe(elem));
+
+    return () => observer?.disconnect();
   });
 </script>
 
@@ -33,7 +66,14 @@
       on:click={() => (mobileSidebarHidden = !mobileSidebarHidden)}
     >
       Menu
-      <ChevronRight class={clsx("transition-transform duration-100", !mobileSidebarHidden && "rotate-90")} width={18} height={18} />
+      <ChevronRight
+        class={clsx(
+          "transition-transform duration-100",
+          !mobileSidebarHidden && "rotate-90"
+        )}
+        width={18}
+        height={18}
+      />
     </button>
     <!-- Desktop sidebar -->
     <aside class="py-4 self-stretch overflow-y-auto hidden md:block">
@@ -45,7 +85,10 @@
     </aside>
     <!-- Mobile sidebar -->
     {#if !mobileSidebarHidden}
-      <aside class="pb-4 self-stretch overflow-y-auto md:hidden" transition:slide={{ duration: 200, easing: quintOut, axis: "y" }}>
+      <aside
+        class="pb-4 self-stretch overflow-y-auto md:hidden"
+        transition:slide={{ duration: 200, easing: quintOut, axis: "y" }}
+      >
         <ul>
           {#each SIDEBAR_LINKS as sidebarLink}
             <SidebarLink {...sidebarLink} />
@@ -54,21 +97,42 @@
       </aside>
     {/if}
   </div>
-  <nav class="sticky top-0 order-last hidden w-[350px] max-h-screen shrink-0 px-4 print:hidden xl:block" aria-label="Table of contents">
-    <div class="flex flex-col hyphens-auto pr-4 pt-6 text-sm ltr:-mr-4 rtl:-ml-4">
-      <p class="mb-4 font-semibold tracking-tight text-black dark:text-white">On This Page</p>
-      <div class="w-full self-stretch overflow-y-auto pointer-events-none" aria-hidden="true" />
-      <div class="sticky bottom-0 mt-8 flex flex-col items-start gap-2 border-t pb-8 pt-8 dark:border-neutral-800">
+  <nav
+    class="sticky top-0 order-last hidden w-[350px] max-h-screen shrink-0 px-4 print:hidden xl:block"
+    aria-label="Table of contents"
+  >
+    <div
+      class="flex flex-col hyphens-auto pr-4 pt-6 text-sm ltr:-mr-4 rtl:-ml-4"
+    >
+      <p class="mb-4 font-semibold tracking-tight text-black dark:text-white">
+        On This Page
+      </p>
+      <div
+        class="w-full self-stretch overflow-y-auto pointer-events-none"
+        aria-hidden="true"
+      />
+      {#if toc}
+        <TocRenderer
+          data={toc}
+          currentActiveId={activeId ?? $page.url.hash.slice(1)}
+        />
+      {:else}
+        <p>Table of Contents is not available at the moment.</p>
+      {/if}
+      <div
+        class="sticky bottom-0 mt-8 flex flex-col items-start gap-2 border-t pb-8 pt-8 dark:border-neutral-800"
+      >
         <a
           href="https://github.com/serwist/serwist/issues/new/choose"
           target="_blank"
           rel="noreferrer"
           class="text-xs font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
         >
-          Question? Give us feedback →<span class="sr-only"> (opens in a new tab)</span>
+          Question? Give us feedback →
+          <span class="sr-only">(opens in a new tab)</span>
         </a>
         <a
-          href="https://github.com/serwist/serwist"
+          href={`https://github.com/serwist/serwist/tree/main/docs/src/routes/(vertical)${$page.url.pathname}`}
           target="_blank"
           rel="noreferrer"
           class="text-xs font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"

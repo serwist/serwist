@@ -30,7 +30,7 @@ export interface StreamsHandlerCallback {
  * @param headersInit If there's no `Content-Type` specified, `'text/html'` will be used by default.
  * @returns
  */
-function strategy(sourceFunctions: StreamsHandlerCallback[], headersInit: HeadersInit): RouteHandlerCallback {
+export const strategy = (sourceFunctions: StreamsHandlerCallback[], headersInit: HeadersInit): RouteHandlerCallback => {
   return async ({ event, request, url, params }: RouteHandlerCallbackOptions) => {
     const sourcePromises = sourceFunctions.map((fn) => {
       // Ensure the return value of the function is always a promise.
@@ -70,6 +70,4 @@ function strategy(sourceFunctions: StreamsHandlerCallback[], headersInit: Header
     // So is constructing a new Blob from multiple source Blobs or strings.
     return new Response(new Blob(blobParts), { headers });
   };
-}
-
-export { strategy };
+};

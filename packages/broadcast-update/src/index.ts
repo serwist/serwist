@@ -6,15 +6,18 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { BroadcastCacheUpdateOptions } from "./BroadcastCacheUpdate.js";
 import { BroadcastCacheUpdate } from "./BroadcastCacheUpdate.js";
 import { BroadcastUpdatePlugin } from "./BroadcastUpdatePlugin.js";
+import { CACHE_UPDATED_MESSAGE_META, CACHE_UPDATED_MESSAGE_TYPE, defaultHeadersToCheck } from "./constants.js";
 import { responsesAreSame } from "./responsesAreSame.js";
 
-/**
- * @module workbox-broadcast-update
- */
+export {
+  BroadcastCacheUpdate,
+  BroadcastUpdatePlugin,
+  responsesAreSame,
+  CACHE_UPDATED_MESSAGE_META,
+  CACHE_UPDATED_MESSAGE_TYPE,
+  defaultHeadersToCheck,
+};
 
-export { BroadcastCacheUpdate, BroadcastUpdatePlugin, responsesAreSame };
-
-export type { BroadcastCacheUpdateOptions };
+export type * from "./types.js";

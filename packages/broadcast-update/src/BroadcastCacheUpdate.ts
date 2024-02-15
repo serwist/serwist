@@ -9,8 +9,9 @@
 import type { CacheDidUpdateCallbackParam } from "@serwist/core";
 import { assert, logger, resultingClientExists, timeout } from "@serwist/core/internal";
 
+import { CACHE_UPDATED_MESSAGE_META, CACHE_UPDATED_MESSAGE_TYPE, defaultHeadersToCheck, defaultNotifyAllClients } from "./constants.js";
 import { responsesAreSame } from "./responsesAreSame.js";
-import { CACHE_UPDATED_MESSAGE_META, CACHE_UPDATED_MESSAGE_TYPE, DEFAULT_HEADERS_TO_CHECK, NOTIFY_ALL_CLIENTS } from "./utils/constants.js";
+import type { BroadcastCacheUpdateOptions, BroadcastMessage, BroadcastPayload, BroadcastPayloadGenerator } from "./types.js";
 
 // UA-sniff Safari: https://stackoverflow.com/questions/7944460/detect-safari-browser
 // TODO(philipwalton): remove once this Safari bug fix has been released.
@@ -19,32 +20,6 @@ const isSafari = typeof navigator !== "undefined" && /^((?!chrome|android).)*saf
 
 // Give TypeScript the correct global.
 declare let self: ServiceWorkerGlobalScope;
-
-export interface BroadcastCacheUpdateOptions {
-  /**
-   * A list of headers that will be used to determine whether the responses
-   * differ.
-   *
-   * @default ['content-length', 'etag', 'last-modified']
-   */
-  headersToCheck?: string[];
-  /**
-   * A function whose return value
-   * will be used as the `payload` field in any cache update messages sent
-   * to the window clients.
-   * @param options
-   * @returns
-   */
-  generatePayload?: (options: CacheDidUpdateCallbackParam) => Record<string, any>;
-  /**
-   * If true (the default) then all open clients will receive a message. If false,
-   * then only the client that make the original request will be notified of the update.
-   *
-   * @default true
-   */
-  notifyAllClients?: boolean;
-}
-
 /**
  * Generates the default payload used in update messages. By default the
  * payload includes the `cacheName` and `updatedURL` fields.
@@ -52,12 +27,12 @@ export interface BroadcastCacheUpdateOptions {
  * @returns
  * @private
  */
-function defaultPayloadGenerator(data: CacheDidUpdateCallbackParam): Record<string, any> {
+const defaultPayloadGenerator = (data: CacheDidUpdateCallbackParam): BroadcastPayload => {
   return {
     cacheName: data.cacheName,
     updatedURL: data.request.url,
   };
-}
+};
 
 /**
  * Uses the `postMessage()` API to inform any open windows/tabs when a cached
@@ -66,9 +41,9 @@ function defaultPayloadGenerator(data: CacheDidUpdateCallbackParam): Record<stri
  * For efficiency's sake, the underlying response bodies are not compared;
  * only specific response headers are checked.
  */
-class BroadcastCacheUpdate {
+export class BroadcastCacheUpdate {
   private readonly _headersToCheck: string[];
-  private readonly _generatePayload: (options: CacheDidUpdateCallbackParam) => Record<string, any>;
+  private readonly _generatePayload: BroadcastPayloadGenerator;
   private readonly _notifyAllClients: boolean;
 
   /**
@@ -78,9 +53,9 @@ class BroadcastCacheUpdate {
    * @param options
    */
   constructor({ generatePayload, headersToCheck, notifyAllClients }: BroadcastCacheUpdateOptions = {}) {
-    this._headersToCheck = headersToCheck || DEFAULT_HEADERS_TO_CHECK;
+    this._headersToCheck = headersToCheck || defaultHeadersToCheck;
     this._generatePayload = generatePayload || defaultPayloadGenerator;
-    this._notifyAllClients = notifyAllClients ?? NOTIFY_ALL_CLIENTS;
+    this._notifyAllClients = notifyAllClients ?? defaultNotifyAllClients;
   }
 
   /**
@@ -143,7 +118,7 @@ class BroadcastCacheUpdate {
         type: CACHE_UPDATED_MESSAGE_TYPE,
         meta: CACHE_UPDATED_MESSAGE_META,
         payload: this._generatePayload(options),
-      };
+      } satisfies BroadcastMessage;
 
       // For navigation requests, wait until the new window client exists
       // before sending the message
@@ -184,5 +159,3 @@ class BroadcastCacheUpdate {
     }
   }
 }
-
-export { BroadcastCacheUpdate };

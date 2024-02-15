@@ -20,6 +20,9 @@ const config = {
     paths: {
       relative: false,
     },
+    prerender: {
+      handleHttpError: "warn",
+    },
   },
 };
 
