@@ -8,12 +8,28 @@
     },
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**", "out/**", "dist/**", ".svelte-kit/**", ".vercel/**"]
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        "out/**",
+        "dist/**",
+        ".svelte-kit/**",
+        ".vercel/**"
+      ]
     },
     "lint": {
       "outputs": []
     },
-    "test": {},
+    "test": {
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        "out/**",
+        "dist/**",
+        ".svelte-kit/**",
+        ".vercel/**"
+      ]
+    },
     "typecheck": {
       "outputs": []
     }
