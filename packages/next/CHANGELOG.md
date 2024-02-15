@@ -1,5 +1,21 @@
 # @serwist/next
 
+## 9.0.0-preview.10
+
+### Patch Changes
+
+- [`4ad8533`](https://github.com/serwist/serwist/commit/4ad85338317f67bc0c8696ca98f6d7d9a1cf191a) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(next): removed `clean-webpack-plugin`
+
+- Updated dependencies []:
+  - @serwist/build@9.0.0-preview.10
+  - @serwist/core@9.0.0-preview.10
+  - @serwist/expiration@9.0.0-preview.10
+  - @serwist/range-requests@9.0.0-preview.10
+  - @serwist/strategies@9.0.0-preview.10
+  - @serwist/sw@9.0.0-preview.10
+  - @serwist/webpack-plugin@9.0.0-preview.10
+  - @serwist/window@9.0.0-preview.10
+
 ## 9.0.0-preview.9
 
 ### Patch Changes
