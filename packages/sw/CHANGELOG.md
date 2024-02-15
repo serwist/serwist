@@ -1,5 +1,22 @@
 # @serwist/sw
 
+## 9.0.0-preview.8
+
+### Patch Changes
+
+- Updated dependencies [[`b1df273`](https://github.com/serwist/serwist/commit/b1df273379ee018fd850f962345740874c9fd54d)]:
+  - @serwist/cacheable-response@9.0.0-preview.8
+  - @serwist/navigation-preload@9.0.0-preview.8
+  - @serwist/broadcast-update@9.0.0-preview.8
+  - @serwist/google-analytics@9.0.0-preview.8
+  - @serwist/background-sync@9.0.0-preview.8
+  - @serwist/range-requests@9.0.0-preview.8
+  - @serwist/expiration@9.0.0-preview.8
+  - @serwist/strategies@9.0.0-preview.8
+  - @serwist/routing@9.0.0-preview.8
+  - @serwist/core@9.0.0-preview.8
+  - @serwist/precaching@9.0.0-preview.8
+
 ## 9.0.0-preview.7
 
 ### Patch Changes
