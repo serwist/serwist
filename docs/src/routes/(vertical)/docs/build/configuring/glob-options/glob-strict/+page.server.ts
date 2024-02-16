@@ -8,7 +8,7 @@ export const load = async () => {
     langs: ["javascript"],
   });
   return {
-    title: "globPatterns - Glob options - Configuring - @serwist/build",
+    title: "globStrict - Glob options - Configuring - @serwist/build",
     code: {
       usage: highlightCode(
         highligher,

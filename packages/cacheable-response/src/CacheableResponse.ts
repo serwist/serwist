@@ -17,7 +17,7 @@ export interface CacheableResponseOptions {
    * A mapping of header names and expected values that a `Response` can have and be
    * considered cacheable. If multiple headers are provided, only one needs to be present.
    */
-  headers?: { [headerName: string]: string };
+  headers?: HeadersInit;
 }
 
 /**
@@ -28,7 +28,7 @@ export interface CacheableResponseOptions {
  */
 export class CacheableResponse {
   private readonly _statuses?: CacheableResponseOptions["statuses"];
-  private readonly _headers?: CacheableResponseOptions["headers"];
+  private readonly _headers?: Headers;
 
   /**
    * To construct a new CacheableResponse instance you must provide at least
@@ -69,7 +69,9 @@ export class CacheableResponse {
     }
 
     this._statuses = config.statuses;
-    this._headers = config.headers;
+    if (config.headers) {
+      this._headers = new Headers(config.headers);
+    }
   }
 
   /**
@@ -98,9 +100,12 @@ export class CacheableResponse {
     }
 
     if (this._headers && cacheable) {
-      cacheable = Object.keys(this._headers).some((headerName) => {
-        return response.headers.get(headerName) === this._headers![headerName];
-      });
+      for (const [headerName, headerValue] of this._headers.entries()) {
+        if (response.headers.get(headerName) !== headerValue) {
+          cacheable = false;
+          break;
+        }
+      }
     }
 
     if (process.env.NODE_ENV !== "production") {

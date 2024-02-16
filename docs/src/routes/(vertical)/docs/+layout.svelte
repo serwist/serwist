@@ -28,15 +28,22 @@
     observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            activeId = entry.target.id;
+          const link = document.querySelector(`a[href="#${entry.target.id}"]`);
+          if (link === null) return;
+          if (entry.intersectionRatio > 0) {
+            link.classList.add("active");
+            link.classList.remove("inactive");
+          } else {
+            link.classList.add("inactive");
+            link.classList.remove("active");
           }
         });
       },
       {
-        rootMargin: "0% 0% -35% 0%",
+        rootMargin: "0% 0% 0% 0%",
       }
     );
+
     return () => observer?.disconnect();
   });
 
@@ -112,10 +119,7 @@
         aria-hidden="true"
       />
       {#if toc}
-        <TocRenderer
-          data={toc}
-          currentActiveId={activeId ?? $page.url.hash.slice(1)}
-        />
+        <TocRenderer data={toc} />
       {:else}
         <p>Table of Contents is not available at the moment.</p>
       {/if}

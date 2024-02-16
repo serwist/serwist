@@ -9,6 +9,15 @@
 <h1 id="welcome">
   Welcome to <InlineCode>@serwist/background-sync</InlineCode>!
 </h1>
+<br />
+<a
+  href="https://developer.chrome.com/docs/workbox/modules/workbox-background-sync"
+  class="link"
+  target="_blank"
+  rel="noreferrer"
+>
+  Original source (Apache 2.0 License). Adapted for Serwist usage.
+</a>
 <br /><br />
 <h2 id="introduction">Introduction</h2>
 <br />

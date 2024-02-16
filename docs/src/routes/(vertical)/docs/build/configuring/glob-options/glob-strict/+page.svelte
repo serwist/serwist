@@ -8,7 +8,7 @@
   const { data } = $props<{ data: PageData }>();
 </script>
 
-<h1>globPatterns</h1>
+<h1>globStrict</h1>
 <br /><br />
 <h2>First added</h2>
 <br />

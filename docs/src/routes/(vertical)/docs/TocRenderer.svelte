@@ -1,27 +1,24 @@
 <script lang="ts">
-  import { clsx } from "$lib/clsx";
   import type { TableOfContents } from "$lib/types";
 
   interface TableOfContentsProps {
     data: TableOfContents[];
-    currentActiveId: string;
   }
 
-  const { data, currentActiveId } = $props<TableOfContentsProps>();
+  const { data } = $props<TableOfContentsProps>();
 </script>
 
 <ul class="list mt-2">
   {#each data as { title, id, children }}
-    {@const isActive = currentActiveId === id}
     <li>
       <a
         href={`#${id}`}
-        class={clsx("text-toc", isActive ? "active" : "inactive")}
+        class="text-toc"
       >
         {title}
       </a>
       {#if children}
-        <svelte:self data={children} currentActiveId={currentActiveId} />
+        <svelte:self data={children} />
       {/if}
     </li>
   {/each}
