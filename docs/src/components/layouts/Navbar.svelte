@@ -19,48 +19,25 @@
     }))
   );
 
-  let isNavMobileMenuOpened = $state(false);
+  let mobileMenu = $state<HTMLDetailsElement | undefined>(undefined);
+
+  $effect(() => {
+    $page.url.pathname;
+    if (mobileMenu) {
+      mobileMenu.open = false;
+    }
+  });
 </script>
 
 <nav
   class={clsx(
     "sticky top-0 z-[50] h-fit max-h-dvh border-b-[0.25px] transition-colors-opacity duration-100",
-    "border-neutral-300 bg-white dark:border-gray-700 dark:bg-black overflow-y-auto"
+    "border-neutral-300 bg-white dark:border-gray-700 dark:bg-black"
   )}
 >
-  <div class="mx-auto max-w-7xl px-2 md:px-6 lg:px-8">
-    <div class="relative flex h-16 items-center justify-between">
-      <div class="flex items-center gap-2">
-        <input
-          type="checkbox"
-          id="navbar-mobile-menu-toggle"
-          class="hidden"
-          aria-labelledby="navbar-mobile-menu-toglab"
-          aria-expanded={isNavMobileMenuOpened}
-          aria-controls="navbar-mobile-menu"
-          bind:checked={isNavMobileMenuOpened}
-        />
-        <label
-          id="navbar-mobile-menu-toglab"
-          for="navbar-mobile-menu-toggle"
-          class={clsx(
-            "flex h-[2rem] w-[2rem] cursor-pointer flex-col justify-center gap-[0.5rem] md:hidden",
-            "[&>span]:bg-black [&>span]:transition-all [&>span]:dark:bg-white",
-            "[&>span]:h-[0.2rem] [&>span]:w-full [&>span]:rounded-md",
-            isNavMobileMenuOpened && [
-              "[&>:nth-child(1)]:rotate-45",
-              "[&>:nth-child(1)]:translate-y-[0.7rem]",
-              "[&>:nth-child(2)]:opacity-0",
-              "[&>:nth-child(3)]:-translate-y-[0.7rem]",
-              "[&>:nth-child(3)]:-rotate-45",
-            ]
-          )}
-          aria-label="Toggle navbar menu"
-        >
-          <span class="origin-center duration-300" />
-          <span class="duration-200 ease-out" />
-          <span class="origin-center duration-300" />
-        </label>
+  <div class="mx-auto max-w-7xl px-2 md:px-6 lg:px-8 py-2">
+    <div class="relative flex items-center justify-between">
+      <div class="flex md:block items-center md:items-start gap-2 md:py-2">
         <a href="/" aria-label="Go to home">
           <enhanced:img
             src="$images/logo-200x50-transparent.png"
@@ -70,6 +47,37 @@
         </a>
       </div>
       <div class="flex flex-row-reverse md:flex-row items-center gap-[5px]">
+        <details
+          bind:this={mobileMenu}
+          class="relative ml-3 md:hidden"
+          id="vertnav-mobile-menu"
+        >
+          <summary
+            class={clsx(
+              "flex h-[2rem] w-[2rem] cursor-pointer flex-col justify-center gap-[0.5rem]",
+              "[&>span]:bg-black [&>span]:transition-all [&>span]:dark:bg-white",
+              "[&>span]:h-[0.2rem] [&>span]:w-full [&>span]:rounded-md"
+            )}
+            aria-label="Toggle navbar menu"
+          >
+            <span class="origin-center duration-300" />
+            <span class="duration-200 ease-out" />
+            <span class="origin-center duration-300" />
+          </summary>
+          <div class="w-[150px] md:hidden absolute right-0">
+            <ul
+              class="space-y-1 p-2 relative top-2 bg-white dark:bg-black rounded-[14px] border border-neutral-300 dark:border-gray-900 max-h-[60dvh] overflow-y-auto"
+            >
+              {#each links as { label, link, isActive }}
+                <li>
+                  <NavLink href={link} textCenter={false} {isActive}>
+                    {label}
+                  </NavLink>
+                </li>
+              {/each}
+            </ul>
+          </div>
+        </details>
         <div
           class="hidden h-full grow items-center overflow-x-hidden pr-2 md:ml-6 md:flex md:pr-0"
         >
@@ -107,17 +115,4 @@
       </div>
     </div>
   </div>
-  {#if isNavMobileMenuOpened}
-    <ul
-      class="space-y-1 px-2 pb-3 pt-2 md:hidden"
-      id="navbar-mobile-menu"
-      transition:slide={{ duration: 200, easing: quintOut, axis: "y" }}
-    >
-      {#each links as { label, link, isActive }}
-        <li>
-          <NavLink href={link} textCenter={false} {isActive}>{label}</NavLink>
-        </li>
-      {/each}
-    </ul>
-  {/if}
 </nav>

@@ -1,7 +1,4 @@
 <script lang="ts">
-  import { quintOut } from "svelte/easing";
-  import { slide } from "svelte/transition";
-
   import { page } from "$app/stores";
   import ChevronRight from "$components/icons/ChevronRight.svelte";
   import VerticalNavbar from "$components/layouts/VerticalNavbar.svelte";
@@ -12,14 +9,15 @@
   import type { TableOfContents } from "$lib/types";
   import TocRenderer from "./TocRenderer.svelte";
 
-  let mobileSidebarHidden = $state<boolean>(true);
-  let activeId = $state<string | null>(null);
+  let mobileMenu = $state<HTMLDetailsElement | undefined>(undefined);
   let observer = $state<IntersectionObserver | null>(null);
   const toc = $derived($page.data.toc) as TableOfContents[] | undefined;
 
   $effect(() => {
     $page.url.pathname;
-    mobileSidebarHidden = true;
+    if (mobileMenu) {
+      mobileMenu.open = false;
+    }
   });
 
   $effect(() => {
@@ -68,41 +66,35 @@
     )}
   >
     <VerticalNavbar />
-    <button
-      class="z-20 flex h-fit w-full flex-row items-center justify-start gap-2 p-3 md:hidden duration-100 text-black dark:text-white"
-      on:click={() => (mobileSidebarHidden = !mobileSidebarHidden)}
-    >
-      Menu
-      <ChevronRight
-        class={clsx(
-          "transition-transform duration-100",
-          !mobileSidebarHidden && "rotate-90"
-        )}
-        width={18}
-        height={18}
-      />
-    </button>
-    <!-- Desktop sidebar -->
-    <aside class="py-4 self-stretch overflow-y-auto hidden md:block">
-      <ul>
-        {#each SIDEBAR_LINKS as sidebarLink}
-          <SidebarLink {...sidebarLink} />
-        {/each}
-      </ul>
-    </aside>
-    <!-- Mobile sidebar -->
-    {#if !mobileSidebarHidden}
-      <aside
-        class="pb-4 self-stretch overflow-y-auto md:hidden"
-        transition:slide={{ duration: 200, easing: quintOut, axis: "y" }}
+    <details bind:this={mobileMenu} id="sidebar-mobile-menu" class="md:hidden">
+      <summary
+        class="z-20 flex h-fit w-full flex-row items-center justify-start gap-2 p-3 md:hidden duration-100 text-black dark:text-white"
       >
+        Menu
+        <ChevronRight
+          class="transition-transform duration-100"
+          width={18}
+          height={18}
+        />
+      </summary>
+      <!-- Desktop sidebar -->
+      <aside class="pb-4 md:pb-0 md:py-4 self-stretch overflow-y-auto">
         <ul>
           {#each SIDEBAR_LINKS as sidebarLink}
             <SidebarLink {...sidebarLink} />
           {/each}
         </ul>
       </aside>
-    {/if}
+    </details>
+    <aside
+      class="pb-4 md:pb-0 md:py-4 self-stretch overflow-y-auto hidden md:block"
+    >
+      <ul>
+        {#each SIDEBAR_LINKS as sidebarLink}
+          <SidebarLink {...sidebarLink} />
+        {/each}
+      </ul>
+    </aside>
   </div>
   <nav
     class="sticky top-0 order-last hidden w-[350px] max-h-screen shrink-0 px-4 print:hidden xl:block"

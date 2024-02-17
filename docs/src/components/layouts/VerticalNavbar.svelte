@@ -1,7 +1,4 @@
 <script lang="ts">
-  import { quintOut } from "svelte/easing";
-  import { slide } from "svelte/transition";
-
   import { page } from "$app/stores";
   import { clsx } from "$lib/clsx";
   import { GITHUB_REPO_URL } from "$lib/constants";
@@ -11,6 +8,8 @@
   import NavLink from "./NavLink.svelte";
   import NavToggleScheme from "./NavToggleScheme.svelte";
 
+  let mobileMenu = $state<HTMLDetailsElement | undefined>(undefined);
+
   const links = $derived(
     NAV_LINKS.map(({ link, ...rest }) => ({
       link,
@@ -19,47 +18,17 @@
     }))
   );
 
-  let isNavMobileMenuOpened = $state(false);
-
   $effect(() => {
     $page.url.pathname;
-    isNavMobileMenuOpened = false;
+    if (mobileMenu) {
+      mobileMenu.open = false;
+    }
   });
 </script>
 
 <nav class="z-[50] h-fit transition-colors-opacity duration-100">
   <div class="relative flex justify-between flex-row md:flex-col mx-auto">
     <div class="flex md:block items-center md:items-start gap-2 md:py-2">
-      <input
-        type="checkbox"
-        id="navbar-mobile-menu-toggle"
-        class="hidden"
-        aria-labelledby="navbar-mobile-menu-toglab"
-        aria-expanded={isNavMobileMenuOpened}
-        aria-controls="navbar-mobile-menu"
-        bind:checked={isNavMobileMenuOpened}
-      />
-      <label
-        id="navbar-mobile-menu-toglab"
-        for="navbar-mobile-menu-toggle"
-        class={clsx(
-          "flex h-[2rem] w-[2rem] cursor-pointer flex-col justify-center gap-[0.5rem] md:hidden",
-          "[&>span]:bg-black [&>span]:transition-all [&>span]:dark:bg-white",
-          "[&>span]:h-[0.2rem] [&>span]:w-full [&>span]:rounded-md",
-          isNavMobileMenuOpened && [
-            "[&>:nth-child(1)]:rotate-45",
-            "[&>:nth-child(1)]:translate-y-[0.7rem]",
-            "[&>:nth-child(2)]:opacity-0",
-            "[&>:nth-child(3)]:-translate-y-[0.7rem]",
-            "[&>:nth-child(3)]:-rotate-45",
-          ]
-        )}
-        aria-label="Toggle navbar menu"
-      >
-        <span class="origin-center duration-300" />
-        <span class="duration-200 ease-out" />
-        <span class="origin-center duration-300" />
-      </label>
       <a href="/" aria-label="Go to home">
         <enhanced:img
           src="$images/logo-200x50-transparent.png"
@@ -87,6 +56,37 @@
         </div>
       </div>
       <div class="flex flex-row-reverse gap-[5px] items-center md:flex-row">
+        <details
+          bind:this={mobileMenu}
+          class="relative ml-3 md:hidden"
+          id="vertnav-mobile-menu"
+        >
+          <summary
+            class={clsx(
+              "flex h-[2rem] w-[2rem] cursor-pointer flex-col justify-center gap-[0.5rem]",
+              "[&>span]:bg-black [&>span]:transition-all [&>span]:dark:bg-white",
+              "[&>span]:h-[0.2rem] [&>span]:w-full [&>span]:rounded-md"
+            )}
+            aria-label="Toggle navbar menu"
+          >
+            <span class="origin-center duration-300" />
+            <span class="duration-200 ease-out" />
+            <span class="origin-center duration-300" />
+          </summary>
+          <div class="w-[150px] md:hidden absolute right-0">
+            <ul
+              class="space-y-1 p-2 relative top-2 bg-white dark:bg-black rounded-[14px] border border-neutral-300 dark:border-gray-900 max-h-[60dvh] overflow-y-auto"
+            >
+              {#each links as { label, link, isActive }}
+                <li>
+                  <NavLink href={link} textCenter={false} {isActive}>
+                    {label}
+                  </NavLink>
+                </li>
+              {/each}
+            </ul>
+          </div>
+        </details>
         <a
           class="nav-button"
           href={GITHUB_REPO_URL}
@@ -111,17 +111,4 @@
       </div>
     </div>
   </div>
-  {#if isNavMobileMenuOpened}
-    <ul
-      class="space-y-1 px-2 pb-3 pt-2 md:hidden"
-      id="navbar-mobile-menu"
-      transition:slide={{ duration: 200, easing: quintOut, axis: "y" }}
-    >
-      {#each links as { label, link, isActive }}
-        <li>
-          <NavLink href={link} textCenter={false} {isActive}>{label}</NavLink>
-        </li>
-      {/each}
-    </ul>
-  {/if}
 </nav>

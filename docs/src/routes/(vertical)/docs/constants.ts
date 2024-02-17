@@ -90,22 +90,18 @@ export const SIDEBAR_LINKS = [
   {
     title: "@serwist/cacheable-response",
     href: "/docs/cacheable-response",
-    children: [],
   },
   {
     title: "@serwist/expiration",
     href: "/docs/expiration",
-    children: [],
   },
   {
     title: "@serwist/google-analytics",
     href: "/docs/google-analytics",
-    children: [],
   },
   {
     title: "@serwist/navigation-preload",
     href: "/docs/navigation-preload",
-    children: [],
   },
   {
     title: "@serwist/next",

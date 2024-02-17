@@ -34,11 +34,35 @@
     @apply text-xl leading-5 tracking-tight;
   }
 
+  @keyframes details-show {
+    from {
+      opacity: 0;
+      transform: var(--details-translate, translateY(-2em));
+    }
+  }
+  details > summary {
+    @apply select-none cursor-pointer list-none;
+  }
+  details > summary::-webkit-details-marker {
+    @apply hidden;
+  }
+
   #root-container {
     @apply m-0 flex h-fit min-h-screen w-full flex-col p-0;
   }
   #main-content {
     @apply flex flex-grow;
+  }
+
+  #vertnav-mobile-menu[open] > *:not(summary),
+  #sidebar-mobile-menu[open] > *:not(summary) {
+    animation: details-show 100ms ease-out;
+  }
+  #vertnav-mobile-menu[open] > summary {
+    @apply [&>:nth-child(1)]:rotate-45 [&>:nth-child(1)]:translate-y-[0.7rem] [&>:nth-child(2)]:opacity-0 [&>:nth-child(3)]:-translate-y-[0.7rem] [&>:nth-child(3)]:-rotate-45;
+  }
+  #sidebar-mobile-menu[open] > summary > svg {
+    @apply rotate-90;
   }
 }
 
