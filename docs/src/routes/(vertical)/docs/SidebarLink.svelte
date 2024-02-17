@@ -34,7 +34,7 @@
         <div  
           class={clsx(
             "flex items-center px-1 text-black dark:text-white transition-all duration-100",
-            isActive ? "border-l border-neutral-300 dark:border-gray-900 bg-gray-200 dark:bg-neutral-800 rounded-e" : "hover:bg-gray-200 hover:dark:bg-neutral-800 rounded"
+            isActive ? "border-l border-black/40 dark:border-white/40 bg-gray-200 dark:bg-neutral-800 rounded-e" : "hover:bg-gray-200 hover:dark:bg-neutral-800 rounded"
           )}
         >
           <ChevronRight
