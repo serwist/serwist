@@ -12,8 +12,8 @@ export const load: PageServerLoad = async () => {
     title: "@serwist/background-sync",
     toc: [
       {
-        title: "Welcome",
-        id: "welcome",
+        title: "@serwist/background-sync",
+        id: "serwist-background-sync",
         children: [
           {
             title: "Introduction",

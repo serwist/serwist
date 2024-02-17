@@ -18,7 +18,7 @@ export interface BroadcastCacheUpdateOptions {
    */
   generatePayload?: (options: CacheDidUpdateCallbackParam) => Record<string, any>;
   /**
-   * If true (the default) then all open clients will receive a message. If false,
+   * If `true` (the default) then all open clients will receive a message. If `false`,
    * then only the client that make the original request will be notified of the update.
    *
    * @default true

@@ -101,7 +101,7 @@ const convertEntry = (queueStoreEntry: UnidentifiedQueueStoreEntry): QueueEntry 
  * later. All parts of the storing and replaying process are observable via
  * callbacks.
  */
-class Queue {
+export class Queue {
   private readonly _name: string;
   private readonly _onSync: OnSyncCallback;
   private readonly _maxRetentionTime: number;
@@ -194,8 +194,7 @@ class Queue {
 
   /**
    * Removes and returns the last request in the queue (along with its
-   * timestamp and any metadata). The returned object takes the form:
-   * `{request, timestamp, metadata}`.
+   * timestamp and any metadata).
    *
    * @returns
    */
@@ -205,8 +204,7 @@ class Queue {
 
   /**
    * Removes and returns the first request in the queue (along with its
-   * timestamp and any metadata). The returned object takes the form:
-   * `{request, timestamp, metadata}`.
+   * timestamp and any metadata).
    *
    * @returns
    */
@@ -440,5 +438,3 @@ class Queue {
     return queueNames;
   }
 }
-
-export { Queue };

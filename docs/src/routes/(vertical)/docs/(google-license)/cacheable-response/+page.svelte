@@ -5,9 +5,7 @@
   const { data } = $props();
 </script>
 
-<h1 id="welcome">
-  Welcome to <ICD>@serwist/cacheable-response</ICD>!
-</h1>
+<h1 id="serwist-cacheable-response">@serwist/cacheable-response</h1>
 <br />
 <a
   href="https://developer.chrome.com/docs/workbox/modules/workbox-cacheable-response"

@@ -9,7 +9,7 @@
     isActive?: boolean;
     wideText?: boolean;
     textCenter?: boolean;
-    button?: Snippet<void>;
+    button?: Snippet<[]>;
   }
 
   const { href, isActive = false, wideText = false, textCenter = true, children, button, ...props } = $props<NavLinkProps>();

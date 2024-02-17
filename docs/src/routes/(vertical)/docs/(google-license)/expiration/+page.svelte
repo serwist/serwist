@@ -5,9 +5,7 @@
   const { data } = $props();
 </script>
 
-<h1 id="welcome">
-  Welcome to <ICD>@serwist/expiration</ICD>!
-</h1>
+<h1 id="serwist-expiration">@serwist/expiration</h1>
 <br />
 <a
   href="https://developer.chrome.com/docs/workbox/modules/workbox-expiration"

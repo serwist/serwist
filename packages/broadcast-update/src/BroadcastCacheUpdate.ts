@@ -35,8 +35,8 @@ const defaultPayloadGenerator = (data: CacheDidUpdateCallbackParam): BroadcastPa
 };
 
 /**
- * Uses the `postMessage()` API to inform any open windows/tabs when a cached
- * response has been updated.
+ * A class that uses the `postMessage()` API to inform any open windows/tabs when
+ * a cached response has been updated.
  *
  * For efficiency's sake, the underlying response bodies are not compared;
  * only specific response headers are checked.
@@ -59,10 +59,8 @@ export class BroadcastCacheUpdate {
   }
 
   /**
-   * Compares two [Responses](https://developer.mozilla.org/en-US/docs/Web/API/Response)
-   * and sends a message (via `postMessage()`) to all window clients if the
-   * responses differ. Neither of the Responses can be
-   * [opaque](https://developer.chrome.com/docs/workbox/caching-resources-during-runtime/#opaque-responses).
+   * Compares two responses and sends a message (via `postMessage()`) to all window clients if the
+   * responses differ. Neither of the Responses can be opaque.
    *
    * The message that's posted has the following format (where `payload` can
    * be customized via the `generatePayload` option the instance is created

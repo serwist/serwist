@@ -6,9 +6,7 @@
   const { data } = $props();
 </script>
 
-<h1 id="welcome">
-  Welcome to <InlineCode>@serwist/background-sync</InlineCode>!
-</h1>
+<h1 id="serwist-background-sync">@serwist/background-sync</h1>
 <br />
 <a
   href="https://developer.chrome.com/docs/workbox/modules/workbox-background-sync"

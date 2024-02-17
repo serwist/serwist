@@ -2,7 +2,7 @@
   import InlineCode from "$components/InlineCode.svelte";
 </script>
 
-<h1>Welcome to <InlineCode>@serwist/build</InlineCode>!</h1>
+<h1>@serwist/build</h1>
 <br /><br />
 <h2>Introduction</h2>
 <br />
@@ -15,13 +15,13 @@
 <br />
 <ul class="list">
   <li>
-    <a class="link" href="/docs/build/inject-manifest">InjectManifest</a> - Generates
+    <a class="link" href="/docs/build/inject-manifest">InjectManifest</a> — Generates
     a manifest of local files that should be precached, injects it into the service
     worker, and returns a list of warnings, the number of precache entries, and the
     number of bytes that they accumulate to.
   </li>
   <li>
-    <a class="link" href="/docs/build/get-manifest">GetManifest</a> - Although this
+    <a class="link" href="/docs/build/get-manifest">GetManifest</a> — Although this
     mode is conceptually similar to InjectManifest, it simply returns the manifest
     alongside other details that InjectManifest also returns instead of injecting
     it into the source.

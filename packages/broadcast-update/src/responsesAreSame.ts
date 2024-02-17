@@ -12,12 +12,12 @@ import { SerwistError, logger } from "@serwist/core/internal";
  * Given two `Response's`, compares several header values to see if they are
  * the same or not.
  *
- * @param firstResponse
- * @param secondResponse
- * @param headersToCheck
+ * @param firstResponse The first response.
+ * @param secondResponse The second response.
+ * @param headersToCheck A list of headers to check.
  * @returns
  */
-const responsesAreSame = (firstResponse: Response, secondResponse: Response, headersToCheck: string[]): boolean => {
+export const responsesAreSame = (firstResponse: Response, secondResponse: Response, headersToCheck: string[]): boolean => {
   if (process.env.NODE_ENV !== "production") {
     if (!(firstResponse instanceof Response && secondResponse instanceof Response)) {
       throw new SerwistError("invalid-responses-are-same-args");
@@ -30,7 +30,7 @@ const responsesAreSame = (firstResponse: Response, secondResponse: Response, hea
 
   if (!atLeastOneHeaderAvailable) {
     if (process.env.NODE_ENV !== "production") {
-      logger.warn("Unable to determine where the response has been updated " + "because none of the headers that would be checked are present.");
+      logger.warn("Unable to determine where the response has been updated because none of the headers that would be checked are present.");
       logger.debug("Attempting to compare the following: ", firstResponse, secondResponse, headersToCheck);
     }
 
@@ -46,5 +46,3 @@ const responsesAreSame = (firstResponse: Response, secondResponse: Response, hea
     return headerStateComparison && headerValueComparison;
   });
 };
-
-export { responsesAreSame };

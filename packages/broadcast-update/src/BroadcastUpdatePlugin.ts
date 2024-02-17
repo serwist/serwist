@@ -12,8 +12,8 @@ import { BroadcastCacheUpdate } from "./BroadcastCacheUpdate.js";
 import type { BroadcastCacheUpdateOptions } from "./types.js";
 
 /**
- * This plugin will automatically broadcast a message whenever a cached response
- * is updated.
+ * A class implementing the `cacheDidUpdate` lifecycle callback. It will automatically 
+ * broadcast a message whenever a cached response is updated.
  */
 export class BroadcastUpdatePlugin implements SerwistPlugin {
   private readonly _broadcastUpdate: BroadcastCacheUpdate;

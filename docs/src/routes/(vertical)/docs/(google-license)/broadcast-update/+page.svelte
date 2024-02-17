@@ -6,9 +6,7 @@
   const { data } = $props();
 </script>
 
-<h1 id="welcome">
-  Welcome to <InlineCode>@serwist/broadcast-update</InlineCode>!
-</h1>
+<h1 id="serwist-broadcast-update">@serwist/broadcast-update</h1>
 <br />
 <a
   href="https://developer.chrome.com/docs/workbox/modules/workbox-broadcast-update"

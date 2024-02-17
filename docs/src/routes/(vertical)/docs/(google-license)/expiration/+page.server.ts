@@ -12,8 +12,8 @@ export const load: PageServerLoad = async () => {
     title: "@serwist/expiration",
     toc: [
       {
-        title: "Welcome",
-        id: "welcome",
+        title: "@serwist/expiration",
+        id: "serwist-expiration",
         children: [
           {
             title: "Introduction",

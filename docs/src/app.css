@@ -40,14 +40,12 @@
   #main-content {
     @apply flex flex-grow;
   }
-
-  html[data-theme="light"] .code-tab-dark,
-  html[data-theme="dark"] .code-tab-light {
-    @apply !invisible !hidden;
-  }
 }
 
 @layer utilities {
+  .nav-button {
+    @apply flex p-3 rounded-full cursor-pointer items-center justify-center bg-transparent duration-100 hover:bg-gray-200 dark:hover:bg-neutral-800;
+  }
   .link {
     @apply text-accent-light dark:text-accent-dark underline underline-offset-[6px];
   }
@@ -57,6 +55,9 @@
   .list > li {
     @apply mb-2;
   }
+  .list > li > .list {
+    @apply mt-2;
+  }
   .text-toc {
     @apply text-xs font-medium transition-colors duration-100;
   }
@@ -65,6 +66,10 @@
   }
   .text-toc.active {
     @apply text-accent-light dark:text-accent-dark;
+  }
+  html[data-theme="light"] .visible-dark,
+  html[data-theme="dark"] .visible-light {
+    @apply !invisible !hidden;
   }
 }
 

@@ -8,11 +8,38 @@ export const SIDEBAR_LINKS = [
   {
     title: "@serwist/background-sync",
     href: "/docs/background-sync",
+    children: [
+      {
+        title: "BackgroundSyncPlugin",
+        href: "/docs/background-sync/background-sync-plugin",
+      },
+      {
+        title: "Queue",
+        href: "/docs/background-sync/queue",
+      },
+    ],
   },
   {
     title: "@serwist/broadcast-update",
     href: "/docs/broadcast-update",
-    children: [],
+    children: [
+      {
+        title: "BroadcastCacheUpdate",
+        href: "/docs/broadcast-update/broadcast-cache-update",
+      },
+      {
+        title: "BroadcastUpdatePlugin",
+        href: "/docs/broadcast-update/broadcast-update-plugin",
+      },
+      {
+        title: "Constants",
+        href: "/docs/broadcast-update/constants",
+      },
+      {
+        title: "responsesAreSame",
+        href: "/docs/broadcast-update/responses-are-same",
+      },
+    ],
   },
   {
     title: "@serwist/build",

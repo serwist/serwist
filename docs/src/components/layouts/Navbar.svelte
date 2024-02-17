@@ -61,7 +61,6 @@
           <span class="duration-200 ease-out" />
           <span class="origin-center duration-300" />
         </label>
-        <NavToggleScheme deviceType="mobile" />
       </div>
       <div class="flex flex-1 items-center justify-center md:flex-none md:items-stretch md:justify-start">
         <span>
@@ -80,7 +79,7 @@
             </ul>
           </div>
         </div>
-        <a href={GITHUB_REPO_URL} target="_blank" rel="noreferrer" class="p-2 text-current" aria-label="Our Github repo (opens in a new tab)">
+        <a href={GITHUB_REPO_URL} target="_blank" rel="noreferrer" class="p-2 text-current order-last md:order-[unset]" aria-label="Our Github repo (opens in a new tab)">
           <svg width={24} height={24} fill="currentColor" viewBox="3 3 18 18" aria-hidden>
             <title>GitHub</title>
             <path
@@ -88,7 +87,7 @@
             ></path>
           </svg>
         </a>
-        <NavToggleScheme deviceType="desktop" />
+        <NavToggleScheme />
       </div>
     </div>
   </div>

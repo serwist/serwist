@@ -48,13 +48,12 @@
       {@const isActive = tab === currentTab}
       <div id={`${id}-code`} class={clsx("whitespace-normal overflow-auto", !isActive && "hidden")} aria-labelledby={`${id}-button`}>
         {#if isActive}
-          <span class="code-tab-dark [&>*]:!bg-transparent">
+          <span class="visible-dark [&>*]:!bg-transparent">
             <!-- Only use trusted code! -->
-            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
             {@html code.dark}
           </span>
-          <span class="code-tab-light [&>*]:!bg-transparent">
-            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+          <span class="visible-light [&>*]:!bg-transparent">
+            <!-- Only use trusted code! -->
             {@html code.light}
           </span>
         {/if}

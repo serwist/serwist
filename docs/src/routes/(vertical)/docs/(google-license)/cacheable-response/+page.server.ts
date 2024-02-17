@@ -12,8 +12,8 @@ export const load: PageServerLoad = async () => {
     title: "@serwist/cacheable-response",
     toc: [
       {
-        title: "Welcome",
-        id: "welcome",
+        title: "@serwist/cacheable-response",
+        id: "serwist-cacheable-response",
         children: [
           {
             title: "Introduction",

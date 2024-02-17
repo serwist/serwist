@@ -36,7 +36,7 @@ export interface RequestData extends MapLikeObject {
  * Most developers will not need to access this class directly;
  * it is exposed for advanced use cases.
  */
-class StorableRequest {
+export class StorableRequest {
   private readonly _requestData: RequestData;
 
   /**
@@ -140,5 +140,3 @@ class StorableRequest {
     return new StorableRequest(this.toObject());
   }
 }
-
-export { StorableRequest };
