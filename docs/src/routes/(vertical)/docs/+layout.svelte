@@ -58,6 +58,7 @@
 
 <div class="flex h-full w-full flex-col md:flex-row">
   <div
+    id="sidebar-wrapper"
     class={clsx(
       "print:hidden w-full max-h-dvh md:w-80 md:shrink-0 md:self-start z-10",
       "transform-gpu transition-all duration-150 ease-out sticky top-0",
@@ -66,7 +67,7 @@
     )}
   >
     <VerticalNavbar />
-    <details bind:this={mobileMenu} id="sidebar-mobile-menu" class="md:hidden">
+    <details bind:this={mobileMenu} id="sidebar-mobile-menu" class="overflow-y-auto md:hidden">
       <summary
         class="z-20 flex h-fit w-full flex-row items-center justify-start gap-2 p-3 md:hidden duration-100 text-black dark:text-white"
       >
@@ -77,8 +78,8 @@
           height={18}
         />
       </summary>
-      <!-- Desktop sidebar -->
-      <aside class="pb-4 md:pb-0 md:py-4 self-stretch overflow-y-auto">
+      <!-- Mobile sidebar -->
+      <aside class="pb-4 md:pb-0 md:py-4 self-stretch">
         <ul>
           {#each SIDEBAR_LINKS as sidebarLink}
             <SidebarLink {...sidebarLink} />
@@ -86,6 +87,7 @@
         </ul>
       </aside>
     </details>
+    <!-- Desktop sidebar -->
     <aside
       class="pb-4 md:pb-0 md:py-4 self-stretch overflow-y-auto hidden md:block"
     >
