@@ -31,7 +31,7 @@ installSerwist({
   cleanupOutdatedCaches: true,
   skipWaiting: true,
   clientsClaim: true,
-  navigationPreload: true,
+  navigationPreload: false,
   disableDevLogs: true,
   runtimeCaching: defaultCache,
 });
