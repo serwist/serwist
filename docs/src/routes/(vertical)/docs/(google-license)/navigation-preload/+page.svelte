@@ -24,9 +24,9 @@
 </p>
 <br />
 <p>
-  It will handle checking at runtime to see if the current browser supports
-  navigation preloading, and if it does, an <ICD>activate</ICD> event handler will
-  be automatically created to enable it.
+  It will check whether navigation preloading is supported in the current
+  browser, and if it is, an <ICD>activate</ICD> event handler will be automatically
+  created to enable it.
 </p>
 <br />
 <p>
