@@ -8,13 +8,13 @@
     },
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**", "out/**", "dist/**", ".svelte-kit/**", ".vercel/**", "public/*.js"]
+      "outputs": [".next/**", "!.next/cache/**", "out/**", "dist/**", ".svelte-kit/**", ".vercel/**", ".output/**", ".nuxt/**", "public/*.js"]
     },
     "lint": {
       "outputs": []
     },
     "test": {
-      "outputs": [".next/**", "!.next/cache/**", "out/**", "dist/**", ".svelte-kit/**", ".vercel/**", "public/*.js"]
+      "outputs": [".next/**", "!.next/cache/**", "out/**", "dist/**", ".svelte-kit/**", ".vercel/**", ".output/**", ".nuxt/**", "public/*.js"]
     },
     "typecheck": {
       "outputs": []
