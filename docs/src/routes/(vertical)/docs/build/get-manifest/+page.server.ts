@@ -1,21 +1,15 @@
 import { highlightCode } from "$lib/highlightCode";
-import { getHighlighter } from "shiki";
 
 import type { PageServerLoad } from "./$types";
 
-export const load: PageServerLoad = async () => {
-  const highlighter = await getHighlighter({
-    themes: ["github-dark", "github-light"],
-    langs: ["typescript", "javascript"],
-  });
-  return {
-    title: "GetManifest - @serwist/build",
-    code: {
-      gettingStarted: highlightCode(
-        highlighter,
-        {
-          "build.js": {
-            code: `import { getManifest } from "@serwist/build";
+export const load: PageServerLoad = ({ locals }) => ({
+  title: "GetManifest - @serwist/build",
+  code: {
+    gettingStarted: highlightCode(
+      locals.highlighter,
+      {
+        "build.js": {
+          code: `import { getManifest } from "@serwist/build";
 // Build something...
 const { manifestEntries, count, size, warnings } = await getManifest({
   globDirectory: "dist/static",
@@ -32,11 +26,10 @@ void bundleServiceWorker({
     "self.__SW_MANIFEST": JSON.stringify(manifestEntries),
   },
 });`,
-            lang: "javascript",
-          },
+          lang: "javascript",
         },
-        { idPrefix: "getting-started" },
-      ),
-    },
-  };
-};
+      },
+      { idPrefix: "getting-started" },
+    ),
+  },
+});

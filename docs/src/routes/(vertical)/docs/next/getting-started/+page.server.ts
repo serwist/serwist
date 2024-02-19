@@ -1,81 +1,74 @@
-import { getHighlighter } from "shiki";
-
 import { highlightCode } from "$lib/highlightCode";
 
-import type { PageServerLoad } from "./$types";
 import type { TocEntry } from "$lib/types";
+import type { PageServerLoad } from "./$types";
 
-export const load: PageServerLoad = async () => {
-  const highlighter = await getHighlighter({
-    themes: ["github-light", "github-dark"],
-    langs: ["bash", "typescript", "javascript", "tsx", "jsx", "json"],
-  });
-  return {
-    title: "Getting started - @serwist/next",
-    toc: [
-      {
-        title: "Getting started",
-        id: "getting-started",
-        children: [
-          { title: "Install", id: "install" },
-          {
-            title: "Basic usage",
-            id: "basic-usage",
-            children: [
-              {
-                title: "Step 1: Wrap your Next.js config with withSerwist",
-                id: "basic-usage-wrap-next-config",
-              },
-              {
-                title: "Step 2: Update tsconfig.json",
-                id: "basic-usage-update-tsconfig",
-              },
-              {
-                title: "Step 3: Create a service worker",
-                id: "basic-usage-create-sw",
-              },
-              {
-                title: "Step 4: Add a web application manifest",
-                id: "basic-usage-add-manifest",
-              },
-              {
-                title: "Step 5: Add metadata to <head />",
-                id: "basic-usage-add-metadata",
-              },
-            ],
-          },
-        ],
-      },
-    ] satisfies TocEntry[],
-    code: {
-      install: highlightCode(
-        highlighter,
+export const load: PageServerLoad = ({ locals }) => ({
+  title: "Getting started - @serwist/next",
+  toc: [
+    {
+      title: "Getting started",
+      id: "getting-started",
+      children: [
+        { title: "Install", id: "install" },
         {
-          npm: {
-            code: "npm i @serwist/next",
-            lang: "bash",
-          },
-          yarn: {
-            code: "yarn add @serwist/next",
-            lang: "bash",
-          },
-          pnpm: {
-            code: "pnpm add @serwist/next",
-            lang: "bash",
-          },
-          bun: {
-            code: "bun add @serwist/next",
-            lang: "bash",
-          },
+          title: "Basic usage",
+          id: "basic-usage",
+          children: [
+            {
+              title: "Step 1: Wrap your Next.js config with withSerwist",
+              id: "basic-usage-wrap-next-config",
+            },
+            {
+              title: "Step 2: Update tsconfig.json",
+              id: "basic-usage-update-tsconfig",
+            },
+            {
+              title: "Step 3: Create a service worker",
+              id: "basic-usage-create-sw",
+            },
+            {
+              title: "Step 4: Add a web application manifest",
+              id: "basic-usage-add-manifest",
+            },
+            {
+              title: "Step 5: Add metadata to <head />",
+              id: "basic-usage-add-metadata",
+            },
+          ],
         },
-        { idPrefix: "install-serwist-next-instruction" },
-      ),
-      basicUsage: {
-        wrapConfig: highlightCode(
-          highlighter,
-          {
-            "next.config.mjs": {
-              code: `import withSerwistInit from "@serwist/next";
+      ],
+    },
+  ] satisfies TocEntry[],
+  code: {
+    install: highlightCode(
+      locals.highlighter,
+      {
+        npm: {
+          code: "npm i @serwist/next",
+          lang: "bash",
+        },
+        yarn: {
+          code: "yarn add @serwist/next",
+          lang: "bash",
+        },
+        pnpm: {
+          code: "pnpm add @serwist/next",
+          lang: "bash",
+        },
+        bun: {
+          code: "bun add @serwist/next",
+          lang: "bash",
+        },
+      },
+      { idPrefix: "install-serwist-next-instruction" },
+    ),
+    basicUsage: {
+      wrapConfig: highlightCode(
+        locals.highlighter,
+        {
+          "next.config.mjs": {
+            code: `import withSerwistInit from "@serwist/next";
 
 const withSerwist = withSerwistInit({
     // Note: This is only an example. If you use Pages Router,
@@ -87,10 +80,10 @@ const withSerwist = withSerwistInit({
 export default withSerwist({
   // Your Next.js config
 });`,
-              lang: "javascript",
-            },
-            "next.config.mjs (light)": {
-              code: `// If your deployment platform requires your production image's size to not exceed a certain limit,
+            lang: "javascript",
+          },
+          "next.config.mjs (light)": {
+            code: `// If your deployment platform requires your production image's size to not exceed a certain limit,
 // you can also install \`@serwist/next\` as one of your \`devDependencies\` and do this:
 import {
   PHASE_DEVELOPMENT_SERVER,
@@ -113,10 +106,10 @@ export default async (phase) => {
   
   return nextConfig;
 };`,
-              lang: "javascript",
-            },
-            "next.config.js": {
-              code: `const {
+            lang: "javascript",
+          },
+          "next.config.js": {
+            code: `const {
   PHASE_DEVELOPMENT_SERVER,
   PHASE_PRODUCTION_BUILD,
 } = require("next/constants");
@@ -137,16 +130,16 @@ module.exports = (phase) => {
 
   return nextConfig;
 };`,
-              lang: "javascript",
-            },
+            lang: "javascript",
           },
-          { idPrefix: "basic-usage-wrap-config-instruction" },
-        ),
-        createEntry: highlightCode(
-          highlighter,
-          {
-            "sw.ts": {
-              code: `import type { SerwistGlobalConfig } from "@serwist/core";
+        },
+        { idPrefix: "basic-usage-wrap-config-instruction" },
+      ),
+      createEntry: highlightCode(
+        locals.highlighter,
+        {
+          "sw.ts": {
+            code: `import type { SerwistGlobalConfig } from "@serwist/core";
 import { defaultCache } from "@serwist/next/worker";
 import type { PrecacheEntry } from "@serwist/precaching";
 import { installSerwist } from "@serwist/sw";
@@ -169,10 +162,10 @@ installSerwist({
   navigationPreload: true,
   runtimeCaching: defaultCache,
 });`,
-              lang: "typescript",
-            },
-            "sw.js": {
-              code: `import { defaultCache } from "@serwist/next/worker";
+            lang: "typescript",
+          },
+          "sw.js": {
+            code: `import { defaultCache } from "@serwist/next/worker";
 import { installSerwist } from "@serwist/sw";
 
 installSerwist({
@@ -182,40 +175,40 @@ installSerwist({
   navigationPreload: true,
   runtimeCaching: defaultCache,
 });`,
-              lang: "javascript",
-            },
+            lang: "javascript",
           },
-          { idPrefix: "basic-usage-create-entry-instruction" },
-        ),
-        createEntryAdditionalPackages: highlightCode(
-          highlighter,
-          {
-            npm: {
-              code: "npm i -D @serwist/core @serwist/precaching @serwist/sw",
-              lang: "bash",
-            },
-            yarn: {
-              code: "yarn add -D @serwist/core @serwist/precaching @serwist/sw",
-              lang: "bash",
-            },
-            pnpm: {
-              code: "pnpm add -D @serwist/core @serwist/precaching @serwist/sw",
-              lang: "bash",
-            },
-            bun: {
-              code: "bun add -D @serwist/core @serwist/precaching @serwist/sw",
-              lang: "bash",
-            },
+        },
+        { idPrefix: "basic-usage-create-entry-instruction" },
+      ),
+      createEntryAdditionalPackages: highlightCode(
+        locals.highlighter,
+        {
+          npm: {
+            code: "npm i -D @serwist/core @serwist/precaching @serwist/sw",
+            lang: "bash",
           },
-          {
-            idPrefix: "basic-usage-create-usage-additional-packages-instruction",
+          yarn: {
+            code: "yarn add -D @serwist/core @serwist/precaching @serwist/sw",
+            lang: "bash",
           },
-        ),
-        tsConfig: highlightCode(
-          highlighter,
-          {
-            "tsconfig.json": {
-              code: `{
+          pnpm: {
+            code: "pnpm add -D @serwist/core @serwist/precaching @serwist/sw",
+            lang: "bash",
+          },
+          bun: {
+            code: "bun add -D @serwist/core @serwist/precaching @serwist/sw",
+            lang: "bash",
+          },
+        },
+        {
+          idPrefix: "basic-usage-create-usage-additional-packages-instruction",
+        },
+      ),
+      tsConfig: highlightCode(
+        locals.highlighter,
+        {
+          "tsconfig.json": {
+            code: `{
   // Other stuff...
   "compilerOptions": {
     // Other options...
@@ -231,16 +224,16 @@ installSerwist({
     ],
   },
 }`,
-              lang: "json",
-            },
+            lang: "json",
           },
-          { idPrefix: "basic-usage-tsconfig-instruction" },
-        ),
-        manifestJson: highlightCode(
-          highlighter,
-          {
-            "manifest.json": {
-              code: `{
+        },
+        { idPrefix: "basic-usage-tsconfig-instruction" },
+      ),
+      manifestJson: highlightCode(
+        locals.highlighter,
+        {
+          "manifest.json": {
+            code: `{
   "name": "My awesome PWA app",
   "short_name": "PWA App",
   "icons": [
@@ -268,16 +261,16 @@ installSerwist({
   "orientation": "portrait"
   // ...
 }`,
-              lang: "json",
-            },
+            lang: "json",
           },
-          { idPrefix: "basic-usage-manifest-json-instruction" },
-        )[0],
-        metaAndLinkTags: highlightCode(
-          highlighter,
-          {
-            "app/layout.tsx": {
-              code: `import type { Metadata, Viewport } from "next";
+        },
+        { idPrefix: "basic-usage-manifest-json-instruction" },
+      )[0],
+      metaAndLinkTags: highlightCode(
+        locals.highlighter,
+        {
+          "app/layout.tsx": {
+            code: `import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 
 const APP_NAME = "PWA App";
@@ -332,10 +325,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     </html>
   );
 }`,
-              lang: "tsx",
-            },
-            "app/layout.js": {
-              code: `const APP_NAME = "PWA App";
+            lang: "tsx",
+          },
+          "app/layout.js": {
+            code: `const APP_NAME = "PWA App";
 const APP_DEFAULT_TITLE = "My Awesome PWA App";
 const APP_TITLE_TEMPLATE = "%s - PWA App";
 const APP_DESCRIPTION = "Best PWA app in the world!";
@@ -387,10 +380,10 @@ export default function RootLayout({ children }) {
     </html>
   );
 }`,
-              lang: "jsx",
-            },
-            "pages/_app.tsx": {
-              code: `import type { AppProps } from "next/app";
+            lang: "jsx",
+          },
+          "pages/_app.tsx": {
+            code: `import type { AppProps } from "next/app";
 import Head from "next/head";
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -474,10 +467,10 @@ export default function App({ Component, pageProps }: AppProps) {
   );
 }
 `,
-              lang: "tsx",
-            },
-            "pages/_app.js": {
-              code: `import Head from "next/head";
+            lang: "tsx",
+          },
+          "pages/_app.js": {
+            code: `import Head from "next/head";
 
 export default function App({ Component, pageProps }) {
   return (
@@ -559,12 +552,11 @@ export default function App({ Component, pageProps }) {
     </>
   );
 }`,
-              lang: "jsx",
-            },
+            lang: "jsx",
           },
-          { idPrefix: "basic-usage-meta-and-link-tags-instruction" },
-        ),
-      },
+        },
+        { idPrefix: "basic-usage-meta-and-link-tags-instruction" },
+      ),
     },
-  };
-};
+  },
+});

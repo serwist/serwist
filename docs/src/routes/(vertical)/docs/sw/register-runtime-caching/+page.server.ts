@@ -1,20 +1,14 @@
-import { getHighlighter } from "shiki";
-
 import { highlightCode } from "$lib/highlightCode";
 
-export const load = async () => {
-  const highligher = await getHighlighter({
-    themes: ["github-dark", "github-light"],
-    langs: ["typescript", "javascript"],
-  });
-  return {
-    title: "registerRuntimeCaching - @serwist/sw",
-    code: {
-      usage: highlightCode(
-        highligher,
-        {
-          "sw.ts": {
-            code: `import type { SerwistGlobalConfig } from "@serwist/core";
+import type { PageServerLoad } from "./$types";
+export const load: PageServerLoad = ({ locals }) => ({
+  title: "registerRuntimeCaching - @serwist/sw",
+  code: {
+    usage: highlightCode(
+      locals.highlighter,
+      {
+        "sw.ts": {
+          code: `import type { SerwistGlobalConfig } from "@serwist/core";
 import { clientsClaim } from "@serwist/core";
 import { ExpirationPlugin } from "@serwist/expiration";
 import type { PrecacheEntry } from "@serwist/precaching";
@@ -138,10 +132,10 @@ registerRuntimeCaching(
     }),
   },
 );`,
-            lang: "typescript",
-          },
-          "sw.js": {
-            code: `import { clientsClaim } from "@serwist/core";
+          lang: "typescript",
+        },
+        "sw.js": {
+          code: `import { clientsClaim } from "@serwist/core";
 import { ExpirationPlugin } from "@serwist/expiration";
 import { CacheFirst, NetworkFirst, StaleWhileRevalidate } from "@serwist/strategies";
 import { handlePrecaching, registerRuntimeCaching } from "@serwist/sw";
@@ -252,11 +246,10 @@ registerRuntimeCaching(
     }),
   },
 );`,
-            lang: "javascript",
-          },
+          lang: "javascript",
         },
-        { idPrefix: "usage-example" },
-      ),
-    },
-  };
-};
+      },
+      { idPrefix: "usage-example" },
+    ),
+  },
+});

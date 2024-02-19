@@ -1,22 +1,15 @@
-import { getHighlighter } from "shiki";
-
 import { highlightCode } from "$lib/highlightCode";
 
 import type { PageServerLoad } from "./$types";
 
-export const load: PageServerLoad = async () => {
-  const highlighter = await getHighlighter({
-    themes: ["github-dark", "github-light"],
-    langs: ["javascript"],
-  });
-  return {
-    title: "Home",
-    code: {
-      next: highlightCode(
-        highlighter,
-        {
-          "next.config.mjs": {
-            code: `import withSerwistInit from "@serwist/next";
+export const load: PageServerLoad = ({ locals }) => ({
+  title: "Home",
+  code: {
+    next: highlightCode(
+      locals.highlighter,
+      {
+        "next.config.mjs": {
+          code: `import withSerwistInit from "@serwist/next";
 
 const withSerwist = withSerwistInit({
     swSrc: "app/sw.ts",
@@ -26,10 +19,10 @@ const withSerwist = withSerwistInit({
 export default withSerwist({
     // Your Next.js config
 });`,
-            lang: "javascript",
-          },
-          "next.config.js": {
-            code: `const withSerwist = require("@serwist/next").default({
+          lang: "javascript",
+        },
+        "next.config.js": {
+          code: `const withSerwist = require("@serwist/next").default({
     swSrc: "app/sw.ts",
     swDest: "public/sw.js",
 });
@@ -37,16 +30,16 @@ export default withSerwist({
 module.exports = withSerwist({
     // Your Next.js config
 });`,
-            lang: "javascript",
-          },
+          lang: "javascript",
         },
-        { idPrefix: "nextjs-config-showcase" },
-      ),
-      webpack: highlightCode(
-        highlighter,
-        {
-          "webpack.config.js": {
-            code: `import fs from "node:fs";
+      },
+      { idPrefix: "nextjs-config-showcase" },
+    ),
+    webpack: highlightCode(
+      locals.highlighter,
+      {
+        "webpack.config.js": {
+          code: `import fs from "node:fs";
 import path from "node:path";
 
 import { InjectManifest } from "@serwist/webpack-plugin";
@@ -88,11 +81,10 @@ export default {
   ],
 };
 `,
-            lang: "javascript",
-          },
+          lang: "javascript",
         },
-        { idPrefix: "webpack-config-showcase" },
-      ),
-    },
-  };
-};
+      },
+      { idPrefix: "webpack-config-showcase" },
+    ),
+  },
+});

@@ -1,49 +1,44 @@
-import { getHighlighter } from "shiki";
-
 import { highlightCode } from "$lib/highlightCode";
 import type { TocEntry } from "$lib/types";
 
-export const load = async () => {
-  const highligher = await getHighlighter({
-    themes: ["github-dark", "github-light"],
-    langs: ["typescript", "javascript"],
-  });
-  return {
-    title: "Queue - @serwist/background-sync",
-    toc: [
-      {
-        title: "Queue",
-        id: "queue",
-        children: [
-          {
-            title: "First added",
-            id: "first-added",
-          },
-          {
-            title: "About",
-            id: "about",
-          },
-          {
-            title: "Parameters",
-            id: "parameters",
-          },
-          {
-            title: "Methods and fields",
-            id: "methods-and-fields",
-          },
-          {
-            title: "Usage",
-            id: "usage",
-          },
-        ],
-      },
-    ] satisfies TocEntry[],
-    code: {
-      usage: highlightCode(
-        highligher,
+import type { PageServerLoad } from "./$types";
+
+export const load: PageServerLoad = ({ locals }) => ({
+  title: "Queue - @serwist/background-sync",
+  toc: [
+    {
+      title: "Queue",
+      id: "queue",
+      children: [
         {
-          "sw.ts": {
-            code: `import { Queue } from "@serwist/background-sync";
+          title: "First added",
+          id: "first-added",
+        },
+        {
+          title: "About",
+          id: "about",
+        },
+        {
+          title: "Parameters",
+          id: "parameters",
+        },
+        {
+          title: "Methods and fields",
+          id: "methods-and-fields",
+        },
+        {
+          title: "Usage",
+          id: "usage",
+        },
+      ],
+    },
+  ] satisfies TocEntry[],
+  code: {
+    usage: highlightCode(
+      locals.highlighter,
+      {
+        "sw.ts": {
+          code: `import { Queue } from "@serwist/background-sync";
   
 const queue = new Queue("myQueueName");
 
@@ -66,11 +61,10 @@ self.addEventListener("fetch", (event) => {
 
   event.respondWith(backgroundSync());
 });`,
-            lang: "javascript",
-          },
+          lang: "javascript",
         },
-        { idPrefix: "usage-example" },
-      ),
-    },
-  };
-};
+      },
+      { idPrefix: "usage-example" },
+    ),
+  },
+});

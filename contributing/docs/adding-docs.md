@@ -59,21 +59,16 @@
 ```ts
 import { highlightCode } from "$lib/highlightCode";
 import type { TocEntry } from "$lib/types";
-import { getHighlighter } from "shiki";
 
 import type { PageServerLoad } from "./$types";
 
-export const load: PageServerLoad = async () => {
-  const highlighter = await getHighlighter({
-    langs: ["typescript", "javascript"],
-    themes: ["github-dark", "github-light"],
-  });
+export const load: PageServerLoad = async ({ locals }) => {
   return {
     title: "Foo",
     code: {
       basicUsage: {
         setup: highlightCode(
-          highlighter,
+          locals.highlighter,
           {
             "sw.ts": {
               code: `import { enable as enableNavigationPreload } from "@serwist/navigation-preload";

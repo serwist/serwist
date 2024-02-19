@@ -16,8 +16,8 @@ declare let self: ServiceWorkerGlobalScope;
 /**
  * If the browser supports navigation preloading, then this will enable it.
  *
- * @param headerValue Optional. Allows developers to override the value of 
- * the `Service-Worker-Navigation-Preload` header which will be sent to the 
+ * @param headerValue Optional. Allows developers to override the value of
+ * the `Service-Worker-Navigation-Preload` header which will be sent to the
  * server when making the navigation request.
  */
 export const enable = (headerValue?: string): void => {

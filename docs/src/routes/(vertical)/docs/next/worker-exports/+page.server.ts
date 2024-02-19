@@ -1,22 +1,16 @@
-import { getHighlighter } from "shiki";
-
 import { highlightCode } from "$lib/highlightCode";
 
-export const load = async () => {
-  const highligher = await getHighlighter({
-    themes: ["github-dark", "github-light"],
-    langs: ["typescript", "javascript"],
-  });
+import type { PageServerLoad } from "./$types";
 
-  return {
-    title: "Worker exports - @serwist/next",
-    code: {
-      defaultCache: {
-        usage: highlightCode(
-          highligher,
-          {
-            "app/sw.ts": {
-              code: `import type { SerwistGlobalConfig } from "@serwist/core";
+export const load: PageServerLoad = ({ locals }) => ({
+  title: "Worker exports - @serwist/next",
+  code: {
+    defaultCache: {
+      usage: highlightCode(
+        locals.highlighter,
+        {
+          "app/sw.ts": {
+            code: `import type { SerwistGlobalConfig } from "@serwist/core";
 import { defaultCache } from "@serwist/next/worker";
 import type { PrecacheEntry } from "@serwist/precaching";
 import { installSerwist } from "@serwist/sw";
@@ -39,10 +33,10 @@ installSerwist({
   navigationPreload: true,
   runtimeCaching: defaultCache,
 });`,
-              lang: "typescript",
-            },
-            "app/sw.js": {
-              code: `import { defaultCache } from "@serwist/next/worker";
+            lang: "typescript",
+          },
+          "app/sw.js": {
+            code: `import { defaultCache } from "@serwist/next/worker";
 import { installSerwist } from "@serwist/sw";
 
 installSerwist({
@@ -52,12 +46,11 @@ installSerwist({
   navigationPreload: true,
   runtimeCaching: defaultCache,
 });`,
-              lang: "javascript",
-            },
+            lang: "javascript",
           },
-          { idPrefix: "default-cache-usage-example" },
-        ),
-      },
+        },
+        { idPrefix: "default-cache-usage-example" },
+      ),
     },
-  };
-};
+  },
+});

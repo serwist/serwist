@@ -1,20 +1,15 @@
-import { getHighlighter } from "shiki";
-
 import { highlightCode } from "$lib/highlightCode";
 
-export const load = async () => {
-  const highligher = await getHighlighter({
-    themes: ["github-dark", "github-light"],
-    langs: ["javascript"],
-  });
-  return {
-    title: "reloadOnOnline - Configuring - @serwist/next",
-    code: {
-      usage: highlightCode(
-        highligher,
-        {
-          "next.config.mjs": {
-            code: `import withSerwistInit from "@serwist/next";
+import type { PageServerLoad } from "./$types";
+
+export const load: PageServerLoad = ({ locals }) => ({
+  title: "reloadOnOnline - Configuring - @serwist/next",
+  code: {
+    usage: highlightCode(
+      locals.highlighter,
+      {
+        "next.config.mjs": {
+          code: `import withSerwistInit from "@serwist/next";
       
 const withSerwist = withSerwistInit({
   swSrc: "app/sw.ts",
@@ -25,10 +20,10 @@ const withSerwist = withSerwistInit({
 export default withSerwist({
   // Your Next.js config
 });`,
-            lang: "javascript",
-          },
-          "next.config.js": {
-            code: `const withSerwist = require("@serwist/next").default({
+          lang: "javascript",
+        },
+        "next.config.js": {
+          code: `const withSerwist = require("@serwist/next").default({
   swSrc: "app/sw.ts",
   swDest: "public/sw.js",
   reloadOnOnline: true,
@@ -37,11 +32,10 @@ export default withSerwist({
 module.exports = withSerwist({
   // Your Next.js config
 });`,
-            lang: "javascript",
-          },
+          lang: "javascript",
         },
-        { idPrefix: "usage-example" },
-      ),
-    },
-  };
-};
+      },
+      { idPrefix: "usage-example" },
+    ),
+  },
+});

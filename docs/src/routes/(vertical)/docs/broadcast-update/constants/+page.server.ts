@@ -1,48 +1,43 @@
-import { getHighlighter } from "shiki";
-
 import { highlightCode } from "$lib/highlightCode";
 import type { TocEntry } from "$lib/types";
 
-export const load = async () => {
-  const highlighter = await getHighlighter({
-    themes: ["github-dark", "github-light"],
-    langs: ["typescript", "javascript"],
-  });
-  return {
-    title: "Constants - @serwist/broadcast-update",
-    toc: [
-      {
-        title: "Constants",
-        id: "constants",
-        children: [
-          {
-            title: "Exported values",
-            id: "exported-values",
-            children: [
-              {
-                title: "CACHE_UPDATED_MESSAGE_META",
-                id: "cache-updated-message-meta",
-              },
-              {
-                title: "CACHE_UPDATED_MESSAGE_TYPE",
-                id: "cache-updated-message-type",
-              },
-              {
-                title: "defaultHeadersToCheck",
-                id: "default-headers-to-check",
-              },
-            ],
-          },
-        ],
-      },
-    ] satisfies TocEntry[],
-    code: {
-      cacheUpdatedMessageMeta: {
-        usage: highlightCode(
-          highlighter,
-          {
-            "sw.ts": {
-              code: `import { CACHE_UPDATED_MESSAGE_META } from "@serwist/broadcast-update";
+import type { PageServerLoad } from "./$types";
+
+export const load: PageServerLoad = ({ locals }) => ({
+  title: "Constants - @serwist/broadcast-update",
+  toc: [
+    {
+      title: "Constants",
+      id: "constants",
+      children: [
+        {
+          title: "Exported values",
+          id: "exported-values",
+          children: [
+            {
+              title: "CACHE_UPDATED_MESSAGE_META",
+              id: "cache-updated-message-meta",
+            },
+            {
+              title: "CACHE_UPDATED_MESSAGE_TYPE",
+              id: "cache-updated-message-type",
+            },
+            {
+              title: "defaultHeadersToCheck",
+              id: "default-headers-to-check",
+            },
+          ],
+        },
+      ],
+    },
+  ] satisfies TocEntry[],
+  code: {
+    cacheUpdatedMessageMeta: {
+      usage: highlightCode(
+        locals.highlighter,
+        {
+          "sw.ts": {
+            code: `import { CACHE_UPDATED_MESSAGE_META } from "@serwist/broadcast-update";
 
 navigator.serviceWorker.addEventListener("message", async (event) => {
   // Ensure the message came from \`@serwist/broadcast-update\`
@@ -57,18 +52,18 @@ navigator.serviceWorker.addEventListener("message", async (event) => {
     const updatedText = await updatedResponse.text();
   }
 });`,
-              lang: "typescript",
-            },
+            lang: "typescript",
           },
-          { idPrefix: "cache-updated-message-meta-usage" },
-        ),
-      },
-      cacheUpdatedMessageType: {
-        usage: highlightCode(
-          highlighter,
-          {
-            "sw.ts": {
-              code: `import { CACHE_UPDATED_MESSAGE_TYPE } from "@serwist/broadcast-update";
+        },
+        { idPrefix: "cache-updated-message-meta-usage" },
+      ),
+    },
+    cacheUpdatedMessageType: {
+      usage: highlightCode(
+        locals.highlighter,
+        {
+          "sw.ts": {
+            code: `import { CACHE_UPDATED_MESSAGE_TYPE } from "@serwist/broadcast-update";
 
 navigator.serviceWorker.addEventListener("message", async (event) => {
   // Ensure the message came from \`@serwist/broadcast-update\`
@@ -83,18 +78,18 @@ navigator.serviceWorker.addEventListener("message", async (event) => {
     const updatedText = await updatedResponse.text();
   }
 });`,
-              lang: "typescript",
-            },
+            lang: "typescript",
           },
-          { idPrefix: "cache-updated-message-type-usage" },
-        ),
-      },
-      defaultHeadersToCheck: {
-        usage: highlightCode(
-          highlighter,
-          {
-            "sw.ts": {
-              code: `import { responsesAreSame, defaultHeadersToCheck } from "@serwist/broadcast-update";
+        },
+        { idPrefix: "cache-updated-message-type-usage" },
+      ),
+    },
+    defaultHeadersToCheck: {
+      usage: highlightCode(
+        locals.highlighter,
+        {
+          "sw.ts": {
+            code: `import { responsesAreSame, defaultHeadersToCheck } from "@serwist/broadcast-update";
 
 const cacheName = "api-cache";
 const request = new Request("https://example.com/api");
@@ -109,12 +104,11 @@ if (!responsesAreSame(oldResponse, newResponse, defaultHeadersToCheck)) {
     win.postMessage({ type: "CACHE_UPDATED", message: "Update now!" });
   }
 }`,
-              lang: "typescript",
-            },
+            lang: "typescript",
           },
-          { idPrefix: "default-headers-to-check-usage" },
-        ),
-      },
+        },
+        { idPrefix: "default-headers-to-check-usage" },
+      ),
     },
-  };
-};
+  },
+});

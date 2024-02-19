@@ -1,21 +1,16 @@
-import { getHighlighter } from "shiki";
-
 import { highlightCode } from "$lib/highlightCode";
 
-export const load = async () => {
-  const highligher = await getHighlighter({
-    themes: ["github-dark", "github-light"],
-    langs: ["javascript", "jsx"],
-  });
-  return {
-    title: "register - Configuring - @serwist/next",
-    code: {
-      usage: {
-        config: highlightCode(
-          highligher,
-          {
-            "next.config.mjs": {
-              code: `import withSerwistInit from "@serwist/next";
+import type { PageServerLoad } from "./$types";
+
+export const load: PageServerLoad = ({ locals }) => ({
+  title: "register - Configuring - @serwist/next",
+  code: {
+    usage: {
+      config: highlightCode(
+        locals.highlighter,
+        {
+          "next.config.mjs": {
+            code: `import withSerwistInit from "@serwist/next";
       
 const withSerwist = withSerwistInit({
   swSrc: "app/sw.ts",
@@ -26,16 +21,16 @@ const withSerwist = withSerwistInit({
 export default withSerwist({
   // Your Next.js config
 });`,
-              lang: "javascript",
-            },
+            lang: "javascript",
           },
-          { idPrefix: "usage-config-example" },
-        ),
-        app: highlightCode(
-          highligher,
-          {
-            "app/register-pwa.jsx": {
-              code: `"use client";
+        },
+        { idPrefix: "usage-config-example" },
+      ),
+      app: highlightCode(
+        locals.highlighter,
+        {
+          "app/register-pwa.jsx": {
+            code: `"use client";
 import { useEffect } from "react";
 
 export default function RegisterPWA() {
@@ -46,12 +41,11 @@ export default function RegisterPWA() {
   }, []);
   return <></>;
 }`,
-              lang: "jsx",
-            },
+            lang: "jsx",
           },
-          { idPrefix: "usage-app-example" },
-        ),
-      },
+        },
+        { idPrefix: "usage-app-example" },
+      ),
     },
-  };
-};
+  },
+});

@@ -1,41 +1,36 @@
-import { getHighlighter } from "shiki";
-
 import { highlightCode } from "$lib/highlightCode";
 import type { TocEntry } from "$lib/types";
 
-export const load = async () => {
-  const highligher = await getHighlighter({
-    themes: ["github-dark", "github-light"],
-    langs: ["typescript", "javascript"],
-  });
-  return {
-    title: "isSupported - @serwist/navigation-preload",
-    toc: [
-      {
-        title: "isSupported",
-        id: "is-supported",
-        children: [
-          {
-            title: "First added",
-            id: "first-added",
-          },
-          {
-            title: "About",
-            id: "about",
-          },
-          {
-            title: "Usage",
-            id: "usage",
-          },
-        ],
-      },
-    ] satisfies TocEntry[],
-    code: {
-      usage: highlightCode(
-        highligher,
+import type { PageServerLoad } from "./$types";
+
+export const load: PageServerLoad = ({ locals }) => ({
+  title: "isSupported - @serwist/navigation-preload",
+  toc: [
+    {
+      title: "isSupported",
+      id: "is-supported",
+      children: [
         {
-          "sw.ts": {
-            code: `import {
+          title: "First added",
+          id: "first-added",
+        },
+        {
+          title: "About",
+          id: "about",
+        },
+        {
+          title: "Usage",
+          id: "usage",
+        },
+      ],
+    },
+  ] satisfies TocEntry[],
+  code: {
+    usage: highlightCode(
+      locals.highlighter,
+      {
+        "sw.ts": {
+          code: `import {
   enable as enableNavigationPreload,
   disable as disableNavigationPreload,
   isSupported as isNavigationPreloadSupported,
@@ -73,11 +68,10 @@ const navigationRoute = new NavigationRoute(navigationStrategy, {
 });
 
 registerRoute(navigationRoute);`,
-            lang: "typescript",
-          },
+          lang: "typescript",
         },
-        { idPrefix: "usage-example" },
-      ),
-    },
-  };
-};
+      },
+      { idPrefix: "usage-example" },
+    ),
+  },
+});

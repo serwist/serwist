@@ -1,49 +1,44 @@
-import { getHighlighter } from "shiki";
-
 import { highlightCode } from "$lib/highlightCode";
 import type { TocEntry } from "$lib/types";
 
-export const load = async () => {
-  const highligher = await getHighlighter({
-    themes: ["github-dark", "github-light"],
-    langs: ["typescript", "javascript"],
-  });
-  return {
-    title: "BroadcastCacheUpdate - @serwist/broadcast-update",
-    toc: [
-      {
-        title: "BroadcastCacheUpdate",
-        id: "broadcast-cache-update",
-        children: [
-          {
-            title: "First added",
-            id: "first-added",
-          },
-          {
-            title: "About",
-            id: "about",
-          },
-          {
-            title: "Options",
-            id: "options",
-          },
-          {
-            title: "Methods and fields",
-            id: "methods-and-fields",
-          },
-          {
-            title: "Usage",
-            id: "usage",
-          },
-        ],
-      },
-    ] satisfies TocEntry[],
-    code: {
-      usage: highlightCode(
-        highligher,
+import type { PageServerLoad } from "./$types";
+
+export const load: PageServerLoad = ({ locals }) => ({
+  title: "BroadcastCacheUpdate - @serwist/broadcast-update",
+  toc: [
+    {
+      title: "BroadcastCacheUpdate",
+      id: "broadcast-cache-update",
+      children: [
         {
-          "sw.ts": {
-            code: `import { BroadcastCacheUpdate, defaultHeadersToCheck } from "@serwist/broadcast-update";
+          title: "First added",
+          id: "first-added",
+        },
+        {
+          title: "About",
+          id: "about",
+        },
+        {
+          title: "Options",
+          id: "options",
+        },
+        {
+          title: "Methods and fields",
+          id: "methods-and-fields",
+        },
+        {
+          title: "Usage",
+          id: "usage",
+        },
+      ],
+    },
+  ] satisfies TocEntry[],
+  code: {
+    usage: highlightCode(
+      locals.highlighter,
+      {
+        "sw.ts": {
+          code: `import { BroadcastCacheUpdate, defaultHeadersToCheck } from "@serwist/broadcast-update";
 
 const broadcastUpdate = new BroadcastCacheUpdate({
   headersToCheck: [...defaultHeadersToCheck, "X-My-Custom-Header"],
@@ -62,10 +57,10 @@ broadcastUpdate.notifyIfUpdated({
   newResponse,
   request,
 );`,
-            lang: "javascript",
-          },
-          "message.ts": {
-            code: `import { CACHE_UPDATED_MESSAGE_META } from "@serwist/broadcast-update";
+          lang: "javascript",
+        },
+        "message.ts": {
+          code: `import { CACHE_UPDATED_MESSAGE_META } from "@serwist/broadcast-update";
 
 navigator.serviceWorker.addEventListener("message", async (event) => {
   // Optional: ensure the message came from \`@serwist/broadcast-update\`
@@ -80,11 +75,10 @@ navigator.serviceWorker.addEventListener("message", async (event) => {
     const updatedText = await updatedResponse.text();
   }
 });`,
-            lang: "typescript",
-          },
+          lang: "typescript",
         },
-        { idPrefix: "usage-example" },
-      ),
-    },
-  };
-};
+      },
+      { idPrefix: "usage-example" },
+    ),
+  },
+});

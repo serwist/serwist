@@ -1,45 +1,40 @@
-import { getHighlighter } from "shiki";
-
 import { highlightCode } from "$lib/highlightCode";
 import type { TocEntry } from "$lib/types";
 
-export const load = async () => {
-  const highligher = await getHighlighter({
-    themes: ["github-dark", "github-light"],
-    langs: ["typescript", "javascript"],
-  });
-  return {
-    title: "BackgroundSyncPlugin - @serwist/background-sync",
-    toc: [
-      {
-        title: "BackgroundSyncPlugin",
-        id: "background-sync-plugin",
-        children: [
-          {
-            title: "First added",
-            id: "first-added",
-          },
-          {
-            title: "About",
-            id: "about",
-          },
-          {
-            title: "Parameters",
-            id: "parameters",
-          },
-          {
-            title: "Usage",
-            id: "usage",
-          },
-        ],
-      },
-    ] satisfies TocEntry[],
-    code: {
-      usage: highlightCode(
-        highligher,
+import type { PageServerLoad } from "./$types";
+
+export const load: PageServerLoad = ({ locals }) => ({
+  title: "BackgroundSyncPlugin - @serwist/background-sync",
+  toc: [
+    {
+      title: "BackgroundSyncPlugin",
+      id: "background-sync-plugin",
+      children: [
         {
-          "sw.ts": {
-            code: `import { BackgroundSyncPlugin } from "@serwist/background-sync";
+          title: "First added",
+          id: "first-added",
+        },
+        {
+          title: "About",
+          id: "about",
+        },
+        {
+          title: "Parameters",
+          id: "parameters",
+        },
+        {
+          title: "Usage",
+          id: "usage",
+        },
+      ],
+    },
+  ] satisfies TocEntry[],
+  code: {
+    usage: highlightCode(
+      locals.highlighter,
+      {
+        "sw.ts": {
+          code: `import { BackgroundSyncPlugin } from "@serwist/background-sync";
 import { registerRoute } from "@serwist/routing";
 import { NetworkOnly } from "@serwist/strategies";
 
@@ -54,11 +49,10 @@ registerRoute(
   }),
   "POST",
 );`,
-            lang: "typescript",
-          },
+          lang: "typescript",
         },
-        { idPrefix: "usage-example" },
-      ),
-    },
-  };
-};
+      },
+      { idPrefix: "usage-example" },
+    ),
+  },
+});

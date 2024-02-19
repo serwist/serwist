@@ -13,21 +13,15 @@
 - Code blocks should be sent from the server through +page.server.ts or +layout.server.ts. Although this causes SvelteKit to inline a fairly large amount of data into the produced HTML, it is still generally acceptable, more readable, and it saves the client from a bit of extra work that is highlighting code.
 
 ```ts
-import { getHighlighter } from "shiki";
-
 import { highlightCode } from "$lib/highlightCode";
 
 import type { PageServerLoad } from "./$types";
 
-export const load: PageServerLoad = async () => {
-  const highlighter = await getHighlighter({
-    themes: ["github-light", "github-dark"],
-    langs: ["bash", "typescript", "javascript", "tsx", "jsx", "json"],
-  });
+export const load: PageServerLoad = async ({ locals }) => {
   return {
     code: {
       install: highlightCode(
-        highlighter,
+        locals.highlighter,
         {
           npm: {
             code: "npm i @serwist/next",

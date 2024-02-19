@@ -1,20 +1,15 @@
-import { getHighlighter } from "shiki";
-
 import { highlightCode } from "$lib/highlightCode";
 
-export const load = async () => {
-  const highligher = await getHighlighter({
-    themes: ["github-dark", "github-light"],
-    langs: ["javascript"],
-  });
-  return {
-    title: "globDirectory - Glob options - Configuring - @serwist/build",
-    code: {
-      usage: highlightCode(
-        highligher,
-        {
-          "build.js": {
-            code: `import { injectManifest } from "@serwist/build";
+import type { PageServerLoad } from "./$types";
+
+export const load: PageServerLoad = ({ locals }) => ({
+  title: "globDirectory - Glob options - Configuring - @serwist/build",
+  code: {
+    usage: highlightCode(
+      locals.highlighter,
+      {
+        "build.js": {
+          code: `import { injectManifest } from "@serwist/build";
 // Build something...
 // Bundle the service worker...
 const { count, size, warnings } = await injectManifest({
@@ -26,11 +21,10 @@ if (warnings.length > 0) {
   console.warn("[@serwist/build] Oopsie, there are warnings from Serwist:", warnings);
 }
 console.log(\`[@serwist/build] Manifest injected: \${count} files, totaling \${size} bytes.\`);`,
-            lang: "javascript",
-          },
+          lang: "javascript",
         },
-        { idPrefix: "usage-example" },
-      ),
-    },
-  };
-};
+      },
+      { idPrefix: "usage-example" },
+    ),
+  },
+});

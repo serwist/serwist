@@ -1,42 +1,36 @@
 import { highlightCode } from "$lib/highlightCode";
 import type { TocEntry } from "$lib/types";
-import { getHighlighter } from "shiki";
 import type { PageServerLoad } from "./$types";
 
-export const load: PageServerLoad = async () => {
-  const highlighter = await getHighlighter({
-    langs: ["typescript", "javascript"],
-    themes: ["github-dark", "github-light"],
-  });
-  return {
-    title: "@serwist/navigation-preload",
-    toc: [
-      {
-        title: "@serwist/navigation-preload",
-        id: "serwist-navigation-preload",
-        children: [
-          {
-            title: "Introduction",
-            id: "introduction",
-          },
-          {
-            title: "Who should enable navigation preloading?",
-            id: "who-should-enable-navigation-preloading",
-          },
-          {
-            title: "Basic usage",
-            id: "basic-usage",
-          },
-        ],
-      },
-    ] satisfies TocEntry[],
-    code: {
-      basicUsage: {
-        setup: highlightCode(
-          highlighter,
-          {
-            "sw.ts": {
-              code: `import { enable as enableNavigationPreload } from "@serwist/navigation-preload";
+export const load: PageServerLoad = ({ locals }) => ({
+  title: "@serwist/navigation-preload",
+  toc: [
+    {
+      title: "@serwist/navigation-preload",
+      id: "serwist-navigation-preload",
+      children: [
+        {
+          title: "Introduction",
+          id: "introduction",
+        },
+        {
+          title: "Who should enable navigation preloading?",
+          id: "who-should-enable-navigation-preloading",
+        },
+        {
+          title: "Basic usage",
+          id: "basic-usage",
+        },
+      ],
+    },
+  ] satisfies TocEntry[],
+  code: {
+    basicUsage: {
+      setup: highlightCode(
+        locals.highlighter,
+        {
+          "sw.ts": {
+            code: `import { enable as enableNavigationPreload } from "@serwist/navigation-preload";
 import { NetworkFirst } from "@serwist/strategies";
 import { registerRoute, NavigationRoute } from "@serwist/routing";
 
@@ -55,12 +49,11 @@ const navigationRoute = new NavigationRoute(navigationStrategy, {
 });
 
 registerRoute(navigationRoute);`,
-              lang: "typescript",
-            },
+            lang: "typescript",
           },
-          { idPrefix: "basic-usage" },
-        ),
-      },
+        },
+        { idPrefix: "basic-usage" },
+      ),
     },
-  };
-};
+  },
+});

@@ -1,55 +1,50 @@
 import { highlightCode } from "$lib/highlightCode";
 import type { TocEntry } from "$lib/types";
-import { getHighlighter } from "shiki";
+
 import type { PageServerLoad } from "./$types";
 
-export const load: PageServerLoad = async () => {
-  const highlighter = await getHighlighter({
-    langs: ["typescript", "javascript"],
-    themes: ["github-dark", "github-light"],
-  });
-  return {
-    title: "@serwist/broadcast-update",
-    toc: [
-      {
-        title: "@serwist/broadcast-update",
-        id: "serwist-broadcast-update",
-        children: [
-          {
-            title: "Introduction",
-            id: "introduction",
-          },
-          {
-            title: "How are updates determined?",
-            id: "how-are-updates-determined",
-          },
-          {
-            title: "Message format",
-            id: "message-format",
-          },
-          {
-            title: "Basic usage",
-            id: "basic-usage",
-            children: [
-              {
-                title: "Customize headers to check",
-                id: "customize-headers-to-check",
-              },
-            ],
-          },
-          {
-            title: "Advanced usage",
-            id: "advanced-usage",
-          },
-        ],
-      },
-    ] satisfies TocEntry[],
-    code: {
-      messageFormat: highlightCode(
-        highlighter,
+export const load: PageServerLoad = ({ locals }) => ({
+  title: "@serwist/broadcast-update",
+  toc: [
+    {
+      title: "@serwist/broadcast-update",
+      id: "serwist-broadcast-update",
+      children: [
         {
-          "event.data": {
-            code: `{
+          title: "Introduction",
+          id: "introduction",
+        },
+        {
+          title: "How are updates determined?",
+          id: "how-are-updates-determined",
+        },
+        {
+          title: "Message format",
+          id: "message-format",
+        },
+        {
+          title: "Basic usage",
+          id: "basic-usage",
+          children: [
+            {
+              title: "Customize headers to check",
+              id: "customize-headers-to-check",
+            },
+          ],
+        },
+        {
+          title: "Advanced usage",
+          id: "advanced-usage",
+        },
+      ],
+    },
+  ] satisfies TocEntry[],
+  code: {
+    messageFormat: highlightCode(
+      locals.highlighter,
+      {
+        "event.data": {
+          code: `{
   type: "CACHE_UPDATED",
   meta: "serwist-broadcast-update",
   // The two payload values vary depending on the actual update:
@@ -58,17 +53,17 @@ export const load: PageServerLoad = async () => {
     updatedURL: "https://example.com/",
   },
 }`,
-            lang: "javascript",
-          },
+          lang: "javascript",
         },
-        { idPrefix: "message-format" },
-      ),
-      basicUsage: {
-        setup: highlightCode(
-          highlighter,
-          {
-            "sw.ts": {
-              code: `import { registerRoute } from "@serwist/routing";
+      },
+      { idPrefix: "message-format" },
+    ),
+    basicUsage: {
+      setup: highlightCode(
+        locals.highlighter,
+        {
+          "sw.ts": {
+            code: `import { registerRoute } from "@serwist/routing";
 import { StaleWhileRevalidate } from "@serwist/strategies";
 import { BroadcastUpdatePlugin } from "@serwist/broadcast-update";
 
@@ -78,18 +73,18 @@ registerRoute(
     plugins: [new BroadcastUpdatePlugin()],
   }),
 );`,
-              lang: "typescript",
-            },
+            lang: "typescript",
           },
-          {
-            idPrefix: "basic-usage",
-          },
-        ),
-        eventListener: highlightCode(
-          highlighter,
-          {
-            "message.ts": {
-              code: `import { CACHE_UPDATED_MESSAGE_META } from "@serwist/broadcast-update";
+        },
+        {
+          idPrefix: "basic-usage",
+        },
+      ),
+      eventListener: highlightCode(
+        locals.highlighter,
+        {
+          "message.ts": {
+            code: `import { CACHE_UPDATED_MESSAGE_META } from "@serwist/broadcast-update";
 
 navigator.serviceWorker.addEventListener("message", async (event) => {
   // Optional: ensure the message came from \`@serwist/broadcast-update\`
@@ -104,18 +99,18 @@ navigator.serviceWorker.addEventListener("message", async (event) => {
     const updatedText = await updatedResponse.text();
   }
 });`,
-              lang: "typescript",
-            },
+            lang: "typescript",
           },
-          {
-            idPrefix: "basic-usage-event-listener",
-          },
-        ),
-        customizeHeaders: highlightCode(
-          highlighter,
-          {
-            "sw.ts": {
-              code: `import { registerRoute } from "@serwist/routing";
+        },
+        {
+          idPrefix: "basic-usage-event-listener",
+        },
+      ),
+      customizeHeaders: highlightCode(
+        locals.highlighter,
+        {
+          "sw.ts": {
+            code: `import { registerRoute } from "@serwist/routing";
 import { BroadcastUpdatePlugin, defaultHeadersToCheck } from "@serwist/broadcast-update";
 import { StaleWhileRevalidate } from "@serwist/strategies";
 
@@ -129,18 +124,18 @@ registerRoute(
     ],
   }),
 );`,
-              lang: "typescript",
-            },
+            lang: "typescript",
           },
-          { idPrefix: "basic-usage-customize-headers" },
-        ),
-      },
-      advancedUsage: {
-        notifyIfUpdated: highlightCode(
-          highlighter,
-          {
-            "sw.ts": {
-              code: `import { BroadcastCacheUpdate, defaultHeadersToCheck } from "@serwist/broadcast-update";
+        },
+        { idPrefix: "basic-usage-customize-headers" },
+      ),
+    },
+    advancedUsage: {
+      notifyIfUpdated: highlightCode(
+        locals.highlighter,
+        {
+          "sw.ts": {
+            code: `import { BroadcastCacheUpdate, defaultHeadersToCheck } from "@serwist/broadcast-update";
 
 const broadcastUpdate = new BroadcastCacheUpdate({
   headersToCheck: [...defaultHeadersToCheck, "X-My-Custom-Header"],
@@ -159,14 +154,13 @@ broadcastUpdate.notifyIfUpdated({
   newResponse,
   request,
 );`,
-              lang: "typescript",
-            },
+            lang: "typescript",
           },
-          {
-            idPrefix: "advanced-usage",
-          },
-        ),
-      },
+        },
+        {
+          idPrefix: "advanced-usage",
+        },
+      ),
     },
-  };
-};
+  },
+});

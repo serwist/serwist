@@ -1,45 +1,40 @@
-import { getHighlighter } from "shiki";
-
 import { highlightCode } from "$lib/highlightCode";
 import type { TocEntry } from "$lib/types";
 
-export const load = async () => {
-  const highligher = await getHighlighter({
-    themes: ["github-dark", "github-light"],
-    langs: ["typescript", "javascript"],
-  });
-  return {
-    title: "enable - @serwist/navigation-preload",
-    toc: [
-      {
-        title: "enable",
-        id: "enable",
-        children: [
-          {
-            title: "First added",
-            id: "first-added",
-          },
-          {
-            title: "About",
-            id: "about",
-          },
-          {
-            title: "Parameters",
-            id: "parameters",
-          },
-          {
-            title: "Usage",
-            id: "usage",
-          },
-        ],
-      },
-    ] satisfies TocEntry[],
-    code: {
-      usage: highlightCode(
-        highligher,
+import type { PageServerLoad } from "./$types";
+
+export const load: PageServerLoad = ({ locals }) => ({
+  title: "enable - @serwist/navigation-preload",
+  toc: [
+    {
+      title: "enable",
+      id: "enable",
+      children: [
         {
-          "sw.ts": {
-            code: `import { enable as enableNavigationPreload } from "@serwist/navigation-preload";
+          title: "First added",
+          id: "first-added",
+        },
+        {
+          title: "About",
+          id: "about",
+        },
+        {
+          title: "Parameters",
+          id: "parameters",
+        },
+        {
+          title: "Usage",
+          id: "usage",
+        },
+      ],
+    },
+  ] satisfies TocEntry[],
+  code: {
+    usage: highlightCode(
+      locals.highlighter,
+      {
+        "sw.ts": {
+          code: `import { enable as enableNavigationPreload } from "@serwist/navigation-preload";
 import { NetworkFirst } from "@serwist/strategies";
 import { registerRoute, NavigationRoute } from "@serwist/routing";
 
@@ -58,11 +53,10 @@ const navigationRoute = new NavigationRoute(navigationStrategy, {
 });
 
 registerRoute(navigationRoute);`,
-            lang: "typescript",
-          },
+          lang: "typescript",
         },
-        { idPrefix: "usage-example" },
-      ),
-    },
-  };
-};
+      },
+      { idPrefix: "usage-example" },
+    ),
+  },
+});

@@ -1,4 +1,4 @@
-import type { Highlighter, BundledLanguage } from "shiki";
+import type { BundledLanguage, Highlighter } from "shiki";
 
 interface HighlightCodeOptions {
   idPrefix: string;

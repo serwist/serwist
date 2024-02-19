@@ -1,56 +1,50 @@
 import { highlightCode } from "$lib/highlightCode";
 import type { TocEntry } from "$lib/types";
-import { getHighlighter } from "shiki";
 import type { PageServerLoad } from "./$types";
 
-export const load: PageServerLoad = async () => {
-  const highlighter = await getHighlighter({
-    langs: ["typescript", "javascript"],
-    themes: ["github-dark", "github-light"],
-  });
-  return {
-    title: "@serwist/background-sync",
-    toc: [
-      {
-        title: "@serwist/background-sync",
-        id: "serwist-background-sync",
-        children: [
-          {
-            title: "Introduction",
-            id: "introduction",
-          },
-          {
-            title: "Basic usage",
-            id: "basic-usage",
-          },
-          {
-            title: "Advanced usage",
-            id: "advanced-usage",
-            children: [
-              {
-                title: "Creating a Queue",
-                id: "creating-a-queue",
-              },
-              {
-                title: "Adding a request to the Queue",
-                id: "adding-a-request-to-the-queue",
-              },
-            ],
-          },
-          {
-            title: "Testing",
-            id: "testing",
-          },
-        ],
-      },
-    ] satisfies TocEntry[],
-    code: {
-      basicUsage: {
-        setup: highlightCode(
-          highlighter,
-          {
-            "sw.ts": {
-              code: `import { BackgroundSyncPlugin } from "@serwist/background-sync";
+export const load: PageServerLoad = ({ locals }) => ({
+  title: "@serwist/background-sync",
+  toc: [
+    {
+      title: "@serwist/background-sync",
+      id: "serwist-background-sync",
+      children: [
+        {
+          title: "Introduction",
+          id: "introduction",
+        },
+        {
+          title: "Basic usage",
+          id: "basic-usage",
+        },
+        {
+          title: "Advanced usage",
+          id: "advanced-usage",
+          children: [
+            {
+              title: "Creating a Queue",
+              id: "creating-a-queue",
+            },
+            {
+              title: "Adding a request to the Queue",
+              id: "adding-a-request-to-the-queue",
+            },
+          ],
+        },
+        {
+          title: "Testing",
+          id: "testing",
+        },
+      ],
+    },
+  ] satisfies TocEntry[],
+  code: {
+    basicUsage: {
+      setup: highlightCode(
+        locals.highlighter,
+        {
+          "sw.ts": {
+            code: `import { BackgroundSyncPlugin } from "@serwist/background-sync";
 import { registerRoute } from "@serwist/routing";
 import { NetworkOnly } from "@serwist/strategies";
 
@@ -65,18 +59,18 @@ registerRoute(
   }),
   "POST",
 );`,
-              lang: "typescript",
-            },
+            lang: "typescript",
           },
-          {
-            idPrefix: "basic-usage",
-          },
-        ),
-        errorResponse: highlightCode(
-          highlighter,
-          {
-            "sw.ts": {
-              code: `import type { SerwistPlugin } from "@serwist/core";
+        },
+        {
+          idPrefix: "basic-usage",
+        },
+      ),
+      errorResponse: highlightCode(
+        locals.highlighter,
+        {
+          "sw.ts": {
+            code: `import type { SerwistPlugin } from "@serwist/core";
 import { BackgroundSyncPlugin } from "@serwist/background-sync";
 import { registerRoute } from "@serwist/routing";
 import { NetworkOnly } from "@serwist/strategies";
@@ -103,10 +97,10 @@ registerRoute(
   }),
   "POST",
 );`,
-              lang: "typescript",
-            },
-            "sw.js": {
-              code: `import { BackgroundSyncPlugin } from "@serwist/background-sync";
+            lang: "typescript",
+          },
+          "sw.js": {
+            code: `import { BackgroundSyncPlugin } from "@serwist/background-sync";
 import { registerRoute } from "@serwist/routing";
 import { NetworkOnly } from "@serwist/strategies";
 
@@ -132,34 +126,34 @@ registerRoute(
   }),
   "POST",
 );`,
-              lang: "javascript",
-            },
+            lang: "javascript",
           },
-          {
-            idPrefix: "basic-usage-error-response",
-          },
-        ),
-      },
-      advancedUsage: {
-        setup: highlightCode(
-          highlighter,
-          {
-            "sw.ts": {
-              code: `import { Queue } from "@serwist/background-sync";
+        },
+        {
+          idPrefix: "basic-usage-error-response",
+        },
+      ),
+    },
+    advancedUsage: {
+      setup: highlightCode(
+        locals.highlighter,
+        {
+          "sw.ts": {
+            code: `import { Queue } from "@serwist/background-sync";
   
 const queue = new Queue("myQueueName");`,
-              lang: "typescript",
-            },
+            lang: "typescript",
           },
-          {
-            idPrefix: "advanced-usage",
-          },
-        ),
-        addingRequest: highlightCode(
-          highlighter,
-          {
-            "sw.ts": {
-              code: `import { Queue } from "@serwist/background-sync";
+        },
+        {
+          idPrefix: "advanced-usage",
+        },
+      ),
+      addingRequest: highlightCode(
+        locals.highlighter,
+        {
+          "sw.ts": {
+            code: `import { Queue } from "@serwist/background-sync";
   
 const queue = new Queue("myQueueName");
 
@@ -182,14 +176,13 @@ self.addEventListener("fetch", (event) => {
 
   event.respondWith(backgroundSync());
 });`,
-              lang: "typescript",
-            },
+            lang: "typescript",
           },
-          {
-            idPrefix: "advanced-usage",
-          },
-        ),
-      },
+        },
+        {
+          idPrefix: "advanced-usage",
+        },
+      ),
     },
-  };
-};
+  },
+});
