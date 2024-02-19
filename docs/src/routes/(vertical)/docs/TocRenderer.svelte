@@ -1,8 +1,8 @@
 <script lang="ts">
-  import type { TableOfContents } from "$lib/types";
+  import type { TocEntry } from "$lib/types";
 
   interface TableOfContentsProps {
-    data: TableOfContents[];
+    data: TocEntry[];
   }
 
   const { data } = $props<TableOfContentsProps>();

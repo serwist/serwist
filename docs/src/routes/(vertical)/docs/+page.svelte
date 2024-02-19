@@ -28,8 +28,9 @@
   </li>
   <li>
     <InlineCode>
-      <a class="link" href="/docs/broadcast-update">@serwist/broadcast-update</a
-      >
+      <a class="link" href="/docs/broadcast-update">
+        @serwist/broadcast-update
+      </a>
     </InlineCode>
   </li>
   <li>
@@ -39,9 +40,9 @@
   </li>
   <li>
     <InlineCode>
-      <a class="link" href="/docs/cacheable-response"
-        >@serwist/cacheable-response</a
-      >
+      <a class="link" href="/docs/cacheable-response">
+        @serwist/cacheable-response
+      </a>
     </InlineCode>
   </li>
   <li>
@@ -51,15 +52,9 @@
   </li>
   <li>
     <InlineCode>
-      <a class="link" href="/docs/google-analytics">@serwist/google-analytics</a
-      >
-    </InlineCode>
-  </li>
-  <li>
-    <InlineCode>
-      <a class="link" href="/docs/navigation-preload"
-        >@serwist/navigation-preload</a
-      >
+      <a class="link" href="/docs/navigation-preload">
+        @serwist/navigation-preload
+      </a>
     </InlineCode>
   </li>
   <li>

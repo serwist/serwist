@@ -36,7 +36,7 @@
     clients.
   </li>
   <li>
-    <ICD>notifyAllClients</ICD> If <ICD>true</ICD> (the default) then all open clients
+    <ICD>notifyAllClients</ICD> — If <ICD>true</ICD> (the default) then all open clients
     will receive a message. If <ICD>false</ICD>, then only the client that make
     the original request will be notified of the update.
   </li>

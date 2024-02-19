@@ -1,7 +1,7 @@
 import { getHighlighter } from "shiki";
 
 import { highlightCode } from "$lib/highlightCode";
-import type { TableOfContents } from "$lib/types";
+import type { TocEntry } from "$lib/types";
 
 export const load = async () => {
   const highligher = await getHighlighter({
@@ -33,7 +33,7 @@ export const load = async () => {
           },
         ],
       },
-    ] satisfies TableOfContents[],
+    ] satisfies TocEntry[],
     code: {
       usage: highlightCode(
         highligher,

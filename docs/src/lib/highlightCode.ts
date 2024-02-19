@@ -1,4 +1,4 @@
-import type { Highlighter, Lang } from "shiki";
+import type { Highlighter, BundledLanguage } from "shiki";
 
 interface HighlightCodeOptions {
   idPrefix: string;
@@ -6,7 +6,7 @@ interface HighlightCodeOptions {
 
 export const highlightCode = <T extends string>(
   highlighter: Highlighter,
-  codes: Record<T, { code: string; lang: Lang }>,
+  codes: Record<T, { code: string; lang: BundledLanguage }>,
   { idPrefix }: HighlightCodeOptions,
 ) => {
   const codeEntries = Object.entries(codes) as [T, (typeof codes)[T]][];

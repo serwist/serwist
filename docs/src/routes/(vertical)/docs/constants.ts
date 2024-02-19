@@ -96,12 +96,13 @@ export const SIDEBAR_LINKS = [
     href: "/docs/expiration",
   },
   {
-    title: "@serwist/google-analytics",
-    href: "/docs/google-analytics",
-  },
-  {
     title: "@serwist/navigation-preload",
     href: "/docs/navigation-preload",
+    children: [
+      { title: "disable", href: "/docs/navigation-preload/disable" },
+      { title: "enable", href: "/docs/navigation-preload/enable" },
+      { title: "isSupported", href: "/docs/navigation-preload/isSupported" },
+    ],
   },
   {
     title: "@serwist/next",
@@ -152,6 +153,5 @@ export const SIDEBAR_LINKS = [
   {
     title: "@serwist/vite",
     href: "/docs/vite",
-    children: [],
   },
 ] satisfies SidebarLinkProps[];

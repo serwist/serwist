@@ -14,7 +14,7 @@ import { isSupported } from "./isSupported.js";
 declare let self: ServiceWorkerGlobalScope;
 
 /**
- * If the browser supports Navigation Preload, then this will disable it.
+ * If the browser supports navigation preloading, then this will disable it.
  */
 export const disable = (): void => {
   if (isSupported()) {

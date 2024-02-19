@@ -14,7 +14,7 @@
   target="_blank"
   rel="noreferrer"
 >
-  Original source (Apache 2.0 License). Adapted for Serwist usage.
+  Original source (Apache 2.0 License). Adapted for Serwist's usage.
 </a>
 <br /><br />
 <h2 id="introduction">Introduction</h2>

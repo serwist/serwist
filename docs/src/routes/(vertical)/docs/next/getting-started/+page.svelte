@@ -5,17 +5,17 @@
   const { data } = $props();
 </script>
 
-<h1>Getting started</h1>
+<h1 id="getting-started">Getting started</h1>
 <br /><br />
-<h2>Install</h2>
+<h2 id="install">Install</h2>
 <br />
 <p>Run the following command:</p>
 <br />
 <CodeTab codes={data.code.install} defaultTab="npm" />
 <br /><br />
-<h2>Basic usage</h2>
+<h2 id="basic-usage">Basic usage</h2>
 <br />
-<h3>
+<h3 id="basic-usage-wrap-next-config">
   Step 1: Wrap your Next.js config with <InlineCode>withSerwist</InlineCode>
 </h3>
 <br />
@@ -23,7 +23,7 @@
 <br />
 <CodeTab codes={data.code.basicUsage.wrapConfig} defaultTab="next.config.mjs" />
 <br /><br />
-<h3>Step 2: Update tsconfig.json</h3>
+<h3 id="basic-usage-update-tsconfig">Step 2: Update tsconfig.json</h3>
 <br />
 <p>If you use TypeScript, you should add the following content to tsconfig.json in order to get the correct types:</p>
 <br />
@@ -34,7 +34,7 @@
 <br />
 <p>Otherwise, safely skip this step.</p>
 <br /><br />
-<h3>Step 3: Create a service worker</h3>
+<h3 id="basic-usage-create-sw">Step 3: Create a service worker</h3>
 <br />
 <p>Basic service worker template to get Serwist up and running:</p>
 <br />
@@ -49,7 +49,7 @@
   defaultTab="npm"
 />
 <br /><br />
-<h3>Step 4: Add a web application manifest</h3>
+<h3 id="basic-usage-add-manifest">Step 4: Add a web application manifest</h3>
 <br />
 <p>Update app/manifest.json (App Router) or public/manifest.json (Pages Router) with the following content:</p>
 <br />
@@ -58,7 +58,7 @@
   defaultTab="manifest.json"
 />
 <br /><br />
-<h3>
+<h3 id="basic-usage-add-metadata">
   Step 5: Add metadata to <InlineCode>{"<head />"}</InlineCode>
 </h3>
 <br />

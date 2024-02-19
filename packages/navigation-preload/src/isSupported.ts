@@ -10,8 +10,10 @@
 declare let self: ServiceWorkerGlobalScope;
 
 /**
- * @returns Whether or not the current browser supports enabling
- * navigation preload.
+ * Checks whether the current browser supports
+ * navigation preloading.
+ *
+ * @returns
  */
 export const isSupported = (): boolean => {
   return Boolean(self.registration?.navigationPreload);

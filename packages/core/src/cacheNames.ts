@@ -9,7 +9,7 @@
 import { cacheNames as _cacheNames } from "./_private/cacheNames.js";
 
 /**
- * Get the current cache names and prefix/suffix used by Workbox.
+ * Get the current cache names and prefix/suffix used by Serwist.
  *
  * `cacheNames.precache` is used for precached assets,
  * `cacheNames.googleAnalytics` is used by `@serwist/google-analytics` to
@@ -20,7 +20,7 @@ import { cacheNames as _cacheNames } from "./_private/cacheNames.js";
  *
  * @returns An object with `precache`, `runtime`, `prefix`, and `googleAnalytics` properties.
  */
-const cacheNames = {
+export const cacheNames = {
   get googleAnalytics(): string {
     return _cacheNames.getGoogleAnalyticsName();
   },
@@ -37,5 +37,3 @@ const cacheNames = {
     return _cacheNames.getSuffix();
   },
 };
-
-export { cacheNames };

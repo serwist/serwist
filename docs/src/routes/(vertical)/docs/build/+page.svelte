@@ -2,16 +2,16 @@
   import InlineCode from "$components/InlineCode.svelte";
 </script>
 
-<h1>@serwist/build</h1>
+<h1 id="serwist-build">@serwist/build</h1>
 <br /><br />
-<h2>Introduction</h2>
+<h2 id="introduction">Introduction</h2>
 <br />
 <p>
   <InlineCode>@serwist/build</InlineCode> is a module that integrates into your build
   process, helping you generate a manifest of local files that should be precached.
 </p>
 <br /><br />
-<h2>Available modes</h2>
+<h2 id="available-modes">Available modes</h2>
 <br />
 <ul class="list">
   <li>
@@ -28,15 +28,15 @@
   </li>
 </ul>
 <br /><br />
-<h2>Each mode's use cases</h2>
+<h2 id="each-modes-use-cases">Each mode's use cases</h2>
 <br />
-<h3>When to use InjectManifest?</h3>
+<h3 id="when-to-use-injectmanifest">When to use InjectManifest?</h3>
 <br />
 <ul class="list">
   <li>You want Serwist to inject the precache manifest for you.</li>
 </ul>
 <br />
-<h3>When to use GetManifest?</h3>
+<h3 id="when-to-use-getmanifest">When to use GetManifest?</h3>
 <br />
 <ul class="list">
   <li>
@@ -45,7 +45,7 @@
   </li>
 </ul>
 <br /><br />
-<h2>Configuring</h2>
+<h2 id="configuring">Configuring</h2>
 <br />
 <p>See <a class="link" href="/docs/build/configuring">Configuring</a>.</p>
 <br /><br />

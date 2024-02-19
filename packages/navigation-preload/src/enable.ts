@@ -14,12 +14,11 @@ import { isSupported } from "./isSupported.js";
 declare let self: ServiceWorkerGlobalScope;
 
 /**
- * If the browser supports Navigation Preload, then this will enable it.
+ * If the browser supports navigation preloading, then this will enable it.
  *
- * @param headerValue Optionally, allows developers to
- * [override](https://developers.google.com/web/updates/2017/02/navigation-preload#changing_the_header)
- * the value of the `Service-Worker-Navigation-Preload` header which will be
- * sent to the server when making the navigation request.
+ * @param headerValue Optional. Allows developers to override the value of 
+ * the `Service-Worker-Navigation-Preload` header which will be sent to the 
+ * server when making the navigation request.
  */
 export const enable = (headerValue?: string): void => {
   if (isSupported()) {

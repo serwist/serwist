@@ -6,12 +6,12 @@
 
   import { SIDEBAR_LINKS } from "./constants";
   import SidebarLink from "./SidebarLink.svelte";
-  import type { TableOfContents } from "$lib/types";
+  import type { TocEntry } from "$lib/types";
   import TocRenderer from "./TocRenderer.svelte";
 
   let mobileMenu = $state<HTMLDetailsElement | undefined>(undefined);
   let observer = $state<IntersectionObserver | null>(null);
-  const toc = $derived($page.data.toc) as TableOfContents[] | undefined;
+  const toc = $derived($page.data.toc) as TocEntry[] | undefined;
 
   $effect(() => {
     $page.url.pathname;

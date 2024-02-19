@@ -1,5 +1,5 @@
 import { highlightCode } from "$lib/highlightCode";
-import type { TableOfContents } from "$lib/types";
+import type { TocEntry } from "$lib/types";
 import { getHighlighter } from "shiki";
 import type { PageServerLoad } from "./$types";
 
@@ -43,7 +43,7 @@ export const load: PageServerLoad = async () => {
           },
         ],
       },
-    ] satisfies TableOfContents[],
+    ] satisfies TocEntry[],
     code: {
       messageFormat: highlightCode(
         highlighter,

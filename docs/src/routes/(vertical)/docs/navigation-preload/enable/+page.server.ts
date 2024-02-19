@@ -9,11 +9,11 @@ export const load = async () => {
     langs: ["typescript", "javascript"],
   });
   return {
-    title: "BackgroundSyncPlugin - @serwist/background-sync",
+    title: "enable - @serwist/navigation-preload",
     toc: [
       {
-        title: "BackgroundSyncPlugin",
-        id: "background-sync-plugin",
+        title: "enable",
+        id: "enable",
         children: [
           {
             title: "First added",
@@ -39,21 +39,25 @@ export const load = async () => {
         highligher,
         {
           "sw.ts": {
-            code: `import { BackgroundSyncPlugin } from "@serwist/background-sync";
-import { registerRoute } from "@serwist/routing";
-import { NetworkOnly } from "@serwist/strategies";
+            code: `import { enable as enableNavigationPreload } from "@serwist/navigation-preload";
+import { NetworkFirst } from "@serwist/strategies";
+import { registerRoute, NavigationRoute } from "@serwist/routing";
 
-const backgroundSync = new BackgroundSyncPlugin("myQueueName", {
-  maxRetentionTime: 24 * 60, // Retry for a maximum of 24 Hours (specified in minutes)
+enableNavigationPreload();
+
+// Swap in NetworkOnly, CacheFirst, or StaleWhileRevalidate as needed.
+const navigationStrategy = new NetworkFirst({
+  cacheName: "cached-navigations",
 });
 
-registerRoute(
-  /\\/api\\/.*\\/*.json/,
-  new NetworkOnly({
-    plugins: [backgroundSync],
-  }),
-  "POST",
-);`,
+const navigationRoute = new NavigationRoute(navigationStrategy, {
+  // Optionally, provide a allow/denylist of RegExps to determine
+  // which paths will match this route.
+  // allowlist: [],
+  // denylist: [],
+});
+
+registerRoute(navigationRoute);`,
             lang: "typescript",
           },
         },
