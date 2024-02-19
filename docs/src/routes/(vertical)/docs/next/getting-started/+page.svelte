@@ -25,12 +25,12 @@
 <br /><br />
 <h3 id="basic-usage-update-tsconfig">Step 2: Update tsconfig.json</h3>
 <br />
-<p>If you use TypeScript, you should add the following content to tsconfig.json in order to get the correct types:</p>
+<p>
+  If you use TypeScript, you should add the following content to tsconfig.json
+  in order to get the correct types:
+</p>
 <br />
-<CodeTab
-  codes={data.code.basicUsage.tsConfig}
-  defaultTab="tsconfig.json"
-/>
+<CodeTab codes={data.code.basicUsage.tsConfig} defaultTab="tsconfig.json" />
 <br />
 <p>Otherwise, safely skip this step.</p>
 <br /><br />
@@ -41,7 +41,8 @@
 <CodeTab codes={data.code.basicUsage.createEntry} defaultTab="sw.ts" />
 <br />
 <p>
-  If you use the template shown above, make sure you also install the following additional dependencies:
+  If you use the template shown above, make sure you also install the following
+  additional dependencies:
 </p>
 <br />
 <CodeTab
@@ -51,7 +52,10 @@
 <br /><br />
 <h3 id="basic-usage-add-manifest">Step 4: Add a web application manifest</h3>
 <br />
-<p>Update app/manifest.json (App Router) or public/manifest.json (Pages Router) with the following content:</p>
+<p>
+  Update app/manifest.json (App Router) or public/manifest.json (Pages Router)
+  with the following content:
+</p>
 <br />
 <CodeTab
   codes={[data.code.basicUsage.manifestJson]}

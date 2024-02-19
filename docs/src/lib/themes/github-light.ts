@@ -68,7 +68,7 @@ export const githubLight: ThemeRegistrationRaw = Object.freeze({
     "editorGroupHeader.tabsBackground": "#f6f8fa",
     "editorGroupHeader.tabsBorder": "#e1e4e8",
     "editorGutter.addedBackground": "#28a745",
-    "editorGutter.deletedBackground": "#a92330",
+    "editorGutter.deletedBackground": "#ad1a1a",
     "editorGutter.modifiedBackground": "#2188ff",
     "editorIndentGuide.activeBackground": "#d7dbe0",
     "editorIndentGuide.background": "#eff2f6",
@@ -83,7 +83,7 @@ export const githubLight: ThemeRegistrationRaw = Object.freeze({
     foreground: "#444d56",
     "gitDecoration.addedResourceForeground": "#28a745",
     "gitDecoration.conflictingResourceForeground": "#8d3c07",
-    "gitDecoration.deletedResourceForeground": "#a92330",
+    "gitDecoration.deletedResourceForeground": "#ad1a1a",
     "gitDecoration.ignoredResourceForeground": "#959da5",
     "gitDecoration.modifiedResourceForeground": "#0053b3",
     "gitDecoration.submoduleResourceForeground": "#959da5",
@@ -105,7 +105,7 @@ export const githubLight: ThemeRegistrationRaw = Object.freeze({
     "notifications.background": "#fafbfc",
     "notifications.border": "#e1e4e8",
     "notifications.foreground": "#2f363d",
-    "notificationsErrorIcon.foreground": "#a92330",
+    "notificationsErrorIcon.foreground": "#ad1a1a",
     "notificationsInfoIcon.foreground": "#0053b3",
     "notificationsWarningIcon.foreground": "#8d3c07",
     "panel.background": "#f6f8fa",
@@ -165,7 +165,7 @@ export const githubLight: ThemeRegistrationRaw = Object.freeze({
     "terminal.ansiCyan": "#1b7c83",
     "terminal.ansiGreen": "#28a745",
     "terminal.ansiMagenta": "#5a32a3",
-    "terminal.ansiRed": "#a92330",
+    "terminal.ansiRed": "#ad1a1a",
     "terminal.ansiWhite": "#6a737d",
     "terminal.ansiYellow": "#dbab09",
     "terminal.foreground": "#586069",
@@ -222,13 +222,13 @@ export const githubLight: ThemeRegistrationRaw = Object.freeze({
     {
       scope: "keyword",
       settings: {
-        foreground: "#a92330",
+        foreground: "#ad1a1a",
       },
     },
     {
       scope: ["storage", "storage.type"],
       settings: {
-        foreground: "#a92330",
+        foreground: "#ad1a1a",
       },
     },
     {
@@ -298,7 +298,7 @@ export const githubLight: ThemeRegistrationRaw = Object.freeze({
     {
       scope: "carriage-return",
       settings: {
-        background: "#a92330",
+        background: "#ad1a1a",
         content: "^M",
         fontStyle: "italic underline",
         foreground: "#fafbfc",

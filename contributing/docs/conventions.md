@@ -17,34 +17,32 @@ import { highlightCode } from "$lib/highlightCode";
 
 import type { PageServerLoad } from "./$types";
 
-export const load: PageServerLoad = async ({ locals }) => {
-  return {
-    code: {
-      install: highlightCode(
-        locals.highlighter,
-        {
-          npm: {
-            code: "npm i @serwist/next",
-            lang: "bash",
-          },
-          yarn: {
-            code: "yarn add @serwist/next",
-            lang: "bash",
-          },
-          pnpm: {
-            code: "pnpm add @serwist/next",
-            lang: "bash",
-          },
-          bun: {
-            code: "bun add @serwist/next",
-            lang: "bash",
-          },
+export const load: PageServerLoad = ({ locals }) => ({
+  code: {
+    install: highlightCode(
+      locals.highlighter,
+      {
+        npm: {
+          code: "npm i @serwist/next",
+          lang: "bash",
         },
-        { idPrefix: "install-serwist-next-instruction" }
-      ),
-    },
-  };
-};
+        yarn: {
+          code: "yarn add @serwist/next",
+          lang: "bash",
+        },
+        pnpm: {
+          code: "pnpm add @serwist/next",
+          lang: "bash",
+        },
+        bun: {
+          code: "bun add @serwist/next",
+          lang: "bash",
+        },
+      },
+      { idPrefix: "install-serwist-next-instruction" }
+    ),
+  },
+});
 ```
 
 `highlightCode` creates data that is specifically meant for `<CodeTab />`. You should feed the data to that component, rather than use it directly.

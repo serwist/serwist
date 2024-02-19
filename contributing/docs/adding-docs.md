@@ -62,16 +62,15 @@ import type { TocEntry } from "$lib/types";
 
 import type { PageServerLoad } from "./$types";
 
-export const load: PageServerLoad = async ({ locals }) => {
-  return {
-    title: "Foo",
-    code: {
-      basicUsage: {
-        setup: highlightCode(
-          locals.highlighter,
-          {
-            "sw.ts": {
-              code: `import { enable as enableNavigationPreload } from "@serwist/navigation-preload";
+export const load: PageServerLoad = ({ locals }) => ({
+  title: "Foo",
+  code: {
+    basicUsage: {
+      setup: highlightCode(
+        locals.highlighter,
+        {
+          "sw.ts": {
+            code: `import { enable as enableNavigationPreload } from "@serwist/navigation-preload";
 import { NetworkFirst } from "@serwist/strategies";
 import { registerRoute, NavigationRoute } from "@serwist/routing";
 
@@ -90,15 +89,14 @@ const navigationRoute = new NavigationRoute(navigationStrategy, {
 });
 
 registerRoute(navigationRoute);`,
-              lang: "typescript",
-            },
+            lang: "typescript",
           },
-          { idPrefix: "basic-usage" }
-        ),
-      },
+        },
+        { idPrefix: "basic-usage" }
+      ),
     },
-  };
-};
+  },
+});
 ```
 
 - To access this code in the Svelte markup, do this:
