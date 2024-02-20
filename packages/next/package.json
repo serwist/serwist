@@ -87,8 +87,7 @@
   "peerDependencies": {
     "@serwist/sw": "workspace:*",
     "next": ">=14.0.0",
-    "typescript": ">=5.0.0",
-    "webpack": ">=5.9.0"
+    "typescript": ">=5.0.0"
   },
   "peerDependenciesMeta": {
     "@serwist/sw": {

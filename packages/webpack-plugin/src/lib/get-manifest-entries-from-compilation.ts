@@ -9,7 +9,6 @@
 import type { FileDetails, ManifestEntry, WebpackInjectManifestOptions } from "@serwist/build";
 import { transformManifest } from "@serwist/build";
 import type { Asset, Chunk, Compilation, WebpackError } from "webpack";
-import webpack from "webpack";
 
 import { getAssetHash } from "./get-asset-hash.js";
 import { resolveWebpackURL } from "./resolve-webpack-url.js";
@@ -36,7 +35,7 @@ const checkConditions = (
       return condition({ asset, compilation });
       //return compilation !== null;
     }
-    if (webpack.ModuleFilenameHelpers.matchPart(asset.name, condition)) {
+    if (compilation.compiler.webpack.ModuleFilenameHelpers.matchPart(asset.name, condition)) {
       return true;
     }
   }

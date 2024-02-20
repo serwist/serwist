@@ -72,6 +72,9 @@
   "peerDependenciesMeta": {
     "typescript": {
       "optional": true
+    },
+    "webpack": {
+      "optional": true
     }
   }
 }
