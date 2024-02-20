@@ -1,6 +1,6 @@
 {
   "name": "@serwist/strategies",
-  "version": "9.0.0-preview.11",
+  "version": "9.0.0-preview.12",
   "type": "module",
   "description": "A service worker helper library implementing common caching strategies.",
   "files": [

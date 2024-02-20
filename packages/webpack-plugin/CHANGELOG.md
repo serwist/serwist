@@ -1,5 +1,12 @@
 # @serwist/webpack-plugin
 
+## 9.0.0-preview.12
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/build@9.0.0-preview.12
+
 ## 9.0.0-preview.11
 
 ### Major Changes
