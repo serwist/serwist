@@ -95,7 +95,7 @@ const withSerwistInit = (pluginOptions: NextInjectManifestOptions): ((nextConfig
           logger.info("  window.serwist.register()");
 
           if (!tsConfigJson?.compilerOptions?.types?.includes("@serwist/next/typings")) {
-            logger.info("You may also want to add @serwist/next/typings to compilerOptions.types in your tsconfig.json/jsconfig.json.");
+            logger.info("You may also want to add '@serwist/next/typings' to compilerOptions.types in your tsconfig.json/jsconfig.json.");
           }
         }
 
