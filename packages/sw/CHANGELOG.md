@@ -1,5 +1,26 @@
 # @serwist/sw
 
+## 9.0.0-preview.12
+
+### Patch Changes
+
+- [`b273b8c`](https://github.com/serwist/serwist/commit/b273b8cd9a240f8bf8ba357339e2e2d5dc2e8870) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(sw.handlePrecaching): fixed code still being erroneously executed when `precacheEntries` is falsy
+
+  - We weren't supposed to handle `cleanupOutdatedCaches` and `navigateFallback` when the precache manifest is falsy. Really sorry for the inconvenience!
+
+- Updated dependencies []:
+  - @serwist/background-sync@9.0.0-preview.12
+  - @serwist/broadcast-update@9.0.0-preview.12
+  - @serwist/cacheable-response@9.0.0-preview.12
+  - @serwist/core@9.0.0-preview.12
+  - @serwist/expiration@9.0.0-preview.12
+  - @serwist/google-analytics@9.0.0-preview.12
+  - @serwist/navigation-preload@9.0.0-preview.12
+  - @serwist/precaching@9.0.0-preview.12
+  - @serwist/range-requests@9.0.0-preview.12
+  - @serwist/routing@9.0.0-preview.12
+  - @serwist/strategies@9.0.0-preview.12
+
 ## 9.0.0-preview.11
 
 ### Major Changes

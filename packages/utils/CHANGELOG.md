@@ -1,5 +1,7 @@
 # @serwist/utils
 
+## 9.0.0-preview.12
+
 ## 9.0.0-preview.11
 
 ### Major Changes
