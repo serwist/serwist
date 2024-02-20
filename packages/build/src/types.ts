@@ -175,7 +175,7 @@ export interface WebpackPartial {
    * One or more specifiers used to exclude assets from the precache manifest.
    * This is interpreted following
    * [the same rules](https://webpack.js.org/configuration/module/#condition)
-   * as `webpack`'s standard `exclude` option.
+   * as webpack's standard `exclude` option.
    * @default
    * ```
    * [/\.map$/, /^manifest.*\.js$]
@@ -191,7 +191,7 @@ export interface WebpackPartial {
    * One or more specifiers used to include assets in the precache manifest.
    * This is interpreted following
    * [the same rules](https://webpack.js.org/configuration/module/#condition)
-   * as `webpack`'s standard `include` option.
+   * as webpack's standard `include` option.
    */
   include?: (string | RegExp | ((arg0: any) => boolean))[];
 }
@@ -221,7 +221,7 @@ export type OptionalSwDestResolved = OptionalSwDestPartial;
 
 export interface WebpackInjectManifestPartial {
   /**
-   * When `true` (the default), the `swSrc` file will be compiled by `webpack`.
+   * When `true` (the default), the `swSrc` file will be compiled by webpack.
    * When `false`, compilation will not occur (and `webpackCompilationPlugins`
    * can't be used.) Set to `false` if you want to inject the manifest into,
    * e.g., a JSON file.
@@ -232,7 +232,7 @@ export interface WebpackInjectManifestPartial {
   // represented in TypeScript. It's enforced via custom runtime validation
   // logic and needs to be documented.
   /**
-   * Optional `webpack` plugins that will be used when compiling the `swSrc`
+   * Optional webpack plugins that will be used when compiling the `swSrc`
    * input file. Only valid if `compileSrc` is `true`.
    */
   webpackCompilationPlugins?: any[];

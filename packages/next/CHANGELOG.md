@@ -12,11 +12,11 @@
 
 ### Minor Changes
 
-- [`4de5675`](https://github.com/serwist/serwist/commit/4de56759940875a217a1840261d45d5d46aeed77) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(webpack,next): allow `webpack` to be an optional `peerDependency`
+- [`4de5675`](https://github.com/serwist/serwist/commit/4de56759940875a217a1840261d45d5d46aeed77) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(webpack,next): allow webpack to be an optional `peerDependency`
 
-  - Since we support frameworks that ship a prebundled `webpack`, such as Next.js, it would be nice if we can take advantage of that as well.
+  - Since we support frameworks that ship a prebundled webpack, such as Next.js, it would be nice if we can take advantage of that as well.
 
-  - As a result, `webpack` is now an optional `peerDependency` for `@serwist/webpack-plugin` and is no longer a `peerDependency` for `@serwist/next`. Thanks to the fact that we currently don't use any `webpack` plugin, it is also not indirectly installed.
+  - As a result, webpack is now an optional `peerDependency` for `@serwist/webpack-plugin` and is no longer a `peerDependency` for `@serwist/next`. Thanks to the fact that we currently don't use any webpack plugin, it is also not indirectly installed.
 
 ### Patch Changes
 
