@@ -20,9 +20,8 @@ export type HandlePrecachingOptions = {
 } & (
   | {
       /**
-       * An URL that should point to a HTML
-       * file with which navigation requests for URLs that aren't precached will be fulfilled.
-       * For more complex cases, consider `@serwist/sw.fallbacks`instead.
+       * An URL that should point to a HTML file with which navigation requests for URLs that aren't
+       * precached will be fulfilled.
        */
       navigateFallback: string;
       /**
@@ -52,16 +51,16 @@ export const handlePrecaching = ({ precacheEntries, precacheOptions, cleanupOutd
      * See https://goo.gl/S9QRab
      */
     precacheAndRoute(precacheEntries, precacheOptions);
-  }
 
-  if (cleanupOutdatedCaches) cleanupOutdatedCachesImpl();
+    if (cleanupOutdatedCaches) cleanupOutdatedCachesImpl();
 
-  if (options.navigateFallback) {
-    registerRoute(
-      new NavigationRoute(createHandlerBoundToURL(options.navigateFallback), {
-        allowlist: options.navigateFallbackAllowlist,
-        denylist: options.navigateFallbackDenylist,
-      }),
-    );
+    if (options.navigateFallback) {
+      registerRoute(
+        new NavigationRoute(createHandlerBoundToURL(options.navigateFallback), {
+          allowlist: options.navigateFallbackAllowlist,
+          denylist: options.navigateFallbackDenylist,
+        }),
+      );
+    }
   }
 };

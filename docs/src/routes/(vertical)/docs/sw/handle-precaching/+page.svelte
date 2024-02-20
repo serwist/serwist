@@ -41,10 +41,6 @@
   <li>
     <InlineCode>navigateFallback</InlineCode> — An URL that should point to a HTML
     file with which navigation requests for URLs that aren't precached will be fulfilled.
-    For more complex cases, consider
-    <InlineCode>
-      <a href="/docs/sw/fallbacks">@serwist/sw.fallbacks</a>
-    </InlineCode> instead.
   </li>
   <li>
     <InlineCode>navigateFallbackAllowlist</InlineCode> — URLs that should be allowed
