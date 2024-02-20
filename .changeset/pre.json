@@ -34,6 +34,7 @@
     "@serwist/svelte": "9.0.0-preview.6"
   },
   "changesets": [
+    "clean-buckets-fix",
     "cuddly-pots-glow",
     "dirty-planets-change",
     "eighty-tools-know",
@@ -42,8 +43,10 @@
     "modern-moons-brush",
     "orange-news-fry",
     "orange-weeks-brush",
+    "perfect-bears-cry",
     "popular-deers-live",
     "popular-tips-explain",
+    "quick-chairs-mix",
     "rare-dodos-tell",
     "red-dolls-yell",
     "red-planes-behave",
