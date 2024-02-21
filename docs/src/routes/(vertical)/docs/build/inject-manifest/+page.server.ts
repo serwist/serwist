@@ -21,7 +21,7 @@ if (warnings.length > 0) {
   console.warn("[@serwist/build] Oopsie, there are warnings from Serwist:", warnings);
 }
 console.log(\`[@serwist/build] Manifest injected: \${count} files, totaling \${size} bytes.\`);`,
-          lang: "javascript",
+          lang: "typescript",
         },
       },
       { idPrefix: "getting-started" },

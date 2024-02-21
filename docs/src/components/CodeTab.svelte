@@ -1,4 +1,4 @@
-<script lang="ts" generics="T extends [string, string, { dark: string, light: string }][]">
+<script lang="ts" generics="T extends [string, string, string][]">
   import { clsx } from "$lib/clsx";
 
   type TKeys = T[number][0];
@@ -20,7 +20,7 @@
   });
 </script>
 
-<div class="w-full rounded-xl bg-white dark:bg-neutral-950 flex flex-col overflow-hidden border-[0.5px] border-gray-300 dark:border-gray-800">
+<div class="w-full rounded-xl bg-white dark:bg-neutral-950 flex flex-col border-[0.5px] border-gray-300 dark:border-gray-800">
   <div class="w-full bg-white dark:bg-black relative">
     <div class="w-full overflow-auto flex">
       {#each codes as [tab, id]}
@@ -46,16 +46,10 @@
   <div class="margin-0 p-4">
     {#each codes as [tab, id, code]}
       {@const isActive = tab === currentTab}
-      <div id={`${id}-code`} class={clsx("whitespace-normal overflow-auto", !isActive && "hidden")} aria-labelledby={`${id}-button`}>
+      <div id={`${id}-code`} class="whitespace-normal" class:hidden={!isActive} aria-labelledby={`${id}-button`}>
         {#if isActive}
-          <span class="visible-dark [&>*]:!bg-transparent">
-            <!-- Only use trusted code! -->
-            {@html code.dark}
-          </span>
-          <span class="visible-light [&>*]:!bg-transparent">
-            <!-- Only use trusted code! -->
-            {@html code.light}
-          </span>
+          <!-- Only use trusted code! -->
+          {@html code}
         {/if}
       </div>
     {/each}

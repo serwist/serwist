@@ -7,7 +7,7 @@ export const load: PageServerLoad = ({ locals }) => ({
     usage: highlightCode(
       locals.highlighter,
       {
-        "build.js": {
+        "build.ts": {
           code: `import { injectManifest } from "@serwist/build";
 // Build something...
 // Bundle the service worker...
@@ -22,7 +22,7 @@ if (warnings.length > 0) {
   console.warn("[@serwist/build] Oopsie, there are warnings from Serwist:", warnings);
 }
 console.log(\`[@serwist/build] Manifest injected: \${count} files, totaling \${size} bytes.\`);`,
-          lang: "javascript",
+          lang: "typescript",
         },
       },
       { idPrefix: "usage-example" },

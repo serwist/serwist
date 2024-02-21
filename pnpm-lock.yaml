@@ -128,21 +128,60 @@ importers:
 
   docs:
     devDependencies:
+      '@serwist/background-sync':
+        specifier: workspace:*
+        version: link:../packages/background-sync
+      '@serwist/broadcast-update':
+        specifier: workspace:*
+        version: link:../packages/broadcast-update
+      '@serwist/build':
+        specifier: workspace:*
+        version: link:../packages/build
+      '@serwist/cacheable-response':
+        specifier: workspace:*
+        version: link:../packages/cacheable-response
       '@serwist/core':
         specifier: workspace:*
         version: link:../packages/core
+      '@serwist/expiration':
+        specifier: workspace:*
+        version: link:../packages/expiration
+      '@serwist/navigation-preload':
+        specifier: workspace:*
+        version: link:../packages/navigation-preload
+      '@serwist/next':
+        specifier: workspace:*
+        version: link:../packages/next
       '@serwist/precaching':
         specifier: workspace:*
         version: link:../packages/precaching
+      '@serwist/routing':
+        specifier: workspace:*
+        version: link:../packages/routing
+      '@serwist/strategies':
+        specifier: workspace:*
+        version: link:../packages/strategies
       '@serwist/svelte':
         specifier: workspace:*
         version: link:../packages/svelte
       '@serwist/sw':
         specifier: workspace:*
         version: link:../packages/sw
+      '@serwist/utils':
+        specifier: workspace:*
+        version: link:../packages/utils
+      '@serwist/vite':
+        specifier: workspace:*
+        version: link:../packages/vite
+      '@serwist/webpack-plugin':
+        specifier: workspace:*
+        version: link:../packages/webpack-plugin
       '@serwist/window':
         specifier: workspace:*
         version: link:../packages/window
+      '@shikijs/twoslash':
+        specifier: 1.1.6
+        version: 1.1.6(typescript@5.4.0-dev.20240206)
       '@sveltejs/adapter-static':
         specifier: 3.0.1
         version: 3.0.1(@sveltejs/kit@2.5.0)
@@ -155,15 +194,24 @@ importers:
       '@sveltejs/vite-plugin-svelte':
         specifier: 3.0.2
         version: 3.0.2(svelte@5.0.0-next.48)(vite@5.0.12)
+      '@types/node':
+        specifier: 20.11.16
+        version: 20.11.16
+      '@types/react':
+        specifier: 18.2.54
+        version: 18.2.54
       autoprefixer:
         specifier: 10.4.17
         version: 10.4.17(postcss@8.4.34)
+      next:
+        specifier: 14.1.0
+        version: 14.1.0(@babel/core@7.23.7)(react-dom@18.2.0)(react@18.2.0)
       postcss:
         specifier: 8.4.34
         version: 8.4.34
       shiki:
-        specifier: 1.0.0-beta.6
-        version: 1.0.0-beta.6
+        specifier: 1.1.6
+        version: 1.1.6
       svelte:
         specifier: 5.0.0-next.48
         version: 5.0.0-next.48
@@ -182,6 +230,9 @@ importers:
       vite:
         specifier: 5.0.12
         version: 5.0.12(@types/node@20.11.16)
+      webpack:
+        specifier: 5.90.1
+        version: 5.90.1(@swc/core@1.4.0)
 
   examples:
     devDependencies:
@@ -4147,8 +4198,18 @@ packages:
     requiresBuild: true
     optional: true
 
-  /@shikijs/core@1.0.0-beta.6:
-    resolution: {integrity: sha512-dHbpxvRz8G3NcEWLYh3TkVwqVswqDyHKHqWi+7c72hm+yIumYJwdDuQIEjT4z5qxNzyzKQGnEeb9b5jWPdy3vA==}
+  /@shikijs/core@1.1.6:
+    resolution: {integrity: sha512-kt9hhvrWTm0EPtRDIsoAZnSsFlIDBVBBI5CQewpA/NZCPin+MOKRXg+JiWc4y+8fZ/v0HzfDhu/UC+OTZGMt7A==}
+    dev: true
+
+  /@shikijs/twoslash@1.1.6(typescript@5.4.0-dev.20240206):
+    resolution: {integrity: sha512-0HJK7Il7HevTpRvpPlnJ0ow8UyoQxhvxQ0/lhfw1C0xW/7eLtSAtZfSKdel5Nch6HgbbtfucEzuUFmRIRXUFUg==}
+    dependencies:
+      '@shikijs/core': 1.1.6
+      twoslash: 0.2.4(typescript@5.4.0-dev.20240206)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
     dev: true
 
   /@sigstore/bundle@1.1.0:
@@ -5128,6 +5189,14 @@ packages:
       eslint-visitor-keys: 3.4.3
     dev: true
 
+  /@typescript/vfs@1.5.0:
+    resolution: {integrity: sha512-AJS307bPgbsZZ9ggCT3wwpg3VbTKMFNHfaY/uF0ahSkYYrPF2dSSKDNIDIQAHm9qJqbLvCsSJH7yN4Vs/CsMMg==}
+    dependencies:
+      debug: 4.3.4
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
   /@ungap/structured-clone@1.2.0:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
     dev: true
@@ -5584,12 +5653,12 @@ packages:
       negotiator: 0.6.3
     dev: true
 
-  /acorn-import-assertions@1.9.0(acorn@8.11.2):
+  /acorn-import-assertions@1.9.0(acorn@8.11.3):
     resolution: {integrity: sha512-cmMwop9x+8KFhxvKrKfPYmN6/pKTYYHBqLa0DfvVZcKMJWNyWLnaqND7dx/qn66R7ewM1UX5XMaDVP5wlVTaVA==}
     peerDependencies:
       acorn: ^8
     dependencies:
-      acorn: 8.11.2
+      acorn: 8.11.3
     dev: true
 
   /acorn-jsx@5.3.2(acorn@8.10.0):
@@ -12764,10 +12833,10 @@ packages:
     resolution: {integrity: sha512-6j1W9l1iAs/4xYBI1SYOVZyFcCis9b4KCLQ8fgAGG07QvzaRLVVRQvAy85yNmmZSjYjg4MWh4gNvlPujU/5LpA==}
     dev: true
 
-  /shiki@1.0.0-beta.6:
-    resolution: {integrity: sha512-lS60hZmzma3ZDVVjk0k33zwUgsB/12QfWNAsKy1gsGpG211JNfAdMN+FBGs4qTTxUNLqfS7nxmpckqDadIwiWQ==}
+  /shiki@1.1.6:
+    resolution: {integrity: sha512-j4pcpvaQWHb42cHeV+W6P+X/VcK7Y2ctvEham6zB8wsuRQroT6cEMIkiUmBU2Nqg2qnHZDH6ZyRdVldcy0l6xw==}
     dependencies:
-      '@shikijs/core': 1.0.0-beta.6
+      '@shikijs/core': 1.1.6
     dev: true
 
   /side-channel@1.0.4:
@@ -13776,6 +13845,22 @@ packages:
       turbo-windows-arm64: 1.12.2
     dev: true
 
+  /twoslash-protocol@0.2.4:
+    resolution: {integrity: sha512-AEGTJj4mFGfvQc/M6qi0+s82Zq+mxLcjWZU+EUHGG8LQElyHDs+uDR+/3+m1l+WP7WL+QmWrVzFXgFX+hBg+bg==}
+    dev: true
+
+  /twoslash@0.2.4(typescript@5.4.0-dev.20240206):
+    resolution: {integrity: sha512-hc3y11BjLHP4kV37TR6lUKksxpZp0LQi9kCy95ka6qobye/gV49PqXZIuWlRaRVGNvp4AJBMg8aiwkp0M8x/nQ==}
+    peerDependencies:
+      typescript: '*'
+    dependencies:
+      '@typescript/vfs': 1.5.0
+      twoslash-protocol: 0.2.4
+      typescript: 5.4.0-dev.20240206
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
   /type-check@0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
     engines: {node: '>= 0.8.0'}
@@ -14706,8 +14791,8 @@ packages:
       '@webassemblyjs/ast': 1.11.6
       '@webassemblyjs/wasm-edit': 1.11.6
       '@webassemblyjs/wasm-parser': 1.11.6
-      acorn: 8.11.2
-      acorn-import-assertions: 1.9.0(acorn@8.11.2)
+      acorn: 8.11.3
+      acorn-import-assertions: 1.9.0(acorn@8.11.3)
       browserslist: 4.22.2
       chrome-trace-event: 1.0.3
       enhanced-resolve: 5.15.0

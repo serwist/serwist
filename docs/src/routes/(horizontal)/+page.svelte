@@ -97,7 +97,7 @@
       title: "webpack",
       description: "The good old reliable webpack.",
       codes: data.code.webpack,
-      defaultTab: "webpack.config.js",
+      defaultTab: "webpack.config.ts",
     },
   };
 

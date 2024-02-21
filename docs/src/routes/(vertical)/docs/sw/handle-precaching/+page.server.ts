@@ -35,7 +35,18 @@ registerRuntimeCaching(...defaultCache);`,
           lang: "typescript",
         },
         "sw.js": {
-          code: `import { clientsClaim } from "@serwist/core";
+          code: `import type { SerwistGlobalConfig } from "@serwist/core";
+import type { PrecacheEntry } from "@serwist/precaching";
+
+declare global {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+  }
+}
+
+declare const self: ServiceWorkerGlobalScope;
+// ---cut-before---
+import { clientsClaim } from "@serwist/core";
 import { handlePrecaching, registerRuntimeCaching } from "@serwist/sw";
 import { defaultCache } from "@serwist/vite/worker";
 
@@ -45,7 +56,7 @@ clientsClaim();
 handlePrecaching({ precacheEntries: self.__SW_MANIFEST });
 
 registerRuntimeCaching(...defaultCache);`,
-          lang: "javascript",
+          lang: "typescript",
         },
       },
       { idPrefix: "usage-example" },

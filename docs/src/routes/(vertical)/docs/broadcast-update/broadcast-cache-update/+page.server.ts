@@ -40,24 +40,43 @@ export const load: PageServerLoad = ({ locals }) => ({
         "sw.ts": {
           code: `import { BroadcastCacheUpdate, defaultHeadersToCheck } from "@serwist/broadcast-update";
 
+declare const self: ServiceWorkerGlobalScope;
+
 const broadcastUpdate = new BroadcastCacheUpdate({
   headersToCheck: [...defaultHeadersToCheck, "X-My-Custom-Header"],
 });
 
-const cacheName = "api-cache";
-const request = new Request("https://example.com/api");
+self.addEventListener("fetch", (event) => {
+  event.respondWith(
+    (async () => {
+      const cacheName = "api-cache";
+      const request = new Request("https://example.com/api");
+      
+      const cache = await caches.open(cacheName);
+      const oldResponse = await cache.match(request);
 
-const cache = await caches.open(cacheName);
-const oldResponse = await cache.match(request);
-const newResponse = await fetch(request);
+      // Is the cached response stale?
+      const shouldRevalidate = true;
 
-broadcastUpdate.notifyIfUpdated({
-  cacheName,
-  oldResponse,
-  newResponse,
-  request,
-);`,
-          lang: "javascript",
+      if (!shouldRevalidate && oldResponse) {
+        return oldResponse;
+      }
+
+      const newResponse = await fetch(request);
+
+      broadcastUpdate.notifyIfUpdated({
+        cacheName,
+        oldResponse,
+        newResponse,
+        request,
+        event,
+      });
+
+      return newResponse;
+    })(),
+  );
+});`,
+          lang: "typescript",
         },
         "message.ts": {
           code: `import { CACHE_UPDATED_MESSAGE_META } from "@serwist/broadcast-update";
@@ -72,7 +91,9 @@ navigator.serviceWorker.addEventListener("message", async (event) => {
     // the content on the page.
     const cache = await caches.open(cacheName);
     const updatedResponse = await cache.match(updatedURL);
-    const updatedText = await updatedResponse.text();
+    if (updatedResponse) {
+      const updatedText = await updatedResponse.text();
+    }
   }
 });`,
           lang: "typescript",

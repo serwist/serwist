@@ -39,6 +39,8 @@ export const load: PageServerLoad = ({ locals }) => ({
       {
         "sw.ts": {
           code: `import { Queue } from "@serwist/background-sync";
+
+declare const self: ServiceWorkerGlobalScope;
   
 const queue = new Queue("myQueueName");
 
@@ -55,13 +57,42 @@ self.addEventListener("fetch", (event) => {
       return response;
     } catch (error) {
       await queue.pushRequest({ request: event.request });
-      return error;
+      return Response.error();
     }
   };
 
   event.respondWith(backgroundSync());
 });`,
-          lang: "javascript",
+          lang: "typescript",
+        },
+        "sw.js": {
+          code: `declare const self: ServiceWorkerGlobalScope;
+
+// ---cut-before---
+import { Queue } from "@serwist/background-sync";
+
+const queue = new Queue("myQueueName");
+
+self.addEventListener("fetch", (event) => {
+  // Add in your own criteria here to return early if this
+  // isn't a request that should use background sync.
+  if (event.request.method !== "POST") {
+    return;
+  }
+
+  const backgroundSync = async () => {
+    try {
+      const response = await fetch(event.request.clone());
+      return response;
+    } catch (error) {
+      await queue.pushRequest({ request: event.request });
+      return Response.error();
+    }
+  };
+
+  event.respondWith(backgroundSync());
+});`,
+          lang: "typescript",
         },
       },
       { idPrefix: "usage-example" },

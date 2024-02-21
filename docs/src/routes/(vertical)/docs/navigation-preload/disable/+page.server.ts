@@ -38,6 +38,8 @@ export const load: PageServerLoad = ({ locals }) => ({
 import { NetworkFirst } from "@serwist/strategies";
 import { registerRoute, NavigationRoute } from "@serwist/routing";
 
+declare const self: ServiceWorkerGlobalScope;
+
 self.addEventListener("message", (event) => {
   if (event.data && event.data.type === "TOGGLE_NAV_PRELOAD") {
     event.waitUntil(

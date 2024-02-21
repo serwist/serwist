@@ -90,6 +90,7 @@ import {
   PHASE_PRODUCTION_BUILD,
 } from "next/constants.js";
 
+/** @type {(phase: string, defaultConfig: import("next").NextConfig) => Promise<import("next").NextConfig>} */
 export default async (phase) => {
   /** @type {import("next").NextConfig} */
   const nextConfig = {};
@@ -114,7 +115,8 @@ export default async (phase) => {
   PHASE_PRODUCTION_BUILD,
 } = require("next/constants");
 
-module.exports = (phase) => {
+/** @type {(phase: string, defaultConfig: import("next").NextConfig) => Promise<import("next").NextConfig>} */
+module.exports = async (phase) => {
   /** @type {import("next").NextConfig} */
   const nextConfig = {};
 
@@ -165,7 +167,18 @@ installSerwist({
             lang: "typescript",
           },
           "sw.js": {
-            code: `import { defaultCache } from "@serwist/next/worker";
+            code: `import type { SerwistGlobalConfig } from "@serwist/core";
+import type { PrecacheEntry } from "@serwist/precaching";
+
+declare global {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+  }
+}
+
+declare const self: ServiceWorkerGlobalScope;
+// ---cut-before---
+import { defaultCache } from "@serwist/next/worker";
 import { installSerwist } from "@serwist/sw";
 
 installSerwist({
@@ -175,7 +188,7 @@ installSerwist({
   navigationPreload: true,
   runtimeCaching: defaultCache,
 });`,
-            lang: "javascript",
+            lang: "typescript",
           },
         },
         { idPrefix: "basic-usage-create-entry-instruction" },
@@ -372,6 +385,7 @@ export const viewport = {
   themeColor: "#FFFFFF",
 };
 
+/** @param {{ children: import("react").ReactNode }} props */
 export default function RootLayout({ children }) {
   return (
     <html lang="en" dir="ltr">
@@ -465,13 +479,13 @@ export default function App({ Component, pageProps }: AppProps) {
       <Component {...pageProps} />
     </>
   );
-}
-`,
+}`,
             lang: "tsx",
           },
           "pages/_app.js": {
             code: `import Head from "next/head";
 
+/** @param {import("next/app").AppProps} props */
 export default function App({ Component, pageProps }) {
   return (
     <>

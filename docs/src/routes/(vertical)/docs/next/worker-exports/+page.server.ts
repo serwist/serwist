@@ -36,7 +36,18 @@ installSerwist({
             lang: "typescript",
           },
           "app/sw.js": {
-            code: `import { defaultCache } from "@serwist/next/worker";
+            code: `import type { SerwistGlobalConfig } from "@serwist/core";
+import type { PrecacheEntry } from "@serwist/precaching";
+
+declare global {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+  }
+}
+
+declare const self: ServiceWorkerGlobalScope;
+// ---cut-before---
+import { defaultCache } from "@serwist/next/worker";
 import { installSerwist } from "@serwist/sw";
 
 installSerwist({
@@ -46,7 +57,7 @@ installSerwist({
   navigationPreload: true,
   runtimeCaching: defaultCache,
 });`,
-            lang: "javascript",
+            lang: "typescript",
           },
         },
         { idPrefix: "default-cache-usage-example" },

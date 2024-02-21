@@ -23,7 +23,7 @@
 <br /><br />
 <h2>Usage</h2>
 <br />
-<CodeTab codes={data.code.usage} defaultTab="build.js" />
+<CodeTab codes={data.code.usage} defaultTab="build.ts" />
 <br /><br />
 <h2>Note about webpack</h2>
 <br />

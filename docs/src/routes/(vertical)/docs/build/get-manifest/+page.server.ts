@@ -9,7 +9,17 @@ export const load: PageServerLoad = ({ locals }) => ({
       locals.highlighter,
       {
         "build.js": {
-          code: `import { getManifest } from "@serwist/build";
+          code: `// @filename: bundle.ts
+export const bundleServiceWorker = async (options: unknown): Promise<unknown> => {
+  return options;
+};
+
+// @filename: build.ts
+// ---cut-before---
+import { getManifest } from "@serwist/build";
+
+import { bundleServiceWorker } from "./bundle";
+
 // Build something...
 const { manifestEntries, count, size, warnings } = await getManifest({
   globDirectory: "dist/static",
@@ -18,6 +28,7 @@ if (warnings.length > 0) {
   console.warn("[@serwist/build] Oopsie, there are warnings from Serwist:", warnings);
 }
 console.log(\`[@serwist/build] Manifest generated: \${count} files, totaling \${size} bytes.\`);
+
 // Implement it yourself!
 void bundleServiceWorker({
   swSrc: "app/sw.js",
@@ -26,7 +37,7 @@ void bundleServiceWorker({
     "self.__SW_MANIFEST": JSON.stringify(manifestEntries),
   },
 });`,
-          lang: "javascript",
+          lang: "typescript",
         },
       },
       { idPrefix: "getting-started" },

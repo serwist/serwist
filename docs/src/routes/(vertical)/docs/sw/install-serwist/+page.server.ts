@@ -38,7 +38,18 @@ installSerwist({
           lang: "typescript",
         },
         "sw.js": {
-          code: `import { installSerwist } from "@serwist/sw";
+          code: `import type { SerwistGlobalConfig } from "@serwist/core";
+import type { PrecacheEntry } from "@serwist/precaching";
+
+declare global {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+  }
+}
+
+declare const self: ServiceWorkerGlobalScope;
+// ---cut-before---
+import { installSerwist } from "@serwist/sw";
 // This import depends on your framework. For example, if you use Next.js, it should
 // be @serwist/next/worker rather than @serwist/vite/worker.
 import { defaultCache } from "@serwist/vite/worker";
@@ -51,7 +62,7 @@ installSerwist({
   disableDevLogs: true,
   runtimeCaching: defaultCache,
 });`,
-          lang: "javascript",
+          lang: "typescript",
         },
       },
       { idPrefix: "basic-usage" },

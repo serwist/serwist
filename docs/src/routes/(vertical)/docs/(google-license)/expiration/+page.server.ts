@@ -78,8 +78,7 @@ registerRoute(
       }),
     ],
   }),
-);
-`,
+);`,
             lang: "typescript",
           },
         },
@@ -111,7 +110,20 @@ const expirationManager = new CacheExpiration(cacheName, {
         locals.highlighter,
         {
           "sw.ts": {
-            code: `await openCache.put(request, response);
+            code: `// @filename: sw.ts
+import { CacheExpiration } from "@serwist/expiration";
+
+declare const request: Request;
+declare const response: Response;
+
+const cacheName = "my-cache";
+const expirationManager = new CacheExpiration(cacheName, {
+  maxAgeSeconds: 24 * 60 * 60,
+  maxEntries: 20,
+});
+const openCache = await caches.open(cacheName);
+// ---cut-before---
+await openCache.put(request, response);
 
 await expirationManager.updateTimestamp(request.url);`,
             lang: "typescript",
@@ -123,7 +135,19 @@ await expirationManager.updateTimestamp(request.url);`,
         locals.highlighter,
         {
           "sw.ts": {
-            code: "await expirationManager.expireEntries();",
+            code: `// @filename: sw.ts
+import { CacheExpiration } from "@serwist/expiration";
+
+declare const request: Request;
+declare const response: Response;
+
+const cacheName = "my-cache";
+const expirationManager = new CacheExpiration(cacheName, {
+  maxAgeSeconds: 24 * 60 * 60,
+  maxEntries: 20,
+});
+// ---cut-before---
+await expirationManager.expireEntries();`,
             lang: "typescript",
           },
         },

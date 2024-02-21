@@ -30,7 +30,10 @@ export default withSerwist({
         locals.highlighter,
         {
           "app/register-pwa.jsx": {
-            code: `"use client";
+            code: `// @filename: register-pwa.jsx
+/// <reference types="@serwist/next/typings" />
+// ---cut-before---
+"use client";
 import { useEffect } from "react";
 
 export default function RegisterPWA() {

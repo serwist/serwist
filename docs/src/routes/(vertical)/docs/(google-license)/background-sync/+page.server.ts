@@ -104,6 +104,7 @@ registerRoute(
 import { registerRoute } from "@serwist/routing";
 import { NetworkOnly } from "@serwist/strategies";
 
+/** @type {import("@serwist/core").SerwistPlugin} */
 const statusPlugin = {
   fetchDidSucceed({ response }) {
     if (response.status >= 500) {
@@ -141,7 +142,7 @@ registerRoute(
           "sw.ts": {
             code: `import { Queue } from "@serwist/background-sync";
   
-const queue = new Queue("myQueueName");`,
+new Queue("myQueueName");`,
             lang: "typescript",
           },
         },
@@ -154,6 +155,8 @@ const queue = new Queue("myQueueName");`,
         {
           "sw.ts": {
             code: `import { Queue } from "@serwist/background-sync";
+
+declare const self: ServiceWorkerGlobalScope;
   
 const queue = new Queue("myQueueName");
 
@@ -170,7 +173,7 @@ self.addEventListener("fetch", (event) => {
       return response;
     } catch (error) {
       await queue.pushRequest({ request: event.request });
-      return error;
+      return Response.error();
     }
   };
 

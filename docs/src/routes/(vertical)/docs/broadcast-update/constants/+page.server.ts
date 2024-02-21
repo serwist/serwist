@@ -49,7 +49,9 @@ navigator.serviceWorker.addEventListener("message", async (event) => {
     // the content on the page.
     const cache = await caches.open(cacheName);
     const updatedResponse = await cache.match(updatedURL);
-    const updatedText = await updatedResponse.text();
+    if (updatedResponse) {
+      const updatedText = await updatedResponse.text();
+    }
   }
 });`,
             lang: "typescript",
@@ -75,7 +77,9 @@ navigator.serviceWorker.addEventListener("message", async (event) => {
     // the content on the page.
     const cache = await caches.open(cacheName);
     const updatedResponse = await cache.match(updatedURL);
-    const updatedText = await updatedResponse.text();
+    if (updatedResponse) {
+      const updatedText = await updatedResponse.text();
+    }
   }
 });`,
             lang: "typescript",
@@ -91,6 +95,8 @@ navigator.serviceWorker.addEventListener("message", async (event) => {
           "sw.ts": {
             code: `import { responsesAreSame, defaultHeadersToCheck } from "@serwist/broadcast-update";
 
+declare const self: ServiceWorkerGlobalScope;
+
 const cacheName = "api-cache";
 const request = new Request("https://example.com/api");
 
@@ -98,7 +104,7 @@ const cache = await caches.open(cacheName);
 const oldResponse = await cache.match(request);
 const newResponse = await fetch(request);
 
-if (!responsesAreSame(oldResponse, newResponse, defaultHeadersToCheck)) {
+if (oldResponse && !responsesAreSame(oldResponse, newResponse, defaultHeadersToCheck)) {
   const windows = await self.clients.matchAll({ type: "window" });
   for (const win of windows) {
     win.postMessage({ type: "CACHE_UPDATED", message: "Update now!" });

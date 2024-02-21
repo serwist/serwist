@@ -32,7 +32,7 @@ interface CacheExpirationConfig {
  * limit on the number of responses stored in a
  * [`Cache`](https://developer.mozilla.org/en-US/docs/Web/API/Cache).
  */
-class CacheExpiration {
+export class CacheExpiration {
   private _isRunning = false;
   private _rerunRequested = false;
   private readonly _maxEntries?: number;
@@ -193,5 +193,3 @@ class CacheExpiration {
     await this._timestampModel.expireEntries(Infinity); // Expires all.
   }
 }
-
-export { CacheExpiration };

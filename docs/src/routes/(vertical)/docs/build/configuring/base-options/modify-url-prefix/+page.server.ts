@@ -8,7 +8,7 @@ export const load: PageServerLoad = ({ locals }) => ({
     usage: highlightCode(
       locals.highlighter,
       {
-        "build.js": {
+        "build.ts": {
           code: `import { injectManifest } from "@serwist/build";
 // Build something...
 // Bundle the service worker...
