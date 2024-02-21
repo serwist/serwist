@@ -9,8 +9,6 @@
   import type { TocEntry } from "$lib/types";
   import TocRenderer from "./TocRenderer.svelte";
 
-  const { data } = $props();
-
   let mobileMenu = $state<HTMLDetailsElement | undefined>(undefined);
   let observer = $state<IntersectionObserver | null>(null);
   const toc = $derived($page.data.toc) as TocEntry[] | undefined;
@@ -136,7 +134,7 @@
           <span class="sr-only">(opens in a new tab)</span>
         </a>
         <a
-          href={`https://github.com/serwist/serwist/tree/${data.gitBranch}/docs/src/routes/(vertical)${$page.url.pathname}`}
+          href={`https://github.com/serwist/serwist/tree/main/docs/src/routes/(vertical)${$page.url.pathname}`}
           target="_blank"
           rel="noreferrer"
           class="text-xs font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"

@@ -7,7 +7,6 @@ declare global {
     // interface Error {}
     interface Locals {
       highlighter: Awaited<ReturnType<typeof getHighlighter>>;
-      currentBranch: string;
     }
     // interface PageData {}
     // interface Platform {}
