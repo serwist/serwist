@@ -188,7 +188,7 @@ export class PrecacheController {
         concurrents = self.__WB_CONCURRENT_PRECACHING;
       }
 
-      await parallel(concurrents, Array.from(this._urlsToCacheKeys.entries()), async ([url, cacheKey]) => {
+      await parallel(concurrents, Array.from(this._urlsToCacheKeys.entries()), async ([url, cacheKey]): Promise<void> => {
         const integrity = this._cacheKeysToIntegrities.get(cacheKey);
         const cacheMode = this._urlsToCacheModes.get(url);
 
@@ -200,9 +200,10 @@ export class PrecacheController {
 
         await Promise.all(
           this.strategy.handleAll({
-            params: { cacheKey },
-            request,
             event,
+            request,
+            url: new URL(request.url),
+            params: { cacheKey },
           }),
         );
       });

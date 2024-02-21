@@ -45,7 +45,7 @@ export interface RouteMatchCallback {
 /**
  * Options passed to a `RouteHandlerCallback` function.
  */
-export declare interface RouteHandlerCallbackOptions {
+export interface RouteHandlerCallbackOptions {
   /**
    * The event associated with the request.
    */
@@ -72,6 +72,11 @@ export interface ManualHandlerCallbackOptions {
    * A request to run this strategy for.
    */
   request: Request | string;
+  url?: never;
+  /**
+   * The return value from `@serwist/routing`'s `matchCallback` (if applicable).
+   */
+  params?: never;
 }
 
 export type HandlerCallbackOptions = RouteHandlerCallbackOptions | ManualHandlerCallbackOptions;

@@ -117,3 +117,7 @@ registerRoute(navigationRoute);`,
 ## Adding a page to the sidebar
 
 - Simply edit `SIDEBAR_LINKS`, located at docs/src/routes/(vertical)/docs/constants.ts.
+
+## Adding a static asset
+
+- We manually maintain `staticRevisions` in docs/src/service-worker.ts so as to avoid having the users recache these assets, which are unlikely to change, too often. Please remember to bump it whenever you change an asset!

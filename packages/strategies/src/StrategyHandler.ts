@@ -32,10 +32,14 @@ function toRequest(input: RequestInfo) {
  */
 export class StrategyHandler {
   /**
+   * The event associated with this request.
+   */
+  public event: ExtendableEvent;
+  /**
    * The request the strategy is performing (passed to the strategy's
    * `handle()` or `handleAll()` method).
    */
-  public request!: Request;
+  public request: Request;
   /**
    * A `URL` instance of `request.url` (if passed to the strategy's
    * `handle()` or `handleAll()` method).
@@ -44,23 +48,18 @@ export class StrategyHandler {
    */
   public url?: URL;
   /**
-   * The event associated with this request.
-   */
-  public event: ExtendableEvent;
-  /**
    * A `param` value (if passed to the strategy's
    * `handle()` or `handleAll()` method).
    * Note: the `param` param will be present if the strategy was invoked
    * from a `@serwist/routing.Route` object and the `@serwist/strategies.matchCallback`
    * returned a truthy value (it will be that value).
    */
-  public params?: any;
+  public params?: string[] | MapLikeObject;
 
   private _cacheKeys: Record<string, Request> = {};
-
   private readonly _strategy: Strategy;
-  private readonly _extendLifetimePromises: Promise<any>[];
   private readonly _handlerDeferred: Deferred<any>;
+  private readonly _extendLifetimePromises: Promise<any>[];
   private readonly _plugins: SerwistPlugin[];
   private readonly _pluginStateMap: Map<SerwistPlugin, MapLikeObject>;
 
@@ -74,7 +73,12 @@ export class StrategyHandler {
    * @param strategy
    * @param options
    */
-  constructor(strategy: Strategy, options: HandlerCallbackOptions) {
+  constructor(
+    strategy: Strategy,
+    options: HandlerCallbackOptions & {
+      request: HandlerCallbackOptions["request"] & Request;
+    },
+  ) {
     if (process.env.NODE_ENV !== "production") {
       assert!.isInstance(options.event, ExtendableEvent, {
         moduleName: "@serwist/strategies",
@@ -82,11 +86,20 @@ export class StrategyHandler {
         funcName: "constructor",
         paramName: "options.event",
       });
+      assert!.isInstance(options.request, Request, {
+        moduleName: "@serwist/strategies",
+        className: "StrategyHandler",
+        funcName: "constructor",
+        paramName: "options.request",
+      });
     }
 
-    Object.assign(this, options);
-
     this.event = options.event;
+    this.request = options.request;
+    if (options.url) {
+      this.url = options.url;
+      this.params = options.params;
+    }
     this._strategy = strategy;
     this._handlerDeferred = new Deferred();
     this._extendLifetimePromises = [];

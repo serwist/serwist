@@ -111,9 +111,8 @@ export abstract class Strategy implements RouteHandlerObject {
 
     const event = options.event;
     const request = typeof options.request === "string" ? new Request(options.request) : options.request;
-    const params = "params" in options ? options.params : undefined;
 
-    const handler = new StrategyHandler(this, { event, request, params });
+    const handler = new StrategyHandler(this, options.url ? { event, request, url: options.url, params: options.params } : { event, request });
 
     const responseDone = this._getResponse(handler, request, event);
     const handlerDone = this._awaitComplete(responseDone, handler, request, event);
