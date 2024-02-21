@@ -1,13 +1,13 @@
 import type { BundledLanguage, Highlighter } from "shiki";
-import { rendererRich, transformerTwoslash, type TransformerTwoslashIndexOptions } from "@shikijs/twoslash";
-import { nonNullable } from "@serwist/utils";
+import { rendererRich, transformerTwoslash } from "@shikijs/twoslash";
 import type { ModuleResolutionKind, ModuleDetectionKind, ModuleKind, ScriptTarget, JsxEmit } from "typescript";
 
 interface HighlightCodeOptions {
   idPrefix: string;
 }
 
-const twoslashOptions = {
+const twoslash = transformerTwoslash({
+  langs: ["ts", "tsx", "js", "jsx"],
   renderer: rendererRich(),
   twoslashOptions: {
     compilerOptions: {
@@ -37,21 +37,6 @@ const twoslashOptions = {
       jsx: 4 satisfies JsxEmit,
     },
   },
-} satisfies TransformerTwoslashIndexOptions;
-
-// Seems that having multiple langs doesn't work, for now.
-const tsTwoslash = transformerTwoslash(twoslashOptions);
-const jsTwoslash = transformerTwoslash({
-  langs: ["javascript"],
-  ...twoslashOptions,
-});
-const tsxTwoslash = transformerTwoslash({
-  langs: ["tsx"],
-  ...twoslashOptions,
-});
-const jsxTwoslash = transformerTwoslash({
-  langs: ["jsx"],
-  ...twoslashOptions,
 });
 
 /**
@@ -70,9 +55,6 @@ export const highlightCode = <T extends string>(
   const codeEntries = Object.entries(codes) as [T, (typeof codes)[T]][];
   const result = [] as [T, string, string][];
   for (const [key, { code, lang }] of codeEntries) {
-    const transformers = [
-      lang === "typescript" ? tsTwoslash : lang === "javascript" ? jsTwoslash : lang === "tsx" ? tsxTwoslash : lang === "jsx" ? jsxTwoslash : null,
-    ].filter(nonNullable);
     result.push([
       key,
       `${idPrefix}-${key.replace(/[ ()]/gm, "-")}`,
@@ -82,7 +64,7 @@ export const highlightCode = <T extends string>(
           dark: "github-dark",
         },
         lang,
-        transformers,
+        transformers: [twoslash],
       }),
     ]);
   }

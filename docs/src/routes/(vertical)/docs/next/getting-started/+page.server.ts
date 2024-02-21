@@ -346,6 +346,7 @@ const APP_DEFAULT_TITLE = "My Awesome PWA App";
 const APP_TITLE_TEMPLATE = "%s - PWA App";
 const APP_DESCRIPTION = "Best PWA app in the world!";
 
+/** @type {import("next").Metadata} */
 export const metadata = {
   applicationName: APP_NAME,
   title: {
@@ -381,6 +382,7 @@ export const metadata = {
   },
 };
 
+/** @type {import("next").Viewport} */
 export const viewport = {
   themeColor: "#FFFFFF",
 };

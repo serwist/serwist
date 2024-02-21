@@ -43,7 +43,7 @@
     </div>
     <div class="w-full h-[1px] z-[1] bg-gray-300 dark:bg-gray-800 absolute bottom-0 left-0 pointer-events-none" aria-hidden="true" />
   </div>
-  <div class="margin-0 p-4">
+  <div class="margin-0 p-4 overflow-auto">
     {#each codes as [tab, id, code]}
       {@const isActive = tab === currentTab}
       <div id={`${id}-code`} class="whitespace-normal" class:hidden={!isActive} aria-labelledby={`${id}-button`}>
