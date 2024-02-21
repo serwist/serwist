@@ -1,3 +1,4 @@
+import { getBranch } from "$lib/getBranch";
 import { githubDark } from "$lib/themes/github-dark";
 import { githubLight } from "$lib/themes/github-light";
 import type { Handle } from "@sveltejs/kit";
@@ -8,5 +9,6 @@ export const handle: Handle = async ({ event, resolve }) => {
     langs: ["bash", "json", "typescript", "javascript", "tsx", "jsx"],
     themes: [githubDark, githubLight],
   });
+  event.locals.currentBranch = await getBranch();
   return resolve(event);
 };

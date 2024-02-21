@@ -1,5 +1,6 @@
 /**
- *
+ * Checks whether the current link is active.
+ * 
  * @param link
  * @param pathname
  * @returns

@@ -4,6 +4,14 @@ interface HighlightCodeOptions {
   idPrefix: string;
 }
 
+/**
+ * Highlights some code for `<CodeTab />`.
+ * 
+ * @param highlighter 
+ * @param codes 
+ * @param options 
+ * @returns 
+ */
 export const highlightCode = <T extends string>(
   highlighter: Highlighter,
   codes: Record<T, { code: string; lang: BundledLanguage }>,
