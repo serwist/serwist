@@ -19,6 +19,18 @@ export const setupDocsHovers = () => {
       if (target.tagName === "DATA-LSP") {
         clearTimeout(timeout);
 
+        const rect = target?.getBoundingClientRect();
+        const html = target?.getAttribute("lsp");
+
+        const x = (rect.left + rect.right) / 2 + window.scrollX;
+        const y = rect.top + window.scrollY + 24;
+
+        if (html) {
+          state.html = html;
+          state.x = x;
+          state.y = y;
+        }
+
         if (!tooltip) {
           // @ts-ignore ?
           tooltip = mount(Tooltip, {
@@ -38,20 +50,8 @@ export const setupDocsHovers = () => {
             props: state,
           });
         }
-
-        const rect = target?.getBoundingClientRect();
-        const html = target?.getAttribute("lsp");
-
-        const x = (rect.left + rect.right) / 2 + window.scrollX;
-        const y = rect.top + window.scrollY + 24;
-
-        if (html) {
-          state.html = html;
-          state.x = x;
-          state.y = y;
-        }
       }
-    }
+    };
 
     const out = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
@@ -63,7 +63,7 @@ export const setupDocsHovers = () => {
           }
         }, 500);
       }
-    }
+    };
 
     window.addEventListener("mouseover", over);
     window.addEventListener("mouseout", out);
@@ -73,4 +73,4 @@ export const setupDocsHovers = () => {
       window.removeEventListener("mouseout", out);
     };
   });
-}
+};
