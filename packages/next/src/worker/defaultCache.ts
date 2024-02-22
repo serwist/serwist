@@ -6,7 +6,7 @@ import type { RuntimeCaching } from "@serwist/sw";
 import { PAGES_CACHE_NAME } from "./constants.js";
 
 // Serwist RuntimeCaching config: https://serwist.pages.dev/docs/sw/register-runtime-caching
-export const defaultCache = [
+export const defaultCache: RuntimeCaching[] = [
   {
     matcher: /^https:\/\/fonts\.(?:gstatic)\.com\/.*/i,
     handler: new CacheFirst({
@@ -243,4 +243,4 @@ export const defaultCache = [
       networkTimeoutSeconds: 10,
     }),
   },
-] satisfies RuntimeCaching[];
+];
