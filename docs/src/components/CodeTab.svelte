@@ -21,8 +21,8 @@
 </script>
 
 <div class="w-full rounded-xl bg-white dark:bg-neutral-950 flex flex-col border-[0.5px] border-gray-300 dark:border-gray-800">
-  <div class="w-full bg-white dark:bg-black relative">
-    <div class="w-full overflow-auto flex">
+  <div class="rounded-t-xl w-full bg-white dark:bg-black relative">
+    <div class="rounded-t-xl w-full overflow-auto flex">
       {#each codes as [tab, id]}
         {@const isActive = tab === currentTab}
         <button
