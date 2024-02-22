@@ -7,3 +7,10 @@ export interface TocEntry {
   id: string;
   children?: TocEntry[];
 }
+
+export interface TooltipProps {
+  html: string | undefined;
+  x: number | undefined;
+  right: boolean;
+  y: number | undefined;
+}

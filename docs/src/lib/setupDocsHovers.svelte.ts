@@ -1,10 +1,13 @@
 import Tooltip from "$components/Tooltip.svelte";
 import { mount, unmount } from "svelte";
 
+import type { TooltipProps } from "./types";
+
 export const setupDocsHovers = () => {
-  const state = $state<{ html: string | undefined; x: number | undefined; y: number | undefined }>({
+  const state = $state<TooltipProps>({
     html: undefined,
     x: undefined,
+    right: false,
     y: undefined,
   });
 
@@ -21,13 +24,19 @@ export const setupDocsHovers = () => {
 
         const rect = target?.getBoundingClientRect();
         const html = target?.getAttribute("lsp");
-
-        const x = (rect.left + rect.right) / 2 + window.scrollX;
+        let x = (rect.left + rect.right) / 2 + window.scrollX;
+        let right = false;
         const y = rect.top + window.scrollY + 24;
+
+        if (window.innerWidth - x < 200) {
+          x = Math.max(0, window.innerWidth - rect.right);
+          right = true;
+        }
 
         if (html) {
           state.html = html;
           state.x = x;
+          state.right = right;
           state.y = y;
         }
 
