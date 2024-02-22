@@ -18,4 +18,4 @@
 <br /><br />
 <h2>Usage</h2>
 <br />
-<CodeTab codes={data.code.usage} defaultTab="build.ts" />
+<CodeTab codes={data.code.usage} defaultTab="build.js" />

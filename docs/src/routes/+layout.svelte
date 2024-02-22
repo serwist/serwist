@@ -6,6 +6,9 @@
   import { PUBLIC_CANONICAL_URL } from "$env/static/public";
   import { isColorScheme } from "$lib/isColorScheme";
   import { colorScheme } from "$lib/stores/colorScheme";
+  import { setupDocsHovers } from "$lib/setupDocsHovers.svelte";
+
+  setupDocsHovers();
 
   $effect(() => {
     const registerSerwist = async () => {

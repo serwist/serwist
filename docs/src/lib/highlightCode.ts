@@ -1,6 +1,7 @@
 import type { BundledLanguage, Highlighter } from "shiki";
-import { rendererRich, transformerTwoslash } from "@shikijs/twoslash";
+import { transformerTwoslash } from "@shikijs/twoslash";
 import type { ModuleResolutionKind, ModuleDetectionKind, ModuleKind, ScriptTarget, JsxEmit } from "typescript";
+import { renderer } from "./renderer";
 
 interface HighlightCodeOptions {
   idPrefix: string;
@@ -8,7 +9,11 @@ interface HighlightCodeOptions {
 
 const twoslash = transformerTwoslash({
   langs: ["ts", "tsx", "js", "jsx"],
-  renderer: rendererRich(),
+  langAlias: {
+    typescript: "ts",
+    javascript: "js",
+  },
+  renderer: renderer(),
   twoslashOptions: {
     compilerOptions: {
       noErrorTruncation: true,

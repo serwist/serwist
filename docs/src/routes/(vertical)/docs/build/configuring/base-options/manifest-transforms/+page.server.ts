@@ -15,8 +15,6 @@ export const load: PageServerLoad = ({ locals }) => ({
 const manifestTransform: ManifestTransform = async (manifestEntries) => {
   const manifest = manifestEntries.map((m) => {
     if (m.url === "dQw4w9WgXcQ") m.url = "get-rick-rolled.mp4";
-    // Note: it is actually not recommended to do this if you use webpack because
-    // @serwist/webpack-plugin handles it for you.
     if (m.revision === null) m.revision = crypto.randomUUID();
     return m;
   });
@@ -38,7 +36,6 @@ console.log(\`[@serwist/build] Manifest injected: \${count} files, totaling \${s
           code: `import { injectManifest } from "@serwist/build";
 // Build something...
 // Bundle the service worker...
-// Note: just a fun example!
 /** @type {import("@serwist/build").ManifestTransform} */
 const manifestTransform = async (manifestEntries) => {
   const manifest = manifestEntries.map((m) => {

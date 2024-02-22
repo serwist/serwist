@@ -59,9 +59,11 @@ navigator.serviceWorker.addEventListener("message", async (event) => {
     // the content on the page.
     const cache = await caches.open(cacheName);
     const updatedResponse = await cache.match(updatedURL);
-    if (updatedResponse) {
-      const updatedText = await updatedResponse.text();
+    if (!updatedResponse) {
+      return;
     }
+
+    const updatedText = await updatedResponse.text();
   }
 });`,
           lang: "typescript",

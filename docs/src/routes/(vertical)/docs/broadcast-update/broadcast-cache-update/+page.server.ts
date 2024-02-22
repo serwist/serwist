@@ -38,43 +38,27 @@ export const load: PageServerLoad = ({ locals }) => ({
       locals.highlighter,
       {
         "sw.ts": {
-          code: `import { BroadcastCacheUpdate, defaultHeadersToCheck } from "@serwist/broadcast-update";
-
-declare const self: ServiceWorkerGlobalScope;
+          code: `declare const event: FetchEvent;
+// ---cut-before---
+import { BroadcastCacheUpdate, defaultHeadersToCheck } from "@serwist/broadcast-update";
 
 const broadcastUpdate = new BroadcastCacheUpdate({
   headersToCheck: [...defaultHeadersToCheck, "X-My-Custom-Header"],
 });
 
-self.addEventListener("fetch", (event) => {
-  event.respondWith(
-    (async () => {
-      const cacheName = "api-cache";
-      const request = new Request("https://example.com/api");
-      
-      const cache = await caches.open(cacheName);
-      const oldResponse = await cache.match(request);
+const cacheName = "api-cache";
+const request = new Request("https://example.com/api");
 
-      // Is the cached response stale?
-      const shouldRevalidate = true;
+const cache = await caches.open(cacheName);
+const oldResponse = await cache.match(request);
+const newResponse = await fetch(request);
 
-      if (!shouldRevalidate && oldResponse) {
-        return oldResponse;
-      }
-
-      const newResponse = await fetch(request);
-
-      broadcastUpdate.notifyIfUpdated({
-        cacheName,
-        oldResponse,
-        newResponse,
-        request,
-        event,
-      });
-
-      return newResponse;
-    })(),
-  );
+broadcastUpdate.notifyIfUpdated({
+  cacheName,
+  oldResponse,
+  newResponse,
+  request,
+  event,
 });`,
           lang: "typescript",
         },
@@ -91,9 +75,11 @@ navigator.serviceWorker.addEventListener("message", async (event) => {
     // the content on the page.
     const cache = await caches.open(cacheName);
     const updatedResponse = await cache.match(updatedURL);
-    if (updatedResponse) {
-      const updatedText = await updatedResponse.text();
+    if (!updatedResponse) {
+      return;
     }
+
+    const updatedText = await updatedResponse.text();
   }
 });`,
           lang: "typescript",

@@ -144,8 +144,8 @@
       </div>
     </div>
   </nav>
-  <main id="main-content" class="w-full min-w-0 md:py-8 mt-6 md:mt-0">
-    <article class="w-full min-w-0 max-w-6xl px-6 py-4 md:px-12">
+  <main id="main-content" class="w-full min-w-0 md:py-8 mt-4 md:mt-0">
+    <article class="w-full min-w-0 max-w-6xl px-6 py-6 md:px-12">
       <slot />
     </article>
   </main>

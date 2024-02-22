@@ -142,7 +142,7 @@ registerRoute(
           "sw.ts": {
             code: `import { Queue } from "@serwist/background-sync";
   
-new Queue("myQueueName");`,
+const queue = new Queue("myQueueName");`,
             lang: "typescript",
           },
         },
