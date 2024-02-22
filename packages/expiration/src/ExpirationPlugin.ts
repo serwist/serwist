@@ -37,8 +37,7 @@ export interface ExpirationPluginOptions {
  * This plugin can be used in a `@serwist/strategies` Strategy to regularly enforce a
  * limit on the age and / or the number of cached requests.
  *
- * It can only be used with Strategy instances that have a
- * [custom `cacheName` property set](/web/tools/workbox/guides/configure-workbox#custom_cache_names_in_strategies).
+ * It can only be used with Strategy instances that have a custom `cacheName` property set.
  * In other words, it can't be used to expire entries in strategy that uses the
  * default runtime cache name.
  *

@@ -17,7 +17,7 @@ export interface StrategyOptions {
    */
   cacheName?: string;
   /**
-   * [Plugins](https://developers.google.com/web/tools/workbox/guides/using-plugins)
+   * [Plugins](https://developer.chrome.com/docs/workbox/using-plugins)
    * to use in conjunction with this caching strategy.
    */
   plugins?: SerwistPlugin[];

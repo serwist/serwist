@@ -83,12 +83,17 @@ const renderMarkdown = (shiki: ShikiTransformerContextCommon, md: string) => {
           const result = defaultHandlers.link(state, node);
           result.properties.class = "link sm";
           if (typeof result.properties.href === "string" && result.properties.href.startsWith("http")) {
-            const href = new URL(result.properties.href);
-            if (href.origin === PUBLIC_CANONICAL_URL) {
-              result.properties.href = href.pathname;
-            } else {
-              result.properties.target = "_blank";
-              result.properties.rel = "noreferrer";
+            try {
+              const href = new URL(result.properties.href);
+              if (href.origin === PUBLIC_CANONICAL_URL) {
+                result.properties.href = `${href.pathname}${href.hash}`;
+              } else {
+                result.properties.target = "_blank";
+                result.properties.rel = "noreferrer";
+              }
+            } catch {
+              // Someone may actually mess an URL up.
+              // Best to be on the safe side.
             }
           }
           return result;

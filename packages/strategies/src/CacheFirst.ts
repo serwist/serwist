@@ -13,7 +13,7 @@ import type { StrategyHandler } from "./StrategyHandler.js";
 import { messages } from "./utils/messages.js";
 
 /**
- * An implementation of the [cache first](https://developer.chrome.com/docs/workbox/caching-strategies-overview/#cache-first-falling-back-to-network)
+ * An implementation of the [cache first](https://developer.chrome.com/docs/workbox/caching-strategies-overview/#cache_first_falling_back_to_network)
  * request strategy.
  *
  * A cache first strategy is useful for assets that have been revisioned,
