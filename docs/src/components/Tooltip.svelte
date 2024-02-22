@@ -38,7 +38,7 @@
   style:max-height="{document.getElementById("root-container")!.getBoundingClientRect().height - y}px"
   style:--offset="{Math.min(-10, window.innerWidth - (x + width + 10))}px"
 >
-  <span class="twoslash-popup-code">
+  <span class="twoslash-popup-code shiki">
     <!-- Again, only use trusted sources! -->
     {@html html}
   </span>

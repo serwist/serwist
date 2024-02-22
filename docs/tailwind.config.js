@@ -4,6 +4,9 @@ export default {
   content: ["./src/**/*.{html,js,svelte,ts}"],
   theme: {
     extend: {
+      fontFamily: {
+        sans: "'Geist', Arial, sans-serif",
+      },
       colors: {
         accent: {
           light: "#1e40af",

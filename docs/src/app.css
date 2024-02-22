@@ -10,9 +10,7 @@
     @apply m-0 flex h-full w-full p-0;
   }
   body {
-    font-family: "Geist";
-    font-weight: 400;
-    @apply box-border bg-gray-50 text-black transition-colors duration-100 dark:bg-neutral-950 dark:text-white;
+    @apply font-sans font-normal box-border bg-gray-50 text-black transition-colors duration-100 dark:bg-neutral-950 dark:text-white;
   }
   h1,
   h2,

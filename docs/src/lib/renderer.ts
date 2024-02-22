@@ -2,6 +2,19 @@ import type { TwoslashRenderer } from "@shikijs/twoslash";
 import { defaultHoverInfoProcessor } from "@shikijs/twoslash";
 import { toHtml } from "hast-util-to-html";
 
+const getErrorLevelClass = (error: any) => {
+  switch (error.level) {
+    case "warning":
+      return "twoslash-error-level-warning";
+    case "suggestion":
+      return "twoslash-error-level-suggestion";
+    case "message":
+      return "twoslash-error-level-message";
+    default:
+      return "";
+  }
+};
+
 /**
  * A custom renderer derived from `@shikijs/twoslash.rendererClassic` tailored for the docs.
  *
@@ -19,7 +32,7 @@ export const renderer = (): TwoslashRenderer => {
       if (!content || content === "any") {
         return node;
       }
-      const result = [];
+      const result: any[] = [];
       const hastContent = this.codeToHast(content, {
         lang: this.options.lang === "tsx" || this.options.lang === "jsx" ? "tsx" : "ts",
         themes: {
@@ -27,7 +40,12 @@ export const renderer = (): TwoslashRenderer => {
           dark: "github-dark",
         },
       });
-      result.push(((hastContent.children[0] as any).children as any)[0]);
+      result.push({
+        type: "element",
+        tagName: "div",
+        properties: { class: "twoslash-popup-type" },
+        children: [((hastContent.children[0] as any).children as any)[0]],
+      });
       if (info.docs) {
         result.push({
           type: "element",
@@ -101,13 +119,17 @@ export const renderer = (): TwoslashRenderer => {
       };
     },
 
-    nodeError(_, node) {
-      return {
-        type: "element",
-        tagName: "data-err",
-        properties: {},
-        children: [node],
-      };
+    nodesError(error, children) {
+      return [
+        {
+          type: "element",
+          tagName: "span",
+          properties: {
+            class: ["twoslash-error", getErrorLevelClass(error)].filter(Boolean).join(" "),
+          },
+          children,
+        },
+      ];
     },
 
     lineError(error) {
@@ -116,40 +138,7 @@ export const renderer = (): TwoslashRenderer => {
           type: "element",
           tagName: "div",
           properties: {
-            class: "error",
-          },
-          children: [
-            {
-              type: "element",
-              tagName: "span",
-              properties: {},
-              children: [
-                {
-                  type: "text",
-                  value: error.text,
-                },
-              ],
-            },
-            {
-              type: "element",
-              tagName: "span",
-              properties: {
-                class: "code",
-              },
-              children: [
-                {
-                  type: "text",
-                  value: String(error.code),
-                },
-              ],
-            },
-          ],
-        },
-        {
-          type: "element",
-          tagName: "span",
-          properties: {
-            class: "error-behind",
+            class: `twoslash-meta-line twoslash-error-line ${getErrorLevelClass(error)}`,
           },
           children: [
             {
