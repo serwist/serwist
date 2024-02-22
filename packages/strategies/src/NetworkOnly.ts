@@ -20,17 +20,18 @@ export interface NetworkOnlyOptions extends Omit<StrategyOptions, "cacheName" | 
   networkTimeoutSeconds?: number;
 }
 
+/**
+ * An implementation of the [network only](https://developer.chrome.com/docs/workbox/caching-strategies-overview/#network-only)
+ * request strategy.
+ *
+ * This class is useful if you want to take advantage of any Serwist plugin.
+ *
+ * If the network request fails, this will throw a `SerwistError` exception.
+ */
 export class NetworkOnly extends Strategy {
   private readonly _networkTimeoutSeconds: number;
 
   /**
-   * An implementation of the [network only](https://developer.chrome.com/docs/workbox/caching-strategies-overview/#network-only)
-   * request strategy.
-   *
-   * This class is useful if you want to take advantage of any Serwist plugin.
-   *
-   * If the network request fails, this will throw a `SerwistError` exception.
-   *
    * @param options
    */
   constructor(options: NetworkOnlyOptions = {}) {

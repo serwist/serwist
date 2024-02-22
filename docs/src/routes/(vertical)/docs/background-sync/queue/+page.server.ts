@@ -66,8 +66,17 @@ self.addEventListener("fetch", (event) => {
           lang: "typescript",
         },
         "sw.js": {
-          code: `declare const self: ServiceWorkerGlobalScope;
+          code: `// @filename: sw-decl.d.ts
+import type { SerwistGlobalConfig } from "@serwist/core";
 
+declare global {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {};
+}
+
+// @filename: sw.js
+// @lib: esnext,webworker
+// @types: ./sw-decl.d.ts
+const self = /** @type {ServiceWorkerGlobalScope} */(/** @type {unknown} */(globalThis.self));
 // ---cut-before---
 import { Queue } from "@serwist/background-sync";
 
@@ -92,7 +101,7 @@ self.addEventListener("fetch", (event) => {
 
   event.respondWith(backgroundSync());
 });`,
-          lang: "typescript",
+          lang: "javascript",
         },
       },
       { idPrefix: "usage-example" },

@@ -167,7 +167,8 @@ installSerwist({
             lang: "typescript",
           },
           "sw.js": {
-            code: `import type { SerwistGlobalConfig } from "@serwist/core";
+            code: `// @filename: sw-decl.d.ts
+import type { SerwistGlobalConfig } from "@serwist/core";
 import type { PrecacheEntry } from "@serwist/precaching";
 
 declare global {
@@ -176,7 +177,10 @@ declare global {
   }
 }
 
-declare const self: ServiceWorkerGlobalScope;
+// @filename: sw.js
+// @types: ./sw-decl.d.ts
+// @lib: esnext,webworker
+const self = /** @type {ServiceWorkerGlobalScope} */(/** @type {unknown} */(globalThis.self));
 // ---cut-before---
 import { defaultCache } from "@serwist/next/worker";
 import { installSerwist } from "@serwist/sw";
@@ -188,7 +192,7 @@ installSerwist({
   navigationPreload: true,
   runtimeCaching: defaultCache,
 });`,
-            lang: "typescript",
+            lang: "javascript",
           },
         },
         { idPrefix: "basic-usage-create-entry-instruction" },

@@ -38,7 +38,8 @@ installSerwist({
           lang: "typescript",
         },
         "sw.js": {
-          code: `import type { SerwistGlobalConfig } from "@serwist/core";
+          code: `// @filename: sw-decl.d.ts
+import type { SerwistGlobalConfig } from "@serwist/core";
 import type { PrecacheEntry } from "@serwist/precaching";
 
 declare global {
@@ -47,7 +48,10 @@ declare global {
   }
 }
 
-declare const self: ServiceWorkerGlobalScope;
+// @filename: sw.js
+// @types: ./sw-decl.d.ts
+// @lib: esnext,webworker
+const self = /** @type {ServiceWorkerGlobalScope} */(/** @type {unknown} */(globalThis.self));
 // ---cut-before---
 import { installSerwist } from "@serwist/sw";
 // This import depends on your framework. For example, if you use Next.js, it should
@@ -62,7 +66,7 @@ installSerwist({
   disableDevLogs: true,
   runtimeCaching: defaultCache,
 });`,
-          lang: "typescript",
+          lang: "javascript",
         },
       },
       { idPrefix: "basic-usage" },

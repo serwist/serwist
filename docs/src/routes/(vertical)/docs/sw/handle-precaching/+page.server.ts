@@ -35,7 +35,8 @@ registerRuntimeCaching(...defaultCache);`,
           lang: "typescript",
         },
         "sw.js": {
-          code: `import type { SerwistGlobalConfig } from "@serwist/core";
+          code: `// @filename: sw-decl.d.ts
+import type { SerwistGlobalConfig } from "@serwist/core";
 import type { PrecacheEntry } from "@serwist/precaching";
 
 declare global {
@@ -44,7 +45,10 @@ declare global {
   }
 }
 
-declare const self: ServiceWorkerGlobalScope;
+// @filename: sw.js
+// @types: ./sw-decl.d.ts
+// @lib: esnext,webworker
+const self = /** @type {ServiceWorkerGlobalScope} */(/** @type {unknown} */(globalThis.self));
 // ---cut-before---
 import { clientsClaim } from "@serwist/core";
 import { handlePrecaching, registerRuntimeCaching } from "@serwist/sw";
@@ -56,7 +60,7 @@ clientsClaim();
 handlePrecaching({ precacheEntries: self.__SW_MANIFEST });
 
 registerRuntimeCaching(...defaultCache);`,
-          lang: "typescript",
+          lang: "javascript",
         },
       },
       { idPrefix: "usage-example" },

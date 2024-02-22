@@ -1,5 +1,4 @@
 import type { TwoslashRenderer } from "@shikijs/twoslash";
-import { defaultHoverInfoProcessor } from "@shikijs/twoslash";
 import { toHtml } from "hast-util-to-html";
 
 const getErrorLevelClass = (error: any) => {
@@ -15,6 +14,31 @@ const getErrorLevelClass = (error: any) => {
   }
 };
 
+const regexType = /^[A-Z][a-zA-Z0-9_]*(\<[^\>]*\>)?:/;
+const regexFunction = /^[a-zA-Z0-9_]*\(/;
+
+/**
+ * A custom hover info processor derived from `@shikijs/twoslash.defaultHoverInfoProcessor` tailored for the docs.
+ *
+ * Original source: https://github.com/shikijs/shiki/blob/ccb58331464ff25b25d7385be700a00edce1ad4e/packages/twoslash/src/renderer-rich.ts#L636-L653
+ *
+ * License: MIT
+ */
+const hoverInfoProcessor = (type: string) => {
+  let content = type
+    // Remove leading `(property)` or `(method)` on each line
+    .replace(/^\(([\w-]+?)\)\s+/gm, "")
+    // Remove the import statement
+    .replace(/\nimport .*$/, "")
+    .trim();
+
+  // Add `type` or `function` keyword if needed
+  if (content.match(regexType)) content = `type ${content}`;
+  else if (content.match(regexFunction)) content = `function ${content}`;
+
+  return content;
+};
+
 /**
  * A custom renderer derived from `@shikijs/twoslash.rendererClassic` tailored for the docs.
  *
@@ -28,7 +52,7 @@ export const renderer = (): TwoslashRenderer => {
       if (!info.text) {
         return node;
       }
-      const content = defaultHoverInfoProcessor(info.text);
+      const content = hoverInfoProcessor(info.text);
       if (!content || content === "any") {
         return node;
       }

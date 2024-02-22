@@ -1,5 +1,5 @@
-import { mount, unmount } from "svelte";
 import Tooltip from "$components/Tooltip.svelte";
+import { mount, unmount } from "svelte";
 
 export const setupDocsHovers = () => {
   const state = $state<{ html: string | undefined; x: number | undefined; y: number | undefined }>({

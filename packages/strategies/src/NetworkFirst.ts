@@ -21,21 +21,21 @@ export interface NetworkFirstOptions extends StrategyOptions {
   networkTimeoutSeconds?: number;
 }
 
+/**
+ * An implementation of the [network first](https://developer.chrome.com/docs/workbox/caching-strategies-overview/#network-first-falling-back-to-cache)
+ * request strategy.
+ *
+ * By default, this strategy will cache responses with a 200 status code as
+ * well as [opaque responses](https://developer.chrome.com/docs/workbox/caching-resources-during-runtime/#opaque-responses).
+ * Opaque responses are are cross-origin requests where the response doesn't
+ * support [CORS](https://enable-cors.org/).
+ *
+ * If the network request fails, and there is no cache match, this will throw
+ * a `SerwistError` exception.
+ */
 export class NetworkFirst extends Strategy {
   private readonly _networkTimeoutSeconds: number;
-
   /**
-   * An implementation of the [network first](https://developer.chrome.com/docs/workbox/caching-strategies-overview/#network-first-falling-back-to-cache)
-   * request strategy.
-   *
-   * By default, this strategy will cache responses with a 200 status code as
-   * well as [opaque responses](https://developer.chrome.com/docs/workbox/caching-resources-during-runtime/#opaque-responses).
-   * Opaque responses are are cross-origin requests where the response doesn't
-   * support [CORS](https://enable-cors.org/).
-   *
-   * If the network request fails, and there is no cache match, this will throw
-   * a `SerwistError` exception.
-   *
    * @param options
    * This option can be used to combat
    * "[lie-fi](https://developers.google.com/web/fundamentals/performance/poor-connectivity/#lie-fi)"

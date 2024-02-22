@@ -1,6 +1,6 @@
-import type { BundledLanguage, Highlighter } from "shiki";
 import { transformerTwoslash } from "@shikijs/twoslash";
-import type { ModuleResolutionKind, ModuleDetectionKind, ModuleKind, ScriptTarget, JsxEmit } from "typescript";
+import type { BundledLanguage, Highlighter } from "shiki";
+import type { JsxEmit, ModuleDetectionKind, ModuleKind, ModuleResolutionKind, ScriptTarget } from "typescript";
 import { renderer } from "./renderer";
 
 interface HighlightCodeOptions {
