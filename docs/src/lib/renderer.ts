@@ -1,5 +1,10 @@
+import { PUBLIC_CANONICAL_URL } from "$env/static/public";
 import type { TwoslashRenderer } from "@shikijs/twoslash";
 import { toHtml } from "hast-util-to-html";
+import { fromMarkdown } from "mdast-util-from-markdown";
+import { gfmFromMarkdown } from "mdast-util-gfm";
+import { defaultHandlers, toHast } from "mdast-util-to-hast";
+import type { ShikiTransformerContextCommon } from "shiki";
 
 const getErrorLevelClass = (error: any) => {
   switch (error.level) {
@@ -40,6 +45,71 @@ const hoverInfoProcessor = (type: string) => {
 };
 
 /**
+ * A custom markdown renderer derived from `@shikijs/vitepress-twoslash.renderMarkdown` tailored for the docs.
+ *
+ * Original source: https://github.com/shikijs/shiki/blob/ccb58331464ff25b25d7385be700a00edce1ad4e/packages/vitepress-twoslash/src/renderer-floating-vue.ts#L153-L190
+ *
+ * License: MIT
+ * @param shiki
+ * @param md
+ * @returns
+ */
+const renderMarkdown = (shiki: ShikiTransformerContextCommon, md: string) => {
+  const mdast = fromMarkdown(
+    md.replace(/{@link ([^}]*)}/g, "$1"), // Replace JSDoc links
+    { mdastExtensions: [gfmFromMarkdown()] },
+  );
+
+  return (
+    toHast(mdast, {
+      handlers: {
+        code(state, node) {
+          const lang = node.lang || "";
+          if (lang) {
+            return shiki.codeToHast(node.value, {
+              ...shiki.options,
+              transformers: [],
+              lang,
+            }).children[0] as any;
+          }
+          return defaultHandlers.code(state, node);
+        },
+        inlineCode(state, node) {
+          const result = defaultHandlers.inlineCode(state, node);
+          result.properties.class = "inline-block font-mono text-neutral-600 dark:text-neutral-400 break-all";
+          return result;
+        },
+        link(state, node) {
+          const result = defaultHandlers.link(state, node);
+          result.properties.class = "link sm";
+          if (typeof result.properties.href === "string" && result.properties.href.startsWith("http")) {
+            const href = new URL(result.properties.href);
+            if (href.origin === PUBLIC_CANONICAL_URL) {
+              result.properties.href = href.pathname;
+            } else {
+              result.properties.target = "_blank";
+              result.properties.rel = "noreferrer";
+            }
+          }
+          return result;
+        },
+      },
+    }) as any
+  ).children;
+};
+
+const renderMarkdownInline = (shiki: ShikiTransformerContextCommon, md: string, context?: string) => {
+  if (context === "tag:param") {
+    md = md.replace(/^([\w$-]+)/, "`$1` ");
+  }
+  const children = renderMarkdown(shiki, md);
+  if (children.length === 1 && children[0].type === "element" && children[0].tagName === "p") {
+    return children[0].children;
+  }
+  return children;
+};
+
+/**
  * A custom renderer derived from `@shikijs/twoslash.rendererClassic` tailored for the docs.
  *
  * Original source: https://github.com/shikijs/shiki/blob/ccb58331464ff25b25d7385be700a00edce1ad4e/packages/twoslash/src/renderer-classic.ts
@@ -58,11 +128,9 @@ export const renderer = (): TwoslashRenderer => {
       }
       const result: any[] = [];
       const hastContent = this.codeToHast(content, {
+        ...this.options,
+        transformers: [],
         lang: this.options.lang === "tsx" || this.options.lang === "jsx" ? "tsx" : "ts",
-        themes: {
-          light: "github-light",
-          dark: "github-dark",
-        },
       });
       result.push({
         type: "element",
@@ -75,12 +143,7 @@ export const renderer = (): TwoslashRenderer => {
           type: "element",
           tagName: "div",
           properties: { class: "twoslash-popup-docs" },
-          children: [
-            {
-              type: "text",
-              value: info.docs,
-            },
-          ],
+          children: renderMarkdown(this, info.docs),
         });
       }
       if (info.tags?.length) {
@@ -118,12 +181,7 @@ export const renderer = (): TwoslashRenderer => {
                       properties: {
                         class: "twoslash-popup-docs-tag-value",
                       },
-                      children: [
-                        {
-                          type: "text",
-                          value: tag[1],
-                        },
-                      ],
+                      children: renderMarkdownInline(this, tag[1], `tag:${tag[0]}`),
                     },
                   ]
                 : []),

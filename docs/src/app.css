@@ -73,6 +73,9 @@
   .link {
     @apply text-accent-light dark:text-accent-dark underline underline-offset-[6px];
   }
+  .link.sm {
+    @apply underline-offset-4;
+  }
   .list {
     @apply list-inside list-disc pl-4 marker:text-black dark:marker:text-white;
   }
