@@ -14,8 +14,7 @@
 <h2 id="about">About</h2>
 <br />
 <p>
-  A class implementing the <ICD>cacheDidUpdate</ICD> lifecycle callback. It will
-  automatically broadcast a message whenever a cached response is updated.
+  A class implementing the <ICD>cacheDidUpdate</ICD> lifecycle callback. It will automatically broadcast a message whenever a cached response is updated.
 </p>
 <br /><br />
 <h2 id="options">Options</h2>
@@ -23,9 +22,7 @@
 <p>
   See
   <ICD>
-    <a class="link" href="./broadcast-cache-update#options">
-      BroadcastCacheUpdate
-    </a>
+    <a class="link" href="./broadcast-cache-update#options"> BroadcastCacheUpdate </a>
   </ICD>'s options.
 </p>
 <br /><br />

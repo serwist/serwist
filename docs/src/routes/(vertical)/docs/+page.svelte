@@ -6,16 +6,10 @@
 <br />
 <p>
   Serwist is a collection of JavaScript libraries for
-  <a
-    href="https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps"
-    target="_blank"
-    rel="noreferrer"
-    class="link"
-  >
+  <a href="https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps" target="_blank" rel="noreferrer" class="link">
     progressive web apps
-  </a>. It is a fork of Workbox that came to be due to the its development being
-  stagnated. Most of the prior work was done by Google LLC's team and the
-  community.
+  </a>. It is a fork of Workbox that came to be due to the its development being stagnated. Most of the prior work was done by Google LLC's team and
+  the community.
 </p>
 <br />
 <p>Take a look around:</p>
@@ -28,9 +22,7 @@
   </li>
   <li>
     <InlineCode>
-      <a class="link" href="/docs/broadcast-update">
-        @serwist/broadcast-update
-      </a>
+      <a class="link" href="/docs/broadcast-update"> @serwist/broadcast-update </a>
     </InlineCode>
   </li>
   <li>
@@ -40,9 +32,7 @@
   </li>
   <li>
     <InlineCode>
-      <a class="link" href="/docs/cacheable-response">
-        @serwist/cacheable-response
-      </a>
+      <a class="link" href="/docs/cacheable-response"> @serwist/cacheable-response </a>
     </InlineCode>
   </li>
   <li>
@@ -52,9 +42,7 @@
   </li>
   <li>
     <InlineCode>
-      <a class="link" href="/docs/navigation-preload">
-        @serwist/navigation-preload
-      </a>
+      <a class="link" href="/docs/navigation-preload"> @serwist/navigation-preload </a>
     </InlineCode>
   </li>
   <li>

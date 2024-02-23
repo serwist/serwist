@@ -14,8 +14,7 @@
 <h2 id="about">About</h2>
 <br />
 <p>
-  A class implementing the <ICD>fetchDidFail</ICD> lifecycle callback. This makes
-  it easier to add failed requests to a background sync
+  A class implementing the <ICD>fetchDidFail</ICD> lifecycle callback. This makes it easier to add failed requests to a background sync
   <ICD><a class="link" href="./queue">Queue</a></ICD>.
 </p>
 <br /><br />

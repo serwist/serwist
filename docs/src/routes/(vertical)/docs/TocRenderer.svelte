@@ -11,10 +11,7 @@
 <ul class="list mt-2">
   {#each data as { title, id, children }}
     <li>
-      <a
-        href={`#${id}`}
-        class="text-toc"
-      >
+      <a href={`#${id}`} class="text-toc">
         {title}
       </a>
       {#if children}

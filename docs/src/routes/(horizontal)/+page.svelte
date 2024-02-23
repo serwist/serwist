@@ -113,9 +113,7 @@
       class="invert dark:invert-0 w-[150px] md:w-[200px] h-auto"
       sizes="(min-width:1920px) 400px, (min-width:1080px) 250px, (min-width:768px) 200px"
     />
-    <h1 class="my-2 text-5xl font-semibold tracking-tight text-center">
-      A Swiss Army knife for service workers.
-    </h1>
+    <h1 class="my-2 text-5xl font-semibold tracking-tight text-center">A Swiss Army knife for service workers.</h1>
     <h2 class="my-2 text-2xl font-medium tracking-tight text-center">Serwist enables you to create PWAs with ease.</h2>
     <a class="text-accent-light dark:text-accent-dark underline underline-offset-8 text-xl" href="/docs">
       {"~> Get started"}

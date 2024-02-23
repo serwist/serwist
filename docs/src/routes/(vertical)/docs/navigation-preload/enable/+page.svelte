@@ -19,9 +19,8 @@
 <br />
 <ul class="list">
   <li>
-    <ICD>headerValue</ICD> — Optional. Allows developers to override the value of
-    the <ICD>Service-Worker-Navigation-Preload</ICD> header which will be sent to
-    the server when making the navigation request.
+    <ICD>headerValue</ICD> — Optional. Allows developers to override the value of the <ICD>Service-Worker-Navigation-Preload</ICD> header which will be
+    sent to the server when making the navigation request.
   </li>
 </ul>
 <br /><br />

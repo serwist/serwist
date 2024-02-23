@@ -13,17 +13,14 @@
 <br /><br />
 <h2>About</h2>
 <br />
-<p>
-  Precaches routes so that they can be used as a fallback when a Strategy fails to generate a response.
-</p>
+<p>Precaches routes so that they can be used as a fallback when a Strategy fails to generate a response.</p>
 <br /><br />
 <h2>How it works</h2>
 <br />
 <p>
   It precaches the provided routes and modifies the provided
-  <InlineCode>RuntimeCaching</InlineCode> array so that when a handler fails to handle
-  a <InlineCode>Request</InlineCode>, the first matching fallback entry is used
-  as a <InlineCode>Response</InlineCode>.
+  <InlineCode>RuntimeCaching</InlineCode> array so that when a handler fails to handle a <InlineCode>Request</InlineCode>, the first matching fallback
+  entry is used as a <InlineCode>Response</InlineCode>.
 </p>
 <br /><br />
 <h2>Options</h2>
@@ -35,8 +32,7 @@
   </li>
   <li><InlineCode>entries</InlineCode> — A list of fallback entries.</li>
   <li>
-    <InlineCode>precacheOptions</InlineCode> — Precache options that will be used for your
-    fallback entries.
+    <InlineCode>precacheOptions</InlineCode> — Precache options that will be used for your fallback entries.
   </li>
 </ul>
 <br /><br />

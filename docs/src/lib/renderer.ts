@@ -1,3 +1,4 @@
+import crypto from "node:crypto";
 import { PUBLIC_CANONICAL_URL } from "$env/static/public";
 import type { TwoslashRenderer } from "@shikijs/twoslash";
 import { toHtml } from "hast-util-to-html";
@@ -35,6 +36,8 @@ const hoverInfoProcessor = (type: string) => {
     .replace(/^\(([\w-]+?)\)\s+/gm, "")
     // Remove the import statement
     .replace(/\nimport .*$/, "")
+    // Remove the export statement
+    .replace(/\nexport .*$/, "")
     .trim();
 
   // Add `type` or `function` keyword if needed
@@ -200,7 +203,7 @@ export const renderer = (): TwoslashRenderer => {
         tagName: "data-lsp",
         properties: {
           lsp: toHtml(result),
-          class: "twoslash-hover",
+          tpid: `twoslash-tooltip-${crypto.randomBytes(4).toString("hex")}`,
         },
         children: [node],
       };

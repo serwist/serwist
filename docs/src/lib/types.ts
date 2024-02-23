@@ -8,9 +8,12 @@ export interface TocEntry {
   children?: TocEntry[];
 }
 
-export interface TooltipProps {
+export interface TwoslashProps {
+  id: string | undefined;
   html: string | undefined;
-  x: number | undefined;
   right: boolean;
+  x: number | undefined;
   y: number | undefined;
+  closeTooltip(): void;
+  timeout: NodeJS.Timeout | undefined;
 }

@@ -7,8 +7,7 @@
 <h2>Introduction</h2>
 <br />
 <p>
-  <ICD>@serwist/webpack-plugin</ICD> is a plugin for your Webpack build
-  process, helping you generate a manifest of local files that should be precached.
+  <ICD>@serwist/webpack-plugin</ICD> is a plugin for your Webpack build process, helping you generate a manifest of local files that should be precached.
 </p>
 <br /><br />
 <h2>Documentation</h2>

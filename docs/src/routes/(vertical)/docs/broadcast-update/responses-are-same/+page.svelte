@@ -13,10 +13,7 @@
 <br /><br />
 <h2 id="about">About</h2>
 <br />
-<p>
-  Given two responses, compares several header values to see if they are the
-  same or not.
-</p>
+<p>Given two responses, compares several header values to see if they are the same or not.</p>
 <br /><br />
 <h2 id="parameters">Parameters</h2>
 <br />

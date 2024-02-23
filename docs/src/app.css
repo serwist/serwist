@@ -10,7 +10,7 @@
     @apply m-0 flex h-full w-full p-0;
   }
   body {
-    @apply font-sans font-normal box-border bg-gray-50 text-black transition-colors duration-100 dark:bg-neutral-950 dark:text-white;
+    @apply box-border bg-gray-50 font-sans font-normal text-black transition-colors duration-100 dark:bg-neutral-950 dark:text-white;
   }
   h1,
   h2,
@@ -41,7 +41,7 @@
     }
   }
   details > summary {
-    @apply select-none cursor-pointer list-none;
+    @apply cursor-pointer select-none list-none;
   }
   details > summary::-webkit-details-marker {
     @apply hidden;
@@ -59,7 +59,7 @@
     animation: details-show 100ms ease-out;
   }
   #vertnav-mobile-menu[open] > summary {
-    @apply [&>:nth-child(1)]:rotate-45 [&>:nth-child(1)]:translate-y-[0.7rem] [&>:nth-child(2)]:opacity-0 [&>:nth-child(3)]:-translate-y-[0.7rem] [&>:nth-child(3)]:-rotate-45;
+    @apply [&>:nth-child(1)]:translate-y-[0.7rem] [&>:nth-child(1)]:rotate-45 [&>:nth-child(2)]:opacity-0 [&>:nth-child(3)]:-translate-y-[0.7rem] [&>:nth-child(3)]:-rotate-45;
   }
   #sidebar-mobile-menu[open] > summary > svg {
     @apply rotate-90;
@@ -68,12 +68,14 @@
 
 @layer utilities {
   .nav-button {
-    @apply flex p-3 rounded-full cursor-pointer items-center justify-center bg-transparent duration-100 hover:bg-gray-200 dark:hover:bg-neutral-800;
+    @apply flex cursor-pointer items-center justify-center rounded-full bg-transparent p-3 duration-100 hover:bg-gray-200 dark:hover:bg-neutral-800;
   }
-  .link, .link > * {
+  .link,
+  .link > * {
     @apply !text-accent-light dark:!text-accent-dark underline underline-offset-[6px];
   }
-  .link.sm, .link.sm > * {
+  .link.sm,
+  .link.sm > * {
     @apply !underline-offset-4;
   }
   .list {

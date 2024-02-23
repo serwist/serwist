@@ -7,12 +7,7 @@
 
 <h1 id="serwist-cacheable-response">@serwist/cacheable-response</h1>
 <br />
-<a
-  href="https://developer.chrome.com/docs/workbox/modules/workbox-cacheable-response"
-  class="link"
-  target="_blank"
-  rel="noreferrer"
->
+<a href="https://developer.chrome.com/docs/workbox/modules/workbox-cacheable-response" class="link" target="_blank" rel="noreferrer">
   Original source (Apache 2.0 License). Adapted for Serwist's usage.
 </a>
 <br /><br />
@@ -20,19 +15,16 @@
 <br />
 <p>
   <ICD>@serwist/cacheable-response</ICD> is a module that takes a
-  <ICD>Response</ICD> object and determines whether it's cacheable based on a specific
-  configuration.
+  <ICD>Response</ICD> object and determines whether it's cacheable based on a specific configuration.
 </p>
 <br />
 <p>
-  When caching assets at runtime, there's no one-size-fits-all rule for whether
-  a given response is "valid" and eligible for being saved and reused.
+  When caching assets at runtime, there's no one-size-fits-all rule for whether a given response is "valid" and eligible for being saved and reused.
 </p>
 <br />
 <p>
-  This module provides a standard way of determining whether a response should
-  be cached based on its numeric status code, the presence of a header with a
-  specific value, or a combination of the two.
+  This module provides a standard way of determining whether a response should be cached based on its numeric status code, the presence of a header
+  with a specific value, or a combination of the two.
 </p>
 <br />
 <br /><br />
@@ -40,56 +32,44 @@
 <br />
 <p>
   If you use one of Serwist's built-in strategies without explicitly configuring
-  <ICD>CacheableResponsePlugin</ICD>, the following default criteria is used to
-  determine whether a response received from the network should be cached:
+  <ICD>CacheableResponsePlugin</ICD>, the following default criteria is used to determine whether a response received from the network should be
+  cached:
 </p>
 <br />
 <ul class="list">
-  <li>
-    StaleWhileRevalidate and NetworkFirst: Responses with a status of 0 (i.e.
-    opaque responses) or 200 are considered cacheable.
-  </li>
+  <li>StaleWhileRevalidate and NetworkFirst: Responses with a status of 0 (i.e. opaque responses) or 200 are considered cacheable.</li>
   <li>CacheFirst: Responses with a status of 200 are considered cacheable.</li>
 </ul>
 <br />
 <h3 id="why-are-there-different-defaults">Why are there different defaults?</h3>
 <br />
 <p>
-  The defaults vary around whether responses with a status of 0 (i.e. opaque
-  responses) will end up cached. Due to the "black box" nature of opaque
-  responses, it's not possible for the service worker to know whether the
-  response is valid, or whether it reflects an error response returned from the
-  cross-origin server.
+  The defaults vary around whether responses with a status of 0 (i.e. opaque responses) will end up cached. Due to the "black box" nature of opaque
+  responses, it's not possible for the service worker to know whether the response is valid, or whether it reflects an error response returned from
+  the cross-origin server.
 </p>
 <br />
 <p>
-  For strategies that include some means of updating the cached response, like
-  StaleWhileRevalidate and NetworkFirst, the risk of caching a transient error
-  response is mitigated by the fact that the next time the cache is updated, a
-  proper, successful response will hopefully be used.
+  For strategies that include some means of updating the cached response, like StaleWhileRevalidate and NetworkFirst, the risk of caching a transient
+  error response is mitigated by the fact that the next time the cache is updated, a proper, successful response will hopefully be used.
 </p>
 <br />
 <p>
-  For strategies that involve caching the first response received and reusing
-  that cached response indefinitely, the repercussions of a transient error
-  getting cached and reused are more severe. To be on the safe side, CacheFirst
-  refuses to save a response unless it has a status code of 200 by default.
+  For strategies that involve caching the first response received and reusing that cached response indefinitely, the repercussions of a transient
+  error getting cached and reused are more severe. To be on the safe side, CacheFirst refuses to save a response unless it has a status code of 200 by
+  default.
 </p>
 <br /><br />
 <h2 id="basic-usage">Basic usage</h2>
 <br />
-<p>
-  The easiest way to use this module is to use the plugin, which automatically
-  determines whether a response can be cached.
-</p>
+<p>The easiest way to use this module is to use the plugin, which automatically determines whether a response can be cached.</p>
 <br />
 <CodeTab codes={data.code.basicUsage} defaultTab="sw.ts" />
 <br /><br />
 <h2 id="advanced-usage">Advanced usage</h2>
 <br />
 <p>
-  If you want to use the same caching logic outside of a Serwist strategy, you
-  can use the <ICD>CacheableResponse</ICD> class directly.
+  If you want to use the same caching logic outside of a Serwist strategy, you can use the <ICD>CacheableResponse</ICD> class directly.
 </p>
 <br />
 <CodeTab codes={data.code.advancedUsage} defaultTab="sw.ts" />

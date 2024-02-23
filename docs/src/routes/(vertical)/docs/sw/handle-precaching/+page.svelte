@@ -18,8 +18,7 @@
 <h2>How it works</h2>
 <br />
 <p>
-  It calls <InlineCode>@serwist/precaching.precacheAndRoute</InlineCode> on the list
-  of precache entries,
+  It calls <InlineCode>@serwist/precaching.precacheAndRoute</InlineCode> on the list of precache entries,
   <InlineCode>@serwist/precaching.cleanupOutdatedCaches</InlineCode>, and
   <InlineCode>@serwist/routing.registerRoute</InlineCode> on the
   <InlineCode>navigateFallback</InlineCode> URL.
@@ -35,21 +34,18 @@
     <InlineCode>precacheOptions</InlineCode> — Precache options for the provided entries.
   </li>
   <li>
-    <InlineCode>cleanupOutdatedCaches</InlineCode> — Whether outdated caches should
-    be removed. Defaults to <InlineCode>false</InlineCode>.
+    <InlineCode>cleanupOutdatedCaches</InlineCode> — Whether outdated caches should be removed. Defaults to <InlineCode>false</InlineCode>.
   </li>
   <li>
-    <InlineCode>navigateFallback</InlineCode> — An URL that should point to a HTML
-    file with which navigation requests for URLs that aren't precached will be fulfilled.
+    <InlineCode>navigateFallback</InlineCode> — An URL that should point to a HTML file with which navigation requests for URLs that aren't precached will
+    be fulfilled.
   </li>
   <li>
-    <InlineCode>navigateFallbackAllowlist</InlineCode> — URLs that should be allowed
-    to use the <InlineCode>navigateFallback</InlineCode> handler.
+    <InlineCode>navigateFallbackAllowlist</InlineCode> — URLs that should be allowed to use the <InlineCode>navigateFallback</InlineCode> handler.
   </li>
   <li>
-    <InlineCode>navigateFallbackDenylist</InlineCode> — URLs that should not be allowed
-    to use the <InlineCode>navigateFallback</InlineCode> handler. This takes precedence
-    over <InlineCode>navigateFallbackAllowlist</InlineCode>.
+    <InlineCode>navigateFallbackDenylist</InlineCode> — URLs that should not be allowed to use the <InlineCode>navigateFallback</InlineCode> handler. This
+    takes precedence over <InlineCode>navigateFallbackAllowlist</InlineCode>.
   </li>
 </ul>
 <br /><br />

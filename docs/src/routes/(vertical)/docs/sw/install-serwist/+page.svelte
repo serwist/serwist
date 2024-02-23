@@ -18,13 +18,10 @@
 <h2>Why?</h2>
 <br />
 <p>
-  Workbox, of which Serwist is a fork, has a feature called GenerateSW, which
-  was removed from Serwist due to it being deemed a burden on the codebase. This
-  was because its implementation required Serwist to manually stringify the
-  <InlineCode>runtimeCaching</InlineCode> array, which was unnecessarily error-prone
-  and tedious. As a result,
-  <InlineCode>installSerwist</InlineCode> was created as an alternative, allowing
-  you to use InjectManifest the way you would with GenerateSW.
+  Workbox, of which Serwist is a fork, has a feature called GenerateSW, which was removed from Serwist due to it being deemed a burden on the
+  codebase. This was because its implementation required Serwist to manually stringify the
+  <InlineCode>runtimeCaching</InlineCode> array, which was unnecessarily error-prone and tedious. As a result,
+  <InlineCode>installSerwist</InlineCode> was created as an alternative, allowing you to use InjectManifest the way you would with GenerateSW.
 </p>
 <br /><br />
 <h2>Behind the scenes</h2>
@@ -85,35 +82,27 @@
   </li>
   <li>
     <InlineCode>
-      <a class="link" href="/docs/sw/handle-precaching"
-        >@serwist/sw.handlePrecaching</a
-      >
+      <a class="link" href="/docs/sw/handle-precaching">@serwist/sw.handlePrecaching</a>
     </InlineCode> (its arguments are passed as-is)
   </li>
   <li>
     <InlineCode>
       <a class="link" href="/docs/sw/fallbacks">@serwist/sw.fallbacks</a>
     </InlineCode> (if its <InlineCode>runtimeCaching</InlineCode> and
-    <InlineCode>fallbacks</InlineCode> are not <InlineCode>undefined</InlineCode
-    >)
+    <InlineCode>fallbacks</InlineCode> are not <InlineCode>undefined</InlineCode>)
   </li>
   <li>
     <InlineCode>
-      <a class="link" href="/docs/sw/register-runtime-caching">
-        @serwist/sw.registerRuntimeCaching
-      </a>
+      <a class="link" href="/docs/sw/register-runtime-caching"> @serwist/sw.registerRuntimeCaching </a>
     </InlineCode> (if its <InlineCode>runtimeCaching</InlineCode> is not
     <InlineCode>undefined</InlineCode>)
   </li>
   <li>
-    <InlineCode>@serwist/google-analytics/initialize.initialize</InlineCode> (if
-    its <InlineCode>offlineAnalyticsConfig</InlineCode> is set)
+    <InlineCode>@serwist/google-analytics/initialize.initialize</InlineCode> (if its <InlineCode>offlineAnalyticsConfig</InlineCode> is set)
   </li>
   <li>
     <InlineCode>
-      <a class="link" href="/docs/sw/disable-dev-logs">
-        @serwist/sw.disableDevLogs
-      </a>
+      <a class="link" href="/docs/sw/disable-dev-logs"> @serwist/sw.disableDevLogs </a>
     </InlineCode> (if its <InlineCode>disableDevLogs</InlineCode> is set to
     <InlineCode>true</InlineCode>)
   </li>

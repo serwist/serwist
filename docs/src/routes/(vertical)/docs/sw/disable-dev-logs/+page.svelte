@@ -13,15 +13,12 @@
 <br /><br />
 <h2>About</h2>
 <br />
-<p>
-  Disables Serwist's logging in development mode.
-</p>
+<p>Disables Serwist's logging in development mode.</p>
 <br /><br />
 <h2>How it works</h2>
 <br />
 <p>
-  It simply sets <InlineCode>self.__WB_DISABLE_DEV_LOGS</InlineCode> to <InlineCode>true</InlineCode>. 
-  This value is picked up by Serwist's logger.
+  It simply sets <InlineCode>self.__WB_DISABLE_DEV_LOGS</InlineCode> to <InlineCode>true</InlineCode>. This value is picked up by Serwist's logger.
 </p>
 <br /><br />
 <h2>Usage</h2>

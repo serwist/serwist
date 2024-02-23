@@ -25,10 +25,7 @@
 <br /><br />
 <h3 id="basic-usage-update-tsconfig">Step 2: Update tsconfig.json</h3>
 <br />
-<p>
-  If you use TypeScript, you should add the following content to tsconfig.json
-  in order to get the correct types:
-</p>
+<p>If you use TypeScript, you should add the following content to tsconfig.json in order to get the correct types:</p>
 <br />
 <CodeTab codes={data.code.basicUsage.tsConfig} defaultTab="tsconfig.json" />
 <br />
@@ -40,27 +37,15 @@
 <br />
 <CodeTab codes={data.code.basicUsage.createEntry} defaultTab="sw.ts" />
 <br />
-<p>
-  If you use the template shown above, make sure you also install the following
-  additional dependencies:
-</p>
+<p>If you use the template shown above, make sure you also install the following additional dependencies:</p>
 <br />
-<CodeTab
-  codes={data.code.basicUsage.createEntryAdditionalPackages}
-  defaultTab="npm"
-/>
+<CodeTab codes={data.code.basicUsage.createEntryAdditionalPackages} defaultTab="npm" />
 <br /><br />
 <h3 id="basic-usage-add-manifest">Step 4: Add a web application manifest</h3>
 <br />
-<p>
-  Update app/manifest.json (App Router) or public/manifest.json (Pages Router)
-  with the following content:
-</p>
+<p>Update app/manifest.json (App Router) or public/manifest.json (Pages Router) with the following content:</p>
 <br />
-<CodeTab
-  codes={[data.code.basicUsage.manifestJson]}
-  defaultTab="manifest.json"
-/>
+<CodeTab codes={[data.code.basicUsage.manifestJson]} defaultTab="manifest.json" />
 <br /><br />
 <h3 id="basic-usage-add-metadata">
   Step 5: Add metadata to <InlineCode>{"<head />"}</InlineCode>
@@ -68,7 +53,4 @@
 <br />
 <p>Add the following content to app/layout.tsx or pages/_app.tsx:</p>
 <br />
-<CodeTab
-  codes={data.code.basicUsage.metaAndLinkTags}
-  defaultTab="app/layout.tsx"
-/>
+<CodeTab codes={data.code.basicUsage.metaAndLinkTags} defaultTab="app/layout.tsx" />

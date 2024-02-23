@@ -1,6 +1,5 @@
 html[data-theme="light"] {
   --twoslash-border-color: #d1d5db;
-  --twoslash-underline-color: currentColor;
   --twoslash-highlighted-border: #c37d0d50;
   --twoslash-highlighted-bg: #c37d0d20;
   --twoslash-popup-bg: #ffffff;
@@ -20,7 +19,6 @@ html[data-theme="light"] {
 }
 html[data-theme="dark"] {
   --twoslash-border-color: #1f2937;
-  --twoslash-underline-color: currentColor;
   --twoslash-highlighted-border: #c37d0d50;
   --twoslash-highlighted-bg: #c37d0d20;
   --twoslash-popup-bg: #0a0a0a;
@@ -39,28 +37,12 @@ html[data-theme="dark"] {
   --twoslash-tag-annotate-bg: #1ba67320;
 }
 
-@keyframes twoslash-popup {
-  from {
-    opacity: 0;
-  }
-}
-
-.twoslash-hover {
-  border-bottom: 1px dotted transparent;
-  transition: border-color 0.3s linear;
-}
-
-.twoslash-hover:hover {
-  border-color: var(--twoslash-underline-color);
-}
-
 .twoslash-popup-container {
-  @apply overflow-y-auto absolute inline-flex flex-col duration-100 rounded-md z-10 select-none text-left;
+  @apply absolute z-10 inline-flex select-none flex-col overflow-y-auto rounded-md text-left duration-100;
   background: var(--twoslash-popup-bg);
   color: var(--twoslash-popup-color);
   border: 1px solid var(--twoslash-border-color);
   box-shadow: var(--twoslash-popup-shadow);
-  animation: twoslash-popup 100ms ease-out;
   transform: translate(var(--offset), calc(2rem + var(--arrow-size)));
 }
 
@@ -69,7 +51,7 @@ html[data-theme="dark"] {
 }
 
 .twoslash-popup-arrow {
-  @apply absolute top-[-4px] left-4 w-[6px] h-[6px] pointer-events-none;
+  @apply pointer-events-none absolute left-4 top-[-4px] h-[6px] w-[6px];
   border-top: 1px solid var(--twoslash-border-color);
   border-right: 1px solid var(--twoslash-border-color);
   background: var(--twoslash-popup-bg);
@@ -114,7 +96,7 @@ html[data-theme="dark"] {
 }
 
 .twoslash-error-line {
-  @apply px-3 py-2 my-1 border-l-4 border-solid border-red-400 dark:border-red-600 relative w-max min-w-full bg-red-100 dark:bg-red-1000 text-black dark:text-white;
+  @apply dark:bg-red-1000 relative my-1 w-max min-w-full border-l-4 border-solid border-red-400 bg-red-100 px-3 py-2 text-black dark:border-red-600 dark:text-white;
 }
 
 .twoslash-error-line.twoslash-error-level-warning {

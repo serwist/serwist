@@ -10,8 +10,7 @@
 <h2 id="exported-values">Exported values</h2>
 <br />
 <p>
-  <ICD>@serwist/broadcast-update</ICD> exports a few constants that you can make
-  use of for more convenience. This includes:
+  <ICD>@serwist/broadcast-update</ICD> exports a few constants that you can make use of for more convenience. This includes:
 </p>
 <br />
 <ul>
@@ -42,9 +41,7 @@
   <li>
     <h3 id="default-headers-to-check"><ICD>defaultHeadersToCheck</ICD></h3>
     <br />
-    <p>
-      What: the default list of headers to check.
-    </p>
+    <p>What: the default list of headers to check.</p>
     <br />
     <p>How to use:</p>
     <br />
