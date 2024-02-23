@@ -18,30 +18,35 @@
     if (!span) return;
 
     const rect = span.getBoundingClientRect();
+    const viewportRect = document.getElementById("root-container")!.getBoundingClientRect();
+    const viewportHeight = viewportRect.height;
     let x = (rect.left + rect.right) / 2 + window.scrollX;
     let right = false;
-    const y = rect.top + window.scrollY + 24;
+    let y = rect.top + window.scrollY + 24;
+    let bottom = false;
 
     if (window.innerWidth - x < 200) {
       x = Math.max(0, window.innerWidth - rect.right);
       right = true;
     }
+    if (viewportHeight - y < 200) {
+      y = Math.max(0, viewportRect.bottom - rect.y);
+      bottom = true;
+    }
 
     $twoslash = {
       id: tpid,
       html: lsp,
+      bottom,
       right,
       x,
       y,
       closeTooltip() {
         clearTimeout($twoslash.timeout);
         $twoslash.html = undefined;
-        span?.removeAttribute("aria-describedby");
       },
       timeout: undefined,
     };
-
-    span.setAttribute("aria-describedby", tpid);
   };
 
   const mouseOut = () => {
@@ -49,7 +54,16 @@
   };
 </script>
 
-<span bind:this={span} class="twoslash-hover" role="status" onmouseover={mouseOver} onmouseout={mouseOut} onfocus={mouseOver} onblur={mouseOut}>
+<span
+  bind:this={span}
+  class="twoslash-hover"
+  role="status"
+  onmouseover={mouseOver}
+  onmouseout={mouseOut}
+  onfocus={mouseOver}
+  onblur={mouseOut}
+  aria-describedby={$twoslash.html ? $twoslash.id : undefined}
+>
   <slot />
 </span>
 

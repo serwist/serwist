@@ -5,7 +5,7 @@
 
   import { twoslash } from "$lib/stores/twoslash";
 
-  const { id, html, timeout, closeTooltip, right, x = 0, y = 0 } = $derived($twoslash);
+  const { id, html, timeout, closeTooltip, bottom, right, x = 0, y = 0 } = $derived($twoslash);
 
   let width = $state(1);
 
@@ -23,6 +23,8 @@
 </script>
 
 {#if html}
+  {@const  viewportRect = document.getElementById("root-container")!.getBoundingClientRect()}
+  {@const viewportHeight = viewportRect.height}
   <div
     bind:this={tooltip}
     {id}
@@ -30,14 +32,13 @@
     onmouseleave={closeTooltip}
     role="tooltip"
     class="twoslash-popup-container"
-    style="{right ? 'right' : 'left'}:{x}px"
-    style:top="{y}px"
+    style="{right ? 'right' : 'left'}:{x}px;{bottom ? 'bottom' : 'top'}:{y}px"
     style:max-width="{window.innerWidth - x}px"
-    style:max-height="{document.getElementById("root-container")!.getBoundingClientRect().height - y}px"
+    style:max-height="{(bottom ? window.innerHeight : viewportHeight) - y}px"
     style:--offset="{Math.min(-10, window.innerWidth - (x + width + 10))}px"
     transition:fade={{ duration: 150, easing: quintOut }}
   >
-    <span class="twoslash-popup-code shiki">
+    <span class="twoslash-popup-code">
       <!-- Again, only use trusted sources! -->
       <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       {@html html}

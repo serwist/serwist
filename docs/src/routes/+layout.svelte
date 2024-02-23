@@ -13,7 +13,7 @@
 
   $effect(() => {
     const twoslashElement = mount(Twoslash, {
-      target: document.body,
+      target: document.getElementById("root-container")!,
     });
 
     return () => unmount(twoslashElement);

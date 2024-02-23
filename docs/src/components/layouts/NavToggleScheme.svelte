@@ -4,7 +4,7 @@
   import { toggleColorScheme } from "$lib/stores/colorScheme";
 </script>
 
-<button class="nav-button" on:click={() => toggleColorScheme()}>
+<button class="nav-button" onclick={() => toggleColorScheme()}>
   <span class="visible-dark">
     <MoonStars width={24} height={24} />
   </span>

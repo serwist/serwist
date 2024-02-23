@@ -140,11 +140,17 @@ export const renderer = (): TwoslashRenderer => {
         transformers: [],
         lang: this.options.lang === "tsx" || this.options.lang === "jsx" ? "tsx" : "ts",
       });
+      const hastPre = hastContent.children[0] as any;
+
+      if (!hastPre.properties) hastPre.properties = {};
+
+      hastPre.properties.class = `whitespace-pre-wrap ${hastPre.properties.class || ""}`;
+      
       result.push({
         type: "element",
         tagName: "div",
         properties: { class: "twoslash-popup-type" },
-        children: [((hastContent.children[0] as any).children as any)[0]],
+        children: [hastPre],
       });
       if (info.docs) {
         result.push({

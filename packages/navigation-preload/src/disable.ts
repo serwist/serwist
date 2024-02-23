@@ -22,14 +22,14 @@ export const disable = (): void => {
       event.waitUntil(
         self.registration.navigationPreload.disable().then(() => {
           if (process.env.NODE_ENV !== "production") {
-            logger.log("Navigation preload is disabled.");
+            logger.log("Navigation preloading is disabled.");
           }
         }),
       );
     });
   } else {
     if (process.env.NODE_ENV !== "production") {
-      logger.log("Navigation preload is not supported in this browser.");
+      logger.log("Navigation preloading is not supported in this browser.");
     }
   }
 };

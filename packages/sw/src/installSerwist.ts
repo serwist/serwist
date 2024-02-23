@@ -27,7 +27,7 @@ export type InstallSerwistOptions = HandlePrecachingOptions & {
    */
   importScripts?: string[];
   /**
-   * Enables Navigation Preload if it is supported.
+   * Enables navigation preloading if it is supported.
    *
    * @see https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/navigationPreload
    */

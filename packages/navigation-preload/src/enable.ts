@@ -31,14 +31,14 @@ export const enable = (headerValue?: string): void => {
           }
 
           if (process.env.NODE_ENV !== "production") {
-            logger.log("Navigation preload is enabled.");
+            logger.log("Navigation preloading is enabled.");
           }
         }),
       );
     });
   } else {
     if (process.env.NODE_ENV !== "production") {
-      logger.log("Navigation preload is not supported in this browser.");
+      logger.log("Navigation preloading is not supported in this browser.");
     }
   }
 };
