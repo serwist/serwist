@@ -65,7 +65,7 @@ html[data-theme="dark"] {
 }
 
 .twoslash-popup-code {
-  @apply font-mono divide-y-[1px];
+  @apply font-mono divide-y-[1px] w-fit;
   font-size: var(--twoslash-code-font-size);
 }
 
