@@ -21,7 +21,7 @@
 
   $effect(() => {
     const registerSerwist = async () => {
-      if (!dev) {
+      if (!dev && "serviceWorker" in navigator) {
         const serwist = new (await import("@serwist/window")).Serwist("/service-worker.js", { scope: "/", type: "classic" });
         serwist.addEventListener("installed", () => {
           console.log("Serwist installed!");

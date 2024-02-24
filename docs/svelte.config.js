@@ -13,15 +13,20 @@ const config = {
       $components: "./src/components",
       $images: "./src/images",
     },
-    inlineStyleThreshold: 2048,
-    serviceWorker: {
-      register: false,
+    csp: {
+      directives: {
+        "script-src": ["self", "strict-dynamic", "sha256-DjP3mqXEHW08gJZjCdT8u4O2YkjsRGagw6vMJOyKiN4="],
+      },
     },
+    inlineStyleThreshold: 2048,
     paths: {
       relative: false,
     },
     prerender: {
       handleHttpError: "warn",
+    },
+    serviceWorker: {
+      register: false,
     },
   },
 };
