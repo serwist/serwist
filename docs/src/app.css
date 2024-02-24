@@ -9,6 +9,9 @@
   body {
     @apply m-0 flex h-full w-full p-0;
   }
+  html {
+    @apply scroll-smooth;
+  }
   body {
     @apply box-border bg-gray-50 font-sans font-normal text-black transition-colors duration-100 dark:bg-neutral-950 dark:text-white;
   }

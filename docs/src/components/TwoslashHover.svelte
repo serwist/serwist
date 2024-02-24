@@ -12,7 +12,7 @@
 
   let span = $state<HTMLSpanElement | null>(null);
 
-  const mouseOver = () => {
+  const mouseEnter = () => {
     clearTimeout($twoslash.timeout);
 
     if (!span) return;
@@ -49,7 +49,7 @@
     };
   };
 
-  const mouseOut = () => {
+  const mouseLeave = () => {
     $twoslash.timeout = setTimeout($twoslash.closeTooltip, 500);
   };
 </script>
@@ -58,10 +58,8 @@
   bind:this={span}
   class="twoslash-hover"
   role="status"
-  onmouseover={mouseOver}
-  onmouseout={mouseOut}
-  onfocus={mouseOver}
-  onblur={mouseOut}
+  onmouseenter={mouseEnter}
+  onmouseleave={mouseLeave}
   aria-describedby={$twoslash.html ? $twoslash.id : undefined}
 >
   <slot />
