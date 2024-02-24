@@ -107,7 +107,7 @@
 
 @media (prefers-reduced-motion) {
   html {
-    @apply !animate-none !transition-none;
+    @apply !animate-none !transition-none !scroll-auto;
   }
   html *,
   html *:before,
