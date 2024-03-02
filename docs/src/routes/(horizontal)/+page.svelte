@@ -169,14 +169,12 @@
   </div>
   <div class="w-full flex flex-col gap-4">
     <h2 class="text-4xl font-semibold tracking-tight">Using a framework? Worry not.</h2>
-    <div class="flex-col md:flex-row flex gap-2 justify-between">
-      <div class="flex items-center">
-        <div class="flex flex-col gap-2">
-          <h3 class="text-3xl font-semibold tracking-tight">{currentSelectedToolInfo.title}</h3>
-          <h4 class="text-2xl font-semibold tracking-tight">{currentSelectedToolInfo.description}</h4>
-        </div>
+    <div class="flex-col md:flex-row flex gap-4 justify-between">
+      <div class="flex flex-col gap-2">
+        <h3 class="text-3xl font-semibold tracking-tight">{currentSelectedToolInfo.title}</h3>
+        <h4 class="text-2xl font-semibold tracking-tight">{currentSelectedToolInfo.description}</h4>
       </div>
-      <div role="tablist" class="flex flex-wrap">
+      <div role="tablist" class="flex flex-wrap gap-8">
         {#each TOOLS_LIST as { key, logo: Logo, id, label, additionalClass }}
           {@const isActive = currentSelectedTool === key}
           <button
@@ -206,7 +204,7 @@
   </div>
   <div class="w-full flex flex-col gap-4">
     <h2 class="text-4xl font-semibold tracking-tight">Customizing?</h2>
-    <h3 class="text-3xl font-semibold tracking-tight mb-2">Go ham.</h3>
+    <h3 class="text-3xl font-semibold tracking-tight">Go ham.</h3>
     <CodeTab codes={data.code.customizing} defaultTab="@serwist/build" />
   </div>
 </div>

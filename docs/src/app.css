@@ -68,7 +68,7 @@
     @apply rotate-90;
   }
   .frsc-button {
-    @apply flex items-center justify-center border-black p-4;
+    @apply flex justify-center border-black my-0 md:my-0;
   }
   .frsc-button.inactive > svg {
     @apply contrast-0;
