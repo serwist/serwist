@@ -5,55 +5,31 @@ import type { PageServerLoad } from "./$types";
 export const load: PageServerLoad = ({ locals }) => ({
   title: "Home",
   code: {
-    next: highlightCode(
-      locals.highlighter,
-      {
-        "next.config.mjs": {
-          code: `import withSerwistInit from "@serwist/next";
+    frameworks: {
+      next: highlightCode(
+        locals.highlighter,
+        {
+          "next.config.mjs": {
+            code: `import withSerwistInit from "@serwist/next";
 
 const withSerwist = withSerwistInit({
-    swSrc: "app/sw.ts",
-    swDest: "public/sw.js",
+  swSrc: "app/sw.ts",
+  swDest: "public/sw.js",
 });
    
 export default withSerwist({
-    // Your Next.js config
+  // Your Next.js config
 });`,
-          lang: "javascript",
+            lang: "javascript",
+          },
         },
-        "next.config.js": {
-          code: `const {
-  PHASE_DEVELOPMENT_SERVER,
-  PHASE_PRODUCTION_BUILD,
-} = require("next/constants");
-
-/** @type {(phase: string, defaultConfig: import("next").NextConfig) => Promise<import("next").NextConfig>} */
-module.exports = async (phase) => {
-  /** @type {import("next").NextConfig} */
-  const nextConfig = {};
-
-  if (phase === PHASE_DEVELOPMENT_SERVER || phase === PHASE_PRODUCTION_BUILD) {
-    const withSerwist = (await import("@serwist/next")).default({
-      // Note: This is only an example. If you use Pages Router,
-      // use something else that works, such as "service-worker/index.ts".
-      swSrc: "app/sw.ts",
-      swDest: "public/sw.js",
-    });
-    return withSerwist(nextConfig);
-  }
-
-  return nextConfig;
-};`,
-          lang: "javascript",
-        },
-      },
-      { idPrefix: "nextjs-config-showcase" },
-    ),
-    webpack: highlightCode(
-      locals.highlighter,
-      {
-        "webpack.config.ts": {
-          code: `import fs from "node:fs";
+        { idPrefix: "nextjs-config-showcase" },
+      ),
+      webpack: highlightCode(
+        locals.highlighter,
+        {
+          "webpack.config.ts": {
+            code: `import fs from "node:fs";
 import path from "node:path";
 
 import { InjectManifest } from "@serwist/webpack-plugin";
@@ -87,18 +63,210 @@ export default {
     new InjectManifest({
       swSrc: path.resolve(rootDir, "src/sw.ts"),
       disablePrecacheManifest: dev,
-      additionalPrecacheEntries: !dev
-        ? [
-            // Insert something...
-          ]
-        : undefined,
+      // Insert something...
+      additionalPrecacheEntries: !dev ? [] : undefined,
     }),
   ],
 } satisfies Configuration;`,
+            lang: "typescript",
+          },
+        },
+        { idPrefix: "webpack-config-showcase" },
+      ),
+      vite: highlightCode(
+        locals.highlighter,
+        {
+          "vite.config.ts": {
+            code: `import { serwist } from "@serwist/vite";
+import { defineConfig } from "vite";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    // ...Other plugins
+    serwist({
+      swSrc: "src/sw.ts",
+      swDest: "sw.js",
+      globDirectory: "dist",
+      injectionPoint: "self.__SW_MANIFEST",
+      rollupFormat: "iife",
+    }),
+  ],
+});`,
+            lang: "typescript",
+          },
+        },
+        { idPrefix: "vite-config-showcase" },
+      ),
+      svelte: highlightCode(
+        locals.highlighter,
+        {
+          "service-worker.ts": {
+            code: `/// <reference no-default-lib="true"/>
+/// <reference lib="esnext" />
+/// <reference lib="webworker" />
+/// <reference types="@sveltejs/kit" />
+import type { SerwistGlobalConfig } from "@serwist/core";
+import { defaultCache, defaultIgnoreUrlParameters, getPrecacheManifest } from "@serwist/svelte/worker";
+import { installSerwist } from "@serwist/sw";
+
+declare global {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {}
+}
+
+declare const self: ServiceWorkerGlobalScope;
+
+self.__WB_CONCURRENT_PRECACHING = 10;
+
+installSerwist({
+  precacheEntries: getPrecacheManifest({
+    staticRevisions: "serwist-docs-static-v1",
+  }),
+  precacheOptions: {
+    ignoreURLParametersMatching: defaultIgnoreUrlParameters,
+  },
+  cleanupOutdatedCaches: true,
+  skipWaiting: true,
+  clientsClaim: true,
+  navigationPreload: false,
+  disableDevLogs: true,
+  runtimeCaching: defaultCache,
+});`,
+            lang: "typescript",
+          },
+        },
+        { idPrefix: "svelte-config-showcase" },
+      ),
+    },
+    customizing: highlightCode(
+      locals.highlighter,
+      {
+        "@serwist/build": {
+          code: `/**
+ * A custom build ID.
+ */
+declare const BUILD_ID: string;
+/**
+ * Hash a file based on its contents.
+ */
+declare const hashFile: (file: string) => string;
+/**
+ * Whether the server is currently in development mode.
+ */
+declare const dev: boolean;
+// ---cut-before---
+import { injectManifest, type ManifestTransform } from "@serwist/build";
+
+const manifestTransform: ManifestTransform = async (manifestEntries) => {
+  const manifest = manifestEntries.map((m) => {
+    if (m.url === "dQw4w9WgXcQ") m.url = "get-rick-rolled.mp4";
+    if (m.revision === null) m.revision = crypto.randomUUID();
+    return m;
+  });
+  return { manifest, warnings: [] };
+};
+
+injectManifest({
+  swSrc: "app/sw.ts",
+  swDest: "dist/sw.js",
+  injectionPoint: "self.__HI_MOM",
+  disablePrecacheManifest: dev,
+  additionalPrecacheEntries: [
+    {
+      url: "/~offline",
+      revision: BUILD_ID,
+    },
+    {
+      url: "/manifest.json",
+      revision: hashFile("static/manifest.json"),
+    },
+  ],
+  // NOTE: THE SERWIST TEAM IS NOT THAT GOOD AT REGEXPS. JUST KNOW THAT.
+  dontCacheBustURLsMatching: /^dist\\/static\\/([a-zA-Z0-9]+)\\.([a-z0-9]+)\\.(css|js)$/,
+  manifestTransforms: [manifestTransform],
+  maximumFileSizeToCacheInBytes: 7355608,
+  modifyURLPrefix: {
+    // hi-mom/index.GdhNyhN1.js -> index.GdhNyhN1.js
+    "hi-mom/": "",
+  },
+  globDirectory: "dist/static",
+  globFollow: false,
+  globIgnores: ["**\\/node_modules\\/**\\/*"],
+  globPatterns: [\"**\/*.{js,css,html,png,webmanifest,json}\"],
+  globStrict: false,
+  templatedURLs: {
+    "/legacy-home": "legacy/home/*.html",
+  },
+});`,
+          lang: "typescript",
+        },
+        "@serwist/webpack-plugin": {
+          code: `/**
+ * A custom build ID.
+ */
+declare const BUILD_ID: string;
+/**
+ * Hash a file based on its contents.
+ */
+declare const hashFile: (file: string) => string;
+/**
+ * Whether the server is currently in development mode.
+ */
+declare const dev: boolean;
+// ---cut-before---
+import { type ManifestTransform } from "@serwist/build";
+import { InjectManifest } from "@serwist/webpack-plugin";
+import webpack from "webpack";
+
+const manifestTransform: ManifestTransform = async (manifestEntries) => {
+  const manifest = manifestEntries.map((m) => {
+    if (m.url === "dQw4w9WgXcQ") m.url = "get-rick-rolled.mp4";
+    if (m.revision === null) m.revision = crypto.randomUUID();
+    return m;
+  });
+  return { manifest, warnings: [] };
+};
+
+new InjectManifest({
+  swSrc: "app/sw.ts",
+  swDest: "dist/sw.js",
+  injectionPoint: "self.__HI_MOM",
+  disablePrecacheManifest: dev,
+  additionalPrecacheEntries: [
+    {
+      url: "/~offline",
+      revision: BUILD_ID,
+    },
+    {
+      url: "/manifest.json",
+      revision: hashFile("static/manifest.json"),
+    },
+  ],
+  // NOTE: THE SERWIST TEAM IS NOT THAT GOOD AT REGEXPS. JUST KNOW THAT.
+  dontCacheBustURLsMatching: /^dist\\/static\\/([a-zA-Z0-9]+)\\.([a-z0-9]+)\\.(css|js)$/,
+  manifestTransforms: [manifestTransform],
+  maximumFileSizeToCacheInBytes: 7355608,
+  modifyURLPrefix: {
+    // hi-mom/index.GdhNyhN1.js -> index.GdhNyhN1.js
+    "hi-mom/": "",
+  },
+  chunks: ["some-chunk"],
+  exclude: [/\\.map$/, /^manifest.*\\.js$/],
+  excludeChunks: ["some-chunk-to-be-excluded"],
+  // Usually you don't actually set this value unless you need to only include some
+  // specific files.
+  include: [],
+  compileSrc: true,
+  webpackCompilationPlugins: [
+    new webpack.DefinePlugin({
+      "self.__CUSTOM_VALUE": "'hi mom'",
+    }),
+  ],
+});`,
           lang: "typescript",
         },
       },
-      { idPrefix: "webpack-config-showcase" },
+      { idPrefix: "customizing-showcase" },
     ),
   },
 });

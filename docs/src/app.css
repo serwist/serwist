@@ -51,7 +51,7 @@
   }
 
   #root-container {
-    @apply m-0 flex h-fit min-h-screen w-full flex-col p-0 relative;
+    @apply relative m-0 flex h-fit min-h-screen w-full flex-col p-0;
   }
   #main-content {
     @apply flex flex-grow;
@@ -66,6 +66,15 @@
   }
   #sidebar-mobile-menu[open] > summary > svg {
     @apply rotate-90;
+  }
+  .frsc-button {
+    @apply flex items-center justify-center border-black p-4;
+  }
+  .frsc-button.inactive > svg {
+    @apply contrast-0;
+  }
+  .frsc-button.inactive:hover > svg {
+    @apply contrast-100;
   }
 }
 
@@ -107,7 +116,7 @@
 
 @media (prefers-reduced-motion) {
   html {
-    @apply !animate-none !transition-none !scroll-auto;
+    @apply !animate-none !scroll-auto !transition-none;
   }
   html *,
   html *:before,

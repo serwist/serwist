@@ -178,7 +178,7 @@ export interface WebpackPartial {
    * as webpack's standard `exclude` option.
    * @default
    * ```
-   * [/\.map$/, /^manifest.*\.js$]
+   * [/\.map$/, /^manifest.*\.js$/]
    * ```
    */
   exclude?: (string | RegExp | ((arg0: any) => boolean))[];

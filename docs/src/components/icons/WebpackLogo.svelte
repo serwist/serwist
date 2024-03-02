@@ -4,7 +4,8 @@
   const { ...props } = $props<SVGAttributes<SVGElement>>();
 </script>
 
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" {...props}>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" {...props}>
+  <title>webpack</title>
   <path
     d="M29.54 24.663L16.57 32v-5.713l8.08-4.446zm.888-.803V8.52l-4.744 2.742v9.862zm-27.966.803L15.43 32v-5.713L7.345 21.84zm-.888-.803V8.52l4.744 2.742v9.862zM2.13 7.524L15.43 0v5.522L6.84 10.25zm27.74 0L16.57 0v5.522l8.59 4.723z"
     fill="#8ed6fb"

@@ -124,6 +124,14 @@ export const installSerwist = ({
     }),
   });
 
+  if (offlineAnalyticsConfig !== undefined) {
+    if (typeof offlineAnalyticsConfig === "boolean") {
+      offlineAnalyticsConfig && initialize();
+    } else {
+      initialize(offlineAnalyticsConfig);
+    }
+  }
+
   if (runtimeCaching !== undefined) {
     if (!("__WB_FORCE_RUNTIME_CACHING" in globalThis)) {
       self.__WB_FORCE_RUNTIME_CACHING = false;
@@ -135,14 +143,6 @@ export const installSerwist = ({
         fallbacksImpl({ ...fallbacks, runtimeCaching });
       }
       registerRuntimeCaching(...runtimeCaching);
-    }
-  }
-
-  if (offlineAnalyticsConfig !== undefined) {
-    if (typeof offlineAnalyticsConfig === "boolean") {
-      offlineAnalyticsConfig && initialize();
-    } else {
-      initialize(offlineAnalyticsConfig);
     }
   }
 
