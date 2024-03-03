@@ -45,11 +45,12 @@
         $twoslash.html = undefined;
       },
       timeout: undefined,
+      maxHeight: bottom ? rect.y : window.innerHeight - rect.y - 24,
     };
   };
 
   const mouseLeave = () => {
-    $twoslash.timeout = setTimeout($twoslash.closeTooltip, 500);
+    $twoslash.timeout = setTimeout($twoslash.closeTooltip, 250);
   };
 </script>
 

@@ -31,7 +31,7 @@
           aria-controls={`${id}-code`}
           aria-selected={isActive}
           class={clsx(
-            "py-2 px-4 border-gray-300 dark:border-gray-800 relative border-r-[0.5px]",
+            "py-2 px-4 border-gray-300 dark:border-gray-800 relative border-r-[0.5px] min-w-max",
             isActive ? "bg-white text-black dark:bg-neutral-950 dark:text-white" : "text-gray-600 dark:text-gray-400"
           )}
           onclick={() => (currentTab = tab)}

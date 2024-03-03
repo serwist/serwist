@@ -6,7 +6,7 @@
   import { hotkeys } from "$lib/hotkeys.svelte";
   import { twoslash } from "$lib/stores/twoslash";
 
-  const { id, html, timeout, closeTooltip, bottom, right, x = 0, y = 0 } = $derived($twoslash);
+  const { id, html, timeout, closeTooltip, bottom, right, x = 0, y = 0, maxHeight = 0 } = $derived($twoslash);
 
   let width = $state(1);
 
@@ -26,7 +26,6 @@
 </script>
 
 {#if html}
-  {@const     viewportRect = document.getElementById("root-container")!.getBoundingClientRect()}
   <div
     bind:this={tooltip}
     {id}
@@ -36,7 +35,7 @@
     class="twoslash-popup-container"
     style="{right ? 'right' : 'left'}:{x}px;{bottom ? 'bottom' : 'top'}:{y}px"
     style:max-width="{window.innerWidth - x}px"
-    style:max-height="{viewportRect.bottom - y}px"
+    style:max-height="{maxHeight}px"
     style:--offset="{Math.min(-10, window.innerWidth - (x + width + 10))}px"
     transition:fade={{ duration: 150, easing: quintOut }}
   >

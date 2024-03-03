@@ -17,4 +17,5 @@ export interface TwoslashProps {
   y: number | undefined;
   closeTooltip(): void;
   timeout: NodeJS.Timeout | undefined;
+  maxHeight: number | undefined;
 }

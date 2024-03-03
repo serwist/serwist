@@ -11,4 +11,5 @@ export const twoslash = writable<TwoslashProps>({
   y: undefined,
   closeTooltip: undefined!,
   timeout: undefined,
+  maxHeight: undefined,
 });
