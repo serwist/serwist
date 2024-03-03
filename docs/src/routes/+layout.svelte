@@ -11,6 +11,10 @@
   import { isColorScheme } from "$lib/isColorScheme";
   import { colorScheme } from "$lib/stores/colorScheme";
 
+  const { children } = $props();
+  const title = $derived($page.data.title ? `${$page.data.title} - Serwist` : "Serwist");
+  const isDark = $derived($colorScheme === "dark");
+
   $effect(() => {
     const twoslashElement = mount(Twoslash, {
       target: document.getElementById("root-container")!,
@@ -40,10 +44,6 @@
       localStorage.setItem("theme", value);
     });
   });
-
-  const title = $derived($page.data.title ? `${$page.data.title} - Serwist` : "Serwist");
-
-  const isDark = $derived($colorScheme === "dark");
 </script>
 
 <svelte:head>
@@ -143,4 +143,4 @@
 </svelte:head>
 
 <a class="absolute -top-full z-[100] text-black underline focus:top-0 dark:text-white" href="#main-content">Skip to main content</a>
-<slot />
+{@render children()}

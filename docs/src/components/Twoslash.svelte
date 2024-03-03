@@ -3,6 +3,7 @@
   import { quintOut } from "svelte/easing";
   import { fade } from "svelte/transition";
 
+  import { hotkeys } from "$lib/hotkeys.svelte";
   import { twoslash } from "$lib/stores/twoslash";
 
   const { id, html, timeout, closeTooltip, bottom, right, x = 0, y = 0 } = $derived($twoslash);
@@ -20,10 +21,12 @@
       });
     }
   });
+
+  hotkeys([["alt+q", () => html && closeTooltip()]]);
 </script>
 
 {#if html}
-  {@const  viewportRect = document.getElementById("root-container")!.getBoundingClientRect()}
+  {@const     viewportRect = document.getElementById("root-container")!.getBoundingClientRect()}
   {@const viewportHeight = viewportRect.height}
   <div
     bind:this={tooltip}
@@ -38,6 +41,7 @@
     style:--offset="{Math.min(-10, window.innerWidth - (x + width + 10))}px"
     transition:fade={{ duration: 150, easing: quintOut }}
   >
+    <p class="sr-only">Press Alt+Q to dismiss this tooltip.</p>
     <span class="twoslash-popup-code">
       <!-- Again, only use trusted sources! -->
       <!-- eslint-disable-next-line svelte/no-at-html-tags -->

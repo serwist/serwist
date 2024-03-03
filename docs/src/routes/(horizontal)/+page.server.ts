@@ -120,7 +120,7 @@ self.__WB_CONCURRENT_PRECACHING = 10;
 
 installSerwist({
   precacheEntries: getPrecacheManifest({
-    staticRevisions: "serwist-docs-static-v1",
+    staticRevisions: "static-v1",
   }),
   precacheOptions: {
     ignoreURLParametersMatching: defaultIgnoreUrlParameters,

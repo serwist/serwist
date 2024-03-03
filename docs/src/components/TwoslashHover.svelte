@@ -22,16 +22,16 @@
     const viewportHeight = viewportRect.height;
     let x = (rect.left + rect.right) / 2 + window.scrollX;
     let right = false;
-    let y = rect.top + window.scrollY + 24;
-    let bottom = false;
+    let y = Math.max(0, viewportRect.bottom - rect.y);
+    let bottom = true;
 
     if (window.innerWidth - x < 200) {
       x = Math.max(0, window.innerWidth - rect.right);
       right = true;
     }
     if (viewportHeight - y < 200) {
-      y = Math.max(0, viewportRect.bottom - rect.y);
-      bottom = true;
+      y = rect.top + window.scrollY + 24;
+      bottom = false;
     }
 
     $twoslash = {

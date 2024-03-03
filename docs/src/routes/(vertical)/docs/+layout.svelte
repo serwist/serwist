@@ -9,6 +9,7 @@
   import SidebarLink from "./SidebarLink.svelte";
   import TocRenderer from "./TocRenderer.svelte";
 
+  const { children } = $props();
   let mobileMenu = $state<HTMLDetailsElement | undefined>(undefined);
   let observer = $state<IntersectionObserver | null>(null);
   const toc = $derived($page.data.toc) as TocEntry[] | undefined;
@@ -120,7 +121,7 @@
   </nav>
   <main id="main-content" class="w-full min-w-0 md:py-8 mt-4 md:mt-0">
     <article class="w-full min-w-0 max-w-6xl px-6 py-6 md:px-12">
-      <slot />
+      {@render children()}
     </article>
   </main>
 </div>

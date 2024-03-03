@@ -134,7 +134,7 @@ export const renderer = (): TwoslashRenderer => {
       if (!content || content === "any") {
         return node;
       }
-      const result: any[] = [];
+
       const hastContent = this.codeToHast(content, {
         ...this.options,
         transformers: [],
@@ -145,13 +145,16 @@ export const renderer = (): TwoslashRenderer => {
       if (!hastPre.properties) hastPre.properties = {};
 
       hastPre.properties.class = `whitespace-pre-wrap ${hastPre.properties.class || ""}`;
-      
-      result.push({
-        type: "element",
-        tagName: "div",
-        properties: { class: "twoslash-popup-type" },
-        children: [hastPre],
-      });
+
+      const result: any[] = [
+        {
+          type: "element",
+          tagName: "div",
+          properties: { class: "twoslash-popup-type" },
+          children: [hastPre],
+        },
+      ];
+
       if (info.docs) {
         result.push({
           type: "element",
