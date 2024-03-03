@@ -27,7 +27,6 @@
 
 {#if html}
   {@const     viewportRect = document.getElementById("root-container")!.getBoundingClientRect()}
-  {@const viewportHeight = viewportRect.height}
   <div
     bind:this={tooltip}
     {id}
@@ -37,7 +36,7 @@
     class="twoslash-popup-container"
     style="{right ? 'right' : 'left'}:{x}px;{bottom ? 'bottom' : 'top'}:{y}px"
     style:max-width="{window.innerWidth - x}px"
-    style:max-height="{(bottom ? window.innerHeight : viewportHeight) - y}px"
+    style:max-height="{viewportRect.bottom - y}px"
     style:--offset="{Math.min(-10, window.innerWidth - (x + width + 10))}px"
     transition:fade={{ duration: 150, easing: quintOut }}
   >

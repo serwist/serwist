@@ -19,7 +19,6 @@
 
     const rect = span.getBoundingClientRect();
     const viewportRect = document.getElementById("root-container")!.getBoundingClientRect();
-    const viewportHeight = viewportRect.height;
     let x = (rect.left + rect.right) / 2 + window.scrollX;
     let right = false;
     let y = Math.max(0, viewportRect.bottom - rect.y);
@@ -29,7 +28,7 @@
       x = Math.max(0, window.innerWidth - rect.right);
       right = true;
     }
-    if (viewportHeight - y < 200) {
+    if (viewportRect.bottom - y < 200) {
       y = rect.top + window.scrollY + 24;
       bottom = false;
     }

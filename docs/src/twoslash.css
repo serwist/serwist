@@ -38,7 +38,7 @@ html[data-theme="dark"] {
 }
 
 .twoslash-popup-container {
-  @apply absolute z-10 inline-flex select-none flex-col rounded-md text-left duration-100 overflow-auto;
+  @apply absolute z-50 inline-flex select-none flex-col rounded-md text-left duration-100 overflow-auto;
   background: var(--twoslash-popup-bg);
   color: var(--twoslash-popup-color);
   border: 1px solid var(--twoslash-border-color);
