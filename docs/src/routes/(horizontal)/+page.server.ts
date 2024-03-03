@@ -16,11 +16,38 @@ const withSerwist = withSerwistInit({
   swSrc: "app/sw.ts",
   swDest: "public/sw.js",
 });
-   
+
+// https://nextjs.org/docs/app/api-reference/next-config-js
 export default withSerwist({
-  // Your Next.js config
+  reactStrictMode: true,
 });`,
             lang: "javascript",
+          },
+          "app/sw.ts": {
+            code: `import type { SerwistGlobalConfig } from "@serwist/core";
+import { defaultCache } from "@serwist/next/worker";
+import type { PrecacheEntry } from "@serwist/precaching";
+import { installSerwist } from "@serwist/sw";
+
+declare global {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {
+    // Change this attribute's name to your \`injectionPoint\`.
+    // \`injectionPoint\` is an InjectManifest option.
+    // See https://serwist.pages.dev/docs/build/inject-manifest/configuring
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+  }
+}
+
+declare const self: ServiceWorkerGlobalScope;
+
+installSerwist({
+  precacheEntries: self.__SW_MANIFEST,
+  skipWaiting: true,
+  clientsClaim: true,
+  navigationPreload: true,
+  runtimeCaching: defaultCache,
+});`,
+            lang: "typescript",
           },
         },
         { idPrefix: "nextjs-config-showcase" },
@@ -61,13 +88,140 @@ export default {
   plugins: [
     // swDest is automatically resolved to "$\{output.path}/sw.js"
     new InjectManifest({
-      swSrc: path.resolve(rootDir, "src/sw.ts"),
+      swSrc: path.resolve(srcDir, "sw.ts"),
       disablePrecacheManifest: dev,
       // Insert something...
       additionalPrecacheEntries: !dev ? [] : undefined,
     }),
   ],
 } satisfies Configuration;`,
+            lang: "typescript",
+          },
+          "src/sw.ts": {
+            code: `import type { SerwistGlobalConfig } from "@serwist/core";
+import { ExpirationPlugin } from "@serwist/expiration";
+import type { PrecacheEntry } from "@serwist/precaching";
+import { CacheFirst, NetworkFirst, StaleWhileRevalidate } from "@serwist/strategies";
+import { installSerwist } from "@serwist/sw";
+
+declare global {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {
+    // Change this attribute's name to your \`injectionPoint\`.
+    // \`injectionPoint\` is an InjectManifest option.
+    // See https://serwist.pages.dev/docs/build/inject-manifest/configuring
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+  }
+}
+
+declare const self: ServiceWorkerGlobalScope;
+
+installSerwist({
+  precacheEntries: self.__SW_MANIFEST,
+  skipWaiting: true,
+  clientsClaim: true,
+  navigationPreload: true,
+  runtimeCaching: [
+    {
+      matcher: /^https:\\/\\/fonts\\.(?:googleapis|gstatic)\\.com\\/.*/i,
+      handler: new CacheFirst({
+        cacheName: "google-fonts",
+        plugins: [
+          new ExpirationPlugin({
+            maxEntries: 4,
+            maxAgeSeconds: 365 * 24 * 60 * 60, // 365 days
+          }),
+        ],
+      }),
+    },
+    {
+      matcher: /\\.(?:eot|otf|ttc|ttf|woff|woff2|font.css)$/i,
+      handler: new StaleWhileRevalidate({
+        cacheName: "static-font-assets",
+        plugins: [
+          new ExpirationPlugin({
+            maxEntries: 4,
+            maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+          }),
+        ],
+      }),
+    },
+    {
+      matcher: /\\.(?:jpg|jpeg|gif|png|svg|ico|webp)$/i,
+      handler: new StaleWhileRevalidate({
+        cacheName: "static-image-assets",
+        plugins: [
+          new ExpirationPlugin({
+            maxEntries: 64,
+            maxAgeSeconds: 24 * 60 * 60, // 24 hours
+          }),
+        ],
+      }),
+    },
+    {
+      matcher: /\\.(?:js)$/i,
+      handler: new StaleWhileRevalidate({
+        cacheName: "static-js-assets",
+        plugins: [
+          new ExpirationPlugin({
+            maxEntries: 32,
+            maxAgeSeconds: 24 * 60 * 60, // 24 hours
+          }),
+        ],
+      }),
+    },
+    {
+      matcher: /\\.(?:css|less)$/i,
+      handler: new StaleWhileRevalidate({
+        cacheName: "static-style-assets",
+        plugins: [
+          new ExpirationPlugin({
+            maxEntries: 32,
+            maxAgeSeconds: 24 * 60 * 60, // 24 hours
+          }),
+        ],
+      }),
+    },
+    {
+      matcher: /\\.(?:json|xml|csv)$/i,
+      handler: new NetworkFirst({
+        cacheName: "static-data-assets",
+        plugins: [
+          new ExpirationPlugin({
+            maxEntries: 32,
+            maxAgeSeconds: 24 * 60 * 60, // 24 hours
+          }),
+        ],
+      }),
+    },
+    {
+      matcher: /\\/api\\/.*$/i,
+      method: "GET",
+      handler: new NetworkFirst({
+        cacheName: "apis",
+        plugins: [
+          new ExpirationPlugin({
+            maxEntries: 16,
+            maxAgeSeconds: 24 * 60 * 60, // 24 hours
+          }),
+        ],
+        networkTimeoutSeconds: 10, // fallback to cache if API does not response within 10 seconds
+      }),
+    },
+    {
+      matcher: /.*/i,
+      handler: new NetworkFirst({
+        cacheName: "others",
+        plugins: [
+          new ExpirationPlugin({
+            maxEntries: 32,
+            maxAgeSeconds: 24 * 60 * 60, // 24 hours
+          }),
+        ],
+        networkTimeoutSeconds: 10,
+      }),
+    },
+  ],
+});`,
             lang: "typescript",
           },
         },
@@ -95,13 +249,39 @@ export default defineConfig({
 });`,
             lang: "typescript",
           },
+          "src/sw.ts": {
+            code: `import type { SerwistGlobalConfig } from "@serwist/core";
+import type { PrecacheEntry } from "@serwist/precaching";
+import { installSerwist } from "@serwist/sw";
+import { defaultCache } from "@serwist/vite/worker";
+
+declare global {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {
+    // Change this attribute's name to your \`injectionPoint\`.
+    // \`injectionPoint\` is an InjectManifest option.
+    // See https://serwist.pages.dev/docs/build/inject-manifest/configuring
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+  }
+}
+
+declare const self: ServiceWorkerGlobalScope;
+
+installSerwist({
+  precacheEntries: self.__SW_MANIFEST,
+  skipWaiting: true,
+  clientsClaim: true,
+  navigationPreload: true,
+  runtimeCaching: defaultCache,
+});`,
+            lang: "typescript",
+          },
         },
         { idPrefix: "vite-config-showcase" },
       ),
       svelte: highlightCode(
         locals.highlighter,
         {
-          "service-worker.ts": {
+          "src/service-worker.ts": {
             code: `/// <reference no-default-lib="true"/>
 /// <reference lib="esnext" />
 /// <reference lib="webworker" />
@@ -137,7 +317,76 @@ installSerwist({
         },
         { idPrefix: "svelte-config-showcase" },
       ),
+      nuxt: highlightCode(
+        locals.highlighter,
+        {
+          "nuxt.config.ts": {
+            code: `/// <reference types="@serwist/nuxt" />
+/// <reference types="nuxt" />
+// ---cut-before---
+// https://nuxt.com/docs/api/configuration/nuxt-config
+export default defineNuxtConfig({
+  devtools: { enabled: true },
+  modules: ["@serwist/nuxt"],
+  serwist: {},
+});`,
+            lang: "typescript",
+          },
+          "service-worker/index.ts": {
+            code: `/// <reference no-default-lib="true"/>
+/// <reference lib="esnext" />
+/// <reference lib="webworker" />
+import type { SerwistGlobalConfig } from "@serwist/core";
+import type { PrecacheEntry } from "@serwist/precaching";
+import { installSerwist } from "@serwist/sw";
+import { defaultCache } from "@serwist/vite/worker";
+
+declare global {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {
+    // Change this attribute's name to your \`injectionPoint\`.
+    // \`injectionPoint\` is an InjectManifest option.
+    // See https://serwist.pages.dev/docs/build/inject-manifest/configuring
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+  }
+}
+
+declare const self: ServiceWorkerGlobalScope;
+
+installSerwist({
+  precacheEntries: self.__SW_MANIFEST,
+  skipWaiting: true,
+  clientsClaim: true,
+  navigationPreload: true,
+  disableDevLogs: true,
+  runtimeCaching: defaultCache,
+});`,
+            lang: "typescript",
+          },
+        },
+        { idPrefix: "nuxt-config-showcase" },
+      ),
     },
+    vanilla: highlightCode(
+      locals.highlighter,
+      {
+        "build.ts": {
+          code: `import { injectManifest } from "@serwist/build";
+// Build something...
+// Bundle the service worker...
+const { count, size, warnings } = await injectManifest({
+  swSrc: "app/sw.js",
+  swDest: "dist/sw.js",
+  globDirectory: "dist/static",
+});
+if (warnings.length > 0) {
+  console.warn("[@serwist/build] Oopsie, there are warnings from Serwist:", warnings);
+}
+console.log(\`[@serwist/build] Manifest injected: \${count} files, totaling \${size} bytes.\`);`,
+          lang: "typescript",
+        },
+      },
+      { idPrefix: "no-framework-showcase" },
+    ),
     customizing: highlightCode(
       locals.highlighter,
       {
@@ -255,7 +504,7 @@ new InjectManifest({
   excludeChunks: ["some-chunk-to-be-excluded"],
   // Usually you don't actually set this value unless you need to only include some
   // specific files.
-  include: [],
+  include: [() => true],
   compileSrc: true,
   webpackCompilationPlugins: [
     new webpack.DefinePlugin({

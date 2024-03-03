@@ -4,6 +4,7 @@
 
   import CodeTab from "$components/CodeTab.svelte";
   import NextjsLogo from "$components/icons/NextjsLogo.svelte";
+  import NuxtLogo from "$components/icons/NuxtLogo.svelte";
   import SvelteLogo from "$components/icons/SvelteLogo.svelte";
   import ViteLogo from "$components/icons/ViteLogo.svelte";
   import WebpackLogo from "$components/icons/WebpackLogo.svelte";
@@ -58,7 +59,7 @@
     },
   ] satisfies Feature[];
 
-  type ToolKey = "nextjs" | "webpack" | "vite" | "svelte";
+  type ToolKey = "nextjs" | "webpack" | "vite" | "svelte" | "nuxt";
 
   interface Tool {
     key: ToolKey;
@@ -107,7 +108,15 @@
       id: "svelte-config-showcase",
       label: "Svelte",
       codes: data.code.frameworks.svelte,
-      defaultTab: "service-worker.ts",
+      defaultTab: "src/service-worker.ts",
+    },
+    {
+      key: "nuxt",
+      logo: NuxtLogo,
+      id: "nuxt-config-showcase",
+      label: "Nuxt",
+      codes: data.code.frameworks.nuxt,
+      defaultTab: "nuxt.config.ts",
     },
   ] satisfies Tool[];
 
@@ -118,7 +127,7 @@
     },
     webpack: {
       title: "webpack",
-      description: "The good old reliable webpack.",
+      description: "The good old reliable bundler.",
     },
     vite: {
       title: "Vite",
@@ -128,13 +137,17 @@
       title: "Svelte",
       description: "The admired JS web framework.",
     },
+    nuxt: {
+      title: "Nuxt",
+      description: "The intuitive Vue framework.",
+    },
   };
 
   let currentSelectedTool = $state<ToolKey>("nextjs");
   let currentSelectedToolInfo = $derived(MAP_TOOL_KEY_TO_INFO[currentSelectedTool]);
 </script>
 
-<div class="flex flex-col px-5 py-4 gap-4 md:gap-24 md:p-24 w-full self-stretch bg-white text-black dark:bg-black dark:text-white">
+<div class="flex flex-col px-5 py-4 gap-8 md:gap-24 md:p-24 w-full self-stretch bg-white text-black dark:bg-black dark:text-white">
   <div class="flex w-full flex-col items-center justify-center gap-5 py-24 md:py-0 md:mb-24">
     <enhanced:img
       src="$images/logo-800x200.png?w=400;200;100"
@@ -167,11 +180,11 @@
       </div>
     {/each}
   </div>
-  <div class="w-full flex flex-col gap-4">
-    <h2 class="text-4xl font-semibold tracking-tight">Using a framework? Worry not.</h2>
+  <div class="w-full flex flex-col gap-4 md:max-w-[1080px] md:self-center">
+    <h2 class="text-4xl font-semibold tracking-tight">Using a framework?</h2>
     <div class="flex-col md:flex-row flex gap-4 justify-between">
       <div class="flex flex-col gap-2">
-        <h3 class="text-3xl font-semibold tracking-tight">{currentSelectedToolInfo.title}</h3>
+        <h3 class="text-3xl font-semibold tracking-tight">Worry not. We support {currentSelectedToolInfo.title}.</h3>
         <h4 class="text-2xl font-semibold tracking-tight">{currentSelectedToolInfo.description}</h4>
       </div>
       <div role="tablist" class="flex flex-wrap gap-8">
@@ -202,7 +215,14 @@
       {/each}
     </div>
   </div>
-  <div class="w-full flex flex-col gap-4">
+  <div class="w-full flex flex-col gap-4 md:max-w-[1080px] md:self-center">
+    <h2 class="text-4xl font-semibold tracking-tight">Not using one?</h2>
+    <h3 class="text-3xl font-semibold tracking-tight">We got you!</h3>
+    <div class="overflow-hidden">
+      <CodeTab codes={data.code.vanilla} defaultTab="build.ts" />
+    </div>
+  </div>
+  <div class="w-full flex flex-col gap-4 md:max-w-[1080px] md:self-center">
     <h2 class="text-4xl font-semibold tracking-tight">Customizing?</h2>
     <h3 class="text-3xl font-semibold tracking-tight">Go ham.</h3>
     <CodeTab codes={data.code.customizing} defaultTab="@serwist/build" />
