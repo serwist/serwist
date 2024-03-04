@@ -1,3 +1,5 @@
+import { dev } from "$app/environment";
+import { nonNullable } from "@serwist/utils";
 import { transformerTwoslash } from "@shikijs/twoslash";
 import type { BundledLanguage, Highlighter } from "shiki";
 import type { JsxEmit, ModuleDetectionKind, ModuleKind, ModuleResolutionKind, ScriptTarget } from "typescript";
@@ -5,6 +7,7 @@ import { renderer } from "./renderer";
 
 interface HighlightCodeOptions {
   idPrefix: string;
+  useTwoslash?: boolean;
 }
 
 const twoslash = transformerTwoslash({
@@ -55,7 +58,7 @@ const twoslash = transformerTwoslash({
 export const highlightCode = <T extends string>(
   highlighter: Highlighter,
   codes: Record<T, { code: string; lang: BundledLanguage }>,
-  { idPrefix }: HighlightCodeOptions,
+  { idPrefix, useTwoslash = true }: HighlightCodeOptions,
 ) => {
   const codeEntries = Object.entries(codes) as [T, (typeof codes)[T]][];
   const result = [] as [T, string, string][];
@@ -69,7 +72,7 @@ export const highlightCode = <T extends string>(
           dark: "github-dark",
         },
         lang,
-        transformers: [twoslash],
+        transformers: [!dev && useTwoslash ? twoslash : null].filter(nonNullable),
       }),
     ]);
   }

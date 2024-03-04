@@ -6,7 +6,7 @@
   const { ...props } = $props<SVGAttributes<SVGElement>>();
 </script>
 
-<svg viewBox="0 0 410 404" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 410 404" fill="none" {...props}>
   <title>Vite</title>
   <path
     d="M399.641 59.5246L215.643 388.545C211.844 395.338 202.084 395.378 198.228 388.618L10.5817 59.5563C6.38087 52.1896 12.6802 43.2665 21.0281 44.7586L205.223 77.6824C206.398 77.8924 207.601 77.8904 208.776 77.6763L389.119 44.8058C397.439 43.2894 403.768 52.1434 399.641 59.5246Z"

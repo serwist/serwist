@@ -38,7 +38,7 @@ export const parseHotkey = (hotkey: string): Hotkey => {
     ...modifiers,
     key: freeKey,
   };
-}
+};
 
 const isExactHotkey = (hotkey: Hotkey, event: KeyboardEvent): boolean => {
   const { alt, ctrl, meta, mod, shift, key } = hotkey;
@@ -69,7 +69,7 @@ const isExactHotkey = (hotkey: Hotkey, event: KeyboardEvent): boolean => {
   }
 
   return false;
-}
+};
 
 export const getHotkeyMatcher = (hotkey: string): CheckHotkeyMatch => {
   return (event) => isExactHotkey(parseHotkey(hotkey), event);

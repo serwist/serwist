@@ -11,5 +11,5 @@
   <span class="visible-light">
     <Sun width={24} height={24} />
   </span>
-  <p class="sr-only">Toggle color scheme</p>
+  <span class="sr-only">Toggle color scheme</span>
 </button>

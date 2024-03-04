@@ -57,11 +57,11 @@
     @apply flex flex-grow;
   }
 
-  #vertnav-mobile-menu[open] > *:not(summary),
+  #nav-mobile-menu[open] > *:not(summary),
   #sidebar-mobile-menu[open] > *:not(summary) {
     animation: details-show 100ms ease-out;
   }
-  #vertnav-mobile-menu[open] > summary {
+  #nav-mobile-menu[open] > summary {
     @apply [&>:nth-child(1)]:translate-y-[0.7rem] [&>:nth-child(1)]:rotate-45 [&>:nth-child(2)]:opacity-0 [&>:nth-child(3)]:-translate-y-[0.7rem] [&>:nth-child(3)]:-rotate-45;
   }
   #sidebar-mobile-menu[open] > summary > svg {
@@ -76,12 +76,21 @@
   .frsc-button.inactive:hover > svg {
     @apply contrast-100;
   }
-}
-
-@layer utilities {
   .nav-button {
     @apply flex cursor-pointer items-center justify-center rounded-full bg-transparent p-3 duration-100 hover:bg-gray-200 dark:hover:bg-neutral-800;
   }
+  .text-toc {
+    @apply text-xs font-medium transition-colors duration-100;
+  }
+  .text-toc.inactive {
+    @apply text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100;
+  }
+  .text-toc.active {
+    @apply text-accent-light dark:text-accent-dark;
+  }
+}
+
+@layer utilities {
   .link,
   .link > * {
     @apply !text-accent-light dark:!text-accent-dark underline underline-offset-[6px];
@@ -98,15 +107,6 @@
   }
   .list > li > .list {
     @apply mt-2;
-  }
-  .text-toc {
-    @apply text-xs font-medium transition-colors duration-100;
-  }
-  .text-toc.inactive {
-    @apply text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100;
-  }
-  .text-toc.active {
-    @apply text-accent-light dark:text-accent-dark;
   }
   html[data-theme="light"] .visible-dark,
   html[data-theme="dark"] .visible-light {

@@ -12,16 +12,16 @@
   "dependencies": {
     "@serwist/next": "latest",
     "@serwist/sw": "latest",
-    "next": "14.1.0",
+    "next": "14.1.1",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
     "@serwist/core": "latest",
     "@serwist/precaching": "latest",
-    "@types/node": "20.11.16",
-    "@types/react": "18.2.54",
-    "@types/react-dom": "18.2.18",
+    "@types/node": "20.11.24",
+    "@types/react": "18.2.61",
+    "@types/react-dom": "18.2.19",
     "typescript": "5.3.3"
   }
 }
