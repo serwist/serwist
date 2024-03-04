@@ -11,11 +11,11 @@ export interface TocEntry {
 export interface TwoslashProps {
   id: string | undefined;
   html: string | undefined;
-  bottom: boolean;
-  right: boolean;
   x: number | undefined;
   y: number | undefined;
+  right: boolean;
+  bottom: boolean;
+  maxHeight: number | undefined;
   closeTooltip(): void;
   timeout: NodeJS.Timeout | undefined;
-  maxHeight: number | undefined;
 }

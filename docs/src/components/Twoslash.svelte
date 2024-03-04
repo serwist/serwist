@@ -6,10 +6,16 @@
   import { hotkeys } from "$lib/hotkeys.svelte";
   import { twoslash } from "$lib/stores/twoslash";
 
-  const { id, html, timeout, closeTooltip, bottom, right, x = 0, y = 0, maxHeight = 0 } = $derived($twoslash);
-
+  const id = $derived($twoslash.id);
+  const html = $derived($twoslash.html);
+  const x = $derived($twoslash.x ?? 0);
+  const y = $derived($twoslash.y ?? 0);
+  const right = $derived($twoslash.right);
+  const bottom = $derived($twoslash.bottom);
+  const maxHeight = $derived($twoslash.maxHeight);
+  const closeTooltip = $derived($twoslash.closeTooltip);
+  const timeout = $derived($twoslash.timeout);
   let width = $state(1);
-
   let tooltip = $state<HTMLDivElement | null>(null);
 
   $effect(() => {
