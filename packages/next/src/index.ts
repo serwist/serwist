@@ -15,7 +15,12 @@ import { getContentHash, getFileHash, loadTSConfig, logger } from "./utils/index
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
-const withSerwistInit = (pluginOptions: NextInjectManifestOptions): ((nextConfig?: NextConfig) => NextConfig) => {
+/**
+ * Integrates Serwist into your Next.js app.
+ * @param userOptions
+ * @returns
+ */
+const withSerwistInit = (userOptions: NextInjectManifestOptions): ((nextConfig?: NextConfig) => NextConfig) => {
   return (nextConfig = {}) => ({
     ...nextConfig,
     webpack(config: Configuration, options) {
@@ -35,7 +40,7 @@ const withSerwistInit = (pluginOptions: NextInjectManifestOptions): ((nextConfig
         reloadOnOnline,
         globPublicPatterns,
         ...buildOptions
-      } = validateNextInjectManifestOptions(pluginOptions);
+      } = validateNextInjectManifestOptions(userOptions);
 
       if (typeof nextConfig.webpack === "function") {
         config = nextConfig.webpack(config, options);

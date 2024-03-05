@@ -13,7 +13,7 @@
 <br /><br />
 <h2>About</h2>
 <br />
-<p>A function that abstracts away the core APIs of Serwist.</p>
+<p>Abstracts away the core APIs of Serwist.</p>
 <br /><br />
 <h2>Why?</h2>
 <br />

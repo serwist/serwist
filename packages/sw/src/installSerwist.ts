@@ -72,7 +72,7 @@ export type InstallSerwistOptions = HandlePrecachingOptions & {
 };
 
 /**
- * A function that abstracts away the core APIs of Serwist.
+ * Abstracts away the core APIs of Serwist.
  * @param options - `installSerwist` options.
  */
 export const installSerwist = ({

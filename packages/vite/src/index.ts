@@ -22,4 +22,4 @@ export const serwist = (userOptions: PluginOptions): Plugin[] => {
 // This allows for customization.
 export { buildPlugin as build, createApi, createContext, devPlugin as dev, mainPlugin as main, resolveEntry, toFs };
 export type { SerwistViteContext } from "./context.js";
-export * from "./types.js";
+export type * from "./types.js";
