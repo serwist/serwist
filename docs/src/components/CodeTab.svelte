@@ -20,9 +20,9 @@
   });
 </script>
 
-<div class="w-full rounded-xl bg-white dark:bg-neutral-950 flex flex-col border-[0.5px] border-gray-300 dark:border-gray-800">
-  <div class="rounded-t-xl w-full bg-white dark:bg-black relative">
-    <div role="tablist" aria-orientation="horizontal" class="rounded-t-xl w-full overflow-auto flex">
+<div class="flex w-full flex-col rounded-xl border-[0.5px] border-gray-300 bg-white dark:border-gray-800 dark:bg-neutral-950">
+  <div class="relative w-full rounded-t-xl bg-white dark:bg-black">
+    <div role="tablist" aria-orientation="horizontal" class="flex w-full overflow-auto rounded-t-xl">
       {#each codes as [tab, id]}
         {@const isActive = tab === currentTab}
         <button
@@ -31,21 +31,21 @@
           aria-controls={`${id}-code`}
           aria-selected={isActive}
           class={clsx(
-            "py-2 px-4 border-gray-300 dark:border-gray-800 relative border-r-[0.5px] min-w-max",
+            "relative min-w-max border-r-[0.5px] border-gray-300 px-4 py-2 dark:border-gray-800",
             isActive ? "bg-white text-black dark:bg-neutral-950 dark:text-white" : "text-gray-600 dark:text-gray-400"
           )}
           onclick={() => (currentTab = tab)}
         >
           {tab}
           {#if isActive}
-            <span class="w-full h-[1px] z-[2] bg-white dark:bg-neutral-950 absolute bottom-0 left-0 pointer-events-none" aria-hidden="true" />
+            <span class="pointer-events-none absolute bottom-0 left-0 z-[2] h-[1px] w-full bg-white dark:bg-neutral-950" aria-hidden="true" />
           {/if}
         </button>
       {/each}
     </div>
-    <div class="w-full h-[1px] z-[1] bg-gray-300 dark:bg-gray-800 absolute bottom-0 left-0 pointer-events-none" aria-hidden="true" />
+    <div class="pointer-events-none absolute bottom-0 left-0 z-[1] h-[1px] w-full bg-gray-300 dark:bg-gray-800" aria-hidden="true" />
   </div>
-  <div class="margin-0 p-4 overflow-auto">
+  <div class="margin-0 overflow-auto p-4">
     {#each codes as [tab, id, code]}
       {@const isActive = tab === currentTab}
       <div role="tabpanel" id={`${id}-code`} class="whitespace-normal" class:hidden={!isActive} aria-labelledby={`${id}-button`}>

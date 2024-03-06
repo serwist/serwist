@@ -38,7 +38,7 @@ html[data-theme="dark"] {
 }
 
 .twoslash-popup-container {
-  @apply absolute z-50 inline-flex select-none flex-col rounded-md text-left duration-100 overflow-auto;
+  @apply absolute z-50 inline-flex select-none flex-col overflow-auto rounded-md text-left duration-100;
   background: var(--twoslash-popup-bg);
   color: var(--twoslash-popup-color);
   border: 1px solid var(--twoslash-border-color);
@@ -65,7 +65,7 @@ html[data-theme="dark"] {
 }
 
 .twoslash-popup-code {
-  @apply font-mono divide-y-[1px] w-fit;
+  @apply w-fit divide-y-[1px] font-mono;
   font-size: var(--twoslash-code-font-size);
 }
 

@@ -2,12 +2,14 @@
   import { BLOG_ENTRIES } from "./$page.constants";
 </script>
 
-<article class="flex gap-8 flex-col p-6 md:py-12 md:max-w-screen-xl mx-auto">
+<article class="mx-auto flex flex-col gap-8 p-6 md:max-w-screen-xl md:py-12">
   <h1>Blog</h1>
-  <div class="grid grid-flow-row md:grid-cols-3 gap-4">
+  <div class="grid grid-flow-row gap-4 md:grid-cols-3">
     {#each BLOG_ENTRIES as { title, description, date, href, keyPoints }}
-      <article class="min-w-0 rounded-[.875rem] bg-white dark:bg-neutral-950 border-[0.5px] border-gray-300 dark:border-gray-800 p-2 flex gap-3 flex-col">
-        <div class="p-2 flex flex-col gap-1">
+      <article
+        class="flex min-w-0 flex-col gap-3 rounded-[.875rem] border-[0.5px] border-gray-300 bg-white p-2 dark:border-gray-800 dark:bg-neutral-950"
+      >
+        <div class="flex flex-col gap-1 p-2">
           <p class="text-comment text-sm">{date}</p>
           <p class="text-2xl font-semibold">{title}</p>
           <p>{description}</p>

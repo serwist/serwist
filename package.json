@@ -11,12 +11,12 @@
   ],
   "scripts": {
     "build": "cross-env FORCE_COLOR=1 turbo run build --filter=./packages/*",
+    "build:docs": "cross-env FORCE_COLOR=1 turbo run build --filter=./docs",
     "code-check": "biome check --max-diagnostics=150 --log-kind=compact .",
     "code-check:apply": "pnpm code-check --apply",
     "deps": "node ncu.js",
     "dev": "cross-env FORCE_COLOR=1 turbo run dev --concurrency=24 --filter=./packages/*",
     "dev:no-server": "cross-env FORCE_COLOR=1 turbo run dev --concurrency=24 --filter=./packages/* --filter=!./packages/nuxt",
-    "docs:build": "cross-env FORCE_COLOR=1 turbo run build --filter=./docs",
     "format": "biome format --max-diagnostics=100 --log-kind=compact",
     "format:docs": "pnpm prettier --write \"docs/**/*.{svelte,css}\" && pnpm format docs --write",
     "format:all": "pnpm format .",

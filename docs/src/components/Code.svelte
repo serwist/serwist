@@ -10,11 +10,11 @@
   const { showIcon = false, children, ...props } = $props<CodeProps>();
 </script>
 
-<span class="font-mono gap-2 flex items-center w-fit">
+<span class="flex w-fit items-center gap-2 font-mono">
   {#if showIcon}
     <span class="select-none text-black dark:text-white" aria-hidden="true">{">_"}</span>
   {/if}
-  <code class="text-comment flex break-all gap-2" {...props}>
+  <code class="text-comment flex gap-2 break-all" {...props}>
     {#if children}
       {@render children()}
     {/if}

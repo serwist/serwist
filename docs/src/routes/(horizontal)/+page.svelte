@@ -147,17 +147,17 @@
   let currentSelectedToolInfo = $derived(MAP_TOOL_KEY_TO_INFO[currentSelectedTool]);
 </script>
 
-<div class="flex flex-col px-5 py-4 gap-8 md:gap-24 md:p-24 w-full self-stretch bg-white text-black dark:bg-black dark:text-white">
-  <div class="flex w-full flex-col items-center justify-center gap-5 py-24 md:py-0 md:mb-24">
+<div class="flex w-full flex-col gap-8 self-stretch bg-white px-5 py-4 text-black md:gap-24 md:p-24 dark:bg-black dark:text-white">
+  <div class="flex w-full flex-col items-center justify-center gap-5 py-24 md:mb-24 md:py-0">
     <enhanced:img
       src="$images/logo-800x200.png?w=400;200;100"
       alt="Serwist"
-      class="invert dark:invert-0 w-[150px] md:w-[200px] h-auto"
+      class="h-auto w-[150px] invert md:w-[200px] dark:invert-0"
       sizes="(min-width:1920px) 400px, (min-width:1080px) 250px, (min-width:768px) 200px"
     />
-    <h1 class="my-2 text-5xl font-semibold tracking-tight text-center">A Swiss Army knife for service workers.</h1>
-    <h2 class="my-2 text-2xl font-medium tracking-tight text-center">Serwist enables you to create PWAs with ease.</h2>
-    <a class="text-accent-light dark:text-accent-dark underline underline-offset-8 text-xl" href="/docs">
+    <h1 class="my-2 text-center text-5xl font-semibold tracking-tight">A Swiss Army knife for service workers.</h1>
+    <h2 class="my-2 text-center text-2xl font-medium tracking-tight">Serwist enables you to create PWAs with ease.</h2>
+    <a class="text-accent-light dark:text-accent-dark text-xl underline underline-offset-8" href="/docs">
       {"~> Get started"}
     </a>
     <InlineCode showIcon>{"npx create-next-app@latest -e https://github.com/serwist/serwist/tree/main/examples/next-basic"}</InlineCode>
@@ -180,9 +180,9 @@
       </div>
     {/each}
   </div>
-  <div class="w-full flex flex-col gap-4 md:max-w-screen-lg md:self-center">
+  <div class="flex w-full flex-col gap-4 md:max-w-screen-lg md:self-center">
     <h2 class="text-4xl font-semibold tracking-tight">Using a framework?</h2>
-    <div class="flex-col md:flex-row flex gap-4 justify-between">
+    <div class="flex flex-col justify-between gap-4 md:flex-row">
       <div class="flex flex-col gap-2">
         <h3 class="text-3xl font-semibold tracking-tight">Worry not. We support {currentSelectedToolInfo.title}.</h3>
         <h4 class="text-2xl font-semibold tracking-tight">{currentSelectedToolInfo.description}</h4>
@@ -215,14 +215,14 @@
       {/each}
     </div>
   </div>
-  <div class="w-full flex flex-col gap-4 md:max-w-screen-lg md:self-center">
+  <div class="flex w-full flex-col gap-4 md:max-w-screen-lg md:self-center">
     <h2 class="text-4xl font-semibold tracking-tight">Not using one?</h2>
     <h3 class="text-3xl font-semibold tracking-tight">We got you!</h3>
     <div class="overflow-hidden">
       <CodeTab codes={data.code.vanilla} defaultTab="build.ts" />
     </div>
   </div>
-  <div class="w-full flex flex-col gap-4 md:max-w-screen-lg md:self-center">
+  <div class="flex w-full flex-col gap-4 md:max-w-screen-lg md:self-center">
     <h2 class="text-4xl font-semibold tracking-tight">Customizing?</h2>
     <h3 class="text-3xl font-semibold tracking-tight">Go ham.</h3>
     <CodeTab codes={data.code.customizing} defaultTab="@serwist/build" />

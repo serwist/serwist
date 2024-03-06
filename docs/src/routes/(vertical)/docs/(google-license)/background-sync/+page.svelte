@@ -133,7 +133,7 @@
   <li>
     Force an early sync event by going to {"Chrome DevTools > Application > Service Workers"}, entering the tag name of
     serwist-background-sync:$YOUR_QUEUE_NAME where $YOUR_QUEUE_NAME should be the name of the queue you set, and then clicking the 'Sync' button.
-    <enhanced:img src="$images/bg-sync-example-sync-button.png" sizes="min(804px, 100vw)" class="w-full h-auto" alt="Example 'Sync' button" />
+    <enhanced:img src="$images/bg-sync-example-sync-button.png" sizes="min(804px, 100vw)" class="h-auto w-full" alt="Example 'Sync' button" />
   </li>
   <li>
     You should see network requests go through for the failed requests and the IndexedDB data should now be empty since the requests have been

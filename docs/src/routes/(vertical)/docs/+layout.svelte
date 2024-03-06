@@ -37,20 +37,20 @@
   <div
     id="sidebar-wrapper"
     class={clsx(
-      "print:hidden w-full max-h-dvh md:w-64 xl:w-80 md:shrink-0 md:self-start z-10",
-      "transform-gpu transition-all duration-150 ease-out sticky top-0",
-      "px-2 md:px-4 pt-2 flex flex-col bg-white dark:bg-black md:bg-transparent dark:md:bg-transparent",
-      "border-neutral-300 border-b-[0.25px] md:border-b-0 dark:border-gray-700"
+      "z-10 max-h-dvh w-full md:w-64 md:shrink-0 md:self-start xl:w-80 print:hidden",
+      "sticky top-0 transform-gpu transition-all duration-150 ease-out",
+      "flex flex-col bg-white px-2 pt-2 md:bg-transparent md:px-4 dark:bg-black dark:md:bg-transparent",
+      "border-b-[0.25px] border-neutral-300 md:border-b-0 dark:border-gray-700"
     )}
   >
     <VerticalNavbar />
     <details bind:this={mobileMenu} id="sidebar-mobile-menu" class="details-anim overflow-y-auto md:hidden">
-      <summary class="z-20 flex h-fit w-full flex-row items-center justify-start gap-2 p-3 md:hidden duration-100 text-black dark:text-white">
+      <summary class="z-20 flex h-fit w-full flex-row items-center justify-start gap-2 p-3 text-black duration-100 md:hidden dark:text-white">
         Menu
         <ChevronRight class="details-chevron transition-transform duration-100" width={18} height={18} />
       </summary>
       <!-- Mobile sidebar -->
-      <aside class="pb-4 md:pb-0 md:py-4 self-stretch">
+      <aside class="self-stretch pb-4 md:py-4 md:pb-0">
         <ul>
           {#each SIDEBAR_LINKS as sidebarLink}
             <SidebarLink {...sidebarLink} />
@@ -59,7 +59,7 @@
       </aside>
     </details>
     <!-- Desktop sidebar -->
-    <aside class="pb-4 md:pb-0 md:py-4 self-stretch overflow-y-auto hidden md:block">
+    <aside class="hidden self-stretch overflow-y-auto pb-4 md:block md:py-4 md:pb-0">
       <ul>
         {#each SIDEBAR_LINKS as sidebarLink}
           <SidebarLink {...sidebarLink} />
@@ -67,9 +67,9 @@
       </ul>
     </aside>
   </div>
-  <main id="main-content" class="w-full min-w-0 flex flex-col xl:flex-row xl:justify-between">
+  <main id="main-content" class="flex w-full min-w-0 flex-col xl:flex-row xl:justify-between">
     <nav
-      class="xl:sticky top-0 xl:order-last max-h-screen xl:w-[350px] shrink-0 px-6 md:px-12 xl:px-4 print:hidden block pt-6"
+      class="top-0 max-h-screen shrink-0 px-6 pt-6 md:px-12 xl:sticky xl:order-last xl:w-[350px] xl:px-4 print:hidden"
       aria-label="Table of contents"
     >
       <Toc {toc} baseEditUrl="https://github.com/serwist/serwist/tree/main/docs/src/routes/(vertical)" />

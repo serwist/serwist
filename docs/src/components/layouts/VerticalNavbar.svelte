@@ -27,17 +27,17 @@
   });
 </script>
 
-<nav class="z-[50] h-fit transition-colors-opacity duration-100">
-  <div class="relative flex justify-between flex-row md:flex-col mx-auto overflow-x-clip">
-    <div class="flex md:block items-center md:items-start gap-2 md:py-2">
+<nav class="transition-colors-opacity z-[50] h-fit duration-100">
+  <div class="relative mx-auto flex flex-row justify-between overflow-x-clip md:flex-col">
+    <div class="flex items-center gap-2 md:block md:items-start md:py-2">
       <a href="/" aria-label="Go to home">
-        <enhanced:img src="$images/logo-200x50-transparent.png" alt="Serwist" class="invert dark:invert-0 min-w-[100px] max-w-[100px] h-auto" />
+        <enhanced:img src="$images/logo-200x50-transparent.png" alt="Serwist" class="h-auto min-w-[100px] max-w-[100px] invert dark:invert-0" />
       </a>
     </div>
-    <div class="flex gap-[5px] flex-col md:flex-col-reverse">
+    <div class="flex flex-col gap-[5px] md:flex-col-reverse">
       <div class="hidden h-full pr-2 md:flex md:pr-0">
         <div class="overflow-x-overlay hidden h-full grow flex-row gap-[5px] overflow-x-auto md:flex">
-          <ul class="w-full flex max-h-[50dvh] overflow-y-auto gap-[inherit] flex-col">
+          <ul class="flex max-h-[50dvh] w-full flex-col gap-[inherit] overflow-y-auto">
             {#each links as { label, link, isActive }}
               <li class="w-full">
                 <NavLink href={link} textCenter={false} {isActive}>
@@ -48,7 +48,7 @@
           </ul>
         </div>
       </div>
-      <div class="flex flex-row-reverse gap-[5px] items-center md:flex-row">
+      <div class="flex flex-row-reverse items-center gap-[5px] md:flex-row">
         <details bind:this={mobileMenu} class="details-anim relative ml-3 md:hidden" id="nav-mobile-menu">
           <summary
             class={clsx(
@@ -62,9 +62,9 @@
             <span class="duration-200 ease-out" />
             <span class="origin-center duration-300" />
           </summary>
-          <div class="w-[150px] md:hidden absolute right-0">
+          <div class="absolute right-0 w-[150px] md:hidden">
             <ul
-              class="space-y-1 p-2 relative top-2 bg-white dark:bg-black rounded-[14px] border border-neutral-300 dark:border-gray-900 max-h-[60dvh] overflow-y-auto"
+              class="relative top-2 max-h-[60dvh] space-y-1 overflow-y-auto rounded-[14px] border border-neutral-300 bg-white p-2 dark:border-gray-900 dark:bg-black"
             >
               {#each links as { label, link, isActive }}
                 <li>
@@ -77,7 +77,7 @@
           </div>
         </details>
         <a class="nav-button" href={GITHUB_REPO_URL} target="_blank" rel="noreferrer">
-          <GitHubLogo width={24} height={24} class="min-w-6 max-w-6 min-h-6 max-h-6" />
+          <GitHubLogo width={24} height={24} class="max-h-6 min-h-6 min-w-6 max-w-6" />
           <span class="sr-only">Our Github repo (opens in a new tab)</span>
         </a>
         <NavToggleScheme />
