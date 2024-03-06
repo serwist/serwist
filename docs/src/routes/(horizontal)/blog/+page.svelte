@@ -19,7 +19,7 @@
             <li><a href={`${href}#${id}`} class="link">{title}</a></li>
           {/each}
         </ul>
-        <a class="button" {href}>Read more</a>
+        <a class="button" {href}>Read the blog</a>
       </article>
     {/each}
   </div>
