@@ -6,7 +6,7 @@
 
 @layer base {
   * {
-    @apply min-w-0;
+    @apply relative box-border min-w-0;
   }
   html,
   body {

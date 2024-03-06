@@ -20,7 +20,7 @@
   });
 </script>
 
-<div class="flex h-full w-full flex-col md:flex-row gap-8">
+<div class="flex h-full w-full flex-col md:flex-row md:gap-8">
   {#if metadata}
     <nav class="sticky top-0 md:order-last max-h-screen md:w-[250px] xl:w-[350px] shrink-0 print:hidden pt-6 px-6 md:px-4" aria-label="Table of contents">
       <Toc {toc} baseEditUrl="https://github.com/serwist/serwist/tree/main/docs/src/routes/(horizontal)" />
