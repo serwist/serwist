@@ -68,7 +68,7 @@
     @apply flex cursor-pointer items-center justify-center rounded-full bg-transparent p-3 duration-100 hover:bg-gray-200 dark:hover:bg-neutral-800;
   }
   .text-toc {
-    @apply md:text-xs font-medium text-gray-500 transition-colors duration-100 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100;
+    @apply md:text-xs font-medium text-neutral-600 transition-colors duration-100 hover:text-black dark:text-neutral-400 dark:hover:text-white;
   }
   .text-toc.active {
     @apply md:text-accent-light md:dark:text-accent-dark;

@@ -37,7 +37,7 @@
   <div
     id="sidebar-wrapper"
     class={clsx(
-      "print:hidden w-full max-h-dvh md:w-52 xl:w-80 md:shrink-0 md:self-start z-10",
+      "print:hidden w-full max-h-dvh md:w-64 xl:w-80 md:shrink-0 md:self-start z-10",
       "transform-gpu transition-all duration-150 ease-out sticky top-0",
       "px-2 md:px-4 pt-2 flex flex-col bg-white dark:bg-black md:bg-transparent dark:md:bg-transparent",
       "border-neutral-300 border-b-[0.25px] md:border-b-0 dark:border-gray-700"
@@ -67,14 +67,14 @@
       </ul>
     </aside>
   </div>
-  <main id="main-content" class="w-full min-w-0 flex flex-col md:flex-row md:justify-between">
+  <main id="main-content" class="w-full min-w-0 flex flex-col xl:flex-row xl:justify-between">
     <nav
-      class="md:sticky top-0 md:order-last max-h-screen md:w-[250px] xl:w-[350px] shrink-0 px-6 md:px-4 print:hidden block pt-6"
+      class="xl:sticky top-0 xl:order-last max-h-screen xl:w-[350px] shrink-0 px-6 md:px-12 xl:px-4 print:hidden block pt-6"
       aria-label="Table of contents"
     >
       <Toc {toc} baseEditUrl="https://github.com/serwist/serwist/tree/main/docs/src/routes/(vertical)" />
     </nav>
-    <article class="w-full min-w-0 max-w-6xl p-6 md:px-12 md:py-14">
+    <article class="w-full max-w-6xl p-6 md:px-12 md:pb-12 xl:pt-12">
       {@render children()}
     </article>
   </main>

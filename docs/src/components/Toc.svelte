@@ -19,22 +19,12 @@
   {:else}
     <p>Table of Contents is not available at the moment.</p>
   {/if}
-  <div class="sticky bottom-0 mt-8 hidden md:flex flex-col items-start gap-2 border-t pb-8 pt-8 dark:border-neutral-800">
-    <a
-      href="https://github.com/serwist/serwist/issues/new/choose"
-      target="_blank"
-      rel="noreferrer"
-      class="text-xs font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-    >
+  <div class="sticky bottom-0 mt-8 hidden xl:flex flex-col items-start gap-2 border-t pb-8 pt-8 dark:border-neutral-800">
+    <a href="https://github.com/serwist/serwist/issues/new/choose" target="_blank" rel="noreferrer" class="text-toc">
       Question? Give us feedback →
       <span class="sr-only">(opens in a new tab)</span>
     </a>
-    <a
-      href={`${baseEditUrl}${$page.url.pathname}`}
-      target="_blank"
-      rel="noreferrer"
-      class="text-xs font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-    >
+    <a href={`${baseEditUrl}${$page.url.pathname}`} target="_blank" rel="noreferrer" class="text-toc">
       Edit this page →<span class="sr-only"> (opens in a new tab)</span>
     </a>
   </div>
