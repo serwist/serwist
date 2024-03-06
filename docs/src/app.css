@@ -16,7 +16,7 @@
     @apply scroll-smooth;
   }
   body {
-    @apply box-border bg-gray-50 font-sans font-normal text-black transition-colors duration-100 dark:bg-neutral-950 dark:text-white;
+    @apply bg-gray-50 font-sans font-normal text-black transition-colors duration-100 dark:bg-neutral-950 dark:text-white;
   }
   h1,
   h2,
@@ -56,12 +56,12 @@
     @apply [&>:nth-child(1)]:translate-y-[0.7rem] [&>:nth-child(1)]:rotate-45 [&>:nth-child(2)]:opacity-0 [&>:nth-child(3)]:-translate-y-[0.7rem] [&>:nth-child(3)]:-rotate-45;
   }
   .frsc-button {
-    @apply my-0 flex justify-center border-black md:my-0;
+    @apply my-0 flex flex-1 min-w-[auto] justify-center border-black md:my-0;
   }
-  .frsc-button.inactive > svg {
+  .frsc-button[data-active="false"] > svg {
     @apply contrast-0;
   }
-  .frsc-button.inactive:hover > svg {
+  .frsc-button[data-active="false"]:hover > svg {
     @apply contrast-100;
   }
   .nav-button {

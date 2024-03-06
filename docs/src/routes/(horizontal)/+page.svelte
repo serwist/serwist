@@ -191,14 +191,20 @@
         {#each TOOLS_LIST as { key, logo: Logo, id, label, additionalClass }}
           {@const isActive = currentSelectedTool === key}
           <button
-            class={clsx("frsc-button flex-1", isActive ? "active" : "inactive")}
+            class="frsc-button"
             id={`${id}-button`}
             role="tab"
             aria-controls={`${id}-code`}
             aria-selected={isActive}
             onclick={() => (currentSelectedTool = key)}
+            data-active={isActive}
           >
-            <Logo class={clsx("transition-all duration-100", additionalClass)} width={64} height={64} aria-hidden="true" />
+            <Logo
+              class={clsx("max-h-16 min-h-16 min-w-16 max-w-16 transition-all duration-100", additionalClass)}
+              width={64}
+              height={64}
+              aria-hidden="true"
+            />
             <span class="sr-only">{label}</span>
           </button>
         {/each}
