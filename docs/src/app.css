@@ -56,7 +56,7 @@
     @apply [&>:nth-child(1)]:translate-y-[0.7rem] [&>:nth-child(1)]:rotate-45 [&>:nth-child(2)]:opacity-0 [&>:nth-child(3)]:-translate-y-[0.7rem] [&>:nth-child(3)]:-rotate-45;
   }
   .frsc-button {
-    @apply my-0 flex flex-1 min-w-[auto] justify-center border-black md:my-0;
+    @apply my-0 flex min-w-[auto] flex-1 justify-center border-black md:my-0;
   }
   .frsc-button[data-active="false"] > svg {
     @apply contrast-0;
@@ -68,7 +68,7 @@
     @apply flex cursor-pointer items-center justify-center rounded-full bg-transparent p-3 duration-100 hover:bg-gray-200 dark:hover:bg-neutral-800;
   }
   .text-toc {
-    @apply font-medium text-neutral-600 transition-colors duration-100 hover:text-black md:text-xs dark:text-neutral-400 dark:hover:text-white;
+    @apply font-medium text-neutral-600 transition-colors duration-100 hover:text-black dark:text-neutral-400 dark:hover:text-white;
   }
   .text-toc.active {
     @apply xl:text-accent-light xl:dark:text-accent-dark;
