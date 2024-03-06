@@ -34,14 +34,14 @@
   )}
 >
   <div class="mx-auto max-w-7xl px-2 md:px-6 lg:px-8 py-2">
-    <div class="relative flex items-center justify-between overflow-x-auto">
+    <div class="relative flex items-center justify-between overflow-x-clip">
       <div class="flex md:block items-center md:items-start gap-2 md:py-2">
         <a href="/" aria-label="Go to home">
           <enhanced:img src="$images/logo-200x50-transparent.png" alt="Serwist" class="invert dark:invert-0 min-w-[100px] max-w-[100px] h-auto" />
         </a>
       </div>
       <div class="flex flex-row-reverse md:flex-row items-center gap-[5px]">
-        <details bind:this={mobileMenu} class="relative ml-3 md:hidden" id="nav-mobile-menu">
+        <details bind:this={mobileMenu} class="relative ml-3 md:hidden details-anim" id="nav-mobile-menu">
           <summary
             class={clsx(
               "flex h-[2rem] w-[2rem] cursor-pointer flex-col justify-center gap-[0.5rem]",
@@ -78,7 +78,7 @@
           </div>
         </div>
         <a class="nav-button" href={GITHUB_REPO_URL} target="_blank" rel="noreferrer">
-          <GitHubLogo width={24} height={24} />
+          <GitHubLogo width={24} height={24} class="min-w-6 max-w-6 min-h-6 max-h-6" />
           <span class="sr-only">Our Github repo (opens in a new tab)</span>
         </a>
         <NavToggleScheme />

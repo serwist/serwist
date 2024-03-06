@@ -28,10 +28,10 @@
 </script>
 
 <nav class="z-[50] h-fit transition-colors-opacity duration-100">
-  <div class="relative flex justify-between flex-row md:flex-col mx-auto">
+  <div class="relative flex justify-between flex-row md:flex-col mx-auto overflow-x-clip">
     <div class="flex md:block items-center md:items-start gap-2 md:py-2">
       <a href="/" aria-label="Go to home">
-        <enhanced:img src="$images/logo-200x50-transparent.png" alt="Serwist" class="invert dark:invert-0 w-[100px] h-auto" />
+        <enhanced:img src="$images/logo-200x50-transparent.png" alt="Serwist" class="invert dark:invert-0 min-w-[100px] max-w-[100px] h-auto" />
       </a>
     </div>
     <div class="flex gap-[5px] flex-col md:flex-col-reverse">
@@ -77,7 +77,7 @@
           </div>
         </details>
         <a class="nav-button" href={GITHUB_REPO_URL} target="_blank" rel="noreferrer">
-          <GitHubLogo width={24} height={24} />
+          <GitHubLogo width={24} height={24} class="min-w-6 max-w-6 min-h-6 max-h-6" />
           <span class="sr-only">Our Github repo (opens in a new tab)</span>
         </a>
         <NavToggleScheme />
