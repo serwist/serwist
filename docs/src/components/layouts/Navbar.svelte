@@ -34,10 +34,10 @@
   )}
 >
   <div class="mx-auto max-w-7xl px-2 md:px-6 lg:px-8 py-2">
-    <div class="relative flex items-center justify-between">
+    <div class="relative flex items-center justify-between overflow-x-auto">
       <div class="flex md:block items-center md:items-start gap-2 md:py-2">
         <a href="/" aria-label="Go to home">
-          <enhanced:img src="$images/logo-200x50-transparent.png" alt="Serwist" class="invert dark:invert-0 w-[100px] h-auto" />
+          <enhanced:img src="$images/logo-200x50-transparent.png" alt="Serwist" class="invert dark:invert-0 min-w-[100px] max-w-[100px] h-auto" />
         </a>
       </div>
       <div class="flex flex-row-reverse md:flex-row items-center gap-[5px]">

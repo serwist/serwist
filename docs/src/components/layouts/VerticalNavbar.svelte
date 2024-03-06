@@ -49,7 +49,7 @@
         </div>
       </div>
       <div class="flex flex-row-reverse gap-[5px] items-center md:flex-row">
-        <details bind:this={mobileMenu} class="relative ml-3 md:hidden" id="nav-mobile-menu">
+        <details bind:this={mobileMenu} class="details-anim relative ml-3 md:hidden" id="nav-mobile-menu">
           <summary
             class={clsx(
               "flex h-[2rem] w-[2rem] cursor-pointer flex-col justify-center gap-[0.5rem]",

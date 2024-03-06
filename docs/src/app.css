@@ -36,13 +36,6 @@
   h4 {
     @apply text-xl leading-5 tracking-tight;
   }
-
-  @keyframes details-show {
-    from {
-      opacity: 0;
-      transform: var(--details-translate, translateY(-2em));
-    }
-  }
   details > summary {
     @apply cursor-pointer select-none list-none;
   }
@@ -56,19 +49,11 @@
   #main-content {
     @apply flex flex-grow;
   }
-
-  #nav-mobile-menu[open] > *:not(summary),
-  #sidebar-mobile-menu[open] > *:not(summary) {
-    animation: details-show 100ms ease-out;
-  }
   #nav-mobile-menu[open] > summary {
     @apply [&>:nth-child(1)]:translate-y-[0.7rem] [&>:nth-child(1)]:rotate-45 [&>:nth-child(2)]:opacity-0 [&>:nth-child(3)]:-translate-y-[0.7rem] [&>:nth-child(3)]:-rotate-45;
   }
-  #sidebar-mobile-menu[open] > summary > svg {
-    @apply rotate-90;
-  }
   .frsc-button {
-    @apply flex justify-center border-black my-0 md:my-0;
+    @apply my-0 flex justify-center border-black md:my-0;
   }
   .frsc-button.inactive > svg {
     @apply contrast-0;
@@ -80,17 +65,29 @@
     @apply flex cursor-pointer items-center justify-center rounded-full bg-transparent p-3 duration-100 hover:bg-gray-200 dark:hover:bg-neutral-800;
   }
   .text-toc {
-    @apply text-xs font-medium transition-colors duration-100;
-  }
-  .text-toc.inactive {
-    @apply text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100;
+    @apply text-xs font-medium text-gray-500 transition-colors duration-100 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100;
   }
   .text-toc.active {
-    @apply text-accent-light dark:text-accent-dark;
+    @apply md:text-accent-light md:dark:text-accent-dark;
   }
 }
 
 @layer utilities {
+  @keyframes details-show {
+    from {
+      opacity: 0;
+      transform: var(--details-translate, translateY(-2em));
+    }
+  }
+  details.details-anim[open] > *:not(summary) {
+    animation: details-show 100ms ease-out;
+  }
+  details[open] > summary > .details-chevron {
+    @apply rotate-90;
+  }
+  .text-comment {
+    @apply text-neutral-600 dark:text-neutral-400;
+  }
   .link,
   .link > * {
     @apply !text-accent-light dark:!text-accent-dark underline underline-offset-[6px];
@@ -100,13 +97,16 @@
     @apply !underline-offset-4;
   }
   .list {
-    @apply list-inside list-disc pl-4 marker:text-black dark:marker:text-white;
+    @apply list-inside list-disc break-words pl-4 marker:text-black dark:marker:text-white;
   }
   .list > li {
     @apply mb-2;
   }
   .list > li > .list {
     @apply mt-2;
+  }
+  .button {
+    @apply rounded-md bg-gray-100 px-3 py-2 text-center transition-colors duration-100 hover:bg-gray-200 dark:bg-neutral-900 hover:dark:bg-neutral-800;
   }
   html[data-theme="light"] .visible-dark,
   html[data-theme="dark"] .visible-light {

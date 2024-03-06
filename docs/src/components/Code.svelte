@@ -14,7 +14,7 @@
   {#if showIcon}
     <span class="select-none text-black dark:text-white" aria-hidden="true">{">_"}</span>
   {/if}
-  <code class="text-neutral-600 dark:text-neutral-400 flex break-all gap-2" {...props}>
+  <code class="text-comment flex break-all gap-2" {...props}>
     {#if children}
       {@render children()}
     {/if}

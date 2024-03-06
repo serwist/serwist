@@ -2,17 +2,28 @@
   import { page } from "$app/stores";
   import ChevronRight from "$components/icons/ChevronRight.svelte";
   import VerticalNavbar from "$components/layouts/VerticalNavbar.svelte";
+  import Toc from "$components/Toc.svelte";
   import { clsx } from "$lib/clsx";
+  import { TocObserver } from "$lib/TocObserver.svelte";
   import type { TocEntry } from "$lib/types";
 
   import { SIDEBAR_LINKS } from "./constants";
   import SidebarLink from "./SidebarLink.svelte";
-  import TocRenderer from "./TocRenderer.svelte";
 
   const { children } = $props();
   let mobileMenu = $state<HTMLDetailsElement | undefined>(undefined);
-  let observer = $state<IntersectionObserver | null>(null);
   const toc = $derived($page.data.toc) as TocEntry[] | undefined;
+  let tocObserver: TocObserver | null = null;
+
+  $effect(() => {
+    if (!tocObserver) {
+      tocObserver = new TocObserver();
+    }
+    tocObserver.observe(toc);
+    return () => {
+      tocObserver?.disconnect();
+    };
+  });
 
   $effect(() => {
     $page.url.pathname;
@@ -20,56 +31,23 @@
       mobileMenu.open = false;
     }
   });
-
-  $effect(() => {
-    if (!("IntersectionObserver" in globalThis)) return;
-
-    observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const link = document.querySelector(`a[href="#${entry.target.id}"]`);
-          if (link === null) return;
-          if (entry.intersectionRatio > 0) {
-            link.classList.add("active");
-            link.classList.remove("inactive");
-          } else {
-            link.classList.add("inactive");
-            link.classList.remove("active");
-          }
-        });
-      },
-      {
-        rootMargin: "0% 0% 0% 0%",
-      }
-    );
-
-    return () => observer?.disconnect();
-  });
-
-  $effect(() => {
-    if (!toc || !observer) return;
-
-    document.querySelectorAll("h1,h2,h3,h4,h5,h6").forEach((elem) => observer?.observe(elem));
-
-    return () => observer?.disconnect();
-  });
 </script>
 
 <div class="flex h-full w-full flex-col md:flex-row">
   <div
     id="sidebar-wrapper"
     class={clsx(
-      "print:hidden w-full max-h-dvh md:w-80 md:shrink-0 md:self-start z-10",
+      "print:hidden w-full max-h-dvh md:w-52 xl:w-80 md:shrink-0 md:self-start z-10",
       "transform-gpu transition-all duration-150 ease-out sticky top-0",
       "px-2 md:px-4 pt-2 flex flex-col bg-white dark:bg-black md:bg-transparent dark:md:bg-transparent",
       "border-neutral-300 border-b-[0.25px] md:border-b-0 dark:border-gray-700"
     )}
   >
     <VerticalNavbar />
-    <details bind:this={mobileMenu} id="sidebar-mobile-menu" class="overflow-y-auto md:hidden">
+    <details bind:this={mobileMenu} id="sidebar-mobile-menu" class="details-anim overflow-y-auto md:hidden">
       <summary class="z-20 flex h-fit w-full flex-row items-center justify-start gap-2 p-3 md:hidden duration-100 text-black dark:text-white">
         Menu
-        <ChevronRight class="transition-transform duration-100" width={18} height={18} />
+        <ChevronRight class="details-chevron transition-transform duration-100" width={18} height={18} />
       </summary>
       <!-- Mobile sidebar -->
       <aside class="pb-4 md:pb-0 md:py-4 self-stretch">
@@ -89,38 +67,14 @@
       </ul>
     </aside>
   </div>
-  <nav class="sticky top-0 order-last hidden w-[350px] max-h-screen shrink-0 px-4 print:hidden xl:block" aria-label="Table of contents">
-    <div class="flex flex-col hyphens-auto pr-4 pt-6 text-sm ltr:-mr-4 rtl:-ml-4">
-      <p class="mb-4 font-semibold tracking-tight text-black dark:text-white">On This Page</p>
-      <div class="w-full self-stretch overflow-y-auto pointer-events-none" aria-hidden="true" />
-      {#if toc}
-        <TocRenderer data={toc} />
-      {:else}
-        <p>Table of Contents is not available at the moment.</p>
-      {/if}
-      <div class="sticky bottom-0 mt-8 flex flex-col items-start gap-2 border-t pb-8 pt-8 dark:border-neutral-800">
-        <a
-          href="https://github.com/serwist/serwist/issues/new/choose"
-          target="_blank"
-          rel="noreferrer"
-          class="text-xs font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-        >
-          Question? Give us feedback →
-          <span class="sr-only">(opens in a new tab)</span>
-        </a>
-        <a
-          href={`https://github.com/serwist/serwist/tree/main/docs/src/routes/(vertical)${$page.url.pathname}`}
-          target="_blank"
-          rel="noreferrer"
-          class="text-xs font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-        >
-          Edit this page →<span class="sr-only"> (opens in a new tab)</span>
-        </a>
-      </div>
-    </div>
-  </nav>
-  <main id="main-content" class="w-full min-w-0 md:py-8 mt-4 md:mt-0">
-    <article class="w-full min-w-0 max-w-6xl px-6 py-6 md:px-12">
+  <main id="main-content" class="w-full min-w-0 flex flex-col md:flex-row md:justify-between">
+    <nav
+      class="md:sticky top-0 md:order-last max-h-screen md:w-[250px] xl:w-[350px] shrink-0 px-6 md:px-4 print:hidden block pt-6"
+      aria-label="Table of contents"
+    >
+      <Toc {toc} baseEditUrl="https://github.com/serwist/serwist/tree/main/docs/src/routes/(vertical)" />
+    </nav>
+    <article class="w-full min-w-0 max-w-6xl p-6 md:px-12 md:py-14">
       {@render children()}
     </article>
   </main>

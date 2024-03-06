@@ -19,3 +19,11 @@ export interface TwoslashProps {
   closeTooltip(): void;
   timeout: NodeJS.Timeout | undefined;
 }
+
+export interface BlogMetadata {
+  title: {
+    content: string;
+    id: string;
+  };
+  date: string;
+}

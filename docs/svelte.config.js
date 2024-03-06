@@ -24,6 +24,7 @@ const config = {
     },
     prerender: {
       handleHttpError: "warn",
+      handleMissingId: "warn",
     },
     serviceWorker: {
       register: false,

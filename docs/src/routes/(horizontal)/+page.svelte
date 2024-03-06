@@ -180,7 +180,7 @@
       </div>
     {/each}
   </div>
-  <div class="w-full flex flex-col gap-4 md:max-w-[1080px] md:self-center">
+  <div class="w-full flex flex-col gap-4 md:max-w-screen-lg md:self-center">
     <h2 class="text-4xl font-semibold tracking-tight">Using a framework?</h2>
     <div class="flex-col md:flex-row flex gap-4 justify-between">
       <div class="flex flex-col gap-2">
@@ -215,14 +215,14 @@
       {/each}
     </div>
   </div>
-  <div class="w-full flex flex-col gap-4 md:max-w-[1080px] md:self-center">
+  <div class="w-full flex flex-col gap-4 md:max-w-screen-lg md:self-center">
     <h2 class="text-4xl font-semibold tracking-tight">Not using one?</h2>
     <h3 class="text-3xl font-semibold tracking-tight">We got you!</h3>
     <div class="overflow-hidden">
       <CodeTab codes={data.code.vanilla} defaultTab="build.ts" />
     </div>
   </div>
-  <div class="w-full flex flex-col gap-4 md:max-w-[1080px] md:self-center">
+  <div class="w-full flex flex-col gap-4 md:max-w-screen-lg md:self-center">
     <h2 class="text-4xl font-semibold tracking-tight">Customizing?</h2>
     <h3 class="text-3xl font-semibold tracking-tight">Go ham.</h3>
     <CodeTab codes={data.code.customizing} defaultTab="@serwist/build" />
