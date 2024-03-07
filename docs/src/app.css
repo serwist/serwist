@@ -1,12 +1,29 @@
+@import "tailwindcss";
 @import "./syntax-highlighting.css";
 @import "./twoslash.css";
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
+@theme {
+  --tw-border-style: solid;
+  --font-family-sans: "Geist", Arial, sans-serif;
+  --color-accent-light: #1e40af;
+  --color-accent-dark: #7dd3fc;
+  --color-blue-450: #4cc2ff;
+  --color-blue-550: #0078d4;
+  --color-red-650: #c42b1c;
+  --color-red-1000: #442726;
+  --color-green-150: #dff6dd;
+  --color-green-450: #6ccb5f;
+  --color-lime-1000: #393d1b;
+  --color-yellow-75: #fff4ce;
+  --color-yellow-1000: #433519;
+}
 
 @layer base {
   * {
-    @apply relative box-border min-w-0;
+    @apply relative border-0;
+  }
+  button {
+    @apply cursor-pointer;
   }
   html,
   body {
