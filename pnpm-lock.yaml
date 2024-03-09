@@ -1054,6 +1054,9 @@ importers:
 
   packages/svelte:
     dependencies:
+      '@serwist/core':
+        specifier: workspace:*
+        version: link:../core
       '@serwist/expiration':
         specifier: workspace:*
         version: link:../expiration

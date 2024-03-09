@@ -46,6 +46,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
+    "@serwist/core": "workspace:*",
     "@serwist/expiration": "workspace:*",
     "@serwist/strategies": "workspace:*"
   },
