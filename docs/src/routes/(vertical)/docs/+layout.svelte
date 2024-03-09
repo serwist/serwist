@@ -67,7 +67,7 @@
       </ul>
     </aside>
   </div>
-  <main id="main-content" class="flex w-full min-w-0 flex-col xl:flex-row xl:justify-between">
+  <main id="main-content" class="flex w-full flex-col xl:flex-row xl:justify-between">
     <nav
       class="top-0 max-h-screen shrink-0 px-6 pt-6 md:px-12 xl:sticky xl:order-last xl:w-[350px] xl:px-4 print:hidden"
       aria-label="Table of contents"

@@ -1,13 +1,12 @@
-import type { TocEntry } from "$lib/types";
-
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = () => ({
   title: "Introduction",
+  ogImage: "Documentation",
   toc: [
     {
       title: "Welcome",
       id: "welcome",
     },
-  ] satisfies TocEntry[],
+  ],
 });

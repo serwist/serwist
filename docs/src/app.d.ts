@@ -1,4 +1,5 @@
 // See https://kit.svelte.dev/docs/types#app
+import type { BlogMetadata, OpenGraphImage, TocEntry } from "$lib/types";
 import type { getHighlighter } from "shiki";
 
 // for information about these interfaces
@@ -8,7 +9,12 @@ declare global {
     interface Locals {
       highlighter: Awaited<ReturnType<typeof getHighlighter>>;
     }
-    // interface PageData {}
+    interface PageData {
+      title: string;
+      ogImage?: OpenGraphImage;
+      toc?: TocEntry[];
+      metadata?: BlogMetadata;
+    }
     // interface Platform {}
   }
 }

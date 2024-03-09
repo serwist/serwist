@@ -1,9 +1,9 @@
 import { highlightCode } from "$lib/highlightCode";
-
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
   title: "Home",
+  ogImage: "Home",
   code: {
     frameworks: {
       next: highlightCode(

@@ -1,10 +1,9 @@
 import { highlightCode } from "$lib/highlightCode";
-import type { TocEntry } from "$lib/types";
-
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
   title: "@serwist/broadcast-update",
+  ogImage: "@serwist/broadcast-update",
   toc: [
     {
       title: "@serwist/broadcast-update",
@@ -38,7 +37,7 @@ export const load: PageServerLoad = ({ locals }) => ({
         },
       ],
     },
-  ] satisfies TocEntry[],
+  ],
   code: {
     messageFormat: highlightCode(
       locals.highlighter,

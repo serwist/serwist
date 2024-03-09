@@ -1,9 +1,12 @@
 import { highlightCode } from "$lib/highlightCode";
-
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
   title: "modifyURLPrefix - Base options - Configuring - @serwist/build",
+  ogImage: {
+    title: "modifyURLPrefix",
+    desc: "Base options - Configuring - @serwist/build",
+  },
   code: {
     usage: highlightCode(
       locals.highlighter,

@@ -32,6 +32,9 @@ for (const packageFile of packageJsonList) {
         if (dependencyName === "typescript" || dependencyName === "svelte") {
           return "@next";
         }
+        if (/(@|)tailwindcss(\/.+|)/.test(dependencyName)) {
+          return "@next";
+        }
         if (/^react(-dom)?$/.test(dependencyName)) {
           return "@latest";
         }

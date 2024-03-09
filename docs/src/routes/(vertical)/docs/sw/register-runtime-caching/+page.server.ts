@@ -1,8 +1,12 @@
 import { highlightCode } from "$lib/highlightCode";
-
 import type { PageServerLoad } from "./$types";
+
 export const load: PageServerLoad = ({ locals }) => ({
   title: "registerRuntimeCaching - @serwist/sw",
+  ogImage: {
+    title: "registerRuntimeCaching",
+    desc: "@serwist/sw",
+  },
   code: {
     usage: highlightCode(
       locals.highlighter,

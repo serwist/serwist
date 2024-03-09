@@ -3,6 +3,10 @@ import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
   title: "dontCacheBustURLsMatching - Base options - Configuring - @serwist/build",
+  ogImage: {
+    title: "dontCacheBustURLsMatching",
+    desc: "Base options - Configuring - @serwist/build",
+  },
   code: {
     usage: highlightCode(
       locals.highlighter,

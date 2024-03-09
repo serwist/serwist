@@ -1,9 +1,9 @@
 import { highlightCode } from "$lib/highlightCode";
-import type { TocEntry } from "$lib/types";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
   title: "@serwist/navigation-preload",
+  ogImage: "@serwist/navigation-preload",
   toc: [
     {
       title: "@serwist/navigation-preload",
@@ -23,7 +23,7 @@ export const load: PageServerLoad = ({ locals }) => ({
         },
       ],
     },
-  ] satisfies TocEntry[],
+  ],
   code: {
     basicUsage: {
       setup: highlightCode(

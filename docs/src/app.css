@@ -20,7 +20,7 @@
 
 @layer base {
   * {
-    @apply relative border-0;
+    @apply relative border-0 box-border min-w-0;
   }
   button {
     @apply cursor-pointer;
@@ -67,7 +67,8 @@
     @apply relative m-0 flex h-fit min-h-screen w-full flex-col p-0;
   }
   #main-content {
-    @apply flex flex-grow;
+    @apply flex;
+    flex-grow: 1;
   }
   #nav-mobile-menu[open] > summary {
     @apply [&>:nth-child(1)]:translate-y-[0.7rem] [&>:nth-child(1)]:rotate-45 [&>:nth-child(2)]:opacity-0 [&>:nth-child(3)]:-translate-y-[0.7rem] [&>:nth-child(3)]:-rotate-45;

@@ -1,9 +1,9 @@
 import { highlightCode } from "$lib/highlightCode";
-import type { TocEntry } from "$lib/types";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
   title: "@serwist/expiration",
+  ogImage: "@serwist/expiration",
   toc: [
     {
       title: "@serwist/expiration",
@@ -33,7 +33,7 @@ export const load: PageServerLoad = ({ locals }) => ({
         },
       ],
     },
-  ] satisfies TocEntry[],
+  ],
   code: {
     basicUsage: {
       maxEntries: highlightCode(

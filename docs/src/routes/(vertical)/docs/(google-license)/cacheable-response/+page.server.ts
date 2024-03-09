@@ -1,9 +1,9 @@
 import { highlightCode } from "$lib/highlightCode";
-import type { TocEntry } from "$lib/types";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
   title: "@serwist/cacheable-response",
+  ogImage: "@serwist/cacheable-response",
   toc: [
     {
       title: "@serwist/cacheable-response",
@@ -33,7 +33,7 @@ export const load: PageServerLoad = ({ locals }) => ({
         },
       ],
     },
-  ] satisfies TocEntry[],
+  ],
   code: {
     basicUsage: highlightCode(
       locals.highlighter,

@@ -1,8 +1,8 @@
-import type { TocEntry } from "$lib/types";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = () => ({
   title: "@serwist/build",
+  ogImage: "@serwist/build",
   toc: [
     {
       title: "@serwist/build",
@@ -36,5 +36,5 @@ export const load: PageServerLoad = () => ({
         },
       ],
     },
-  ] satisfies TocEntry[],
+  ],
 });

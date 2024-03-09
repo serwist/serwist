@@ -1,9 +1,12 @@
 import { highlightCode } from "$lib/highlightCode";
-
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
   title: "Worker exports - @serwist/next",
+  ogImage: {
+    title: "Worker exports",
+    desc: "@serwist/next",
+  },
   code: {
     defaultCache: {
       usage: highlightCode(

@@ -64,6 +64,10 @@ import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
   title: "Foo",
+  ogImage: {
+    title: "Foo",
+    desc: "@serwist/bar",
+  },
   code: {
     basicUsage: {
       setup: highlightCode(

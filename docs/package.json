@@ -12,6 +12,7 @@
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
   },
   "devDependencies": {
+    "@resvg/resvg-js": "2.6.0",
     "@serwist/background-sync": "workspace:*",
     "@serwist/broadcast-update": "workspace:*",
     "@serwist/build": "workspace:*",
@@ -35,7 +36,7 @@
     "@sveltejs/enhanced-img": "0.1.8",
     "@sveltejs/kit": "2.5.2",
     "@sveltejs/vite-plugin-svelte": "3.0.2",
-    "@tailwindcss/vite": "4.0.0-alpha.3",
+    "@tailwindcss/vite": "4.0.0-alpha.7",
     "@types/node": "20.11.24",
     "@types/react": "18.2.61",
     "autoprefixer": "10.4.18",
@@ -46,13 +47,15 @@
     "next": "14.1.1",
     "nuxt": "3.10.3",
     "postcss": "8.4.35",
+    "satori": "0.10.13",
     "shiki": "1.1.7",
     "svelte": "5.0.0-next.70",
     "svelte-check": "3.6.6",
-    "tailwindcss": "4.0.0-alpha.3",
+    "tailwindcss": "4.0.0-alpha.7",
     "tslib": "2.6.2",
     "typescript": "5.5.0-dev.20240304",
     "vite": "5.1.4",
-    "webpack": "5.90.3"
+    "webpack": "5.90.3",
+    "yoga-wasm-web": "0.3.3"
   }
 }

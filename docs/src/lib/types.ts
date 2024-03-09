@@ -27,3 +27,10 @@ export interface BlogMetadata {
   };
   date: string;
 }
+
+export type OpenGraphImage =
+  | string
+  | {
+      title: string;
+      desc: string;
+    };

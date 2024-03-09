@@ -1,9 +1,12 @@
 import { highlightCode } from "$lib/highlightCode";
-import type { TocEntry } from "$lib/types";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
   title: "responsesAreSame - @serwist/broadcast-update",
+  ogImage: {
+    title: "responsesAreSame",
+    desc: "@serwist/broadcast-update",
+  },
   toc: [
     {
       title: "responsesAreSame",
@@ -27,7 +30,7 @@ export const load: PageServerLoad = ({ locals }) => ({
         },
       ],
     },
-  ] satisfies TocEntry[],
+  ],
   code: {
     usage: highlightCode(
       locals.highlighter,

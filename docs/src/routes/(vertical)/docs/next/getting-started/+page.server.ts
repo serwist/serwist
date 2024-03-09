@@ -1,10 +1,12 @@
 import { highlightCode } from "$lib/highlightCode";
-
-import type { TocEntry } from "$lib/types";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
   title: "Getting started - @serwist/next",
+  ogImage: {
+    title: "Getting started",
+    desc: "@serwist/next",
+  },
   toc: [
     {
       title: "Getting started",
@@ -39,7 +41,7 @@ export const load: PageServerLoad = ({ locals }) => ({
         },
       ],
     },
-  ] satisfies TocEntry[],
+  ],
   code: {
     install: highlightCode(
       locals.highlighter,

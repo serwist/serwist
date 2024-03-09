@@ -10,10 +10,21 @@
   import { PUBLIC_CANONICAL_URL } from "$env/static/public";
   import { isColorScheme } from "$lib/isColorScheme";
   import { colorScheme } from "$lib/stores/colorScheme";
+  import { ENCODED_CANONICAL_URL } from "$lib/constants";
 
   const { children } = $props();
-  const title = $derived($page.data.title ? `${$page.data.title} - Serwist` : "Serwist");
   const isDark = $derived($colorScheme === "dark");
+  const title = $derived($page.data.title ? `${$page.data.title} - Serwist` : "Serwist");
+  const ogImage = $derived.by(() => {
+    const image = $page.data.ogImage;
+    if (!image) {
+      return `/og/${ENCODED_CANONICAL_URL}/Serwist.png`;
+    }
+    if (typeof image === "string") {
+      return `/og/${ENCODED_CANONICAL_URL}/${encodeURIComponent(image)}.png`;
+    }
+    return `/og/${encodeURIComponent(image.desc)}%20-%20${ENCODED_CANONICAL_URL}/${encodeURIComponent(image.title)}.png`;
+  });
 
   $effect(() => {
     const twoslashElement = mount(Twoslash, {
@@ -51,6 +62,7 @@
   <link rel="canonical" href={new URL($page.url.pathname, PUBLIC_CANONICAL_URL).href} />
   <link rel="manifest" href="/manifest.webmanifest" />
   <meta property="og:title" content={title} />
+  <meta property="og:image" content={ogImage} />
   <meta name="twitter:title" content={title} />
   <meta name="theme-color" content={isDark ? "#000000" : "#FFFFFF"} />
   <style>

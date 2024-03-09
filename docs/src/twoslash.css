@@ -64,7 +64,7 @@ html[data-theme="dark"] {
   font-size: var(--twoslash-code-font-size);
 }
 .twoslash-popup-code > * + * {
-  @apply border-t-[0.5px] border-b-0;
+  @apply border-b-0 border-t-[0.5px];
 }
 
 .twoslash-popup-docs,

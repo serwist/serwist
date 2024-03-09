@@ -1,10 +1,12 @@
 import { highlightCode } from "$lib/highlightCode";
-import type { TocEntry } from "$lib/types";
-
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
   title: "BackgroundSyncPlugin - @serwist/background-sync",
+  ogImage: {
+    title: "BackgroundSyncPlugin",
+    desc: "@serwist/background-sync",
+  },
   toc: [
     {
       title: "BackgroundSyncPlugin",
@@ -28,7 +30,7 @@ export const load: PageServerLoad = ({ locals }) => ({
         },
       ],
     },
-  ] satisfies TocEntry[],
+  ],
   code: {
     usage: highlightCode(
       locals.highlighter,

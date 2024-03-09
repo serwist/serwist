@@ -1,9 +1,12 @@
 import { highlightCode } from "$lib/highlightCode";
-
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
   title: "globFollow - Glob options - Configuring - @serwist/build",
+  ogImage: {
+    title: "globFollow",
+    desc: "Glob options - Configuring - @serwist/build",
+  },
   code: {
     usage: highlightCode(
       locals.highlighter,

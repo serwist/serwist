@@ -1,9 +1,12 @@
 import { highlightCode } from "$lib/highlightCode";
-
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
   title: "InjectManifest - @serwist/build",
+  ogImage: {
+    title: "InjectManifest",
+    desc: "@serwist/build",
+  },
   code: {
     gettingStarted: highlightCode(
       locals.highlighter,

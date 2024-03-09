@@ -1,10 +1,12 @@
 import { highlightCode } from "$lib/highlightCode";
-import type { TocEntry } from "$lib/types";
-
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
   title: "Constants - @serwist/broadcast-update",
+  ogImage: {
+    title: "Constants",
+    desc: "@serwist/broadcast-update",
+  },
   toc: [
     {
       title: "Constants",
@@ -30,7 +32,7 @@ export const load: PageServerLoad = ({ locals }) => ({
         },
       ],
     },
-  ] satisfies TocEntry[],
+  ],
   code: {
     cacheUpdatedMessageMeta: {
       usage: highlightCode(
