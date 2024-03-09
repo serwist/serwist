@@ -10,7 +10,7 @@ declare global {
       highlighter: Awaited<ReturnType<typeof getHighlighter>>;
     }
     interface PageData {
-      title: string;
+      title?: string;
       ogImage?: string;
       toc?: TocEntry[];
       metadata?: BlogMetadata;

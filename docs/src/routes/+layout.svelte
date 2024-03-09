@@ -10,12 +10,11 @@
   import { PUBLIC_CANONICAL_URL } from "$env/static/public";
   import { isColorScheme } from "$lib/isColorScheme";
   import { colorScheme } from "$lib/stores/colorScheme";
-  import { ENCODED_CANONICAL_URL } from "$lib/constants";
 
-  const { children } = $props();
+  const { data, children } = $props();
   const isDark = $derived($colorScheme === "dark");
   const title = $derived($page.data.title ? `${$page.data.title} - Serwist` : "Serwist");
-  const ogImage = $derived($page.data.ogImage ?? `/og/${ENCODED_CANONICAL_URL}/U2Vyd2lzdA==.png`);
+  const ogImage = $derived($page.data.ogImage ?? data.fallbackOgImage);
 
   $effect(() => {
     const twoslashElement = mount(Twoslash, {

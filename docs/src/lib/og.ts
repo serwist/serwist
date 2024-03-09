@@ -6,7 +6,7 @@ import type { Font } from "satori";
 import satori, { init as initSatori } from "satori/wasm";
 import initYoga, { type Yoga } from "yoga-wasm-web";
 import { encodeBase64 } from "./base64";
-import { ENCODED_CANONICAL_URL } from "./constants";
+import { ENCODED_CANONICAL_URL } from "./server-constants";
 import type { OpenGraphImage } from "./types";
 
 let yoga: Yoga | null = null;
