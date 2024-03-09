@@ -15,16 +15,7 @@
   const { children } = $props();
   const isDark = $derived($colorScheme === "dark");
   const title = $derived($page.data.title ? `${$page.data.title} - Serwist` : "Serwist");
-  const ogImage = $derived.by(() => {
-    const image = $page.data.ogImage;
-    if (!image) {
-      return `/og/${ENCODED_CANONICAL_URL}/Serwist.png`;
-    }
-    if (typeof image === "string") {
-      return `/og/${ENCODED_CANONICAL_URL}/${encodeURIComponent(image)}.png`;
-    }
-    return `/og/${encodeURIComponent(image.desc)}%20-%20${ENCODED_CANONICAL_URL}/${encodeURIComponent(image.title)}.png`;
-  });
+  const ogImage = $derived($page.data.ogImage ?? `/og/${ENCODED_CANONICAL_URL}/U2Vyd2lzdA==.png`);
 
   $effect(() => {
     const twoslashElement = mount(Twoslash, {

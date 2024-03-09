@@ -1,9 +1,10 @@
 import { highlightCode } from "$lib/highlightCode";
+import { encodeOpenGraphImage } from "$lib/og";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
   title: "@serwist/navigation-preload",
-  ogImage: "@serwist/navigation-preload",
+  ogImage: encodeOpenGraphImage("@serwist/navigation-preload"),
   toc: [
     {
       title: "@serwist/navigation-preload",

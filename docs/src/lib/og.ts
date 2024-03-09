@@ -5,6 +5,9 @@ import { type ReactElement, createElement } from "react";
 import type { Font } from "satori";
 import satori, { init as initSatori } from "satori/wasm";
 import initYoga, { type Yoga } from "yoga-wasm-web";
+import { encodeBase64 } from "./base64";
+import { ENCODED_CANONICAL_URL } from "./constants";
+import type { OpenGraphImage } from "./types";
 
 let yoga: Yoga | null = null;
 let monoFont: Font | null = null;
@@ -111,4 +114,11 @@ export const getOpenGraphTemplate = (title: string, desc: string) => {
       desc,
     ),
   );
+};
+
+export const encodeOpenGraphImage = (image: OpenGraphImage) => {
+  if (typeof image === "string") {
+    return `/og/${ENCODED_CANONICAL_URL}/${encodeBase64(image)}.png`;
+  }
+  return `/og/${encodeBase64(`${image.desc} - ${PUBLIC_CANONICAL_URL}`)}/${encodeBase64(image.title)}.png`;
 };

@@ -1,12 +1,13 @@
 import { highlightCode } from "$lib/highlightCode";
+import { encodeOpenGraphImage } from "$lib/og";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
   title: "handlePrecaching - @serwist/sw",
-  ogImage: {
+  ogImage: encodeOpenGraphImage({
     title: "handlePrecaching",
     desc: "@serwist/sw",
-  },
+  }),
   code: {
     usage: highlightCode(
       locals.highlighter,

@@ -1,12 +1,13 @@
 import { highlightCode } from "$lib/highlightCode";
+import { encodeOpenGraphImage } from "$lib/og";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
   title: "swUrl - Configuring - @serwist/next",
-  ogImage: {
+  ogImage: encodeOpenGraphImage({
     title: "swUrl",
     desc: "Configuring - @serwist/next",
-  },
+  }),
   code: {
     usage: highlightCode(
       locals.highlighter,

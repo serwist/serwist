@@ -1,9 +1,10 @@
 import { highlightCode } from "$lib/highlightCode";
+import { encodeOpenGraphImage } from "$lib/og";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
   title: "@serwist/background-sync",
-  ogImage: "@serwist/background-sync",
+  ogImage: encodeOpenGraphImage("@serwist/background-sync"),
   toc: [
     {
       title: "@serwist/background-sync",

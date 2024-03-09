@@ -1,12 +1,13 @@
 import { highlightCode } from "$lib/highlightCode";
+import { encodeOpenGraphImage } from "$lib/og";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
   title: "responsesAreSame - @serwist/broadcast-update",
-  ogImage: {
+  ogImage: encodeOpenGraphImage({
     title: "responsesAreSame",
     desc: "@serwist/broadcast-update",
-  },
+  }),
   toc: [
     {
       title: "responsesAreSame",

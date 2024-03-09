@@ -1,12 +1,13 @@
 import { highlightCode } from "$lib/highlightCode";
+import { encodeOpenGraphImage } from "$lib/og";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
   title: "disable - @serwist/navigation-preload",
-  ogImage: {
+  ogImage: encodeOpenGraphImage({
     title: "disable",
     desc: "@serwist/navigation-preload",
-  },
+  }),
   toc: [
     {
       title: "disable",

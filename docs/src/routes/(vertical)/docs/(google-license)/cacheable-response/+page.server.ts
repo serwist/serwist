@@ -1,9 +1,10 @@
 import { highlightCode } from "$lib/highlightCode";
+import { encodeOpenGraphImage } from "$lib/og";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
   title: "@serwist/cacheable-response",
-  ogImage: "@serwist/cacheable-response",
+  ogImage: encodeOpenGraphImage("@serwist/cacheable-response"),
   toc: [
     {
       title: "@serwist/cacheable-response",

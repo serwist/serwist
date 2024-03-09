@@ -58,16 +58,17 @@
 
 ```ts
 import { highlightCode } from "$lib/highlightCode";
+import { encodeOpenGraphImage } from "$lib/og";
 import type { TocEntry } from "$lib/types";
 
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
   title: "Foo",
-  ogImage: {
+  ogImage: encodeOpenGraphImage({
     title: "Foo",
     desc: "@serwist/bar",
-  },
+  }),
   code: {
     basicUsage: {
       setup: highlightCode(

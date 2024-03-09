@@ -1,11 +1,12 @@
+import { encodeOpenGraphImage } from "$lib/og";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = () => ({
   title: "Serwist 9.0.0 - Blog",
-  ogImage: {
+  ogImage: encodeOpenGraphImage({
     title: "Serwist 9.0.0",
     desc: "Blog",
-  },
+  }),
   toc: [
     {
       title: "Serwist 9.0.0",

@@ -11,7 +11,7 @@ declare global {
     }
     interface PageData {
       title: string;
-      ogImage?: OpenGraphImage;
+      ogImage?: string;
       toc?: TocEntry[];
       metadata?: BlogMetadata;
     }

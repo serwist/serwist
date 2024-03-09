@@ -1,12 +1,13 @@
 import { highlightCode } from "$lib/highlightCode";
+import { encodeOpenGraphImage } from "$lib/og";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
   title: "globDirectory - Glob options - Configuring - @serwist/build",
-  ogImage: {
+  ogImage: encodeOpenGraphImage({
     title: "globDirectory",
     desc: "Glob options - Configuring - @serwist/build",
-  },
+  }),
   code: {
     usage: highlightCode(
       locals.highlighter,

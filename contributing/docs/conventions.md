@@ -14,6 +14,7 @@
 
 ```ts
 import { highlightCode } from "$lib/highlightCode";
+import { encodeOpenGraphImage } from "$lib/og";
 
 import type { PageServerLoad } from "./$types";
 
