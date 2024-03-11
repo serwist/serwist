@@ -3,15 +3,15 @@ import path from "node:path";
 import { addPlugin, createResolver, defineNuxtModule, extendWebpackConfig } from "@nuxt/kit";
 import type { SerwistViteApi, SerwistViteContext } from "@serwist/vite";
 import { createApi, createContext, dev as devPlugin, main as mainPlugin, resolveEntry } from "@serwist/vite";
+import type { Require } from "./utils.js";
 
 import { version } from "../package.json";
 import { configurePwaOptions } from "./config.js";
 import type { ClientOptions, ModuleOptions } from "./types.js";
-import type { RequiredFields } from "./utils-types.js";
 
 export * from "./types.js";
 
-export default defineNuxtModule<RequiredFields<ModuleOptions, "swUrl" | "swSrc" | "swDest" | "globDirectory" | "injectionPoint">>({
+export default defineNuxtModule<Require<ModuleOptions, "swUrl" | "swSrc" | "swDest" | "globDirectory" | "injectionPoint">>({
   meta: {
     name: "@serwist/nuxt",
     configKey: "serwist",

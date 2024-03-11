@@ -13,8 +13,6 @@ declare let self: ServiceWorkerGlobalScope;
  * Claims any currently available clients once the service worker
  * becomes active. This is normally used in conjunction with `skipWaiting()`.
  */
-function clientsClaim(): void {
+export const clientsClaim = (): void => {
   self.addEventListener("activate", () => self.clients.claim());
-}
-
-export { clientsClaim };
+};

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./geist.css";
 @import "./syntax-highlighting.css";
 @import "./twoslash.css";
 
@@ -111,7 +112,7 @@
   }
   .link,
   .link > * {
-    @apply !text-accent-light dark:!text-accent-dark underline underline-offset-[6px];
+    @apply !text-accent-light dark:!text-accent-dark underline underline-offset-[5px];
   }
   .link.sm,
   .link.sm > * {

@@ -2,7 +2,7 @@
   "name": "@serwist/sw",
   "version": "9.0.0-preview.12",
   "type": "module",
-  "description": "This module makes it easy to get started with the Serwist service worker libraries.",
+  "description": "A module that makes it easy to get started with the Serwist service worker libraries.",
   "files": [
     "src",
     "dist"

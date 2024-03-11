@@ -17,7 +17,7 @@ import { cacheNames } from "./_private/cacheNames.js";
  *
  * @param details
  */
-function setCacheNameDetails(details: PartialCacheNameDetails): void {
+export const setCacheNameDetails = (details: PartialCacheNameDetails): void => {
   if (process.env.NODE_ENV !== "production") {
     for (const key of Object.keys(details)) {
       assert!.isType(details[key], "string", {
@@ -50,6 +50,4 @@ function setCacheNameDetails(details: PartialCacheNameDetails): void {
   }
 
   cacheNames.updateDetails(details);
-}
-
-export { setCacheNameDetails };
+};

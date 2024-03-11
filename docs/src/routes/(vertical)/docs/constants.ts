@@ -125,6 +125,10 @@ export const SIDEBAR_LINKS = [
     ],
   },
   {
+    title: "@serwist/precaching",
+    href: "/docs/precaching",
+  },
+  {
     title: "@serwist/sw",
     href: "/docs/sw",
     children: [

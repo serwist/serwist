@@ -2,7 +2,7 @@
   "name": "@serwist/cli",
   "version": "9.0.0-preview.12",
   "type": "module",
-  "description": "@serwist/cli is the command line interface for Serwist.",
+  "description": "The command line interface of Serwist.",
   "files": [
     "dist"
   ],

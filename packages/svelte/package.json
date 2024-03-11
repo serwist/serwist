@@ -2,7 +2,7 @@
   "name": "@serwist/svelte",
   "version": "9.0.0-preview.12",
   "type": "module",
-  "description": "A module that integrates Serwist into your Svelte application.",
+  "description": "A module that complements SvelteKit's built-in service worker support.",
   "files": [
     "src",
     "dist"

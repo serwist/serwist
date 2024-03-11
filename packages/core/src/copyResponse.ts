@@ -27,7 +27,7 @@ import { canConstructResponseFromBodyStream } from "./_private/canConstructRespo
  * @param response
  * @param modifier
  */
-async function copyResponse(response: Response, modifier?: (responseInit: ResponseInit) => ResponseInit): Promise<Response> {
+export const copyResponse = async (response: Response, modifier?: (responseInit: ResponseInit) => ResponseInit): Promise<Response> => {
   let origin = null;
   // If response.url isn't set, assume it's cross-origin and keep origin null.
   if (response.url) {
@@ -57,6 +57,4 @@ async function copyResponse(response: Response, modifier?: (responseInit: Respon
   const body = canConstructResponseFromBodyStream() ? clonedResponse.body : await clonedResponse.blob();
 
   return new Response(body, modifiedResponseInit);
-}
-
-export { copyResponse };
+};
