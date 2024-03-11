@@ -126,6 +126,122 @@
   It's strongly recommended that you use one of the mentioned tools to generate this manifest rather than hardcoding it yourself.
 </Callout>
 <br /><br />
-<h2 id="basic-usage">Basic usage</h2>
+<h2 id="incoming-requests-for-precached-files">Incoming requests for precached files</h2>
 <br />
-<CodeTab codes={data.code.basicUsage.setup} defaultTab="sw.ts" />
+<p>
+  One thing that <ICD>@serwist/precaching</ICD> does out of the box is manipulating incoming network requests to try and match precached files. This accommodates
+  for common practices on the web.
+</p>
+<br />
+<p>For example, a request for "/" can usually be satisfied by the file at "/index.html".</p>
+<br />
+<p>Below are the list of manipulations that <ICD>@serwist/precaching</ICD> performs by default and a guide on customizing the behaviour.</p>
+<br />
+<h3 id="ignoring-url-parameters">Ignoring URL parameters</h3>
+<br />
+<p>Requests with search parameters can be altered to remove specific values or all values.</p>
+<br />
+<p>
+  By default, search parameters that start with <ICD>utm_</ICD> or exactly match <ICD>fbclid</ICD> are removed, meaning that a request for "/about.html?utm_campaign=abcd"
+  will be fulfilled with a precached entry for "/about.html".
+</p>
+<br />
+<p>You can ignore a different set of search parameters using <ICD>ignoreURLParametersMatching</ICD>:</p>
+<br />
+<CodeTab codes={data.code.ignoringUrlsParameter} defaultTab="sw.ts" />
+<br />
+<h3 id="handling-directory-index">Handling directory index</h3>
+<br />
+<p>
+  Requests ending in a "/" will, by default, be matched against entries with an "index.html" appended to the end. This means an incoming request for
+  "/" can automatically be handled with the precached entry "/index.html".
+</p>
+<br />
+<p>You can change this to something else, or disable it completely, by setting <ICD>directoryIndex</ICD>:</p>
+<br />
+<CodeTab codes={data.code.handlingDirectoryIndex} defaultTab="sw.ts" />
+<br />
+<h3 id="supporting-clean-urls">Supporting clean URLs</h3>
+<br />
+<p>
+  If a request fails to match the precache, we'll add .html to the end to support "clean" URLs (a.k.a. "pretty" URLs). This means a request like
+  /about will be handled by the precached entry for /about.html.
+</p>
+<br />
+<p>You can disable this behavior by setting <ICD>cleanURLs</ICD>:</p>
+<br />
+<CodeTab codes={data.code.supportingCleanUrls} defaultTab="sw.ts" />
+<br />
+<h3 id="manipulating-urls">Manipulating URLs</h3>
+<br />
+<p>
+  If you want to define custom matches from incoming requests to precached assets, you can do so with the <ICD>urlManipulation</ICD> option. This should
+  be a callback that returns an array of possible matches.
+</p>
+<br />
+<CodeTab codes={data.code.manipulatingUrls} defaultTab="sw.ts" />
+<br /><br />
+<h2 id="advanced-usage">Advanced usage</h2>
+<br />
+<h3 id="using-precache-controller">Using PrecacheController</h3>
+<br />
+<p>
+  By default, <ICD>@serwist/precaching</ICD> will set up the <ICD>install</ICD> and <ICD>activate</ICD> listeners for you. For developers familiar with
+  service workers, this may not be desirable if you need more control, in which case, you can directly use <ICD>PrecacheController</ICD> and determine
+  when assets are precached and when cleanup should occur on your own.
+</p>
+<br />
+<CodeTab codes={data.code.advancedUsage.precacheController} defaultTab="sw.ts" />
+<br />
+<h3 id="reading-precached-assets">Reading precached assets</h3>
+<br />
+<p>
+  There are times when you might need to read a precached asset directly, outside the context of the routing that workbox-precaching can automatically
+  perform. For instance, you might want to precache partial HTML templates that then need to be retrieved and used when constructing a full response.
+</p>
+<br />
+<p>
+  In general, you can use the Cache Storage API to obtain the precached Response objects, but there is one wrinkle: the URL cache key that needs to be
+  used when calling <ICD>cache.match()</ICD> might contain a versioning parameter that <ICD>@serwist/precaching</ICD> automatically creates and maintains.
+</p>
+<br />
+<p>
+  To get the correct cache key you can call <ICD>getCacheKeyForURL()</ICD> and then use the result to perform a <ICD>cache.match()</ICD> on the appropriate
+  cache.
+</p>
+<br />
+<CodeTab codes={data.code.advancedUsage.readingPrecachedAssets.getCacheKeyForUrl} defaultTab="sw.ts" />
+<br />
+<p>
+  Alternatively, if all you need is the precached <ICD>Response</ICD> object, you can call <ICD>matchPrecache()</ICD>, which will automatically use
+  the correct cache key and search in the correct cache:
+</p>
+<br />
+<Callout type="info">
+  If you are using your own PrecacheController instance, instead of using the default instance via precacheAndRoute, you should call the
+  matchPrecache() or getCacheKeyForURL() methods directly on that instance.
+</Callout>
+<br />
+<h3 id="cleaning-up-old-precaches">Cleaning up old precaches</h3>
+<br />
+<p>
+  Obsolete data shouldn't interfere with normal operations, but it does contribute towards your overall storage quota usage, and it can be friendlier
+  to your users to explicitly delete it. You can do this by adding <ICD>cleanupOutdatedCaches()</ICD> to your service worker.
+</p>
+<br />
+<h3 id="using-subresource-integrity">Using subresource integrity</h3>
+<br />
+<p>Some developers might want the added guarantees offered by subresource integrity enforcement when retrieving precached URLs from the network.</p>
+<br />
+<p>
+  An additional, optional property called <ICD>integrity</ICD> can be added to any entry in the precache manifest. If provided, it will be used as the
+  <ICD>integrity</ICD> value when constructing the <ICD>Request</ICD> used to populate the cache. If there's a mismatch, the precaching process will fail.
+</p>
+<br />
+<p>
+  Determining which precache manifest entries should have integrity properties and figuring out the appropriate values to use is outside the scope of
+  Serwist's build tools. Instead, developers who want to opt-in to this functionality should modify the precache manifest that SerwistWorkbox
+  generates to add in the appropriate info themselves. The <ICD>manifestTransform</ICD> option in Serwist's build tools configuration can help:
+</p>
+<br />
+<CodeTab codes={data.code.advancedUsage.usingSsri} defaultTab="sw.ts" />

@@ -10,7 +10,7 @@
   const { showIcon = false, children, ...props } = $props<CodeProps>();
 </script>
 
-<span class="flex w-fit items-center gap-2 font-mono">
+<span class="flex w-fit items-center gap-2 font-mono [&>*]:min-w-[auto]">
   {#if showIcon}
     <span class="select-none text-black dark:text-white" aria-hidden="true">{">_"}</span>
   {/if}

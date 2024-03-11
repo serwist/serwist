@@ -233,6 +233,9 @@ importers:
       '@types/react':
         specifier: 18.2.61
         version: 18.2.61
+      '@types/ssri':
+        specifier: 7.1.5
+        version: 7.1.5
       autoprefixer:
         specifier: 10.4.18
         version: 10.4.18(postcss@8.4.35)
@@ -266,6 +269,9 @@ importers:
       shiki:
         specifier: 1.1.7
         version: 1.1.7
+      ssri:
+        specifier: 10.0.5
+        version: 10.0.5
       svelte:
         specifier: 5.0.0-next.70
         version: 5.0.0-next.70
@@ -5207,6 +5213,12 @@ packages:
 
   /@types/shell-quote@1.7.5:
     resolution: {integrity: sha512-+UE8GAGRPbJVQDdxi16dgadcBfQ+KG2vgZhV1+3A1XmHbmwcdwhCUwIdy+d3pAGrbvgRoVSjeI9vOWyq376Yzw==}
+    dev: true
+
+  /@types/ssri@7.1.5:
+    resolution: {integrity: sha512-odD/56S3B51liILSk5aXJlnYt99S6Rt9EFDDqGtJM26rKHApHcwyU/UoYHrzKkdkHMAIquGWCuHtQTbes+FRQw==}
+    dependencies:
+      '@types/node': 20.11.24
     dev: true
 
   /@types/stack-utils@2.0.2:

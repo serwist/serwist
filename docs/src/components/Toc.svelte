@@ -17,7 +17,7 @@
   });
 </script>
 
-<details bind:this={tocDetails} class="-mr-4 flex flex-col hyphens-auto pr-4 text-lg md:text-base xl:text-sm">
+<details bind:this={tocDetails} class="-mr-4 flex h-full flex-col overflow-y-auto hyphens-auto pr-4 text-lg md:text-base xl:text-sm">
   <summary class="mb-4 flex items-center">
     <p class="font-semibold tracking-tight text-black dark:text-white">On This Page</p>
     <ChevronRight class="details-chevron ml-2 transition-transform duration-100" width={18} height={18} />
@@ -28,7 +28,7 @@
   {:else}
     <p>Table of Contents is not available at the moment.</p>
   {/if}
-  <div class="sticky bottom-0 mt-8 hidden flex-col items-start gap-2 border-t pb-8 pt-8 xl:flex dark:border-neutral-800">
+  <div class="mt-8 hidden flex-col items-start gap-2 border-t pb-8 pt-8 xl:flex dark:border-neutral-800">
     <a href="https://github.com/serwist/serwist/issues/new/choose" target="_blank" rel="noreferrer" class="text-toc">
       Question? Give us feedback →
       <span class="sr-only">(opens in a new tab)</span>
