@@ -3,9 +3,9 @@ import path from "node:path";
 
 import { type Plugin, normalizePath } from "vite";
 
-import type { SerwistViteContext } from "../context.js";
-import type { SerwistViteApi } from "../types.js";
-import { toFs } from "../utils.js";
+import type { SerwistViteContext } from "../lib/context.js";
+import type { SerwistViteApi } from "../lib/types.js";
+import { toFs } from "../lib/utils.js";
 
 // This plugin handles the service worker in two ways:
 // - If `devOptions.bundle` is enabled, hook a middleware that bundles the service worker

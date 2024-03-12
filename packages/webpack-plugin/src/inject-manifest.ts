@@ -1,16 +1,9 @@
-/*
-  Copyright 2018 Google LLC
-
-  Use of this source code is governed by an MIT-style
-  license that can be found in the LICENSE file or at
-  https://opensource.org/licenses/MIT.
-*/
-import type { WebpackInjectManifestOptions } from "@serwist/build";
-import { escapeRegExp, replaceAndUpdateSourceMap, validateWebpackInjectManifestOptions } from "@serwist/build";
-import stringify from "fast-json-stable-stringify";
+import { escapeRegExp, replaceAndUpdateSourceMap, stringify } from "@serwist/build";
 import prettyBytes from "pretty-bytes";
 import upath from "upath";
 import type { Compilation, Compiler, WebpackError, default as Webpack } from "webpack";
+import type { InjectManifestOptions } from "./lib/types.js";
+import { validateInjectManifestOptions } from "./lib/validator.js";
 
 import { getManifestEntriesFromCompilation } from "./lib/get-manifest-entries-from-compilation.js";
 import { getSourcemapAssetName } from "./lib/get-sourcemap-asset-name.js";
@@ -43,14 +36,14 @@ const _generatedAssetNames = new Set<string>();
  * ```
  */
 export class InjectManifest {
-  protected config: WebpackInjectManifestOptions;
+  protected config: InjectManifestOptions;
   private alreadyCalled: boolean;
   private webpack: typeof Webpack;
 
   /**
    * Creates an instance of InjectManifest.
    */
-  constructor(config: WebpackInjectManifestOptions) {
+  constructor(config: InjectManifestOptions) {
     this.config = config;
     this.alreadyCalled = false;
     this.webpack = null!;
@@ -79,7 +72,7 @@ export class InjectManifest {
    *
    * @private
    */
-  private async getManifestEntries(compilation: Compilation, config: WebpackInjectManifestOptions) {
+  private async getManifestEntries(compilation: Compilation, config: InjectManifestOptions) {
     if (config.disablePrecacheManifest) {
       return {
         size: 0,
@@ -210,7 +203,7 @@ export class InjectManifest {
    * @private
    */
   private async handleMake(compilation: Compilation, parentCompiler: Compiler): Promise<void> {
-    this.config = await validateWebpackInjectManifestOptions(this.config);
+    this.config = await validateInjectManifestOptions(this.config);
     this.config.swDest = relativeToOutputPath(compilation, this.config.swDest!);
     _generatedAssetNames.add(this.config.swDest);
 

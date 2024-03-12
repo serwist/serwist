@@ -1,7 +1,7 @@
 import type { Plugin } from "vite";
 
-import type { SerwistViteContext } from "../context.js";
-import type { SerwistViteApi } from "../types.js";
+import type { SerwistViteContext } from "../lib/context.js";
+import type { SerwistViteApi } from "../lib/types.js";
 
 /**
  * Internal build plugin used by `@serwist/vite`.

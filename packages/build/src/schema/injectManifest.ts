@@ -5,7 +5,7 @@ import { basePartial } from "./base.js";
 import { globPartial, requiredGlobDirectoryPartial } from "./glob.js";
 import { requiredSwDestPartial } from "./swDest.js";
 
-export const injectPartial = z
+export const baseInjectPartial = z
   .object({
     injectionPoint: z.string().default("self.__SW_MANIFEST"),
     swSrc: z.string(),
@@ -14,12 +14,12 @@ export const injectPartial = z
 
 export const injectManifestOptions = basePartial
   .merge(globPartial)
-  .merge(injectPartial)
+  .merge(baseInjectPartial)
   .merge(requiredSwDestPartial)
   .merge(requiredGlobDirectoryPartial)
   .strict("Do not pass invalid properties to InjectManifestOptions!");
 
-assertType<Equals<InjectPartial, z.input<typeof injectPartial>>>();
-assertType<Equals<InjectResolved, z.output<typeof injectPartial>>>();
+assertType<Equals<InjectPartial, z.input<typeof baseInjectPartial>>>();
+assertType<Equals<InjectResolved, z.output<typeof baseInjectPartial>>>();
 assertType<Equals<InjectManifestOptions, z.input<typeof injectManifestOptions>>>();
 assertType<Equals<InjectManifestOptionsComplete, z.output<typeof injectManifestOptions>>>();

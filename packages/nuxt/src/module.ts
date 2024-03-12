@@ -28,7 +28,6 @@ export default defineNuxtModule<Require<ModuleOptions, "swUrl" | "swSrc" | "swDe
     return {
       base: nuxt.options.app.baseURL,
       scope: nuxt.options.app.baseURL,
-      injectRegister: false,
       client: {
         registerPlugin: true,
       },

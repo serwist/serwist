@@ -21,7 +21,7 @@ export interface CacheableResponseOptions {
 }
 
 /**
- * Allows you to set up rules determining what status codes and/or headers need 
+ * Allows you to set up rules determining what status codes and/or headers need
  * to be present in order for a [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response)
  * to be considered cacheable.
  */

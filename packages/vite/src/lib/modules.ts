@@ -21,9 +21,8 @@ interface BuildResult extends SerwistBuild.GetManifestResult {
   manifestString: string;
 }
 
-export const injectManifest = async (config: SerwistBuild.ViteInjectManifestOptions): Promise<BuildResult> => {
-  const { validateViteInjectManifestOptions, getFileManifestEntries, stringify } = await loadSerwistBuild();
-  const options = await validateViteInjectManifestOptions(config);
+export const injectManifest = async (options: SerwistBuild.GetManifestOptions): Promise<BuildResult> => {
+  const { getFileManifestEntries, stringify } = await loadSerwistBuild();
   const { count, size, manifestEntries, warnings } = await getFileManifestEntries(options);
   const manifestString = manifestEntries === undefined ? "undefined" : stringify(manifestEntries);
   return {
@@ -36,7 +35,7 @@ export const injectManifest = async (config: SerwistBuild.ViteInjectManifestOpti
 };
 
 export const generateServiceWorker = async (ctx: SerwistViteContext) => {
-  const { format, plugins, rollupOptions } = ctx.options.injectManifestRollupOptions;
+  const { plugins, rollupOptions, rollupFormat } = ctx.options;
 
   const parsedSwDest = path.parse(ctx.options.injectManifest.swDest);
 
@@ -152,7 +151,7 @@ export const generateServiceWorker = async (ctx: SerwistViteContext) => {
         lib: {
           entry: ctx.options.injectManifest.swSrc,
           name: "app",
-          formats: [format],
+          formats: [rollupFormat],
         },
         rollupOptions: {
           ...rollupOptions,

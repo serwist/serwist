@@ -6,12 +6,13 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { FileDetails, ManifestEntry, WebpackInjectManifestOptions } from "@serwist/build";
+import type { FileDetails, ManifestEntry } from "@serwist/build";
 import { transformManifest } from "@serwist/build";
 import type { Asset, Chunk, Compilation, WebpackError } from "webpack";
 
 import { getAssetHash } from "./get-asset-hash.js";
 import { resolveWebpackURL } from "./resolve-webpack-url.js";
+import type { InjectManifestOptions } from "./types.js";
 
 /**
  * For a given asset, checks whether at least one of the conditions matches.
@@ -104,7 +105,7 @@ const getNamesOfAssetsInChunk = (chunk: Chunk): string[] => {
  * based on the criteria provided.
  * @private
  */
-const filterAssets = (compilation: Compilation, config: WebpackInjectManifestOptions): Set<Asset> => {
+const filterAssets = (compilation: Compilation, config: InjectManifestOptions): Set<Asset> => {
   const filteredAssets = new Set<Asset>();
   const assets = compilation.getAssets();
 
@@ -177,7 +178,7 @@ const filterAssets = (compilation: Compilation, config: WebpackInjectManifestOpt
 
 export const getManifestEntriesFromCompilation = async (
   compilation: Compilation,
-  config: WebpackInjectManifestOptions,
+  config: InjectManifestOptions,
 ): Promise<{ size: number; sortedEntries: ManifestEntry[] | undefined }> => {
   const filteredAssets = filterAssets(compilation, config);
 

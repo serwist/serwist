@@ -1,12 +1,13 @@
 import type { Plugin } from "vite";
 
-import { createApi } from "./api.js";
-import { createContext } from "./context.js";
+import { createApi } from "./lib/api.js";
+import { createContext } from "./lib/context.js";
+import type { DevOptions, ExtendManifestEntriesHook, Hooks, PluginOptions, PluginOptionsComplete, SerwistViteApi } from "./lib/types.js";
+import { resolveEntry, toFs } from "./lib/utils.js";
+import { validateInjectManifestOptions } from "./lib/validator.js";
 import { buildPlugin } from "./plugins/build.js";
 import { devPlugin } from "./plugins/dev.js";
 import { mainPlugin } from "./plugins/main.js";
-import type { PluginOptions } from "./types.js";
-import { resolveEntry, toFs } from "./utils.js";
 
 /**
  * Integrates Serwist into your Vite app.
@@ -20,6 +21,6 @@ export const serwist = (userOptions: PluginOptions): Plugin[] => {
 };
 
 // This allows for customization.
-export { buildPlugin as build, createApi, createContext, devPlugin as dev, mainPlugin as main, resolveEntry, toFs };
-export type { SerwistViteContext } from "./context.js";
-export type * from "./types.js";
+export { buildPlugin as build, createApi, createContext, devPlugin as dev, mainPlugin as main, resolveEntry, toFs, validateInjectManifestOptions };
+export type { SerwistViteContext } from "./lib/context.js";
+export type { PluginOptions, PluginOptionsComplete, Hooks, ExtendManifestEntriesHook, DevOptions, SerwistViteApi };

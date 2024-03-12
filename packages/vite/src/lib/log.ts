@@ -2,7 +2,7 @@ import type { BuildResult } from "@serwist/build";
 import { cyan, dim, green, yellow } from "kolorist";
 import type { ResolvedConfig } from "vite";
 
-import { version } from "../package.json";
+import { version } from "../../package.json";
 
 export const logSerwistResult = (buildResult: Pick<BuildResult, "count" | "size" | "warnings">, viteOptions: ResolvedConfig) => {
   const { logLevel = "info" } = viteOptions;

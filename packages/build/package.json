@@ -28,8 +28,8 @@
   "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
-      "next": [
-        "./dist/index.next.d.ts"
+      "schema": [
+        "./dist/index.schema.d.ts"
       ]
     }
   },
@@ -38,9 +38,9 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
-    "./next": {
-      "types": "./dist/index.next.d.ts",
-      "default": "./dist/index.next.js"
+    "./schema": {
+      "types": "./dist/index.schema.d.ts",
+      "default": "./dist/index.schema.js"
     },
     "./package.json": "./package.json"
   },
@@ -51,16 +51,8 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@serwist/background-sync": "workspace:*",
-    "@serwist/broadcast-update": "workspace:*",
-    "@serwist/cacheable-response": "workspace:*",
     "@serwist/core": "workspace:*",
-    "@serwist/expiration": "workspace:*",
-    "@serwist/google-analytics": "workspace:*",
-    "@serwist/precaching": "workspace:*",
-    "@serwist/routing": "workspace:*",
     "common-tags": "1.8.2",
-    "fast-glob": "3.3.2",
     "fast-json-stable-stringify": "2.1.0",
     "fs-extra": "11.2.0",
     "glob": "10.3.10",

@@ -21,10 +21,7 @@ refactor(sw): removed support for string handlers in `registerRuntimeCaching`
     runtimeCaching: [
       {
         urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
-          request.headers.get("RSC") === "1" &&
-          request.headers.get("Next-Router-Prefetch") === "1" &&
-          sameOrigin &&
-          !pathname.startsWith("/api/"),
+          request.headers.get("RSC") === "1" && request.headers.get("Next-Router-Prefetch") === "1" && sameOrigin && !pathname.startsWith("/api/"),
         // OLD: a string handler alongside `options`.
         handler: "NetworkFirst",
         options: {
@@ -36,10 +33,7 @@ refactor(sw): removed support for string handlers in `registerRuntimeCaching`
         },
       },
       {
-        urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
-          request.headers.get("RSC") === "1" &&
-          sameOrigin &&
-          !pathname.startsWith("/api/"),
+        urlPattern: ({ request, url: { pathname }, sameOrigin }) => request.headers.get("RSC") === "1" && sameOrigin && !pathname.startsWith("/api/"),
         // OLD: a string handler alongside `options`.
         handler: "NetworkFirst",
         options: {
@@ -52,9 +46,7 @@ refactor(sw): removed support for string handlers in `registerRuntimeCaching`
       },
       {
         urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
-          request.headers.get("Content-Type")?.includes("text/html") &&
-          sameOrigin &&
-          !pathname.startsWith("/api/"),
+          request.headers.get("Content-Type")?.includes("text/html") && sameOrigin && !pathname.startsWith("/api/"),
         // OLD: a string handler alongside `options`.
         handler: "NetworkFirst",
         options: {
@@ -81,10 +73,7 @@ refactor(sw): removed support for string handlers in `registerRuntimeCaching`
     runtimeCaching: [
       {
         matcher: ({ request, url: { pathname }, sameOrigin }) =>
-          request.headers.get("RSC") === "1" &&
-          request.headers.get("Next-Router-Prefetch") === "1" &&
-          sameOrigin &&
-          !pathname.startsWith("/api/"),
+          request.headers.get("RSC") === "1" && request.headers.get("Next-Router-Prefetch") === "1" && sameOrigin && !pathname.startsWith("/api/"),
         // NEW: an initialized instance.
         handler: new NetworkFirst({
           cacheName: PAGES_CACHE_NAME.rscPrefetch,
@@ -97,10 +86,7 @@ refactor(sw): removed support for string handlers in `registerRuntimeCaching`
         }),
       },
       {
-        matcher: ({ request, url: { pathname }, sameOrigin }) =>
-          request.headers.get("RSC") === "1" &&
-          sameOrigin &&
-          !pathname.startsWith("/api/"),
+        matcher: ({ request, url: { pathname }, sameOrigin }) => request.headers.get("RSC") === "1" && sameOrigin && !pathname.startsWith("/api/"),
         // NEW: an initialized instance.
         handler: new NetworkFirst({
           cacheName: PAGES_CACHE_NAME.rsc,
@@ -114,9 +100,7 @@ refactor(sw): removed support for string handlers in `registerRuntimeCaching`
       },
       {
         matcher: ({ request, url: { pathname }, sameOrigin }) =>
-          request.headers.get("Content-Type")?.includes("text/html") &&
-          sameOrigin &&
-          !pathname.startsWith("/api/"),
+          request.headers.get("Content-Type")?.includes("text/html") && sameOrigin && !pathname.startsWith("/api/"),
         // NEW: an initialized instance.
         handler: new NetworkFirst({
           cacheName: PAGES_CACHE_NAME.html,

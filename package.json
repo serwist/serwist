@@ -19,6 +19,7 @@
     "dev:no-server": "cross-env FORCE_COLOR=1 turbo run dev --concurrency=24 --filter=./packages/* --filter=!./packages/nuxt",
     "format": "biome format --max-diagnostics=100 --log-kind=compact",
     "format:docs": "pnpm prettier --write \"docs/**/*.{svelte,css}\" && pnpm format docs --write",
+    "format:changesets": "pnpm prettier --write \".changeset/**/*.md\"",
     "format:all": "pnpm format .",
     "format:write": "pnpm format:all --write",
     "lint": "cross-env FORCE_COLOR=1 turbo run lint --continue --concurrency=50% --filter=./packages/*",

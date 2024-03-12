@@ -31,6 +31,9 @@
     "*": {
       "internal": [
         "./dist/index.internal.d.ts"
+      ],
+      "schema": [
+        "./dist/index.schema.d.ts"
       ]
     }
   },
@@ -43,6 +46,10 @@
       "types": "./dist/index.internal.d.ts",
       "default": "./dist/index.internal.js"
     },
+    "./schema": {
+      "types": "./dist/index.schema.d.ts",
+      "default": "./dist/index.schema.js"
+    },
     "./package.json": "./package.json"
   },
   "scripts": {
@@ -53,12 +60,13 @@
   },
   "dependencies": {
     "@serwist/build": "workspace:*",
-    "fast-json-stable-stringify": "2.1.0",
     "pretty-bytes": "6.1.1",
-    "upath": "2.0.1"
+    "upath": "2.0.1",
+    "zod": "3.22.4"
   },
   "devDependencies": {
     "@serwist/constants": "workspace:*",
+    "@serwist/utils": "workspace:*",
     "@types/node": "20.11.24",
     "@types/webpack": "5.28.5",
     "rollup": "4.12.0",

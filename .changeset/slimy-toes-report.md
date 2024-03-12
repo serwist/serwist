@@ -19,10 +19,7 @@ feat(next): added `@serwist/next/worker.PAGES_CACHE_NAME`
     runtimeCaching: [
       {
         urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
-          request.headers.get("RSC") === "1" &&
-          request.headers.get("Next-Router-Prefetch") === "1" &&
-          sameOrigin &&
-          !pathname.startsWith("/api/"),
+          request.headers.get("RSC") === "1" && request.headers.get("Next-Router-Prefetch") === "1" && sameOrigin && !pathname.startsWith("/api/"),
         handler: "NetworkFirst",
         options: {
           cacheName: "pages-rsc-prefetch",
@@ -33,10 +30,7 @@ feat(next): added `@serwist/next/worker.PAGES_CACHE_NAME`
         },
       },
       {
-        urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
-          request.headers.get("RSC") === "1" &&
-          sameOrigin &&
-          !pathname.startsWith("/api/"),
+        urlPattern: ({ request, url: { pathname }, sameOrigin }) => request.headers.get("RSC") === "1" && sameOrigin && !pathname.startsWith("/api/"),
         handler: "NetworkFirst",
         options: {
           cacheName: "pages-rsc",
@@ -48,9 +42,7 @@ feat(next): added `@serwist/next/worker.PAGES_CACHE_NAME`
       },
       {
         urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
-          request.headers.get("Content-Type")?.includes("text/html") &&
-          sameOrigin &&
-          !pathname.startsWith("/api/"),
+          request.headers.get("Content-Type")?.includes("text/html") && sameOrigin && !pathname.startsWith("/api/"),
         handler: "NetworkFirst",
         options: {
           cacheName: "pages",
@@ -76,10 +68,7 @@ feat(next): added `@serwist/next/worker.PAGES_CACHE_NAME`
     runtimeCaching: [
       {
         matcher: ({ request, url: { pathname }, sameOrigin }) =>
-          request.headers.get("RSC") === "1" &&
-          request.headers.get("Next-Router-Prefetch") === "1" &&
-          sameOrigin &&
-          !pathname.startsWith("/api/"),
+          request.headers.get("RSC") === "1" && request.headers.get("Next-Router-Prefetch") === "1" && sameOrigin && !pathname.startsWith("/api/"),
         handler: new NetworkFirst({
           cacheName: PAGES_CACHE_NAME.rscPrefetch,
           plugins: [
@@ -91,10 +80,7 @@ feat(next): added `@serwist/next/worker.PAGES_CACHE_NAME`
         }),
       },
       {
-        matcher: ({ request, url: { pathname }, sameOrigin }) =>
-          request.headers.get("RSC") === "1" &&
-          sameOrigin &&
-          !pathname.startsWith("/api/"),
+        matcher: ({ request, url: { pathname }, sameOrigin }) => request.headers.get("RSC") === "1" && sameOrigin && !pathname.startsWith("/api/"),
         handler: new NetworkFirst({
           cacheName: PAGES_CACHE_NAME.rsc,
           plugins: [
@@ -107,9 +93,7 @@ feat(next): added `@serwist/next/worker.PAGES_CACHE_NAME`
       },
       {
         matcher: ({ request, url: { pathname }, sameOrigin }) =>
-          request.headers.get("Content-Type")?.includes("text/html") &&
-          sameOrigin &&
-          !pathname.startsWith("/api/"),
+          request.headers.get("Content-Type")?.includes("text/html") && sameOrigin && !pathname.startsWith("/api/"),
         handler: new NetworkFirst({
           cacheName: PAGES_CACHE_NAME.html,
           plugins: [

@@ -1,6 +1,6 @@
 import type { ResolvedConfig } from "vite";
 
-import type { PluginOptions, ResolvedPluginOptions } from "./types.js";
+import type { PluginOptions, PluginOptionsComplete } from "./types.js";
 
 export type SerwistViteFrameworks = "nuxt";
 
@@ -21,7 +21,7 @@ export interface SerwistViteContext {
    * Note: this is different from `userOptions` in that it has been parsed, whereas
    * `userOptions` is the raw configuration that the user provides us.
    */
-  options: ResolvedPluginOptions;
+  options: PluginOptionsComplete;
   useImportRegister: boolean;
   /**
    * Is the plugin running on dev?

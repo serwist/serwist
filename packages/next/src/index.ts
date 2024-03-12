@@ -1,17 +1,15 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-
-import type { NextInjectManifestOptions } from "@serwist/build";
-import { validateNextInjectManifestOptions } from "@serwist/build/next";
 import { InjectManifest } from "@serwist/webpack-plugin";
 import { ChildCompilationPlugin, relativeToOutputPath } from "@serwist/webpack-plugin/internal";
 import { globSync } from "glob";
 import type { NextConfig } from "next";
 import type { Compilation, Configuration, default as Webpack } from "webpack";
-
 import type { ExcludeParams, SerwistNextOptions, SerwistNextOptionsKey } from "./internal-types.js";
-import { getContentHash, getFileHash, loadTSConfig, logger } from "./utils/index.js";
+import { getContentHash, getFileHash, loadTSConfig, logger } from "./lib/index.js";
+import type { InjectManifestOptions, InjectManifestOptionsComplete } from "./lib/types.js";
+import { validateInjectManifestOptions } from "./lib/validator.js";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
@@ -20,7 +18,7 @@ const __dirname = fileURLToPath(new URL(".", import.meta.url));
  * @param userOptions
  * @returns
  */
-const withSerwistInit = (userOptions: NextInjectManifestOptions): ((nextConfig?: NextConfig) => NextConfig) => {
+const withSerwistInit = (userOptions: InjectManifestOptions): ((nextConfig?: NextConfig) => NextConfig) => {
   return (nextConfig = {}) => ({
     ...nextConfig,
     webpack(config: Configuration, options) {
@@ -40,7 +38,7 @@ const withSerwistInit = (userOptions: NextInjectManifestOptions): ((nextConfig?:
         reloadOnOnline,
         globPublicPatterns,
         ...buildOptions
-      } = validateNextInjectManifestOptions(userOptions);
+      } = validateInjectManifestOptions(userOptions);
 
       if (typeof nextConfig.webpack === "function") {
         config = nextConfig.webpack(config, options);
@@ -249,4 +247,5 @@ const withSerwistInit = (userOptions: NextInjectManifestOptions): ((nextConfig?:
 };
 
 export default withSerwistInit;
-export type { NextInjectManifestOptions as PluginOptions };
+export { validateInjectManifestOptions };
+export type { InjectManifestOptions as PluginOptions, InjectManifestOptionsComplete as PluginOptionsComplete };

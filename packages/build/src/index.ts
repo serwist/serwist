@@ -17,7 +17,7 @@ import { rebasePath } from "./lib/rebase-path.js";
 import { replaceAndUpdateSourceMap } from "./lib/replace-and-update-source-map.js";
 import { transformManifest } from "./lib/transform-manifest.js";
 import { translateURLToSourcemapPaths } from "./lib/translate-url-to-sourcemap-paths.js";
-import { validateInjectManifestOptions, validateViteInjectManifestOptions, validateWebpackInjectManifestOptions } from "./lib/validate-options.js";
+import { validateGetManifestOptions, validateInjectManifestOptions } from "./lib/validate-options.js";
 
 export {
   errors,
@@ -31,9 +31,8 @@ export {
   stringify,
   transformManifest,
   translateURLToSourcemapPaths,
+  validateGetManifestOptions,
   validateInjectManifestOptions,
-  validateViteInjectManifestOptions,
-  validateWebpackInjectManifestOptions,
 };
 
 export type * from "./types.js";

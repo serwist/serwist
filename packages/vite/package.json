@@ -43,6 +43,9 @@
       ],
       "worker": [
         "./dist/index.worker.d.ts"
+      ],
+      "schema": [
+        "./dist/index.schema.d.ts"
       ]
     }
   },
@@ -59,6 +62,10 @@
       "types": "./dist/index.worker.d.ts",
       "default": "./dist/index.worker.js"
     },
+    "./schema": {
+      "types": "./dist/index.schema.d.ts",
+      "default": "./dist/index.schema.js"
+    },
     "./package.json": "./package.json"
   },
   "scripts": {
@@ -72,66 +79,30 @@
     "@serwist/expiration": "workspace:*",
     "@serwist/strategies": "workspace:*",
     "@serwist/window": "workspace:*",
-    "debug": "4.3.4",
-    "fast-glob": "3.3.2",
-    "pretty-bytes": "6.1.1"
+    "glob": "10.3.10",
+    "kolorist": "1.8.0",
+    "zod": "3.22.4"
   },
   "devDependencies": {
-    "@playwright/test": "1.42.1",
     "@serwist/constants": "workspace:*",
     "@serwist/sw": "workspace:*",
-    "@sveltejs/kit": "2.5.2",
-    "@types/debug": "4.1.12",
+    "@serwist/utils": "workspace:*",
     "@types/node": "20.11.24",
-    "@types/prompts": "2.4.9",
-    "@types/react": "18.2.61",
-    "bumpp": "9.3.1",
-    "kolorist": "1.8.0",
-    "preact": "10.19.6",
-    "prompts": "2.4.2",
-    "publint": "0.2.7",
-    "react": "18.2.0",
     "rollup": "4.12.0",
-    "solid-js": "1.8.15",
     "svelte": "5.0.0-next.70",
     "typescript": "5.5.0-dev.20240304",
-    "vite": "5.1.4",
-    "vue": "3.4.21"
+    "vite": "5.1.4"
   },
   "peerDependencies": {
     "@serwist/sw": "workspace:*",
-    "@sveltejs/kit": "^1.0.0 || ^2.0.0",
-    "preact": "^10.0.0",
-    "react": "^18.0.0",
-    "solid-js": "^1.8.7",
-    "svelte": "^4.0.0 || ^5.0.0",
     "typescript": ">=5.0.0",
-    "vite": "^5.0.0",
-    "vue": "^3.0.0"
+    "vite": "^5.0.0"
   },
   "peerDependenciesMeta": {
     "@serwist/sw": {
       "optional": true
     },
-    "@sveltejs/kit": {
-      "optional": true
-    },
-    "preact": {
-      "optional": true
-    },
-    "react": {
-      "optional": true
-    },
-    "solid-js": {
-      "optional": true
-    },
-    "svelte": {
-      "optional": true
-    },
     "typescript": {
-      "optional": true
-    },
-    "vue": {
       "optional": true
     }
   }
