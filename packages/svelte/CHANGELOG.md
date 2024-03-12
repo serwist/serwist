@@ -1,5 +1,15 @@
 # @serwist/svelte
 
+## 9.0.0-preview.13
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/core@9.0.0-preview.13
+  - @serwist/expiration@9.0.0-preview.13
+  - @serwist/strategies@9.0.0-preview.13
+  - @serwist/sw@9.0.0-preview.13
+
 ## 9.0.0-preview.12
 
 ### Patch Changes

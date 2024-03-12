@@ -1,5 +1,31 @@
 # @serwist/vite
 
+## 9.0.0-preview.13
+
+### Major Changes
+
+- [`add4fdd`](https://github.com/serwist/serwist/commit/add4fdd390555053d023faebfe1dca41510b2e2f) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(build): moved framework-specific types out of `@serwist/build`
+
+  - Types the likes of `WebpackPartial`, `WebpackInjectManifestOptions`, `ViteInjectManifestOptions`, along with their according validators have been moved out of `@serwist/build`.
+  - This design, a relic of Workbox, never made any sense in the first place. As such, we are getting rid of it and migrating to a design where types and validators are co-located with their related packages.
+  - To migrate, update the imports:
+
+    - `@serwist/build.WebpackPartial` -> `@serwist/webpack-plugin.WebpackPartial`
+    - `@serwist/build.WebpackInjectManifestOptions` -> `@serwist/webpack-plugin.InjectManifestOptions`
+    - `@serwist/build.WebpackInjectManifestPartial` -> `Omit<import("@serwist/webpack-plugin").InjectManifestOptions, keyof import("@serwist/build").BasePartial | keyof import("@serwist/build").InjectPartial | keyof import("@serwist/webpack-plugin").WebpackPartial | keyof import("@serwist/build").OptionalSwDestPartial>`
+    - `@serwist/build.ViteInjectManifestOptions` -> `@serwist/vite.PluginOptions`
+
+  - With this change, validators and schemas have also been made public. Validators can be imported from "/" files, whereas schemas can be imported from "/schema" ones.
+
+### Patch Changes
+
+- Updated dependencies [[`add4fdd`](https://github.com/serwist/serwist/commit/add4fdd390555053d023faebfe1dca41510b2e2f)]:
+  - @serwist/build@9.0.0-preview.13
+  - @serwist/expiration@9.0.0-preview.13
+  - @serwist/strategies@9.0.0-preview.13
+  - @serwist/sw@9.0.0-preview.13
+  - @serwist/window@9.0.0-preview.13
+
 ## 9.0.0-preview.12
 
 ### Patch Changes
@@ -431,7 +457,7 @@
       const serwist = await getSerwist();
       if (serwist) {
         serwist.addEventListener("installed", () =>
-          console.log("Serwist installed!")
+          console.log("Serwist installed!"),
         );
         await serwist.register();
       }
@@ -487,7 +513,7 @@
         const serwist = await getSerwist();
         if (serwist) {
           serwist.addEventListener("installed", () =>
-            console.log("Serwist installed!")
+            console.log("Serwist installed!"),
           );
           await serwist.register();
         }
