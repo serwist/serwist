@@ -28,9 +28,8 @@ interface CacheExpirationConfig {
 }
 
 /**
- * The `CacheExpiration` class allows you define an expiration and / or
- * limit on the number of responses stored in a
- * [`Cache`](https://developer.mozilla.org/en-US/docs/Web/API/Cache).
+ * Allows you to expires cached responses based on age or maximum number of entries.
+ * @see https://serwist.pages.dev/docs/expiration/cache-expiration
  */
 export class CacheExpiration {
   private _isRunning = false;
@@ -137,9 +136,8 @@ export class CacheExpiration {
   }
 
   /**
-   * Update the timestamp for the given URL. This ensures the when
-   * removing entries based on maximum entries, most recently used
-   * is accurate or when expiring, the timestamp is up-to-date.
+   * Updates the timestamp for the given URL, allowing it to be correctly
+   * tracked by the class.
    *
    * @param url
    */
@@ -157,12 +155,12 @@ export class CacheExpiration {
   }
 
   /**
-   * Can be used to check if a URL has expired or not before it's used.
+   * Checks if a URL has expired or not before it's used.
    *
-   * This requires a look up from IndexedDB, so can be slow.
+   * This looks the timestamp up in IndexedDB and can be slow.
    *
-   * Note: This method will not remove the cached entry, call
-   * `expireEntries()` to remove indexedDB and Cache entries.
+   * Note: This method does not remove an expired entry, call
+   * `expireEntries()` to remove such entries instead.
    *
    * @param url
    * @returns
@@ -183,8 +181,7 @@ export class CacheExpiration {
   }
 
   /**
-   * Removes the IndexedDB object store used to keep track of cache expiration
-   * metadata.
+   * Removes the IndexedDB used to keep track of cache expiration metadata.
    */
   async delete(): Promise<void> {
     // Make sure we don't attempt another rerun if we're called in the middle of

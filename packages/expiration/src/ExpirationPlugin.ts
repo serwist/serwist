@@ -28,32 +28,33 @@ export interface ExpirationPluginOptions {
    */
   matchOptions?: CacheQueryOptions;
   /**
-   * Whether to opt this cache in to automatic deletion if the available storage quota has been exceeded.
+   * Whether to opt this cache into automatic deletion if the available storage quota has been exceeded.
    */
   purgeOnQuotaError?: boolean;
 }
 
 /**
  * This plugin can be used in a `@serwist/strategies` Strategy to regularly enforce a
- * limit on the age and / or the number of cached requests.
+ * limit on the age and/or the number of cached requests.
  *
  * It can only be used with Strategy instances that have a custom `cacheName` property set.
- * In other words, it can't be used to expire entries in strategy that uses the
- * default runtime cache name.
+ * In other words, it can't be used to expire entries in strategies that use the default runtime
+ * cache name.
  *
  * Whenever a cached response is used or updated, this plugin will look
  * at the associated cache and remove any old or extra responses.
  *
  * When using `maxAgeSeconds`, responses may be used *once* after expiring
  * because the expiration clean up will not have occurred until *after* the
- * cached response has been used. If the response has a "Date" header, then
- * a light weight expiration check is performed and the response will not be
- * used immediately.
+ * cached response has been used. If the response has a "Date" header, then a lightweight expiration
+ * check is performed, and the response will not be used immediately.
  *
- * When using `maxEntries`, the entry least-recently requested will be removed
- * from the cache first.
+ * When using `maxEntries`, the least recently requested entry will be removed
+ * from the cache.
+ *
+ * @see https://serwist.pages.dev/docs/expiration/expiration-plugin
  */
-class ExpirationPlugin implements SerwistPlugin {
+export class ExpirationPlugin implements SerwistPlugin {
   private readonly _config: ExpirationPluginOptions;
   private readonly _maxAgeSeconds?: number;
   private _cacheExpirations: Map<string, CacheExpiration>;
@@ -247,16 +248,12 @@ class ExpirationPlugin implements SerwistPlugin {
   };
 
   /**
-   * This is a helper method that performs two operations:
-   *
-   * - Deletes *all* the underlying Cache instances associated with this plugin
-   * instance, by calling caches.delete() on your behalf.
-   * - Deletes the metadata from IndexedDB used to keep track of expiration
-   * details for each Cache instance.
+   * Deletes the underlying `Cache` instance associated with this instance and the metadata
+   * from IndexedDB used to keep track of expiration details for each `Cache` instance.
    *
    * When using cache expiration, calling this method is preferable to calling
    * `caches.delete()` directly, since this will ensure that the IndexedDB
-   * metadata is also cleanly removed and open IndexedDB instances are deleted.
+   * metadata is also cleanly removed and that open IndexedDB instances are deleted.
    *
    * Note that if you're *not* using cache expiration for a given cache, calling
    * `caches.delete()` and passing in the cache's name should be sufficient.
@@ -274,5 +271,3 @@ class ExpirationPlugin implements SerwistPlugin {
     this._cacheExpirations = new Map();
   }
 }
-
-export { ExpirationPlugin };

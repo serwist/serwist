@@ -19,13 +19,13 @@
 </p>
 <br />
 <p>
-  One feature of service workers is the ability to save a set of files to the cache when the service worker is installing. This is often referred to
-  as "precaching", since you are caching content ahead of the service worker being used.
+  One feature of service workers is the ability to save a set of files to the cache as they install. This is often referred to as precaching, since
+  you are caching content ahead of the service worker being used.
 </p>
 <br />
 <p>
   The main reason for doing this is that it gives developers control over the cache, meaning they can determine when and how long a file is cached as
-  well as serve it to the browser without going to the network, meaning it can be used to create web apps that work offline.
+  well as serve it to the browser without going to the network, allowing web apps to work offline.
 </p>
 <br />
 <p>Serwist takes a lot of the heavy lifting out of precaching by simplifying the API and ensuring assets are downloaded efficiently.</p>
@@ -33,37 +33,36 @@
 <h2 id="how-serwist-precaching-works">How @serwist/precaching works</h2>
 <br />
 <p>
-  When a web app is loaded for the first time, <ICD>@serwist/precaching</ICD> will look at all the assets you want to download, remove any duplicates and
-  hook up the relevant service worker events to download and store the assets. URLs that already include versioning information (like a content hash) are
+  When a web app is loaded for the first time, <ICD>@serwist/precaching</ICD> looks at all the assets you want to download, removes any duplicates, and
+  hooks up relevant service worker events to download and store the assets. URLs that already include versioning information (like a content hash) are
   used as cache keys without any further modification. URLs that don't include versioning information have an extra URL query parameter appended to their
-  cache key representing a hash of their content that Workbox generates at build time.
+  cache key representing their versions.
 </p>
 <br />
 <p><ICD>@serwist/precaching</ICD> does all of this during the service worker's <ICD>install</ICD> event.</p>
 <br />
 <p>
-  When a user later revisits your web app and you have a new service worker with different precached assets, <ICD>@serwist/precaching</ICD> will look at
-  the new list and determine which assets are completely new and which of the existing assets need updating, based on their revisioning. Any new assets,
-  or updating revisions, will be added to the cache during the new service worker's <ICD>install</ICD> event.
+  When a user later revisits your web app, and you have a new service worker with different precached assets, <ICD>@serwist/precaching</ICD> looks at the
+  new list and determines which assets are completely new and which of existing ones need updating. Any new or updated assets are added to the cache during
+  the new service worker's <ICD>install</ICD> event.
 </p>
 <br />
 <p>
-  This new service worker won't be used to respond to requests until its <ICD>activate</ICD> event has been triggered. It's in the <ICD>activate</ICD>
-  event that <ICD>@serwist/precaching</ICD> will check for any cached assets that are no longer present in the list of current URLs, and remove those from
-  the cache.
+  This new service worker won't be used to respond to requests until its <ICD>activate</ICD> event has been triggered. It's during the
+  <ICD>activate</ICD> event that <ICD>@serwist/precaching</ICD> checks for any cached assets that are no longer needed and remove them from the cache.
 </p>
 <br />
 <p>
-  <ICD>@serwist/precaching</ICD> will perform these steps each time your service worker is installed and activated, ensuring the user has the latest assets,
-  and only downloading the files that have changed.
+  <ICD>@serwist/precaching</ICD> performs these steps whenever your service worker is installed and activated, ensuring the user has the latest assets
+  and only downloads files that have changed.
 </p>
 <br />
 <h3 id="serving-precached-responses">Serving precached responses</h3>
 <br />
-<p>Calling <ICD>precacheAndRoute()</ICD> or <ICD>addRoute()</ICD> will create a route that matches requests for precached URLs.</p>
+<p>Calling <ICD>precacheAndRoute()</ICD> or <ICD>addRoute()</ICD> creates a route that matches requests for precached URLs.</p>
 <br />
 <p>
-  The response strategy used in this route is cache-first: the precached response will be used, unless that cached response is not present (due to
+  The response strategy used for this route is cache-first: the precached response will be used, unless that cached response is not present (due to
   some unexpected error), in which case a network response will be used instead.
 </p>
 <br />
@@ -77,25 +76,26 @@
 <h2 id="explanation-of-the-precache-list">Explanation of the precache list</h2>
 <br />
 <p>
-  <ICD>@serwist/precaching</ICD> expects an array of objects with a url and revision property. This array is sometimes referred to as a precache manifest:
+  <ICD>@serwist/precaching</ICD> expects an array of objects consisting of <ICD>url</ICD> and <ICD>revision</ICD>. This array is usually referred to
+  as a precache manifest:
 </p>
 <br />
 <CodeTab codes={data.code.explainPrecacheList} defaultTab="sw.ts" />
 <br />
-<p>This list references a set of URLs, each with their own piece of "revisioning" information.</p>
+<p>This list references a set of URLs, each with their own piece of revisioning information.</p>
 <br />
 <p>
-  For the second and third object in the example above, the revision property is set to null. This is because the revisioning information is in the
-  URL itself, which is generally a best practice for static assets.
+  For the second and third object in the example above, the <ICD>revision</ICD> property is set to null. This is because the revisioning information is
+  in the URL itself, which is generally a best practice for static assets.
 </p>
 <br />
 <p>
-  The first object explicitly set a revision property, which is an auto-generated hash of the file's contents. Unlike JavaScript and CSS resources,
-  HTML files generally cannot include revisioning information in their URLs. Otherwise, links to these files on the web would break any time the
-  content of the page changed.
+  The first object explicitly set a <ICD>revision</ICD> property, which is an auto-generated hash of the file's contents. This is because, unlike JavaScript
+  and CSS resources, HTML files generally cannot include revisioning information in their URLs. Otherwise, links to these files on the web would break
+  any time the content of the page changed.
 </p>
 <br />
-<p>By passing a revision property to <ICD>precacheAndRoute()</ICD>, Serwist can know when the file has changed and update it accordingly.</p>
+<p>By providing a <ICD>revision</ICD>, you let Serwist know when the file has changed and update it accordingly.</p>
 <br />
 <p>Serwist provides build tools that help generate this list:</p>
 <br />
@@ -105,8 +105,8 @@
     manifest of local files that should be precached.
   </li>
   <li>
-    <ICD><a class="link" href="/docs/webpack-plugin">@serwist/webpack-plugin</a></ICD>: A plugin for your Webpack build process, helping you generate
-    a manifest of local files that should be precached..
+    <ICD><a class="link" href="/docs/webpack-plugin">@serwist/webpack-plugin</a></ICD>: A plugin for your webpack build process, helping you generate
+    a manifest of local files that should be precached.
   </li>
   <li>
     <ICD><a class="link" href="/docs/cli">@serwist/cli</a></ICD>: The command line interface of Serwist.
@@ -143,7 +143,7 @@
 <br />
 <p>
   By default, search parameters that start with <ICD>utm_</ICD> or exactly match <ICD>fbclid</ICD> are removed, meaning that a request for "/about.html?utm_campaign=abcd"
-  will be fulfilled with a precached entry for "/about.html".
+  will be fulfilled with the precached response for "/about.html".
 </p>
 <br />
 <p>You can ignore a different set of search parameters using <ICD>ignoreURLParametersMatching</ICD>:</p>
@@ -153,19 +153,19 @@
 <h3 id="handling-directory-index">Handling directory index</h3>
 <br />
 <p>
-  Requests ending in a "/" will, by default, be matched against entries with an "index.html" appended to the end. This means an incoming request for
-  "/" can automatically be handled with the precached entry "/index.html".
+  Requests ending in a "/" will, by default, be matched against entries with "/index.html" appended. This means an incoming request for "/" can be
+  handled by the precache entry for "/index.html".
 </p>
 <br />
-<p>You can change this to something else, or disable it completely, by setting <ICD>directoryIndex</ICD>:</p>
+<p>You can change this to something else or disable it completely by setting <ICD>directoryIndex</ICD>:</p>
 <br />
 <CodeTab codes={data.code.handlingDirectoryIndex} defaultTab="sw.ts" />
 <br />
 <h3 id="supporting-clean-urls">Supporting clean URLs</h3>
 <br />
 <p>
-  If a request fails to match the precache, we'll add .html to the end to support "clean" URLs (a.k.a. "pretty" URLs). This means a request like
-  /about will be handled by the precached entry for /about.html.
+  If a request fails to match any precached response, we'll automatically add ".html" to the end to support clean URLs. For example, any request for
+  "/about" is to be handled by the precache entry for "/about.html" if no entry exists for "/about".
 </p>
 <br />
 <p>You can disable this behavior by setting <ICD>cleanURLs</ICD>:</p>
@@ -186,9 +186,9 @@
 <h3 id="using-precache-controller">Using PrecacheController</h3>
 <br />
 <p>
-  By default, <ICD>@serwist/precaching</ICD> will set up the <ICD>install</ICD> and <ICD>activate</ICD> listeners for you. For developers familiar with
-  service workers, this may not be desirable if you need more control, in which case, you can directly use <ICD>PrecacheController</ICD> and determine
-  when assets are precached and when cleanup should occur on your own.
+  By default, <ICD>@serwist/precaching</ICD> sets up the <ICD>install</ICD> and <ICD>activate</ICD> listeners for you. For developers familiar with service
+  workers, this may not be desirable if you need more control, in which case, you can directly use <ICD>PrecacheController</ICD> and determine when assets
+  are precached and when cleanup should occur on your own.
 </p>
 <br />
 <CodeTab codes={data.code.advancedUsage.precacheController} defaultTab="sw.ts" />
@@ -196,8 +196,8 @@
 <h3 id="reading-precached-assets">Reading precached assets</h3>
 <br />
 <p>
-  There are times when you might need to read a precached asset directly, outside the context of the routing that workbox-precaching can automatically
-  perform. For instance, you might want to precache partial HTML templates that then need to be retrieved and used when constructing a full response.
+  There are times when you might need to read a precached asset directly, outside the context of the routing that <ICD>@serwist/precaching</ICD> can automatically
+  perform. For instance, you might want to precache partial HTML templates that then need to be retrieved and used to construct a full response.
 </p>
 <br />
 <p>
@@ -206,7 +206,7 @@
 </p>
 <br />
 <p>
-  To get the correct cache key you can call <ICD>getCacheKeyForURL()</ICD> and then use the result to perform a <ICD>cache.match()</ICD> on the appropriate
+  To get the correct cache key, you can call <ICD>getCacheKeyForURL()</ICD> and then use the result to perform a <ICD>cache.match()</ICD> on the appropriate
   cache.
 </p>
 <br />
@@ -214,7 +214,7 @@
 <br />
 <p>
   Alternatively, if all you need is the precached <ICD>Response</ICD> object, you can call <ICD>matchPrecache()</ICD>, which will automatically use
-  the correct cache key and search in the correct cache:
+  the correct cache key and search in the according cache:
 </p>
 <br />
 <Callout type="info">
@@ -234,14 +234,14 @@
 <p>Some developers might want the added guarantees offered by subresource integrity enforcement when retrieving precached URLs from the network.</p>
 <br />
 <p>
-  An additional, optional property called <ICD>integrity</ICD> can be added to any entry in the precache manifest. If provided, it will be used as the
+  An optional property called <ICD>integrity</ICD> can be added to any entry of the precache manifest. If provided, it will be used as the
   <ICD>integrity</ICD> value when constructing the <ICD>Request</ICD> used to populate the cache. If there's a mismatch, the precaching process will fail.
 </p>
 <br />
 <p>
-  Determining which precache manifest entries should have integrity properties and figuring out the appropriate values to use is outside the scope of
-  Serwist's build tools. Instead, developers who want to opt-in to this functionality should modify the precache manifest that SerwistWorkbox
-  generates to add in the appropriate info themselves. The <ICD>manifestTransform</ICD> option in Serwist's build tools configuration can help:
+  Determining which precache manifest entries should have integrity properties and figuring out the appropriate values to use are outside the scope of
+  Serwist's build tools. Instead, developers who want to opt-in to this functionality should modify the precache manifest that Serwist generates to
+  add in the appropriate info themselves. The <ICD>manifestTransform</ICD> option in Serwist's build tools configuration can help:
 </p>
 <br />
 <CodeTab codes={data.code.advancedUsage.usingSsri} defaultTab="sw.ts" />

@@ -5,7 +5,7 @@
   const { data } = $props();
 </script>
 
-<h1 id="broadcast-update-plugin">BroadcastUpdatePlugin</h1>
+<h1 id="cacheable-response-plugin">CacheableResponsePlugin</h1>
 <br /><br />
 <h2 id="first-added">First added</h2>
 <br />
@@ -14,14 +14,14 @@
 <h2 id="about">About</h2>
 <br />
 <p>
-  A class implementing the <ICD>cacheDidUpdate</ICD> lifecycle callback. It will automatically broadcast a message whenever a cached response is updated.
+  A class implementing the <ICD>cacheWillUpdate</ICD> lifecycle callback. This makes it easier to add in cacheability checks to requests made via Serwist's
+  built-in strategies.
 </p>
 <br /><br />
 <h2 id="options">Options</h2>
 <br />
 <p>
-  See
-  <a class="link" href="./broadcast-cache-update#options"><ICD>BroadcastCacheUpdate</ICD>'s options</a>.
+  See <a class="link" href="./cacheable-response#options"><ICD>CacheableResponse</ICD>'s options</a>.
 </p>
 <br /><br />
 <h2 id="usage">Usage</h2>

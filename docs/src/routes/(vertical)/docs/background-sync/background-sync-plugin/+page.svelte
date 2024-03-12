@@ -22,7 +22,7 @@
 <br />
 <p>
   See
-  <ICD><a class="link" href="./queue#parameters">Queue</a></ICD>'s parameters.
+  <a class="link" href="./queue#parameters"><ICD>Queue</ICD>'s parameters</a>.
 </p>
 <br /><br />
 <h2 id="usage">Usage</h2>

@@ -7,7 +7,7 @@
   import { TocObserver } from "$lib/TocObserver.svelte";
   import type { TocEntry } from "$lib/types";
 
-  import { SIDEBAR_LINKS } from "./constants";
+  import { SIDEBAR_LINKS } from "./$layout.constants";
   import SidebarLink from "./SidebarLink.svelte";
 
   const { children } = $props();

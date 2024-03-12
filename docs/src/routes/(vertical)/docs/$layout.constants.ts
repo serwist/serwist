@@ -90,10 +90,18 @@ export const SIDEBAR_LINKS = [
   {
     title: "@serwist/cacheable-response",
     href: "/docs/cacheable-response",
+    children: [
+      { title: "CacheableResponse", href: "/docs/cacheable-response/cacheable-response" },
+      { title: "CacheableResponsePlugin", href: "/docs/cacheable-response/cacheable-response-plugin" },
+    ],
   },
   {
     title: "@serwist/expiration",
     href: "/docs/expiration",
+    children: [
+      { title: "CacheExpiration", href: "/docs/expiration/cache-expiration" },
+      { title: "ExpirationPlugin", href: "/docs/expiration/expiration-plugin" },
+    ],
   },
   {
     title: "@serwist/navigation-preload",
