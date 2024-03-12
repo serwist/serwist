@@ -1,5 +1,14 @@
 # @serwist/nuxt
 
+## 9.0.0-preview.13
+
+### Patch Changes
+
+- Updated dependencies [[`add4fdd`](https://github.com/serwist/serwist/commit/add4fdd390555053d023faebfe1dca41510b2e2f)]:
+  - @serwist/build@9.0.0-preview.13
+  - @serwist/vite@9.0.0-preview.13
+  - @serwist/window@9.0.0-preview.13
+
 ## 9.0.0-preview.12
 
 ### Patch Changes

@@ -1,5 +1,22 @@
 # @serwist/sw
 
+## 9.0.0-preview.13
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/background-sync@9.0.0-preview.13
+  - @serwist/broadcast-update@9.0.0-preview.13
+  - @serwist/cacheable-response@9.0.0-preview.13
+  - @serwist/core@9.0.0-preview.13
+  - @serwist/expiration@9.0.0-preview.13
+  - @serwist/google-analytics@9.0.0-preview.13
+  - @serwist/navigation-preload@9.0.0-preview.13
+  - @serwist/precaching@9.0.0-preview.13
+  - @serwist/range-requests@9.0.0-preview.13
+  - @serwist/routing@9.0.0-preview.13
+  - @serwist/strategies@9.0.0-preview.13
+
 ## 9.0.0-preview.12
 
 ### Patch Changes
@@ -186,7 +203,7 @@
             }),
           ],
         }),
-      }
+      },
     );
     ```
 
@@ -229,7 +246,7 @@
             }),
           ],
         }),
-      }
+      },
     );
     ```
 
