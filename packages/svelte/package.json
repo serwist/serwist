@@ -54,8 +54,8 @@
     "@serwist/constants": "workspace:*",
     "@serwist/precaching": "workspace:*",
     "@serwist/sw": "workspace:*",
-    "@sveltejs/kit": "2.5.2",
-    "rollup": "4.12.0"
+    "@sveltejs/kit": "2.5.3",
+    "rollup": "4.13.0"
   },
   "peerDependencies": {
     "@serwist/sw": "workspace:*",

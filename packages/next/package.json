@@ -83,13 +83,13 @@
     "@serwist/constants": "workspace:*",
     "@serwist/sw": "workspace:*",
     "@serwist/utils": "workspace:*",
-    "@types/node": "20.11.24",
-    "next": "14.1.1",
+    "@types/node": "20.11.26",
+    "next": "14.1.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "rollup": "4.12.0",
-    "type-fest": "4.11.0",
-    "typescript": "5.5.0-dev.20240304",
+    "rollup": "4.13.0",
+    "type-fest": "4.12.0",
+    "typescript": "5.5.0-dev.20240312",
     "webpack": "5.90.3"
   },
   "peerDependencies": {

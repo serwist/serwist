@@ -124,6 +124,9 @@
   .list > li {
     @apply mb-2;
   }
+  .list > li > .list {
+    @apply mt-2;
+  }
   .button {
     @apply rounded-md bg-gray-100 px-3 py-2 text-center transition-colors duration-100 hover:bg-gray-200 dark:bg-neutral-900 hover:dark:bg-neutral-800;
   }

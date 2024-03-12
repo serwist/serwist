@@ -57,7 +57,7 @@
     "fs-extra": "11.2.0",
     "glob": "10.3.10",
     "pretty-bytes": "6.1.1",
-    "rollup": "4.12.0",
+    "rollup": "4.13.0",
     "source-map": "0.8.0-beta.0",
     "upath": "2.0.1",
     "zod": "3.22.4"
@@ -67,10 +67,10 @@
     "@serwist/utils": "workspace:*",
     "@types/common-tags": "1.8.4",
     "@types/fs-extra": "11.0.4",
-    "@types/node": "20.11.24",
+    "@types/node": "20.11.26",
     "@types/stringify-object": "4.0.5",
-    "type-fest": "4.11.0",
-    "typescript": "5.5.0-dev.20240304"
+    "type-fest": "4.12.0",
+    "typescript": "5.5.0-dev.20240312"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0"

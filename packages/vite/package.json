@@ -87,11 +87,10 @@
     "@serwist/constants": "workspace:*",
     "@serwist/sw": "workspace:*",
     "@serwist/utils": "workspace:*",
-    "@types/node": "20.11.24",
-    "rollup": "4.12.0",
-    "svelte": "5.0.0-next.70",
-    "typescript": "5.5.0-dev.20240304",
-    "vite": "5.1.4"
+    "@types/node": "20.11.26",
+    "rollup": "4.13.0",
+    "typescript": "5.5.0-dev.20240312",
+    "vite": "5.1.6"
   },
   "peerDependencies": {
     "@serwist/sw": "workspace:*",

@@ -25,6 +25,7 @@ const twoslash = transformerTwoslash({
       moduleResolution: 100 satisfies ModuleResolutionKind.Bundler,
       moduleDetection: 3 satisfies ModuleDetectionKind.Force,
       lib: ["lib.dom.d.ts", "lib.esnext.d.ts", "lib.dom.iterable.d.ts", "lib.webworker.d.ts"],
+      types: ["node"],
       skipLibCheck: true,
       strict: true,
       allowSyntheticDefaultImports: true,
