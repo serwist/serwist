@@ -1,5 +1,20 @@
 # @serwist/cli
 
+## 9.0.0-preview.14
+
+### Major Changes
+
+- [`2ad49d6`](https://github.com/serwist/serwist/commit/2ad49d61de4b634652b317c1146924492c7c59a1) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(cli): removed/renamed certain features
+
+  - `copyLibraries` was already a no-op, so this simply removes the empty command.
+  - `wizard --injectManifest` has become `wizard`, thanks to the fact that GenerateSW no longer exists.
+  - Renamed the `injectManifest` command to `inject-manifest`. From now on, the CLI uses kebab-case rather than camelCase.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/build@9.0.0-preview.14
+
 ## 9.0.0-preview.13
 
 ### Patch Changes

@@ -31,7 +31,8 @@
     "@serwist/window": "8.4.4",
     "@serwist-example/nuxt-basic": "1.0.0",
     "@serwist-example/next-web-push": "1.0.0",
-    "@serwist/svelte": "9.0.0-preview.6"
+    "@serwist/svelte": "9.0.0-preview.6",
+    "@serwist-example/cli": "1.0.0"
   },
   "changesets": [
     "chilled-falcons-rhyme",
@@ -39,6 +40,7 @@
     "cuddly-pots-glow",
     "dirty-planets-change",
     "eighty-tools-know",
+    "fast-kings-promise",
     "lovely-tools-march",
     "many-boxes-enjoy",
     "many-schools-think",

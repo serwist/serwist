@@ -1,5 +1,12 @@
 # @serwist/navigation-preload
 
+## 9.0.0-preview.14
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/core@9.0.0-preview.14
+
 ## 9.0.0-preview.13
 
 ### Patch Changes
