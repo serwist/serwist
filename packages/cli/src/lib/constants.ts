@@ -10,5 +10,4 @@ export const constants = {
   defaultConfigFile: "serwist.config.js",
   ignoredDirectories: ["node_modules"],
   ignoredFileExtensions: ["map"],
-  ignoreURLParametersMatching: [/^utm_/, /^fbclid$/],
 };

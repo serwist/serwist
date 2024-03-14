@@ -1,0 +1,20 @@
+{
+  "name": "@serwist-example/cli",
+  "version": "1.0.0",
+  "type": "module",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "serwist inject-manifest && node build.js",
+    "start": "serve dist"
+  },
+  "devDependencies": {
+    "@serwist/build": "latest",
+    "@serwist/cli": "latest",
+    "@serwist/window": "latest",
+    "@types/node": "20.11.26",
+    "esbuild": "0.20.1",
+    "serve": "14.2.1",
+    "typescript": "5.4.2"
+  }
+}

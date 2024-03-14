@@ -41,7 +41,6 @@
     "glob": "10.3.10",
     "inquirer": "9.2.15",
     "meow": "13.2.0",
-    "ora": "8.0.1",
     "pretty-bytes": "6.1.1",
     "stringify-object": "5.0.0",
     "upath": "2.0.1",
@@ -56,13 +55,5 @@
     "@types/update-notifier": "6.0.8",
     "rollup": "4.13.0",
     "typescript": "5.5.0-dev.20240312"
-  },
-  "peerDependencies": {
-    "typescript": ">=5.0.0"
-  },
-  "peerDependenciesMeta": {
-    "typescript": {
-      "optional": true
-    }
   }
 }
