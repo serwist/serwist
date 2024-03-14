@@ -1,5 +1,19 @@
 # @serwist/next
 
+## 9.0.0-preview.14
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/build@9.0.0-preview.14
+  - @serwist/core@9.0.0-preview.14
+  - @serwist/expiration@9.0.0-preview.14
+  - @serwist/range-requests@9.0.0-preview.14
+  - @serwist/strategies@9.0.0-preview.14
+  - @serwist/sw@9.0.0-preview.14
+  - @serwist/webpack-plugin@9.0.0-preview.14
+  - @serwist/window@9.0.0-preview.14
+
 ## 9.0.0-preview.13
 
 ### Major Changes
