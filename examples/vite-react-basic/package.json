@@ -17,15 +17,15 @@
   "devDependencies": {
     "@serwist/core": "latest",
     "@serwist/vite": "latest",
-    "@types/react": "18.2.65",
-    "@types/react-dom": "18.2.21",
-    "@typescript-eslint/eslint-plugin": "7.2.0",
-    "@typescript-eslint/parser": "7.2.0",
+    "@types/react": "18.2.69",
+    "@types/react-dom": "18.2.22",
+    "@typescript-eslint/eslint-plugin": "7.3.1",
+    "@typescript-eslint/parser": "7.3.1",
     "@vitejs/plugin-react-swc": "3.6.0",
     "eslint": "8.57.0",
     "eslint-plugin-react-hooks": "4.6.0",
-    "eslint-plugin-react-refresh": "0.4.5",
-    "typescript": "5.4.2",
-    "vite": "5.1.6"
+    "eslint-plugin-react-refresh": "0.4.6",
+    "typescript": "5.4.3",
+    "vite": "5.2.4"
   }
 }

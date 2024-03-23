@@ -9,7 +9,7 @@
     tpid: string;
   }
 
-  const { lsp, tpid } = $props<TooltipHoverProps>();
+  const { lsp, tpid }: TooltipHoverProps = $props();
   let span = $state<HTMLSpanElement | null>(null);
   const isActive = $derived($twoslash.id === tpid);
 

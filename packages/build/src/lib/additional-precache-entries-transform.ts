@@ -9,13 +9,9 @@
 import type { ManifestEntry } from "../types.js";
 import { errors } from "./errors.js";
 
-type AdditionalManifestEntriesTransform = {
-  (
-    manifest: (ManifestEntry & { size: number })[],
-  ): {
-    manifest: (ManifestEntry & { size: number })[];
-    warnings: string[];
-  };
+type AdditionalManifestEntriesTransform = (manifest: (ManifestEntry & { size: number })[]) => {
+  manifest: (ManifestEntry & { size: number })[];
+  warnings: string[];
 };
 
 export const additionalPrecacheEntriesTransform = (additionalPrecacheEntries: (ManifestEntry | string)[]): AdditionalManifestEntriesTransform => {

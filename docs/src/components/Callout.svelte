@@ -15,7 +15,7 @@
     type?: CalloutVariant;
   }
 
-  const { type = "info", children } = $props<CalloutProps>();
+  const { type = "info", children }: CalloutProps = $props();
 
   const mapVariantToClass = {
     parent: {

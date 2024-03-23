@@ -3,7 +3,7 @@
   // License: MIT
   import type { SVGAttributes } from "svelte/elements";
 
-  const { ...props } = $props<SVGAttributes<SVGElement>>();
+  const { ...props }: SVGAttributes<SVGElement> = $props();
 </script>
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 410 404" fill="none" {...props}>

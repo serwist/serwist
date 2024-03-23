@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import webPush from "web-push";
 
 export const POST = async (req: NextRequest) => {

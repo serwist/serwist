@@ -3,17 +3,15 @@
   import type { SVGAttributes } from "svelte/elements";
 
   import CodeTab from "$components/CodeTab.svelte";
+  import InlineCode from "$components/InlineCode.svelte";
   import NextjsLogo from "$components/icons/NextjsLogo.svelte";
   import NuxtLogo from "$components/icons/NuxtLogo.svelte";
   import SvelteLogo from "$components/icons/SvelteLogo.svelte";
   import ViteLogo from "$components/icons/ViteLogo.svelte";
   import WebpackLogo from "$components/icons/WebpackLogo.svelte";
-  import InlineCode from "$components/InlineCode.svelte";
   import { clsx } from "$lib/clsx";
 
-  import type { PageData } from "./$types";
-
-  const { data } = $props<{ data: PageData }>();
+  const { data } = $props();
 
   interface Feature {
     icon: string;
@@ -144,7 +142,7 @@
   };
 
   let currentSelectedTool = $state<ToolKey>("nextjs");
-  let currentSelectedToolInfo = $derived(MAP_TOOL_KEY_TO_INFO[currentSelectedTool]);
+  const currentSelectedToolInfo = $derived(MAP_TOOL_KEY_TO_INFO[currentSelectedTool]);
 </script>
 
 <div class="flex w-full flex-col gap-8 self-stretch bg-white px-5 py-4 text-black md:gap-24 md:p-24 dark:bg-black dark:text-white">

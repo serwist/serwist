@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import crypto from "crypto";
+import crypto from "node:crypto";
 
 import type { FileDetails } from "../types.js";
 

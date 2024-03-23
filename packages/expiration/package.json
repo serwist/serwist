@@ -3,17 +3,8 @@
   "version": "9.0.0-preview.14",
   "type": "module",
   "description": "A module that expires cached responses based on age or maximum number of entries.",
-  "files": [
-    "src",
-    "dist"
-  ],
-  "keywords": [
-    "serwist",
-    "serwistjs",
-    "service worker",
-    "sw",
-    "serwist-plugin"
-  ],
+  "files": ["src", "dist"],
+  "keywords": ["serwist", "serwistjs", "service worker", "sw", "serwist-plugin"],
   "author": "Google's Web DevRel Team, Serwist's Team",
   "license": "MIT",
   "repository": "serwist/serwist",
@@ -41,7 +32,7 @@
   "devDependencies": {
     "@serwist/constants": "workspace:*",
     "rollup": "4.13.0",
-    "typescript": "5.5.0-dev.20240312"
+    "typescript": "5.5.0-dev.20240323"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0"

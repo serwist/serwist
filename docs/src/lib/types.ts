@@ -20,17 +20,15 @@ export interface TwoslashProps {
   timeout: NodeJS.Timeout | undefined;
 }
 
-export interface BlogMetadata {
-  title: {
-    content: string;
-    id: string;
-  };
-  date: string;
-}
-
 export type OpenGraphImage =
   | string
   | {
       title: string;
       desc: string;
     };
+
+export interface SidebarLink {
+  title: string;
+  href: string;
+  children?: SidebarLink[];
+}

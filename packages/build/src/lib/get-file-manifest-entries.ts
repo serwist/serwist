@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import assert from "assert";
+import assert from "node:assert";
 
 import type { FileDetails, GetManifestOptions, GetManifestResult } from "../types.js";
 import { errors } from "./errors.js";

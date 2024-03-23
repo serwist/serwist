@@ -3,11 +3,8 @@
 </script>
 
 <h1>Configuring</h1>
-<br /><br />
 <h2>Available options</h2>
-<br />
 <p><InlineCode>@serwist/build</InlineCode>'s options are divided into two categories:</p>
-<br />
 <ul class="list">
   <li>
     <a class="link" href="/docs/build/configuring/base-options">Base options</a>

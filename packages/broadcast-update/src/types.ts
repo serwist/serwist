@@ -28,9 +28,7 @@ export interface BroadcastCacheUpdateOptions {
 
 export type BroadcastPayload = Record<string, any>;
 
-export interface BroadcastPayloadGenerator {
-  (options: CacheDidUpdateCallbackParam): BroadcastPayload;
-}
+export type BroadcastPayloadGenerator = (options: CacheDidUpdateCallbackParam) => BroadcastPayload;
 
 export interface BroadcastMessage {
   type: typeof CACHE_UPDATED_MESSAGE_TYPE;

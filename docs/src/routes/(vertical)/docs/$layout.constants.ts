@@ -1,6 +1,6 @@
-import type { SidebarLinkProps } from "./types";
+import type { SidebarLink } from "$lib/types";
 
-export const SIDEBAR_LINKS = [
+export const DOCS_SIDEBAR_LINKS = [
   {
     title: "Introduction",
     href: "/docs",
@@ -166,4 +166,4 @@ export const SIDEBAR_LINKS = [
     title: "@serwist/vite",
     href: "/docs/vite",
   },
-] satisfies SidebarLinkProps[];
+] satisfies SidebarLink[];

@@ -1,23 +1,9 @@
-@import "tailwindcss";
 @import "./geist.css";
 @import "./syntax-highlighting.css";
 @import "./twoslash.css";
-
-@theme {
-  --tw-border-style: solid;
-  --font-family-sans: "Geist", Arial, sans-serif;
-  --color-accent-light: #1e40af;
-  --color-accent-dark: #7dd3fc;
-  --color-blue-450: #4cc2ff;
-  --color-blue-550: #0078d4;
-  --color-red-650: #c42b1c;
-  --color-red-1000: #442726;
-  --color-green-150: #dff6dd;
-  --color-green-450: #6ccb5f;
-  --color-lime-1000: #393d1b;
-  --color-yellow-75: #fff4ce;
-  --color-yellow-1000: #433519;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
   * {
@@ -56,6 +42,18 @@
   }
   h4 {
     @apply text-xl leading-5 tracking-tight;
+  }
+  .prose h1:not(:where([class~="not-prose"] *)) {
+    @apply mb-6;
+  }
+  .prose h2:not(:where([class~="not-prose"] *)) {
+    @apply mt-6 mb-3;
+  }
+  .prose h3:not(:where([class~="not-prose"] *)) {
+    @apply mt-4 mb-3;
+  }
+  .prose p:not(:where([class~="not-prose"] *)) {
+    @apply my-3;
   }
   details > summary {
     @apply cursor-pointer select-none list-none;

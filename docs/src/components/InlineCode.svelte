@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { CodeProps } from "./Code.svelte";
 
-  const { showIcon = false, children, ...props } = $props<CodeProps>();
+  const { showIcon = false, children, ...props }: CodeProps = $props();
 </script>
 
 <span class="text-comment inline-flex w-fit items-center gap-2 font-mono [&>*]:min-w-[auto]">

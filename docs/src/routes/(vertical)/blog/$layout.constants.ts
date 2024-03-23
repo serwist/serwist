@@ -1,15 +1,18 @@
-import type { BlogEntry } from "./$page.types";
+import type { BlogEntry } from "./$layout.types";
 
 export const BLOG_ENTRIES = [
   {
-    title: "Serwist 9.0.0",
+    href: "/blog/2024/03/10/serwist-v9",
+    title: {
+      content: "Serwist 9.0.0",
+      id: "serwist-v9",
+    },
     description: "This major version aims to clean house after the initial forking.",
     date: "2024-03-10",
-    href: "/blog/2024/03/10/serwist-v9",
     keyPoints: [
       {
         title: "Dropped the CommonJS build",
-        id: "migrated-to-being-esm-only",
+        id: "dropped-the-commonjs-build",
       },
       {
         title: "Migrated to Zod",

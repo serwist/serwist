@@ -12,7 +12,7 @@
     defaultTab: TKeys;
   }
 
-  const { codes, defaultTab } = $props<CodeTabProps>();
+  const { codes, defaultTab }: CodeTabProps = $props();
   let currentTab = $state(defaultTab);
 
   $effect(() => {
@@ -20,7 +20,7 @@
   });
 </script>
 
-<div class="flex w-full flex-col rounded-xl border-[0.5px] border-gray-300 bg-white dark:border-gray-800 dark:bg-neutral-950">
+<div class="flex w-full flex-col rounded-xl border-[0.5px] border-gray-300 bg-white dark:border-gray-800 dark:bg-neutral-950 my-3">
   <div class="relative w-full rounded-t-xl bg-white dark:bg-black">
     <div role="tablist" aria-orientation="horizontal" class="flex w-full overflow-auto rounded-t-xl">
       {#each codes as [tab, id]}

@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import assert from "assert";
+import assert from "node:assert";
 import stringify from "fast-json-stable-stringify";
 import fse from "fs-extra";
 import type { RawSourceMap } from "source-map";

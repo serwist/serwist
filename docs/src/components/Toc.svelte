@@ -2,10 +2,10 @@
   import { page } from "$app/stores";
   import type { TocEntry } from "$lib/types";
 
-  import ChevronRight from "./icons/ChevronRight.svelte";
   import TocRenderer from "./TocRenderer.svelte";
+  import ChevronRight from "./icons/ChevronRight.svelte";
 
-  const { toc, baseEditUrl } = $props<{ toc: TocEntry[] | undefined; baseEditUrl: string }>();
+  const { toc, baseEditUrl }: { toc: TocEntry[] | undefined; baseEditUrl: string } = $props();
   let tocDetails = $state<HTMLDetailsElement | null>(null);
 
   $effect(() => {

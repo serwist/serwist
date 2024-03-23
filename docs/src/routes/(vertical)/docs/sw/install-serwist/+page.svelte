@@ -6,28 +6,19 @@
 </script>
 
 <h1>installSerwist</h1>
-<br /><br />
 <h2>First added</h2>
-<br />
 <p>8.0.0</p>
-<br /><br />
 <h2>About</h2>
-<br />
 <p>Abstracts away the core APIs of Serwist.</p>
-<br /><br />
 <h2>Why?</h2>
-<br />
 <p>
   Workbox, of which Serwist is a fork, has a feature called GenerateSW, which was removed from Serwist due to it being deemed a burden on the
   codebase. This was because its implementation required Serwist to manually stringify the
   <InlineCode>runtimeCaching</InlineCode> array, which was unnecessarily error-prone and tedious. As a result,
   <InlineCode>installSerwist</InlineCode> was created as an alternative, allowing you to use InjectManifest the way you would with GenerateSW.
 </p>
-<br /><br />
 <h2>Behind the scenes</h2>
-<br />
 <p>This function calls the following:</p>
-<br />
 <ul class="list">
   <li>
     <InlineCode>
@@ -107,7 +98,5 @@
     <InlineCode>true</InlineCode>)
   </li>
 </ul>
-<br /><br />
 <h2>Usage</h2>
-<br />
 <CodeTab codes={data.code.basicUsage} defaultTab="sw.ts" />

@@ -1,5 +1,5 @@
 // See https://kit.svelte.dev/docs/types#app
-import type { BlogMetadata, OpenGraphImage, TocEntry } from "$lib/types";
+import type { BlogMetadata, OpenGraphImage, SidebarLink, TocEntry } from "$lib/types";
 import type { getHighlighter } from "shiki";
 
 // for information about these interfaces
@@ -13,7 +13,7 @@ declare global {
       title?: string;
       ogImage?: string;
       toc?: TocEntry[];
-      metadata?: BlogMetadata;
+      sidebar?: SidebarLink[];
     }
     // interface Platform {}
   }

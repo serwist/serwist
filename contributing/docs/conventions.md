@@ -58,30 +58,6 @@ export const load: PageServerLoad = ({ locals }) => ({
 <CodeTab codes={data.code.install} defaultTab="npm" />
 ```
 
-## Sections
-
-- A docs page should be divided into sections. Sections are separated with a `<br /><br />`. Parts of a section are separated with a `<br />`.
-
-```svelte
-<script>
-  import InlineCode from "$components/InlineCode.svelte";
-</script>
-
-<h1>Welcome to Serwist!</h1>
-<br /><br />
-<h2>Introduction</h2>
-<br />
-<p>
-  Serwist is the Swiss Army knife for service workers.
-</p>
-<br /><br />
-<h2>Getting started</h2>
-<br />
-<p>
-  See <a class="link" href="/docs/getting-started">Getting started</a>.
-</p>
-```
-
 ## Styling
 
 - Links (`<a />`) and lists (`<ul />`) should use the `".link"` and `".list"` utility classes respectively.

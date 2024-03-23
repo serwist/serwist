@@ -1,7 +1,10 @@
 export interface BlogEntry {
-  title: string;
+  href: string;
+  title: {
+    content: string;
+    id: string;
+  };
   description: string;
   date: `${string}-${string}-${string}`;
-  href: string;
   keyPoints: { title: string; id: string }[];
 }

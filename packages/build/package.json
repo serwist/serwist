@@ -3,19 +3,8 @@
   "version": "9.0.0-preview.14",
   "type": "module",
   "description": "A module that integrates into your build process, helping you generate a manifest of local files that should be precached.",
-  "files": [
-    "src",
-    "dist"
-  ],
-  "keywords": [
-    "serwist",
-    "serwistjs",
-    "service worker",
-    "caching",
-    "fetch requests",
-    "offline",
-    "file manifest"
-  ],
+  "files": ["src", "dist"],
+  "keywords": ["serwist", "serwistjs", "service worker", "caching", "fetch requests", "offline", "file manifest"],
   "engines": {
     "node": ">=18.0.0"
   },
@@ -28,9 +17,7 @@
   "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
-      "schema": [
-        "./dist/index.schema.d.ts"
-      ]
+      "schema": ["./dist/index.schema.d.ts"]
     }
   },
   "exports": {
@@ -67,10 +54,10 @@
     "@serwist/utils": "workspace:*",
     "@types/common-tags": "1.8.4",
     "@types/fs-extra": "11.0.4",
-    "@types/node": "20.11.26",
+    "@types/node": "20.11.30",
     "@types/stringify-object": "4.0.5",
-    "type-fest": "4.12.0",
-    "typescript": "5.5.0-dev.20240312"
+    "type-fest": "4.13.1",
+    "typescript": "5.5.0-dev.20240323"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0"

@@ -15,7 +15,7 @@ export async function runWizard(): Promise<void> {
   const { configLocation, config } = await askQuestions();
 
   const contents = `/** @type {import("@serwist/build").InjectManifestOptions} */\nexport default ${stringifyObject(config)};`;
-  
+
   writeFileSync(configLocation, contents);
 
   logger.log(`To build your service worker, run

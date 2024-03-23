@@ -5,7 +5,7 @@
     data: TocEntry[];
   }
 
-  const { data } = $props<TableOfContentsProps>();
+  const { data }: TableOfContentsProps = $props();
 </script>
 
 <ul class="list mt-2">

@@ -38,9 +38,7 @@ export interface RouteMatchCallbackOptions {
  * is a non-empty array or object, that value will be set on the handler's
  * `options.params` argument.
  */
-export interface RouteMatchCallback {
-  (options: RouteMatchCallbackOptions): any;
-}
+export type RouteMatchCallback = (options: RouteMatchCallbackOptions) => any;
 
 /**
  * Options passed to a `RouteHandlerCallback` function.
@@ -89,9 +87,7 @@ export type HandlerCallbackOptions = RouteHandlerCallbackOptions | ManualHandler
  * If a non-empty array or object is returned by the `RouteMatchCallback` it
  * will be passed in as this handler's `options.params` argument.
  */
-export interface RouteHandlerCallback {
-  (options: RouteHandlerCallbackOptions): Promise<Response>;
-}
+export type RouteHandlerCallback = (options: RouteHandlerCallbackOptions) => Promise<Response>;
 
 /**
  * The "handler" callback is invoked whenever a `Router` matches a URL/Request
@@ -101,9 +97,7 @@ export interface RouteHandlerCallback {
  * If a non-empty array or object is returned by the `RouteMatchCallback` it
  * will be passed in as this handler's `options.params` argument.
  */
-export interface ManualHandlerCallback {
-  (options: ManualHandlerCallbackOptions): Promise<Response>;
-}
+export type ManualHandlerCallback = (options: ManualHandlerCallbackOptions) => Promise<Response>;
 
 /**
  * An object with a `handle` method of type `RouteHandlerCallback`.
@@ -128,9 +122,7 @@ export interface HandlerWillStartCallbackParam {
   state?: PluginState;
 }
 
-export interface HandlerWillStartCallback {
-  (param: HandlerWillStartCallbackParam): Promise<any>;
-}
+export type HandlerWillStartCallback = (param: HandlerWillStartCallbackParam) => Promise<any>;
 
 export interface CacheDidUpdateCallbackParam {
   /**
@@ -157,9 +149,7 @@ export interface CacheDidUpdateCallbackParam {
   state?: PluginState;
 }
 
-export interface CacheDidUpdateCallback {
-  (param: CacheDidUpdateCallbackParam): PromiseOrNot<any>;
-}
+export type CacheDidUpdateCallback = (param: CacheDidUpdateCallbackParam) => PromiseOrNot<any>;
 
 export interface CacheKeyWillBeUsedCallbackParam {
   mode: string;
@@ -169,9 +159,7 @@ export interface CacheKeyWillBeUsedCallbackParam {
   state?: PluginState;
 }
 
-export interface CacheKeyWillBeUsedCallback {
-  (param: CacheKeyWillBeUsedCallbackParam): PromiseOrNot<Request | string>;
-}
+export type CacheKeyWillBeUsedCallback = (param: CacheKeyWillBeUsedCallbackParam) => PromiseOrNot<Request | string>;
 
 export interface CacheWillUpdateCallbackParam {
   request: Request;
@@ -180,9 +168,7 @@ export interface CacheWillUpdateCallbackParam {
   state?: PluginState;
 }
 
-export interface CacheWillUpdateCallback {
-  (param: CacheWillUpdateCallbackParam): PromiseOrNot<any>;
-}
+export type CacheWillUpdateCallback = (param: CacheWillUpdateCallbackParam) => PromiseOrNot<any>;
 
 export interface CachedResponseWillBeUsedCallbackParam {
   /**
@@ -204,9 +190,7 @@ export interface CachedResponseWillBeUsedCallbackParam {
   state?: PluginState;
 }
 
-export interface CachedResponseWillBeUsedCallback {
-  (param: CachedResponseWillBeUsedCallbackParam): PromiseOrNot<any>;
-}
+export type CachedResponseWillBeUsedCallback = (param: CachedResponseWillBeUsedCallbackParam) => PromiseOrNot<any>;
 
 export interface FetchDidFailCallbackParam {
   error: Error;
@@ -216,9 +200,7 @@ export interface FetchDidFailCallbackParam {
   state?: PluginState;
 }
 
-export interface FetchDidFailCallback {
-  (param: FetchDidFailCallbackParam): PromiseOrNot<any>;
-}
+export type FetchDidFailCallback = (param: FetchDidFailCallbackParam) => PromiseOrNot<any>;
 
 export interface FetchDidSucceedCallbackParam {
   request: Request;
@@ -227,9 +209,7 @@ export interface FetchDidSucceedCallbackParam {
   state?: PluginState;
 }
 
-export interface FetchDidSucceedCallback {
-  (param: FetchDidSucceedCallbackParam): PromiseOrNot<Response>;
-}
+export type FetchDidSucceedCallback = (param: FetchDidSucceedCallbackParam) => PromiseOrNot<Response>;
 
 export interface RequestWillFetchCallbackParam {
   request: Request;
@@ -237,9 +217,7 @@ export interface RequestWillFetchCallbackParam {
   state?: PluginState;
 }
 
-export interface RequestWillFetchCallback {
-  (param: RequestWillFetchCallbackParam): PromiseOrNot<Request>;
-}
+export type RequestWillFetchCallback = (param: RequestWillFetchCallbackParam) => PromiseOrNot<Request>;
 
 export interface HandlerWillRespondCallbackParam {
   request: Request;
@@ -248,9 +226,7 @@ export interface HandlerWillRespondCallbackParam {
   state?: PluginState;
 }
 
-export interface HandlerWillRespondCallback {
-  (param: HandlerWillRespondCallbackParam): PromiseOrNot<Response>;
-}
+export type HandlerWillRespondCallback = (param: HandlerWillRespondCallbackParam) => PromiseOrNot<Response>;
 
 export interface HandlerDidErrorCallbackParam {
   request: Request;
@@ -259,9 +235,7 @@ export interface HandlerDidErrorCallbackParam {
   state?: PluginState;
 }
 
-export interface HandlerDidErrorCallback {
-  (param: HandlerDidErrorCallbackParam): PromiseOrNot<Response | undefined>;
-}
+export type HandlerDidErrorCallback = (param: HandlerDidErrorCallbackParam) => PromiseOrNot<Response | undefined>;
 
 export interface HandlerDidRespondCallbackParam {
   request: Request;
@@ -270,9 +244,7 @@ export interface HandlerDidRespondCallbackParam {
   state?: PluginState;
 }
 
-export interface HandlerDidRespondCallback {
-  (param: HandlerDidRespondCallbackParam): PromiseOrNot<any>;
-}
+export type HandlerDidRespondCallback = (param: HandlerDidRespondCallbackParam) => PromiseOrNot<any>;
 
 export interface HandlerDidCompleteCallbackParam {
   request: Request;
@@ -282,9 +254,7 @@ export interface HandlerDidCompleteCallbackParam {
   state?: PluginState;
 }
 
-export interface HandlerDidCompleteCallback {
-  (param: HandlerDidCompleteCallbackParam): PromiseOrNot<any>;
-}
+export type HandlerDidCompleteCallback = (param: HandlerDidCompleteCallbackParam) => PromiseOrNot<any>;
 
 /**
  * An object with optional lifecycle callback properties for the fetch and

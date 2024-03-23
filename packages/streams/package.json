@@ -3,18 +3,8 @@
   "version": "9.0.0-preview.14",
   "type": "module",
   "description": "A library that makes it easier to work with Streams in the browser.",
-  "files": [
-    "src",
-    "dist"
-  ],
-  "keywords": [
-    "serwist",
-    "serwistjs",
-    "service worker",
-    "sw",
-    "streams",
-    "readablestream"
-  ],
+  "files": ["src", "dist"],
+  "keywords": ["serwist", "serwistjs", "service worker", "sw", "streams", "readablestream"],
   "author": "Google's Web DevRel Team, Serwist's Team",
   "license": "MIT",
   "repository": "serwist/serwist",
@@ -42,7 +32,7 @@
   "devDependencies": {
     "@serwist/constants": "workspace:*",
     "rollup": "4.13.0",
-    "typescript": "5.5.0-dev.20240312"
+    "typescript": "5.5.0-dev.20240323"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0"

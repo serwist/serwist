@@ -10,6 +10,7 @@ import { BroadcastCacheUpdate } from "./BroadcastCacheUpdate.js";
 import { BroadcastUpdatePlugin } from "./BroadcastUpdatePlugin.js";
 import { CACHE_UPDATED_MESSAGE_META, CACHE_UPDATED_MESSAGE_TYPE, defaultHeadersToCheck } from "./constants.js";
 import { responsesAreSame } from "./responsesAreSame.js";
+import type { BroadcastCacheUpdateOptions, BroadcastMessage, BroadcastPayload, BroadcastPayloadGenerator } from "./types.js";
 
 export {
   BroadcastCacheUpdate,
@@ -20,4 +21,4 @@ export {
   defaultHeadersToCheck,
 };
 
-export type * from "./types.js";
+export type { BroadcastCacheUpdateOptions, BroadcastPayload, BroadcastPayloadGenerator, BroadcastMessage };

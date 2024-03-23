@@ -3,7 +3,6 @@
 </script>
 
 <h1 id="welcome">Welcome to Serwist!</h1>
-<br />
 <p>
   Serwist is a collection of JavaScript libraries for
   <a href="https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps" target="_blank" rel="noreferrer" class="link">
@@ -11,9 +10,7 @@
   </a>. It is a fork of Workbox that came to be due to the its development being stagnated. Most of the prior work was done by Google LLC's team and
   the community.
 </p>
-<br />
 <p>Take a look around:</p>
-<br />
 <ul class="list">
   <li>
     <InlineCode>

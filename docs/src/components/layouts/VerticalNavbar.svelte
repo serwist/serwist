@@ -5,9 +5,9 @@
   import { GITHUB_REPO_URL } from "$lib/constants";
   import { isLinkActive } from "$lib/isLinkActive";
 
-  import { NAV_LINKS } from "./navbar-constants";
   import NavLink from "./NavLink.svelte";
   import NavToggleScheme from "./NavToggleScheme.svelte";
+  import { NAV_LINKS } from "./navbar-constants";
 
   let mobileMenu = $state<HTMLDetailsElement | undefined>(undefined);
 

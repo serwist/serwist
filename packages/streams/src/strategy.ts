@@ -14,9 +14,7 @@ import { concatenateToResponse } from "./concatenateToResponse.js";
 import { isSupported } from "./isSupported.js";
 import { createHeaders } from "./utils/createHeaders.js";
 
-export interface StreamsHandlerCallback {
-  ({ url, request, event, params }: RouteHandlerCallbackOptions): Promise<StreamSource> | StreamSource;
-}
+export type StreamsHandlerCallback = ({ url, request, event, params }: RouteHandlerCallbackOptions) => Promise<StreamSource> | StreamSource;
 
 /**
  * A shortcut to create a strategy that could be dropped-in to Serwist's router.

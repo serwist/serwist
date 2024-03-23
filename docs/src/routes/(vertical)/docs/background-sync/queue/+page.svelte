@@ -6,20 +6,14 @@
 </script>
 
 <h1 id="queue">Queue</h1>
-<br /><br />
 <h2 id="first-added">First added</h2>
-<br />
 <p>Workbox</p>
-<br /><br />
 <h2 id="about">About</h2>
-<br />
 <p>
   A class to manage storing failed requests in IndexedDB and retrying them later. All parts of the storing and replaying process are observable via
   callbacks.
 </p>
-<br /><br />
 <h2 id="parameters">Parameters</h2>
-<br />
 <ul class="list">
   <li>
     <ICD>name</ICD> — The unique name for this queue. This name must be unique as it's used to register sync events and store requests in IndexedDB specific
@@ -46,9 +40,7 @@
     </ul>
   </li>
 </ul>
-<br /><br />
 <h2 id="methods-and-fields">Methods and fields</h2>
-<br />
 <ul class="list">
   <li>
     <ICD>get name()</ICD> — The unique name for this queue.
@@ -81,7 +73,5 @@
     <ICD>async registerSync()</ICD> — Registers a sync event with a tag unique to this instance.
   </li>
 </ul>
-<br /><br />
 <h2 id="usage">Usage</h2>
-<br />
 <CodeTab codes={data.code.usage} defaultTab="sw.ts" />

@@ -3,11 +3,8 @@
 </script>
 
 <h1>Configuring</h1>
-<br /><br />
 <h2>Available options</h2>
-<br />
 <p>There are various options you can use to customize the behaviour of the plugin:</p>
-<br />
 <ul class="list">
   <li>
     <InlineCode>
@@ -40,5 +37,4 @@
     </InlineCode>
   </li>
 </ul>
-<br />
 <p>Aside from these, all <a class="link" href="/docs/build/inject-manifest/configuring">InjectManifest</a> options are available!</p>

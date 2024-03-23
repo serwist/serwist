@@ -187,6 +187,6 @@ export class CacheExpiration {
     // Make sure we don't attempt another rerun if we're called in the middle of
     // a cache expiration.
     this._rerunRequested = false;
-    await this._timestampModel.expireEntries(Infinity); // Expires all.
+    await this._timestampModel.expireEntries(Number.POSITIVE_INFINITY); // Expires all.
   }
 }

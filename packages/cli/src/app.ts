@@ -7,12 +7,12 @@
 */
 
 import assert from "node:assert";
-import path from "node:path";
 import { type InjectManifestOptions, injectManifest } from "@serwist/build";
 import type { WatchOptions } from "chokidar";
 import { default as chokidar } from "chokidar";
 import type { Result as MeowResult } from "meow";
 import prettyBytes from "pretty-bytes";
+import upath from "upath";
 
 import type { SupportedFlags } from "./bin.js";
 import { constants } from "./lib/constants.js";
@@ -53,7 +53,7 @@ const runBuildCommand = async ({ config, watch }: BuildCommand) => {
   if (watch) {
     logger.log("\nWatching for changes...");
   }
-}
+};
 
 export const app = async (params: MeowResult<SupportedFlags>): Promise<void> => {
   // This should not be a user-visible error, unless meow() messes something up.
@@ -69,7 +69,7 @@ export const app = async (params: MeowResult<SupportedFlags>): Promise<void> => 
     }
 
     case "inject-manifest": {
-      const configPath = path.resolve(process.cwd(), option || constants.defaultConfigFile);
+      const configPath = upath.resolve(process.cwd(), option || constants.defaultConfigFile);
 
       let config: InjectManifestOptions | null;
       try {

@@ -7,9 +7,9 @@ import type { RuntimeCaching } from "@serwist/sw";
 import {
   base as basePath,
   build as immutableAssets,
-  files as staticAssets,
   prerendered as prerenderedRoutes,
   version as serviceWorkerVersion,
+  files as staticAssets,
 } from "$service-worker";
 
 export { basePath, immutableAssets, staticAssets, prerenderedRoutes, serviceWorkerVersion };

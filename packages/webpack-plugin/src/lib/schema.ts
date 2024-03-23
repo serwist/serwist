@@ -1,4 +1,4 @@
-import { basePartial, injectPartial as baseInjectPartial, optionalSwDestPartial } from "@serwist/build/schema";
+import { injectPartial as baseInjectPartial, basePartial, optionalSwDestPartial } from "@serwist/build/schema";
 import { z } from "zod";
 
 export const webpackPartial = z

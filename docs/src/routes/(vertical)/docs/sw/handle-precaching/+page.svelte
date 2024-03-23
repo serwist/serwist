@@ -6,26 +6,18 @@
 </script>
 
 <h1>handlePrecaching</h1>
-<br /><br />
 <h2>First added</h2>
-<br />
 <p>8.0.0</p>
-<br /><br />
 <h2>About</h2>
-<br />
 <p>Handles a list of precache entries and cleans up outdated caches.</p>
-<br /><br />
 <h2>How it works</h2>
-<br />
 <p>
   It calls <InlineCode>@serwist/precaching.precacheAndRoute</InlineCode> on the list of precache entries,
   <InlineCode>@serwist/precaching.cleanupOutdatedCaches</InlineCode>, and
   <InlineCode>@serwist/routing.registerRoute</InlineCode> on the
   <InlineCode>navigateFallback</InlineCode> URL.
 </p>
-<br /><br />
 <h2>Options</h2>
-<br />
 <ul class="list">
   <li>
     <InlineCode>precacheEntries</InlineCode> — A list of precache entries.
@@ -48,7 +40,5 @@
     takes precedence over <InlineCode>navigateFallbackAllowlist</InlineCode>.
   </li>
 </ul>
-<br /><br />
 <h2>Usage</h2>
-<br />
 <CodeTab codes={data.code.usage} defaultTab="sw.ts" />

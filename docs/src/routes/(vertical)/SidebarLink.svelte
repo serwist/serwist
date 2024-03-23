@@ -1,25 +1,18 @@
-<script lang="ts" context="module">
-  export interface SidebarLinkProps {
-    title: string;
-    href: string;
-    children?: SidebarLinkProps[];
-  }
-</script>
-
 <script lang="ts">
   import { page } from "$app/stores";
   import ChevronRight from "$components/icons/ChevronRight.svelte";
   import NavLink from "$components/layouts/NavLink.svelte";
   import { clsx } from "$lib/clsx";
+  import type { SidebarLink as SidebarLinkProps } from "$lib/types";
 
-  const { title, href, children } = $props<SidebarLinkProps>();
+  const { title, href, children }: SidebarLinkProps = $props();
   const isActive = $derived(href === $page.url.pathname || href === `${$page.url.pathname}/`);
 </script>
 
 <li class="flex flex-col pt-2">
   {#snippet navLink()}
     <NavLink {href} textCenter={false} {isActive}>
-      {title}
+      {title} {isActive}
     </NavLink>
   {/snippet}
   {#if children}

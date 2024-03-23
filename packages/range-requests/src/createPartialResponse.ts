@@ -27,7 +27,7 @@ import { parseRangeHeader } from "./utils/parseRangeHeader.js";
  * `Range:` header, or a `416 Range Not Satisfiable` response if the
  * conditions of the `Range:` header can't be met.
  */
-async function createPartialResponse(request: Request, originalResponse: Response): Promise<Response> {
+export const createPartialResponse = async (request: Request, originalResponse: Response): Promise<Response> => {
   try {
     if (process.env.NODE_ENV !== "production") {
       assert!.isInstance(request, Request, {
@@ -89,6 +89,4 @@ async function createPartialResponse(request: Request, originalResponse: Respons
       statusText: "Range Not Satisfiable",
     });
   }
-}
-
-export { createPartialResponse };
+};

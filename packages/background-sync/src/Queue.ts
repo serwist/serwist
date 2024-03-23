@@ -18,9 +18,7 @@ interface OnSyncCallbackOptions {
   queue: Queue;
 }
 
-interface OnSyncCallback {
-  (options: OnSyncCallbackOptions): void | Promise<void>;
-}
+type OnSyncCallback = (options: OnSyncCallbackOptions) => void | Promise<void>;
 
 export interface QueueOptions {
   /**

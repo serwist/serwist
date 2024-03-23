@@ -6,27 +6,19 @@
 </script>
 
 <h1>registerRuntimeCaching</h1>
-<br /><br />
 <h2>First added</h2>
-<br />
 <p>8.0.0</p>
-<br /><br />
 <h2>About</h2>
-<br />
 <p>
   Registers caching strategies to a singleton Router instance. It is a simple syntatic sugar for
   <InlineCode>@serwist/routing.registerRoute</InlineCode>.
 </p>
-<br /><br />
 <h2>Parameters</h2>
-<br />
 <ul class="list">
   <li>
     <InlineCode>...runtimeCachingList</InlineCode> — A list of
     <InlineCode>RuntimeCaching</InlineCode> entries.
   </li>
 </ul>
-<br /><br />
 <h2>Usage</h2>
-<br />
 <CodeTab codes={data.code.usage} defaultTab="sw.ts" />

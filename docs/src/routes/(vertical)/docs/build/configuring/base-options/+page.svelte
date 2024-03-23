@@ -3,11 +3,8 @@
 </script>
 
 <h1>Configuring</h1>
-<br /><br />
 <h2>Available options</h2>
-<br />
 <p>There are various options you can use to customize <InlineCode>@serwist/build</InlineCode>'s behaviour:</p>
-<br />
 <ul class="list">
   <li>
     <InlineCode>

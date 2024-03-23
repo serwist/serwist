@@ -3,20 +3,8 @@
   "version": "9.0.0-preview.14",
   "type": "module",
   "description": "A plugin for your webpack build process, helping you generate a manifest of local files that should be precached.",
-  "files": [
-    "src",
-    "dist"
-  ],
-  "keywords": [
-    "serwist",
-    "serwistjs",
-    "webpack",
-    "service worker",
-    "caching",
-    "fetch requests",
-    "offline",
-    "file manifest"
-  ],
+  "files": ["src", "dist"],
+  "keywords": ["serwist", "serwistjs", "webpack", "service worker", "caching", "fetch requests", "offline", "file manifest"],
   "engines": {
     "node": ">=18.0.0"
   },
@@ -29,12 +17,8 @@
   "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
-      "internal": [
-        "./dist/index.internal.d.ts"
-      ],
-      "schema": [
-        "./dist/index.schema.d.ts"
-      ]
+      "internal": ["./dist/index.internal.d.ts"],
+      "schema": ["./dist/index.schema.d.ts"]
     }
   },
   "exports": {
@@ -67,11 +51,11 @@
   "devDependencies": {
     "@serwist/constants": "workspace:*",
     "@serwist/utils": "workspace:*",
-    "@types/node": "20.11.26",
+    "@types/node": "20.11.30",
     "@types/webpack": "5.28.5",
     "rollup": "4.13.0",
-    "typescript": "5.5.0-dev.20240312",
-    "webpack": "5.90.3"
+    "typescript": "5.5.0-dev.20240323",
+    "webpack": "5.91.0"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0",

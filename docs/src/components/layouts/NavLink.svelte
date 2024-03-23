@@ -12,7 +12,7 @@
     button?: Snippet<[]>;
   }
 
-  const { href, isActive = false, wideText = false, textCenter = true, children, button, ...props } = $props<NavLinkProps>();
+  const { href, isActive = false, wideText = false, textCenter = true, children, button, ...props }: NavLinkProps = $props();
 </script>
 
 <span

@@ -3,7 +3,7 @@
   "compilerOptions": {
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": false,
-    "module": "NodeNext",
+    "module": "NodeNext"
   },
   "include": ["globals.d.ts", "**/*.ts", "**/*.js"],
   "exclude": ["dist", "node_modules"]
