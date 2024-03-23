@@ -3,17 +3,23 @@
   import ChevronRight from "$components/icons/ChevronRight.svelte";
   import VerticalNavbar from "$components/layouts/VerticalNavbar.svelte";
   import { clsx } from "$lib/clsx";
+  import type { SidebarLink as SidebarLinkProps } from "$lib/types";
 
   import SidebarLink from "./SidebarLink.svelte";
+  import { BLOG_ENTRIES } from "./blog/$layout.constants";
+  import { DOCS_SIDEBAR_LINKS } from "./docs/$layout.constants";
 
-  const sidebarLinks = $derived($page.data.sidebar);
+  const sidebarLinks = $derived(
+    $page.url.pathname.startsWith("/blog")
+      ? BLOG_ENTRIES.map(({ title, href }) => ({ title: title.content, href }) satisfies SidebarLinkProps)
+      : DOCS_SIDEBAR_LINKS
+  );
   const { children } = $props();
-  let mobileMenu = $state<HTMLDetailsElement | undefined>(undefined);
+  let sidebarDetails = $state<HTMLDetailsElement | undefined>(undefined);
 
   $effect(() => {
-    $page.url.pathname;
-    if (mobileMenu) {
-      mobileMenu.open = false;
+    if (sidebarDetails && window.innerWidth >= 1280) {
+      sidebarDetails.open = true;
     }
   });
 </script>
@@ -30,13 +36,14 @@
   >
     <VerticalNavbar />
     {#if sidebarLinks && sidebarLinks.length > 0}
-      <details bind:this={mobileMenu} id="sidebar-mobile-menu" class="details-anim overflow-y-auto md:hidden">
-        <summary class="z-20 flex h-fit w-full flex-row items-center justify-start gap-2 p-3 text-black duration-100 md:hidden dark:text-white">
+      <details bind:this={sidebarDetails} id="sidebar-mobile-menu" class="overflow-y-auto">
+        <summary
+          class="z-20 mt-[5px] flex h-fit w-full flex-row items-center justify-start gap-2 px-3 py-2 text-base font-medium text-black duration-100 md:text-sm dark:text-white"
+        >
           Menu
           <ChevronRight class="details-chevron transition-transform duration-100" width={18} height={18} />
         </summary>
-        <!-- Mobile sidebar -->
-        <aside class="self-stretch pb-4 md:py-4 md:pb-0">
+        <aside class="self-stretch pb-4 md:pb-0">
           <ul>
             {#each sidebarLinks as sidebarLink}
               <SidebarLink {...sidebarLink} />
@@ -44,14 +51,6 @@
           </ul>
         </aside>
       </details>
-      <!-- Desktop sidebar -->
-      <aside class="hidden self-stretch overflow-y-auto pb-4 md:block md:py-4 md:pb-0">
-        <ul>
-          {#each sidebarLinks as sidebarLink}
-            <SidebarLink {...sidebarLink} />
-          {/each}
-        </ul>
-      </aside>
     {/if}
   </div>
   {@render children()}

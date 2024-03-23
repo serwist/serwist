@@ -9,16 +9,13 @@
   const isActive = $derived(href === $page.url.pathname || href === `${$page.url.pathname}/`);
 </script>
 
-<li class="flex flex-col pt-2">
-  {#snippet navLink()}
-    <NavLink {href} textCenter={false} {isActive}>
-      {title} {isActive}
-    </NavLink>
-  {/snippet}
+<li class="flex flex-col pt-[5px]">
   {#if children}
     <details open={$page.url.pathname.startsWith(href)} class="[&[open]>summary>div>svg]:rotate-90">
       <summary class={clsx("flex flex-row", isActive && "[&>span]:rounded-e-none")}>
-        {@render navLink()}
+        <NavLink {href} textCenter={false} {isActive}>
+          {title}
+        </NavLink>
         <div
           class={clsx(
             "flex items-center px-1 text-black transition-all duration-100 dark:text-white",
@@ -45,6 +42,8 @@
       </div>
     </details>
   {:else}
-    {@render navLink()}
+    <NavLink {href} textCenter={false} {isActive}>
+      {title}
+    </NavLink>
   {/if}
 </li>
