@@ -1,10 +1,23 @@
 {
   "name": "@serwist/range-requests",
-  "version": "9.0.0-preview.14",
+  "version": "9.0.0-preview.15",
   "type": "module",
   "description": "This library creates a new Response, given a source Response and a Range header value.",
-  "files": ["src", "dist"],
-  "keywords": ["serwist", "serwistjs", "service worker", "sw", "caching", "cache", "range", "media", "serwist-plugin"],
+  "files": [
+    "src",
+    "dist"
+  ],
+  "keywords": [
+    "serwist",
+    "serwistjs",
+    "service worker",
+    "sw",
+    "caching",
+    "cache",
+    "range",
+    "media",
+    "serwist-plugin"
+  ],
   "author": "Google's Web DevRel Team, Serwist's Team",
   "license": "MIT",
   "repository": "serwist/serwist",

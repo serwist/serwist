@@ -1,5 +1,12 @@
 # @serwist/build
 
+## 9.0.0-preview.15
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/core@9.0.0-preview.15
+
 ## 9.0.0-preview.14
 
 ### Patch Changes

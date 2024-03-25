@@ -1,10 +1,18 @@
 {
   "name": "@serwist/sw",
-  "version": "9.0.0-preview.14",
+  "version": "9.0.0-preview.15",
   "type": "module",
   "description": "A module that makes it easy to get started with the Serwist service worker libraries.",
-  "files": ["src", "dist"],
-  "keywords": ["serwist", "serwistjs", "service worker", "sw"],
+  "files": [
+    "src",
+    "dist"
+  ],
+  "keywords": [
+    "serwist",
+    "serwistjs",
+    "service worker",
+    "sw"
+  ],
   "author": "Google's Web DevRel Team, Serwist's Team",
   "license": "MIT",
   "repository": "serwist/serwist",
@@ -14,8 +22,12 @@
   "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
-      "plugins": ["./dist/index.plugins.d.ts"],
-      "strategies": ["./dist/index.strategies.d.ts"]
+      "plugins": [
+        "./dist/index.plugins.d.ts"
+      ],
+      "strategies": [
+        "./dist/index.strategies.d.ts"
+      ]
     }
   },
   "exports": {

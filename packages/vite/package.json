@@ -1,9 +1,12 @@
 {
   "name": "@serwist/vite",
-  "version": "9.0.0-preview.14",
+  "version": "9.0.0-preview.15",
   "type": "module",
   "description": "A module that integrates Serwist into your Vite application.",
-  "files": ["src", "dist"],
+  "files": [
+    "src",
+    "dist"
+  ],
   "keywords": [
     "react",
     "remix",
@@ -35,9 +38,15 @@
   "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
-      "browser": ["./dist/index.browser.d.ts"],
-      "worker": ["./dist/index.worker.d.ts"],
-      "schema": ["./dist/index.schema.d.ts"]
+      "browser": [
+        "./dist/index.browser.d.ts"
+      ],
+      "worker": [
+        "./dist/index.worker.d.ts"
+      ],
+      "schema": [
+        "./dist/index.schema.d.ts"
+      ]
     }
   },
   "exports": {

@@ -1,5 +1,16 @@
 # @serwist/vite
 
+## 9.0.0-preview.15
+
+### Patch Changes
+
+- Updated dependencies [[`c47a8b2`](https://github.com/serwist/serwist/commit/c47a8b27c0dcd4fad4195b15eb7bd7b0a7c234c8)]:
+  - @serwist/expiration@9.0.0-preview.15
+  - @serwist/sw@9.0.0-preview.15
+  - @serwist/build@9.0.0-preview.15
+  - @serwist/strategies@9.0.0-preview.15
+  - @serwist/window@9.0.0-preview.15
+
 ## 9.0.0-preview.14
 
 ### Patch Changes
