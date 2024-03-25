@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert, SerwistError, dontWaitFor, logger } from "@serwist/core/internal";
+import { assert, SerwistError, logger } from "@serwist/core/internal";
 
 import { CacheTimestampsModel } from "./models/CacheTimestampsModel.js";
 
@@ -131,10 +131,10 @@ export class CacheExpiration {
     this._isRunning = false;
     if (this._rerunRequested) {
       this._rerunRequested = false;
-      dontWaitFor(this.expireEntries());
+      void this.expireEntries();
     }
   }
-
+  
   /**
    * Updates the timestamp for the given URL, allowing it to be correctly
    * tracked by the class.

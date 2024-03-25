@@ -6,9 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { SerwistPlugin } from "@serwist/core";
+import type { CacheDidUpdateCallbackParam, CachedResponseWillBeUsedCallbackParam, SerwistPlugin } from "@serwist/core";
 import { registerQuotaErrorCallback } from "@serwist/core";
-import { assert, SerwistError, dontWaitFor, getFriendlyURL, logger, privateCacheNames } from "@serwist/core/internal";
+import { assert, SerwistError, getFriendlyURL, logger, privateCacheNames } from "@serwist/core/internal";
 
 import { CacheExpiration } from "./CacheExpiration.js";
 
@@ -19,9 +19,16 @@ export interface ExpirationPluginOptions {
    */
   maxEntries?: number;
   /**
-   * The maximum age of an entry before it's treated as stale and removed.
+   * The maximum number of seconds before an entry is treated as stale and removed.
    */
   maxAgeSeconds?: number;
+  /**
+   * Determines whether `maxAgeSeconds` should be calculated from when an
+   * entry was last fetched or when it was last used.
+   * 
+   * @default "lastFetched"
+   */
+  maxAgeFrom?: "lastFetched" | "lastUsed";
   /**
    * The [`CacheQueryOptions`](https://developer.mozilla.org/en-US/docs/Web/API/Cache/delete#Parameters)
    * that will be used when calling `delete()` on the cache.
@@ -56,7 +63,6 @@ export interface ExpirationPluginOptions {
  */
 export class ExpirationPlugin implements SerwistPlugin {
   private readonly _config: ExpirationPluginOptions;
-  private readonly _maxAgeSeconds?: number;
   private _cacheExpirations: Map<string, CacheExpiration>;
 
   /**
@@ -67,7 +73,7 @@ export class ExpirationPlugin implements SerwistPlugin {
       if (!(config.maxEntries || config.maxAgeSeconds)) {
         throw new SerwistError("max-entries-or-age-required", {
           moduleName: "@serwist/expiration",
-          className: "Plugin",
+          className: "ExpirationPlugin",
           funcName: "constructor",
         });
       }
@@ -75,7 +81,7 @@ export class ExpirationPlugin implements SerwistPlugin {
       if (config.maxEntries) {
         assert!.isType(config.maxEntries, "number", {
           moduleName: "@serwist/expiration",
-          className: "Plugin",
+          className: "ExpirationPlugin",
           funcName: "constructor",
           paramName: "config.maxEntries",
         });
@@ -84,18 +90,30 @@ export class ExpirationPlugin implements SerwistPlugin {
       if (config.maxAgeSeconds) {
         assert!.isType(config.maxAgeSeconds, "number", {
           moduleName: "@serwist/expiration",
-          className: "Plugin",
+          className: "ExpirationPlugin",
           funcName: "constructor",
           paramName: "config.maxAgeSeconds",
+        });
+      }
+
+      if (config.maxAgeFrom) {
+        assert!.isType(config.maxAgeFrom, "string", {
+          moduleName: "@serwist/expiration",
+          className: "ExpirationPlugin",
+          funcName: "constructor",
+          paramName: "config.maxAgeFrom",
         });
       }
     }
 
     this._config = config;
-    this._maxAgeSeconds = config.maxAgeSeconds;
     this._cacheExpirations = new Map();
 
-    if (config.purgeOnQuotaError) {
+    if (!this._config.maxAgeFrom) {
+      this._config.maxAgeFrom = "lastFetched";
+    }
+
+    if (this._config.purgeOnQuotaError) {
       registerQuotaErrorCallback(() => this.deleteCacheAndMetadata());
     }
   }
@@ -130,11 +148,11 @@ export class ExpirationPlugin implements SerwistPlugin {
    * older than the configured `maxAgeSeconds`.
    *
    * @param options
-   * @returns Either the `cachedResponse`, if it's fresh, or `null` if the `Response`
-   * is older than `maxAgeSeconds`.
+   * @returns `cachedResponse` if it is fresh and `null` if it is stale or
+   * not available.
    * @private
    */
-  cachedResponseWillBeUsed: SerwistPlugin["cachedResponseWillBeUsed"] = async ({ event, request, cacheName, cachedResponse }) => {
+  cachedResponseWillBeUsed({ event, cacheName, request, cachedResponse }: CachedResponseWillBeUsedCallbackParam) {
     if (!cachedResponse) {
       return null;
     }
@@ -144,28 +162,32 @@ export class ExpirationPlugin implements SerwistPlugin {
     // Expire entries to ensure that even if the expiration date has
     // expired, it'll only be used once.
     const cacheExpiration = this._getCacheExpiration(cacheName);
-    dontWaitFor(cacheExpiration.expireEntries());
 
-    // Update the metadata for the request URL to the current timestamp,
-    // but don't `await` it as we don't want to block the response.
-    const updateTimestampDone = cacheExpiration.updateTimestamp(request.url);
-    if (event) {
-      try {
-        event.waitUntil(updateTimestampDone);
-      } catch (error) {
-        if (process.env.NODE_ENV !== "production") {
-          // The event may not be a fetch event; only log the URL if it is.
-          if ("request" in event) {
-            logger.warn(
-              `Unable to ensure service worker stays alive when updating cache entry for '${getFriendlyURL((event as FetchEvent).request.url)}'.`,
-            );
-          }
+    const isMaxAgeFromLastUsed = this._config.maxAgeFrom === "lastUsed";
+
+    const done = (async () => {
+      // Update the metadata for the request URL to the current timestamp.
+      // Only applies if `maxAgeFrom` is `"lastUsed"`, since the current
+      // lifecycle callback is `cachedResponseWillBeUsed`.
+      // This needs to be called before `expireEntries()` so as to avoid
+      // this URL being marked as expired.
+      if (isMaxAgeFromLastUsed) {
+        await cacheExpiration.updateTimestamp(request.url);
+      }
+      await cacheExpiration.expireEntries();
+    })();
+    try {
+      event.waitUntil(done);
+    } catch (error) {
+      if (process.env.NODE_ENV !== "production") {
+        if (event instanceof FetchEvent) {
+          logger.warn(`Unable to ensure service worker stays alive when updating cache entry for '${getFriendlyURL(event.request.url)}'.`);
         }
       }
     }
 
     return isFresh ? cachedResponse : null;
-  };
+  }
 
   /**
    * @param cachedResponse
@@ -173,12 +195,17 @@ export class ExpirationPlugin implements SerwistPlugin {
    * @private
    */
   private _isResponseDateFresh(cachedResponse: Response): boolean {
-    if (!this._maxAgeSeconds) {
-      // We aren't expiring by age, so return true, it's fresh
+    const isMaxAgeFromLastUsed = this._config.maxAgeFrom === "lastUsed";
+    // If `maxAgeFrom` is `"lastUsed"`, the `Date` header doesn't really
+    // matter since it is about when the response was created.
+    if (isMaxAgeFromLastUsed) {
       return true;
     }
-
-    // Check if the 'date' header will suffice a quick expiration check.
+    const now = Date.now();
+    if (!this._config.maxAgeSeconds) {
+      return true;
+    }
+    // Check if the `Date` header will suffice a quick expiration check.
     // See https://github.com/GoogleChromeLabs/sw-toolbox/issues/164 for
     // discussion.
     const dateHeaderTimestamp = this._getDateHeaderTimestamp(cachedResponse);
@@ -186,16 +213,13 @@ export class ExpirationPlugin implements SerwistPlugin {
       // Unable to parse date, so assume it's fresh.
       return true;
     }
-
-    // If we have a valid headerTime, then our response is fresh iff the
+    // If we have a valid headerTime, then our response is fresh if the
     // headerTime plus maxAgeSeconds is greater than the current time.
-    const now = Date.now();
-    return dateHeaderTimestamp >= now - this._maxAgeSeconds * 1000;
+    return dateHeaderTimestamp >= now - this._config.maxAgeSeconds * 1000;
   }
 
   /**
-   * This method will extract the data header and parse it into a useful
-   * value.
+   * Extracts the `Date` header and parse it into an useful value.
    *
    * @param cachedResponse
    * @returns
@@ -206,11 +230,11 @@ export class ExpirationPlugin implements SerwistPlugin {
       return null;
     }
 
-    const dateHeader = cachedResponse.headers.get("date");
-    const parsedDate = new Date(dateHeader!);
+    const dateHeader = cachedResponse.headers.get("date")!;
+    const parsedDate = new Date(dateHeader);
     const headerTime = parsedDate.getTime();
 
-    // If the Date header was invalid for some reason, parsedDate.getTime()
+    // If the `Date` header is invalid for some reason, `parsedDate.getTime()`
     // will return NaN.
     if (Number.isNaN(headerTime)) {
       return null;
@@ -226,7 +250,7 @@ export class ExpirationPlugin implements SerwistPlugin {
    * @param options
    * @private
    */
-  cacheDidUpdate: SerwistPlugin["cacheDidUpdate"] = async ({ cacheName, request }) => {
+  async cacheDidUpdate({ cacheName, request }: CacheDidUpdateCallbackParam) {
     if (process.env.NODE_ENV !== "production") {
       assert!.isType(cacheName, "string", {
         moduleName: "@serwist/expiration",
@@ -245,7 +269,7 @@ export class ExpirationPlugin implements SerwistPlugin {
     const cacheExpiration = this._getCacheExpiration(cacheName);
     await cacheExpiration.updateTimestamp(request.url);
     await cacheExpiration.expireEntries();
-  };
+  }
 
   /**
    * Deletes the underlying `Cache` instance associated with this instance and the metadata

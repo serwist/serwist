@@ -38,10 +38,10 @@
     @apply text-3xl font-semibold leading-10 tracking-tight;
   }
   h3 {
-    @apply text-2xl leading-7 tracking-tight;
+    @apply text-2xl font-semibold leading-7 tracking-tight;
   }
   h4 {
-    @apply text-xl leading-5 tracking-tight;
+    @apply text-xl font-medium leading-5 tracking-tight;
   }
   .prose h1:not(:where([class~="not-prose"] *)) {
     @apply mb-6;
@@ -49,10 +49,7 @@
   .prose h2:not(:where([class~="not-prose"] *)) {
     @apply mt-6 mb-3;
   }
-  .prose h3:not(:where([class~="not-prose"] *)) {
-    @apply mt-4 mb-3;
-  }
-  .prose p:not(:where([class~="not-prose"] *)) {
+  .prose :where(h3, h4, p,video):not(:where([class~="not-prose"] *)) {
     @apply my-3;
   }
   details > summary {
@@ -132,6 +129,16 @@
   html[data-theme="dark"] .visible-light {
     @apply !invisible !hidden;
   }
+  .square-conic {
+		@apply flex items-center justify-center overflow-hidden rounded-xl shadow-lg;
+
+		@apply before:absolute before:-z-10 before:h-[200%] before:w-[200%] before:animate-[spin_6s_linear_reverse_infinite] before:bg-gradient-conic;
+		@apply before:from-transparent before:content-[''] before:dark:opacity-50;
+		@apply before:via-black after:content-[''] before:dark:via-white before:dark:to-transparent;
+
+		@apply after:absolute after:inset-[1px] after:-z-10 after:rounded-xl;
+		@apply after:bg-gradient-to-br after:from-slate-50 after:to-slate-200  after:dark:from-black after:dark:to-black;
+	}
 }
 
 @media (prefers-reduced-motion) {

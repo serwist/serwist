@@ -9,7 +9,7 @@
  * A helper function that prevents a promise from being flagged as unused.
  *
  * @private
- **/
+ */
 export function dontWaitFor(promise: Promise<any>): void {
   // Effective no-op.
   void promise.then(() => {});

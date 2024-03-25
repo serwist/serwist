@@ -15,6 +15,7 @@ export const defaultCache: RuntimeCaching[] = [
         new ExpirationPlugin({
           maxEntries: 4,
           maxAgeSeconds: 365 * 24 * 60 * 60, // 365 days
+          maxAgeFrom: "lastUsed",
         }),
       ],
     }),
@@ -27,6 +28,7 @@ export const defaultCache: RuntimeCaching[] = [
         new ExpirationPlugin({
           maxEntries: 4,
           maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+          maxAgeFrom: "lastUsed",
         }),
       ],
     }),
@@ -39,6 +41,7 @@ export const defaultCache: RuntimeCaching[] = [
         new ExpirationPlugin({
           maxEntries: 4,
           maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+          maxAgeFrom: "lastUsed",
         }),
       ],
     }),
@@ -51,6 +54,7 @@ export const defaultCache: RuntimeCaching[] = [
         new ExpirationPlugin({
           maxEntries: 64,
           maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
+          maxAgeFrom: "lastUsed",
         }),
       ],
     }),
@@ -63,6 +67,7 @@ export const defaultCache: RuntimeCaching[] = [
         new ExpirationPlugin({
           maxEntries: 64,
           maxAgeSeconds: 24 * 60 * 60, // 24 hours
+          maxAgeFrom: "lastUsed",
         }),
       ],
     }),
@@ -75,6 +80,7 @@ export const defaultCache: RuntimeCaching[] = [
         new ExpirationPlugin({
           maxEntries: 64,
           maxAgeSeconds: 24 * 60 * 60, // 24 hours
+          maxAgeFrom: "lastUsed",
         }),
       ],
     }),
@@ -87,6 +93,7 @@ export const defaultCache: RuntimeCaching[] = [
         new ExpirationPlugin({
           maxEntries: 32,
           maxAgeSeconds: 24 * 60 * 60, // 24 hours
+          maxAgeFrom: "lastUsed",
         }),
         new RangeRequestsPlugin(),
       ],
@@ -100,6 +107,7 @@ export const defaultCache: RuntimeCaching[] = [
         new ExpirationPlugin({
           maxEntries: 32,
           maxAgeSeconds: 24 * 60 * 60, // 24 hours
+          maxAgeFrom: "lastUsed",
         }),
         new RangeRequestsPlugin(),
       ],
@@ -113,6 +121,7 @@ export const defaultCache: RuntimeCaching[] = [
         new ExpirationPlugin({
           maxEntries: 48,
           maxAgeSeconds: 24 * 60 * 60, // 24 hours
+          maxAgeFrom: "lastUsed",
         }),
       ],
     }),
@@ -125,6 +134,7 @@ export const defaultCache: RuntimeCaching[] = [
         new ExpirationPlugin({
           maxEntries: 32,
           maxAgeSeconds: 24 * 60 * 60, // 24 hours
+          maxAgeFrom: "lastUsed",
         }),
       ],
     }),
@@ -137,6 +147,7 @@ export const defaultCache: RuntimeCaching[] = [
         new ExpirationPlugin({
           maxEntries: 32,
           maxAgeSeconds: 24 * 60 * 60, // 24 hours
+          maxAgeFrom: "lastUsed",
         }),
       ],
     }),
@@ -149,15 +160,20 @@ export const defaultCache: RuntimeCaching[] = [
         new ExpirationPlugin({
           maxEntries: 32,
           maxAgeSeconds: 24 * 60 * 60, // 24 hours
+          maxAgeFrom: "lastUsed",
         }),
       ],
     }),
   },
   {
     matcher: ({ sameOrigin, url: { pathname } }) => {
-      // Exclude /api/auth/callback/* to fix OAuth workflow in Safari without having an impact on other environments
-      // The above route is the default for next-auth, you may need to change it if your OAuth workflow has a different callback route
+      // Exclude /api/auth/callback/* to fix OAuth workflow in Safari without having
+      // an impact on other environments
+      // The above route is the default for next-auth, you may need to change it if 
+      // your OAuth workflow has a different callback route.
       // Issue: https://github.com/shadowwalker/next-pwa/issues/131#issuecomment-821894809
+      // TODO(ducanhgh): Investigate Auth.js's "/api/auth/*" failing when we allow them
+      // to be cached (the current behaviour).
       if (!sameOrigin || pathname.startsWith("/api/auth/callback")) {
         return false;
       }
@@ -175,6 +191,7 @@ export const defaultCache: RuntimeCaching[] = [
         new ExpirationPlugin({
           maxEntries: 16,
           maxAgeSeconds: 24 * 60 * 60, // 24 hours
+          maxAgeFrom: "lastUsed",
         }),
       ],
       networkTimeoutSeconds: 10, // fallback to cache if API does not response within 10 seconds

@@ -12,9 +12,9 @@
 <h2 id="misc">Misc changes</h2>
 <h3 id="dropped-the-commonjs-build">Dropped the CommonJS build</h3>
 <p>
-  This was done because our tooling around supporting CJS had always been crappy: it was slow, had no way of supporting emitting .d.cts (we used to
-  copy .d.ts to .d.cts), was too error-prone (there were various issues of our builds crashing due to an ESM-only package slipping in), and yielded
-  gargantuan results (we had to bundle ESM-only packages).
+  This was done because our tooling around supporting CJS had always been crappy: it was slow, had no way of supporting emitting ".d.cts" files (we
+  used to duplicate ".d.ts" files as ".d.cts" ones), was too error-prone (there were various occasions in which our builds don't work for CommonJS due
+  to ESM-only packages slipping in through imports), and yielded gargantuan results (we had to manually list and bundle ESM-only packages).
 </p>
 <div>
   <p>If you already use ESM, there's nothing to be done. Great! Otherwise, to migrate:</p>
@@ -47,4 +47,17 @@
 <p>
   Serwist now ships TS source files and declaration maps alongside bundled code. This allows you to read the source code without the hassle of having
   to go to GitHub and navigate through the files.
+</p>
+<video class="rounded-xl" muted controls src="/2024-03-10-serwist-v9-ship-ts-source.mp4" />
+<h2 id="service-worker-packages-changes">Service worker packages' changes</h2>
+<h2 id="build-packages-changes">Build packages' changes</h2>
+<h3 id="webpack-plugin">@serwist/webpack-plugin</h3>
+<h4 id="webpack-plugin-removed-mode">Removed mode</h4>
+<p>This option was already a no-op before that, so this simply removes it from the types.</p>
+<p>To migrate, just remove mode from your options.</p>
+<h4>Allow webpack to be an optional peerDependency</h4>
+<p>Since we support frameworks that ship a prebundled webpack, such as Next.js, it would be nice if we can take advantage of that as well.</p>
+<p>
+  As a result, webpack is now an optional peerDependency for @serwist/webpack-plugin and is no longer a peerDependency for @serwist/next. Thanks to
+  the fact that we currently don't use any webpack plugin, it is also not indirectly installed.
 </p>

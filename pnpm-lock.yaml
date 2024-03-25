@@ -479,6 +479,9 @@ importers:
       '@serwist/sw':
         specifier: latest
         version: link:../../packages/sw
+      '@serwist/vite':
+        specifier: latest
+        version: link:../../packages/vite
       nuxt:
         specifier: 3.11.1
         version: 3.11.1(@types/node@20.11.30)(eslint@8.57.0)(typescript@5.5.0-dev.20240323)(vite@5.2.4)

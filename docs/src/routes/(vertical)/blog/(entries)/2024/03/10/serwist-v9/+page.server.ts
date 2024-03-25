@@ -25,6 +25,14 @@ export const load: PageServerLoad = ({ locals }) => ({
             },
           ],
         },
+        {
+          title: "Service worker packages' changes",
+          id: "service-worker-packages-changes",
+        },
+        {
+          title: "Build packages' changes",
+          id: "build-packages-changes",
+        },
       ],
     },
   ],

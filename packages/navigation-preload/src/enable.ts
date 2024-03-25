@@ -22,7 +22,7 @@ declare let self: ServiceWorkerGlobalScope;
  */
 export const enable = (headerValue?: string): void => {
   if (isSupported()) {
-    self.addEventListener("activate", (event: ExtendableEvent) => {
+    self.addEventListener("activate", (event) => {
       event.waitUntil(
         self.registration.navigationPreload.enable().then(() => {
           // Defaults to Service-Worker-Navigation-Preload: true if not set.
