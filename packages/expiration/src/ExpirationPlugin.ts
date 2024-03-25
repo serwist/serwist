@@ -26,9 +26,9 @@ export interface ExpirationPluginOptions {
    * Determines whether `maxAgeSeconds` should be calculated from when an
    * entry was last fetched or when it was last used.
    * 
-   * @default "lastFetched"
+   * @default "last-fetched"
    */
-  maxAgeFrom?: "lastFetched" | "lastUsed";
+  maxAgeFrom?: "last-fetched" | "last-used";
   /**
    * The [`CacheQueryOptions`](https://developer.mozilla.org/en-US/docs/Web/API/Cache/delete#Parameters)
    * that will be used when calling `delete()` on the cache.
@@ -110,7 +110,7 @@ export class ExpirationPlugin implements SerwistPlugin {
     this._cacheExpirations = new Map();
 
     if (!this._config.maxAgeFrom) {
-      this._config.maxAgeFrom = "lastFetched";
+      this._config.maxAgeFrom = "last-fetched";
     }
 
     if (this._config.purgeOnQuotaError) {
@@ -163,11 +163,11 @@ export class ExpirationPlugin implements SerwistPlugin {
     // expired, it'll only be used once.
     const cacheExpiration = this._getCacheExpiration(cacheName);
 
-    const isMaxAgeFromLastUsed = this._config.maxAgeFrom === "lastUsed";
+    const isMaxAgeFromLastUsed = this._config.maxAgeFrom === "last-used";
 
     const done = (async () => {
       // Update the metadata for the request URL to the current timestamp.
-      // Only applies if `maxAgeFrom` is `"lastUsed"`, since the current
+      // Only applies if `maxAgeFrom` is `"last-used"`, since the current
       // lifecycle callback is `cachedResponseWillBeUsed`.
       // This needs to be called before `expireEntries()` so as to avoid
       // this URL being marked as expired.
@@ -195,8 +195,8 @@ export class ExpirationPlugin implements SerwistPlugin {
    * @private
    */
   private _isResponseDateFresh(cachedResponse: Response): boolean {
-    const isMaxAgeFromLastUsed = this._config.maxAgeFrom === "lastUsed";
-    // If `maxAgeFrom` is `"lastUsed"`, the `Date` header doesn't really
+    const isMaxAgeFromLastUsed = this._config.maxAgeFrom === "last-used";
+    // If `maxAgeFrom` is `"last-used"`, the `Date` header doesn't really
     // matter since it is about when the response was created.
     if (isMaxAgeFromLastUsed) {
       return true;

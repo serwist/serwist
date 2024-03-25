@@ -11,7 +11,7 @@ export const defaultCache = [
         new ExpirationPlugin({
           maxEntries: 4,
           maxAgeSeconds: 365 * 24 * 60 * 60, // 365 days
-          maxAgeFrom: "lastUsed",
+          maxAgeFrom: "last-used",
         }),
       ],
     }),
@@ -24,7 +24,7 @@ export const defaultCache = [
         new ExpirationPlugin({
           maxEntries: 4,
           maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
-          maxAgeFrom: "lastUsed",
+          maxAgeFrom: "last-used",
         }),
       ],
     }),
@@ -37,7 +37,7 @@ export const defaultCache = [
         new ExpirationPlugin({
           maxEntries: 64,
           maxAgeSeconds: 24 * 60 * 60, // 24 hours
-          maxAgeFrom: "lastUsed",
+          maxAgeFrom: "last-used",
         }),
       ],
     }),
@@ -50,7 +50,7 @@ export const defaultCache = [
         new ExpirationPlugin({
           maxEntries: 32,
           maxAgeSeconds: 24 * 60 * 60, // 24 hours
-          maxAgeFrom: "lastUsed",
+          maxAgeFrom: "last-used",
         }),
       ],
     }),
@@ -63,7 +63,7 @@ export const defaultCache = [
         new ExpirationPlugin({
           maxEntries: 32,
           maxAgeSeconds: 24 * 60 * 60, // 24 hours
-          maxAgeFrom: "lastUsed",
+          maxAgeFrom: "last-used",
         }),
       ],
     }),
@@ -76,7 +76,7 @@ export const defaultCache = [
         new ExpirationPlugin({
           maxEntries: 32,
           maxAgeSeconds: 24 * 60 * 60, // 24 hours
-          maxAgeFrom: "lastUsed",
+          maxAgeFrom: "last-used",
         }),
       ],
     }),
@@ -90,7 +90,7 @@ export const defaultCache = [
         new ExpirationPlugin({
           maxEntries: 16,
           maxAgeSeconds: 24 * 60 * 60, // 24 hours
-          maxAgeFrom: "lastUsed",
+          maxAgeFrom: "last-used",
         }),
       ],
       networkTimeoutSeconds: 10, // fallback to cache if API does not response within 10 seconds
@@ -104,7 +104,7 @@ export const defaultCache = [
         new ExpirationPlugin({
           maxEntries: 32,
           maxAgeSeconds: 24 * 60 * 60, // 24 hours
-          maxAgeFrom: "lastUsed",
+          maxAgeFrom: "last-used",
         }),
       ],
       networkTimeoutSeconds: 10,
