@@ -1,10 +1,20 @@
 {
   "name": "@serwist/cli",
-  "version": "9.0.0-preview.14",
+  "version": "9.0.0-preview.15",
   "type": "module",
   "description": "The command line interface of Serwist.",
-  "files": ["dist"],
-  "keywords": ["serwist", "serwistjs", "service worker", "caching", "fetch requests", "offline", "cli"],
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "serwist",
+    "serwistjs",
+    "service worker",
+    "caching",
+    "fetch requests",
+    "offline",
+    "cli"
+  ],
   "engines": {
     "node": ">=18.0.0"
   },

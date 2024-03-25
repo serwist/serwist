@@ -1,10 +1,20 @@
 {
   "name": "@serwist/streams",
-  "version": "9.0.0-preview.14",
+  "version": "9.0.0-preview.15",
   "type": "module",
   "description": "A library that makes it easier to work with Streams in the browser.",
-  "files": ["src", "dist"],
-  "keywords": ["serwist", "serwistjs", "service worker", "sw", "streams", "readablestream"],
+  "files": [
+    "src",
+    "dist"
+  ],
+  "keywords": [
+    "serwist",
+    "serwistjs",
+    "service worker",
+    "sw",
+    "streams",
+    "readablestream"
+  ],
   "author": "Google's Web DevRel Team, Serwist's Team",
   "license": "MIT",
   "repository": "serwist/serwist",

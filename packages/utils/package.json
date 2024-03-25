@@ -1,11 +1,18 @@
 {
   "name": "@serwist/utils",
-  "version": "9.0.0-preview.14",
+  "version": "9.0.0-preview.15",
   "type": "module",
   "description": "This module contains utilities used by Serwist packages.",
   "private": true,
-  "files": ["src"],
-  "keywords": ["serwist", "serwistjs", "service worker", "sw"],
+  "files": [
+    "src"
+  ],
+  "keywords": [
+    "serwist",
+    "serwistjs",
+    "service worker",
+    "sw"
+  ],
   "author": "Serwist's Team",
   "license": "MIT",
   "repository": "serwist/serwist",

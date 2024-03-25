@@ -1,10 +1,20 @@
 {
   "name": "@serwist/routing",
-  "version": "9.0.0-preview.14",
+  "version": "9.0.0-preview.15",
   "type": "module",
   "description": "A service worker helper library to route request URLs to handlers.",
-  "files": ["src", "dist"],
-  "keywords": ["serwist", "serwistjs", "service worker", "sw", "router", "routing"],
+  "files": [
+    "src",
+    "dist"
+  ],
+  "keywords": [
+    "serwist",
+    "serwistjs",
+    "service worker",
+    "sw",
+    "router",
+    "routing"
+  ],
   "author": "Google's Web DevRel Team, Serwist's Team",
   "license": "MIT",
   "repository": "serwist/serwist",

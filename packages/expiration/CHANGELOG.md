@@ -1,5 +1,19 @@
 # @serwist/expiration
 
+## 9.0.0-preview.15
+
+### Minor Changes
+
+- [`c47a8b2`](https://github.com/serwist/serwist/commit/c47a8b27c0dcd4fad4195b15eb7bd7b0a7c234c8) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(expiration.ExpirationPlugin): added `maxAgeFrom`
+
+  - This allows you to decide whether `maxAgeSeconds` should be calculated from when an entry was last fetched or when it was last used.
+  - For more information, [see the original Workbox issue](https://github.com/GoogleChrome/workbox/issues/2863).
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/core@9.0.0-preview.15
+
 ## 9.0.0-preview.14
 
 ### Patch Changes
