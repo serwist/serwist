@@ -1,6 +1,6 @@
 {
   "name": "@serwist/next",
-  "version": "9.0.0-preview.15",
+  "version": "9.0.0-preview.16",
   "type": "module",
   "description": "A module that integrates Serwist into your Next.js application.",
   "files": [

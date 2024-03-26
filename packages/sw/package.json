@@ -1,6 +1,6 @@
 {
   "name": "@serwist/sw",
-  "version": "9.0.0-preview.15",
+  "version": "9.0.0-preview.16",
   "type": "module",
   "description": "A module that makes it easy to get started with the Serwist service worker libraries.",
   "files": [
