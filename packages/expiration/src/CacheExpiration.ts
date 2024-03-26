@@ -134,7 +134,7 @@ export class CacheExpiration {
       void this.expireEntries();
     }
   }
-  
+
   /**
    * Updates the timestamp for the given URL, allowing it to be correctly
    * tracked by the class.

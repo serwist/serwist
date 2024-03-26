@@ -2,7 +2,6 @@ import { clientsClaim as clientsClaimImpl, setCacheNameDetails } from "@serwist/
 import { type GoogleAnalyticsInitializeOptions, initialize } from "@serwist/google-analytics/initialize";
 import { enable } from "@serwist/navigation-preload";
 
-import { logger } from "@serwist/core/internal";
 import { disableDevLogs as disableDevLogsImpl } from "./disableDevLogs.js";
 import { fallbacks as fallbacksImpl } from "./fallbacks.js";
 import type { FallbacksOptions } from "./fallbacks.js";
@@ -133,17 +132,10 @@ export const installSerwist = ({
   }
 
   if (runtimeCaching !== undefined) {
-    if (!("__WB_FORCE_RUNTIME_CACHING" in globalThis)) {
-      self.__WB_FORCE_RUNTIME_CACHING = false;
+    if (fallbacks !== undefined) {
+      fallbacksImpl({ ...fallbacks, runtimeCaching });
     }
-    if (!self.__WB_FORCE_RUNTIME_CACHING && process.env.NODE_ENV !== "production") {
-      logger.log("runtimeCaching and fallbacks are disabled in development mode.");
-    } else {
-      if (fallbacks !== undefined) {
-        fallbacksImpl({ ...fallbacks, runtimeCaching });
-      }
-      registerRuntimeCaching(...runtimeCaching);
-    }
+    registerRuntimeCaching(...runtimeCaching);
   }
 
   if (disableDevLogs) disableDevLogsImpl();

@@ -1,8 +1,8 @@
 import type {
-  InjectPartial as BaseInjectPartial,
-  InjectResolved as BaseInjectResolved,
   BasePartial,
   BaseResolved,
+  InjectPartial as BaseInjectPartial,
+  InjectResolved as BaseInjectResolved,
   OptionalSwDestPartial,
   OptionalSwDestResolved,
 } from "@serwist/build";

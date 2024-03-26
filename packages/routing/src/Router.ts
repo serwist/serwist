@@ -158,7 +158,7 @@ export class Router {
     const url = new URL(request.url, location.href);
     if (!url.protocol.startsWith("http")) {
       if (process.env.NODE_ENV !== "production") {
-        logger.debug(`Serwist Router only supports URLs that start with 'http'.`);
+        logger.debug("The Serwist router only supports URLs that start with 'http'.");
       }
       return;
     }

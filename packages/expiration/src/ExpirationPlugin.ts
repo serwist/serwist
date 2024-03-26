@@ -25,7 +25,7 @@ export interface ExpirationPluginOptions {
   /**
    * Determines whether `maxAgeSeconds` should be calculated from when an
    * entry was last fetched or when it was last used.
-   * 
+   *
    * @default "last-fetched"
    */
   maxAgeFrom?: "last-fetched" | "last-used";

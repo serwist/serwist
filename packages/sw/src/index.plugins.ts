@@ -2,11 +2,11 @@ import type { QueueEntry, QueueOptions } from "@serwist/background-sync";
 import { BackgroundSyncPlugin, Queue, QueueStore, StorableRequest } from "@serwist/background-sync";
 import type { BroadcastCacheUpdateOptions, BroadcastMessage, BroadcastPayload, BroadcastPayloadGenerator } from "@serwist/broadcast-update";
 import {
-  defaultHeadersToCheck as BROADCAST_UPDATE_DEFAULT_HEADERS,
-  CACHE_UPDATED_MESSAGE_META as BROADCAST_UPDATE_MESSAGE_META,
-  CACHE_UPDATED_MESSAGE_TYPE as BROADCAST_UPDATE_MESSAGE_TYPE,
   BroadcastCacheUpdate,
   BroadcastUpdatePlugin,
+  CACHE_UPDATED_MESSAGE_META as BROADCAST_UPDATE_MESSAGE_META,
+  CACHE_UPDATED_MESSAGE_TYPE as BROADCAST_UPDATE_MESSAGE_TYPE,
+  defaultHeadersToCheck as BROADCAST_UPDATE_DEFAULT_HEADERS,
   responsesAreSame,
 } from "@serwist/broadcast-update";
 import type { CacheableResponseOptions } from "@serwist/cacheable-response";

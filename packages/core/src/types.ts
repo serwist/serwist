@@ -291,7 +291,17 @@ export interface SerwistPluginCallbackParam {
 }
 
 export interface SerwistGlobalConfig {
+  /**
+   * Whether Serwist should disable development logging.
+   *
+   * @default false
+   */
   __WB_DISABLE_DEV_LOGS: boolean;
-  __WB_FORCE_RUNTIME_CACHING: boolean;
+  /**
+   * The maximum number of files that Serwist should precache
+   * in concurrency.
+   *
+   * @default 1
+   */
   __WB_CONCURRENT_PRECACHING: number;
 }

@@ -16,7 +16,7 @@ export default getRollupOptions({
         chunkFileNames: "chunks/[name].js",
         format: "esm",
       },
-      external: ["$service-worker"],
+      external: ["$service-worker", "$app/environment"],
     },
   ],
 });
