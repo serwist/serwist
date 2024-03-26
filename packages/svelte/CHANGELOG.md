@@ -1,5 +1,21 @@
 # @serwist/svelte
 
+## 9.0.0-preview.16
+
+### Patch Changes
+
+- [`db7776e`](https://github.com/serwist/serwist/commit/db7776e6f55f4d1cf62ea8975c8460cb92c28138) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(svelte,next,vite): force `defaultCache` to only use NetworkOnly in development mode
+
+  - This is to prevent files from being accidentally cached during development mode, which isn't the behaviour you would expect to see anyway.
+  - URLs that are matched by these entries in production are now handled by NetworkOnly in development. No option to override this behaviour is provided, for it would provide little to no value. If you do need runtime caching to work during development, you have to copy `defaultCache` into your code.
+  - As a reminder for those who extend `defaultCache`, it should be placed below any custom entry, since such an entry wouldn't ever be matched otherwise.
+
+- Updated dependencies []:
+  - @serwist/core@9.0.0-preview.16
+  - @serwist/expiration@9.0.0-preview.16
+  - @serwist/strategies@9.0.0-preview.16
+  - @serwist/sw@9.0.0-preview.16
+
 ## 9.0.0-preview.15
 
 ### Patch Changes
