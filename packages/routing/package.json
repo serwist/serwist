@@ -1,6 +1,6 @@
 {
   "name": "@serwist/routing",
-  "version": "9.0.0-preview.16",
+  "version": "9.0.0-preview.17",
   "type": "module",
   "description": "A service worker helper library to route request URLs to handlers.",
   "files": [

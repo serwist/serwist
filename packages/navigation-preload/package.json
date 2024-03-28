@@ -1,6 +1,6 @@
 {
   "name": "@serwist/navigation-preload",
-  "version": "9.0.0-preview.16",
+  "version": "9.0.0-preview.17",
   "type": "module",
   "description": "A module that allows developers to enable navigation preloading in their service worker.",
   "files": [

@@ -1,5 +1,69 @@
 # @serwist/sw
 
+## 9.0.0-preview.17
+
+### Minor Changes
+
+- [`97b36c7`](https://github.com/serwist/serwist/commit/97b36c752c4f0ea9bc7beaf41733c5dcc5d02cb9) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(sw): added `Serwist`
+
+  - This class will replace `installSerwist`, which will be deprecated in v9.0.0.
+  - To migrate:
+
+    - Old:
+
+    ```ts
+    installSerwist({
+      precacheEntries: self.__SW_MANIFEST,
+      precacheOptions: {
+        ignoreURLParametersMatching: defaultIgnoreUrlParameters,
+      },
+      cleanupOutdatedCaches: true,
+      skipWaiting: true,
+      clientsClaim: true,
+      navigationPreload: false,
+      disableDevLogs: true,
+      runtimeCaching: defaultCache,
+    });
+    ```
+
+    - New:
+
+    ```ts
+    const serwist = new Serwist({
+      precacheController: new PrecacheController({
+        concurrentPrecaching: 10,
+      }),
+    });
+
+    serwist.install({
+      precacheEntries: self.__SW_MANIFEST,
+      precacheOptions: {
+        ignoreURLParametersMatching: defaultIgnoreUrlParameters,
+      },
+      cleanupOutdatedCaches: true,
+      skipWaiting: true,
+      clientsClaim: true,
+      navigationPreload: false,
+      disableDevLogs: true,
+      runtimeCaching: defaultCache,
+    });
+    ```
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/background-sync@9.0.0-preview.17
+  - @serwist/broadcast-update@9.0.0-preview.17
+  - @serwist/cacheable-response@9.0.0-preview.17
+  - @serwist/core@9.0.0-preview.17
+  - @serwist/expiration@9.0.0-preview.17
+  - @serwist/google-analytics@9.0.0-preview.17
+  - @serwist/navigation-preload@9.0.0-preview.17
+  - @serwist/precaching@9.0.0-preview.17
+  - @serwist/range-requests@9.0.0-preview.17
+  - @serwist/routing@9.0.0-preview.17
+  - @serwist/strategies@9.0.0-preview.17
+
 ## 9.0.0-preview.16
 
 ### Patch Changes
