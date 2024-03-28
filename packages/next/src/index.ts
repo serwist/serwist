@@ -169,21 +169,11 @@ const withSerwistInit = (userOptions: InjectManifestOptions): ((nextConfig?: Nex
         let resolvedManifestEntries = additionalPrecacheEntries;
 
         if (!resolvedManifestEntries) {
-          const userPublicGlob = typeof globPublicPatterns === "string" ? [globPublicPatterns] : globPublicPatterns ?? ["**/*"];
-          const publicScan = globSync(
-            [
-              ...userPublicGlob,
-              // Forcibly include these in case the user outputs these files to `public`.
-              "!swe-worker-*.js",
-              "!swe-worker-*.js.map",
-              `!${destBase}`,
-              `!${destBase}.map`,
-            ],
-            {
-              nodir: true,
-              cwd: publicDir,
-            },
-          );
+          const publicScan = globSync(globPublicPatterns, {
+            nodir: true,
+            cwd: publicDir,
+            ignore: ["swe-worker-*.js", destBase, `${destBase}.map`],
+          });
           resolvedManifestEntries = publicScan.map((f) => ({
             url: path.posix.join(basePath, f),
             revision: getFileHash(path.join(publicDir, f)),

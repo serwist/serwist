@@ -2,7 +2,7 @@ import { escapeRegExp, replaceAndUpdateSourceMap, stringify } from "@serwist/bui
 import prettyBytes from "pretty-bytes";
 import upath from "upath";
 import type { Compilation, Compiler, WebpackError, default as Webpack } from "webpack";
-import type { InjectManifestOptions } from "./lib/types.js";
+import type { InjectManifestOptions, InjectManifestOptionsComplete } from "./lib/types.js";
 import { validateInjectManifestOptions } from "./lib/validator.js";
 
 import { getManifestEntriesFromCompilation } from "./lib/get-manifest-entries-from-compilation.js";
@@ -36,7 +36,7 @@ const _generatedAssetNames = new Set<string>();
  * ```
  */
 export class InjectManifest {
-  protected config: InjectManifestOptions;
+  protected config: InjectManifestOptionsComplete;
   private alreadyCalled: boolean;
   private webpack: typeof Webpack;
 
@@ -44,7 +44,8 @@ export class InjectManifest {
    * Creates an instance of InjectManifest.
    */
   constructor(config: InjectManifestOptions) {
-    this.config = config;
+    // We are essentially lying to TypeScript.
+    this.config = config as InjectManifestOptionsComplete;
     this.alreadyCalled = false;
     this.webpack = null!;
   }
@@ -72,7 +73,7 @@ export class InjectManifest {
    *
    * @private
    */
-  private async getManifestEntries(compilation: Compilation, config: InjectManifestOptions) {
+  private async getManifestEntries(compilation: Compilation, config: InjectManifestOptionsComplete) {
     if (config.disablePrecacheManifest) {
       return {
         size: 0,
@@ -236,7 +237,7 @@ export class InjectManifest {
     const swAsset = compilation.getAsset(config.swDest!);
     const swAssetString = swAsset!.source.source().toString();
 
-    const globalRegexp = new RegExp(escapeRegExp(config.injectionPoint!), "g");
+    const globalRegexp = new RegExp(escapeRegExp(config.injectionPoint), "g");
     const injectionResults = swAssetString.match(globalRegexp);
 
     if (!injectionResults) {

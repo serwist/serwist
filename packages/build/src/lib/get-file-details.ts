@@ -5,20 +5,12 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-
+import path from "node:path";
 import { globSync } from "glob";
-import upath from "upath";
-
-import type { GlobPartial } from "../types.js";
+import type { FileDetails, GlobPartial } from "../types.js";
 import { errors } from "./errors.js";
 import { getFileHash } from "./get-file-hash.js";
 import { getFileSize } from "./get-file-size.js";
-
-interface FileDetails {
-  file: string;
-  hash: string;
-  size: number;
-}
 
 export const getFileDetails = ({
   globDirectory,
@@ -52,12 +44,12 @@ export const getFileDetails = ({
 
   const globbedFileDetails: FileDetails[] = [];
   for (const file of globbedFiles) {
-    const fullPath = upath.join(globDirectory, file);
+    const fullPath = path.join(globDirectory, file);
     const fileSize = getFileSize(fullPath);
     if (fileSize !== null) {
       const fileHash = getFileHash(fullPath);
       globbedFileDetails.push({
-        file: `${upath.relative(globDirectory, fullPath)}`,
+        file: path.relative(globDirectory, fullPath),
         hash: fileHash,
         size: fileSize,
       });

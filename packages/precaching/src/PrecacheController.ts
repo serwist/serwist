@@ -123,7 +123,7 @@ export class PrecacheController {
       // See https://github.com/GoogleChrome/workbox/issues/2259
       if (typeof entry === "string") {
         urlsToWarnAbout.push(entry);
-      } else if (entry && entry.revision === undefined) {
+      } else if (entry && !entry.integrity && entry.revision === undefined) {
         urlsToWarnAbout.push(entry.url);
       }
 

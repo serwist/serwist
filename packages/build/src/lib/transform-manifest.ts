@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { BasePartial, FileDetails, ManifestEntry, ManifestTransform } from "../types.js";
+import type { BaseResolved, FileDetails, ManifestEntry, ManifestTransform } from "../types.js";
 import { additionalPrecacheEntriesTransform } from "./additional-precache-entries-transform.js";
 import { errors } from "./errors.js";
 import { maximumSizeTransform } from "./maximum-size-transform.js";
@@ -68,6 +68,25 @@ interface ManifestTransformResultWithWarnings {
   manifestEntries: ManifestEntry[] | undefined;
   warnings: string[];
 }
+interface ManifestEntryWithSize extends ManifestEntry {
+  size: number;
+}
+interface TransformManifestOptions
+  extends Pick<
+    BaseResolved,
+    | "additionalPrecacheEntries"
+    | "dontCacheBustURLsMatching"
+    | "manifestTransforms"
+    | "maximumFileSizeToCacheInBytes"
+    | "modifyURLPrefix"
+    | "disablePrecacheManifest"
+  > {
+  fileDetails: FileDetails[];
+  // When this is called by the webpack plugin, transformParam will be the
+  // current webpack compilation.
+  transformParam?: unknown;
+}
+
 export async function transformManifest({
   additionalPrecacheEntries,
   dontCacheBustURLsMatching,
@@ -77,12 +96,7 @@ export async function transformManifest({
   modifyURLPrefix,
   transformParam,
   disablePrecacheManifest,
-}: BasePartial & {
-  fileDetails: FileDetails[];
-  // When this is called by the webpack plugin, transformParam will be the
-  // current webpack compilation.
-  transformParam?: unknown;
-}): Promise<ManifestTransformResultWithWarnings> {
+}: TransformManifestOptions): Promise<ManifestTransformResultWithWarnings> {
   if (disablePrecacheManifest) {
     return {
       count: 0,
@@ -96,13 +110,11 @@ export async function transformManifest({
 
   // Take the array of fileDetail objects and convert it into an array of
   // {url, revision, size} objects, with \ replaced with /.
-  const normalizedManifest = fileDetails.map((fileDetails) => {
-    return {
-      url: fileDetails.file.replace(/\\/g, "/"),
-      revision: fileDetails.hash,
-      size: fileDetails.size,
-    };
-  });
+  const normalizedManifest: ManifestEntryWithSize[] = fileDetails.map((fileDetails) => ({
+    url: fileDetails.file.replace(/\\/g, "/"),
+    revision: fileDetails.hash,
+    size: fileDetails.size,
+  }));
 
   const transformsToApply: ManifestTransform[] = [];
 
@@ -128,7 +140,7 @@ export async function transformManifest({
     transformsToApply.push(additionalPrecacheEntriesTransform(additionalPrecacheEntries));
   }
 
-  let transformedManifest: (ManifestEntry & { size: number })[] = normalizedManifest;
+  let transformedManifest: ManifestEntryWithSize[] = normalizedManifest;
   for (const transform of transformsToApply) {
     const result = await transform(transformedManifest, transformParam);
     if (!("manifest" in result)) {

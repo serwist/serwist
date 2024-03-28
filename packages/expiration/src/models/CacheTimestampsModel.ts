@@ -20,6 +20,7 @@ const normalizeURL = (unNormalizedUrl: string) => {
 };
 
 interface CacheTimestampsModelEntry {
+  id: string;
   cacheName: string;
   url: string;
   timestamp: number;
@@ -27,7 +28,7 @@ interface CacheTimestampsModelEntry {
 
 interface CacheDbSchema extends DBSchema {
   "cache-entries": {
-    key: [string, string];
+    key: string;
     value: CacheTimestampsModelEntry;
     indexes: { cacheName: string; timestamp: number };
   };
@@ -53,6 +54,17 @@ export class CacheTimestampsModel {
   }
 
   /**
+   * Takes a URL and returns an ID that will be unique in the object store.
+   *
+   * @param url
+   * @returns
+   * @private
+   */
+  private _getId(url: string): string {
+    return `${this._cacheName}|${normalizeURL(url)}`;
+  }
+
+  /**
    * Performs an upgrade of indexedDB.
    *
    * @param db
@@ -61,7 +73,7 @@ export class CacheTimestampsModel {
    */
   private _upgradeDb(db: IDBPDatabase<CacheDbSchema>) {
     const objStore = db.createObjectStore(CACHE_OBJECT_STORE, {
-      keyPath: ["url", "cacheName"],
+      keyPath: "id",
     });
 
     // TODO(philipwalton): once we don't have to support EdgeHTML, we can
@@ -95,6 +107,7 @@ export class CacheTimestampsModel {
     url = normalizeURL(url);
 
     const entry = {
+      id: this._getId(url),
       cacheName: this._cacheName,
       url,
       timestamp,
@@ -116,7 +129,7 @@ export class CacheTimestampsModel {
    */
   async getTimestamp(url: string): Promise<number | undefined> {
     const db = await this.getDb();
-    const entry = await db.get(CACHE_OBJECT_STORE, [this._cacheName, normalizeURL(url)]);
+    const entry = await db.get(CACHE_OBJECT_STORE, this._getId(url));
     return entry?.timestamp;
   }
 

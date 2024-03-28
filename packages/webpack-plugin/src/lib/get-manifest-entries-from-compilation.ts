@@ -12,7 +12,7 @@ import type { Asset, Chunk, Compilation, WebpackError } from "webpack";
 
 import { getAssetHash } from "./get-asset-hash.js";
 import { resolveWebpackURL } from "./resolve-webpack-url.js";
-import type { InjectManifestOptions } from "./types.js";
+import type { InjectManifestOptions, InjectManifestOptionsComplete } from "./types.js";
 
 /**
  * For a given asset, checks whether at least one of the conditions matches.
@@ -178,7 +178,7 @@ const filterAssets = (compilation: Compilation, config: InjectManifestOptions): 
 
 export const getManifestEntriesFromCompilation = async (
   compilation: Compilation,
-  config: InjectManifestOptions,
+  config: InjectManifestOptionsComplete,
 ): Promise<{ size: number; sortedEntries: ManifestEntry[] | undefined }> => {
   const filteredAssets = filterAssets(compilation, config);
 
@@ -189,7 +189,7 @@ export const getManifestEntriesFromCompilation = async (
       file: resolveWebpackURL(publicPath as string, asset.name),
       hash: getAssetHash(asset),
       size: asset.source.size() || 0,
-    } as FileDetails;
+    } satisfies FileDetails;
   });
 
   const { manifestEntries, size, warnings } = await transformManifest({
@@ -200,6 +200,7 @@ export const getManifestEntriesFromCompilation = async (
     maximumFileSizeToCacheInBytes: config.maximumFileSizeToCacheInBytes,
     modifyURLPrefix: config.modifyURLPrefix,
     transformParam: compilation,
+    disablePrecacheManifest: config.disablePrecacheManifest,
   });
 
   // See https://github.com/GoogleChrome/workbox/issues/2790

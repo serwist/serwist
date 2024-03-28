@@ -30,7 +30,7 @@ export const additionalPrecacheEntriesTransform = (additionalPrecacheEntries: (M
           url: additionalEntry,
         });
       } else {
-        if (additionalEntry && additionalEntry.revision === undefined) {
+        if (additionalEntry && !additionalEntry.integrity && additionalEntry.revision === undefined) {
           stringEntries.add(additionalEntry.url);
         }
         manifest.push(Object.assign({ size: 0 }, additionalEntry));

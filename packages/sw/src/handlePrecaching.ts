@@ -2,7 +2,7 @@ import type { PrecacheEntry, PrecacheRouteOptions } from "@serwist/precaching";
 import { cleanupOutdatedCaches as cleanupOutdatedCachesImpl, createHandlerBoundToURL, precacheAndRoute } from "@serwist/precaching";
 import { NavigationRoute, registerRoute } from "@serwist/routing";
 
-export type HandlePrecachingOptions = {
+export interface HandlePrecachingOptions {
   /**
    * A list of fallback entries.
    */
@@ -17,30 +17,26 @@ export type HandlePrecachingOptions = {
    * @default false
    */
   cleanupOutdatedCaches?: boolean;
-} & (
-  | {
-      /**
-       * An URL that should point to a HTML file with which navigation requests for URLs that aren't
-       * precached will be fulfilled.
-       */
-      navigateFallback: string;
-      /**
-       * URLs that should be allowed to use the `navigateFallback` handler.
-       */
-      navigateFallbackAllowlist?: RegExp[];
-      /**
-       * URLs that should not be allowed to use the `navigateFallback` handler. This takes precedence
-       * over `navigateFallbackAllowlist`.
-       */
-      navigateFallbackDenylist?: RegExp[];
-    }
-  | { navigateFallback?: never }
-);
+  /**
+   * An URL that should point to a HTML file with which navigation requests for URLs that aren't
+   * precached will be fulfilled.
+   */
+  navigateFallback?: string;
+  /**
+   * URLs that should be allowed to use the `navigateFallback` handler.
+   */
+  navigateFallbackAllowlist?: RegExp[];
+  /**
+   * URLs that should not be allowed to use the `navigateFallback` handler. This takes precedence
+   * over `navigateFallbackAllowlist`.
+   */
+  navigateFallbackDenylist?: RegExp[];
+}
 
 /**
  * Handles a list of precache entries and cleans up outdated caches.
  *
- * @see https://serwist.pages.dev/docs/sw/handlePrecaching
+ * @see https://serwist.pages.dev/docs/sw/handle-precaching
  * @param options
  */
 export const handlePrecaching = ({ precacheEntries, precacheOptions, cleanupOutdatedCaches = false, ...options }: HandlePrecachingOptions): void => {

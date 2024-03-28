@@ -16,7 +16,7 @@ export const getCompositeDetails = (compositeURL: string, dependencyDetails: Fil
 
   for (const fileDetails of dependencyDetails) {
     totalSize += fileDetails.size;
-    compositeHash += fileDetails.hash;
+    compositeHash += fileDetails.hash === null ? "" : fileDetails.hash;
   }
 
   const md5 = crypto.createHash("md5");

@@ -1,11 +1,14 @@
+import { PrecacheController } from "@serwist/precaching";
 import { basePath, defaultCache, defaultIgnoreUrlParameters, getPrecacheManifest } from "@serwist/svelte/worker";
-import { installSerwist } from "@serwist/sw";
+import { Serwist } from "@serwist/sw";
 
-declare const self: ServiceWorkerGlobalScope;
+const serwist = new Serwist({
+  precacheController: new PrecacheController({
+    concurrentPrecaching: 10,
+  }),
+});
 
-self.__WB_CONCURRENT_PRECACHING = 10;
-
-installSerwist({
+serwist.install({
   precacheEntries: getPrecacheManifest({
     // IMPORTANT NOTE: BUMP THIS UP SHOULD YOU CHANGE
     // (NOT ADD!) A FILE IN THE STATIC DIRECTORY.

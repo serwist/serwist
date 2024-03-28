@@ -21,7 +21,7 @@ interface BuildResult extends SerwistBuild.GetManifestResult {
   manifestString: string;
 }
 
-export const injectManifest = async (options: SerwistBuild.GetManifestOptions): Promise<BuildResult> => {
+export const injectManifest = async (options: SerwistBuild.GetManifestOptionsComplete): Promise<BuildResult> => {
   const { getFileManifestEntries, stringify } = await loadSerwistBuild();
   const { count, size, manifestEntries, warnings } = await getFileManifestEntries(options);
   const manifestString = manifestEntries === undefined ? "undefined" : stringify(manifestEntries);

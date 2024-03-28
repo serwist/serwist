@@ -8,14 +8,14 @@
 
 import assert from "node:assert";
 
-import type { FileDetails, GetManifestOptions, GetManifestResult } from "../types.js";
+import type { FileDetails, GetManifestOptionsComplete, GetManifestResult } from "../types.js";
 import { errors } from "./errors.js";
 import { getCompositeDetails } from "./get-composite-details.js";
 import { getFileDetails } from "./get-file-details.js";
 import { getStringDetails } from "./get-string-details.js";
 import { transformManifest } from "./transform-manifest.js";
 
-export async function getFileManifestEntries({
+export const getFileManifestEntries = async ({
   additionalPrecacheEntries,
   dontCacheBustURLsMatching,
   globDirectory,
@@ -28,7 +28,7 @@ export async function getFileManifestEntries({
   modifyURLPrefix,
   templatedURLs,
   disablePrecacheManifest,
-}: GetManifestOptions): Promise<GetManifestResult> {
+}: GetManifestOptionsComplete): Promise<GetManifestResult> => {
   if (disablePrecacheManifest) {
     return {
       count: 0,
@@ -123,4 +123,4 @@ export async function getFileManifestEntries({
   transformedManifest.warnings.push(...warnings);
 
   return transformedManifest;
-}
+};

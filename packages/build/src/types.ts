@@ -205,7 +205,7 @@ export type BuildResult = Omit<GetManifestResult, "manifestEntries"> & {
  */
 export interface FileDetails {
   file: string;
-  hash: string;
+  hash: string | null;
   size: number;
 }
 
