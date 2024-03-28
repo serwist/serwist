@@ -1,6 +1,6 @@
 {
   "name": "@serwist/constants",
-  "version": "9.0.0-preview.16",
+  "version": "9.0.0-preview.17",
   "type": "module",
   "private": true,
   "description": "This module is used by a number of the other Serwist modules to share configs.",
