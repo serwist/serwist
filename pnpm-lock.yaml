@@ -602,9 +602,6 @@ importers:
       source-map:
         specifier: 0.8.0-beta.0
         version: 0.8.0-beta.0
-      ssri:
-        specifier: 10.0.5
-        version: 10.0.5
       upath:
         specifier: 2.0.1
         version: 2.0.1
@@ -627,9 +624,6 @@ importers:
       '@types/node':
         specifier: 20.11.30
         version: 20.11.30
-      '@types/ssri':
-        specifier: 7.1.5
-        version: 7.1.5
       '@types/stringify-object':
         specifier: 4.0.5
         version: 4.0.5
@@ -842,9 +836,6 @@ importers:
       glob:
         specifier: 10.3.10
         version: 10.3.10
-      ssri:
-        specifier: 10.0.5
-        version: 10.0.5
       zod:
         specifier: 3.22.4
         version: 3.22.4
@@ -861,9 +852,6 @@ importers:
       '@types/node':
         specifier: 20.11.30
         version: 20.11.30
-      '@types/ssri':
-        specifier: 7.1.5
-        version: 7.1.5
       next:
         specifier: 14.1.4
         version: 14.1.4(@babel/core@7.23.7)(react-dom@18.2.0)(react@18.2.0)
@@ -1215,9 +1203,6 @@ importers:
       pretty-bytes:
         specifier: 6.1.1
         version: 6.1.1
-      ssri:
-        specifier: 10.0.5
-        version: 10.0.5
       upath:
         specifier: 2.0.1
         version: 2.0.1
@@ -1234,9 +1219,6 @@ importers:
       '@types/node':
         specifier: 20.11.30
         version: 20.11.30
-      '@types/ssri':
-        specifier: 7.1.5
-        version: 7.1.5
       '@types/webpack':
         specifier: 5.28.5
         version: 5.28.5(@swc/core@1.4.8)
@@ -14215,6 +14197,7 @@ packages:
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
     dependencies:
       minipass: 7.0.4
+    dev: true
 
   /stack-utils@2.0.6:
     resolution: {integrity: sha512-XlkWvfIm6RmsWtNJx+uqtKLS8eqFbxUg0ZzLXqY0caEy9l7hruX8IpiDnjsLavoBgqCCR71TqWO8MaXYheJ3RQ==}

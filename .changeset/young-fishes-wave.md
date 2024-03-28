@@ -9,29 +9,9 @@ feat(sw): added `Serwist`
 - To migrate:
 
     - Old:
-    ```ts
-    self.__WB_CONCURRENT_PRECACHING = 10;
-    
+    ```ts    
     installSerwist({
-      precacheEntries: getPrecacheManifest({
-        // IMPORTANT NOTE: BUMP THIS UP SHOULD YOU CHANGE
-        // (NOT ADD!) A FILE IN THE STATIC DIRECTORY.
-        staticRevisions: "serwist-docs-static-v2",
-        manifestTransforms: [
-          (manifestEntries) => ({
-            manifest: manifestEntries.filter((entry) => {
-              // These files are not needed by the user.
-              return !(
-                entry.url.startsWith(`${basePath}/og/`) ||
-                // These two files are only used by the prerenderer's `fetch`, so
-                // we need not cache them.
-                entry.url === `${basePath}/noto-sans-mono.ttf` ||
-                entry.url === `${basePath}/yoga.wasm`
-              );
-            }),
-          }),
-        ],
-      }),
+      precacheEntries: self.__SW_MANIFEST,
       precacheOptions: {
         ignoreURLParametersMatching: defaultIgnoreUrlParameters,
       },
@@ -53,25 +33,7 @@ feat(sw): added `Serwist`
     });
 
     serwist.install({
-      precacheEntries: getPrecacheManifest({
-        // IMPORTANT NOTE: BUMP THIS UP SHOULD YOU CHANGE
-        // (NOT ADD!) A FILE IN THE STATIC DIRECTORY.
-        staticRevisions: "serwist-docs-static-v2",
-        manifestTransforms: [
-          (manifestEntries) => ({
-            manifest: manifestEntries.filter((entry) => {
-              // These files are not needed by the user.
-              return !(
-                entry.url.startsWith(`${basePath}/og/`) ||
-                // These two files are only used by the prerenderer's `fetch`, so
-                // we need not cache them.
-                entry.url === `${basePath}/noto-sans-mono.ttf` ||
-                entry.url === `${basePath}/yoga.wasm`
-              );
-            }),
-          }),
-        ],
-      }),
+      precacheEntries: self.__SW_MANIFEST,
       precacheOptions: {
         ignoreURLParametersMatching: defaultIgnoreUrlParameters,
       },
