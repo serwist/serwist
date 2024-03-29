@@ -1,5 +1,6 @@
 <script lang="ts">
   import { page } from "$app/stores";
+  import { GITHUB_REPO_URL } from "$lib/constants";
   import type { TocEntry } from "$lib/types";
 
   import ChevronRight from "./icons/ChevronRight.svelte";
@@ -29,7 +30,7 @@
     <p>Table of Contents is not available at the moment.</p>
   {/if}
   <div class="mt-8 hidden flex-col items-start gap-2 border-t pb-8 pt-8 xl:flex dark:border-neutral-800">
-    <a href="https://github.com/serwist/serwist/issues/new/choose" target="_blank" rel="noreferrer" class="text-toc">
+    <a href={`${GITHUB_REPO_URL}/-/issues/new`} target="_blank" rel="noreferrer" class="text-toc">
       Question? Give us feedback →
       <span class="sr-only">(opens in a new tab)</span>
     </a>

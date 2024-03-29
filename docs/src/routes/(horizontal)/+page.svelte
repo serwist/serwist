@@ -10,6 +10,7 @@
   import ViteLogo from "$components/icons/ViteLogo.svelte";
   import WebpackLogo from "$components/icons/WebpackLogo.svelte";
   import { clsx } from "$lib/clsx";
+  import { GITHUB_REPO_URL } from "$lib/constants.js";
 
   const { data } = $props();
 
@@ -158,7 +159,7 @@
     <a class="text-accent-light dark:text-accent-dark text-xl underline underline-offset-8" href="/docs">
       {"~> Get started"}
     </a>
-    <InlineCode showIcon>{"npx create-next-app@latest -e https://github.com/serwist/serwist/tree/main/examples/next-basic"}</InlineCode>
+    <InlineCode showIcon>{`npx create-next-app@latest -e ${GITHUB_REPO_URL}/-/tree/main/examples/next-basic?ref_type=heads`}</InlineCode>
   </div>
   <div class="grid w-full text-left lg:mb-0 lg:grid-cols-4 lg:gap-2">
     {#each FEATURES_LIST as feature}
