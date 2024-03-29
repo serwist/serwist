@@ -26,7 +26,7 @@
   "typesVersions": {
     "*": {
       "initialize": [
-        "./dist/initialize.d.ts"
+        "./dist/index.d.ts"
       ]
     }
   },
@@ -36,8 +36,8 @@
       "default": "./dist/index.js"
     },
     "./initialize": {
-      "types": "./dist/initialize.d.ts",
-      "default": "./dist/initialize.js"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./package.json": "./package.json"
   },
@@ -48,10 +48,8 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@serwist/background-sync": "workspace:*",
     "@serwist/core": "workspace:*",
-    "@serwist/routing": "workspace:*",
-    "@serwist/strategies": "workspace:*"
+    "@serwist/sw": "workspace:*"
   },
   "devDependencies": {
     "@serwist/constants": "workspace:*",

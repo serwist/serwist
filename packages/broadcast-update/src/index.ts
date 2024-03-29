@@ -6,19 +6,12 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { BroadcastCacheUpdate } from "./BroadcastCacheUpdate.js";
-import { BroadcastUpdatePlugin } from "./BroadcastUpdatePlugin.js";
-import { CACHE_UPDATED_MESSAGE_META, CACHE_UPDATED_MESSAGE_TYPE, defaultHeadersToCheck } from "./constants.js";
-import { responsesAreSame } from "./responsesAreSame.js";
-import type { BroadcastCacheUpdateOptions, BroadcastMessage, BroadcastPayload, BroadcastPayloadGenerator } from "./types.js";
-
 export {
   BroadcastCacheUpdate,
   BroadcastUpdatePlugin,
   responsesAreSame,
-  CACHE_UPDATED_MESSAGE_META,
-  CACHE_UPDATED_MESSAGE_TYPE,
-  defaultHeadersToCheck,
-};
-
-export type { BroadcastCacheUpdateOptions, BroadcastPayload, BroadcastPayloadGenerator, BroadcastMessage };
+  BROADCAST_UPDATE_MESSAGE_META as CACHE_UPDATED_MESSAGE_META,
+  BROADCAST_UPDATE_MESSAGE_TYPE as CACHE_UPDATED_MESSAGE_TYPE,
+  BROADCAST_UPDATE_DEFAULT_HEADERS as defaultHeadersToCheck,
+} from "@serwist/sw/plugins";
+export type { BroadcastCacheUpdateOptions, BroadcastPayload, BroadcastPayloadGenerator, BroadcastMessage } from "@serwist/sw/plugins";

@@ -25,6 +25,12 @@
       "plugins": [
         "./dist/index.plugins.d.ts"
       ],
+      "precaching": [
+        "./dist/index.precaching.d.ts"
+      ],
+      "routing": [
+        "./dist/index.routing.d.ts"
+      ],
       "strategies": [
         "./dist/index.strategies.d.ts"
       ]
@@ -39,6 +45,14 @@
       "types": "./dist/index.plugins.d.ts",
       "default": "./dist/index.plugins.js"
     },
+    "./precaching": {
+      "types": "./dist/index.precaching.d.ts",
+      "default": "./dist/index.precaching.js"
+    },
+    "./routing": {
+      "types": "./dist/index.routing.d.ts",
+      "default": "./dist/index.routing.js"
+    },
     "./strategies": {
       "types": "./dist/index.strategies.d.ts",
       "default": "./dist/index.strategies.js"
@@ -52,17 +66,9 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@serwist/background-sync": "workspace:*",
-    "@serwist/broadcast-update": "workspace:*",
-    "@serwist/cacheable-response": "workspace:*",
     "@serwist/core": "workspace:*",
-    "@serwist/expiration": "workspace:*",
-    "@serwist/google-analytics": "workspace:*",
     "@serwist/navigation-preload": "workspace:*",
-    "@serwist/precaching": "workspace:*",
-    "@serwist/range-requests": "workspace:*",
-    "@serwist/routing": "workspace:*",
-    "@serwist/strategies": "workspace:*"
+    "idb": "8.0.0"
   },
   "devDependencies": {
     "@serwist/constants": "workspace:*",

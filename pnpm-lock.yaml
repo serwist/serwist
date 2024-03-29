@@ -543,6 +543,9 @@ importers:
       '@serwist/core':
         specifier: workspace:*
         version: link:../core
+      '@serwist/sw':
+        specifier: workspace:*
+        version: link:../sw
       idb:
         specifier: 8.0.0
         version: 8.0.0
@@ -562,9 +565,9 @@ importers:
 
   packages/broadcast-update:
     dependencies:
-      '@serwist/core':
+      '@serwist/sw':
         specifier: workspace:*
-        version: link:../core
+        version: link:../sw
     devDependencies:
       '@serwist/constants':
         specifier: workspace:*
@@ -636,9 +639,9 @@ importers:
 
   packages/cacheable-response:
     dependencies:
-      '@serwist/core':
+      '@serwist/sw':
         specifier: workspace:*
-        version: link:../core
+        version: link:../sw
     devDependencies:
       '@serwist/constants':
         specifier: workspace:*
@@ -749,12 +752,9 @@ importers:
 
   packages/expiration:
     dependencies:
-      '@serwist/core':
+      '@serwist/sw':
         specifier: workspace:*
-        version: link:../core
-      idb:
-        specifier: 8.0.0
-        version: 8.0.0
+        version: link:../sw
     devDependencies:
       '@serwist/constants':
         specifier: workspace:*
@@ -768,18 +768,12 @@ importers:
 
   packages/google-analytics:
     dependencies:
-      '@serwist/background-sync':
-        specifier: workspace:*
-        version: link:../background-sync
       '@serwist/core':
         specifier: workspace:*
         version: link:../core
-      '@serwist/routing':
+      '@serwist/sw':
         specifier: workspace:*
-        version: link:../routing
-      '@serwist/strategies':
-        specifier: workspace:*
-        version: link:../strategies
+        version: link:../sw
     devDependencies:
       '@serwist/constants':
         specifier: workspace:*
@@ -815,15 +809,9 @@ importers:
       '@serwist/core':
         specifier: workspace:*
         version: link:../core
-      '@serwist/expiration':
+      '@serwist/sw':
         specifier: workspace:*
-        version: link:../expiration
-      '@serwist/range-requests':
-        specifier: workspace:*
-        version: link:../range-requests
-      '@serwist/strategies':
-        specifier: workspace:*
-        version: link:../strategies
+        version: link:../sw
       '@serwist/webpack-plugin':
         specifier: workspace:*
         version: link:../webpack-plugin
@@ -843,9 +831,6 @@ importers:
       '@serwist/constants':
         specifier: workspace:*
         version: link:../constants
-      '@serwist/sw':
-        specifier: workspace:*
-        version: link:../sw
       '@serwist/utils':
         specifier: workspace:*
         version: link:../utils
@@ -946,22 +931,13 @@ importers:
 
   packages/precaching:
     dependencies:
-      '@serwist/core':
+      '@serwist/sw':
         specifier: workspace:*
-        version: link:../core
-      '@serwist/routing':
-        specifier: workspace:*
-        version: link:../routing
-      '@serwist/strategies':
-        specifier: workspace:*
-        version: link:../strategies
+        version: link:../sw
     devDependencies:
       '@serwist/constants':
         specifier: workspace:*
         version: link:../constants
-      '@serwist/utils':
-        specifier: workspace:*
-        version: link:../utils
       rollup:
         specifier: 4.13.0
         version: 4.13.0
@@ -971,9 +947,9 @@ importers:
 
   packages/range-requests:
     dependencies:
-      '@serwist/core':
+      '@serwist/sw':
         specifier: workspace:*
-        version: link:../core
+        version: link:../sw
     devDependencies:
       '@serwist/constants':
         specifier: workspace:*
@@ -1018,9 +994,9 @@ importers:
 
   packages/routing:
     dependencies:
-      '@serwist/core':
+      '@serwist/sw':
         specifier: workspace:*
-        version: link:../core
+        version: link:../sw
     devDependencies:
       '@serwist/constants':
         specifier: workspace:*
@@ -1034,9 +1010,9 @@ importers:
 
   packages/strategies:
     dependencies:
-      '@serwist/core':
+      '@serwist/sw':
         specifier: workspace:*
-        version: link:../core
+        version: link:../sw
     devDependencies:
       '@serwist/constants':
         specifier: workspace:*
@@ -1100,39 +1076,15 @@ importers:
 
   packages/sw:
     dependencies:
-      '@serwist/background-sync':
-        specifier: workspace:*
-        version: link:../background-sync
-      '@serwist/broadcast-update':
-        specifier: workspace:*
-        version: link:../broadcast-update
-      '@serwist/cacheable-response':
-        specifier: workspace:*
-        version: link:../cacheable-response
       '@serwist/core':
         specifier: workspace:*
         version: link:../core
-      '@serwist/expiration':
-        specifier: workspace:*
-        version: link:../expiration
-      '@serwist/google-analytics':
-        specifier: workspace:*
-        version: link:../google-analytics
       '@serwist/navigation-preload':
         specifier: workspace:*
         version: link:../navigation-preload
-      '@serwist/precaching':
-        specifier: workspace:*
-        version: link:../precaching
-      '@serwist/range-requests':
-        specifier: workspace:*
-        version: link:../range-requests
-      '@serwist/routing':
-        specifier: workspace:*
-        version: link:../routing
-      '@serwist/strategies':
-        specifier: workspace:*
-        version: link:../strategies
+      idb:
+        specifier: 8.0.0
+        version: 8.0.0
     devDependencies:
       '@serwist/constants':
         specifier: workspace:*
@@ -1154,12 +1106,9 @@ importers:
       '@serwist/build':
         specifier: workspace:*
         version: link:../build
-      '@serwist/expiration':
+      '@serwist/sw':
         specifier: workspace:*
-        version: link:../expiration
-      '@serwist/strategies':
-        specifier: workspace:*
-        version: link:../strategies
+        version: link:../sw
       '@serwist/window':
         specifier: workspace:*
         version: link:../window
@@ -1176,9 +1125,6 @@ importers:
       '@serwist/constants':
         specifier: workspace:*
         version: link:../constants
-      '@serwist/sw':
-        specifier: workspace:*
-        version: link:../sw
       '@serwist/utils':
         specifier: workspace:*
         version: link:../utils

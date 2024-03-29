@@ -35,8 +35,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@serwist/core": "workspace:*",
-    "idb": "8.0.0"
+    "@serwist/sw": "workspace:*"
   },
   "devDependencies": {
     "@serwist/constants": "workspace:*",

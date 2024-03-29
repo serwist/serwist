@@ -20,21 +20,10 @@
   "homepage": "https://serwist.pages.dev",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "typesVersions": {
-    "*": {
-      "internal": [
-        "./dist/index.internal.d.ts"
-      ]
-    }
-  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
-    },
-    "./internal": {
-      "types": "./dist/index.internal.d.ts",
-      "default": "./dist/index.internal.js"
     },
     "./package.json": "./package.json"
   },
@@ -45,13 +34,10 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@serwist/core": "workspace:*",
-    "@serwist/routing": "workspace:*",
-    "@serwist/strategies": "workspace:*"
+    "@serwist/sw": "workspace:*"
   },
   "devDependencies": {
     "@serwist/constants": "workspace:*",
-    "@serwist/utils": "workspace:*",
     "rollup": "4.13.0",
     "typescript": "5.5.0-dev.20240323"
   },

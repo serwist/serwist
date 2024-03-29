@@ -9,7 +9,6 @@ export default getRollupOptions({
     {
       input: {
         index: "src/index.ts",
-        initialize: "src/initialize.ts",
       },
       output: {
         dir: "dist",

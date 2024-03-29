@@ -76,8 +76,7 @@
   },
   "dependencies": {
     "@serwist/build": "workspace:*",
-    "@serwist/expiration": "workspace:*",
-    "@serwist/strategies": "workspace:*",
+    "@serwist/sw": "workspace:*",
     "@serwist/window": "workspace:*",
     "glob": "10.3.10",
     "kolorist": "1.8.0",
@@ -93,14 +92,10 @@
     "vite": "5.2.4"
   },
   "peerDependencies": {
-    "@serwist/sw": "workspace:*",
     "typescript": ">=5.0.0",
     "vite": "^5.0.0"
   },
   "peerDependenciesMeta": {
-    "@serwist/sw": {
-      "optional": true
-    },
     "typescript": {
       "optional": true
     }

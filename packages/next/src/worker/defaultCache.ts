@@ -1,7 +1,6 @@
-import { ExpirationPlugin } from "@serwist/expiration";
-import { RangeRequestsPlugin } from "@serwist/range-requests";
-import { CacheFirst, NetworkFirst, StaleWhileRevalidate } from "@serwist/strategies";
 import type { RuntimeCaching } from "@serwist/sw";
+import { ExpirationPlugin, RangeRequestsPlugin } from "@serwist/sw/plugins";
+import { CacheFirst, NetworkFirst, StaleWhileRevalidate } from "@serwist/sw/strategies";
 
 import { PAGES_CACHE_NAME } from "./constants.js";
 

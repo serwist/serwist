@@ -1,10 +1,9 @@
 import { logger } from "@serwist/core/internal";
-import { ExpirationPlugin } from "@serwist/expiration";
-import type { PrecacheEntry } from "@serwist/precaching";
-import { CacheFirst, NetworkFirst, StaleWhileRevalidate } from "@serwist/strategies";
 import type { RuntimeCaching } from "@serwist/sw";
+import { ExpirationPlugin } from "@serwist/sw/plugins";
+import type { PrecacheEntry } from "@serwist/sw/precaching";
+import { CacheFirst, NetworkFirst, StaleWhileRevalidate } from "@serwist/sw/strategies";
 
-import { dev } from "$app/environment";
 import {
   base as basePath,
   build as immutableAssets,
@@ -129,7 +128,7 @@ export const defaultIgnoreUrlParameters = [/^x-sveltekit-invalidated$/];
  *
  * @see https://serwist.pages.dev/docs/svelte/worker-exports#default-cache
  */
-export const defaultCache: RuntimeCaching[] = dev
+export const defaultCache: RuntimeCaching[] = import.meta.env.DEV
   ? []
   : [
       {

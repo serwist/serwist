@@ -297,11 +297,4 @@ export interface SerwistGlobalConfig {
    * @default false
    */
   __WB_DISABLE_DEV_LOGS: boolean;
-  /**
-   * The maximum number of files that Serwist should precache
-   * in concurrency.
-   *
-   * @default 1
-   */
-  __WB_CONCURRENT_PRECACHING: number;
 }

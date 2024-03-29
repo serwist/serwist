@@ -39,7 +39,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@serwist/core": "workspace:*"
+    "@serwist/sw": "workspace:*"
   },
   "devDependencies": {
     "@serwist/constants": "workspace:*",

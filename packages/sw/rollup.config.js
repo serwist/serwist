@@ -10,6 +10,8 @@ export default getRollupOptions({
       input: {
         index: "src/index.ts",
         "index.plugins": "src/index.plugins.ts",
+        "index.precaching": "src/index.precaching.ts",
+        "index.routing": "src/index.routing.ts",
         "index.strategies": "src/index.strategies.ts",
       },
       output: {

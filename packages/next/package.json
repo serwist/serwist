@@ -70,9 +70,7 @@
   "dependencies": {
     "@serwist/build": "workspace:*",
     "@serwist/core": "workspace:*",
-    "@serwist/expiration": "workspace:*",
-    "@serwist/range-requests": "workspace:*",
-    "@serwist/strategies": "workspace:*",
+    "@serwist/sw": "workspace:*",
     "@serwist/webpack-plugin": "workspace:*",
     "@serwist/window": "workspace:*",
     "chalk": "5.3.0",
@@ -81,7 +79,6 @@
   },
   "devDependencies": {
     "@serwist/constants": "workspace:*",
-    "@serwist/sw": "workspace:*",
     "@serwist/utils": "workspace:*",
     "@types/node": "20.11.30",
     "next": "14.1.4",
@@ -93,14 +90,10 @@
     "webpack": "5.91.0"
   },
   "peerDependencies": {
-    "@serwist/sw": "workspace:*",
     "next": ">=14.0.0",
     "typescript": ">=5.0.0"
   },
   "peerDependenciesMeta": {
-    "@serwist/sw": {
-      "optional": true
-    },
     "typescript": {
       "optional": true
     }

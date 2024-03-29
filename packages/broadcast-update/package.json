@@ -29,7 +29,7 @@
     }
   },
   "dependencies": {
-    "@serwist/core": "workspace:*"
+    "@serwist/sw": "workspace:*"
   },
   "scripts": {
     "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js",

@@ -60,7 +60,8 @@ refactor(svelte): moved Svelte integration into a separate package
     getPrecacheManifest,
     staticAssets,
   } from "@serwist/svelte/worker";
-  import { installSerwist } from "@serwist/sw";
+  import { Serwist } from "@serwist/sw";
+  import { PrecacheController } from "@serwist/sw/precaching";
 
   declare global {
     interface WorkerGlobalScope extends SerwistGlobalConfig {}
@@ -68,21 +69,18 @@ refactor(svelte): moved Svelte integration into a separate package
 
   declare const self: ServiceWorkerGlobalScope;
 
-  const staticRevision = "static-assets-v1";
+  const serwist = new Serwist({
+    precacheController: new PrecacheController({
+      concurrentPrecaching: 10,
+    }),
+  });
 
-  // Prefer concurrent precaching over sequential one, since there
-  // are a lot of assets to precache.
-  self.__WB_CONCURRENT_PRECACHING = 10;
-
-  installSerwist({
+  serwist.install({
     precacheEntries: getPrecacheManifest({
       // precacheImmutable: false,
       // precacheStatic: false,
       // precachePrerendered: false,
-      staticRevisions: staticAssets.reduce((prev, cur) => {
-        prev[cur] = staticRevision;
-        return prev;
-      }, {} as StaticRevisions),
+      staticRevisions: "static-v1",
     }),
     precacheOptions: {
       ignoreURLParametersMatching: defaultIgnoreUrlParameters,
