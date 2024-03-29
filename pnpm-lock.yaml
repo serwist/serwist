@@ -101,9 +101,6 @@ importers:
       '@serwist/build':
         specifier: workspace:*
         version: link:../../packages/build
-      '@serwist/precaching':
-        specifier: workspace:*
-        version: link:../../packages/precaching
       '@serwist/sw':
         specifier: workspace:*
         version: link:../../packages/sw
@@ -131,9 +128,6 @@ importers:
       '@serwist/next':
         specifier: workspace:*
         version: link:../../packages/next
-      '@serwist/precaching':
-        specifier: workspace:*
-        version: link:../../packages/precaching
       '@serwist/sw':
         specifier: workspace:*
         version: link:../../packages/sw
@@ -157,25 +151,25 @@ importers:
         version: 2.6.0
       '@serwist/background-sync':
         specifier: workspace:*
-        version: link:../packages/background-sync
+        version: link:../packages.legacy/background-sync
       '@serwist/broadcast-update':
         specifier: workspace:*
-        version: link:../packages/broadcast-update
+        version: link:../packages.legacy/broadcast-update
       '@serwist/build':
         specifier: workspace:*
         version: link:../packages/build
       '@serwist/cacheable-response':
         specifier: workspace:*
-        version: link:../packages/cacheable-response
+        version: link:../packages.legacy/cacheable-response
       '@serwist/core':
         specifier: workspace:*
         version: link:../packages/core
       '@serwist/expiration':
         specifier: workspace:*
-        version: link:../packages/expiration
+        version: link:../packages.legacy/expiration
       '@serwist/navigation-preload':
         specifier: workspace:*
-        version: link:../packages/navigation-preload
+        version: link:../packages.legacy/navigation-preload
       '@serwist/next':
         specifier: workspace:*
         version: link:../packages/next
@@ -184,13 +178,13 @@ importers:
         version: link:../packages/nuxt
       '@serwist/precaching':
         specifier: workspace:*
-        version: link:../packages/precaching
+        version: link:../packages.legacy/precaching
       '@serwist/routing':
         specifier: workspace:*
-        version: link:../packages/routing
+        version: link:../packages.legacy/routing
       '@serwist/strategies':
         specifier: workspace:*
-        version: link:../packages/strategies
+        version: link:../packages.legacy/strategies
       '@serwist/svelte':
         specifier: workspace:*
         version: link:../packages/svelte
@@ -313,7 +307,7 @@ importers:
         version: link:../packages/nuxt
       '@serwist/precaching':
         specifier: workspace:*
-        version: link:../packages/precaching
+        version: link:../packages.legacy/precaching
       '@serwist/sw':
         specifier: workspace:*
         version: link:../packages/sw
@@ -371,7 +365,7 @@ importers:
         version: link:../../packages/core
       '@serwist/precaching':
         specifier: latest
-        version: link:../../packages/precaching
+        version: link:../../packages.legacy/precaching
       '@types/node':
         specifier: 20.11.30
         version: 20.11.30
@@ -408,7 +402,7 @@ importers:
         version: link:../../packages/core
       '@serwist/precaching':
         specifier: latest
-        version: link:../../packages/precaching
+        version: link:../../packages.legacy/precaching
       '@types/node':
         specifier: 20.11.30
         version: 20.11.30
@@ -448,7 +442,7 @@ importers:
         version: link:../../packages/core
       '@serwist/precaching':
         specifier: latest
-        version: link:../../packages/precaching
+        version: link:../../packages.legacy/precaching
       '@types/node':
         specifier: 20.11.30
         version: 20.11.30
@@ -475,7 +469,7 @@ importers:
         version: link:../../packages/nuxt
       '@serwist/precaching':
         specifier: latest
-        version: link:../../packages/precaching
+        version: link:../../packages.legacy/precaching
       '@serwist/sw':
         specifier: latest
         version: link:../../packages/sw
@@ -538,21 +532,15 @@ importers:
         specifier: 5.2.4
         version: 5.2.4(@types/node@20.11.30)
 
-  packages/background-sync:
+  packages.legacy/background-sync:
     dependencies:
-      '@serwist/core':
-        specifier: workspace:*
-        version: link:../core
       '@serwist/sw':
         specifier: workspace:*
-        version: link:../sw
-      idb:
-        specifier: 8.0.0
-        version: 8.0.0
+        version: link:../../packages/sw
     devDependencies:
       '@serwist/constants':
         specifier: workspace:*
-        version: link:../constants
+        version: link:../../packages/constants
       cross-env:
         specifier: 7.0.3
         version: 7.0.3
@@ -563,15 +551,143 @@ importers:
         specifier: 5.5.0-dev.20240323
         version: 5.5.0-dev.20240323
 
-  packages/broadcast-update:
+  packages.legacy/broadcast-update:
     dependencies:
       '@serwist/sw':
         specifier: workspace:*
-        version: link:../sw
+        version: link:../../packages/sw
     devDependencies:
       '@serwist/constants':
         specifier: workspace:*
-        version: link:../constants
+        version: link:../../packages/constants
+      rollup:
+        specifier: 4.13.0
+        version: 4.13.0
+      typescript:
+        specifier: 5.5.0-dev.20240323
+        version: 5.5.0-dev.20240323
+
+  packages.legacy/cacheable-response:
+    dependencies:
+      '@serwist/sw':
+        specifier: workspace:*
+        version: link:../../packages/sw
+    devDependencies:
+      '@serwist/constants':
+        specifier: workspace:*
+        version: link:../../packages/constants
+      rollup:
+        specifier: 4.13.0
+        version: 4.13.0
+      typescript:
+        specifier: 5.5.0-dev.20240323
+        version: 5.5.0-dev.20240323
+
+  packages.legacy/expiration:
+    dependencies:
+      '@serwist/sw':
+        specifier: workspace:*
+        version: link:../../packages/sw
+    devDependencies:
+      '@serwist/constants':
+        specifier: workspace:*
+        version: link:../../packages/constants
+      rollup:
+        specifier: 4.13.0
+        version: 4.13.0
+      typescript:
+        specifier: 5.5.0-dev.20240323
+        version: 5.5.0-dev.20240323
+
+  packages.legacy/google-analytics:
+    dependencies:
+      '@serwist/sw':
+        specifier: workspace:*
+        version: link:../../packages/sw
+    devDependencies:
+      '@serwist/constants':
+        specifier: workspace:*
+        version: link:../../packages/constants
+      rollup:
+        specifier: 4.13.0
+        version: 4.13.0
+      typescript:
+        specifier: 5.5.0-dev.20240323
+        version: 5.5.0-dev.20240323
+
+  packages.legacy/navigation-preload:
+    dependencies:
+      '@serwist/sw':
+        specifier: workspace:*
+        version: link:../../packages/sw
+    devDependencies:
+      '@serwist/constants':
+        specifier: workspace:*
+        version: link:../../packages/constants
+      rollup:
+        specifier: 4.13.0
+        version: 4.13.0
+      typescript:
+        specifier: 5.5.0-dev.20240323
+        version: 5.5.0-dev.20240323
+
+  packages.legacy/precaching:
+    dependencies:
+      '@serwist/sw':
+        specifier: workspace:*
+        version: link:../../packages/sw
+    devDependencies:
+      '@serwist/constants':
+        specifier: workspace:*
+        version: link:../../packages/constants
+      rollup:
+        specifier: 4.13.0
+        version: 4.13.0
+      typescript:
+        specifier: 5.5.0-dev.20240323
+        version: 5.5.0-dev.20240323
+
+  packages.legacy/range-requests:
+    dependencies:
+      '@serwist/sw':
+        specifier: workspace:*
+        version: link:../../packages/sw
+    devDependencies:
+      '@serwist/constants':
+        specifier: workspace:*
+        version: link:../../packages/constants
+      rollup:
+        specifier: 4.13.0
+        version: 4.13.0
+      typescript:
+        specifier: 5.5.0-dev.20240323
+        version: 5.5.0-dev.20240323
+
+  packages.legacy/routing:
+    dependencies:
+      '@serwist/sw':
+        specifier: workspace:*
+        version: link:../../packages/sw
+    devDependencies:
+      '@serwist/constants':
+        specifier: workspace:*
+        version: link:../../packages/constants
+      rollup:
+        specifier: 4.13.0
+        version: 4.13.0
+      typescript:
+        specifier: 5.5.0-dev.20240323
+        version: 5.5.0-dev.20240323
+
+  packages.legacy/strategies:
+    dependencies:
+      '@serwist/sw':
+        specifier: workspace:*
+        version: link:../../packages/sw
+    devDependencies:
+      '@serwist/constants':
+        specifier: workspace:*
+        version: link:../../packages/constants
       rollup:
         specifier: 4.13.0
         version: 4.13.0
@@ -633,22 +749,6 @@ importers:
       type-fest:
         specifier: 4.13.1
         version: 4.13.1
-      typescript:
-        specifier: 5.5.0-dev.20240323
-        version: 5.5.0-dev.20240323
-
-  packages/cacheable-response:
-    dependencies:
-      '@serwist/sw':
-        specifier: workspace:*
-        version: link:../sw
-    devDependencies:
-      '@serwist/constants':
-        specifier: workspace:*
-        version: link:../constants
-      rollup:
-        specifier: 4.13.0
-        version: 4.13.0
       typescript:
         specifier: 5.5.0-dev.20240323
         version: 5.5.0-dev.20240323
@@ -739,57 +839,6 @@ importers:
         version: 4.13.0
 
   packages/core:
-    devDependencies:
-      '@serwist/constants':
-        specifier: workspace:*
-        version: link:../constants
-      rollup:
-        specifier: 4.13.0
-        version: 4.13.0
-      typescript:
-        specifier: 5.5.0-dev.20240323
-        version: 5.5.0-dev.20240323
-
-  packages/expiration:
-    dependencies:
-      '@serwist/sw':
-        specifier: workspace:*
-        version: link:../sw
-    devDependencies:
-      '@serwist/constants':
-        specifier: workspace:*
-        version: link:../constants
-      rollup:
-        specifier: 4.13.0
-        version: 4.13.0
-      typescript:
-        specifier: 5.5.0-dev.20240323
-        version: 5.5.0-dev.20240323
-
-  packages/google-analytics:
-    dependencies:
-      '@serwist/core':
-        specifier: workspace:*
-        version: link:../core
-      '@serwist/sw':
-        specifier: workspace:*
-        version: link:../sw
-    devDependencies:
-      '@serwist/constants':
-        specifier: workspace:*
-        version: link:../constants
-      rollup:
-        specifier: 4.13.0
-        version: 4.13.0
-      typescript:
-        specifier: 5.5.0-dev.20240323
-        version: 5.5.0-dev.20240323
-
-  packages/navigation-preload:
-    dependencies:
-      '@serwist/core':
-        specifier: workspace:*
-        version: link:../core
     devDependencies:
       '@serwist/constants':
         specifier: workspace:*
@@ -929,90 +978,26 @@ importers:
         specifier: 2.0.7
         version: 2.0.7(typescript@5.5.0-dev.20240323)
 
-  packages/precaching:
-    dependencies:
-      '@serwist/sw':
-        specifier: workspace:*
-        version: link:../sw
-    devDependencies:
-      '@serwist/constants':
-        specifier: workspace:*
-        version: link:../constants
-      rollup:
-        specifier: 4.13.0
-        version: 4.13.0
-      typescript:
-        specifier: 5.5.0-dev.20240323
-        version: 5.5.0-dev.20240323
-
-  packages/range-requests:
-    dependencies:
-      '@serwist/sw':
-        specifier: workspace:*
-        version: link:../sw
-    devDependencies:
-      '@serwist/constants':
-        specifier: workspace:*
-        version: link:../constants
-      rollup:
-        specifier: 4.13.0
-        version: 4.13.0
-      typescript:
-        specifier: 5.5.0-dev.20240323
-        version: 5.5.0-dev.20240323
-
   packages/recipes:
     dependencies:
       '@serwist/cacheable-response':
         specifier: workspace:*
-        version: link:../cacheable-response
+        version: link:../../packages.legacy/cacheable-response
       '@serwist/core':
         specifier: workspace:*
         version: link:../core
       '@serwist/expiration':
         specifier: workspace:*
-        version: link:../expiration
+        version: link:../../packages.legacy/expiration
       '@serwist/precaching':
         specifier: workspace:*
-        version: link:../precaching
+        version: link:../../packages.legacy/precaching
       '@serwist/routing':
         specifier: workspace:*
-        version: link:../routing
+        version: link:../../packages.legacy/routing
       '@serwist/strategies':
         specifier: workspace:*
-        version: link:../strategies
-    devDependencies:
-      '@serwist/constants':
-        specifier: workspace:*
-        version: link:../constants
-      rollup:
-        specifier: 4.13.0
-        version: 4.13.0
-      typescript:
-        specifier: 5.5.0-dev.20240323
-        version: 5.5.0-dev.20240323
-
-  packages/routing:
-    dependencies:
-      '@serwist/sw':
-        specifier: workspace:*
-        version: link:../sw
-    devDependencies:
-      '@serwist/constants':
-        specifier: workspace:*
-        version: link:../constants
-      rollup:
-        specifier: 4.13.0
-        version: 4.13.0
-      typescript:
-        specifier: 5.5.0-dev.20240323
-        version: 5.5.0-dev.20240323
-
-  packages/strategies:
-    dependencies:
-      '@serwist/sw':
-        specifier: workspace:*
-        version: link:../sw
+        version: link:../../packages.legacy/strategies
     devDependencies:
       '@serwist/constants':
         specifier: workspace:*
@@ -1031,7 +1016,7 @@ importers:
         version: link:../core
       '@serwist/routing':
         specifier: workspace:*
-        version: link:../routing
+        version: link:../../packages.legacy/routing
     devDependencies:
       '@serwist/constants':
         specifier: workspace:*
@@ -1050,10 +1035,10 @@ importers:
         version: link:../core
       '@serwist/expiration':
         specifier: workspace:*
-        version: link:../expiration
+        version: link:../../packages.legacy/expiration
       '@serwist/strategies':
         specifier: workspace:*
-        version: link:../strategies
+        version: link:../../packages.legacy/strategies
       typescript:
         specifier: '>=5.0.0'
         version: 5.3.3
@@ -1063,7 +1048,7 @@ importers:
         version: link:../constants
       '@serwist/precaching':
         specifier: workspace:*
-        version: link:../precaching
+        version: link:../../packages.legacy/precaching
       '@serwist/sw':
         specifier: workspace:*
         version: link:../sw
@@ -1079,9 +1064,6 @@ importers:
       '@serwist/core':
         specifier: workspace:*
         version: link:../core
-      '@serwist/navigation-preload':
-        specifier: workspace:*
-        version: link:../navigation-preload
       idb:
         specifier: 8.0.0
         version: 8.0.0

@@ -1,8 +1,8 @@
 {
-  "name": "@serwist/routing",
+  "name": "@serwist/range-requests",
   "version": "9.0.0-preview.18",
   "type": "module",
-  "description": "A service worker helper library to route request URLs to handlers.",
+  "description": "This library creates a new Response, given a source Response and a Range header value.",
   "files": [
     "src",
     "dist"
@@ -12,8 +12,11 @@
     "serwistjs",
     "service worker",
     "sw",
-    "router",
-    "routing"
+    "caching",
+    "cache",
+    "range",
+    "media",
+    "serwist-plugin"
   ],
   "author": "Google's Web DevRel Team, Serwist's Team",
   "license": "MIT",
@@ -31,7 +34,6 @@
   },
   "scripts": {
     "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js",
-    "dev": "rollup --config rollup.config.js --watch",
     "lint": "biome lint ./src",
     "typecheck": "tsc"
   },

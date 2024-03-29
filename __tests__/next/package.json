@@ -10,7 +10,6 @@
     "@serwist-tests/config": "workspace:*",
     "@serwist/build": "workspace:*",
     "@serwist/next": "workspace:*",
-    "@serwist/precaching": "workspace:*",
     "@serwist/sw": "workspace:*",
     "cheerio": "1.0.0-rc.12",
     "fs-extra": "11.2.0",

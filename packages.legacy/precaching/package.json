@@ -1,8 +1,8 @@
 {
-  "name": "@serwist/cacheable-response",
+  "name": "@serwist/precaching",
   "version": "9.0.0-preview.18",
   "type": "module",
-  "description": "A module that takes a Response object and determines whether it's cacheable based on a specific configuration.",
+  "description": "A module that efficiently precaches assets.",
   "files": [
     "src",
     "dist"
@@ -11,8 +11,7 @@
     "serwist",
     "serwistjs",
     "service worker",
-    "sw",
-    "serwist-plugin"
+    "sw"
   ],
   "author": "Google's Web DevRel Team, Serwist's Team",
   "license": "MIT",
@@ -30,7 +29,6 @@
   },
   "scripts": {
     "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js",
-    "dev": "rollup --config rollup.config.js --watch",
     "lint": "biome lint ./src",
     "typecheck": "tsc"
   },

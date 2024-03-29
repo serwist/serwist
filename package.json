@@ -3,9 +3,9 @@
   "type": "module",
   "license": "MIT",
   "private": true,
-  "workspaces": ["docs", "packages/**", "examples/**", "!examples/**/.next"],
+  "workspaces": ["docs", "packages/**", "packages.legacy/**", "examples/**", "!examples/**/.next"],
   "scripts": {
-    "build": "cross-env FORCE_COLOR=1 turbo run build --filter=./packages/*",
+    "build": "cross-env FORCE_COLOR=1 turbo run build --filter=./packages/* --filter=./packages.legacy/*",
     "build:docs": "cross-env FORCE_COLOR=1 turbo run build --filter=./docs",
     "code-check": "biome check --max-diagnostics=150 --log-kind=compact .",
     "code-check:apply": "pnpm code-check --apply",

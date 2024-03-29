@@ -1,8 +1,8 @@
 {
-  "name": "@serwist/expiration",
+  "name": "@serwist/google-analytics",
   "version": "9.0.0-preview.18",
   "type": "module",
-  "description": "A module that expires cached responses based on age or maximum number of entries.",
+  "description": "Queues failed requests and uses the Background Sync API to replay them when the network is available.",
   "files": [
     "src",
     "dist"
@@ -12,7 +12,9 @@
     "serwistjs",
     "service worker",
     "sw",
-    "serwist-plugin"
+    "offline",
+    "google",
+    "analytics"
   ],
   "author": "Google's Web DevRel Team, Serwist's Team",
   "license": "MIT",
@@ -21,8 +23,19 @@
   "homepage": "https://serwist.pages.dev",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "initialize": [
+        "./dist/index.d.ts"
+      ]
+    }
+  },
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./initialize": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
@@ -30,7 +43,6 @@
   },
   "scripts": {
     "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js",
-    "dev": "rollup --config rollup.config.js --watch",
     "lint": "biome lint ./src",
     "typecheck": "tsc"
   },

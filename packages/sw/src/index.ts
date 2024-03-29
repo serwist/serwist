@@ -4,10 +4,22 @@ import type { FallbackEntry, FallbackMatcher, FallbacksOptions } from "./abstrac
 import { fallbacks } from "./abstractions/fallbacks.js";
 import { type HandlePrecachingOptions, handlePrecaching } from "./abstractions/handlePrecaching.js";
 import { type InstallSerwistOptions, installSerwist } from "./abstractions/installSerwist.js";
+import { disableNavigationPreload, enableNavigationPreload, isNavigationPreloadSupported } from "./abstractions/navigationPreload.js";
 import { registerRuntimeCaching } from "./abstractions/registerRuntimeCaching.js";
 import type { RuntimeCaching } from "./abstractions/types.js";
 
-export { disableDevLogs, fallbacks, handlePrecaching, installSerwist, Serwist, registerRuntimeCaching };
+export {
+  disableDevLogs,
+  fallbacks,
+  handlePrecaching,
+  installSerwist,
+  Serwist,
+  registerRuntimeCaching,
+  // Navigation preloading
+  disableNavigationPreload,
+  enableNavigationPreload,
+  isNavigationPreloadSupported,
+};
 export type {
   FallbackEntry,
   FallbackMatcher,

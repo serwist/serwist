@@ -1,8 +1,8 @@
 {
-  "name": "@serwist/precaching",
+  "name": "@serwist/strategies",
   "version": "9.0.0-preview.18",
   "type": "module",
-  "description": "A module that efficiently precaches assets.",
+  "description": "A service worker helper library implementing common caching strategies.",
   "files": [
     "src",
     "dist"
@@ -11,7 +11,9 @@
     "serwist",
     "serwistjs",
     "service worker",
-    "sw"
+    "sw",
+    "router",
+    "routing"
   ],
   "author": "Google's Web DevRel Team, Serwist's Team",
   "license": "MIT",
@@ -29,7 +31,6 @@
   },
   "scripts": {
     "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js",
-    "dev": "rollup --config rollup.config.js --watch",
     "lint": "biome lint ./src",
     "typecheck": "tsc"
   },

@@ -1,8 +1,8 @@
 {
-  "name": "@serwist/google-analytics",
+  "name": "@serwist/navigation-preload",
   "version": "9.0.0-preview.18",
   "type": "module",
-  "description": "Queues failed requests and uses the Background Sync API to replay them when the network is available",
+  "description": "A module that allows developers to enable navigation preloading in their service worker.",
   "files": [
     "src",
     "dist"
@@ -12,9 +12,7 @@
     "serwistjs",
     "service worker",
     "sw",
-    "offline",
-    "google",
-    "analytics"
+    "navigation"
   ],
   "author": "Google's Web DevRel Team, Serwist's Team",
   "license": "MIT",
@@ -23,19 +21,8 @@
   "homepage": "https://serwist.pages.dev",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "typesVersions": {
-    "*": {
-      "initialize": [
-        "./dist/index.d.ts"
-      ]
-    }
-  },
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    },
-    "./initialize": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
@@ -43,12 +30,10 @@
   },
   "scripts": {
     "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js",
-    "dev": "rollup --config rollup.config.js --watch",
     "lint": "biome lint ./src",
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@serwist/core": "workspace:*",
     "@serwist/sw": "workspace:*"
   },
   "devDependencies": {

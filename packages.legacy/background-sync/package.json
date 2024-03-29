@@ -1,8 +1,8 @@
 {
-  "name": "@serwist/range-requests",
+  "name": "@serwist/background-sync",
   "version": "9.0.0-preview.18",
   "type": "module",
-  "description": "This library creates a new Response, given a source Response and a Range header value.",
+  "description": "A module that queues failed requests and uses the Background Synchronization API to replay them when the network is available.",
   "files": [
     "src",
     "dist"
@@ -12,10 +12,8 @@
     "serwistjs",
     "service worker",
     "sw",
-    "caching",
-    "cache",
-    "range",
-    "media",
+    "background",
+    "sync",
     "serwist-plugin"
   ],
   "author": "Google's Web DevRel Team, Serwist's Team",
@@ -29,12 +27,10 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
-    },
-    "./package.json": "./package.json"
+    }
   },
   "scripts": {
     "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js",
-    "dev": "rollup --config rollup.config.js --watch",
     "lint": "biome lint ./src",
     "typecheck": "tsc"
   },
@@ -43,6 +39,7 @@
   },
   "devDependencies": {
     "@serwist/constants": "workspace:*",
+    "cross-env": "7.0.3",
     "rollup": "4.13.0",
     "typescript": "5.5.0-dev.20240323"
   },

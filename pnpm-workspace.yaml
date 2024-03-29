@@ -3,6 +3,7 @@ packages:
   - "__tests__/*"
   - "docs"
   - "packages/**"
+  - "packages.legacy/**"
   - "examples/**"
   - "!examples/**/.next/**"
   - "!examples/**/.output"

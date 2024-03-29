@@ -1,8 +1,8 @@
 {
-  "name": "@serwist/navigation-preload",
+  "name": "@serwist/routing",
   "version": "9.0.0-preview.18",
   "type": "module",
-  "description": "A module that allows developers to enable navigation preloading in their service worker.",
+  "description": "A service worker helper library to route request URLs to handlers.",
   "files": [
     "src",
     "dist"
@@ -12,7 +12,8 @@
     "serwistjs",
     "service worker",
     "sw",
-    "navigation"
+    "router",
+    "routing"
   ],
   "author": "Google's Web DevRel Team, Serwist's Team",
   "license": "MIT",
@@ -30,12 +31,11 @@
   },
   "scripts": {
     "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js",
-    "dev": "rollup --config rollup.config.js --watch",
     "lint": "biome lint ./src",
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@serwist/core": "workspace:*"
+    "@serwist/sw": "workspace:*"
   },
   "devDependencies": {
     "@serwist/constants": "workspace:*",

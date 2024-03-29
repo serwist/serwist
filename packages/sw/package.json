@@ -2,7 +2,7 @@
   "name": "@serwist/sw",
   "version": "9.0.0-preview.18",
   "type": "module",
-  "description": "A module that makes it easy to get started with the Serwist service worker libraries.",
+  "description": "A service worker helper module.",
   "files": [
     "src",
     "dist"
@@ -67,7 +67,6 @@
   },
   "dependencies": {
     "@serwist/core": "workspace:*",
-    "@serwist/navigation-preload": "workspace:*",
     "idb": "8.0.0"
   },
   "devDependencies": {

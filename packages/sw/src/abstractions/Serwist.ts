@@ -1,5 +1,4 @@
 import { clientsClaim as clientsClaimImpl, setCacheNameDetails } from "@serwist/core";
-import { enable } from "@serwist/navigation-preload";
 import { type GoogleAnalyticsInitializeOptions, initialize } from "../plugins/googleAnalytics/initialize.js";
 import { PrecacheController } from "../precaching/PrecacheController.js";
 import { PrecacheRoute } from "../precaching/PrecacheRoute.js";
@@ -14,6 +13,7 @@ import { disableDevLogs as disableDevLogsImpl } from "./disableDevLogs.js";
 import { fallbacks as fallbacksImpl } from "./fallbacks.js";
 import type { FallbacksOptions } from "./fallbacks.js";
 import { type HandlePrecachingOptions } from "./handlePrecaching.js";
+import { enableNavigationPreload } from "./navigationPreload.js";
 import type { RuntimeCaching } from "./types.js";
 
 declare const self: ServiceWorkerGlobalScope;
@@ -117,7 +117,7 @@ export class Serwist {
   }: SerwistInstallOptions) {
     if (!!importScripts && importScripts.length > 0) self.importScripts(...importScripts);
 
-    if (navigationPreload) enable();
+    if (navigationPreload) enableNavigationPreload();
 
     if (cacheId !== undefined) {
       setCacheNameDetails({

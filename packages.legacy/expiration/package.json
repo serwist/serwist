@@ -1,8 +1,8 @@
 {
-  "name": "@serwist/strategies",
+  "name": "@serwist/expiration",
   "version": "9.0.0-preview.18",
   "type": "module",
-  "description": "A service worker helper library implementing common caching strategies.",
+  "description": "A module that expires cached responses based on age or maximum number of entries.",
   "files": [
     "src",
     "dist"
@@ -12,8 +12,7 @@
     "serwistjs",
     "service worker",
     "sw",
-    "router",
-    "routing"
+    "serwist-plugin"
   ],
   "author": "Google's Web DevRel Team, Serwist's Team",
   "license": "MIT",
@@ -31,7 +30,6 @@
   },
   "scripts": {
     "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js",
-    "dev": "rollup --config rollup.config.js --watch",
     "lint": "biome lint ./src",
     "typecheck": "tsc"
   },
