@@ -1,5 +1,15 @@
 # @serwist/svelte
 
+## 9.0.0-preview.18
+
+### Patch Changes
+
+- Updated dependencies [[`c65578b`](https://github.com/serwist/serwist/commit/c65578b68f1ae88822238c3c03aa5e859a4f2b7e)]:
+  - @serwist/expiration@9.0.0-preview.18
+  - @serwist/strategies@9.0.0-preview.18
+  - @serwist/sw@9.0.0-preview.18
+  - @serwist/core@9.0.0-preview.18
+
 ## 9.0.0-preview.17
 
 ### Patch Changes
