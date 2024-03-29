@@ -1,5 +1,34 @@
 # @serwist/google-analytics
 
+## 9.0.0-preview.18
+
+### Minor Changes
+
+- [`c65578b`](https://github.com/serwist/serwist/commit/c65578b68f1ae88822238c3c03aa5e859a4f2b7e) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor: merge service worker modules into `@serwist/sw`
+
+  - These service worker modules have been merged into `@serwist/sw`:
+    - Modules now located at `@serwist/sw/plugins`:
+      - `@serwist/background-sync`
+      - `@serwist/broadcast-update`
+      - `@serwist/cacheable-response`
+      - `@serwist/expiration`
+      - `@serwist/google-analytics`
+      - `@serwist/range-requests`
+    - Modules now located at `@serwist/sw/precaching`:
+      - `@serwist/precaching`:
+        - Excluding `PrecacheFallbackPlugin`, `PrecacheFallbackEntry`, and `PrecacheFallbackPluginOptions`, which are now at `@serwist/sw/plugins`.
+    - Modules now located at `@serwist/sw/routing`:
+      - `@serwist/routing`
+    - Modules now located at `@serwist/sw/strategies`:
+      - `@serwist/strategies`
+  - They remain operable for compatibility, but they will be marked as deprecated on npm.
+
+### Patch Changes
+
+- Updated dependencies [[`c65578b`](https://github.com/serwist/serwist/commit/c65578b68f1ae88822238c3c03aa5e859a4f2b7e)]:
+  - @serwist/sw@9.0.0-preview.18
+  - @serwist/core@9.0.0-preview.18
+
 ## 9.0.0-preview.17
 
 ### Patch Changes

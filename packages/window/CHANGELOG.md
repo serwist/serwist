@@ -1,5 +1,12 @@
 # @serwist/window
 
+## 9.0.0-preview.18
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/core@9.0.0-preview.18
+
 ## 9.0.0-preview.17
 
 ### Patch Changes
