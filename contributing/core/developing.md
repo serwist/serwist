@@ -2,12 +2,13 @@
 
 - The development branch is `main`.
 - All pull requests should be opened against `main`.
+- Although the repository is mirrored to GitHub, the development actually takes place at GitLab.
 
 To develop locally:
 
 1. Clone the Serwist repository:
    ```bash
-   git clone https://github.com/serwist -- --depth=3000 --branch main --single-branch
+   git clone git@gitlab.com:serwist/serwist.git -- --depth=3000 --branch main --single-branch
    ```
 1. Create a new branch:
    ```bash
@@ -28,6 +29,6 @@ To develop locally:
    ```
 1. When you are ready to push, make a fork and then run:
    ```
-   git remote set-url origin https://github.com/YOUR_NAME/serwist
+   git remote set-url origin git@gitlab.com:YOUR_NAME/serwist.git
    git push -u origin MY_BRANCH_NAME
    ```

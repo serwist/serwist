@@ -13,7 +13,7 @@ default:
 
 workflow:
   rules:
-    - if: '$CI_COMMIT_TITLE !~ /chore\(packages\): publish packages/'
+    - if: '$CI_COMMIT_TITLE !~ /chore\(packages\): publish packages/ && $CI_COMMIT_MESSAGE !~ /\[skip ci\]/'
 
 stages:
   - build

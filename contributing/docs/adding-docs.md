@@ -7,7 +7,7 @@
 
 1. Clone the Serwist repository:
    ```bash
-   git clone https://gitlab.com/serwist/serwist -- --depth=3000 --branch main --single-branch
+   git clone git@gitlab.com:serwist/serwist.git -- --depth=3000 --branch main --single-branch
    ```
 1. Create a new branch:
    ```bash
@@ -36,8 +36,8 @@
    ```
 1. When you are ready to push, make a fork and then run:
    ```
-   git remote set-url origin https://github.com/YOURNAME/serwist
-   git push
+   git remote set-url origin git@gitlab.com:YOUR_NAME/serwist.git
+   git push -u origin MY_BRANCH_NAME
    ```
 
 ## Why not Markdown?
