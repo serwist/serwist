@@ -53,7 +53,7 @@ publish-job:
     - pnpm typecheck
     - pnpm changeset version
     - pnpm changeset publish
-    - 'git commit -m "chore(packages): publish packages"'
+    - 'git commit -ma "chore(packages): publish packages"'
     - git push origin HEAD:$CI_COMMIT_REF_NAME --follow-tags
   rules:
     - if: '($CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "9.0.0") && $CI_PIPELINE_SOURCE != "merge_request_event" && $CI_COMMIT_MESSAGE =~ /\[bump\]/'
