@@ -20,9 +20,9 @@
   },
   "author": "Google's Web DevRel Team, Serwist's Team",
   "license": "MIT",
-  "repository": "serwist/serwist",
-  "bugs": "https://github.com/serwist/serwist/issues",
-  "homepage": "https://github.com/serwist/serwist",
+  "repository": "https://gitlab.com/serwist/serwist",
+  "bugs": "https://gitlab.com/serwist/serwist/issues",
+  "homepage": "https://serwist.pages.dev",
   "bin": {
     "serwist": "dist/bin.js"
   },

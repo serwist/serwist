@@ -22,8 +22,8 @@
   ],
   "author": "Serwist's Team",
   "license": "MIT",
-  "repository": "serwist/serwist",
-  "bugs": "https://github.com/serwist/serwist/issues",
+  "repository": "https://gitlab.com/serwist/serwist",
+  "bugs": "https://gitlab.com/serwist/serwist/issues",
   "homepage": "https://serwist.pages.dev",
   "typesVersions": {
     "*": {

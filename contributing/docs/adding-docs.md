@@ -7,7 +7,7 @@
 
 1. Clone the Serwist repository:
    ```bash
-   git clone https://github.com/serwist/serwist -- --depth=3000 --branch main --single-branch
+   git clone https://gitlab.com/serwist/serwist -- --depth=3000 --branch main --single-branch
    ```
 1. Create a new branch:
    ```bash

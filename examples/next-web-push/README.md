@@ -6,7 +6,7 @@ This example demonstrates how to add push notifications to an app using Serwist 
 
 1. Init the project
 
-   [![Open in Gitpod and run](https://img.shields.io/badge/Open%20In-Gitpod.io-%231966D2?style=for-the-badge&logo=gitpod)](https://gitpod.io/#https://github.com/serwist/serwist/)
+   [![Open in Gitpod and run](https://img.shields.io/badge/Open%20In-Gitpod.io-%231966D2?style=for-the-badge&logo=gitpod)](https://gitpod.io/#https://gitlab.com/serwist/serwist/)
 
    ```bash
    cd examples/next-web-push
@@ -14,22 +14,22 @@ This example demonstrates how to add push notifications to an app using Serwist 
 
    or
 
-   Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), [pnpm](https://pnpm.io), or [bun](https://bun.sh) to bootstrap the example:
+   Execute [`degit`](https://github.com/Rich-Harris/degit) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), [pnpm](https://pnpm.io), or [bun](https://bun.sh) to bootstrap the example:
 
    ```bash
-   npx create-next-app --example https://github.com/serwist/serwist/tree/main/examples/next-web-push my-app
+   npx degit git@gitlab.com:serwist/serwist/tree/main/examples/next-web-push my-app
    ```
 
    ```bash
-   yarn create next-app --example https://github.com/serwist/serwist/tree/main/examples/next-web-push my-app
+   yarn degit git@gitlab.com:serwist/serwist/tree/main/examples/next-web-push my-app
    ```
 
    ```bash
-   pnpm create next-app --example https://github.com/serwist/serwist/tree/main/examples/next-web-push my-app
+   pnpx degit git@gitlab.com:serwist/serwist/tree/main/examples/next-web-push my-app
    ```
 
    ```bash
-   bun create next-app --example https://github.com/serwist/serwist/tree/main/examples/next-web-push my-app
+   bunx degit git@gitlab.com:serwist/serwist/tree/main/examples/next-web-push my-app
    ```
 
 1. Run
