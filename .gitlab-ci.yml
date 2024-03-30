@@ -1,0 +1,46 @@
+default:
+  image: node:20.10.0
+  before_script:
+    - corepack enable pnpm
+    - pnpm config set store-dir .pnpm-store
+    - pnpm i
+  cache:
+    key:
+      files:
+        - pnpm-lock.yaml
+    paths:
+      - .pnpm-store
+
+stages:
+  - build
+  - test
+  - publish
+
+build-job:
+  stage: build
+  script:
+    - pnpm build
+    - pnpm typecheck
+
+test-next-dev:
+  stage: test
+  script:
+    - pnpm build
+    - NEXT_TEST_MODE=dev pnpm test --filter=./__tests__/next -- --ci --runInBand
+test-next-build:
+  stage: test
+  script:
+    - pnpm build
+    - NEXT_TEST_MODE=start pnpm test --filter=./__tests__/next -- --ci --runInBand
+test-build:
+  stage: test
+  script:
+    - pnpm build
+    - pnpm test --filter=./__tests__/build -- --ci --runInBand
+
+publish-job:
+  stage: publish
+  script:
+    - pnpm publish-packages
+  rules:
+    - if: '($CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "9.0.0") && ($CI_COMMIT_TITLE =~ /chore\(packages\): publish packages/ || $CI_COMMIT_MESSAGE =~ /\[bump\]/)'
