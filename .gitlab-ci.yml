@@ -41,6 +41,16 @@ test-build:
 publish-job:
   stage: publish
   script:
-    - pnpm publish-packages
+    - git config --global user.email "$GITLAB_USER_EMAIL"
+    - git config --global user.name "$GITLAB_USER_NAME"
+    - git remote set-url origin "https://gitlab-ci-token:$CI_JOB_TOKEN@$CI_SERVER_HOST/$CI_PROJECT_PATH.git"
+    - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
+    - git checkout $CI_COMMIT_BRANCH
+    - pnpm build
+    - pnpm typecheck
+    - pnpm changeset version
+    - pnpm changeset publish
+    - 'git commit -m "chore(packages): publish packages"'
+    - git push origin HEAD:$CI_COMMIT_REF_NAME --follow-tags
   rules:
-    - if: '($CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "9.0.0") && ($CI_COMMIT_TITLE =~ /chore\(packages\): publish packages/ || $CI_COMMIT_MESSAGE =~ /\[bump\]/)'
+    - if: '($CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "9.0.0") && $CI_PIPELINE_SOURCE != "merge_request_event" && $CI_COMMIT_MESSAGE =~ /\[bump\]/'

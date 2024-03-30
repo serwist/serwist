@@ -27,7 +27,6 @@
     "lint:docs": "pnpm eslint docs --fix --ext .svelte && cross-env FORCE_COLOR=1 turbo run lint --filter=./docs -- --apply",
     "lint:all": "biome lint --max-diagnostics=100 --log-kind=compact .",
     "lint:fix": "pnpm lint -- --apply",
-    "publish-packages": "cross-env PUBLISH=true pnpm build && pnpm typecheck && changeset publish",
     "test": "cross-env FORCE_COLOR=1 turbo run test",
     "typecheck": "cross-env FORCE_COLOR=1 turbo run typecheck"
   },
