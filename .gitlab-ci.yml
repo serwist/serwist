@@ -11,6 +11,10 @@ default:
     paths:
       - .pnpm-store
 
+workflow:
+  rules:
+    - if: '$CI_COMMIT_TITLE !~ /chore\(packages\): publish packages/'
+
 stages:
   - build
   - test

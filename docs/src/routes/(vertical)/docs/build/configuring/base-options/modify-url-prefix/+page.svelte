@@ -1,5 +1,4 @@
 <script lang="ts">
-  import Code from "$components/Code.svelte";
   import CodeTab from "$components/CodeTab.svelte";
   import InlineCode from "$components/InlineCode.svelte";
 

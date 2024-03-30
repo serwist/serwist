@@ -9,7 +9,7 @@
 <h2>First added</h2>
 <p>Workbox</p>
 <h2>Default</h2>
-<Code>{['"**\\/*.{js,css,html}"']}</Code>
+<Code>{"[\"**\/*.{js,css,html}\"]"}</Code>
 <h2>About</h2>
 <p>
   Files matching any of these patterns will be included in the precache manifest. For more information, see

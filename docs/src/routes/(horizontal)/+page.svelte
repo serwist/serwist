@@ -3,12 +3,12 @@
   import type { SVGAttributes } from "svelte/elements";
 
   import CodeTab from "$components/CodeTab.svelte";
-  import InlineCode from "$components/InlineCode.svelte";
   import NextjsLogo from "$components/icons/NextjsLogo.svelte";
   import NuxtLogo from "$components/icons/NuxtLogo.svelte";
   import SvelteLogo from "$components/icons/SvelteLogo.svelte";
   import ViteLogo from "$components/icons/ViteLogo.svelte";
   import WebpackLogo from "$components/icons/WebpackLogo.svelte";
+  import InlineCode from "$components/InlineCode.svelte";
   import { clsx } from "$lib/clsx";
   import { GITHUB_REPO_URL } from "$lib/constants.js";
 
