@@ -1,5 +1,14 @@
 # @serwist/utils
 
+## 9.0.0-preview.19
+
+### Patch Changes
+
+- 6d294f9: refactor: migrate to GitLab
+
+  - Serwist and `@ducanh2912/next-pwa` have migrated to GitLab.
+  - This was the result of GitHub flagging my account, organizations, and repositories as spam. Sorry for the inconvenience.
+
 ## 9.0.0-preview.18
 
 ## 9.0.0-preview.17

@@ -1,5 +1,20 @@
 # @serwist/svelte
 
+## 9.0.0-preview.19
+
+### Patch Changes
+
+- 6d294f9: refactor: migrate to GitLab
+
+  - Serwist and `@ducanh2912/next-pwa` have migrated to GitLab.
+  - This was the result of GitHub flagging my account, organizations, and repositories as spam. Sorry for the inconvenience.
+
+- Updated dependencies [6d294f9]
+  - @serwist/expiration@9.0.0-preview.19
+  - @serwist/strategies@9.0.0-preview.19
+  - @serwist/core@9.0.0-preview.19
+  - @serwist/sw@9.0.0-preview.19
+
 ## 9.0.0-preview.18
 
 ### Patch Changes
