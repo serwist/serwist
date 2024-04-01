@@ -1,5 +1,39 @@
 # @serwist/next
 
+## 9.0.0-preview.22
+
+### Patch Changes
+
+- Updated dependencies
+  - @serwist/window@9.0.0-preview.22
+  - @serwist/build@9.0.0-preview.22
+  - @serwist/core@9.0.0-preview.22
+  - @serwist/sw@9.0.0-preview.22
+  - @serwist/webpack-plugin@9.0.0-preview.22
+
+## 9.0.0-preview.21
+
+### Patch Changes
+
+- Updated dependencies [6ed7da2]
+- Updated dependencies
+  - @serwist/window@9.0.0-preview.21
+  - @serwist/build@9.0.0-preview.21
+  - @serwist/core@9.0.0-preview.21
+  - @serwist/sw@9.0.0-preview.21
+  - @serwist/webpack-plugin@9.0.0-preview.21
+
+## 9.0.0-preview.20
+
+### Patch Changes
+
+- Updated dependencies [10c9394]
+  - @serwist/sw@9.0.0-preview.20
+  - @serwist/build@9.0.0-preview.20
+  - @serwist/core@9.0.0-preview.20
+  - @serwist/webpack-plugin@9.0.0-preview.20
+  - @serwist/window@9.0.0-preview.20
+
 ## 9.0.0-preview.19
 
 ### Patch Changes

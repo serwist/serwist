@@ -11,6 +11,7 @@
     "!examples/**/.next"
   ],
   "scripts": {
+    "bump": "changeset version && changeset tag",
     "build": "cross-env FORCE_COLOR=1 turbo run build --filter=./packages/* --filter=./packages.legacy/*",
     "build:docs": "cross-env FORCE_COLOR=1 turbo run build --filter=./docs",
     "build:no-legacy": "cross-env FORCE_COLOR=1 turbo run build --filter=./packages/*",

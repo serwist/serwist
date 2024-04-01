@@ -1,5 +1,29 @@
 # @serwist/sw
 
+## 9.0.0-preview.22
+
+### Patch Changes
+
+- @serwist/core@9.0.0-preview.22
+
+## 9.0.0-preview.21
+
+### Patch Changes
+
+- @serwist/core@9.0.0-preview.21
+
+## 9.0.0-preview.20
+
+### Minor Changes
+
+- 10c9394: feat(sw): export singleton functions
+
+  - `@serwist/sw/precaching` and `@serwist/sw/routing` now exports `getSingletonPrecacheController`, `setSingletonPrecacheController`, `getSingletonRouter`, and `setSingletonRouter` to allow further customizability.
+
+### Patch Changes
+
+- @serwist/core@9.0.0-preview.20
+
 ## 9.0.0-preview.19
 
 ### Patch Changes
