@@ -6,14 +6,18 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { CacheableResponsePlugin } from "@serwist/cacheable-response";
 import type { RouteMatchCallback, RouteMatchCallbackOptions, SerwistPlugin } from "@serwist/core";
-import { registerRoute } from "@serwist/routing";
-import { StaleWhileRevalidate } from "@serwist/strategies";
-
+import { CacheableResponsePlugin } from "@serwist/sw/plugins";
+import { type Router, getSingletonRouter } from "@serwist/sw/routing";
+import { StaleWhileRevalidate } from "@serwist/sw/strategies";
 import { warmStrategyCache } from "./warmStrategyCache.js";
 
 export interface StaticResourceOptions {
+  /**
+   * An optional `Router` instance. If not provided, the singleton `Router`
+   * will be used.
+   */
+  router?: Router;
   /**
    * Name for cache.
    *
@@ -41,13 +45,14 @@ export interface StaticResourceOptions {
  *
  * @param options
  */
-function staticResourceCache(options: StaticResourceOptions = {}): void {
-  const defaultMatchCallback = ({ request }: RouteMatchCallbackOptions) =>
-    request.destination === "style" || request.destination === "script" || request.destination === "worker";
-
-  const cacheName = options.cacheName || "static-resources";
-  const matchCallback = options.matchCallback || defaultMatchCallback;
-  const plugins = options.plugins || [];
+export const staticResourceCache = ({
+  router = getSingletonRouter(),
+  cacheName = "static-resources",
+  matchCallback = ({ request }: RouteMatchCallbackOptions) =>
+    request.destination === "style" || request.destination === "script" || request.destination === "worker",
+  plugins = [],
+  warmCache,
+}: StaticResourceOptions = {}): void => {
   plugins.push(
     new CacheableResponsePlugin({
       statuses: [0, 200],
@@ -59,12 +64,10 @@ function staticResourceCache(options: StaticResourceOptions = {}): void {
     plugins,
   });
 
-  registerRoute(matchCallback, strategy);
+  router.registerCapture(matchCallback, strategy);
 
   // Warms the cache
-  if (options.warmCache) {
-    warmStrategyCache({ urls: options.warmCache, strategy });
+  if (warmCache) {
+    warmStrategyCache({ urls: warmCache, strategy });
   }
-}
-
-export { staticResourceCache };
+};

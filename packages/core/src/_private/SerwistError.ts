@@ -19,7 +19,7 @@ import type { MapLikeObject } from "../types.js";
  *
  * @private
  */
-class SerwistError extends Error {
+export class SerwistError extends Error {
   details?: MapLikeObject;
 
   /**
@@ -39,5 +39,3 @@ class SerwistError extends Error {
     this.details = details;
   }
 }
-
-export { SerwistError };

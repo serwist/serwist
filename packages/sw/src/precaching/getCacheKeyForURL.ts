@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheController.js";
+import { getSingletonPrecacheController } from "./singletonPrecacheController.js";
 
 /**
  * Takes in a URL, and returns the corresponding URL that could be used to
@@ -26,7 +26,7 @@ import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheContro
  * @returns The cache key that corresponds to that URL.
  */
 function getCacheKeyForURL(url: string): string | undefined {
-  const precacheController = getOrCreatePrecacheController();
+  const precacheController = getSingletonPrecacheController();
   return precacheController.getCacheKeyForURL(url);
 }
 

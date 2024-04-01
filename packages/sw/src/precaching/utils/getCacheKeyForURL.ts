@@ -6,9 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
+import { getSingletonPrecacheController } from "../singletonPrecacheController.js";
 import type { PrecacheRouteOptions } from "../types.js";
 import { generateURLVariations } from "./generateURLVariations.js";
-import { getOrCreatePrecacheController } from "./getOrCreatePrecacheController.js";
 
 /**
  * This function will take the request URL and manipulate it based on the
@@ -22,7 +22,7 @@ import { getOrCreatePrecacheController } from "./getOrCreatePrecacheController.j
  * @private
  */
 export const getCacheKeyForURL = (url: string, options: PrecacheRouteOptions): string | undefined => {
-  const precacheController = getOrCreatePrecacheController();
+  const precacheController = getSingletonPrecacheController();
 
   const urlsToCacheKeys = precacheController.getURLsToCacheKeys();
   for (const possibleURL of generateURLVariations(url, options)) {

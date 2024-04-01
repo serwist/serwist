@@ -4,11 +4,11 @@ import { PrecacheController } from "../precaching/PrecacheController.js";
 import { PrecacheRoute } from "../precaching/PrecacheRoute.js";
 import { cleanupOutdatedCaches as cleanupOutdatedCachesImpl } from "../precaching/cleanupOutdatedCaches.js";
 import { createHandlerBoundToURL } from "../precaching/createHandlerBoundToURL.js";
-import { getOrCreatePrecacheController } from "../precaching/utils/getOrCreatePrecacheController.js";
+import { getSingletonPrecacheController } from "../precaching/singletonPrecacheController.js";
 import { NavigationRoute } from "../routing/NavigationRoute.js";
 import { Router } from "../routing/Router.js";
-import { getOrCreateDefaultRouter } from "../routing/utils/getOrCreateDefaultRouter.js";
-import { parseRoute } from "../routing/utils/parseRoute.js";
+import { parseRoute } from "../routing/parseRoute.js";
+import { getSingletonRouter } from "../routing/singletonRouter.js";
 import { disableDevLogs as disableDevLogsImpl } from "./disableDevLogs.js";
 import { fallbacks as fallbacksImpl } from "./fallbacks.js";
 import type { FallbacksOptions } from "./fallbacks.js";
@@ -20,15 +20,13 @@ declare const self: ServiceWorkerGlobalScope;
 
 export interface SerwistOptions {
   /**
-   * The precache controller that will be used to perform efficient
-   * precaching of assets.
-   * @see https://serwist.pages.dev/docs/sw/precaching
+   * An optional `PrecacheController` instance. If not provided, the singleton
+   * `PrecacheController` will be used.
    */
   precacheController?: PrecacheController;
   /**
-   * The router that will be used to process a `FetchEvent`, responding
-   * with a `Response` if a matching route exists.
-   * @see https://serwist.pages.dev/docs/sw/routing
+   * An optional `Router` instance. If not provided, the singleton `Router`
+   * will be used.
    */
   router?: Router;
 }
@@ -95,8 +93,8 @@ export class Serwist {
   private _precacheController: PrecacheController;
   private _router: Router;
   constructor({ precacheController, router }: SerwistOptions = {}) {
-    this._precacheController = precacheController || getOrCreatePrecacheController();
-    this._router = router || getOrCreateDefaultRouter();
+    this._precacheController = precacheController || getSingletonPrecacheController();
+    this._router = router || getSingletonRouter();
   }
   install({
     precacheEntries,
@@ -114,7 +112,7 @@ export class Serwist {
     offlineAnalyticsConfig,
     disableDevLogs = false,
     fallbacks,
-  }: SerwistInstallOptions) {
+  }: SerwistInstallOptions = {}) {
     if (!!importScripts && importScripts.length > 0) self.importScripts(...importScripts);
 
     if (navigationPreload) enableNavigationPreload();

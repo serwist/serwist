@@ -6,14 +6,18 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { CacheableResponsePlugin } from "@serwist/cacheable-response";
 import type { RouteMatchCallback, RouteMatchCallbackOptions, SerwistPlugin } from "@serwist/core";
-import { registerRoute } from "@serwist/routing";
-import { NetworkFirst } from "@serwist/strategies";
-
+import { CacheableResponsePlugin } from "@serwist/sw/plugins";
+import { type Router, getSingletonRouter } from "@serwist/sw/routing";
+import { NetworkFirst } from "@serwist/sw/strategies";
 import { warmStrategyCache } from "./warmStrategyCache.js";
 
 export interface PageCacheOptions {
+  /**
+   * An optional `Router` instance. If not provided, the singleton `Router`
+   * will be used.
+   */
+  router?: Router;
   /**
    * Name for cache. Defaults to pages.
    */
@@ -43,13 +47,14 @@ export interface PageCacheOptions {
  *
  * @param options
  */
-function pageCache(options: PageCacheOptions = {}): void {
-  const defaultMatchCallback = ({ request }: RouteMatchCallbackOptions) => request.mode === "navigate";
-
-  const cacheName = options.cacheName || "pages";
-  const matchCallback = options.matchCallback || defaultMatchCallback;
-  const networkTimeoutSeconds = options.networkTimeoutSeconds || 3;
-  const plugins = options.plugins || [];
+export const pageCache = ({
+  router = getSingletonRouter(),
+  cacheName = "pages",
+  matchCallback = ({ request }: RouteMatchCallbackOptions) => request.mode === "navigate",
+  networkTimeoutSeconds = 3,
+  plugins = [],
+  warmCache,
+}: PageCacheOptions = {}): void => {
   plugins.push(
     new CacheableResponsePlugin({
       statuses: [0, 200],
@@ -63,12 +68,10 @@ function pageCache(options: PageCacheOptions = {}): void {
   });
 
   // Registers the route
-  registerRoute(matchCallback, strategy);
+  router.registerCapture(matchCallback, strategy);
 
   // Warms the cache
-  if (options.warmCache) {
-    warmStrategyCache({ urls: options.warmCache, strategy });
+  if (warmCache) {
+    warmStrategyCache({ urls: warmCache, strategy });
   }
-}
-
-export { pageCache };
+};

@@ -9,7 +9,7 @@
 import type { HandlerDidErrorCallbackParam, SerwistPlugin } from "@serwist/core";
 
 import type { PrecacheController } from "../../precaching/PrecacheController.js";
-import { getOrCreatePrecacheController } from "../../precaching/utils/getOrCreatePrecacheController.js";
+import { getSingletonPrecacheController } from "../../precaching/singletonPrecacheController.js";
 
 export interface PrecacheFallbackEntry {
   /**
@@ -59,7 +59,7 @@ export class PrecacheFallbackPlugin implements SerwistPlugin {
    */
   constructor({ fallbackUrls, precacheController }: PrecacheFallbackPluginOptions) {
     this._fallbackUrls = fallbackUrls;
-    this._precacheController = precacheController || getOrCreatePrecacheController();
+    this._precacheController = precacheController || getSingletonPrecacheController();
   }
 
   /**

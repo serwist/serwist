@@ -8,7 +8,7 @@
 
 import type { RouteHandlerCallback } from "@serwist/core";
 
-import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheController.js";
+import { getSingletonPrecacheController } from "./singletonPrecacheController.js";
 
 /**
  * Helper function that calls `PrecacheController#createHandlerBoundToURL`
@@ -25,6 +25,6 @@ import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheContro
  * @return
  */
 export const createHandlerBoundToURL = (url: string): RouteHandlerCallback => {
-  const precacheController = getOrCreatePrecacheController();
+  const precacheController = getSingletonPrecacheController();
   return precacheController.createHandlerBoundToURL(url);
 };

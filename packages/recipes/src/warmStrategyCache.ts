@@ -1,4 +1,4 @@
-import type { Strategy } from "@serwist/strategies";
+import type { Strategy } from "@serwist/sw/strategies";
 
 export interface WarmStrategyCacheOptions {
   /**
@@ -17,7 +17,7 @@ declare let self: ServiceWorkerGlobalScope;
 /**
  * @param options
  */
-function warmStrategyCache(options: WarmStrategyCacheOptions): void {
+export const warmStrategyCache = (options: WarmStrategyCacheOptions): void => {
   self.addEventListener("install", (event) => {
     const done = options.urls.map(
       (path) =>
@@ -29,6 +29,4 @@ function warmStrategyCache(options: WarmStrategyCacheOptions): void {
 
     event.waitUntil(Promise.all(done));
   });
-}
-
-export { warmStrategyCache };
+};

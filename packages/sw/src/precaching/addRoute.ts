@@ -7,8 +7,8 @@
 
 import { registerRoute } from "../routing/registerRoute.js";
 import { PrecacheRoute } from "./PrecacheRoute.js";
+import { getSingletonPrecacheController } from "./singletonPrecacheController.js";
 import type { PrecacheRouteOptions } from "./types.js";
-import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheController.js";
 
 /**
  * Add a `fetch` listener to the service worker that will
@@ -23,7 +23,7 @@ import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheContro
  * @param options See the `@serwist/precaching.PrecacheRoute` options.
  */
 export const addRoute = (options?: PrecacheRouteOptions): void => {
-  const precacheController = getOrCreatePrecacheController();
+  const precacheController = getSingletonPrecacheController();
 
   const precacheRoute = new PrecacheRoute(precacheController, options);
   registerRoute(precacheRoute);

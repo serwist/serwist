@@ -130,11 +130,11 @@ export const messages = {
   },
 
   "max-entries-or-age-required": ({ moduleName, className, funcName }) => {
-    return `You must define either config.maxEntries or config.maxAgeSecondsin ${moduleName}.${className}.${funcName}`;
+    return `You must define either 'config.maxEntries' or 'config.maxAgeSeconds' in '${moduleName}.${className}.${funcName}'`;
   },
 
   "statuses-or-headers-required": ({ moduleName, className, funcName }) => {
-    return `You must define either config.statuses or config.headersin ${moduleName}.${className}.${funcName}`;
+    return `You must define either 'config.statuses' or 'config.headers' in '${moduleName}.${className}.${funcName}'`;
   },
 
   "invalid-string": ({ moduleName, funcName, paramName }) => {
@@ -206,7 +206,7 @@ export const messages = {
   },
 
   "non-precached-url": ({ url }) => {
-    return `createHandlerBoundToURL('${url}') was called, but that URL is not precached. Please pass in a URL that is precached instead.`;
+    return `'createHandlerBoundToURL("${url}")' was called, but that URL is not precached. Please pass in a URL that is precached instead.`;
   },
 
   "add-to-cache-list-conflicting-integrities": ({ url }) => {
@@ -218,11 +218,11 @@ export const messages = {
   },
 
   "cross-origin-copy-response": ({ origin }) => {
-    return `@serwist/core.copyResponse() can only be used with same-origin responses. It was passed a response with origin ${origin}.`;
+    return `'@serwist/core.copyResponse()' can only be used with same-origin responses. It was passed a response with origin ${origin}.`;
   },
 
   "opaque-streams-source": ({ type }) => {
-    const message = `One of the @serwist/streams sources resulted in an '${type}' response.`;
+    const message = `One of the '@serwist/streams' sources resulted in an '${type}' response.`;
     if (type === "opaqueredirect") {
       return `${message} Please do not use a navigation request that results in a redirect as a source.`;
     }

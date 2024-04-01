@@ -1,6 +1,6 @@
 import { logger } from "@serwist/core/internal";
-import { getOrCreatePrecacheController } from "../precaching/utils/getOrCreatePrecacheController.js";
-import { getOrCreateDefaultRouter } from "../routing/utils/getOrCreateDefaultRouter.js";
+import { getSingletonPrecacheController } from "../precaching/singletonPrecacheController.js";
+import { getSingletonRouter } from "../routing/singletonRouter.js";
 import { Serwist, type SerwistInstallOptions } from "./Serwist.js";
 
 /**
@@ -21,8 +21,8 @@ export const installSerwist = (options: InstallSerwistOptions): void => {
     logger.warn("'installSerwist' has been deprecated. Please migrate to 'new Serwist().install()'.");
   }
   const serwist = new Serwist({
-    precacheController: getOrCreatePrecacheController(),
-    router: getOrCreateDefaultRouter(),
+    precacheController: getSingletonPrecacheController(),
+    router: getSingletonRouter(),
   });
   serwist.install(options);
 };

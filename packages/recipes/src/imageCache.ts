@@ -6,15 +6,18 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { CacheableResponsePlugin } from "@serwist/cacheable-response";
 import type { RouteMatchCallback, RouteMatchCallbackOptions, SerwistPlugin } from "@serwist/core";
-import { ExpirationPlugin } from "@serwist/expiration";
-import { registerRoute } from "@serwist/routing";
-import { CacheFirst } from "@serwist/strategies";
-
+import { CacheableResponsePlugin, ExpirationPlugin } from "@serwist/sw/plugins";
+import { type Router, getSingletonRouter } from "@serwist/sw/routing";
+import { CacheFirst } from "@serwist/sw/strategies";
 import { warmStrategyCache } from "./warmStrategyCache.js";
 
 export interface ImageCacheOptions {
+  /**
+   * An optional `Router` instance. If not provided, the singleton `Router`
+   * will be used.
+   */
+  router?: Router;
   /**
    * Name for cache. Defaults to images.
    */
@@ -46,14 +49,15 @@ export interface ImageCacheOptions {
  *
  * @param options
  */
-export const imageCache = (options: ImageCacheOptions = {}): void => {
-  const defaultMatchCallback = ({ request }: RouteMatchCallbackOptions) => request.destination === "image";
-
-  const cacheName = options.cacheName || "images";
-  const matchCallback = options.matchCallback || defaultMatchCallback;
-  const maxAgeSeconds = options.maxAgeSeconds || 30 * 24 * 60 * 60;
-  const maxEntries = options.maxEntries || 60;
-  const plugins = options.plugins || [];
+export const imageCache = ({
+  router = getSingletonRouter(),
+  cacheName = "images",
+  matchCallback = ({ request }: RouteMatchCallbackOptions) => request.destination === "image",
+  maxAgeSeconds = 30 * 24 * 60 * 60,
+  maxEntries = 60,
+  plugins = [],
+  warmCache,
+}: ImageCacheOptions = {}): void => {
   plugins.push(
     new CacheableResponsePlugin({
       statuses: [0, 200],
@@ -71,10 +75,10 @@ export const imageCache = (options: ImageCacheOptions = {}): void => {
     plugins,
   });
 
-  registerRoute(matchCallback, strategy);
+  router.registerCapture(matchCallback, strategy);
 
   // Warms the cache
-  if (options.warmCache) {
-    warmStrategyCache({ urls: options.warmCache, strategy });
+  if (warmCache) {
+    warmStrategyCache({ urls: warmCache, strategy });
   }
 };

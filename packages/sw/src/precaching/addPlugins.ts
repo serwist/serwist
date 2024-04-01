@@ -8,7 +8,7 @@
 
 import type { SerwistPlugin } from "@serwist/core";
 
-import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheController.js";
+import { getSingletonPrecacheController } from "./singletonPrecacheController.js";
 
 /**
  * Adds plugins to the precaching strategy.
@@ -16,6 +16,6 @@ import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheContro
  * @param plugins
  */
 export const addPlugins = (plugins: SerwistPlugin[]): void => {
-  const precacheController = getOrCreatePrecacheController();
+  const precacheController = getSingletonPrecacheController();
   precacheController.strategy.plugins.push(...plugins);
 };

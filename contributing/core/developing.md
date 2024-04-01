@@ -1,5 +1,7 @@
 # Developing
 
+## Setting up
+
 - The development branch is `main`.
 - All pull requests should be opened against `main`.
 - Although the repository is mirrored to GitHub, the development actually takes place at GitLab.
@@ -32,3 +34,25 @@ To develop locally:
    git remote set-url origin git@gitlab.com:YOUR_NAME/serwist.git
    git push -u origin MY_BRANCH_NAME
    ```
+
+## Recommended .vscode/settings.json
+
+If you use Visual Studio Code, you may want to set .vscode/settings.json to this:
+
+```json
+{
+  "typescript.preferences.autoImportFileExcludePatterns": [
+    "./packages/sw/src/index.ts",
+    "./packages/sw/src/index.*.ts",
+  ],
+  "[typescript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+}
+```

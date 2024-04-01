@@ -9,6 +9,7 @@ import { getCacheKeyForURL } from "./precaching/getCacheKeyForURL.js";
 import { matchPrecache } from "./precaching/matchPrecache.js";
 import { precache } from "./precaching/precache.js";
 import { precacheAndRoute } from "./precaching/precacheAndRoute.js";
+import { getSingletonPrecacheController, setSingletonPrecacheController } from "./precaching/singletonPrecacheController.js";
 
 /**
  * Most consumers of this module will want to use the
@@ -33,6 +34,8 @@ export {
   PrecacheController,
   PrecacheRoute,
   PrecacheStrategy,
+  getSingletonPrecacheController,
+  setSingletonPrecacheController,
 };
 
 export type * from "./precaching/types.js";

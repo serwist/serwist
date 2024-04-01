@@ -17,7 +17,7 @@ import { createHeaders } from "./utils/createHeaders.js";
 export type StreamsHandlerCallback = ({ url, request, event, params }: RouteHandlerCallbackOptions) => Promise<StreamSource> | StreamSource;
 
 /**
- * A shortcut to create a strategy that could be dropped-in to Serwist's router.
+ * A shortcut to create a strategy that could be dropped-in to Serwist's `Router`.
  *
  * On browsers that do not support constructing new `ReadableStream`s, this
  * strategy will automatically wait for all the `sourceFunctions` to complete,

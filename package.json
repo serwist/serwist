@@ -13,6 +13,7 @@
   "scripts": {
     "build": "cross-env FORCE_COLOR=1 turbo run build --filter=./packages/* --filter=./packages.legacy/*",
     "build:docs": "cross-env FORCE_COLOR=1 turbo run build --filter=./docs",
+    "build:no-legacy": "cross-env FORCE_COLOR=1 turbo run build --filter=./packages/*",
     "code-check": "biome check --max-diagnostics=150 --log-kind=compact .",
     "code-check:apply": "pnpm code-check --apply",
     "deps": "node ncu.js",

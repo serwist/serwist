@@ -36,12 +36,8 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@serwist/cacheable-response": "workspace:*",
     "@serwist/core": "workspace:*",
-    "@serwist/expiration": "workspace:*",
-    "@serwist/precaching": "workspace:*",
-    "@serwist/routing": "workspace:*",
-    "@serwist/strategies": "workspace:*"
+    "@serwist/sw": "workspace:*"
   },
   "devDependencies": {
     "@serwist/constants": "workspace:*",

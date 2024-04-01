@@ -980,24 +980,12 @@ importers:
 
   packages/recipes:
     dependencies:
-      '@serwist/cacheable-response':
-        specifier: workspace:*
-        version: link:../../packages.legacy/cacheable-response
       '@serwist/core':
         specifier: workspace:*
         version: link:../core
-      '@serwist/expiration':
+      '@serwist/sw':
         specifier: workspace:*
-        version: link:../../packages.legacy/expiration
-      '@serwist/precaching':
-        specifier: workspace:*
-        version: link:../../packages.legacy/precaching
-      '@serwist/routing':
-        specifier: workspace:*
-        version: link:../../packages.legacy/routing
-      '@serwist/strategies':
-        specifier: workspace:*
-        version: link:../../packages.legacy/strategies
+        version: link:../sw
     devDependencies:
       '@serwist/constants':
         specifier: workspace:*

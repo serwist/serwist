@@ -9,12 +9,13 @@
 import type { RouteMatchCallbackOptions } from "@serwist/core";
 import { getFriendlyURL, logger, privateCacheNames } from "@serwist/core/internal";
 import { Route } from "../../routing/Route.js";
-import { registerRoute } from "../../routing/registerRoute.js";
 import { NetworkFirst } from "../../strategies/NetworkFirst.js";
 import { NetworkOnly } from "../../strategies/NetworkOnly.js";
 import { BackgroundSyncPlugin } from "../backgroundSync/BackgroundSyncPlugin.js";
 import type { Queue, QueueEntry } from "../backgroundSync/Queue.js";
 
+import type { Router } from "../../routing/Router.js";
+import { getSingletonRouter } from "../../routing/singletonRouter.js";
 import {
   ANALYTICS_JS_PATH,
   COLLECT_PATHS_REGEX,
@@ -27,6 +28,11 @@ import {
 } from "./constants.js";
 
 export interface GoogleAnalyticsInitializeOptions {
+  /**
+   * An optional `Router` instance. If not provided, the singleton `Router`
+   * will be used.
+   */
+  router?: Router;
   /**
    * The cache name to store and retrieve analytics.js. Defaults to the cache names provided by `@serwist/core`.
    */
@@ -56,7 +62,7 @@ export interface GoogleAnalyticsInitializeOptions {
  * @returns The requestWillDequeue callback function.
  * @private
  */
-const createOnSyncCallback = (config: GoogleAnalyticsInitializeOptions) => {
+const createOnSyncCallback = (config: Pick<GoogleAnalyticsInitializeOptions, "parameterOverrides" | "hitFilter">) => {
   return async ({ queue }: { queue: Queue }) => {
     let entry: QueueEntry | undefined = undefined;
     while ((entry = await queue.shiftRequest())) {
@@ -182,19 +188,26 @@ const createGtmJsRoute = (cacheName: string) => {
 };
 
 /**
+ * Initialize Serwist's offline Google Analytics v3 support.
+ *
  * @param options
  */
-export const initialize = (options: GoogleAnalyticsInitializeOptions = {}): void => {
-  const cacheName = privateCacheNames.getGoogleAnalyticsName(options.cacheName);
+export const initialize = ({ cacheName, router = getSingletonRouter(), ...options }: GoogleAnalyticsInitializeOptions = {}): void => {
+  const resolvedCacheName = privateCacheNames.getGoogleAnalyticsName(cacheName);
 
   const bgSyncPlugin = new BackgroundSyncPlugin(QUEUE_NAME, {
     maxRetentionTime: MAX_RETENTION_TIME,
     onSync: createOnSyncCallback(options),
   });
 
-  const routes = [createGtmJsRoute(cacheName), createAnalyticsJsRoute(cacheName), createGtagJsRoute(cacheName), ...createCollectRoutes(bgSyncPlugin)];
+  const routes = [
+    createGtmJsRoute(resolvedCacheName),
+    createAnalyticsJsRoute(resolvedCacheName),
+    createGtagJsRoute(resolvedCacheName),
+    ...createCollectRoutes(bgSyncPlugin),
+  ];
 
   for (const route of routes) {
-    registerRoute(route);
+    router.registerRoute(route);
   }
 };

@@ -6,10 +6,11 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { RouteHandler, RouteHandlerCallbackOptions, RouteHandlerObject, RouteMatchCallbackOptions } from "@serwist/core";
+import type { RouteHandler, RouteHandlerCallbackOptions, RouteHandlerObject, RouteMatchCallback, RouteMatchCallbackOptions } from "@serwist/core";
 import { assert, SerwistError, getFriendlyURL, logger } from "@serwist/core/internal";
 
 import type { Route } from "./Route.js";
+import { parseRoute } from "./parseRoute.js";
 import type { HTTPMethod } from "./utils/constants.js";
 import { defaultMethod } from "./utils/constants.js";
 import { normalizeHandler } from "./utils/normalizeHandler.js";
@@ -26,20 +27,21 @@ interface CacheURLsMessageData {
 }
 
 /**
- * The Router can be used to process a `FetchEvent` using one or more `@serwist/routing` Route(s),
- * responding with a `Response` if a matching route exists.
+ * `Router` can be used to process a `FetchEvent` using one or more `Route`(s), responding with a `Response`
+ * if a matching route exists.
  *
- * If no route matches a given a request, the Router will use a "default" handler if one is defined.
+ * If no `Route` matches given a `Request`, the `Router` will use the default handler if one is defined.
  *
- * Should the matching Route throw an error, the Router will use a "catch" handler if one is defined to
- * gracefully deal with issues and respond with a Request.
+ * Should the matching Route throw an error, the Router will use the catch handler if one is defined to
+ * gracefully deal with issues and respond with a `Request`.
  *
- * If a request matches multiple routes, the **earliest** registered route will
- * be used to respond to the request.
+ * If a `Request` matches multiple routes, the earliest registered route will be used to respond to the `Request`.
  */
 export class Router {
   private readonly _routes: Map<HTTPMethod, Route[]>;
   private readonly _defaultHandlerMap: Map<HTTPMethod, RouteHandlerObject>;
+  private _fetchListenerHandler: ((ev: FetchEvent) => void) | null = null;
+  private _cacheListenerHandler: ((ev: ExtendableMessageEvent) => void) | null = null;
   private _catchHandler?: RouteHandlerObject;
 
   /**
@@ -51,7 +53,7 @@ export class Router {
   }
 
   /**
-   * @returns routes A `Map` of HTTP method name ('GET', etc.) to an array of all the corresponding `Route`
+   * @returns routes A `Map` of HTTP method name (`'GET'`, etc.) to an array of all the corresponding `Route`
    * instances that are registered.
    */
   get routes(): Map<HTTPMethod, Route[]> {
@@ -59,23 +61,40 @@ export class Router {
   }
 
   /**
-   * Adds a fetch event listener to respond to events when a route matches
-   * the event's request.
+   * Adds a `fetch` event listener to respond to events when a `Route` matches
+   * the event's request. Effectively no-op if `addFEtchListener` has been
+   * called, but `removeFetchListener` has not.
    */
   addFetchListener(): void {
-    self.addEventListener("fetch", (event) => {
-      const { request } = event;
-      const responsePromise = this.handleRequest({ request, event });
-      if (responsePromise) {
-        event.respondWith(responsePromise);
-      }
-    });
+    if (!this._fetchListenerHandler) {
+      this._fetchListenerHandler = (event) => {
+        const { request } = event;
+        const responsePromise = this.handleRequest({ request, event });
+        if (responsePromise) {
+          event.respondWith(responsePromise);
+        }
+      };
+      self.addEventListener("fetch", this._fetchListenerHandler);
+    }
   }
 
   /**
-   * Adds a message event listener for URLs to cache from the window.
+   * Removes `fetch` event listener added by `addFetchListener`.
+   * Effectively no-op if either `addFetchListener` has not been called or,
+   * if it has, so has `removeFetchListener`.
+   */
+  removeFetchListener(): void {
+    if (this._fetchListenerHandler) {
+      self.removeEventListener("fetch", this._fetchListenerHandler);
+      this._fetchListenerHandler = null;
+    }
+  }
+
+  /**
+   * Adds a `message` event listener for URLs to cache from the window.
    * This is useful to cache resources loaded on the page prior to when the
-   * service worker started controlling it.
+   * service worker started controlling it. Effectively no-op if `addCacheListener`
+   * has been called, but `removeCacheListener` hasn't.
    *
    * The format of the message data sent from the window should be as follows.
    * Where the `urlsToCache` array may consist of URL strings or an array of
@@ -95,38 +114,52 @@ export class Router {
    * ```
    */
   addCacheListener(): void {
-    self.addEventListener("message", (event) => {
-      if (event.data && event.data.type === "CACHE_URLS") {
-        const { payload }: CacheURLsMessageData = event.data;
+    if (!this._cacheListenerHandler) {
+      this._cacheListenerHandler = (event) => {
+        if (event.data && event.data.type === "CACHE_URLS") {
+          const { payload }: CacheURLsMessageData = event.data;
 
-        if (process.env.NODE_ENV !== "production") {
-          logger.debug("Caching URLs from the window", payload.urlsToCache);
+          if (process.env.NODE_ENV !== "production") {
+            logger.debug("Caching URLs from the window", payload.urlsToCache);
+          }
+
+          const requestPromises = Promise.all(
+            payload.urlsToCache.map((entry: string | [string, RequestInit?]) => {
+              if (typeof entry === "string") {
+                entry = [entry];
+              }
+
+              const request = new Request(...entry);
+              return this.handleRequest({ request, event });
+            }),
+          );
+
+          event.waitUntil(requestPromises);
+
+          // If a MessageChannel was used, reply to the message on success.
+          if (event.ports?.[0]) {
+            void requestPromises.then(() => event.ports[0].postMessage(true));
+          }
         }
-
-        const requestPromises = Promise.all(
-          payload.urlsToCache.map((entry: string | [string, RequestInit?]) => {
-            if (typeof entry === "string") {
-              entry = [entry];
-            }
-
-            const request = new Request(...entry);
-            return this.handleRequest({ request, event });
-          }),
-        );
-
-        event.waitUntil(requestPromises);
-
-        // If a MessageChannel was used, reply to the message on success.
-        if (event.ports?.[0]) {
-          void requestPromises.then(() => event.ports[0].postMessage(true));
-        }
-      }
-    });
+      };
+      self.addEventListener("message", this._cacheListenerHandler);
+    }
   }
 
   /**
-   * Apply the routing rules to a FetchEvent object to get a Response from an
-   * appropriate Route's handler.
+   * Removes the `message` event listener added by `addCacheListener`.
+   * Effectively no-op if either `addCacheListener` has not been called or,
+   * if it has, so has `removeCacheListener`.
+   */
+  removeCacheListener(): void {
+    if (this._cacheListenerHandler) {
+      self.removeEventListener("message", this._cacheListenerHandler);
+    }
+  }
+
+  /**
+   * Apply the routing rules to a `FetchEvent` object to get a `Response` from an
+   * appropriate `Route`'s handler.
    *
    * @param options
    * @returns A promise is returned if a registered route can handle the request.
@@ -158,7 +191,7 @@ export class Router {
     const url = new URL(request.url, location.href);
     if (!url.protocol.startsWith("http")) {
       if (process.env.NODE_ENV !== "production") {
-        logger.debug("The Serwist router only supports URLs that start with 'http'.");
+        logger.debug("Router only supports URLs that start with 'http'.");
       }
       return;
     }
@@ -334,21 +367,21 @@ export class Router {
    * Define a default `handler` that's called when no routes explicitly
    * match the incoming request.
    *
-   * Each HTTP method ('GET', 'POST', etc.) gets its own default handler.
+   * Each HTTP method (`'GET'`, `'POST'`, etc.) gets its own default handler.
    *
    * Without a default handler, unmatched requests will go against the
    * network as if there were no service worker present.
    *
-   * @param handler A callback function that returns a Promise resulting in a Response.
+   * @param handler A callback function that returns a `Promise` resulting in a `Response`.
    * @param method The HTTP method to associate with this default handler. Each method
-   * has its own default. Defaults to GET.
+   * has its own default. Defaults to `'GET'`.
    */
   setDefaultHandler(handler: RouteHandler, method: HTTPMethod = defaultMethod): void {
     this._defaultHandlerMap.set(method, normalizeHandler(handler));
   }
 
   /**
-   * If a Route throws an error while handling a request, this `handler`
+   * If a `Route` throws an error while handling a request, this `handler`
    * will be called and given a chance to provide a response.
    *
    * @param handler A callback function that returns a Promise resulting
@@ -359,9 +392,25 @@ export class Router {
   }
 
   /**
-   * Registers a route with the router.
+   * Registers a `RegExp`, string, or function with a caching
+   * strategy to the `Router`.
    *
-   * @param route The route to register.
+   * @param capture If the capture param is a `Route`, all other arguments will be ignored.
+   * @param handler A callback function that returns a `Promise` resulting in a `Response`.
+   * This parameter is required if `capture` is not a `Route` object.
+   * @param method The HTTP method to match the Route against. Defaults to `'GET'`.
+   * @returns The generated `Route`.
+   */
+  registerCapture(capture: RegExp | string | RouteMatchCallback | Route, handler?: RouteHandler, method?: HTTPMethod): Route {
+    const route = parseRoute(capture, handler, method);
+    this.registerRoute(route);
+    return route;
+  }
+
+  /**
+   * Registers a `Route` with the router.
+   *
+   * @param route The `Route` to register.
    */
   registerRoute(route: Route): void {
     if (process.env.NODE_ENV !== "production") {
@@ -411,9 +460,9 @@ export class Router {
   }
 
   /**
-   * Unregisters a route with the router.
+   * Unregisters a `Route` with the `Router`.
    *
-   * @param route The route to unregister.
+   * @param route The `Route` to unregister.
    */
   unregisterRoute(route: Route): void {
     if (!this._routes.has(route.method)) {

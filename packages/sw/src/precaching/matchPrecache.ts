@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheController.js";
+import { getSingletonPrecacheController } from "./singletonPrecacheController.js";
 
 /**
  * Helper function that calls `PrecacheController#matchPrecache`
@@ -21,6 +21,5 @@ import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheContro
  * @returns
  */
 export const matchPrecache = (request: string | Request): Promise<Response | undefined> => {
-  const precacheController = getOrCreatePrecacheController();
-  return precacheController.matchPrecache(request);
+  return getSingletonPrecacheController().matchPrecache(request);
 };

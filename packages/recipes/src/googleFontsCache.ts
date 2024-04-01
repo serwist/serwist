@@ -6,12 +6,16 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { CacheableResponsePlugin } from "@serwist/cacheable-response";
-import { ExpirationPlugin } from "@serwist/expiration";
-import { registerRoute } from "@serwist/routing";
-import { CacheFirst, StaleWhileRevalidate } from "@serwist/strategies";
+import { CacheableResponsePlugin, ExpirationPlugin } from "@serwist/sw/plugins";
+import { type Router, getSingletonRouter } from "@serwist/sw/routing";
+import { CacheFirst, StaleWhileRevalidate } from "@serwist/sw/strategies";
 
 export interface GoogleFontCacheOptions {
+  /**
+   * An optional `Router` instance. If not provided, the singleton `Router`
+   * will be used.
+   */
+  router?: Router;
   /**
    * Cache prefix for caching stylesheets and webfonts. Defaults to google-fonts.
    */
@@ -31,25 +35,25 @@ export interface GoogleFontCacheOptions {
  *
  * @param options
  */
-function googleFontsCache(options: GoogleFontCacheOptions = {}): void {
-  const sheetCacheName = `${options.cachePrefix || "google-fonts"}-stylesheets`;
-  const fontCacheName = `${options.cachePrefix || "google-fonts"}-webfonts`;
-  const maxAgeSeconds = options.maxAgeSeconds || 60 * 60 * 24 * 365;
-  const maxEntries = options.maxEntries || 30;
-
+export const googleFontsCache = ({
+  router = getSingletonRouter(),
+  cachePrefix = "google-fonts",
+  maxAgeSeconds = 60 * 60 * 24 * 365,
+  maxEntries = 30,
+}: GoogleFontCacheOptions = {}): void => {
   // Cache the Google Fonts stylesheets with a stale-while-revalidate strategy.
-  registerRoute(
+  router.registerCapture(
     ({ url }) => url.origin === "https://fonts.googleapis.com",
     new StaleWhileRevalidate({
-      cacheName: sheetCacheName,
+      cacheName: `${cachePrefix}-stylesheets`,
     }),
   );
 
   // Cache the underlying font files with a cache-first strategy for 1 year.
-  registerRoute(
+  router.registerCapture(
     ({ url }) => url.origin === "https://fonts.gstatic.com",
     new CacheFirst({
-      cacheName: fontCacheName,
+      cacheName: `${cachePrefix}-webfonts`,
       plugins: [
         new CacheableResponsePlugin({
           statuses: [0, 200],
@@ -61,6 +65,4 @@ function googleFontsCache(options: GoogleFontCacheOptions = {}): void {
       ],
     }),
   );
-}
-
-export { googleFontsCache };
+};

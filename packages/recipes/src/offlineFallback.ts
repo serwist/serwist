@@ -7,10 +7,15 @@
 */
 
 import type { RouteHandler, RouteHandlerCallbackOptions } from "@serwist/core";
-import { matchPrecache } from "@serwist/precaching";
-import { setCatchHandler } from "@serwist/routing";
+import { type PrecacheController, getSingletonPrecacheController } from "@serwist/sw/precaching";
+import { setCatchHandler } from "@serwist/sw/routing";
 
 export interface OfflineFallbackOptions {
+  /**
+   * An optional `PrecacheController` instance. If not provided, the singleton
+   * `PrecacheController` will be used.
+   */
+  precacheController?: PrecacheController;
   /**
    * Precache name to match for page fallbacks. Defaults to offline.html.
    */
@@ -34,11 +39,12 @@ declare let self: ServiceWorkerGlobalScope;
 
  * @param options
  */
-export const offlineFallback = (options: OfflineFallbackOptions = {}): void => {
-  const pageFallback = options.pageFallback || "offline.html";
-  const imageFallback = options.imageFallback || false;
-  const fontFallback = options.fontFallback || false;
-
+export const offlineFallback = ({
+  precacheController = getSingletonPrecacheController(),
+  pageFallback = "offline.html",
+  imageFallback,
+  fontFallback,
+}: OfflineFallbackOptions = {}): void => {
   self.addEventListener("install", (event) => {
     const files = [pageFallback];
     if (imageFallback) {
@@ -56,17 +62,17 @@ export const offlineFallback = (options: OfflineFallbackOptions = {}): void => {
     const cache = await self.caches.open("serwist-offline-fallbacks");
 
     if (dest === "document") {
-      const match = (await matchPrecache(pageFallback)) || (await cache.match(pageFallback));
+      const match = (await precacheController.matchPrecache(pageFallback)) || (await cache.match(pageFallback));
       return match || Response.error();
     }
 
-    if (dest === "image" && imageFallback !== false) {
-      const match = (await matchPrecache(imageFallback)) || (await cache.match(imageFallback));
+    if (dest === "image" && imageFallback !== undefined) {
+      const match = (await precacheController.matchPrecache(imageFallback)) || (await cache.match(imageFallback));
       return match || Response.error();
     }
 
-    if (dest === "font" && fontFallback !== false) {
-      const match = (await matchPrecache(fontFallback)) || (await cache.match(fontFallback));
+    if (dest === "font" && fontFallback !== undefined) {
+      const match = (await precacheController.matchPrecache(fontFallback)) || (await cache.match(fontFallback));
       return match || Response.error();
     }
 

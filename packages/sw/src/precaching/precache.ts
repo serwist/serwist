@@ -6,8 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
+import { getSingletonPrecacheController } from "./singletonPrecacheController.js";
 import type { PrecacheEntry } from "./types.js";
-import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheController.js";
 
 /**
  * Adds items to the precache list, removing any duplicates and
@@ -26,6 +26,6 @@ import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheContro
  * @param entries Array of entries to precache.
  */
 export const precache = (entries: (PrecacheEntry | string)[]): void => {
-  const precacheController = getOrCreatePrecacheController();
+  const precacheController = getSingletonPrecacheController();
   precacheController.precache(entries);
 };
