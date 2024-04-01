@@ -53,8 +53,7 @@ publish-job:
     - pnpm typecheck
     - pnpm publish -r
   rules:
-    - if: 
-      '($CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "9.0.0") && 
-      $CI_COMMIT_TAG =~ /^\@serwist\/(.*?)@(\d+?)\.(\d+?)\.(\d+?)*/ && 
-      $CI_PIPELINE_SOURCE != "merge_request_event" && 
-      $CI_COMMIT_TITLE =~ /chore\(packages\): publish packages/'
+    - if: '($CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "9.0.0") && 
+          $CI_COMMIT_TAG =~ /^\@serwist\/(.*?)@(\d+?)\.(\d+?)\.(\d+?)*/ && 
+          $CI_PIPELINE_SOURCE != "merge_request_event" && 
+          $CI_COMMIT_TITLE =~ /chore\(packages\): publish packages/'
