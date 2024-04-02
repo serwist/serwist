@@ -1,5 +1,12 @@
 # @serwist/streams
 
+## 9.0.0-preview.23
+
+### Patch Changes
+
+- @serwist/routing@9.0.0-preview.23
+- @serwist/core@9.0.0-preview.23
+
 ## 9.0.0-preview.22
 
 ### Patch Changes

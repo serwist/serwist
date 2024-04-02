@@ -1,5 +1,12 @@
 # @serwist/window
 
+## 9.0.0-preview.23
+
+### Patch Changes
+
+- e30e2eb: chore(ci): re-test release
+  - @serwist/core@9.0.0-preview.23
+
 ## 9.0.0-preview.22
 
 ### Patch Changes

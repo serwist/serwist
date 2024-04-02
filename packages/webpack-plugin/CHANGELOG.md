@@ -1,5 +1,11 @@
 # @serwist/webpack-plugin
 
+## 9.0.0-preview.23
+
+### Patch Changes
+
+- @serwist/build@9.0.0-preview.23
+
 ## 9.0.0-preview.22
 
 ### Patch Changes
