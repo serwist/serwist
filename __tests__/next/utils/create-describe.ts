@@ -14,7 +14,7 @@ const isValidTestMode = (mode: string | undefined): mode is NextTestMode => type
 
 let testMode: NextTestMode = "start";
 
-const envTestMode = process.env.NEXT_TEST_MODE;
+const envTestMode = process.env.TEST_MODE;
 
 if (isValidTestMode(envTestMode)) {
   testMode = envTestMode;

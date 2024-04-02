@@ -16,31 +16,16 @@ workflow:
     - if: '$CI_COMMIT_MESSAGE !~ /\[skip ci\]/'
 
 stages:
-  - build
-  - test
+  - build-and-test
   - publish
 
-build-job:
-  stage: build
+build-and-test-job:
+  stage: build-and-test
   script:
     - pnpm build
     - pnpm typecheck
-
-test-next-dev:
-  stage: test
-  script:
-    - pnpm build
-    - NEXT_TEST_MODE=dev pnpm test --filter=./__tests__/next -- --ci --runInBand
-test-next-build:
-  stage: test
-  script:
-    - pnpm build
-    - NEXT_TEST_MODE=start pnpm test --filter=./__tests__/next -- --ci --runInBand
-test-build:
-  stage: test
-  script:
-    - pnpm build
-    - pnpm test --filter=./__tests__/build -- --ci --runInBand
+    - TEST_MODE=dev pnpm test --filter=./__tests__/* -- --ci --runInBand
+    - TEST_MODE=start pnpm test --filter=./__tests__/* -- --ci --runInBand
 
 publish-job:
   stage: publish

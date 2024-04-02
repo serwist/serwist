@@ -1,6 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalEnv": ["NODE_ENV", "NEXT_TEST_MODE"],
+  "globalEnv": ["NODE_ENV", "TEST_MODE"],
   "pipeline": {
     "dev": {
       "cache": false,
@@ -14,7 +14,7 @@
       "outputs": []
     },
     "test": {
-      "outputs": [".next/**", "!.next/cache/**", "out/**", "dist/**", ".svelte-kit/**", ".vercel/**", ".output/**", ".nuxt/**", "public/*.js"]
+      "dependsOn": ["^build"]
     },
     "typecheck": {
       "outputs": []
