@@ -1,0 +1,53 @@
+{
+  "name": "@serwist/release",
+  "version": "9.0.0-preview.22",
+  "type": "module",
+  "description": "This module helps release Serwist packages.",
+  "private": true,
+  "files": [
+    "src"
+  ],
+  "keywords": [
+    "serwist",
+    "serwistjs",
+    "service worker",
+    "sw"
+  ],
+  "author": "Serwist's Team",
+  "license": "MIT",
+  "repository": "https://gitlab.com/serwist/serwist",
+  "bugs": "https://gitlab.com/serwist/serwist/issues",
+  "homepage": "https://serwist.pages.dev",
+  "bin": {
+    "serwist-release": "dist/bin.js"
+  },
+  "scripts": {
+    "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js",
+    "lint": "biome lint ./src",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "@changesets/assemble-release-plan": "6.0.0",
+    "@changesets/config": "3.0.0",
+    "@changesets/errors": "0.2.0",
+    "@changesets/parse": "0.4.0",
+    "@changesets/pre": "2.0.0",
+    "@changesets/read": "0.6.0",
+    "@changesets/types": "6.0.0",
+    "@gitbeaker/core": "40.0.2",
+    "@gitbeaker/rest": "40.0.2",
+    "glob": "10.3.10",
+    "js-yaml": "4.1.0",
+    "mdast-util-to-string": "4.0.0",
+    "minimatch": "9.0.4",
+    "remark-parse": "11.0.0",
+    "remark-stringify": "11.0.0",
+    "unified": "11.0.4"
+  },
+  "devDependencies": {
+    "@serwist/constants": "workspace:*",
+    "@types/js-yaml": "4.0.9",
+    "rollup": "4.13.0",
+    "typescript": "5.5.0-dev.20240323"
+  }
+}
