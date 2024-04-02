@@ -5,7 +5,8 @@
   "description": "This module helps release Serwist packages.",
   "private": true,
   "files": [
-    "src"
+    "dist",
+    "cli.js"
   ],
   "keywords": [
     "serwist",
@@ -19,7 +20,7 @@
   "bugs": "https://gitlab.com/serwist/serwist/issues",
   "homepage": "https://serwist.pages.dev",
   "bin": {
-    "serwist-release": "dist/bin.js"
+    "serwist-release": "cli.js"
   },
   "scripts": {
     "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js",

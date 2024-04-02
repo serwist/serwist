@@ -4,7 +4,8 @@
   "type": "module",
   "description": "The command line interface of Serwist.",
   "files": [
-    "dist"
+    "dist",
+    "cli.js"
   ],
   "keywords": [
     "serwist",
@@ -24,7 +25,7 @@
   "bugs": "https://gitlab.com/serwist/serwist/issues",
   "homepage": "https://serwist.pages.dev",
   "bin": {
-    "serwist": "dist/bin.js"
+    "serwist": "cli.js"
   },
   "scripts": {
     "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js",
