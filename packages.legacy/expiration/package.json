@@ -1,6 +1,6 @@
 {
   "name": "@serwist/expiration",
-  "version": "9.0.0-preview.22",
+  "version": "9.0.0-preview.23",
   "type": "module",
   "description": "A module that expires cached responses based on age or maximum number of entries.",
   "files": [

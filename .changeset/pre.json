@@ -32,7 +32,12 @@
     "@serwist-example/nuxt-basic": "1.0.0",
     "@serwist-example/next-web-push": "1.0.0",
     "@serwist/svelte": "9.0.0-preview.6",
-    "@serwist-example/cli": "1.0.0"
+    "@serwist-example/cli": "1.0.0",
+    "@serwist-tests/base": "1.0.0",
+    "@serwist-tests/build": "1.0.0",
+    "@serwist-tests/config": "1.0.0",
+    "@serwist-tests/next": "1.0.0",
+    "@serwist/release": "9.0.0-preview.22"
   },
   "changesets": [
     "chilled-falcons-rhyme",
@@ -56,6 +61,7 @@
     "proud-mangos-brake",
     "quick-chairs-mix",
     "rare-dodos-tell",
+    "rare-waves-share",
     "red-dolls-yell",
     "seven-taxis-join",
     "seven-trains-rest",

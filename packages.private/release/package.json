@@ -1,6 +1,6 @@
 {
   "name": "@serwist/release",
-  "version": "9.0.0-preview.22",
+  "version": "9.0.0-preview.23",
   "type": "module",
   "description": "This module helps release Serwist packages.",
   "private": true,
