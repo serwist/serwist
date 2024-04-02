@@ -30,7 +30,6 @@ export const pushTags = () => {
 export const switchBranch = (branch: string) => {
   const { stderr } = spawnSync("git", ["checkout", branch], {
     encoding: "utf-8",
-    stdio: "inherit",
   });
   const isCreatingBranch =
     !stderr.includes(`Switched to branch '${branch}'`) &&
@@ -61,7 +60,6 @@ export const commitAll = (message: string) => {
 export const checkClean = (): boolean => {
   const { stdout } = spawnSync("git", ["status", "--porcelain"], {
     encoding: "utf-8",
-    stdio: "inherit",
   });
   return stdout.length === 0;
 };
