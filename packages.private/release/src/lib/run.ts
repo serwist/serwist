@@ -55,7 +55,12 @@ interface PublishedPackage {
 type PublishResult = { published: false } | { published: true; publishedPackages: PublishedPackage[] };
 
 export const runPublish = async (api: Gitlab): Promise<PublishResult> => {
-  const { stdout: publishStdout } = spawnSync("pnpm", ["changeset", "publish"], { encoding: "utf-8" });
+  const { stdout: publishStdout, stderr: publishStderr, error } = spawnSync("pnpm", ["changeset", "publish"], { encoding: "utf-8" });
+
+  if (error) {
+    console.error("Failed to publish:", publishStderr);
+    throw error;
+  }
 
   gitPushTags();
 
@@ -118,12 +123,16 @@ export const runVersion = async (api: Gitlab) => {
   const { preState } = await readChangesetState(process.cwd());
 
   gitSwitchBranch(versionBranch);
-  execSync(`git fetch origin ${currentBranch}`);
+  execSync(`git fetch origin "${currentBranch}"`, {
+    stdio: "inherit",
+  });
   gitReset(`origin/${currentBranch}`);
 
   const versionsByDirectory = await getVersionsByDirectory(process.cwd());
 
-  spawnSync("pnpm", ["changeset", "version"]);
+  execSync("pnpm changeset version", {
+    stdio: "inherit",
+  });
 
   const bumpedPackages = await getBumpedPackages(process.cwd(), versionsByDirectory);
 

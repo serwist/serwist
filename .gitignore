@@ -52,3 +52,6 @@ examples/next-*/public/swe-worker-*.js
 
 # typescript
 tsconfig.tsbuildinfo
+
+# pnpm ci
+.pnpm-store
