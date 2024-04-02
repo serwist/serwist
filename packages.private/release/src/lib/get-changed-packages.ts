@@ -6,6 +6,7 @@ import { glob } from "glob";
 import { getPackages } from "./get-packages.js";
 import { readChangesetState } from "./read-changeset-state.js";
 import { getPackageJson } from "./utils.js";
+import path from "node:path";
 
 export const getChangedPackages = async ({
   changedFiles,
@@ -15,7 +16,9 @@ export const getChangedPackages = async ({
   const rootPackageJson = JSON.parse(fs.readFileSync("package.json", "utf-8")) as PackageJSON;
 
   const [potentialWorkspaces, changesetState] = await Promise.all([
-    glob("**/package.json", { absolute: false, ignore: ["node_modules/**"], nodir: true }),
+    glob("**/package.json", { absolute: false, ignore: ["node_modules/**"], nodir: true }).then((workspaces) =>
+      workspaces.map((e) => path.dirname(e)),
+    ),
     readChangesetState(),
   ]);
 

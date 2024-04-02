@@ -18,13 +18,17 @@ export const BumpLevels = {
 } as const;
 
 export const getVersionsByDirectory = async (cwd: string) => {
-  const potentialWorkspaces = await glob("**/package.json", { absolute: false, cwd, ignore: ["node_modules/**"], nodir: true });
+  const potentialWorkspaces = await glob("**/package.json", { absolute: false, cwd, ignore: ["node_modules/**"], nodir: true }).then((workspaces) =>
+    workspaces.map((e) => path.dirname(e)),
+  );
   const packages = getPackages(potentialWorkspaces);
   return new Map(packages.map((x) => [x, getPackageJson(x).version]));
 };
 
 export const getBumpedPackages = async (cwd: string, previousVersions: Map<string, string>) => {
-  const potentialWorkspaces = await glob("**/package.json", { absolute: false, cwd, ignore: ["node_modules/**"], nodir: true });
+  const potentialWorkspaces = await glob("**/package.json", { absolute: false, cwd, ignore: ["node_modules/**"], nodir: true }).then((workspaces) =>
+    workspaces.map((e) => path.dirname(e)),
+  );
   const packages = getPackages(potentialWorkspaces).map((pkg) => {
     return {
       packageJson: getPackageJson(pkg),

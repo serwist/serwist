@@ -59,13 +59,11 @@ export const runPublish = async (api: Gitlab): Promise<PublishResult> => {
 
   gitPushTags();
 
-  const potentialWorkspaces = (
-    await glob("**/package.json", {
-      absolute: true,
-      ignore: ["node_modules/**"],
-      nodir: true,
-    })
-  ).map((e) => path.dirname(e));
+  const potentialWorkspaces = await glob("**/package.json", {
+    absolute: true,
+    ignore: ["node_modules/**"],
+    nodir: true,
+  }).then((workspaces) => workspaces.map((e) => path.dirname(e)));
 
   const packages = getPackages(potentialWorkspaces).map((packageDirectory) => {
     return {
