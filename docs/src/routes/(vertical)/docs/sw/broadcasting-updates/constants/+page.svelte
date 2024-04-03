@@ -14,7 +14,7 @@
   <li>
     <h3 id="cache-updated-message-meta">BROADCAST_UPDATE_MESSAGE_META</h3>
     <p>
-      What: the meta used by <ICD>@serwist/broadcast-update</ICD> for identification.
+      What: the message meta used by the plugin.
     </p>
     <p>How to use:</p>
     <CodeTab codes={data.code.cacheUpdatedMessageMeta.usage} defaultTab="sw.ts" />

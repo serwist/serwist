@@ -1,7 +1,7 @@
 import type { SerwistGlobalConfig } from "@serwist/core";
 import { defaultCache } from "@serwist/next/worker";
-import type { PrecacheEntry } from "@serwist/precaching";
-import { installSerwist } from "@serwist/sw";
+import { Serwist } from "@serwist/sw";
+import type { PrecacheEntry } from "@serwist/sw/precaching";
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
@@ -14,10 +14,11 @@ declare global {
 
 declare const self: ServiceWorkerGlobalScope;
 
+const serwist = new Serwist();
 // Anything random.
 const revision = crypto.randomUUID();
 
-installSerwist({
+serwist.install({
   precacheEntries: self.__SW_MANIFEST,
   skipWaiting: true,
   clientsClaim: true,

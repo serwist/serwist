@@ -152,42 +152,18 @@ importers:
       '@resvg/resvg-js':
         specifier: 2.6.2
         version: 2.6.2
-      '@serwist/background-sync':
-        specifier: workspace:*
-        version: link:../packages.legacy/background-sync
-      '@serwist/broadcast-update':
-        specifier: workspace:*
-        version: link:../packages.legacy/broadcast-update
       '@serwist/build':
         specifier: workspace:*
         version: link:../packages/build
-      '@serwist/cacheable-response':
-        specifier: workspace:*
-        version: link:../packages.legacy/cacheable-response
       '@serwist/core':
         specifier: workspace:*
         version: link:../packages/core
-      '@serwist/expiration':
-        specifier: workspace:*
-        version: link:../packages.legacy/expiration
-      '@serwist/navigation-preload':
-        specifier: workspace:*
-        version: link:../packages.legacy/navigation-preload
       '@serwist/next':
         specifier: workspace:*
         version: link:../packages/next
       '@serwist/nuxt':
         specifier: workspace:*
         version: link:../packages/nuxt
-      '@serwist/precaching':
-        specifier: workspace:*
-        version: link:../packages.legacy/precaching
-      '@serwist/routing':
-        specifier: workspace:*
-        version: link:../packages.legacy/routing
-      '@serwist/strategies':
-        specifier: workspace:*
-        version: link:../packages.legacy/strategies
       '@serwist/svelte':
         specifier: workspace:*
         version: link:../packages/svelte
@@ -308,9 +284,6 @@ importers:
       '@serwist/nuxt':
         specifier: workspace:*
         version: link:../packages/nuxt
-      '@serwist/precaching':
-        specifier: workspace:*
-        version: link:../packages.legacy/precaching
       '@serwist/sw':
         specifier: workspace:*
         version: link:../packages/sw
@@ -366,9 +339,6 @@ importers:
       '@serwist/core':
         specifier: latest
         version: link:../../packages/core
-      '@serwist/precaching':
-        specifier: latest
-        version: link:../../packages.legacy/precaching
       '@types/node':
         specifier: 20.12.3
         version: 20.12.3
@@ -403,9 +373,6 @@ importers:
       '@serwist/core':
         specifier: latest
         version: link:../../packages/core
-      '@serwist/precaching':
-        specifier: latest
-        version: link:../../packages.legacy/precaching
       '@types/node':
         specifier: 20.12.3
         version: 20.12.3
@@ -443,9 +410,6 @@ importers:
       '@serwist/core':
         specifier: latest
         version: link:../../packages/core
-      '@serwist/precaching':
-        specifier: latest
-        version: link:../../packages.legacy/precaching
       '@types/node':
         specifier: 20.12.3
         version: 20.12.3
@@ -470,9 +434,6 @@ importers:
       '@serwist/nuxt':
         specifier: latest
         version: link:../../packages/nuxt
-      '@serwist/precaching':
-        specifier: latest
-        version: link:../../packages.legacy/precaching
       '@serwist/sw':
         specifier: latest
         version: link:../../packages/sw
@@ -1069,9 +1030,6 @@ importers:
       '@serwist/core':
         specifier: workspace:*
         version: link:../core
-      '@serwist/routing':
-        specifier: workspace:*
-        version: link:../../packages.legacy/routing
     devDependencies:
       '@serwist/constants':
         specifier: workspace:*
@@ -1088,12 +1046,9 @@ importers:
       '@serwist/core':
         specifier: workspace:*
         version: link:../core
-      '@serwist/expiration':
+      '@serwist/sw':
         specifier: workspace:*
-        version: link:../../packages.legacy/expiration
-      '@serwist/strategies':
-        specifier: workspace:*
-        version: link:../../packages.legacy/strategies
+        version: link:../sw
       typescript:
         specifier: '>=5.0.0'
         version: 5.3.3
@@ -1101,12 +1056,6 @@ importers:
       '@serwist/constants':
         specifier: workspace:*
         version: link:../constants
-      '@serwist/precaching':
-        specifier: workspace:*
-        version: link:../../packages.legacy/precaching
-      '@serwist/sw':
-        specifier: workspace:*
-        version: link:../sw
       '@sveltejs/kit':
         specifier: 2.5.5
         version: 2.5.5(@sveltejs/vite-plugin-svelte@3.0.2)(svelte@5.0.0-next.93)(vite@5.2.7)

@@ -20,7 +20,7 @@ export const normalizeHandler = (handler: RouteHandler): RouteHandlerObject => {
   if (handler && typeof handler === "object") {
     if (process.env.NODE_ENV !== "production") {
       assert!.hasMethod(handler, "handle", {
-        moduleName: "@serwist/routing",
+        moduleName: "@serwist/sw/routing",
         className: "Route",
         funcName: "constructor",
         paramName: "handler",
@@ -30,7 +30,7 @@ export const normalizeHandler = (handler: RouteHandler): RouteHandlerObject => {
   }
   if (process.env.NODE_ENV !== "production") {
     assert!.isType(handler, "function", {
-      moduleName: "@serwist/routing",
+      moduleName: "@serwist/sw/routing",
       className: "Route",
       funcName: "constructor",
       paramName: "handler",

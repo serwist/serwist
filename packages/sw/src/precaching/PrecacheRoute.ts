@@ -15,8 +15,8 @@ import type { PrecacheRouteOptions } from "./types.js";
 import { generateURLVariations } from "./utils/generateURLVariations.js";
 
 /**
- * A subclass of `@serwist/routing.Route` that takes a
- * `@serwist/precaching.PrecacheController`
+ * A subclass of `@serwist/sw/routing.Route` that takes a
+ * `@serwist/sw/precaching.PrecacheController`
  * instance and uses it to match incoming requests and handle fetching
  * responses from the precache.
  */

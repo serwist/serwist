@@ -15,11 +15,11 @@ import type { PrecacheEntry, PrecacheRouteOptions } from "./types.js";
  * respond to fetch events.
  *
  * This is a convenience method that will call
- * `@serwist/precaching.precache` and
- * `@serwist/precaching.addRoute` in a single call.
+ * `@serwist/sw/precaching.precache` and
+ * `@serwist/sw/precaching.addRoute` in a single call.
  *
  * @param entries Array of entries to precache.
- * @param options See the `@serwist/precaching.PrecacheRoute` options.
+ * @param options See the `@serwist/sw/precaching.PrecacheRoute` options.
  */
 export const precacheAndRoute = (entries: (PrecacheEntry | string)[], options?: PrecacheRouteOptions): void => {
   precache(entries);

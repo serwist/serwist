@@ -47,25 +47,18 @@
   },
   "dependencies": {
     "@serwist/core": "workspace:*",
-    "@serwist/expiration": "workspace:*",
-    "@serwist/strategies": "workspace:*"
+    "@serwist/sw": "workspace:*"
   },
   "devDependencies": {
     "@serwist/constants": "workspace:*",
-    "@serwist/precaching": "workspace:*",
-    "@serwist/sw": "workspace:*",
     "@sveltejs/kit": "2.5.5",
     "rollup": "4.14.0"
   },
   "peerDependencies": {
-    "@serwist/sw": "workspace:*",
     "@sveltejs/kit": ">=2.0.0",
     "typescript": ">=5.0.0"
   },
   "peerDependenciesMeta": {
-    "@serwist/sw": {
-      "optional": true
-    },
     "typescript": {
       "optional": true
     }

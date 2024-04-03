@@ -43,7 +43,7 @@ registerRuntimeCaching(...defaultCache);`,
         "sw.js": {
           code: `// @filename: sw-decl.d.ts
 import type { SerwistGlobalConfig } from "@serwist/core";
-import type { PrecacheEntry } from "@serwist/precaching";
+import type { PrecacheEntry } from "@serwist/sw/precaching";
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {

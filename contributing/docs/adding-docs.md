@@ -75,9 +75,9 @@ export const load: PageServerLoad = ({ locals }) => ({
         locals.highlighter,
         {
           "sw.ts": {
-            code: `import { enable as enableNavigationPreload } from "@serwist/navigation-preload";
-import { NetworkFirst } from "@serwist/strategies";
-import { registerRoute, NavigationRoute } from "@serwist/routing";
+            code: `import { enableNavigationPreload } from "@serwist/sw/plugins";
+import { NetworkFirst } from "@serwist/sw/strategies";
+import { registerRoute, NavigationRoute } from "@serwist/sw/routing";
 
 enableNavigationPreload();
 

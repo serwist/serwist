@@ -40,11 +40,11 @@ export const load: PageServerLoad = ({ locals }) => ({
         locals.highlighter,
         {
           "sw.ts": {
-            code: `import { CACHE_UPDATED_MESSAGE_META } from "@serwist/broadcast-update";
+            code: `import { BROADCAST_UPDATE_MESSAGE_META } from "@serwist/sw/plugins";
 
 navigator.serviceWorker.addEventListener("message", async (event) => {
-  // Ensure the message came from \`@serwist/broadcast-update\`
-  if (event.data.meta === CACHE_UPDATED_MESSAGE_META) {
+  // Ensure the message came from Serwist
+  if (event.data.meta === BROADCAST_UPDATE_MESSAGE_META) {
     const { cacheName, updatedURL } = event.data.payload;
 
     // Do something with cacheName and updatedURL.
@@ -70,11 +70,11 @@ navigator.serviceWorker.addEventListener("message", async (event) => {
         locals.highlighter,
         {
           "sw.ts": {
-            code: `import { CACHE_UPDATED_MESSAGE_TYPE } from "@serwist/broadcast-update";
+            code: `import { BROADCAST_UPDATE_MESSAGE_TYPE } from "@serwist/sw/plugins";
 
 navigator.serviceWorker.addEventListener("message", async (event) => {
-  // Ensure the message came from \`@serwist/broadcast-update\`
-  if (event.data.type === CACHE_UPDATED_MESSAGE_TYPE) {
+  // Ensure the message came from Serwist
+  if (event.data.type === BROADCAST_UPDATE_MESSAGE_TYPE) {
     const { cacheName, updatedURL } = event.data.payload;
 
     // Do something with cacheName and updatedURL.
@@ -100,7 +100,7 @@ navigator.serviceWorker.addEventListener("message", async (event) => {
         locals.highlighter,
         {
           "sw.ts": {
-            code: `import { responsesAreSame, defaultHeadersToCheck } from "@serwist/broadcast-update";
+            code: `import { responsesAreSame, BROADCAST_UPDATE_DEFAULT_HEADERS } from "@serwist/sw/plugins";
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -111,7 +111,7 @@ const cache = await caches.open(cacheName);
 const oldResponse = await cache.match(request);
 const newResponse = await fetch(request);
 
-if (oldResponse && !responsesAreSame(oldResponse, newResponse, defaultHeadersToCheck)) {
+if (oldResponse && !responsesAreSame(oldResponse, newResponse, BROADCAST_UPDATE_DEFAULT_HEADERS)) {
   const windows = await self.clients.matchAll({ type: "window" });
   for (const win of windows) {
     win.postMessage({ type: "CACHE_UPDATED", message: "Update now!" });

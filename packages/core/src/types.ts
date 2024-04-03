@@ -54,7 +54,7 @@ export interface RouteHandlerCallbackOptions {
   request: Request;
   url: URL;
   /**
-   * The return value from `@serwist/routing`'s `matchCallback` (if applicable).
+   * The return value from `@serwist/sw/routing`'s `matchCallback` (if applicable).
    */
   params?: string[] | MapLikeObject;
 }
@@ -72,7 +72,7 @@ export interface ManualHandlerCallbackOptions {
   request: Request | string;
   url?: never;
   /**
-   * The return value from `@serwist/routing`'s `matchCallback` (if applicable).
+   * The return value from `@serwist/sw/routing`'s `matchCallback` (if applicable).
    */
   params?: never;
 }
@@ -104,7 +104,7 @@ export type ManualHandlerCallback = (options: ManualHandlerCallbackOptions) => P
  *
  * A `Route` object can be created with either an `RouteHandlerCallback`
  * function or this `RouteHandler` object. The benefit of the `RouteHandler`
- * is it can be extended (as is done by the `@serwist/strategies` package).
+ * is it can be extended (as is done by the `@serwist/sw/strategies` package).
  */
 export interface RouteHandlerObject {
   handle: RouteHandlerCallback;
@@ -112,7 +112,7 @@ export interface RouteHandlerObject {
 
 /**
  * Either a `RouteHandlerCallback` or a `RouteHandlerObject`.
- * Most APIs in `@serwist/routing` that accept route handlers take either.
+ * Most APIs in `@serwist/sw/routing` that accept route handlers take either.
  */
 export type RouteHandler = RouteHandlerCallback | RouteHandlerObject;
 

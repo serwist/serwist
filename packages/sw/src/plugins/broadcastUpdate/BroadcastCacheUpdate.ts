@@ -83,19 +83,19 @@ export class BroadcastCacheUpdate {
   async notifyIfUpdated(options: CacheDidUpdateCallbackParam): Promise<void> {
     if (process.env.NODE_ENV !== "production") {
       assert!.isType(options.cacheName, "string", {
-        moduleName: "@serwist/broadcast-update",
+        moduleName: "@serwist/sw/plugins",
         className: "BroadcastCacheUpdate",
         funcName: "notifyIfUpdated",
         paramName: "cacheName",
       });
       assert!.isInstance(options.newResponse, Response, {
-        moduleName: "@serwist/broadcast-update",
+        moduleName: "@serwist/sw/plugins",
         className: "BroadcastCacheUpdate",
         funcName: "notifyIfUpdated",
         paramName: "newResponse",
       });
       assert!.isInstance(options.request, Request, {
-        moduleName: "@serwist/broadcast-update",
+        moduleName: "@serwist/sw/plugins",
         className: "BroadcastCacheUpdate",
         funcName: "notifyIfUpdated",
         paramName: "request",

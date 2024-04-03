@@ -15,8 +15,8 @@ export const load: PageServerLoad = ({ locals }) => ({
         "sw.ts": {
           code: `import type { SerwistGlobalConfig } from "@serwist/core";
 import { clientsClaim } from "@serwist/core";
-import type { PrecacheEntry } from "@serwist/precaching";
 import { fallbacks, handlePrecaching, registerRuntimeCaching } from "@serwist/sw";
+import type { PrecacheEntry } from "@serwist/sw/precaching";
 import { defaultCache } from "@serwist/vite/worker";
 
 declare global {
@@ -60,7 +60,7 @@ registerRuntimeCaching(...runtimeCaching);`,
         "sw.js": {
           code: `// @filename: sw-decl.d.ts
 import type { SerwistGlobalConfig } from "@serwist/core";
-import type { PrecacheEntry } from "@serwist/precaching";
+import type { PrecacheEntry } from "@serwist/sw/precaching";
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {

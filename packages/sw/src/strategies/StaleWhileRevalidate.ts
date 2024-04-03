@@ -57,7 +57,7 @@ export class StaleWhileRevalidate extends Strategy {
 
     if (process.env.NODE_ENV !== "production") {
       assert!.isInstance(request, Request, {
-        moduleName: "@serwist/strategies",
+        moduleName: "@serwist/sw/strategies",
         className: this.constructor.name,
         funcName: "handle",
         paramName: "request",

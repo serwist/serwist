@@ -43,10 +43,10 @@ export const load: PageServerLoad = ({ locals }) => ({
         "sw.ts": {
           code: `declare const event: FetchEvent;
 // ---cut-before---
-import { BroadcastCacheUpdate, defaultHeadersToCheck } from "@serwist/broadcast-update";
+import { BroadcastCacheUpdate, BROADCAST_UPDATE_DEFAULT_HEADERS } from "@serwist/sw/plugins";
 
 const broadcastUpdate = new BroadcastCacheUpdate({
-  headersToCheck: [...defaultHeadersToCheck, "X-My-Custom-Header"],
+  headersToCheck: [...BROADCAST_UPDATE_DEFAULT_HEADERS, "X-My-Custom-Header"],
 });
 
 const cacheName = "api-cache";
@@ -66,11 +66,11 @@ broadcastUpdate.notifyIfUpdated({
           lang: "typescript",
         },
         "message.ts": {
-          code: `import { CACHE_UPDATED_MESSAGE_META } from "@serwist/broadcast-update";
+          code: `import { BROADCAST_UPDATE_MESSAGE_META } from "@serwist/sw/plugins";
 
 navigator.serviceWorker.addEventListener("message", async (event) => {
-  // Optional: ensure the message came from \`@serwist/broadcast-update\`
-  if (event.data.meta === CACHE_UPDATED_MESSAGE_META) {
+  // Optional: ensure the message came from Serwist
+  if (event.data.meta === BROADCAST_UPDATE_MESSAGE_META) {
     const { cacheName, updatedURL } = event.data.payload;
 
     // Do something with cacheName and updatedURL.

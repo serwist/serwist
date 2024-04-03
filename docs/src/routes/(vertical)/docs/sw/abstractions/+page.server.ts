@@ -101,7 +101,7 @@ router.setCatchHandler(async ({ request }) => {
   return Response.error();
 });
 
-// Like for the \`Serwist\` class, you have to custom \`Router\` and \`PrecacheController\`
+// Like for the \`Serwist\` class, you have to provide your custom \`Router\` and \`PrecacheController\`
 // instances to \`Router\`-dependent and \`PrecacheController\`-dependent functions
 // respectively. To avoid this, you can change the singleton \`Router\` and \`PrecacheController\`
 // instances instead:

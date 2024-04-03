@@ -3,7 +3,7 @@ import { encodeOpenGraphImage } from "$lib/og";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
-  title: "disableNavigationPreload - Navigation preloading - @serwist/navigation-preload",
+  title: "disableNavigationPreload - Navigation preloading - @serwist/sw",
   ogImage: encodeOpenGraphImage({
     title: "disableNavigationPreload",
     desc: "Navigation preloading - @serwist/sw",

@@ -19,11 +19,6 @@
   </li>
   <li>
     <InlineCode>
-      <a class="link" href="/docs/navigation-preload"> @serwist/navigation-preload </a>
-    </InlineCode>
-  </li>
-  <li>
-    <InlineCode>
       <a class="link" href="/docs/next">@serwist/next</a>
     </InlineCode>
   </li>

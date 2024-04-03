@@ -50,7 +50,7 @@ export class CacheExpiration {
   constructor(cacheName: string, config: CacheExpirationConfig = {}) {
     if (process.env.NODE_ENV !== "production") {
       assert!.isType(cacheName, "string", {
-        moduleName: "@serwist/expiration",
+        moduleName: "@serwist/sw/plugins",
         className: "CacheExpiration",
         funcName: "constructor",
         paramName: "cacheName",
@@ -58,7 +58,7 @@ export class CacheExpiration {
 
       if (!(config.maxEntries || config.maxAgeSeconds)) {
         throw new SerwistError("max-entries-or-age-required", {
-          moduleName: "@serwist/expiration",
+          moduleName: "@serwist/sw/plugins",
           className: "CacheExpiration",
           funcName: "constructor",
         });
@@ -66,7 +66,7 @@ export class CacheExpiration {
 
       if (config.maxEntries) {
         assert!.isType(config.maxEntries, "number", {
-          moduleName: "@serwist/expiration",
+          moduleName: "@serwist/sw/plugins",
           className: "CacheExpiration",
           funcName: "constructor",
           paramName: "config.maxEntries",
@@ -75,7 +75,7 @@ export class CacheExpiration {
 
       if (config.maxAgeSeconds) {
         assert!.isType(config.maxAgeSeconds, "number", {
-          moduleName: "@serwist/expiration",
+          moduleName: "@serwist/sw/plugins",
           className: "CacheExpiration",
           funcName: "constructor",
           paramName: "config.maxAgeSeconds",
@@ -144,7 +144,7 @@ export class CacheExpiration {
   async updateTimestamp(url: string): Promise<void> {
     if (process.env.NODE_ENV !== "production") {
       assert!.isType(url, "string", {
-        moduleName: "@serwist/expiration",
+        moduleName: "@serwist/sw/plugins",
         className: "CacheExpiration",
         funcName: "updateTimestamp",
         paramName: "url",

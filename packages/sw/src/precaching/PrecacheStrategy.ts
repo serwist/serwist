@@ -22,9 +22,9 @@ interface PrecacheStrategyOptions extends StrategyOptions {
 }
 
 /**
- * A `@serwist/strategies.Strategy` implementation
+ * A `@serwist/sw/strategies.Strategy` implementation
  * specifically designed to work with
- * `@serwist/precaching.PrecacheController`
+ * `@serwist/sw/precaching.PrecacheController`
  * to both cache and fetch precached assets.
  *
  * Note: an instance of this class is created automatically when creating a

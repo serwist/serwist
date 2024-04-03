@@ -20,7 +20,7 @@ import type { PrecacheRouteOptions } from "./types.js";
  * responded to, allowing the event to fall through to other `fetch` event
  * listeners.
  *
- * @param options See the `@serwist/precaching.PrecacheRoute` options.
+ * @param options See the `@serwist/sw/precaching.PrecacheRoute` options.
  */
 export const addRoute = (options?: PrecacheRouteOptions): void => {
   const precacheController = getSingletonPrecacheController();

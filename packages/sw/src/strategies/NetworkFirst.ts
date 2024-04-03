@@ -54,7 +54,7 @@ export class NetworkFirst extends Strategy {
     if (process.env.NODE_ENV !== "production") {
       if (this._networkTimeoutSeconds) {
         assert!.isType(this._networkTimeoutSeconds, "number", {
-          moduleName: "@serwist/strategies",
+          moduleName: "@serwist/sw/strategies",
           className: this.constructor.name,
           funcName: "constructor",
           paramName: "networkTimeoutSeconds",
@@ -74,7 +74,7 @@ export class NetworkFirst extends Strategy {
 
     if (process.env.NODE_ENV !== "production") {
       assert!.isInstance(request, Request, {
-        moduleName: "@serwist/strategies",
+        moduleName: "@serwist/sw/strategies",
         className: this.constructor.name,
         funcName: "handle",
         paramName: "makeRequest",

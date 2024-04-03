@@ -37,9 +37,9 @@ export const load: PageServerLoad = ({ locals }) => ({
       locals.highlighter,
       {
         "sw.ts": {
-          code: `import { registerRoute } from "@serwist/routing";
-import { StaleWhileRevalidate } from "@serwist/strategies";
-import { BroadcastUpdatePlugin } from "@serwist/broadcast-update";
+          code: `import { BroadcastUpdatePlugin } from "@serwist/sw/plugins";
+import { registerRoute } from "@serwist/sw/routing";
+import { StaleWhileRevalidate } from "@serwist/sw/strategies";
 
 registerRoute(
   ({ url }) => url.pathname.startsWith("/api/"),
@@ -50,11 +50,11 @@ registerRoute(
           lang: "typescript",
         },
         "message.ts": {
-          code: `import { CACHE_UPDATED_MESSAGE_META } from "@serwist/broadcast-update";
+          code: `import { BROADCAST_UPDATE_MESSAGE_META } from "@serwist/sw/plugins";
 
 navigator.serviceWorker.addEventListener("message", async (event) => {
-  // Optional: ensure the message came from \`@serwist/broadcast-update\`
-  if (event.data.meta === CACHE_UPDATED_MESSAGE_META) {
+  // Optional: ensure the message came from Serwist
+  if (event.data.meta === BROADCAST_UPDATE_MESSAGE_META) {
     const { cacheName, updatedURL } = event.data.payload;
 
     // Do something with cacheName and updatedURL.

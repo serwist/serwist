@@ -65,9 +65,9 @@
   but also provides a mechanism for updating the cache asynchronously.
 </p>
 <Callout type="info">
-  Note: BroadcastUpdatePlugin can't be used to broadcast information about @serwist/routing's updates. It only detects when a previously cached URL
-  has been overwritten with new contents, but @serwist/precaching creates cache entries with URLs that uniquely correspond to the contents, so it will
-  never overwrite existing cache entries.
+  Note: BroadcastUpdatePlugin can't be used to broadcast information about Serwist's precache updates. It only detects when a previously cached URL
+  has been overwritten with new contents, but Serwist's precaching mechanism creates cache entries with URLs that uniquely correspond to the contents,
+  so it will never overwrite existing cache entries.
 </Callout>
 <p>
   To broadcast updates, you just need to add a

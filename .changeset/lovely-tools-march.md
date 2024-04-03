@@ -10,6 +10,7 @@ chore(next): renamed /browser to /worker
   - Old:
 
   ```ts
+  import { installSerwist } from "@serwist/sw";
   import { defaultCache } from "@serwist/next/browser";
 
   installSerwist({
@@ -21,9 +22,12 @@ chore(next): renamed /browser to /worker
   - New:
 
   ```ts
+  import { Serwist } from "@serwist/sw";
   import { defaultCache } from "@serwist/next/worker";
 
-  installSerwist({
+  const serwist = new Serwist();
+
+  serwist.install({
     // Other options
     runtimeCaching: defaultCache,
   });

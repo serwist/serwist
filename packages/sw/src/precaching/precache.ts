@@ -18,10 +18,10 @@ import type { PrecacheEntry } from "./types.js";
  *
  * Please note: This method **will not** serve any of the cached files for you.
  * It only precaches files. To respond to a network request you call
- * `@serwist/precaching.addRoute`.
+ * `@serwist/sw/precaching.addRoute`.
  *
  * If you have a single array of files to precache, you can just call
- * `@serwist/precaching.precacheAndRoute`.
+ * `@serwist/sw/precaching.precacheAndRoute`.
  *
  * @param entries Array of entries to precache.
  */

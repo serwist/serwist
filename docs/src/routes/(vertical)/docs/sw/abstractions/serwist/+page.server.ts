@@ -46,8 +46,8 @@ export const load: PageServerLoad = ({ locals }) => ({
       {
         "sw.ts": {
           code: `import type { SerwistGlobalConfig } from "@serwist/core";
-import type { PrecacheEntry } from "@serwist/precaching";
 import { Serwist } from "@serwist/sw";
+import type { PrecacheEntry } from "@serwist/sw/precaching";
 // This import depends on your framework. For example, if you use Next.js, it should
 // be @serwist/next/worker rather than @serwist/vite/worker.
 import { defaultCache } from "@serwist/vite/worker";
@@ -78,7 +78,7 @@ serwist.install({
         "sw.js": {
           code: `// @filename: sw-decl.d.ts
 import type { SerwistGlobalConfig } from "@serwist/core";
-import type { PrecacheEntry } from "@serwist/precaching";
+import type { PrecacheEntry } from "@serwist/sw/precaching";
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {

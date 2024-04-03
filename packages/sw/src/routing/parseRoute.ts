@@ -25,7 +25,7 @@ export const parseRoute = (capture: RegExp | string | RouteMatchCallback | Route
     if (process.env.NODE_ENV !== "production") {
       if (!(capture.startsWith("/") || capture.startsWith("http"))) {
         throw new SerwistError("invalid-string", {
-          moduleName: "@serwist/routing",
+          moduleName: "@serwist/sw/routing",
           funcName: "registerRoute",
           paramName: "capture",
         });
@@ -68,7 +68,7 @@ export const parseRoute = (capture: RegExp | string | RouteMatchCallback | Route
     route = capture;
   } else {
     throw new SerwistError("unsupported-route-type", {
-      moduleName: "@serwist/routing",
+      moduleName: "@serwist/sw/routing",
       funcName: "registerRoute",
       paramName: "capture",
     });

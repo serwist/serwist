@@ -30,7 +30,7 @@ export class CacheOnly extends Strategy {
   async _handle(request: Request, handler: StrategyHandler): Promise<Response> {
     if (process.env.NODE_ENV !== "production") {
       assert!.isInstance(request, Request, {
-        moduleName: "@serwist/strategies",
+        moduleName: "@serwist/sw/strategies",
         className: this.constructor.name,
         funcName: "makeRequest",
         paramName: "request",

@@ -146,8 +146,8 @@ module.exports = async (phase) => {
           "sw.ts": {
             code: `import type { SerwistGlobalConfig } from "@serwist/core";
 import { defaultCache } from "@serwist/next/worker";
-import type { PrecacheEntry } from "@serwist/precaching";
-import { installSerwist } from "@serwist/sw";
+import { Serwist } from "@serwist/sw";
+import type { PrecacheEntry } from "@serwist/sw/precaching";
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
@@ -160,7 +160,9 @@ declare global {
 
 declare const self: ServiceWorkerGlobalScope;
 
-installSerwist({
+const serwist = new Serwist();
+
+serwist.install({
   precacheEntries: self.__SW_MANIFEST,
   skipWaiting: true,
   clientsClaim: true,
@@ -172,7 +174,7 @@ installSerwist({
           "sw.js": {
             code: `// @filename: sw-decl.d.ts
 import type { SerwistGlobalConfig } from "@serwist/core";
-import type { PrecacheEntry } from "@serwist/precaching";
+import type { PrecacheEntry } from "@serwist/sw/precaching";
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
@@ -186,9 +188,11 @@ declare global {
 const self = /** @type {ServiceWorkerGlobalScope} */(/** @type {unknown} */(globalThis.self));
 // ---cut-before---
 import { defaultCache } from "@serwist/next/worker";
-import { installSerwist } from "@serwist/sw";
+import { Serwist } from "@serwist/sw";
 
-installSerwist({
+const serwist = new Serwist();
+
+serwist.install({
   precacheEntries: self.__SW_MANIFEST,
   skipWaiting: true,
   clientsClaim: true,
@@ -204,19 +208,19 @@ installSerwist({
         locals.highlighter,
         {
           npm: {
-            code: "npm i -D @serwist/core @serwist/precaching @serwist/sw",
+            code: "npm i -D @serwist/core @serwist/sw",
             lang: "bash",
           },
           yarn: {
-            code: "yarn add -D @serwist/core @serwist/precaching @serwist/sw",
+            code: "yarn add -D @serwist/core @serwist/sw",
             lang: "bash",
           },
           pnpm: {
-            code: "pnpm add -D @serwist/core @serwist/precaching @serwist/sw",
+            code: "pnpm add -D @serwist/core @serwist/sw",
             lang: "bash",
           },
           bun: {
-            code: "bun add -D @serwist/core @serwist/precaching @serwist/sw",
+            code: "bun add -D @serwist/core @serwist/sw",
             lang: "bash",
           },
         },

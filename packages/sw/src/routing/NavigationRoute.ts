@@ -27,7 +27,7 @@ export interface NavigationRouteMatchOptions {
 }
 
 /**
- * NavigationRoute makes it easy to create a `@serwist/routing` Route that matches for browser
+ * NavigationRoute makes it easy to create a `@serwist/sw/routing` Route that matches for browser
  * [navigation requests](https://developers.google.com/web/fundamentals/primers/service-workers/high-performance-loading#first_what_are_navigation_requests).
  *
  * It will only match incoming Requests whose [mode](https://fetch.spec.whatwg.org/#concept-request-mode) is set to `navigate`.
@@ -60,13 +60,13 @@ export class NavigationRoute extends Route {
   constructor(handler: RouteHandler, { allowlist = [/./], denylist = [] }: NavigationRouteMatchOptions = {}) {
     if (process.env.NODE_ENV !== "production") {
       assert!.isArrayOfClass(allowlist, RegExp, {
-        moduleName: "@serwist/routing",
+        moduleName: "@serwist/sw/routing",
         className: "NavigationRoute",
         funcName: "constructor",
         paramName: "options.allowlist",
       });
       assert!.isArrayOfClass(denylist, RegExp, {
-        moduleName: "@serwist/routing",
+        moduleName: "@serwist/sw/routing",
         className: "NavigationRoute",
         funcName: "constructor",
         paramName: "options.denylist",

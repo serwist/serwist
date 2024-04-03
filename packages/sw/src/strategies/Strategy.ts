@@ -35,7 +35,7 @@ export interface StrategyOptions {
 
 /**
  * Classes extending the `Strategy` based class should implement this method,
- * and leverage `@serwist/strategies`'s `StrategyHandler` arg to perform all
+ * and leverage `@serwist/sw/strategies`'s `StrategyHandler` arg to perform all
  * fetching and cache logic, which will ensure all relevant cache, cache options,
  * fetch options and plugins are used (per the current strategy instance).
  */
@@ -68,7 +68,7 @@ export abstract class Strategy implements RouteHandlerObject {
    * Perform a request strategy and returns a `Promise` that will resolve with
    * a `Response`, invoking all relevant plugin callbacks.
    *
-   * When a strategy instance is registered with a `@serwist/routing` Route, this method is automatically
+   * When a strategy instance is registered with a `@serwist/sw/routing` Route, this method is automatically
    * called when the route matches.
    *
    * Alternatively, this method can be used in a standalone `FetchEvent`
@@ -86,7 +86,7 @@ export abstract class Strategy implements RouteHandlerObject {
   }
 
   /**
-   * Similar to `@serwist/strategies`'s `Strategy.handle`, but
+   * Similar to `@serwist/sw/strategies`'s `Strategy.handle`, but
    * instead of just returning a `Promise` that resolves to a `Response` it
    * it will return an tuple of `[response, done]` promises, where the former
    * (`response`) is equivalent to what `handle()` returns, and the latter is a

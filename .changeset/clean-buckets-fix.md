@@ -27,6 +27,6 @@
 
 refactor: use iterables
 
-- Serwist now uses iterables in its code. For instance, `Headers.prototype.entries()` can be noticed at parts of `@serwist/cacheable-response`.
+- Serwist now uses iterables in its code.
 - This is partly thanks to our Node.js requirement being bumped to 18.0.0. Iterables have been supported in all major browsers for ages, so they wouldn't be a problem (hell, all browsers that support service workers have support for iterables).
 - Still, since this requires us to enforce the use of Node.js 18.0.0 or later, it is marked a breaking change.

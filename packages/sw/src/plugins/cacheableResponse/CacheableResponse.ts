@@ -42,7 +42,7 @@ export class CacheableResponse {
     if (process.env.NODE_ENV !== "production") {
       if (!(config.statuses || config.headers)) {
         throw new SerwistError("statuses-or-headers-required", {
-          moduleName: "@serwist/cacheable-response",
+          moduleName: "@serwist/sw/plugins",
           className: "CacheableResponse",
           funcName: "constructor",
         });
@@ -50,7 +50,7 @@ export class CacheableResponse {
 
       if (config.statuses) {
         assert!.isArray(config.statuses, {
-          moduleName: "@serwist/cacheable-response",
+          moduleName: "@serwist/sw/plugins",
           className: "CacheableResponse",
           funcName: "constructor",
           paramName: "config.statuses",
@@ -59,7 +59,7 @@ export class CacheableResponse {
 
       if (config.headers) {
         assert!.isType(config.headers, "object", {
-          moduleName: "@serwist/cacheable-response",
+          moduleName: "@serwist/sw/plugins",
           className: "CacheableResponse",
           funcName: "constructor",
           paramName: "config.headers",
@@ -84,7 +84,7 @@ export class CacheableResponse {
   isResponseCacheable(response: Response): boolean {
     if (process.env.NODE_ENV !== "production") {
       assert!.isInstance(response, Response, {
-        moduleName: "@serwist/cacheable-response",
+        moduleName: "@serwist/sw/plugins",
         className: "CacheableResponse",
         funcName: "isResponseCacheable",
         paramName: "response",

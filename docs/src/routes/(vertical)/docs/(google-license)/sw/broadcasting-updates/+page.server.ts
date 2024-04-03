@@ -92,7 +92,7 @@ registerRoute(
             code: `import { BROADCAST_UPDATE_MESSAGE_META } from "@serwist/sw/plugins";
 
 navigator.serviceWorker.addEventListener("message", async (event) => {
-  // Optional: ensure the message came from \`@serwist/broadcast-update\`
+  // Optional: ensure the message came from Serwist
   if (event.data.meta === BROADCAST_UPDATE_MESSAGE_META) {
     const { cacheName, updatedURL } = event.data.payload;
 

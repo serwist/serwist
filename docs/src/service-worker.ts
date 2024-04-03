@@ -1,6 +1,6 @@
-import { PrecacheController } from "@serwist/precaching";
 import { basePath, defaultCache, defaultIgnoreUrlParameters, getPrecacheManifest } from "@serwist/svelte/worker";
 import { Serwist } from "@serwist/sw";
+import { PrecacheController } from "@serwist/sw/precaching";
 
 const serwist = new Serwist({
   precacheController: new PrecacheController({

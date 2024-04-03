@@ -27,8 +27,8 @@ export default withSerwist({
           "app/sw.ts": {
             code: `import type { SerwistGlobalConfig } from "@serwist/core";
 import { defaultCache } from "@serwist/next/worker";
-import type { PrecacheEntry } from "@serwist/precaching";
-import { installSerwist } from "@serwist/sw";
+import { Serwist } from "@serwist/sw";
+import type { PrecacheEntry } from "@serwist/sw/precaching";
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
@@ -41,7 +41,9 @@ declare global {
 
 declare const self: ServiceWorkerGlobalScope;
 
-installSerwist({
+const serwist = new Serwist();
+
+serwist.install({
   precacheEntries: self.__SW_MANIFEST,
   skipWaiting: true,
   clientsClaim: true,
@@ -100,10 +102,10 @@ export default {
           },
           "src/sw.ts": {
             code: `import type { SerwistGlobalConfig } from "@serwist/core";
-import { ExpirationPlugin } from "@serwist/expiration";
-import type { PrecacheEntry } from "@serwist/precaching";
-import { CacheFirst, NetworkFirst, StaleWhileRevalidate } from "@serwist/strategies";
-import { installSerwist } from "@serwist/sw";
+import { Serwist } from "@serwist/sw";
+import { ExpirationPlugin } from "@serwist/sw/plugins";
+import type { PrecacheEntry } from "@serwist/sw/precaching";
+import { CacheFirst, NetworkFirst, StaleWhileRevalidate } from "@serwist/sw/strategies";
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
@@ -116,7 +118,9 @@ declare global {
 
 declare const self: ServiceWorkerGlobalScope;
 
-installSerwist({
+const serwist = new Serwist();
+
+serwist.install({
   precacheEntries: self.__SW_MANIFEST,
   skipWaiting: true,
   clientsClaim: true,
@@ -252,8 +256,8 @@ export default defineConfig({
           },
           "src/sw.ts": {
             code: `import type { SerwistGlobalConfig } from "@serwist/core";
-import type { PrecacheEntry } from "@serwist/precaching";
-import { installSerwist } from "@serwist/sw";
+import { Serwist } from "@serwist/sw";
+import type { PrecacheEntry } from "@serwist/sw/precaching";
 import { defaultCache } from "@serwist/vite/worker";
 
 declare global {
@@ -267,7 +271,9 @@ declare global {
 
 declare const self: ServiceWorkerGlobalScope;
 
-installSerwist({
+const serwist = new Serwist();
+
+serwist.install({
   precacheEntries: self.__SW_MANIFEST,
   skipWaiting: true,
   clientsClaim: true,
@@ -343,8 +349,8 @@ export default defineNuxtConfig({
 /// <reference lib="esnext" />
 /// <reference lib="webworker" />
 import type { SerwistGlobalConfig } from "@serwist/core";
-import type { PrecacheEntry } from "@serwist/precaching";
-import { installSerwist } from "@serwist/sw";
+import { Serwist } from "@serwist/sw";
+import type { PrecacheEntry } from "@serwist/sw/precaching";
 import { defaultCache } from "@serwist/vite/worker";
 
 declare global {
@@ -358,7 +364,9 @@ declare global {
 
 declare const self: ServiceWorkerGlobalScope;
 
-installSerwist({
+const serwist = new Serwist();
+
+serwist.install({
   precacheEntries: self.__SW_MANIFEST,
   skipWaiting: true,
   clientsClaim: true,

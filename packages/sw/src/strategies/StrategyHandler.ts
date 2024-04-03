@@ -44,14 +44,14 @@ export class StrategyHandler {
    * A `URL` instance of `request.url` (if passed to the strategy's
    * `handle()` or `handleAll()` method).
    * Note: the `url` param will be present if the strategy was invoked
-   * from a `@serwist/routing.Route` object.
+   * from a `@serwist/sw/routing.Route` object.
    */
   public url?: URL;
   /**
    * A `param` value (if passed to the strategy's
    * `handle()` or `handleAll()` method).
    * Note: the `param` param will be present if the strategy was invoked
-   * from a `@serwist/routing.Route` object and the `@serwist/strategies.matchCallback`
+   * from a `@serwist/sw/routing.Route` object and the `@serwist/sw/strategies.matchCallback`
    * returned a truthy value (it will be that value).
    */
   public params?: string[] | MapLikeObject;
@@ -81,13 +81,13 @@ export class StrategyHandler {
   ) {
     if (process.env.NODE_ENV !== "production") {
       assert!.isInstance(options.event, ExtendableEvent, {
-        moduleName: "@serwist/strategies",
+        moduleName: "@serwist/sw/strategies",
         className: "StrategyHandler",
         funcName: "constructor",
         paramName: "options.event",
       });
       assert!.isInstance(options.request, Request, {
-        moduleName: "@serwist/strategies",
+        moduleName: "@serwist/sw/strategies",
         className: "StrategyHandler",
         funcName: "constructor",
         paramName: "options.request",
@@ -427,7 +427,7 @@ export class StrategyHandler {
    *
    * Note: since this method runs all plugins, it's not suitable for cases
    * where the return value of a callback needs to be applied prior to calling
-   * the next callback. See `@serwist/strategies.iterateCallbacks` for how to handle that case.
+   * the next callback. See `@serwist/sw/strategies.iterateCallbacks` for how to handle that case.
    *
    * @param name The name of the callback to run within each plugin.
    * @param param The object to pass as the first (and only) param when executing each callback. This object will be merged with the
@@ -472,7 +472,7 @@ export class StrategyHandler {
    * of the event event associated with the request being handled (usually a `FetchEvent`).
    *
    * Note: you can await
-   * `@serwist/strategies.StrategyHandler.doneWaiting`
+   * `@serwist/sw/strategies.StrategyHandler.doneWaiting`
    * to know when all added promises have settled.
    *
    * @param promise A promise to add to the extend lifetime promises of
@@ -485,7 +485,7 @@ export class StrategyHandler {
 
   /**
    * Returns a promise that resolves once all promises passed to
-   * `@serwist/strategies.StrategyHandler.waitUntil` have settled.
+   * `@serwist/sw/strategies.StrategyHandler.waitUntil` have settled.
    *
    * Note: any work done after `doneWaiting()` settles should be manually
    * passed to an event's `waitUntil()` method (not this handler's

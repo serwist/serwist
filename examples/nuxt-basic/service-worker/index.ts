@@ -2,8 +2,8 @@
 /// <reference lib="esnext" />
 /// <reference lib="webworker" />
 import type { SerwistGlobalConfig } from "@serwist/core";
-import type { PrecacheEntry } from "@serwist/precaching";
-import { installSerwist } from "@serwist/sw";
+import type { PrecacheEntry } from "@serwist/sw/precaching";
+import { Serwist } from "@serwist/sw";
 import { defaultCache } from "@serwist/vite/worker";
 
 declare global {
@@ -17,7 +17,9 @@ declare global {
 
 declare const self: ServiceWorkerGlobalScope;
 
-installSerwist({
+const serwist = new Serwist();
+
+serwist.install({
   precacheEntries: self.__SW_MANIFEST,
   skipWaiting: true,
   clientsClaim: true,

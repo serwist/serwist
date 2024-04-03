@@ -64,7 +64,7 @@ export const messages = {
   },
 
   "add-to-cache-list-unexpected-type": ({ entry }) => {
-    return `An unexpected entry was passed to '@serwist/precaching.PrecacheController.addToCacheList()' The entry '${JSON.stringify(
+    return `An unexpected entry was passed to '@serwist/sw/precaching.PrecacheController.addToCacheList()' The entry '${JSON.stringify(
       entry,
     )}' isn't supported. You must supply an array of strings with one or more characters, objects with a url property or Request objects.`;
   },
@@ -74,7 +74,7 @@ export const messages = {
       throw new Error("Unexpected input to " + `'add-to-cache-list-duplicate-entries' error.`);
     }
 
-    return `Two of the entries passed to '@serwist/precaching.PrecacheController.addToCacheList()' had the URL ${firstEntry} but different revision details. Serwist is unable to cache and version the asset correctly. Please remove one of the entries.`;
+    return `Two of the entries passed to '@serwist/sw/precaching.PrecacheController.addToCacheList()' had the URL ${firstEntry} but different revision details. Serwist is unable to cache and version the asset correctly. Please remove one of the entries.`;
   },
 
   "plugin-error-request-will-fetch": ({ thrownErrorMessage }) => {
@@ -210,7 +210,7 @@ export const messages = {
   },
 
   "add-to-cache-list-conflicting-integrities": ({ url }) => {
-    return `Two of the entries passed to '@serwist/precaching.PrecacheController.addToCacheList()' had the URL ${url} with different integrity values. Please remove one of them.`;
+    return `Two of the entries passed to '@serwist/sw/precaching.PrecacheController.addToCacheList()' had the URL ${url} with different integrity values. Please remove one of them.`;
   },
 
   "missing-precache-entry": ({ cacheName, url }) => {

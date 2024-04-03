@@ -1,9 +1,11 @@
 import { defaultCache } from "@serwist/next/worker";
-import { installSerwist } from "@serwist/sw";
+import { Serwist } from "@serwist/sw";
 
 const self = /** @type {ServiceWorkerGlobalScope} */ (/** @type {unknown} */ (globalThis.self));
 
-installSerwist({
+const serwist = new Serwist();
+
+serwist.install({
   precacheEntries: self.__SW_MANIFEST,
   skipWaiting: true,
   clientsClaim: true,

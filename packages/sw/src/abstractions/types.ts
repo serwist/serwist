@@ -16,7 +16,7 @@ export interface RuntimeCaching {
    * whose `matcher` matches will be the one that responds.
    *
    * This value directly maps to the first parameter passed to
-   * `@serwist/routing.registerRoute`. It's recommended to use a
+   * `@serwist/sw/routing.registerRoute`. It's recommended to use a
    * `@serwist/core.RouteMatchCallback` function for greatest flexibility.
    */
   matcher: RegExp | string | RouteMatchCallback;

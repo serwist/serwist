@@ -39,7 +39,7 @@ export class Route {
   constructor(match: RouteMatchCallback, handler: RouteHandler, method: HTTPMethod = defaultMethod) {
     if (process.env.NODE_ENV !== "production") {
       assert!.isType(match, "function", {
-        moduleName: "@serwist/routing",
+        moduleName: "@serwist/sw/routing",
         className: "Route",
         funcName: "constructor",
         paramName: "match",

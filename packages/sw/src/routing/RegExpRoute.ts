@@ -13,7 +13,7 @@ import { Route } from "./Route.js";
 import type { HTTPMethod } from "./utils/constants.js";
 
 /**
- * `RegExpRoute` makes it easy to create a regular expression based on a `@serwist/routing` Route.
+ * `RegExpRoute` makes it easy to create a regular expression based on a `@serwist/sw/routing` Route.
  *
  * For same-origin requests the `RegExp` only needs to match part of the URL. For
  * requests against third-party servers, you must define a `RegExp` that matches
@@ -33,7 +33,7 @@ export class RegExpRoute extends Route {
   constructor(regExp: RegExp, handler: RouteHandler, method?: HTTPMethod) {
     if (process.env.NODE_ENV !== "production") {
       assert!.isInstance(regExp, RegExp, {
-        moduleName: "@serwist/routing",
+        moduleName: "@serwist/sw/routing",
         className: "RegExpRoute",
         funcName: "constructor",
         paramName: "pattern",

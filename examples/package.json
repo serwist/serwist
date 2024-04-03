@@ -10,7 +10,6 @@
     "@serwist/core": "workspace:*",
     "@serwist/next": "workspace:*",
     "@serwist/nuxt": "workspace:*",
-    "@serwist/precaching": "workspace:*",
     "@serwist/sw": "workspace:*",
     "@serwist/vite": "workspace:*",
     "@serwist/window": "workspace:*"

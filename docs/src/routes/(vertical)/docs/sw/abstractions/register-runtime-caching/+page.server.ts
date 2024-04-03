@@ -15,10 +15,10 @@ export const load: PageServerLoad = ({ locals }) => ({
         "sw.ts": {
           code: `import type { SerwistGlobalConfig } from "@serwist/core";
 import { clientsClaim } from "@serwist/core";
-import { ExpirationPlugin } from "@serwist/expiration";
-import type { PrecacheEntry } from "@serwist/precaching";
-import { CacheFirst, NetworkFirst, StaleWhileRevalidate } from "@serwist/strategies";
 import { handlePrecaching, registerRuntimeCaching } from "@serwist/sw";
+import { ExpirationPlugin } from "@serwist/sw/plugins";
+import type { PrecacheEntry } from "@serwist/sw/precaching";
+import { CacheFirst, NetworkFirst, StaleWhileRevalidate } from "@serwist/sw/strategies";
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
@@ -142,7 +142,7 @@ registerRuntimeCaching(
         "sw.js": {
           code: `// @filename: sw-decl.d.ts
 import type { SerwistGlobalConfig } from "@serwist/core";
-import type { PrecacheEntry } from "@serwist/precaching";
+import type { PrecacheEntry } from "@serwist/sw/precaching";
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
@@ -156,9 +156,9 @@ declare global {
 const self = /** @type {ServiceWorkerGlobalScope} */(/** @type {unknown} */(globalThis.self));
 // ---cut-before---
 import { clientsClaim } from "@serwist/core";
-import { ExpirationPlugin } from "@serwist/expiration";
-import { CacheFirst, NetworkFirst, StaleWhileRevalidate } from "@serwist/strategies";
 import { handlePrecaching, registerRuntimeCaching } from "@serwist/sw";
+import { ExpirationPlugin } from "@serwist/sw/plugins";
+import { CacheFirst, NetworkFirst, StaleWhileRevalidate } from "@serwist/sw/strategies";
 
 self.skipWaiting();
 clientsClaim();

@@ -37,7 +37,7 @@ export const load: PageServerLoad = ({ locals }) => ({
       locals.highlighter,
       {
         "sw.ts": {
-          code: `import { responsesAreSame, defaultHeadersToCheck } from "@serwist/broadcast-update";
+          code: `import { responsesAreSame, BROADCAST_UPDATE_DEFAULT_HEADERS } from "@serwist/sw/plugins";
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -48,7 +48,7 @@ const cache = await caches.open(cacheName);
 const oldResponse = await cache.match(request);
 const newResponse = await fetch(request);
 
-if (oldResponse && !responsesAreSame(oldResponse, newResponse, defaultHeadersToCheck)) {
+if (oldResponse && !responsesAreSame(oldResponse, newResponse, BROADCAST_UPDATE_DEFAULT_HEADERS)) {
   const windows = await self.clients.matchAll({ type: "window" });
   for (const win of windows) {
     win.postMessage({ type: "CACHE_UPDATED", message: "Update now!" });

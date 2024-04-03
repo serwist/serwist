@@ -61,9 +61,11 @@ feat(next): added `@serwist/next/worker.PAGES_CACHE_NAME`
 
   ```ts
   import { defaultCache, PAGES_CACHE_NAME } from "@serwist/next/worker";
-  import { installSerwist } from "@serwist/sw";
+  import { Serwist } from "@serwist/sw";
 
-  installSerwist({
+  const serwist = new Serwist();
+
+  serwist.install({
     // Other options...
     runtimeCaching: [
       {

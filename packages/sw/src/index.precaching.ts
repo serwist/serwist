@@ -18,7 +18,7 @@ import { getSingletonPrecacheController, setSingletonPrecacheController } from "
  * cached assets.
  *
  * If you require more control over caching and routing, you can use the
- * `@serwist/precaching.PrecacheController`
+ * `@serwist/sw/precaching.PrecacheController`
  * interface.
  */
 

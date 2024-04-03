@@ -181,7 +181,7 @@ export class Router {
   }): Promise<Response> | undefined {
     if (process.env.NODE_ENV !== "production") {
       assert!.isInstance(request, Request, {
-        moduleName: "@serwist/routing",
+        moduleName: "@serwist/sw/routing",
         className: "Router",
         funcName: "handleRequest",
         paramName: "options.request",
@@ -415,35 +415,35 @@ export class Router {
   registerRoute(route: Route): void {
     if (process.env.NODE_ENV !== "production") {
       assert!.isType(route, "object", {
-        moduleName: "@serwist/routing",
+        moduleName: "@serwist/sw/routing",
         className: "Router",
         funcName: "registerRoute",
         paramName: "route",
       });
 
       assert!.hasMethod(route, "match", {
-        moduleName: "@serwist/routing",
+        moduleName: "@serwist/sw/routing",
         className: "Router",
         funcName: "registerRoute",
         paramName: "route",
       });
 
       assert!.isType(route.handler, "object", {
-        moduleName: "@serwist/routing",
+        moduleName: "@serwist/sw/routing",
         className: "Router",
         funcName: "registerRoute",
         paramName: "route",
       });
 
       assert!.hasMethod(route.handler, "handle", {
-        moduleName: "@serwist/routing",
+        moduleName: "@serwist/sw/routing",
         className: "Router",
         funcName: "registerRoute",
         paramName: "route.handler",
       });
 
       assert!.isType(route.method, "string", {
-        moduleName: "@serwist/routing",
+        moduleName: "@serwist/sw/routing",
         className: "Router",
         funcName: "registerRoute",
         paramName: "route.method",

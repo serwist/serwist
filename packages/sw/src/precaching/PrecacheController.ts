@@ -37,7 +37,7 @@ interface PrecacheControllerOptions {
    */
   fallbackToNetwork?: boolean;
   /**
-   * A number of how many precache requests should be made concurrently.
+   * The number of precache requests that should be made concurrently.
    *
    * @default 1
    */
@@ -108,7 +108,7 @@ export class PrecacheController {
   addToCacheList(entries: (PrecacheEntry | string)[]): void {
     if (process.env.NODE_ENV !== "production") {
       assert!.isArray(entries, {
-        moduleName: "@serwist/precaching",
+        moduleName: "@serwist/sw/precaching",
         className: "PrecacheController",
         funcName: "addToCacheList",
         paramName: "entries",

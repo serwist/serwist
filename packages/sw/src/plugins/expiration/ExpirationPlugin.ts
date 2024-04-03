@@ -41,7 +41,7 @@ export interface ExpirationPluginOptions {
 }
 
 /**
- * This plugin can be used in a `@serwist/strategies` Strategy to regularly enforce a
+ * This plugin can be used in a `@serwist/sw/strategies` Strategy to regularly enforce a
  * limit on the age and/or the number of cached requests.
  *
  * It can only be used with Strategy instances that have a custom `cacheName` property set.
@@ -72,7 +72,7 @@ export class ExpirationPlugin implements SerwistPlugin {
     if (process.env.NODE_ENV !== "production") {
       if (!(config.maxEntries || config.maxAgeSeconds)) {
         throw new SerwistError("max-entries-or-age-required", {
-          moduleName: "@serwist/expiration",
+          moduleName: "@serwist/sw/plugins",
           className: "ExpirationPlugin",
           funcName: "constructor",
         });
@@ -80,7 +80,7 @@ export class ExpirationPlugin implements SerwistPlugin {
 
       if (config.maxEntries) {
         assert!.isType(config.maxEntries, "number", {
-          moduleName: "@serwist/expiration",
+          moduleName: "@serwist/sw/plugins",
           className: "ExpirationPlugin",
           funcName: "constructor",
           paramName: "config.maxEntries",
@@ -89,7 +89,7 @@ export class ExpirationPlugin implements SerwistPlugin {
 
       if (config.maxAgeSeconds) {
         assert!.isType(config.maxAgeSeconds, "number", {
-          moduleName: "@serwist/expiration",
+          moduleName: "@serwist/sw/plugins",
           className: "ExpirationPlugin",
           funcName: "constructor",
           paramName: "config.maxAgeSeconds",
@@ -98,7 +98,7 @@ export class ExpirationPlugin implements SerwistPlugin {
 
       if (config.maxAgeFrom) {
         assert!.isType(config.maxAgeFrom, "string", {
-          moduleName: "@serwist/expiration",
+          moduleName: "@serwist/sw/plugins",
           className: "ExpirationPlugin",
           funcName: "constructor",
           paramName: "config.maxAgeFrom",
@@ -141,7 +141,7 @@ export class ExpirationPlugin implements SerwistPlugin {
 
   /**
    * A "lifecycle" callback that will be triggered automatically by the
-   * `@serwist/strategies` handlers when a `Response` is about to be returned
+   * `@serwist/sw/strategies` handlers when a `Response` is about to be returned
    * from a [Cache](https://developer.mozilla.org/en-US/docs/Web/API/Cache) to
    * the handler. It allows the `Response` to be inspected for freshness and
    * prevents it from being used if the `Response`'s `Date` header value is
@@ -245,7 +245,7 @@ export class ExpirationPlugin implements SerwistPlugin {
 
   /**
    * A "lifecycle" callback that will be triggered automatically by the
-   * `@serwist/strategies` handlers when an entry is added to a cache.
+   * `@serwist/sw/strategies` handlers when an entry is added to a cache.
    *
    * @param options
    * @private
@@ -253,13 +253,13 @@ export class ExpirationPlugin implements SerwistPlugin {
   async cacheDidUpdate({ cacheName, request }: CacheDidUpdateCallbackParam) {
     if (process.env.NODE_ENV !== "production") {
       assert!.isType(cacheName, "string", {
-        moduleName: "@serwist/expiration",
+        moduleName: "@serwist/sw/plugins",
         className: "Plugin",
         funcName: "cacheDidUpdate",
         paramName: "cacheName",
       });
       assert!.isInstance(request, Request, {
-        moduleName: "@serwist/expiration",
+        moduleName: "@serwist/sw/plugins",
         className: "Plugin",
         funcName: "cacheDidUpdate",
         paramName: "request",
