@@ -37,6 +37,15 @@ html[data-theme="dark"] {
   --twoslash-tag-annotate-bg: #1ba67320;
 }
 
+.twoslash-hover {
+  border-bottom: 1px dotted transparent;
+  transition: border-color 0.15s linear;
+}
+
+.twoslash-hover:hover {
+  border-color: currentColor;
+}
+
 .twoslash-popup-container {
   @apply absolute z-50 inline-flex select-none flex-col overflow-auto rounded-md border border-[--twoslash-border-color] bg-[--twoslash-popup-bg] text-left text-[--twoslash-popup-color] duration-100;
   box-shadow: var(--twoslash-popup-shadow);

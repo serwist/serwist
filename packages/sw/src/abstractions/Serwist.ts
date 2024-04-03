@@ -82,13 +82,18 @@ export interface SerwistInstallOptions extends HandlePrecachingOptions {
   /**
    * Precaches routes so that they can be used as a fallback when
    * a Strategy fails to generate a response.
-   * Note: This option mutates `runtimeCaching`!
    *
-   * @see https://serwist.pages.dev/docs/sw/fallbacks
+   * Note: This option mutates `runtimeCaching`. It also precaches the URLs
+   * defined in `entries`, so you must NOT precache any of them beforehand.
+   *
+   * @see https://serwist.pages.dev/docs/sw/abstractions/fallbacks
    */
   fallbacks?: Omit<FallbacksOptions, "runtimeCaching">;
 }
 
+/**
+ * A class that helps bootstrap the service worker.
+ */
 export class Serwist {
   private _precacheController: PrecacheController;
   private _router: Router;
@@ -96,6 +101,12 @@ export class Serwist {
     this._precacheController = precacheController || getSingletonPrecacheController();
     this._router = router || getSingletonRouter();
   }
+  /**
+   * Sets the service worker up by running necessary functions and hooking up relevant
+   * service worker events.
+   *
+   * @param options
+   */
   install({
     precacheEntries,
     precacheOptions,

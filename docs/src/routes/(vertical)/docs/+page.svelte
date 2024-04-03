@@ -14,27 +14,7 @@
 <ul class="list">
   <li>
     <InlineCode>
-      <a class="link" href="/docs/background-sync">@serwist/background-sync</a>
-    </InlineCode>
-  </li>
-  <li>
-    <InlineCode>
-      <a class="link" href="/docs/broadcast-update"> @serwist/broadcast-update </a>
-    </InlineCode>
-  </li>
-  <li>
-    <InlineCode>
       <a class="link" href="/docs/build">@serwist/build</a>
-    </InlineCode>
-  </li>
-  <li>
-    <InlineCode>
-      <a class="link" href="/docs/cacheable-response"> @serwist/cacheable-response </a>
-    </InlineCode>
-  </li>
-  <li>
-    <InlineCode>
-      <a class="link" href="/docs/expiration">@serwist/expiration</a>
     </InlineCode>
   </li>
   <li>

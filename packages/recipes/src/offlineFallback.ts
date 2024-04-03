@@ -8,7 +8,7 @@
 
 import type { RouteHandler, RouteHandlerCallbackOptions } from "@serwist/core";
 import { type PrecacheController, getSingletonPrecacheController } from "@serwist/sw/precaching";
-import { setCatchHandler } from "@serwist/sw/routing";
+import { type Router, getSingletonRouter } from "@serwist/sw/routing";
 
 export interface OfflineFallbackOptions {
   /**
@@ -16,6 +16,11 @@ export interface OfflineFallbackOptions {
    * `PrecacheController` will be used.
    */
   precacheController?: PrecacheController;
+  /**
+   * An optional `Router` instance. If not provided, the singleton `Router`
+   * will be used.
+   */
+  router?: Router;
   /**
    * Precache name to match for page fallbacks. Defaults to offline.html.
    */
@@ -41,6 +46,7 @@ declare let self: ServiceWorkerGlobalScope;
  */
 export const offlineFallback = ({
   precacheController = getSingletonPrecacheController(),
+  router = getSingletonRouter(),
   pageFallback = "offline.html",
   imageFallback,
   fontFallback,
@@ -79,5 +85,5 @@ export const offlineFallback = ({
     return Response.error();
   };
 
-  setCatchHandler(handler);
+  router.setCatchHandler(handler);
 };

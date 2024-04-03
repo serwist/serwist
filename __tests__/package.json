@@ -9,6 +9,6 @@
   "homepage": "https://serwist.pages.dev",
   "devDependencies": {
     "@types/jest": "29.5.12",
-    "type-fest": "4.13.1"
+    "type-fest": "4.15.0"
   }
 }

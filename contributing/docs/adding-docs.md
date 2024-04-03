@@ -42,7 +42,7 @@
 
 ## Why not Markdown?
 
-- Although Markdown itself is a great technology, one found it to be... rather difficult to setup and maintain, especially with SvelteKit. The documentation site of `@ducanh2912/next-pwa` serves as a painful example of having to jump through hoops so as to use this technology (certain dependencies... simply can't be updated, and the code behind the docs was rather... an eyesore). As such, we use Svelte itself to write the documentation. Although doing so involves more manual work, it is easier to read and maintain, less hacky, more foolproof, and more customizable.
+- Although Markdown itself is a great technology, one found it to be... rather difficult to set up and maintain, especially with SvelteKit. The documentation site of `@ducanh2912/next-pwa` serves as a painful example of having to jump through hoops so as to use this technology (certain dependencies... simply can't be updated, and the code behind the docs was rather... an eyesore). As such, we use Svelte itself to write the documentation. Although doing so involves more manual work, it is easier to read and maintain, less hacky, more foolproof, and more customizable.
 
 ## Conventions
 

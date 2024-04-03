@@ -35,12 +35,12 @@ export interface FallbacksOptions {
  * Precaches routes so that they can be used as a fallback when
  * a Strategy fails to generate a response.
  *
- * Note: This function mutates `runtimeCaching`!
+ * Note: This function mutates `runtimeCaching`. It also precaches the URLs
+ * defined in `entries`, so you must NOT precache any of them beforehand.
  *
  * @see https://serwist.pages.dev/docs/sw/fallbacks
  * @param options
- * @returns The modified `RuntimeCaching` array. Using this value
- * is not needed, as it is simply the array in `options`.
+ * @returns The modified `runtimeCaching` array.
  */
 export const fallbacks = ({ runtimeCaching, entries, precacheOptions }: FallbacksOptions): RuntimeCaching[] => {
   precacheAndRoute(entries, precacheOptions);

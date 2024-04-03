@@ -78,7 +78,7 @@
     "@serwist/build": "workspace:*",
     "@serwist/sw": "workspace:*",
     "@serwist/window": "workspace:*",
-    "glob": "10.3.10",
+    "glob": "10.3.12",
     "kolorist": "1.8.0",
     "zod": "3.22.4"
   },
@@ -86,10 +86,10 @@
     "@serwist/constants": "workspace:*",
     "@serwist/sw": "workspace:*",
     "@serwist/utils": "workspace:*",
-    "@types/node": "20.11.30",
-    "rollup": "4.13.0",
-    "typescript": "5.5.0-dev.20240323",
-    "vite": "5.2.4"
+    "@types/node": "20.12.3",
+    "rollup": "4.14.0",
+    "typescript": "5.5.0-dev.20240402",
+    "vite": "5.2.7"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0",

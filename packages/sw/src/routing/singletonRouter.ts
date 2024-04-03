@@ -48,9 +48,7 @@ export const getSingletonRouter = (): Router => {
  * router.registerRoute(
  *   new Route(
  *     /\/api\/.*\/*.json/,
- *     new NetworkOnly({
- *       plugins: [backgroundSync],
- *     }),
+ *     new NetworkOnly(),
  *     "POST",
  *   ),
  * );

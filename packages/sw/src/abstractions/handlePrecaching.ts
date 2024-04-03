@@ -7,11 +7,11 @@ import { registerRoute } from "../routing/registerRoute.js";
 
 export interface HandlePrecachingOptions {
   /**
-   * A list of fallback entries.
+   * A list of URLs that should be cached.
    */
   precacheEntries?: (PrecacheEntry | string)[];
   /**
-   * Precache options for the provided entries.
+   * Options to customize how Serwist precaches the URLs.
    */
   precacheOptions?: PrecacheRouteOptions;
   /**
@@ -39,7 +39,7 @@ export interface HandlePrecachingOptions {
 /**
  * Handles a list of precache entries and cleans up outdated caches.
  *
- * @see https://serwist.pages.dev/docs/sw/handle-precaching
+ * @see https://serwist.pages.dev/docs/sw/abstractions/handle-precaching
  * @param options
  */
 export const handlePrecaching = ({ precacheEntries, precacheOptions, cleanupOutdatedCaches = false, ...options }: HandlePrecachingOptions): void => {

@@ -57,7 +57,6 @@
 
 <span
   bind:this={span}
-  class="twoslash-hover"
   role="status"
   onmouseenter={mouseEnter}
   onmouseleave={mouseLeave}
@@ -65,14 +64,3 @@
 >
   <slot />
 </span>
-
-<style>
-  .twoslash-hover {
-    border-bottom: 1px dotted transparent;
-    transition: border-color 0.3s linear;
-  }
-
-  .twoslash-hover:hover {
-    border-color: currentColor;
-  }
-</style>

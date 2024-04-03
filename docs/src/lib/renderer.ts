@@ -209,12 +209,21 @@ export const renderer = (): TwoslashRenderer => {
 
       return {
         type: "element",
-        tagName: "data-lsp",
+        tagName: "span",
         properties: {
-          lsp: toHtml(result),
-          tpid: `twoslash-tooltip-${crypto.randomBytes(4).toString("hex")}`,
+          class: "twoslash-hover",
         },
-        children: [node],
+        children: [
+          {
+            type: "element",
+            tagName: "data-lsp",
+            properties: {
+              lsp: toHtml(result),
+              tpid: `twoslash-tooltip-${crypto.randomBytes(4).toString("hex")}`,
+            },
+            children: [node],
+          },
+        ],
       };
     },
 

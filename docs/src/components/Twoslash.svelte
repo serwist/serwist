@@ -1,6 +1,5 @@
 <script lang="ts">
   import { tick } from "svelte";
-
   // import { quintOut } from "svelte/easing";
   // import { fade } from "svelte/transition";
   import { hotkeys } from "$lib/hotkeys.svelte";

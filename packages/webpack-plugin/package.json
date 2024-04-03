@@ -67,10 +67,10 @@
   "devDependencies": {
     "@serwist/constants": "workspace:*",
     "@serwist/utils": "workspace:*",
-    "@types/node": "20.11.30",
+    "@types/node": "20.12.3",
     "@types/webpack": "5.28.5",
-    "rollup": "4.13.0",
-    "typescript": "5.5.0-dev.20240323",
+    "rollup": "4.14.0",
+    "typescript": "5.5.0-dev.20240402",
     "webpack": "5.91.0"
   },
   "peerDependencies": {

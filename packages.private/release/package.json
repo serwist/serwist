@@ -37,7 +37,7 @@
     "@changesets/types": "6.0.0",
     "@gitbeaker/core": "40.0.2",
     "@gitbeaker/rest": "40.0.2",
-    "glob": "10.3.10",
+    "glob": "10.3.12",
     "js-yaml": "4.1.0",
     "mdast-util-to-string": "4.0.0",
     "minimatch": "9.0.4",
@@ -48,7 +48,7 @@
   "devDependencies": {
     "@serwist/constants": "workspace:*",
     "@types/js-yaml": "4.0.9",
-    "rollup": "4.13.0",
-    "typescript": "5.5.0-dev.20240323"
+    "rollup": "4.14.0",
+    "typescript": "5.5.0-dev.20240402"
   }
 }
