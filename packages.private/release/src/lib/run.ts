@@ -55,12 +55,31 @@ interface PublishedPackage {
 type PublishResult = { published: false } | { published: true; publishedPackages: PublishedPackage[] };
 
 export const runPublish = async (api: Gitlab): Promise<PublishResult> => {
-  const { stdout: publishStdout, stderr: publishStderr, error } = spawnSync("pnpm", ["changeset", "publish"], { encoding: "utf-8" });
+  const {
+    status: publishStatus,
+    signal: publishSignal,
+    stdout: publishStdout,
+    stderr: publishStderr,
+    error: publishError,
+  } = spawnSync("pnpm", ["changeset", "publish"], { encoding: "utf-8" });
 
-  if (error) {
-    console.error("Failed to publish:", publishStderr);
-    throw error;
+  console.log(
+    "Ran publish script. Status:",
+    publishStatus ?? "N/A",
+    ", signal:",
+    publishSignal ?? "N/A",
+    ", stdio:",
+    publishStdout || "N/A",
+    ", stderr:",
+    publishStderr || "N/A",
+  );
+
+  if (publishStatus || publishSignal || publishError) {
+    console.error("Failed to publish.");
+    throw publishError;
   }
+
+  console.log("Published packages.");
 
   gitPushTags();
 
