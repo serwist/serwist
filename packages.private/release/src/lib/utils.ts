@@ -2,12 +2,11 @@ import fs from "node:fs";
 import path from "node:path";
 import type { PackageJSON } from "@changesets/types";
 import type { Gitlab } from "@gitbeaker/core";
-import { glob } from "glob";
 import { toString as mdastToString } from "mdast-util-to-string";
 import remarkParse from "remark-parse";
 import remarkStringify from "remark-stringify";
 import { unified } from "unified";
-import { getPackages } from "./get-packages.js";
+import { packageNames } from "./package-names.js";
 import type { Package } from "./types.js";
 
 export const BumpLevels = {
@@ -17,19 +16,12 @@ export const BumpLevels = {
   major: 3,
 } as const;
 
-export const getVersionsByDirectory = async (cwd: string) => {
-  const potentialWorkspaces = await glob("**/package.json", { absolute: false, cwd, ignore: ["node_modules/**"], nodir: true }).then((workspaces) =>
-    workspaces.map((e) => path.dirname(e)),
-  );
-  const packages = getPackages(potentialWorkspaces);
-  return new Map(packages.map((x) => [x, getPackageJson(x).version]));
+export const getVersionsByDirectory = async () => {
+  return new Map(packageNames.map((x) => [x, getPackageJson(x).version]));
 };
 
-export const getBumpedPackages = async (cwd: string, previousVersions: Map<string, string>) => {
-  const potentialWorkspaces = await glob("**/package.json", { absolute: false, cwd, ignore: ["node_modules/**"], nodir: true }).then((workspaces) =>
-    workspaces.map((e) => path.dirname(e)),
-  );
-  const packages = getPackages(potentialWorkspaces).map((pkg) => {
+export const getBumpedPackages = async (previousVersions: Map<string, string>) => {
+  const packages = packageNames.map((pkg) => {
     return {
       packageJson: getPackageJson(pkg),
       dir: pkg,

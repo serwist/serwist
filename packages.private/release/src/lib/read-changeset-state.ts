@@ -12,10 +12,10 @@ export interface ChangesetState {
   filteredChangesets: NewChangeset[];
 }
 
-export const readChangesetState = async (cwd: string = process.cwd()): Promise<ChangesetState> => {
-  const preState = await readPreState(cwd);
+export const readChangesetState = async (): Promise<ChangesetState> => {
+  const preState = await readPreState(process.cwd());
   const isInPreMode = preState !== undefined && preState.mode === "pre";
-  const changesets = await readChangesets(cwd);
+  const changesets = await readChangesets(process.cwd());
 
   let changesetsToFilter: Set<string> | null = null;
 

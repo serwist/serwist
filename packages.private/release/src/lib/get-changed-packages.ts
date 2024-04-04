@@ -1,10 +1,8 @@
 import fs from "node:fs";
-import path from "node:path";
 import assembleReleasePlan from "@changesets/assemble-release-plan";
 import { parse as parseConfig } from "@changesets/config";
 import type { PackageJSON, WrittenConfig } from "@changesets/types";
-import { glob } from "glob";
-import { getPackages } from "./get-packages.js";
+import { packageNames } from "./package-names.js";
 import { readChangesetState } from "./read-changeset-state.js";
 import { getPackageJson } from "./utils.js";
 
@@ -15,18 +13,11 @@ export const getChangedPackages = async ({
 }) => {
   const rootPackageJson = JSON.parse(fs.readFileSync("package.json", "utf-8")) as PackageJSON;
 
-  const [potentialWorkspaces, changesetState] = await Promise.all([
-    glob("**/package.json", { absolute: false, ignore: ["node_modules/**"], nodir: true }).then((workspaces) =>
-      workspaces.map((e) => path.dirname(e)),
-    ),
-    readChangesetState(),
-  ]);
-
-  const matches = getPackages(potentialWorkspaces);
+  const changesetState = await readChangesetState();
 
   const packages = {
     tool: "pnpm",
-    packages: matches.map((m) => ({
+    packages: packageNames.map((m) => ({
       packageJson: getPackageJson(m),
       dir: m,
     })),

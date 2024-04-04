@@ -2,8 +2,6 @@ import { execSync, spawnSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import type { Gitlab } from "@gitbeaker/core";
-import { glob } from "glob";
-import { getPackages } from "./get-packages.js";
 import {
   checkClean as gitCheckClean,
   commitAll as gitCommitAll,
@@ -15,6 +13,7 @@ import {
 import { readChangesetState } from "./read-changeset-state.js";
 import type { Package } from "./types.js";
 import { getBumpedPackages, getChangelogEntry, getPackageJson, getVersionsByDirectory } from "./utils.js";
+import { packageNames } from "./package-names.js";
 
 const projectId = process.env.CI_PROJECT_ID!;
 const ref = process.env.CI_COMMIT_REF_NAME!;
@@ -64,14 +63,9 @@ export const runPublish = async (api: Gitlab): Promise<PublishResult> => {
   } = spawnSync("pnpm", ["changeset", "publish"], { encoding: "utf-8" });
 
   console.log(
-    "Ran publish script. Status:",
-    publishStatus ?? "N/A",
-    ", signal:",
-    publishSignal ?? "N/A",
-    ", stdio:",
-    publishStdout || "N/A",
-    ", stderr:",
-    publishStderr || "N/A",
+    `Ran publish script. Status: ${publishStatus ?? "N/A"}, signal: ${publishSignal ?? "N/A"}, stdio:\n${publishStdout || "N/A"}, stderr:\n${
+      publishStderr || "N/A"
+    }.`,
   );
 
   if (publishStatus || publishSignal || publishError) {
@@ -83,13 +77,7 @@ export const runPublish = async (api: Gitlab): Promise<PublishResult> => {
 
   gitPushTags();
 
-  const potentialWorkspaces = await glob("**/package.json", {
-    absolute: true,
-    ignore: ["node_modules/**"],
-    nodir: true,
-  }).then((workspaces) => workspaces.map((e) => path.dirname(e)));
-
-  const packages = getPackages(potentialWorkspaces).map((packageDirectory) => {
+  const packages = packageNames.map((packageDirectory) => {
     return {
       packageJson: getPackageJson(packageDirectory),
       dir: packageDirectory,
@@ -139,7 +127,7 @@ export const runVersion = async (api: Gitlab) => {
   const currentBranch = ref;
   const versionBranch = `changeset-release/${currentBranch}`;
 
-  const { preState } = await readChangesetState(process.cwd());
+  const { preState } = await readChangesetState();
 
   gitSwitchBranch(versionBranch);
   execSync(`git fetch origin "${currentBranch}"`, {
@@ -147,13 +135,13 @@ export const runVersion = async (api: Gitlab) => {
   });
   gitReset(`origin/${currentBranch}`);
 
-  const versionsByDirectory = await getVersionsByDirectory(process.cwd());
+  const versionsByDirectory = await getVersionsByDirectory();
 
   execSync("pnpm changeset version", {
     stdio: "inherit",
   });
 
-  const bumpedPackages = await getBumpedPackages(process.cwd(), versionsByDirectory);
+  const bumpedPackages = await getBumpedPackages(versionsByDirectory);
 
   const packagesToRelease = bumpedPackages
     .map((pkg) => {
