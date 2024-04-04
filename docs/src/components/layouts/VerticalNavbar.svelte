@@ -1,8 +1,8 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import GitHubLogo from "$components/icons/GitHubLogo.svelte";
+  import GitLabLogo from "$components/icons/GitLabLogo.svelte";
   import { clsx } from "$lib/clsx";
-  import { GITHUB_REPO_URL } from "$lib/constants";
+  import { GITLAB_REPO_URL } from "$lib/constants";
   import { isLinkActive } from "$lib/isLinkActive";
 
   import { NAV_LINKS } from "./navbar-constants";
@@ -64,7 +64,7 @@
           </summary>
           <div class="absolute right-0 w-[150px] md:hidden">
             <ul
-              class="relative top-2 max-h-[60dvh] space-y-1 overflow-y-auto rounded-[14px] border border-neutral-300 bg-white p-2 dark:border-gray-900 dark:bg-black"
+              class="relative top-2 max-h-[60dvh] space-y-1 overflow-y-auto rounded-[14px] border border-neutral-300 bg-white p-2 dark:border-neutral-800 dark:bg-black"
             >
               {#each links as { label, link, isActive }}
                 <li>
@@ -76,8 +76,8 @@
             </ul>
           </div>
         </details>
-        <a class="nav-button" href={GITHUB_REPO_URL} target="_blank" rel="noreferrer">
-          <GitHubLogo width={24} height={24} class="max-h-6 min-h-6 min-w-6 max-w-6" />
+        <a class="nav-button" href={GITLAB_REPO_URL} target="_blank" rel="noreferrer">
+          <GitLabLogo width={24} height={24} class="max-h-6 min-h-6 min-w-6 max-w-6" />
           <span class="sr-only">Our Github repo (opens in a new tab)</span>
         </a>
         <NavToggleScheme />

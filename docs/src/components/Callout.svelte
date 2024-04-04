@@ -22,7 +22,7 @@
       error: "dark:bg-red-1000 bg-red-100",
       success: "bg-green-150 dark:bg-lime-1000",
       warning: "bg-yellow-75 dark:bg-yellow-1000",
-      info: "bg-gray-200 dark:bg-zinc-800",
+      info: "bg-neutral-250 dark:bg-zinc-800",
     },
     icon: {
       error: "bg-red-650 dark:bg-red-300",

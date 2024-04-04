@@ -31,6 +31,9 @@ export default {
           75: "#FFF4CE",
           1000: "#433519",
         },
+        neutral: {
+          250: "#DDDDDD",
+        },
       },
     },
   },

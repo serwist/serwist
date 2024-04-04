@@ -10,7 +10,7 @@
   import WebpackLogo from "$components/icons/WebpackLogo.svelte";
   import InlineCode from "$components/InlineCode.svelte";
   import { clsx } from "$lib/clsx";
-  import { GITHUB_REPO_URL } from "$lib/constants.js";
+  import { GITLAB_REPO_URL } from "$lib/constants";
 
   const { data } = $props();
 
@@ -159,14 +159,14 @@
     <a class="text-accent-light dark:text-accent-dark text-xl underline underline-offset-8" href="/docs">
       {"~> Get started"}
     </a>
-    <InlineCode showIcon>{`npx create-next-app@latest -e ${GITHUB_REPO_URL}/-/tree/main/examples/next-basic?ref_type=heads`}</InlineCode>
+    <InlineCode showIcon>{`npx create-next-app@latest -e ${GITLAB_REPO_URL}/tree/main/examples/next-basic`}</InlineCode>
   </div>
   <div class="grid w-full text-left lg:mb-0 lg:grid-cols-4 lg:gap-2">
     {#each FEATURES_LIST as feature}
       <div
         class={clsx(
           "rounded-lg border border-transparent px-5 py-4 transition-colors",
-          "hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+          "hover:border-neutral-300 hover:bg-neutral-100 hover:dark:border-neutral-800 hover:dark:bg-neutral-800/30"
         )}
       >
         <h2 class="mb-3 text-2xl font-semibold">

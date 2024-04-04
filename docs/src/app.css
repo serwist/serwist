@@ -20,7 +20,7 @@
     @apply scroll-smooth;
   }
   body {
-    @apply bg-gray-50 font-sans font-normal text-black transition-colors duration-100 dark:bg-neutral-950 dark:text-white;
+    @apply bg-neutral-50 font-sans font-normal text-black transition-colors duration-100 dark:bg-neutral-950 dark:text-white;
   }
   h1,
   h2,
@@ -79,7 +79,7 @@
     @apply contrast-100;
   }
   .nav-button {
-    @apply flex cursor-pointer items-center justify-center rounded-full bg-transparent p-3 duration-100 hover:bg-gray-200 dark:hover:bg-neutral-800;
+    @apply flex cursor-pointer items-center justify-center rounded-full bg-transparent p-3 duration-100 hover:bg-neutral-250 dark:hover:bg-neutral-800;
   }
   .text-toc {
     @apply font-medium text-neutral-600 transition-colors duration-100 hover:text-black dark:text-neutral-400 dark:hover:text-white;
@@ -123,7 +123,7 @@
     @apply mt-2;
   }
   .button {
-    @apply rounded-md bg-gray-100 px-3 py-2 text-center transition-colors duration-100 hover:bg-gray-200 dark:bg-neutral-900 hover:dark:bg-neutral-800;
+    @apply rounded-md bg-neutral-100 px-3 py-2 text-center transition-colors duration-100 hover:bg-neutral-250 dark:bg-neutral-900 hover:dark:bg-neutral-800;
   }
   html[data-theme="light"] .visible-dark,
   html[data-theme="dark"] .visible-light {

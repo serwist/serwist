@@ -18,7 +18,7 @@
 <span
   class={clsx(
     "transition-colors-opacity flex w-full cursor-pointer flex-row justify-between rounded-md duration-100",
-    isActive ? "bg-gray-200 dark:bg-neutral-800" : "hover:bg-gray-200 dark:hover:bg-neutral-800"
+    isActive ? "bg-neutral-250 dark:bg-neutral-800" : "hover:bg-neutral-250 dark:hover:bg-neutral-800"
   )}
 >
   <a
