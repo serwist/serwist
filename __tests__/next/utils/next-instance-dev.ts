@@ -33,14 +33,11 @@ export class NextInstanceDev extends NextInstance {
         const msg = chunk.toString();
         this._cliOutput += msg;
       });
-      this._process.on("exit", (code, signal) => {
+      this._process.on("error", (err) => {
+        reject(err);
+      });
+      this._process.on("exit", () => {
         this._process = undefined;
-        if (code || signal) {
-          reject(new Error(`next dev failed with code/signal ${code || signal}`));
-        } else {
-          console.log(`next dev ran successfully with stdout: ${this._cliOutput || "none"}`);
-          resolve();
-        }
       });
     });
   }

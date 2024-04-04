@@ -29,13 +29,9 @@ export const app = async () => {
 
   const { filteredChangesets } = await readChangesetState();
 
-  const publishScript = process.env.PUBLISH_SCRIPT;
   const hasChangesets = filteredChangesets.length > 0;
-  const hasPublishScript = !!publishScript;
 
-  if (!hasChangesets && !hasPublishScript) {
-    console.log("No changesets found.");
-  } else if (!hasChangesets && hasPublishScript) {
+  if (!hasChangesets) {
     console.log("No changesets found, attempting to publish any unpublished packages to npm.");
     const npmrcPath = `${process.env.HOME!}/.npmrc`;
 

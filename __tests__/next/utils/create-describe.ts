@@ -22,27 +22,17 @@ if (isValidTestMode(envTestMode)) {
 
 const createNext = async (opts: NextTestOpts) => {
   let nextInstance: NextInstance | undefined = undefined;
-  try {
-    switch (testMode) {
-      case "dev":
-        nextInstance = new NextInstanceDev(opts);
-        break;
-      case "start":
-        nextInstance = new NextInstanceStart(opts);
-        break;
-    }
-    await nextInstance.setup(opts.sourceDir);
-    await nextInstance.spawn();
-    return nextInstance;
-  } catch (err) {
-    console.error(`failed to create next instance: ${err}, cliOutput:${nextInstance?.cliOutput ? `\n${nextInstance.cliOutput}` : "N/A"}`);
-    try {
-      await nextInstance?.destroy();
-    } catch (err) {
-      console.error("failed to clean up after failure", err);
-    }
-    throw new Error("failed to create next instance.");
+  switch (testMode) {
+    case "dev":
+      nextInstance = new NextInstanceDev(opts);
+      break;
+    case "start":
+      nextInstance = new NextInstanceStart(opts);
+      break;
   }
+  await nextInstance.setup(opts.sourceDir);
+  await nextInstance.spawn();
+  return nextInstance;
 };
 
 export const createDescribe = (name: string, opts: NextTestOpts, fn: (args: { next: NextInstance; testMode: NextTestMode }) => void) => {

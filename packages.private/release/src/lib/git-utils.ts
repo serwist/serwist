@@ -1,7 +1,7 @@
 import { execSync, spawnSync } from "node:child_process";
 
 export const setupUser = () => {
-  execSync(`git config user.name "${process.env.GITLAB_USER_LOGIN}"`, {
+  execSync(`git config user.name "${process.env.GITLAB_USER_NAME}"`, {
     stdio: "inherit",
   });
   execSync("git config user.email gitlab[bot]@users.noreply.gitlab.com", {
