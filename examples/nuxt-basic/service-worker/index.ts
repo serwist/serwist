@@ -2,8 +2,8 @@
 /// <reference lib="esnext" />
 /// <reference lib="webworker" />
 import type { SerwistGlobalConfig } from "@serwist/core";
-import type { PrecacheEntry } from "@serwist/sw/precaching";
 import { Serwist } from "@serwist/sw";
+import type { PrecacheEntry } from "@serwist/sw/precaching";
 import { defaultCache } from "@serwist/vite/worker";
 
 declare global {

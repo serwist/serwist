@@ -1,18 +1,18 @@
 import { clientsClaim as clientsClaimImpl, setCacheNameDetails } from "@serwist/core";
 import { type GoogleAnalyticsInitializeOptions, initialize } from "../plugins/googleAnalytics/initialize.js";
-import { PrecacheController } from "../precaching/PrecacheController.js";
+import type { PrecacheController } from "../precaching/PrecacheController.js";
 import { PrecacheRoute } from "../precaching/PrecacheRoute.js";
 import { cleanupOutdatedCaches as cleanupOutdatedCachesImpl } from "../precaching/cleanupOutdatedCaches.js";
 import { createHandlerBoundToURL } from "../precaching/createHandlerBoundToURL.js";
 import { getSingletonPrecacheController } from "../precaching/singletonPrecacheController.js";
 import { NavigationRoute } from "../routing/NavigationRoute.js";
-import { Router } from "../routing/Router.js";
+import type { Router } from "../routing/Router.js";
 import { parseRoute } from "../routing/parseRoute.js";
 import { getSingletonRouter } from "../routing/singletonRouter.js";
 import { disableDevLogs as disableDevLogsImpl } from "./disableDevLogs.js";
 import { fallbacks as fallbacksImpl } from "./fallbacks.js";
 import type { FallbacksOptions } from "./fallbacks.js";
-import { type HandlePrecachingOptions } from "./handlePrecaching.js";
+import type { HandlePrecachingOptions } from "./handlePrecaching.js";
 import { enableNavigationPreload } from "./navigationPreload.js";
 import type { RuntimeCaching } from "./types.js";
 

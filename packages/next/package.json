@@ -3,10 +3,7 @@
   "version": "9.0.0-preview.23",
   "type": "module",
   "description": "A module that integrates Serwist into your Next.js application.",
-  "files": [
-    "src",
-    "dist"
-  ],
+  "files": ["src", "dist"],
   "keywords": [
     "serwist",
     "serwistjs",
@@ -32,15 +29,9 @@
   "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
-      "worker": [
-        "./dist/index.worker.d.ts"
-      ],
-      "typings": [
-        "./dist/sw-entry.d.ts"
-      ],
-      "schema": [
-        "./dist/index.schema.d.ts"
-      ]
+      "worker": ["./dist/index.worker.d.ts"],
+      "typings": ["./dist/sw-entry.d.ts"],
+      "schema": ["./dist/index.schema.d.ts"]
     }
   },
   "exports": {
@@ -80,13 +71,13 @@
   "devDependencies": {
     "@serwist/constants": "workspace:*",
     "@serwist/utils": "workspace:*",
-    "@types/node": "20.12.3",
+    "@types/node": "20.12.4",
     "next": "14.1.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "rollup": "4.14.0",
     "type-fest": "4.15.0",
-    "typescript": "5.5.0-dev.20240402",
+    "typescript": "5.5.0-dev.20240404",
     "webpack": "5.91.0"
   },
   "peerDependencies": {

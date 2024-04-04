@@ -13,6 +13,7 @@
     "@serwist/sw": "workspace:*",
     "cheerio": "1.0.0-rc.12",
     "fs-extra": "11.2.0",
+    "glob": "10.3.12",
     "jest": "29.7.0",
     "next": "14.1.4"
   }

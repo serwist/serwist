@@ -3,19 +3,8 @@
   "version": "9.0.0-preview.23",
   "type": "module",
   "description": "Simplifies communications with Serwist packages running in the service worker",
-  "files": [
-    "src",
-    "dist"
-  ],
-  "keywords": [
-    "serwist",
-    "serwistjs",
-    "service worker",
-    "sw",
-    "window",
-    "message",
-    "postMessage"
-  ],
+  "files": ["src", "dist"],
+  "keywords": ["serwist", "serwistjs", "service worker", "sw", "window", "message", "postMessage"],
   "author": "Google's Web DevRel Team, Serwist's Team",
   "license": "MIT",
   "repository": "https://gitlab.com/serwist/serwist",
@@ -43,7 +32,7 @@
   "devDependencies": {
     "@serwist/constants": "workspace:*",
     "rollup": "4.14.0",
-    "typescript": "5.5.0-dev.20240402"
+    "typescript": "5.5.0-dev.20240404"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0"

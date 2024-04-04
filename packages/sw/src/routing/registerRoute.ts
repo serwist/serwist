@@ -8,7 +8,7 @@
 
 import type { RouteHandler, RouteMatchCallback } from "@serwist/core";
 
-import { Route } from "./Route.js";
+import type { Route } from "./Route.js";
 import { getSingletonRouter } from "./singletonRouter.js";
 import type { HTTPMethod } from "./utils/constants.js";
 

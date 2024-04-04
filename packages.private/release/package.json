@@ -4,16 +4,8 @@
   "type": "module",
   "description": "This module helps release Serwist packages.",
   "private": true,
-  "files": [
-    "dist",
-    "cli.js"
-  ],
-  "keywords": [
-    "serwist",
-    "serwistjs",
-    "service worker",
-    "sw"
-  ],
+  "files": ["dist", "cli.js"],
+  "keywords": ["serwist", "serwistjs", "service worker", "sw"],
   "author": "Serwist's Team",
   "license": "MIT",
   "repository": "https://gitlab.com/serwist/serwist",
@@ -49,6 +41,6 @@
     "@serwist/constants": "workspace:*",
     "@types/js-yaml": "4.0.9",
     "rollup": "4.14.0",
-    "typescript": "5.5.0-dev.20240402"
+    "typescript": "5.5.0-dev.20240404"
   }
 }

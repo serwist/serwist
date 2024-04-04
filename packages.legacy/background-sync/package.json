@@ -3,19 +3,8 @@
   "version": "9.0.0-preview.23",
   "type": "module",
   "description": "A module that queues failed requests and uses the Background Synchronization API to replay them when the network is available.",
-  "files": [
-    "src",
-    "dist"
-  ],
-  "keywords": [
-    "serwist",
-    "serwistjs",
-    "service worker",
-    "sw",
-    "background",
-    "sync",
-    "serwist-plugin"
-  ],
+  "files": ["src", "dist"],
+  "keywords": ["serwist", "serwistjs", "service worker", "sw", "background", "sync", "serwist-plugin"],
   "author": "Google's Web DevRel Team, Serwist's Team",
   "license": "MIT",
   "repository": "https://gitlab.com/serwist/serwist",
@@ -41,7 +30,7 @@
     "@serwist/constants": "workspace:*",
     "cross-env": "7.0.3",
     "rollup": "4.14.0",
-    "typescript": "5.5.0-dev.20240402"
+    "typescript": "5.5.0-dev.20240404"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0"

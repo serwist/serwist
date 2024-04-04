@@ -1,7 +1,7 @@
 import { escapeRegExp, replaceAndUpdateSourceMap, stringify } from "@serwist/build";
 import prettyBytes from "pretty-bytes";
 import upath from "upath";
-import type { Compilation, Compiler, WebpackError, default as Webpack } from "webpack";
+import type { Compilation, Compiler, default as Webpack, WebpackError } from "webpack";
 import type { InjectManifestOptions, InjectManifestOptionsComplete } from "./lib/types.js";
 import { validateInjectManifestOptions } from "./lib/validator.js";
 

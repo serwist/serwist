@@ -4,15 +4,8 @@
   "type": "module",
   "description": "This module contains utilities used by Serwist packages.",
   "private": true,
-  "files": [
-    "src"
-  ],
-  "keywords": [
-    "serwist",
-    "serwistjs",
-    "service worker",
-    "sw"
-  ],
+  "files": ["src"],
+  "keywords": ["serwist", "serwistjs", "service worker", "sw"],
   "author": "Serwist's Team",
   "license": "MIT",
   "repository": "https://gitlab.com/serwist/serwist",

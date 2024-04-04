@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import path from "node:path";
 import assembleReleasePlan from "@changesets/assemble-release-plan";
 import { parse as parseConfig } from "@changesets/config";
 import type { PackageJSON, WrittenConfig } from "@changesets/types";
@@ -6,7 +7,6 @@ import { glob } from "glob";
 import { getPackages } from "./get-packages.js";
 import { readChangesetState } from "./read-changeset-state.js";
 import { getPackageJson } from "./utils.js";
-import path from "node:path";
 
 export const getChangedPackages = async ({
   changedFiles,

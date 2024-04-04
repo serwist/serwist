@@ -6,9 +6,9 @@ import { StorableRequest } from "./plugins/backgroundSync/StorableRequest.js";
 import { BroadcastCacheUpdate } from "./plugins/broadcastUpdate/BroadcastCacheUpdate.js";
 import { BroadcastUpdatePlugin } from "./plugins/broadcastUpdate/BroadcastUpdatePlugin.js";
 import {
+  defaultHeadersToCheck as BROADCAST_UPDATE_DEFAULT_HEADERS,
   CACHE_UPDATED_MESSAGE_META as BROADCAST_UPDATE_MESSAGE_META,
   CACHE_UPDATED_MESSAGE_TYPE as BROADCAST_UPDATE_MESSAGE_TYPE,
-  defaultHeadersToCheck as BROADCAST_UPDATE_DEFAULT_HEADERS,
 } from "./plugins/broadcastUpdate/constants.js";
 import { responsesAreSame } from "./plugins/broadcastUpdate/responsesAreSame.js";
 import type { BroadcastCacheUpdateOptions, BroadcastMessage, BroadcastPayload, BroadcastPayloadGenerator } from "./plugins/broadcastUpdate/types.js";

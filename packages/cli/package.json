@@ -3,19 +3,8 @@
   "version": "9.0.0-preview.23",
   "type": "module",
   "description": "The command line interface of Serwist.",
-  "files": [
-    "dist",
-    "cli.js"
-  ],
-  "keywords": [
-    "serwist",
-    "serwistjs",
-    "service worker",
-    "caching",
-    "fetch requests",
-    "offline",
-    "cli"
-  ],
+  "files": ["dist", "cli.js"],
+  "keywords": ["serwist", "serwistjs", "service worker", "caching", "fetch requests", "offline", "cli"],
   "engines": {
     "node": ">=18.0.0"
   },
@@ -55,6 +44,6 @@
     "@types/stringify-object": "4.0.5",
     "@types/update-notifier": "6.0.8",
     "rollup": "4.14.0",
-    "typescript": "5.5.0-dev.20240402"
+    "typescript": "5.5.0-dev.20240404"
   }
 }

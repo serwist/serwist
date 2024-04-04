@@ -1,4 +1,4 @@
-import type { Compilation, Compiler, WebpackError, WebpackPluginInstance, default as Webpack } from "webpack";
+import type { Compilation, Compiler, default as Webpack, WebpackError, WebpackPluginInstance } from "webpack";
 
 import { relativeToOutputPath } from "./relative-to-output-path.js";
 

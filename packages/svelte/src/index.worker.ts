@@ -7,9 +7,9 @@ import { CacheFirst, NetworkFirst, StaleWhileRevalidate } from "@serwist/sw/stra
 import {
   base as basePath,
   build as immutableAssets,
-  files as staticAssets,
   prerendered as prerenderedRoutes,
   version as serviceWorkerVersion,
+  files as staticAssets,
 } from "$service-worker";
 
 export { basePath, immutableAssets, staticAssets, prerenderedRoutes, serviceWorkerVersion };

@@ -3,16 +3,8 @@
   "version": "9.0.0-preview.23",
   "type": "module",
   "description": "This module is used by a number of the other Serwist modules to share common code.",
-  "files": [
-    "src",
-    "dist"
-  ],
-  "keywords": [
-    "serwist",
-    "serwistjs",
-    "service worker",
-    "sw"
-  ],
+  "files": ["src", "dist"],
+  "keywords": ["serwist", "serwistjs", "service worker", "sw"],
   "author": "Google's Web DevRel Team, Serwist's Team",
   "license": "MIT",
   "repository": "https://gitlab.com/serwist/serwist",
@@ -22,9 +14,7 @@
   "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
-      "internal": [
-        "./dist/index.internal.d.ts"
-      ]
+      "internal": ["./dist/index.internal.d.ts"]
     }
   },
   "exports": {
@@ -46,7 +36,7 @@
   "devDependencies": {
     "@serwist/constants": "workspace:*",
     "rollup": "4.14.0",
-    "typescript": "5.5.0-dev.20240402"
+    "typescript": "5.5.0-dev.20240404"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0"
