@@ -1,9 +1,12 @@
 {
   "name": "@serwist/svelte",
-  "version": "9.0.0-preview.23",
+  "version": "9.0.0-preview.24",
   "type": "module",
   "description": "A module that complements SvelteKit's built-in service worker support.",
-  "files": ["src", "dist"],
+  "files": [
+    "src",
+    "dist"
+  ],
   "keywords": [
     "serwist",
     "serwistjs",
@@ -24,7 +27,9 @@
   "homepage": "https://serwist.pages.dev",
   "typesVersions": {
     "*": {
-      "worker": ["./dist/index.worker.d.ts"]
+      "worker": [
+        "./dist/index.worker.d.ts"
+      ]
     }
   },
   "exports": {

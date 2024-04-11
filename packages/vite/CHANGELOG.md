@@ -1,5 +1,14 @@
 # @serwist/vite
 
+## 9.0.0-preview.24
+
+### Patch Changes
+
+- Updated dependencies [e4c00af]
+  - serwist@9.0.0-preview.24
+  - @serwist/window@9.0.0-preview.24
+  - @serwist/build@9.0.0-preview.24
+
 ## 9.0.0-preview.23
 
 ### Patch Changes

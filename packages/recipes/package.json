@@ -1,10 +1,20 @@
 {
   "name": "@serwist/recipes",
-  "version": "9.0.0-preview.23",
+  "version": "9.0.0-preview.24",
   "type": "module",
   "description": "A service worker helper library to manage common request and caching patterns",
-  "files": ["src", "dist"],
-  "keywords": ["serwist", "serwistjs", "service worker", "sw", "router", "routing"],
+  "files": [
+    "src",
+    "dist"
+  ],
+  "keywords": [
+    "serwist",
+    "serwistjs",
+    "service worker",
+    "sw",
+    "router",
+    "routing"
+  ],
   "author": "Google's Web DevRel Team, Serwist's Team",
   "license": "MIT",
   "repository": "https://gitlab.com/serwist/serwist",

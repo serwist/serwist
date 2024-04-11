@@ -1,5 +1,12 @@
 # @serwist/streams
 
+## 9.0.0-preview.24
+
+### Patch Changes
+
+- Updated dependencies [e4c00af]
+  - serwist@9.0.0-preview.24
+
 ## 9.0.0-preview.23
 
 ### Patch Changes

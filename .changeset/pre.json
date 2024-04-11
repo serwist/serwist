@@ -37,11 +37,11 @@
     "@serwist-tests/build": "1.0.0",
     "@serwist-tests/config": "1.0.0",
     "@serwist-tests/next": "1.0.0",
-    "@serwist/release": "9.0.0-preview.22"
+    "@serwist/release": "9.0.0-preview.22",
+    "serwist": "9.0.0-preview.23"
   },
   "changesets": [
     "chilled-falcons-rhyme",
-    "clean-buckets-fix",
     "cuddly-pots-glow",
     "dirty-planets-change",
     "eighty-tools-know",
@@ -51,18 +51,16 @@
     "lovely-tools-march",
     "many-boxes-enjoy",
     "many-schools-think",
-    "modern-moons-brush",
     "orange-news-fry",
     "orange-weeks-brush",
     "perfect-bears-cry",
-    "polite-spies-search",
     "popular-deers-live",
     "popular-tips-explain",
     "proud-mangos-brake",
     "quick-chairs-mix",
     "rare-dodos-tell",
-    "rare-waves-share",
     "red-dolls-yell",
+    "rotten-ghosts-confess",
     "seven-taxis-join",
     "seven-trains-rest",
     "slimy-toes-report",
@@ -70,7 +68,6 @@
     "tame-apples-agree",
     "tasty-dancers-thank",
     "tiny-gorillas-sell",
-    "tiny-taxis-destroy",
     "young-fishes-wave"
   ]
 }
