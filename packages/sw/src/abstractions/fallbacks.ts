@@ -1,10 +1,14 @@
 import type { HandlerDidErrorCallbackParam } from "@serwist/core";
 import { PrecacheFallbackPlugin } from "../plugins/precaching/PrecacheFallbackPlugin.js";
 import type { PrecacheFallbackEntry } from "../plugins/precaching/PrecacheFallbackPlugin.js";
-import { precacheAndRoute } from "../precaching/precacheAndRoute.js";
 import type { PrecacheRouteOptions } from "../precaching/types.js";
 import { Strategy } from "../strategies/Strategy.js";
 import type { RuntimeCaching } from "./types.js";
+import type { PrecacheController } from "../precaching/PrecacheController.js";
+import type { Router } from "../routing/Router.js";
+import { getSingletonPrecacheController } from "../precaching/singletonPrecacheController.js";
+import { getSingletonRouter } from "../routing/singletonRouter.js";
+import { PrecacheRoute } from "../precaching/PrecacheRoute.js";
 
 export type FallbackMatcher = (_: HandlerDidErrorCallbackParam) => boolean;
 
@@ -17,7 +21,17 @@ export interface FallbackEntry extends PrecacheFallbackEntry {
 
 export interface FallbacksOptions {
   /**
-   * Your previous `RuntimeCaching` array.
+   * An optional `PrecacheController` instance. If not provided, the singleton
+   * `PrecacheController` will be used.
+   */
+  precacheController?: PrecacheController;
+  /**
+   * An optional `Router` instance. If not provided, the singleton `Router`
+   * will be used.
+   */
+  router?: Router;
+  /**
+   * Your previous list of caching strategies.
    */
   runtimeCaching: RuntimeCaching[];
   /**
@@ -42,8 +56,15 @@ export interface FallbacksOptions {
  * @param options
  * @returns The modified `runtimeCaching` array.
  */
-export const fallbacks = ({ runtimeCaching, entries, precacheOptions }: FallbacksOptions): RuntimeCaching[] => {
-  precacheAndRoute(entries, precacheOptions);
+export const fallbacks = ({
+  precacheController = getSingletonPrecacheController(),
+  router = getSingletonRouter(),
+  runtimeCaching,
+  entries,
+  precacheOptions,
+}: FallbacksOptions): RuntimeCaching[] => {
+  precacheController.precache(entries);
+  router.registerRoute(new PrecacheRoute(precacheController, precacheOptions));
 
   const fallbackPlugin = new PrecacheFallbackPlugin({
     fallbackUrls: entries,

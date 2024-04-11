@@ -1,0 +1,36 @@
+name: Documentation feedback
+description: Create a feedback for the documentation.
+title: "[Docs]: "
+labels: ["docs", "triage"]
+assignees:
+  - DuCanhGH
+body:
+  - type: textarea
+    attributes:
+      label: Provide environment information
+      description: Please provide the versions of relevant packages.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Describe the problem
+      description: A clear and concise description of what the problem is.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Expected behavior
+      description: A clear and concise description of what you expected to see.
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: Before posting the issue go through the steps you've written down to make sure the steps provided are detailed and clear.
+  - type: textarea
+    attributes:
+      label: Screenshots (if relevant)
+      description: Please also provide some screenshots if you can :) Thanks!
+  - type: textarea
+    attributes:
+      label: Additional information (if relevant)
+      description: Please also provide some additional information about the issue if you can :) Thanks!

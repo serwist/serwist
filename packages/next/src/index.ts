@@ -53,8 +53,6 @@ const withSerwistInit = (userOptions: InjectManifestOptions): ((nextConfig?: Nex
         config.plugins = [];
       }
 
-      logger.event(`Compiling for ${options.isServer ? "server" : "client (static)"}...`);
-
       const _sw = path.posix.join(basePath, swUrl);
       const _scope = path.posix.join(scope, "/");
 
@@ -92,13 +90,13 @@ const withSerwistInit = (userOptions: InjectManifestOptions): ((nextConfig?: Nex
       if (!options.isServer) {
         if (!register) {
           logger.info(
-            "Service worker won't be automatically registered as per the config, please call the following code in componentDidMount or useEffect:",
+            "The service worker will not be automatically registered, please call 'window.serwist.register()' in 'componentDidMount' or 'useEffect'.",
           );
 
-          logger.info("  window.serwist.register()");
-
           if (!tsConfigJson?.compilerOptions?.types?.includes("@serwist/next/typings")) {
-            logger.info("You may also want to add '@serwist/next/typings' to compilerOptions.types in your tsconfig.json/jsconfig.json.");
+            logger.info(
+              "You may also want to add '@serwist/next/typings' to your TypeScript/JavaScript configuration file at 'compilerOptions.types'.",
+            );
           }
         }
 
@@ -161,9 +159,7 @@ const withSerwistInit = (userOptions: InjectManifestOptions): ((nextConfig?: Nex
           } satisfies Record<`${SerwistNextOptionsKey}.${Extract<keyof SerwistNextOptions, "swEntryWorker">}`, string | undefined>),
         );
 
-        logger.info(`Service worker: ${swDest}`);
-        logger.info(`  URL: ${_sw}`);
-        logger.info(`  Scope: ${_scope}`);
+        logger.event(`Bundling the service worker script with the URL '${_sw}' and the scope '${_scope}'...`);
 
         // Precache files in public folder
         let resolvedManifestEntries = additionalPrecacheEntries;

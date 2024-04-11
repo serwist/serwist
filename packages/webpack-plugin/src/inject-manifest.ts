@@ -215,7 +215,7 @@ export class InjectManifest {
       // This used to be a fatal error, but just warn at runtime because we
       // can't validate it easily.
       if (Array.isArray(this.config.webpackCompilationPlugins) && this.config.webpackCompilationPlugins.length > 0) {
-        compilation.warnings.push(new Error("compileSrc is false, so the " + "webpackCompilationPlugins option will be ignored.") as WebpackError);
+        compilation.warnings.push(new Error("'compileSrc' is 'false', so the 'webpackCompilationPlugins' option will be ignored.") as WebpackError);
       }
     }
   }
