@@ -52,7 +52,7 @@ export interface FallbacksOptions {
  * Note: This function mutates `runtimeCaching`. It also precaches the URLs
  * defined in `entries`, so you must NOT precache any of them beforehand.
  *
- * @see https://serwist.pages.dev/docs/sw/fallbacks
+ * @see https://serwist.pages.dev/docs/sw/abstractions/fallbacks
  * @param options
  * @returns The modified `runtimeCaching` array.
  */

@@ -1,18 +1,14 @@
 import { clientsClaim as clientsClaimImpl, setCacheNameDetails } from "@serwist/core";
 import { type GoogleAnalyticsInitializeOptions, initialize } from "../plugins/googleAnalytics/initialize.js";
 import type { PrecacheController } from "../precaching/PrecacheController.js";
-import { PrecacheRoute } from "../precaching/PrecacheRoute.js";
-import { cleanupOutdatedCaches as cleanupOutdatedCachesImpl } from "../precaching/cleanupOutdatedCaches.js";
-import { createHandlerBoundToURL } from "../precaching/createHandlerBoundToURL.js";
 import { getSingletonPrecacheController } from "../precaching/singletonPrecacheController.js";
-import { NavigationRoute } from "../routing/NavigationRoute.js";
 import type { Router } from "../routing/Router.js";
 import { parseRoute } from "../routing/parseRoute.js";
 import { getSingletonRouter } from "../routing/singletonRouter.js";
 import { disableDevLogs as disableDevLogsImpl } from "./disableDevLogs.js";
 import { fallbacks as fallbacksImpl } from "./fallbacks.js";
 import type { FallbacksOptions } from "./fallbacks.js";
-import type { HandlePrecachingOptions } from "./handlePrecaching.js";
+import { handlePrecaching, type HandlePrecachingOptions } from "./handlePrecaching.js";
 import { enableNavigationPreload } from "./navigationPreload.js";
 import type { RuntimeCaching } from "./types.js";
 
@@ -147,24 +143,16 @@ export class Serwist {
     if (clientsClaim) clientsClaimImpl();
 
     if (!!precacheEntries && precacheEntries.length > 0) {
-      /**
-       * The precacheAndRoute() method efficiently caches and responds to
-       * requests for URLs in the manifest.
-       * See https://goo.gl/S9QRab
-       */
-      this._precacheController.precache(precacheEntries);
-      this._router.registerRoute(new PrecacheRoute(this._precacheController, precacheOptions));
-
-      if (cleanupOutdatedCaches) cleanupOutdatedCachesImpl();
-
-      if (navigateFallback) {
-        this._router.registerRoute(
-          new NavigationRoute(createHandlerBoundToURL(navigateFallback), {
-            allowlist: navigateFallbackAllowlist,
-            denylist: navigateFallbackDenylist,
-          }),
-        );
-      }
+      handlePrecaching({
+        precacheController: this._precacheController,
+        router: this._router,
+        precacheEntries,
+        precacheOptions,
+        cleanupOutdatedCaches,
+        navigateFallback,
+        navigateFallbackAllowlist,
+        navigateFallbackDenylist,
+      });
     }
 
     if (offlineAnalyticsConfig !== undefined) {

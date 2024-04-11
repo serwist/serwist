@@ -7,6 +7,7 @@ declare const self: ServiceWorkerGlobalScope;
  * navigation preloading.
  *
  * @returns
+ * @see https://serwist.pages.dev/docs/sw/navigation-preloading/is-navigation-preload-supported
  */
 export const isNavigationPreloadSupported = (): boolean => {
   return Boolean(self.registration?.navigationPreload);
@@ -18,6 +19,7 @@ export const isNavigationPreloadSupported = (): boolean => {
  * @param headerValue Optional. Allows developers to override the value of
  * the `Service-Worker-Navigation-Preload` header which will be sent to the
  * server when making the navigation request.
+ * @see https://serwist.pages.dev/docs/sw/navigation-preloading/enable-navigation-preload
  */
 export const enableNavigationPreload = (headerValue?: string): void => {
   if (isNavigationPreloadSupported()) {
@@ -44,6 +46,8 @@ export const enableNavigationPreload = (headerValue?: string): void => {
 
 /**
  * If the browser supports navigation preloading, then this will disable it.
+ * 
+ * @see https://serwist.pages.dev/docs/sw/navigation-preloading/disable-navigation-preload
  */
 export const disableNavigationPreload = (): void => {
   if (isNavigationPreloadSupported()) {

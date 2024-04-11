@@ -26,6 +26,5 @@ import type { PrecacheEntry } from "./types.js";
  * @param entries Array of entries to precache.
  */
 export const precache = (entries: (PrecacheEntry | string)[]): void => {
-  const precacheController = getSingletonPrecacheController();
-  precacheController.precache(entries);
+  getSingletonPrecacheController().precache(entries);
 };

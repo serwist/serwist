@@ -23,8 +23,6 @@ import type { PrecacheRouteOptions } from "./types.js";
  * @param options See the `@serwist/sw/precaching.PrecacheRoute` options.
  */
 export const addRoute = (options?: PrecacheRouteOptions): void => {
-  const precacheController = getSingletonPrecacheController();
-
-  const precacheRoute = new PrecacheRoute(precacheController, options);
+  const precacheRoute = new PrecacheRoute(getSingletonPrecacheController(), options);
   registerRoute(precacheRoute);
 };
