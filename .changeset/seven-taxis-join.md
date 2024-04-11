@@ -1,5 +1,5 @@
 ---
-"@serwist/sw": major
+"serwist": major
 ---
 
 chore(sw): renamed `urlPattern` to `matcher`
@@ -60,42 +60,44 @@ chore(sw): renamed `urlPattern` to `matcher`
   - New:
 
   ```ts
-  registerRuntimeCaching(
-    {
-      matcher: /\.(?:jpg|jpeg|gif|png|svg|ico|webp)$/i,
-      handler: new StaleWhileRevalidate({
-        cacheName: "static-image-assets",
-        plugins: [
-          new ExpirationPlugin({
-            maxEntries: 64,
-            maxAgeSeconds: 24 * 60 * 60, // 24 hours
-          }),
-        ],
-      }),
-    },
-    {
-      matcher: /\.(?:js)$/i,
-      handler: new StaleWhileRevalidate({
-        cacheName: "static-js-assets",
-        plugins: [
-          new ExpirationPlugin({
-            maxEntries: 32,
-            maxAgeSeconds: 24 * 60 * 60, // 24 hours
-          }),
-        ],
-      }),
-    },
-    {
-      matcher: /\.(?:css|less)$/i,
-      handler: new StaleWhileRevalidate({
-        cacheName: "static-style-assets",
-        plugins: [
-          new ExpirationPlugin({
-            maxEntries: 32,
-            maxAgeSeconds: 24 * 60 * 60, // 24 hours
-          }),
-        ],
-      }),
-    }
-  );
+  new Serwist({
+    runtimeCaching: [
+      {
+        matcher: /\.(?:jpg|jpeg|gif|png|svg|ico|webp)$/i,
+        handler: new StaleWhileRevalidate({
+          cacheName: "static-image-assets",
+          plugins: [
+            new ExpirationPlugin({
+              maxEntries: 64,
+              maxAgeSeconds: 24 * 60 * 60, // 24 hours
+            }),
+          ],
+        }),
+      },
+      {
+        matcher: /\.(?:js)$/i,
+        handler: new StaleWhileRevalidate({
+          cacheName: "static-js-assets",
+          plugins: [
+            new ExpirationPlugin({
+              maxEntries: 32,
+              maxAgeSeconds: 24 * 60 * 60, // 24 hours
+            }),
+          ],
+        }),
+      },
+      {
+        matcher: /\.(?:css|less)$/i,
+        handler: new StaleWhileRevalidate({
+          cacheName: "static-style-assets",
+          plugins: [
+            new ExpirationPlugin({
+              maxEntries: 32,
+              maxAgeSeconds: 24 * 60 * 60, // 24 hours
+            }),
+          ],
+        }),
+      },
+    ],
+  });
   ```

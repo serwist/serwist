@@ -11,6 +11,7 @@
 "@serwist/vite": major
 "@serwist/cli": major
 "@serwist/sw": major
+"serwist": major
 ---
 
 chore(peerDeps): bump minimum supported TypeScript and Node.js version

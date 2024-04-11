@@ -3,10 +3,10 @@ import { encodeOpenGraphImage } from "$lib/og";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
-  title: "ExpirationPlugin - Expiring outdated responses - @serwist/sw/plugins",
+  title: "ExpirationPlugin - Expiring outdated responses - serwist/plugins",
   ogImage: encodeOpenGraphImage({
     title: "ExpirationPlugin",
-    desc: "Expiring outdated responses - @serwist/sw/plugins",
+    desc: "Expiring outdated responses - serwist/plugins",
   }),
   toc: [
     {
@@ -41,9 +41,9 @@ export const load: PageServerLoad = ({ locals }) => ({
       locals.highlighter,
       {
         "sw.ts": {
-          code: `import { ExpirationPlugin } from "@serwist/sw/plugins";
-import { registerRoute } from "@serwist/sw/routing";
-import { CacheFirst } from "@serwist/sw/strategies";
+          code: `import { ExpirationPlugin } from "serwist/plugins";
+import { registerRoute } from "serwist/legacy";
+import { CacheFirst } from "serwist/strategies";
 
 registerRoute(
   ({ request }) => request.destination === "image",

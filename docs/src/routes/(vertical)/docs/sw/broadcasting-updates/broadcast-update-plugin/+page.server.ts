@@ -3,10 +3,10 @@ import { encodeOpenGraphImage } from "$lib/og";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
-  title: "BroadcastUpdatePlugin - Broadcasting cache updates - @serwist/sw/plugins",
+  title: "BroadcastUpdatePlugin - Broadcasting cache updates - serwist/plugins",
   ogImage: encodeOpenGraphImage({
     title: "BroadcastUpdatePlugin",
-    desc: "Broadcasting cache updates - @serwist/sw/plugins",
+    desc: "Broadcasting cache updates - serwist/plugins",
   }),
   toc: [
     {
@@ -37,9 +37,9 @@ export const load: PageServerLoad = ({ locals }) => ({
       locals.highlighter,
       {
         "sw.ts": {
-          code: `import { BroadcastUpdatePlugin } from "@serwist/sw/plugins";
-import { registerRoute } from "@serwist/sw/routing";
-import { StaleWhileRevalidate } from "@serwist/sw/strategies";
+          code: `import { BroadcastUpdatePlugin } from "serwist/plugins";
+import { registerRoute } from "serwist/legacy";
+import { StaleWhileRevalidate } from "serwist/strategies";
 
 registerRoute(
   ({ url }) => url.pathname.startsWith("/api/"),
@@ -50,7 +50,7 @@ registerRoute(
           lang: "typescript",
         },
         "message.ts": {
-          code: `import { BROADCAST_UPDATE_MESSAGE_META } from "@serwist/sw/plugins";
+          code: `import { BROADCAST_UPDATE_MESSAGE_META } from "serwist/plugins";
 
 navigator.serviceWorker.addEventListener("message", async (event) => {
   // Optional: ensure the message came from Serwist

@@ -6,7 +6,7 @@ export const load: PageServerLoad = ({ locals }) => ({
   title: "Broadcasting cache updates",
   ogImage: encodeOpenGraphImage({
     title: "Broadcasting cache updates",
-    desc: "@serwist/sw/plugins",
+    desc: "serwist/plugins",
   }),
   toc: [
     {
@@ -47,7 +47,7 @@ export const load: PageServerLoad = ({ locals }) => ({
       locals.highlighter,
       {
         "event.data": {
-          code: `import type { BroadcastMessage } from "@serwist/sw/plugins";
+          code: `import type { BroadcastMessage } from "serwist/plugins";
 
 const data = {
   type: "CACHE_UPDATED",
@@ -68,9 +68,9 @@ const data = {
         locals.highlighter,
         {
           "sw.ts": {
-            code: `import { BroadcastUpdatePlugin } from "@serwist/sw/plugins";
-import { registerRoute } from "@serwist/sw/routing";
-import { StaleWhileRevalidate } from "@serwist/sw/strategies";
+            code: `import { BroadcastUpdatePlugin } from "serwist/plugins";
+import { registerRoute } from "serwist/legacy";
+import { StaleWhileRevalidate } from "serwist/strategies";
 
 registerRoute(
   ({ url }) => url.pathname.startsWith("/api/"),
@@ -89,7 +89,7 @@ registerRoute(
         locals.highlighter,
         {
           "message.ts": {
-            code: `import { BROADCAST_UPDATE_MESSAGE_META } from "@serwist/sw/plugins";
+            code: `import { BROADCAST_UPDATE_MESSAGE_META } from "serwist/plugins";
 
 navigator.serviceWorker.addEventListener("message", async (event) => {
   // Optional: ensure the message came from Serwist
@@ -118,9 +118,9 @@ navigator.serviceWorker.addEventListener("message", async (event) => {
         locals.highlighter,
         {
           "sw.ts": {
-            code: `import { BroadcastUpdatePlugin, BROADCAST_UPDATE_DEFAULT_HEADERS } from "@serwist/sw/plugins";
-import { registerRoute } from "@serwist/sw/routing";
-import { StaleWhileRevalidate } from "@serwist/sw/strategies";
+            code: `import { BroadcastUpdatePlugin, BROADCAST_UPDATE_DEFAULT_HEADERS } from "serwist/plugins";
+import { registerRoute } from "serwist/legacy";
+import { StaleWhileRevalidate } from "serwist/strategies";
 
 registerRoute(
   ({ url }) => url.pathname.startsWith("/api/"),
@@ -143,7 +143,7 @@ registerRoute(
         locals.highlighter,
         {
           "sw.ts": {
-            code: `import { BroadcastCacheUpdate, BROADCAST_UPDATE_DEFAULT_HEADERS } from "@serwist/sw/plugins";
+            code: `import { BroadcastCacheUpdate, BROADCAST_UPDATE_DEFAULT_HEADERS } from "serwist/plugins";
 
 declare const self: ServiceWorkerGlobalScope;
 

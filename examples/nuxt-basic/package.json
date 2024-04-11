@@ -12,11 +12,10 @@
     "prep": "nuxt prepare"
   },
   "devDependencies": {
-    "@serwist/core": "latest",
     "@serwist/nuxt": "latest",
-    "@serwist/sw": "latest",
     "@serwist/vite": "latest",
     "nuxt": "3.11.1",
+    "serwist": "latest",
     "vue": "3.4.21",
     "vue-router": "4.3.0"
   }

@@ -61,11 +61,9 @@ feat(next): added `@serwist/next/worker.PAGES_CACHE_NAME`
 
   ```ts
   import { defaultCache, PAGES_CACHE_NAME } from "@serwist/next/worker";
-  import { Serwist } from "@serwist/sw";
+  import { Serwist } from "serwist";
 
-  const serwist = new Serwist();
-
-  serwist.install({
+  const serwist = new Serwist({
     // Other options...
     runtimeCaching: [
       {
@@ -109,4 +107,6 @@ feat(next): added `@serwist/next/worker.PAGES_CACHE_NAME`
       ...defaultCache,
     ],
   });
+
+  serwist.addEventListeners();
   ```

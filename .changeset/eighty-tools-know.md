@@ -11,6 +11,7 @@
 "@serwist/routing": major
 "@serwist/streams": major
 "@serwist/core": major
+"serwist": major
 ---
 
 chore(core): allow non-Promise return types for `SerwistPlugin` callbacks

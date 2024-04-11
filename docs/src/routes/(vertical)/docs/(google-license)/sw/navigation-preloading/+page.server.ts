@@ -6,7 +6,7 @@ export const load: PageServerLoad = ({ locals }) => ({
   title: "Navigation preloading",
   ogImage: encodeOpenGraphImage({
     title: "Navigation preloading",
-    desc: "@serwist/sw",
+    desc: "serwist",
   }),
   toc: [
     {
@@ -34,9 +34,9 @@ export const load: PageServerLoad = ({ locals }) => ({
         locals.highlighter,
         {
           "sw.ts": {
-            code: `import { enableNavigationPreload } from "@serwist/sw";
-import { registerRoute, NavigationRoute } from "@serwist/sw/routing";
-import { NetworkFirst } from "@serwist/sw/strategies";
+            code: `import { enableNavigationPreload, NavigationRoute } from "serwist";
+import { registerRoute } from "serwist/legacy";
+import { NetworkFirst } from "serwist/strategies";
 
 enableNavigationPreload();
 

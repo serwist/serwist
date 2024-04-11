@@ -10,10 +10,10 @@ import {
   reset as gitReset,
   switchBranch as gitSwitchBranch,
 } from "./git-utils.js";
+import { packageNames } from "./package-names.js";
 import { readChangesetState } from "./read-changeset-state.js";
 import type { Package } from "./types.js";
 import { getBumpedPackages, getChangelogEntry, getPackageJson, getVersionsByDirectory } from "./utils.js";
-import { packageNames } from "./package-names.js";
 
 const projectId = process.env.CI_PROJECT_ID!;
 const ref = process.env.CI_COMMIT_REF_NAME!;

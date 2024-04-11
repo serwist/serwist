@@ -6,21 +6,13 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { RouteHandler, RouteHandlerCallbackOptions } from "@serwist/core";
-import { type PrecacheController, getSingletonPrecacheController } from "@serwist/sw/precaching";
-import { type Router, getSingletonRouter } from "@serwist/sw/routing";
+import type { RouteHandler, RouteHandlerCallbackOptions, Serwist } from "serwist";
 
 export interface OfflineFallbackOptions {
   /**
-   * An optional `PrecacheController` instance. If not provided, the singleton
-   * `PrecacheController` will be used.
+   * Your `Serwist` instance.
    */
-  precacheController?: PrecacheController;
-  /**
-   * An optional `Router` instance. If not provided, the singleton `Router`
-   * will be used.
-   */
-  router?: Router;
+  serwist: Serwist;
   /**
    * Precache name to match for page fallbacks. Defaults to offline.html.
    */
@@ -45,12 +37,11 @@ declare let self: ServiceWorkerGlobalScope;
  * @param options
  */
 export const offlineFallback = ({
-  precacheController = getSingletonPrecacheController(),
-  router = getSingletonRouter(),
+  serwist,
   pageFallback = "offline.html",
   imageFallback,
   fontFallback,
-}: OfflineFallbackOptions = {}): void => {
+}: OfflineFallbackOptions): void => {
   self.addEventListener("install", (event) => {
     const files = [pageFallback];
     if (imageFallback) {
@@ -68,22 +59,22 @@ export const offlineFallback = ({
     const cache = await self.caches.open("serwist-offline-fallbacks");
 
     if (dest === "document") {
-      const match = (await precacheController.matchPrecache(pageFallback)) || (await cache.match(pageFallback));
+      const match = (await serwist.matchPrecache(pageFallback)) || (await cache.match(pageFallback));
       return match || Response.error();
     }
 
     if (dest === "image" && imageFallback !== undefined) {
-      const match = (await precacheController.matchPrecache(imageFallback)) || (await cache.match(imageFallback));
+      const match = (await serwist.matchPrecache(imageFallback)) || (await cache.match(imageFallback));
       return match || Response.error();
     }
 
     if (dest === "font" && fontFallback !== undefined) {
-      const match = (await precacheController.matchPrecache(fontFallback)) || (await cache.match(fontFallback));
+      const match = (await serwist.matchPrecache(fontFallback)) || (await cache.match(fontFallback));
       return match || Response.error();
     }
 
     return Response.error();
   };
 
-  router.setCatchHandler(handler);
+  serwist.setCatchHandler(handler);
 };

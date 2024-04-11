@@ -3,10 +3,10 @@ import { encodeOpenGraphImage } from "$lib/og";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
-  title: "Constants - Broadcasting cache updates - @serwist/sw/plugins",
+  title: "Constants - Broadcasting cache updates - serwist/plugins",
   ogImage: encodeOpenGraphImage({
     title: "Constants",
-    desc: "Broadcasting cache updates - @serwist/sw/plugins",
+    desc: "Broadcasting cache updates - serwist/plugins",
   }),
   toc: [
     {
@@ -40,7 +40,7 @@ export const load: PageServerLoad = ({ locals }) => ({
         locals.highlighter,
         {
           "sw.ts": {
-            code: `import { BROADCAST_UPDATE_MESSAGE_META } from "@serwist/sw/plugins";
+            code: `import { BROADCAST_UPDATE_MESSAGE_META } from "serwist/plugins";
 
 navigator.serviceWorker.addEventListener("message", async (event) => {
   // Ensure the message came from Serwist
@@ -70,7 +70,7 @@ navigator.serviceWorker.addEventListener("message", async (event) => {
         locals.highlighter,
         {
           "sw.ts": {
-            code: `import { BROADCAST_UPDATE_MESSAGE_TYPE } from "@serwist/sw/plugins";
+            code: `import { BROADCAST_UPDATE_MESSAGE_TYPE } from "serwist/plugins";
 
 navigator.serviceWorker.addEventListener("message", async (event) => {
   // Ensure the message came from Serwist
@@ -100,7 +100,7 @@ navigator.serviceWorker.addEventListener("message", async (event) => {
         locals.highlighter,
         {
           "sw.ts": {
-            code: `import { responsesAreSame, BROADCAST_UPDATE_DEFAULT_HEADERS } from "@serwist/sw/plugins";
+            code: `import { responsesAreSame, BROADCAST_UPDATE_DEFAULT_HEADERS } from "serwist/plugins";
 
 declare const self: ServiceWorkerGlobalScope;
 

@@ -1,15 +1,14 @@
-import { logger } from "@serwist/core/internal";
-import type { RuntimeCaching } from "@serwist/sw";
-import { ExpirationPlugin } from "@serwist/sw/plugins";
-import type { PrecacheEntry } from "@serwist/sw/precaching";
-import { CacheFirst, NetworkFirst, StaleWhileRevalidate } from "@serwist/sw/strategies";
+import { logger } from "serwist/internal";
+import type { PrecacheEntry, RuntimeCaching } from "serwist";
+import { ExpirationPlugin } from "serwist/plugins";
+import { CacheFirst, NetworkFirst, StaleWhileRevalidate } from "serwist/strategies";
 
 import {
   base as basePath,
   build as immutableAssets,
+  files as staticAssets,
   prerendered as prerenderedRoutes,
   version as serviceWorkerVersion,
-  files as staticAssets,
 } from "$service-worker";
 
 export { basePath, immutableAssets, staticAssets, prerenderedRoutes, serviceWorkerVersion };

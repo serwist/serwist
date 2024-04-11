@@ -3,10 +3,10 @@ import { encodeOpenGraphImage } from "$lib/og";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
-  title: "BroadcastCacheUpdate - Broadcasting cache updates - @serwist/sw/plugins",
+  title: "BroadcastCacheUpdate - Broadcasting cache updates - serwist/plugins",
   ogImage: encodeOpenGraphImage({
     title: "BroadcastCacheUpdate",
-    desc: "Broadcasting cache updates - @serwist/sw/plugins",
+    desc: "Broadcasting cache updates - serwist/plugins",
   }),
   toc: [
     {
@@ -43,7 +43,7 @@ export const load: PageServerLoad = ({ locals }) => ({
         "sw.ts": {
           code: `declare const event: FetchEvent;
 // ---cut-before---
-import { BroadcastCacheUpdate, BROADCAST_UPDATE_DEFAULT_HEADERS } from "@serwist/sw/plugins";
+import { BroadcastCacheUpdate, BROADCAST_UPDATE_DEFAULT_HEADERS } from "serwist/plugins";
 
 const broadcastUpdate = new BroadcastCacheUpdate({
   headersToCheck: [...BROADCAST_UPDATE_DEFAULT_HEADERS, "X-My-Custom-Header"],
@@ -66,7 +66,7 @@ broadcastUpdate.notifyIfUpdated({
           lang: "typescript",
         },
         "message.ts": {
-          code: `import { BROADCAST_UPDATE_MESSAGE_META } from "@serwist/sw/plugins";
+          code: `import { BROADCAST_UPDATE_MESSAGE_META } from "serwist/plugins";
 
 navigator.serviceWorker.addEventListener("message", async (event) => {
   // Optional: ensure the message came from Serwist

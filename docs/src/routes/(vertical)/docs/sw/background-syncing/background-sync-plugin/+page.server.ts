@@ -3,10 +3,10 @@ import { encodeOpenGraphImage } from "$lib/og";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
-  title: "BackgroundSyncPlugin - Background synchronizing - @serwist/sw/plugins",
+  title: "BackgroundSyncPlugin - Background synchronizing - serwist/plugins",
   ogImage: encodeOpenGraphImage({
     title: "BackgroundSyncPlugin",
-    desc: "Background synchronizing - @serwist/sw/plugins",
+    desc: "Background synchronizing - serwist/plugins",
   }),
   toc: [
     {
@@ -37,9 +37,9 @@ export const load: PageServerLoad = ({ locals }) => ({
       locals.highlighter,
       {
         "sw.ts": {
-          code: `import { BackgroundSyncPlugin } from "@serwist/sw/plugins";
-import { registerRoute } from "@serwist/sw/routing";
-import { NetworkOnly } from "@serwist/sw/strategies";
+          code: `import { BackgroundSyncPlugin } from "serwist/plugins";
+import { registerRoute } from "serwist/legacy";
+import { NetworkOnly } from "serwist/strategies";
 
 const backgroundSync = new BackgroundSyncPlugin("myQueueName", {
   maxRetentionTime: 24 * 60, // Retry for a maximum of 24 Hours (specified in minutes)

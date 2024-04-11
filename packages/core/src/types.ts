@@ -1,10 +1,5 @@
-/*
-  Copyright 2019 Google LLC
+import type { HTTPMethod } from "./constants.js";
 
-  Use of this source code is governed by an MIT-style
-  license that can be found in the LICENSE file or at
-  https://opensource.org/licenses/MIT.
-*/
 export type PromiseOrNot<T> = T | Promise<T>;
 
 export interface MapLikeObject {
@@ -53,9 +48,6 @@ export interface RouteHandlerCallbackOptions {
    */
   request: Request;
   url: URL;
-  /**
-   * The return value from `@serwist/sw/routing`'s `matchCallback` (if applicable).
-   */
   params?: string[] | MapLikeObject;
 }
 /**
@@ -72,7 +64,7 @@ export interface ManualHandlerCallbackOptions {
   request: Request | string;
   url?: never;
   /**
-   * The return value from `@serwist/sw/routing`'s `matchCallback` (if applicable).
+   * The return value from `serwist.matchCallback` (if applicable).
    */
   params?: never;
 }
@@ -104,7 +96,7 @@ export type ManualHandlerCallback = (options: ManualHandlerCallbackOptions) => P
  *
  * A `Route` object can be created with either an `RouteHandlerCallback`
  * function or this `RouteHandler` object. The benefit of the `RouteHandler`
- * is it can be extended (as is done by the `@serwist/sw/strategies` package).
+ * is it can be extended (as is done by the `serwist/strategies` package).
  */
 export interface RouteHandlerObject {
   handle: RouteHandlerCallback;
@@ -112,7 +104,7 @@ export interface RouteHandlerObject {
 
 /**
  * Either a `RouteHandlerCallback` or a `RouteHandlerObject`.
- * Most APIs in `@serwist/sw/routing` that accept route handlers take either.
+ * Most APIs that accept route handlers take either.
  */
 export type RouteHandler = RouteHandlerCallback | RouteHandlerObject;
 
@@ -298,3 +290,69 @@ export interface SerwistGlobalConfig {
    */
   __WB_DISABLE_DEV_LOGS: boolean;
 }
+
+export interface RuntimeCaching {
+  /**
+   * The HTTP method to match against. The default value of `'GET'` is normally
+   * sufficient, unless you explicitly need to match `'POST'`, `'PUT'`, or
+   * another type of request.
+   * @default "GET"
+   */
+  method?: HTTPMethod;
+  /**
+   * This match criteria determines whether the configured handler will
+   * generate a response for any requests that don't match one of the precached
+   * URLs. If multiple `RuntimeCaching` routes are defined, then the first one
+   * whose `matcher` matches will be the one that responds.
+   *
+   * This value directly maps to the first parameter passed to
+   * `Serwist.registerRoute`. It's recommended to use a
+   * `serwist.RouteMatchCallback` function for greatest flexibility.
+   */
+  matcher: RegExp | string | RouteMatchCallback;
+  /**
+   * This determines how the runtime route will generate a response. It
+   * can be a `serwist.RouteHandler` callback function with custom
+   * response logic.
+   */
+  handler: RouteHandler;
+}
+
+export interface InstallResult {
+  updatedURLs: string[];
+  notUpdatedURLs: string[];
+}
+
+export interface CleanupResult {
+  deletedCacheRequests: string[];
+}
+
+export declare interface PrecacheEntry {
+  integrity?: string;
+  url: string;
+  revision?: string | null;
+}
+
+export interface PrecacheRouteOptions {
+  /**
+   * The `directoryIndex` will check cache entries for a URL ending with '/'
+   * to see if there is a hit when appending the `directoryIndex` value.
+   */
+  directoryIndex?: string | null;
+  /**
+   * An array of RegExp's to remove search params when looking for a cache match.
+   */
+  ignoreURLParametersMatching?: RegExp[];
+  /**
+   * The `cleanURLs` option will check the cache for the URL with a `.html` added
+   * to the end of the end.
+   */
+  cleanURLs?: boolean;
+  /**
+   * This is a function that should take a URL and return an array of
+   * alternative URLs that should be checked for precache matches.
+   */
+  urlManipulation?: UrlManipulation;
+}
+
+export type UrlManipulation = ({ url }: { url: URL }) => URL[];

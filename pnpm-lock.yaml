@@ -104,12 +104,12 @@ importers:
       '@serwist/build':
         specifier: workspace:*
         version: link:../../packages/build
-      '@serwist/sw':
-        specifier: workspace:*
-        version: link:../../packages/sw
       jest:
         specifier: 29.7.0
         version: 29.7.0(@types/node@20.12.4)(ts-node@10.9.2)
+      serwist:
+        specifier: workspace:*
+        version: link:../../packages/core
 
   __tests__/config:
     devDependencies:
@@ -131,9 +131,6 @@ importers:
       '@serwist/next':
         specifier: workspace:*
         version: link:../../packages/next
-      '@serwist/sw':
-        specifier: workspace:*
-        version: link:../../packages/sw
       cheerio:
         specifier: 1.0.0-rc.12
         version: 1.0.0-rc.12
@@ -149,6 +146,9 @@ importers:
       next:
         specifier: 14.1.4
         version: 14.1.4(@babel/core@7.23.7)(react-dom@18.2.0)(react@18.2.0)
+      serwist:
+        specifier: workspace:*
+        version: link:../../packages/core
 
   docs:
     devDependencies:
@@ -158,9 +158,6 @@ importers:
       '@serwist/build':
         specifier: workspace:*
         version: link:../packages/build
-      '@serwist/core':
-        specifier: workspace:*
-        version: link:../packages/core
       '@serwist/next':
         specifier: workspace:*
         version: link:../packages/next
@@ -170,9 +167,6 @@ importers:
       '@serwist/svelte':
         specifier: workspace:*
         version: link:../packages/svelte
-      '@serwist/sw':
-        specifier: workspace:*
-        version: link:../packages/sw
       '@serwist/utils':
         specifier: workspace:*
         version: link:../packages/utils
@@ -239,6 +233,9 @@ importers:
       satori:
         specifier: 0.10.13
         version: 0.10.13
+      serwist:
+        specifier: workspace:*
+        version: link:../packages/core
       shiki:
         specifier: 1.2.4
         version: 1.2.4
@@ -278,24 +275,21 @@ importers:
       '@serwist/cli':
         specifier: workspace:*
         version: link:../packages/cli
-      '@serwist/core':
-        specifier: workspace:*
-        version: link:../packages/core
       '@serwist/next':
         specifier: workspace:*
         version: link:../packages/next
       '@serwist/nuxt':
         specifier: workspace:*
         version: link:../packages/nuxt
-      '@serwist/sw':
-        specifier: workspace:*
-        version: link:../packages/sw
       '@serwist/vite':
         specifier: workspace:*
         version: link:../packages/vite
       '@serwist/window':
         specifier: workspace:*
         version: link:../packages/window
+      serwist:
+        specifier: workspace:*
+        version: link:../packages/core
 
   examples/cli:
     devDependencies:
@@ -326,9 +320,6 @@ importers:
       '@serwist/next':
         specifier: latest
         version: link:../../packages/next
-      '@serwist/sw':
-        specifier: latest
-        version: link:../../packages/sw
       next:
         specifier: 14.1.4
         version: 14.1.4(@babel/core@7.23.7)(react-dom@18.2.0)(react@18.2.0)
@@ -338,10 +329,10 @@ importers:
       react-dom:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
-    devDependencies:
-      '@serwist/core':
+      serwist:
         specifier: latest
         version: link:../../packages/core
+    devDependencies:
       '@types/node':
         specifier: 20.12.4
         version: 20.12.4
@@ -360,9 +351,6 @@ importers:
       '@serwist/next':
         specifier: latest
         version: link:../../packages/next
-      '@serwist/sw':
-        specifier: latest
-        version: link:../../packages/sw
       next:
         specifier: 14.1.4
         version: 14.1.4(@babel/core@7.23.7)(react-dom@18.2.0)(react@18.2.0)
@@ -372,10 +360,10 @@ importers:
       react-dom:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
-    devDependencies:
-      '@serwist/core':
+      serwist:
         specifier: latest
         version: link:../../packages/core
+    devDependencies:
       '@types/node':
         specifier: 20.12.4
         version: 20.12.4
@@ -394,9 +382,6 @@ importers:
       '@serwist/next':
         specifier: latest
         version: link:../../packages/next
-      '@serwist/sw':
-        specifier: latest
-        version: link:../../packages/sw
       next:
         specifier: 14.1.4
         version: 14.1.4(@babel/core@7.23.7)(react-dom@18.2.0)(react@18.2.0)
@@ -406,13 +391,13 @@ importers:
       react-dom:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
+      serwist:
+        specifier: latest
+        version: link:../../packages/core
       web-push:
         specifier: 3.6.7
         version: 3.6.7
     devDependencies:
-      '@serwist/core':
-        specifier: latest
-        version: link:../../packages/core
       '@types/node':
         specifier: 20.12.4
         version: 20.12.4
@@ -431,21 +416,18 @@ importers:
 
   examples/nuxt-basic:
     devDependencies:
-      '@serwist/core':
-        specifier: latest
-        version: link:../../packages/core
       '@serwist/nuxt':
         specifier: latest
         version: link:../../packages/nuxt
-      '@serwist/sw':
-        specifier: latest
-        version: link:../../packages/sw
       '@serwist/vite':
         specifier: latest
         version: link:../../packages/vite
       nuxt:
         specifier: 3.11.1
         version: 3.11.1(@types/node@20.12.4)(eslint@8.57.0)(typescript@5.5.0-dev.20240404)(vite@5.2.8)
+      serwist:
+        specifier: latest
+        version: link:../../packages/core
       vue:
         specifier: 3.4.21
         version: 3.4.21(typescript@5.5.0-dev.20240404)
@@ -462,9 +444,6 @@ importers:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
     devDependencies:
-      '@serwist/core':
-        specifier: latest
-        version: link:../../packages/core
       '@serwist/vite':
         specifier: latest
         version: link:../../packages/vite
@@ -492,6 +471,9 @@ importers:
       eslint-plugin-react-refresh:
         specifier: 0.4.6
         version: 0.4.6(eslint@8.57.0)
+      serwist:
+        specifier: latest
+        version: link:../../packages/core
       typescript:
         specifier: 5.4.3
         version: 5.4.3
@@ -501,9 +483,9 @@ importers:
 
   packages.legacy/background-sync:
     dependencies:
-      '@serwist/sw':
+      serwist:
         specifier: workspace:*
-        version: link:../../packages/sw
+        version: link:../../packages/core
     devDependencies:
       '@serwist/constants':
         specifier: workspace:*
@@ -520,9 +502,9 @@ importers:
 
   packages.legacy/broadcast-update:
     dependencies:
-      '@serwist/sw':
+      serwist:
         specifier: workspace:*
-        version: link:../../packages/sw
+        version: link:../../packages/core
     devDependencies:
       '@serwist/constants':
         specifier: workspace:*
@@ -536,9 +518,25 @@ importers:
 
   packages.legacy/cacheable-response:
     dependencies:
-      '@serwist/sw':
+      serwist:
         specifier: workspace:*
-        version: link:../../packages/sw
+        version: link:../../packages/core
+    devDependencies:
+      '@serwist/constants':
+        specifier: workspace:*
+        version: link:../../packages/constants
+      rollup:
+        specifier: 4.14.0
+        version: 4.14.0
+      typescript:
+        specifier: 5.5.0-dev.20240404
+        version: 5.5.0-dev.20240404
+
+  packages.legacy/core-legacy:
+    dependencies:
+      serwist:
+        specifier: workspace:*
+        version: link:../../packages/core
     devDependencies:
       '@serwist/constants':
         specifier: workspace:*
@@ -552,9 +550,9 @@ importers:
 
   packages.legacy/expiration:
     dependencies:
-      '@serwist/sw':
+      serwist:
         specifier: workspace:*
-        version: link:../../packages/sw
+        version: link:../../packages/core
     devDependencies:
       '@serwist/constants':
         specifier: workspace:*
@@ -568,9 +566,9 @@ importers:
 
   packages.legacy/google-analytics:
     dependencies:
-      '@serwist/sw':
+      serwist:
         specifier: workspace:*
-        version: link:../../packages/sw
+        version: link:../../packages/core
     devDependencies:
       '@serwist/constants':
         specifier: workspace:*
@@ -584,9 +582,9 @@ importers:
 
   packages.legacy/navigation-preload:
     dependencies:
-      '@serwist/sw':
+      serwist:
         specifier: workspace:*
-        version: link:../../packages/sw
+        version: link:../../packages/core
     devDependencies:
       '@serwist/constants':
         specifier: workspace:*
@@ -600,9 +598,9 @@ importers:
 
   packages.legacy/precaching:
     dependencies:
-      '@serwist/sw':
+      serwist:
         specifier: workspace:*
-        version: link:../../packages/sw
+        version: link:../../packages/core
     devDependencies:
       '@serwist/constants':
         specifier: workspace:*
@@ -616,9 +614,9 @@ importers:
 
   packages.legacy/range-requests:
     dependencies:
-      '@serwist/sw':
+      serwist:
         specifier: workspace:*
-        version: link:../../packages/sw
+        version: link:../../packages/core
     devDependencies:
       '@serwist/constants':
         specifier: workspace:*
@@ -632,9 +630,9 @@ importers:
 
   packages.legacy/routing:
     dependencies:
-      '@serwist/sw':
+      serwist:
         specifier: workspace:*
-        version: link:../../packages/sw
+        version: link:../../packages/core
     devDependencies:
       '@serwist/constants':
         specifier: workspace:*
@@ -648,9 +646,25 @@ importers:
 
   packages.legacy/strategies:
     dependencies:
-      '@serwist/sw':
+      serwist:
         specifier: workspace:*
-        version: link:../../packages/sw
+        version: link:../../packages/core
+    devDependencies:
+      '@serwist/constants':
+        specifier: workspace:*
+        version: link:../../packages/constants
+      rollup:
+        specifier: 4.14.0
+        version: 4.14.0
+      typescript:
+        specifier: 5.5.0-dev.20240404
+        version: 5.5.0-dev.20240404
+
+  packages.legacy/sw:
+    dependencies:
+      serwist:
+        specifier: workspace:*
+        version: link:../../packages/core
     devDependencies:
       '@serwist/constants':
         specifier: workspace:*
@@ -728,9 +742,6 @@ importers:
 
   packages/build:
     dependencies:
-      '@serwist/core':
-        specifier: workspace:*
-        version: link:../core
       common-tags:
         specifier: 1.8.2
         version: 1.8.2
@@ -870,10 +881,17 @@ importers:
         version: 4.14.0
 
   packages/core:
+    dependencies:
+      idb:
+        specifier: 8.0.0
+        version: 8.0.0
     devDependencies:
       '@serwist/constants':
         specifier: workspace:*
         version: link:../constants
+      '@serwist/utils':
+        specifier: workspace:*
+        version: link:../utils
       rollup:
         specifier: 4.14.0
         version: 4.14.0
@@ -886,12 +904,6 @@ importers:
       '@serwist/build':
         specifier: workspace:*
         version: link:../build
-      '@serwist/core':
-        specifier: workspace:*
-        version: link:../core
-      '@serwist/sw':
-        specifier: workspace:*
-        version: link:../sw
       '@serwist/webpack-plugin':
         specifier: workspace:*
         version: link:../webpack-plugin
@@ -904,6 +916,9 @@ importers:
       glob:
         specifier: 10.3.12
         version: 10.3.12
+      serwist:
+        specifier: workspace:*
+        version: link:../core
       zod:
         specifier: 3.22.4
         version: 3.22.4
@@ -1011,12 +1026,9 @@ importers:
 
   packages/recipes:
     dependencies:
-      '@serwist/core':
+      serwist:
         specifier: workspace:*
         version: link:../core
-      '@serwist/sw':
-        specifier: workspace:*
-        version: link:../sw
     devDependencies:
       '@serwist/constants':
         specifier: workspace:*
@@ -1030,7 +1042,7 @@ importers:
 
   packages/streams:
     dependencies:
-      '@serwist/core':
+      serwist:
         specifier: workspace:*
         version: link:../core
     devDependencies:
@@ -1046,12 +1058,9 @@ importers:
 
   packages/svelte:
     dependencies:
-      '@serwist/core':
+      serwist:
         specifier: workspace:*
         version: link:../core
-      '@serwist/sw':
-        specifier: workspace:*
-        version: link:../sw
       typescript:
         specifier: '>=5.0.0'
         version: 5.3.3
@@ -1066,28 +1075,6 @@ importers:
         specifier: 4.14.0
         version: 4.14.0
 
-  packages/sw:
-    dependencies:
-      '@serwist/core':
-        specifier: workspace:*
-        version: link:../core
-      idb:
-        specifier: 8.0.0
-        version: 8.0.0
-    devDependencies:
-      '@serwist/constants':
-        specifier: workspace:*
-        version: link:../constants
-      '@serwist/utils':
-        specifier: workspace:*
-        version: link:../utils
-      rollup:
-        specifier: 4.14.0
-        version: 4.14.0
-      typescript:
-        specifier: 5.5.0-dev.20240404
-        version: 5.5.0-dev.20240404
-
   packages/utils: {}
 
   packages/vite:
@@ -1095,9 +1082,6 @@ importers:
       '@serwist/build':
         specifier: workspace:*
         version: link:../build
-      '@serwist/sw':
-        specifier: workspace:*
-        version: link:../sw
       '@serwist/window':
         specifier: workspace:*
         version: link:../window
@@ -1107,6 +1091,9 @@ importers:
       kolorist:
         specifier: 1.8.0
         version: 1.8.0
+      serwist:
+        specifier: workspace:*
+        version: link:../core
       zod:
         specifier: 3.22.4
         version: 3.22.4
@@ -1169,12 +1156,12 @@ importers:
 
   packages/window:
     dependencies:
-      '@serwist/core':
-        specifier: workspace:*
-        version: link:../core
       '@types/trusted-types':
         specifier: 2.0.7
         version: 2.0.7
+      serwist:
+        specifier: workspace:*
+        version: link:../core
     devDependencies:
       '@serwist/constants':
         specifier: workspace:*

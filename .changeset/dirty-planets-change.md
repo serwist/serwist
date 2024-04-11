@@ -51,7 +51,6 @@ refactor(svelte): moved Svelte integration into a separate package
   /// <reference lib="esnext" />
   /// <reference lib="webworker" />
   /// <reference types="@sveltejs/kit" />
-  import type { SerwistGlobalConfig } from "@serwist/core";
   import {
     type StaticRevisions,
     // NOTE: `defaultCache` should now be imported from `@serwist/svelte/worker`.
@@ -60,8 +59,7 @@ refactor(svelte): moved Svelte integration into a separate package
     getPrecacheManifest,
     staticAssets,
   } from "@serwist/svelte/worker";
-  import { Serwist } from "@serwist/sw";
-  import { PrecacheController } from "@serwist/sw/precaching";
+  import { type SerwistGlobalConfig, Serwist } from "serwist";
 
   declare global {
     interface WorkerGlobalScope extends SerwistGlobalConfig {}
@@ -70,12 +68,6 @@ refactor(svelte): moved Svelte integration into a separate package
   declare const self: ServiceWorkerGlobalScope;
 
   const serwist = new Serwist({
-    precacheController: new PrecacheController({
-      concurrentPrecaching: 10,
-    }),
-  });
-
-  serwist.install({
     precacheEntries: getPrecacheManifest({
       // precacheImmutable: false,
       // precacheStatic: false,
@@ -92,4 +84,6 @@ refactor(svelte): moved Svelte integration into a separate package
     disableDevLogs: true,
     runtimeCaching: defaultCache,
   });
+
+  serwist.addEventListeners();
   ```

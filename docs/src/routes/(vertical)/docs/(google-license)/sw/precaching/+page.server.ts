@@ -6,7 +6,7 @@ export const load: PageServerLoad = ({ locals }) => ({
   title: "Precaching",
   ogImage: encodeOpenGraphImage({
     title: "Precaching",
-    desc: "@serwist/sw/precaching",
+    desc: "serwist",
   }),
   toc: [
     {
@@ -59,7 +59,7 @@ export const load: PageServerLoad = ({ locals }) => ({
       locals.highlighter,
       {
         "sw.ts": {
-          code: `import { precacheAndRoute } from "@serwist/sw/precaching";
+          code: `import { precacheAndRoute } from "serwist/legacy";
 
 precacheAndRoute([
   { url: "/index.html", revision: "383676" },
@@ -76,7 +76,7 @@ precacheAndRoute([
       locals.highlighter,
       {
         "sw.ts": {
-          code: `import { precacheAndRoute } from "@serwist/sw/precaching";
+          code: `import { precacheAndRoute } from "serwist/legacy";
 
 precacheAndRoute(
   [
@@ -98,7 +98,7 @@ precacheAndRoute(
       locals.highlighter,
       {
         "sw.ts": {
-          code: `import { precacheAndRoute } from "@serwist/sw/precaching";
+          code: `import { precacheAndRoute } from "serwist/legacy";
 
 precacheAndRoute(
   [
@@ -119,7 +119,7 @@ precacheAndRoute(
       locals.highlighter,
       {
         "sw.ts": {
-          code: `import { precacheAndRoute } from "@serwist/sw/precaching";
+          code: `import { precacheAndRoute } from "serwist/legacy";
 
 precacheAndRoute([{ url: "/about.html", revision: "b79cd4" }], {
   cleanURLs: false,
@@ -133,7 +133,7 @@ precacheAndRoute([{ url: "/about.html", revision: "b79cd4" }], {
       locals.highlighter,
       {
         "sw.ts": {
-          code: `import { precacheAndRoute } from "@serwist/sw/precaching";
+          code: `import { precacheAndRoute } from "serwist/legacy";
 
 precacheAndRoute(
   [
@@ -161,7 +161,7 @@ precacheAndRoute(
           "sw.ts": {
             code: `// @filename: $code.advancedUsage.precacheController.sw.ts
 // ---cut-before---
-import { PrecacheController } from "@serwist/sw/precaching";
+import { PrecacheController } from "serwist/legacy";
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -218,8 +218,8 @@ self.addEventListener("fetch", (event) => {
           locals.highlighter,
           {
             "sw.ts": {
-              code: `import { cacheNames } from "@serwist/core";
-import { getCacheKeyForURL } from "@serwist/sw/precaching";
+              code: `import { cacheNames } from "serwist";
+import { getCacheKeyForURL } from "serwist/legacy";
 
 const cache = await caches.open(cacheNames.precache);
 const cacheKey = getCacheKeyForURL("/precached-file.html");
@@ -235,7 +235,7 @@ if (cacheKey) {
           locals.highlighter,
           {
             "sw.ts": {
-              code: `import { matchPrecache } from "@serwist/sw/precaching";
+              code: `import { matchPrecache } from "serwist/legacy";
 
 const response = await matchPrecache("/precached-file.html");`,
               lang: "typescript",

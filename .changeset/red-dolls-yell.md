@@ -22,6 +22,7 @@
 "@serwist/vite": major
 "@serwist/cli": major
 "@serwist/sw": major
+"serwist": major
 ---
 
 refactor(js): migrate to ESM-only

@@ -13,5 +13,5 @@ export {
   BROADCAST_UPDATE_MESSAGE_META as CACHE_UPDATED_MESSAGE_META,
   BROADCAST_UPDATE_MESSAGE_TYPE as CACHE_UPDATED_MESSAGE_TYPE,
   BROADCAST_UPDATE_DEFAULT_HEADERS as defaultHeadersToCheck,
-} from "@serwist/sw/plugins";
-export type { BroadcastCacheUpdateOptions, BroadcastPayload, BroadcastPayloadGenerator, BroadcastMessage } from "@serwist/sw/plugins";
+} from "serwist/plugins";
+export type { BroadcastCacheUpdateOptions, BroadcastPayload, BroadcastPayloadGenerator, BroadcastMessage } from "serwist/plugins";

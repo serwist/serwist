@@ -8,10 +8,9 @@ export {
   precache,
   precacheAndRoute,
   PrecacheController,
+  PrecacheFallbackPlugin,
   PrecacheRoute,
   PrecacheStrategy,
-} from "@serwist/sw/precaching";
-export { PrecacheFallbackPlugin } from "@serwist/sw/plugins";
-export type * from "@serwist/sw/precaching";
-export type { UrlManipulation as urlManipulation } from "@serwist/sw/precaching";
-export type { PrecacheFallbackEntry, PrecacheFallbackPluginOptions } from "@serwist/sw/plugins";
+} from "serwist/legacy";
+export type { CleanupResult, InstallResult, PrecacheEntry, PrecacheRouteOptions, UrlManipulation as urlManipulation } from "serwist";
+export type { PrecacheFallbackEntry, PrecacheFallbackPluginOptions } from "serwist/legacy";

@@ -6,18 +6,17 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { RouteMatchCallback, RouteMatchCallbackOptions, SerwistPlugin } from "@serwist/core";
-import { CacheableResponsePlugin } from "@serwist/sw/plugins";
-import { type Router, getSingletonRouter } from "@serwist/sw/routing";
-import { StaleWhileRevalidate } from "@serwist/sw/strategies";
+import type { RouteMatchCallback, RouteMatchCallbackOptions, SerwistPlugin } from "serwist";
+import { Serwist } from "serwist";
+import { CacheableResponsePlugin } from "serwist/plugins";
+import { StaleWhileRevalidate } from "serwist/strategies";
 import { warmStrategyCache } from "./warmStrategyCache.js";
 
 export interface StaticResourceOptions {
   /**
-   * An optional `Router` instance. If not provided, the singleton `Router`
-   * will be used.
+   * Your `Serwist` instance.
    */
-  router?: Router;
+  serwist: Serwist;
   /**
    * Name for cache.
    *
@@ -46,13 +45,13 @@ export interface StaticResourceOptions {
  * @param options
  */
 export const staticResourceCache = ({
-  router = getSingletonRouter(),
+  serwist,
   cacheName = "static-resources",
   matchCallback = ({ request }: RouteMatchCallbackOptions) =>
     request.destination === "style" || request.destination === "script" || request.destination === "worker",
   plugins = [],
   warmCache,
-}: StaticResourceOptions = {}): void => {
+}: StaticResourceOptions): void => {
   plugins.push(
     new CacheableResponsePlugin({
       statuses: [0, 200],
@@ -64,7 +63,7 @@ export const staticResourceCache = ({
     plugins,
   });
 
-  router.registerCapture(matchCallback, strategy);
+  serwist.registerCapture(matchCallback, strategy);
 
   // Warms the cache
   if (warmCache) {

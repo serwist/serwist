@@ -6,18 +6,17 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { RouteMatchCallback, RouteMatchCallbackOptions, SerwistPlugin } from "@serwist/core";
-import { CacheableResponsePlugin } from "@serwist/sw/plugins";
-import { type Router, getSingletonRouter } from "@serwist/sw/routing";
-import { NetworkFirst } from "@serwist/sw/strategies";
+import type { RouteMatchCallback, RouteMatchCallbackOptions, SerwistPlugin } from "serwist";
+import { Serwist } from "serwist";
+import { CacheableResponsePlugin } from "serwist/plugins";
+import { NetworkFirst } from "serwist/strategies";
 import { warmStrategyCache } from "./warmStrategyCache.js";
 
 export interface PageCacheOptions {
   /**
-   * An optional `Router` instance. If not provided, the singleton `Router`
-   * will be used.
+   * Your `Serwist` instance.
    */
-  router?: Router;
+  serwist: Serwist;
   /**
    * Name for cache. Defaults to pages.
    */
@@ -48,13 +47,13 @@ export interface PageCacheOptions {
  * @param options
  */
 export const pageCache = ({
-  router = getSingletonRouter(),
+  serwist,
   cacheName = "pages",
   matchCallback = ({ request }: RouteMatchCallbackOptions) => request.mode === "navigate",
   networkTimeoutSeconds = 3,
   plugins = [],
   warmCache,
-}: PageCacheOptions = {}): void => {
+}: PageCacheOptions): void => {
   plugins.push(
     new CacheableResponsePlugin({
       statuses: [0, 200],
@@ -68,7 +67,7 @@ export const pageCache = ({
   });
 
   // Registers the route
-  router.registerCapture(matchCallback, strategy);
+  serwist.registerCapture(matchCallback, strategy);
 
   // Warms the cache
   if (warmCache) {

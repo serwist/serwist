@@ -11,13 +11,12 @@
   },
   "dependencies": {
     "@serwist/next": "latest",
-    "@serwist/sw": "latest",
     "next": "14.1.4",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "serwist": "latest"
   },
   "devDependencies": {
-    "@serwist/core": "latest",
     "@types/node": "20.12.4",
     "@types/react": "18.2.74",
     "@types/react-dom": "18.2.24",

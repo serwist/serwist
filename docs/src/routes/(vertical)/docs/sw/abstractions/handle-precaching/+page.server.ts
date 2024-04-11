@@ -3,20 +3,19 @@ import { encodeOpenGraphImage } from "$lib/og";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
-  title: "handlePrecaching - Abstracting away the APIs - @serwist/sw",
+  title: "handlePrecaching - Abstracting away the APIs - serwist",
   ogImage: encodeOpenGraphImage({
     title: "handlePrecaching",
-    desc: "Abstracting away the APIs - @serwist/sw",
+    desc: "Abstracting away the APIs - serwist",
   }),
   code: {
     usage: highlightCode(
       locals.highlighter,
       {
         "sw.ts": {
-          code: `import type { SerwistGlobalConfig } from "@serwist/core";
-import { clientsClaim } from "@serwist/core";
-import { handlePrecaching, registerRuntimeCaching } from "@serwist/sw";
-import type { PrecacheEntry } from "@serwist/sw/precaching";
+          code: `import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
+import { clientsClaim } from "serwist";
+import { handlePrecaching, registerRuntimeCaching } from "serwist/legacy";
 import { defaultCache } from "@serwist/vite/worker";
 
 declare global {
@@ -40,8 +39,7 @@ registerRuntimeCaching(...defaultCache);`,
         },
         "sw.js": {
           code: `// @filename: sw-decl.d.ts
-import type { SerwistGlobalConfig } from "@serwist/core";
-import type { PrecacheEntry } from "@serwist/sw/precaching";
+import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
@@ -54,8 +52,8 @@ declare global {
 // @lib: esnext,webworker
 const self = /** @type {ServiceWorkerGlobalScope} */(/** @type {unknown} */(globalThis.self));
 // ---cut-before---
-import { clientsClaim } from "@serwist/core";
-import { handlePrecaching, registerRuntimeCaching } from "@serwist/sw";
+import { clientsClaim } from "serwist";
+import { handlePrecaching, registerRuntimeCaching } from "serwist/legacy";
 import { defaultCache } from "@serwist/vite/worker";
 
 self.skipWaiting();

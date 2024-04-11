@@ -6,7 +6,7 @@ export const load: PageServerLoad = ({ locals }) => ({
   title: "Expiring outdated responses",
   ogImage: encodeOpenGraphImage({
     title: "Expiring outdated responses",
-    desc: "@serwist/sw/plugins",
+    desc: "serwist/plugins",
   }),
   toc: [
     {
@@ -44,9 +44,9 @@ export const load: PageServerLoad = ({ locals }) => ({
         locals.highlighter,
         {
           "sw.ts": {
-            code: `import { ExpirationPlugin } from "@serwist/sw/plugins";
-import { registerRoute } from "@serwist/sw/routing";
-import { CacheFirst } from "@serwist/sw/strategies";
+            code: `import { ExpirationPlugin } from "serwist/plugins";
+import { registerRoute } from "serwist/legacy";
+import { CacheFirst } from "serwist/strategies";
 
 registerRoute(
   ({ request }) => request.destination === "image",
@@ -68,9 +68,9 @@ registerRoute(
         locals.highlighter,
         {
           "sw.ts": {
-            code: `import { ExpirationPlugin } from "@serwist/sw/plugins";
-import { registerRoute } from "@serwist/sw/routing";
-import { CacheFirst } from "@serwist/sw/strategies";
+            code: `import { ExpirationPlugin } from "serwist/plugins";
+import { registerRoute } from "serwist/legacy";
+import { CacheFirst } from "serwist/strategies";
 
 registerRoute(
   ({ request }) => request.destination === "image",
@@ -96,7 +96,7 @@ registerRoute(
         locals.highlighter,
         {
           "sw.ts": {
-            code: `import { CacheExpiration } from "@serwist/sw/plugins";
+            code: `import { CacheExpiration } from "serwist/plugins";
 
 const cacheName = "my-cache";
 const expirationManager = new CacheExpiration(cacheName, {
@@ -115,7 +115,7 @@ const expirationManager = new CacheExpiration(cacheName, {
         {
           "sw.ts": {
             code: `// @filename: sw.ts
-import { CacheExpiration } from "@serwist/sw/plugins";
+import { CacheExpiration } from "serwist/plugins";
 
 declare const request: Request;
 declare const response: Response;
@@ -140,7 +140,7 @@ await expirationManager.updateTimestamp(request.url);`,
         {
           "sw.ts": {
             code: `// @filename: sw.ts
-import { CacheExpiration } from "@serwist/sw/plugins";
+import { CacheExpiration } from "serwist/plugins";
 
 declare const request: Request;
 declare const response: Response;

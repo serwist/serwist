@@ -11,7 +11,7 @@
 <h2>About</h2>
 <p>
   Registers caching strategies to a singleton Router instance. It is a simple syntatic sugar for
-  <InlineCode>@serwist/sw/routing.registerRoute</InlineCode>.
+  <InlineCode>serwist/legacy.registerRoute</InlineCode>.
 </p>
 <h2>Parameters</h2>
 <ul class="list">

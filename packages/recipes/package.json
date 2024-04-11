@@ -26,8 +26,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@serwist/core": "workspace:*",
-    "@serwist/sw": "workspace:*"
+    "serwist": "workspace:*"
   },
   "devDependencies": {
     "@serwist/constants": "workspace:*",

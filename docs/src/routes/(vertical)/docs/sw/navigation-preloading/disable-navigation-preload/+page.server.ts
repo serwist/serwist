@@ -3,10 +3,10 @@ import { encodeOpenGraphImage } from "$lib/og";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
-  title: "disableNavigationPreload - Navigation preloading - @serwist/sw",
+  title: "disableNavigationPreload - Navigation preloading - serwist",
   ogImage: encodeOpenGraphImage({
     title: "disableNavigationPreload",
-    desc: "Navigation preloading - @serwist/sw",
+    desc: "Navigation preloading - serwist",
   }),
   toc: [
     {
@@ -37,9 +37,10 @@ export const load: PageServerLoad = ({ locals }) => ({
   enableNavigationPreload,
   disableNavigationPreload,
   isNavigationPreloadSupported,
-} from "@serwist/sw";
-import { NetworkFirst } from "@serwist/sw/strategies";
-import { registerRoute, NavigationRoute } from "@serwist/sw/routing";
+  NavigationRoute,
+} from "serwist";
+import { NetworkFirst } from "serwist/strategies";
+import { registerRoute } from "serwist/legacy";
 
 declare const self: ServiceWorkerGlobalScope;
 

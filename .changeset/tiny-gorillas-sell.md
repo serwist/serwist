@@ -1,10 +1,10 @@
 ---
-"@serwist/sw": major
+"serwist": major
 ---
 
-refactor(sw): moved `@serwist/build.RuntimeCaching` to `@serwist/sw`
+refactor(sw): moved `@serwist/build.RuntimeCaching` to `serwist`
 
-- Since `runtimeCaching` is now a part of `@serwist/sw` rather than `@serwist/build`, it makes more sense to move the types there as well.
+- Since `runtimeCaching` is now a part of `serwist` rather than `@serwist/build`, it makes more sense to move the types there as well.
 - To migrate, simply update the imports.
   - Old:
   ```ts
@@ -12,5 +12,5 @@ refactor(sw): moved `@serwist/build.RuntimeCaching` to `@serwist/sw`
   ```
   - New:
   ```ts
-  import type { StrategyName, RuntimeCaching } from "@serwist/sw";
+  import type { StrategyName, RuntimeCaching } from "serwist";
   ```

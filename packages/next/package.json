@@ -60,12 +60,11 @@
   },
   "dependencies": {
     "@serwist/build": "workspace:*",
-    "@serwist/core": "workspace:*",
-    "@serwist/sw": "workspace:*",
     "@serwist/webpack-plugin": "workspace:*",
     "@serwist/window": "workspace:*",
     "chalk": "5.3.0",
     "glob": "10.3.12",
+    "serwist": "workspace:*",
     "zod": "3.22.4"
   },
   "devDependencies": {

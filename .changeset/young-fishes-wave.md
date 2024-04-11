@@ -1,5 +1,5 @@
 ---
-"@serwist/sw": minor
+"serwist": minor
 ---
 
 feat(sw): added `Serwist`
@@ -26,13 +26,9 @@ feat(sw): added `Serwist`
 
     - New: 
     ```ts
-    const serwist = new Serwist({
-      precacheController: new PrecacheController({
-        concurrentPrecaching: 10,
-      }),
-    });
+    import { Serwist } from "serwist";
 
-    serwist.install({
+    const serwist = new Serwist({
       precacheEntries: self.__SW_MANIFEST,
       precacheOptions: {
         ignoreURLParametersMatching: defaultIgnoreUrlParameters,
@@ -44,4 +40,6 @@ feat(sw): added `Serwist`
       disableDevLogs: true,
       runtimeCaching: defaultCache,
     });
+
+    serwist.addEventListeners();
     ```

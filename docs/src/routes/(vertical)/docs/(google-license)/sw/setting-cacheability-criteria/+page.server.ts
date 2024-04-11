@@ -6,7 +6,7 @@ export const load: PageServerLoad = ({ locals }) => ({
   title: "Setting cacheability criteria",
   ogImage: encodeOpenGraphImage({
     title: "Setting cacheability criteria",
-    desc: "@serwist/sw/plugins",
+    desc: "serwist/plugins",
   }),
   toc: [
     {
@@ -43,9 +43,9 @@ export const load: PageServerLoad = ({ locals }) => ({
       locals.highlighter,
       {
         "sw.ts": {
-          code: `import { CacheableResponsePlugin } from "@serwist/sw/plugins";
-import { registerRoute } from "@serwist/sw/routing";
-import { StaleWhileRevalidate } from "@serwist/sw/strategies";
+          code: `import { CacheableResponsePlugin } from "serwist/plugins";
+import { registerRoute } from "serwist/legacy";
+import { StaleWhileRevalidate } from "serwist/strategies";
 
 registerRoute(
   ({ url }) => url.pathname.startsWith("/api/"),
@@ -69,7 +69,7 @@ registerRoute(
       locals.highlighter,
       {
         "sw.ts": {
-          code: `import { CacheableResponse } from "@serwist/sw/plugins";
+          code: `import { CacheableResponse } from "serwist/plugins";
 
 const cacheable = new CacheableResponse({
   statuses: [0, 200],

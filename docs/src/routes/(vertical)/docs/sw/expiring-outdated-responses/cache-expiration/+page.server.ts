@@ -3,10 +3,10 @@ import { encodeOpenGraphImage } from "$lib/og";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
-  title: "CacheExpiration - Expiring outdated responses - @serwist/sw/plugins",
+  title: "CacheExpiration - Expiring outdated responses - serwist/plugins",
   ogImage: encodeOpenGraphImage({
     title: "CacheExpiration",
-    desc: "Expiring outdated responses - @serwist/sw/plugins",
+    desc: "Expiring outdated responses - serwist/plugins",
   }),
   toc: [
     {
@@ -44,7 +44,7 @@ export const load: PageServerLoad = ({ locals }) => ({
           code: `declare const request: Request;
 declare const response: Response;
 // ---cut-before---
-import { CacheExpiration } from "@serwist/sw/plugins";
+import { CacheExpiration } from "serwist/plugins";
 
 const cacheName = "my-cache";
 const expirationManager = new CacheExpiration(cacheName, {

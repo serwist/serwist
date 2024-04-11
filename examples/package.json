@@ -7,11 +7,10 @@
   "devDependencies": {
     "@serwist/build": "workspace:*",
     "@serwist/cli": "workspace:*",
-    "@serwist/core": "workspace:*",
     "@serwist/next": "workspace:*",
     "@serwist/nuxt": "workspace:*",
-    "@serwist/sw": "workspace:*",
     "@serwist/vite": "workspace:*",
-    "@serwist/window": "workspace:*"
+    "@serwist/window": "workspace:*",
+    "serwist": "workspace:*"
   }
 }

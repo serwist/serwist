@@ -1,6 +1,6 @@
 ---
 "@serwist/precaching": major
-"@serwist/sw": major
+"serwist": major
 ---
 
 feat(precaching.PrecacheFallbackPlugin): renamed `fallbackURL`, added support for a `matcher`
@@ -38,7 +38,7 @@ feat(precaching.PrecacheFallbackPlugin): renamed `fallbackURL`, added support fo
     });
     ```
 
-- With this change, `@serwist/sw.fallbacks` now also uses `PrecacheFallbackPlugin`. This means that `FallbackEntry.cacheMatchOptions` has been removed, for `PrecacheController.matchPrecache` doesn't support a custom `matchOptions`. This option is most likely not needed anyway.
+- With this change, `serwist.Serwist.fallbacks` now also uses `PrecacheFallbackPlugin`. This means that `FallbackEntry.cacheMatchOptions` has been removed, for `PrecacheController.matchPrecache` doesn't support a custom `matchOptions`. This option is most likely not needed anyway.
 
   - To migrate:
 
@@ -63,16 +63,18 @@ feat(precaching.PrecacheFallbackPlugin): renamed `fallbackURL`, added support fo
     - New:
 
     ```js
-    fallbacks({
-      entries: [
-        {
-          url: "/~offline",
-          revision,
-          matcher({ request }) {
-            return request.destination === "document";
+    new Serwist({
+      fallbacks: {
+        entries: [
+          {
+            url: "/~offline",
+            revision,
+            matcher({ request }) {
+              return request.destination === "document";
+            },
           },
-        },
-      ],
+        ],
+      }
       runtimeCaching,
     });
     ```

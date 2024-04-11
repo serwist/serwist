@@ -3,10 +3,10 @@ import { encodeOpenGraphImage } from "$lib/og";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
-  title: "enableNavigationPreload - Navigation preloading - @serwist/sw",
+  title: "enableNavigationPreload - Navigation preloading - serwist",
   ogImage: encodeOpenGraphImage({
     title: "enableNavigationPreload",
-    desc: "Navigation preloading - @serwist/sw",
+    desc: "Navigation preloading - serwist",
   }),
   toc: [
     {
@@ -37,9 +37,9 @@ export const load: PageServerLoad = ({ locals }) => ({
       locals.highlighter,
       {
         "sw.ts": {
-          code: `import { enableNavigationPreload } from "@serwist/sw";
-import { NetworkFirst } from "@serwist/sw/strategies";
-import { registerRoute, NavigationRoute } from "@serwist/sw/routing";
+          code: `import { enableNavigationPreload } from "serwist";
+import { NetworkFirst } from "serwist/strategies";
+import { registerRoute, NavigationRoute } from "serwist/legacy";
 
 enableNavigationPreload();
 

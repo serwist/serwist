@@ -12,9 +12,9 @@
 <p>Handles a list of precache entries and cleans up outdated caches.</p>
 <h2>How it works</h2>
 <p>
-  It calls <InlineCode>@serwist/sw/precaching.precacheAndRoute</InlineCode> on the list of precache entries,
-  <InlineCode>@serwist/sw/precaching.cleanupOutdatedCaches</InlineCode>, and
-  <InlineCode>@serwist/sw/routing.registerRoute</InlineCode> on the
+  It calls <InlineCode>serwist/legacy.precacheAndRoute</InlineCode> on the list of precache entries,
+  <InlineCode>serwist.cleanupOutdatedCaches</InlineCode>, and
+  <InlineCode>serwist/legacy.registerRoute</InlineCode> on the
   <InlineCode>navigateFallback</InlineCode> URL.
 </p>
 <h2>Options</h2>

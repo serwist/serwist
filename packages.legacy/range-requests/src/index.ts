@@ -1,1 +1,1 @@
-export { createPartialResponse, RangeRequestsPlugin } from "@serwist/sw/plugins";
+export { createPartialResponse, RangeRequestsPlugin } from "serwist/plugins";

@@ -9,7 +9,7 @@
   "devDependencies": {
     "@serwist-tests/config": "workspace:*",
     "@serwist/build": "workspace:*",
-    "@serwist/sw": "workspace:*",
-    "jest": "29.7.0"
+    "jest": "29.7.0",
+    "serwist": "workspace:*"
   }
 }

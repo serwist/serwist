@@ -1,10 +1,10 @@
 ---
-"@serwist/sw": major
+"serwist": major
 ---
 
 refactor(sw): removed support for string handlers in `registerRuntimeCaching`
 
-- `@serwist/sw.registerRuntimeCaching` no longer supports string handlers, such as `"NetworkFirst"`, `"NetworkOnly"`, `"CacheFirst"`, etc. You should migrate to passing `@serwist/sw/strategies` instances yourself.
+- `serwist.Serwist.runtimeCaching` no longer supports string handlers, such as `"NetworkFirst"`, `"NetworkOnly"`, `"CacheFirst"`, etc. You should migrate to passing `serwist/strategies` instances yourself.
 
 - I believe that by supporting this, a relic of GenerateSW, we are simply adding unwarranted complexity to the codebase.
 
@@ -66,11 +66,9 @@ refactor(sw): removed support for string handlers in `registerRuntimeCaching`
 
   ```ts
   import { defaultCache, PAGES_CACHE_NAME } from "@serwist/next/worker";
-  import { Serwist } from "@serwist/sw";
+  import { Serwist } from "serwist";
 
-  const serwist = new Serwist();
-
-  serwist.install({
+  const serwist = new Serwist({
     // Other options...
     runtimeCaching: [
       {
@@ -117,4 +115,6 @@ refactor(sw): removed support for string handlers in `registerRuntimeCaching`
       ...defaultCache,
     ],
   });
+
+  serwist.addEventListeners();
   ```

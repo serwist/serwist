@@ -8,7 +8,7 @@
 "@serwist/precaching": minor
 "@serwist/strategies": minor
 "@serwist/routing": minor
-"@serwist/sw": minor
+"serwist": minor
 ---
 
 refactor: merge service worker modules into `@serwist/sw`

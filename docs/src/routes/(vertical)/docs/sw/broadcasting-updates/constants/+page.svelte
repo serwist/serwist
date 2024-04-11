@@ -8,7 +8,7 @@
 <h1 id="constants">Constants</h1>
 <h2 id="exported-values">Exported values</h2>
 <p>
-  <ICD>@serwist/sw/plugins</ICD> exports a few constants that you can make use of for more convenience. This includes:
+  <ICD>serwist/plugins</ICD> exports a few constants that you can make use of for more convenience. This includes:
 </p>
 <ul>
   <li>

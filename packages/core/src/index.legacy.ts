@@ -1,0 +1,66 @@
+import { NavigationRoute } from "./NavigationRoute.js";
+import { PrecacheStrategy } from "./PrecacheStrategy.js";
+import { RegExpRoute } from "./RegExpRoute.js";
+import { Route } from "./Route.js";
+import { cleanupOutdatedCaches } from "./cleanupOutdatedCaches.js";
+import { PrecacheController } from "./legacy/PrecacheController.js";
+import { PrecacheFallbackPlugin } from "./legacy/PrecacheFallbackPlugin.js";
+import type { PrecacheFallbackEntry, PrecacheFallbackPluginOptions } from "./legacy/PrecacheFallbackPlugin.js";
+import { PrecacheRoute } from "./legacy/PrecacheRoute.js";
+import { Router } from "./legacy/Router.js";
+import { addPlugins } from "./legacy/addPlugins.js";
+import { addRoute } from "./legacy/addRoute.js";
+import { createHandlerBoundToURL } from "./legacy/createHandlerBoundToURL.js";
+import type { FallbackEntry, FallbacksOptions } from "./legacy/fallbacks.js";
+import { fallbacks } from "./legacy/fallbacks.js";
+import { getCacheKeyForURL } from "./legacy/getCacheKeyForURL.js";
+import { type HandlePrecachingOptions, handlePrecaching } from "./legacy/handlePrecaching.js";
+import { type InstallSerwistOptions, installSerwist } from "./legacy/installSerwist.js";
+import { matchPrecache } from "./legacy/matchPrecache.js";
+import { precache } from "./legacy/precache.js";
+import { precacheAndRoute } from "./legacy/precacheAndRoute.js";
+import { registerRoute } from "./legacy/registerRoute.js";
+import { registerRuntimeCaching } from "./legacy/registerRuntimeCaching.js";
+import { setCatchHandler } from "./legacy/setCatchHandler.js";
+import { setDefaultHandler } from "./legacy/setDefaultHandler.js";
+import { getSingletonPrecacheController, setSingletonPrecacheController } from "./legacy/singletonPrecacheController.js";
+import { getSingletonRouter, setSingletonRouter } from "./legacy/singletonRouter.js";
+import { unregisterRoute } from "./legacy/unregisterRoute.js";
+import { parseRoute } from "./parseRoute.js";
+
+export {
+  // These are not deprecated, but we export them so legacy packages
+  // can re-export them without having to import both the normal and legacy
+  // import paths.
+  NavigationRoute,
+  PrecacheStrategy,
+  RegExpRoute,
+  Route,
+  cleanupOutdatedCaches,
+  parseRoute,
+  // Actual deprecated modules start here
+  addPlugins,
+  addRoute,
+  createHandlerBoundToURL,
+  getCacheKeyForURL,
+  fallbacks,
+  matchPrecache,
+  precache,
+  precacheAndRoute,
+  PrecacheController,
+  PrecacheFallbackPlugin,
+  PrecacheRoute,
+  getSingletonPrecacheController,
+  setSingletonPrecacheController,
+  handlePrecaching,
+  installSerwist,
+  registerRuntimeCaching,
+  registerRoute,
+  Router,
+  setCatchHandler,
+  setDefaultHandler,
+  getSingletonRouter,
+  setSingletonRouter,
+  unregisterRoute,
+};
+export type { HandlePrecachingOptions, InstallSerwistOptions, FallbackEntry, FallbacksOptions, PrecacheFallbackEntry, PrecacheFallbackPluginOptions };

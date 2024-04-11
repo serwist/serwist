@@ -3,10 +3,10 @@ import { encodeOpenGraphImage } from "$lib/og";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
-  title: "BackgroundSyncQueue - Background synchronizing - @serwist/sw/plugins",
+  title: "BackgroundSyncQueue - Background synchronizing - serwist/plugins",
   ogImage: encodeOpenGraphImage({
     title: "BackgroundSyncQueue",
-    desc: "Background synchronizing - @serwist/sw/plugins",
+    desc: "Background synchronizing - serwist/plugins",
   }),
   toc: [
     {
@@ -41,7 +41,7 @@ export const load: PageServerLoad = ({ locals }) => ({
       locals.highlighter,
       {
         "sw.ts": {
-          code: `import { BackgroundSyncQueue } from "@serwist/sw/plugins";
+          code: `import { BackgroundSyncQueue } from "serwist/plugins";
 
 declare const self: ServiceWorkerGlobalScope;
   
@@ -70,7 +70,7 @@ self.addEventListener("fetch", (event) => {
         },
         "sw.js": {
           code: `// @filename: sw-decl.d.ts
-import type { SerwistGlobalConfig } from "@serwist/core";
+import type { SerwistGlobalConfig } from "serwist";
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {};
@@ -81,7 +81,7 @@ declare global {
 // @types: ./sw-decl.d.ts
 const self = /** @type {ServiceWorkerGlobalScope} */(/** @type {unknown} */(globalThis.self));
 // ---cut-before---
-import { BackgroundSyncQueue } from "@serwist/sw/plugins";
+import { BackgroundSyncQueue } from "serwist/plugins";
 
 const queue = new BackgroundSyncQueue("myQueueName");
 

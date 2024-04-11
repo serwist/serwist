@@ -1,5 +1,4 @@
-import type { SerwistGlobalConfig } from "@serwist/core";
-import type { PrecacheEntry } from "@serwist/sw/precaching";
+import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {

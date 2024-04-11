@@ -232,7 +232,7 @@
       getPrecacheManifest,
       staticAssets,
     } from "@serwist/svelte/worker";
-    import { installSerwist } from "@serwist/sw";
+    import { Serwist } from "serwist";
 
     declare global {
       interface WorkerGlobalScope extends SerwistGlobalConfig {}
@@ -246,7 +246,7 @@
     // are a lot of assets to precache.
     self.__WB_CONCURRENT_PRECACHING = 10;
 
-    installSerwist({
+    const serwist = new Serwist({
       precacheEntries: getPrecacheManifest({
         // precacheImmutable: false,
         // precacheStatic: false,
@@ -266,6 +266,8 @@
       disableDevLogs: true,
       runtimeCaching: defaultCache,
     });
+
+    serwist.addEventListeners();
     ```
 
 ### Patch Changes

@@ -24,7 +24,7 @@
   </li>
   <li>
     <InlineCode>
-      <a class="link" href="/docs/sw">@serwist/sw</a>
+      <a class="link" href="/docs/sw">serwist</a>
     </InlineCode>
   </li>
   <li>

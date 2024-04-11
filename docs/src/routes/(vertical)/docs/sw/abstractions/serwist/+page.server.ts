@@ -3,10 +3,10 @@ import { encodeOpenGraphImage } from "$lib/og";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
-  title: "Serwist - Abstracting away the APIs - @serwist/sw",
+  title: "Serwist - Abstracting away the APIs - serwist",
   ogImage: encodeOpenGraphImage({
     title: "Serwist",
-    desc: "Abstracting away the APIs - @serwist/sw",
+    desc: "Abstracting away the APIs - serwist",
   }),
   toc: [
     {
@@ -45,9 +45,8 @@ export const load: PageServerLoad = ({ locals }) => ({
       locals.highlighter,
       {
         "sw.ts": {
-          code: `import type { SerwistGlobalConfig } from "@serwist/core";
-import { Serwist } from "@serwist/sw";
-import type { PrecacheEntry } from "@serwist/sw/precaching";
+          code: `import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
+import { Serwist } from "serwist";
 // This import depends on your framework. For example, if you use Next.js, it should
 // be @serwist/next/worker rather than @serwist/vite/worker.
 import { defaultCache } from "@serwist/vite/worker";
@@ -63,22 +62,21 @@ declare global {
 
 declare const self: ServiceWorkerGlobalScope;
 
-const serwist = new Serwist();
-
-serwist.install({
+const serwist = new Serwist({
   precacheEntries: self.__SW_MANIFEST,
   skipWaiting: true,
   clientsClaim: true,
   navigationPreload: true,
   disableDevLogs: true,
   runtimeCaching: defaultCache,
-});`,
+});
+
+serwist.addEventListeners();`,
           lang: "typescript",
         },
         "sw.js": {
           code: `// @filename: sw-decl.d.ts
-import type { SerwistGlobalConfig } from "@serwist/core";
-import type { PrecacheEntry } from "@serwist/sw/precaching";
+import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
@@ -91,21 +89,21 @@ declare global {
 // @lib: esnext,webworker
 const self = /** @type {ServiceWorkerGlobalScope} */(/** @type {unknown} */(globalThis.self));
 // ---cut-before---
-import { Serwist } from "@serwist/sw";
+import { Serwist } from "serwist";
 // This import depends on your framework. For example, if you use Next.js, it should
 // be @serwist/next/worker rather than @serwist/vite/worker.
 import { defaultCache } from "@serwist/vite/worker";
 
-const serwist = new Serwist();
-
-serwist.install({
+const serwist = new Serwist({
   precacheEntries: self.__SW_MANIFEST,
   skipWaiting: true,
   clientsClaim: true,
   navigationPreload: true,
   disableDevLogs: true,
   runtimeCaching: defaultCache,
-});`,
+});
+
+serwist.addEventListeners();`,
           lang: "javascript",
         },
       },

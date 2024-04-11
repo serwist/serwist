@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { cacheNames as _cacheNames } from "./_private/cacheNames.js";
+import { cacheNames as privateCacheNames } from "./utils/cacheNames.js";
 
 /**
  * Get the current cache names and prefix/suffix used by Serwist.
@@ -22,18 +22,18 @@ import { cacheNames as _cacheNames } from "./_private/cacheNames.js";
  */
 export const cacheNames = {
   get googleAnalytics(): string {
-    return _cacheNames.getGoogleAnalyticsName();
+    return privateCacheNames.getGoogleAnalyticsName();
   },
   get precache(): string {
-    return _cacheNames.getPrecacheName();
+    return privateCacheNames.getPrecacheName();
   },
   get prefix(): string {
-    return _cacheNames.getPrefix();
+    return privateCacheNames.getPrefix();
   },
   get runtime(): string {
-    return _cacheNames.getRuntimeName();
+    return privateCacheNames.getRuntimeName();
   },
   get suffix(): string {
-    return _cacheNames.getSuffix();
+    return privateCacheNames.getSuffix();
   },
 };

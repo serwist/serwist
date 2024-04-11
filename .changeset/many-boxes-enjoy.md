@@ -1,5 +1,5 @@
 ---
-"@serwist/sw": patch
+"serwist": patch
 ---
 
 fix(sw.handlePrecaching): fixed code still being erroneously executed when `precacheEntries` is falsy

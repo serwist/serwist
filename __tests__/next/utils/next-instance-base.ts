@@ -37,14 +37,7 @@ export abstract class NextInstance {
   protected async clean() {
     try {
       const filesToRemove = await glob(
-        [
-          ".next",
-          "next-env.d.ts",
-          "public/sw.js",
-          "public/sw.js.map",
-          "public/swe-worker-*.js",
-          "public/swe-worker-*.js.map",
-        ],
+        [".next", "next-env.d.ts", "public/sw.js", "public/sw.js.map", "public/swe-worker-*.js", "public/swe-worker-*.js.map"],
         { absolute: true, cwd: this._appTestDir },
       );
       console.log("cleaning up test dir", filesToRemove);

@@ -72,7 +72,7 @@ export const DOCS_SIDEBAR_LINKS = [
     ],
   },
   {
-    title: "@serwist/sw",
+    title: "serwist",
     href: "/docs/sw",
     children: [
       {

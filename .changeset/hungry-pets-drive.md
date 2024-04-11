@@ -23,6 +23,7 @@
 "@serwist/vite": patch
 "@serwist/cli": patch
 "@serwist/sw": patch
+"serwist": patch
 ---
 
 refactor: migrate to GitLab

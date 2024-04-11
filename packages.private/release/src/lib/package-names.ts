@@ -1,8 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
+import { globSync } from "glob";
 import { load } from "js-yaml";
 import { minimatch } from "minimatch";
-import { globSync } from "glob";
 
 const potentialWorkspaces = globSync("**/package.json", {
   absolute: false,

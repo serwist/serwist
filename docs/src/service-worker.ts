@@ -1,14 +1,7 @@
 import { basePath, defaultCache, defaultIgnoreUrlParameters, getPrecacheManifest } from "@serwist/svelte/worker";
-import { Serwist } from "@serwist/sw";
-import { PrecacheController } from "@serwist/sw/precaching";
+import { Serwist } from "serwist";
 
 const serwist = new Serwist({
-  precacheController: new PrecacheController({
-    concurrentPrecaching: 10,
-  }),
-});
-
-serwist.install({
   precacheEntries: getPrecacheManifest({
     // IMPORTANT NOTE: BUMP THIS UP SHOULD YOU CHANGE
     // (NOT ADD!) A FILE IN THE STATIC DIRECTORY.
@@ -38,3 +31,5 @@ serwist.install({
   disableDevLogs: true,
   runtimeCaching: defaultCache,
 });
+
+serwist.addEventListeners();

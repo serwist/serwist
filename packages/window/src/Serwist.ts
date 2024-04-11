@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { Deferred, logger } from "@serwist/core/internal";
+import { Deferred, logger } from "serwist/internal";
 import type { TrustedScriptURL } from "trusted-types/lib";
 
 import { messageSW } from "./messageSW.js";

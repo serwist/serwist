@@ -1,6 +1,5 @@
-import type { SerwistGlobalConfig } from "@serwist/core";
-import { Serwist } from "@serwist/sw";
-import type { PrecacheEntry } from "@serwist/sw/precaching";
+import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
+import { Serwist } from "serwist";
 import { defaultCache } from "@serwist/vite/worker";
 
 declare global {
@@ -14,12 +13,12 @@ declare global {
 
 declare const self: ServiceWorkerGlobalScope;
 
-const serwist = new Serwist();
-
-serwist.install({
+const serwist = new Serwist({
   precacheEntries: self.__SW_MANIFEST,
   skipWaiting: true,
   clientsClaim: true,
   navigationPreload: true,
   runtimeCaching: defaultCache,
 });
+
+serwist.addEventListeners();

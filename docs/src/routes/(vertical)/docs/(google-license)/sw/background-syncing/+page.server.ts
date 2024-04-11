@@ -6,7 +6,7 @@ export const load: PageServerLoad = ({ locals }) => ({
   title: "Background synchronizing",
   ogImage: encodeOpenGraphImage({
     title: "Background synchronizing",
-    desc: "@serwist/sw/plugins",
+    desc: "serwist/plugins",
   }),
   toc: [
     {
@@ -48,9 +48,9 @@ export const load: PageServerLoad = ({ locals }) => ({
         locals.highlighter,
         {
           "sw.ts": {
-            code: `import { BackgroundSyncPlugin } from "@serwist/sw/plugins";
-import { registerRoute } from "@serwist/sw/routing";
-import { NetworkOnly } from "@serwist/sw/strategies";
+            code: `import { BackgroundSyncPlugin } from "serwist/plugins";
+import { registerRoute } from "serwist/legacy";
+import { NetworkOnly } from "serwist/strategies";
 
 const backgroundSync = new BackgroundSyncPlugin("myQueueName", {
   maxRetentionTime: 24 * 60, // Retry for a maximum of 24 Hours (specified in minutes)
@@ -74,10 +74,10 @@ registerRoute(
         locals.highlighter,
         {
           "sw.ts": {
-            code: `import type { SerwistPlugin } from "@serwist/core";
-import { BackgroundSyncPlugin } from "@serwist/sw/plugins";
-import { registerRoute } from "@serwist/sw/routing";
-import { NetworkOnly } from "@serwist/sw/strategies";
+            code: `import type { SerwistPlugin } from "serwist";
+import { registerRoute } from "serwist/legacy";
+import { BackgroundSyncPlugin } from "serwist/plugins";
+import { NetworkOnly } from "serwist/strategies";
 
 const statusPlugin = {
   fetchDidSucceed({ response }) {
@@ -104,11 +104,11 @@ registerRoute(
             lang: "typescript",
           },
           "sw.js": {
-            code: `import { BackgroundSyncPlugin } from "@serwist/sw/plugins";
-import { registerRoute } from "@serwist/sw/routing";
-import { NetworkOnly } from "@serwist/sw/strategies";
+            code: `import { BackgroundSyncPlugin } from "serwist/plugins";
+import { registerRoute } from "serwist/legacy";
+import { NetworkOnly } from "serwist/strategies";
 
-/** @type {import("@serwist/core").SerwistPlugin} */
+/** @type {import("serwist").SerwistPlugin} */
 const statusPlugin = {
   fetchDidSucceed({ response }) {
     if (response.status >= 500) {
@@ -144,7 +144,7 @@ registerRoute(
         locals.highlighter,
         {
           "sw.ts": {
-            code: `import { BackgroundSyncQueue } from "@serwist/sw/plugins";
+            code: `import { BackgroundSyncQueue } from "serwist/plugins";
   
 const queue = new BackgroundSyncQueue("myQueueName");`,
             lang: "typescript",
@@ -158,7 +158,7 @@ const queue = new BackgroundSyncQueue("myQueueName");`,
         locals.highlighter,
         {
           "sw.ts": {
-            code: `import { BackgroundSyncQueue } from "@serwist/sw/plugins";
+            code: `import { BackgroundSyncQueue } from "serwist/plugins";
 
 declare const self: ServiceWorkerGlobalScope;
   

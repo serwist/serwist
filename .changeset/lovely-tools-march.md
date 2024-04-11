@@ -22,13 +22,13 @@ chore(next): renamed /browser to /worker
   - New:
 
   ```ts
-  import { Serwist } from "@serwist/sw";
+  import { Serwist } from "serwist";
   import { defaultCache } from "@serwist/next/worker";
 
-  const serwist = new Serwist();
-
-  serwist.install({
+  const serwist = new Serwist({
     // Other options
     runtimeCaching: defaultCache,
   });
+
+  serwist.addEventListeners();
   ```

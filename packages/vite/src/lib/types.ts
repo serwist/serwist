@@ -1,10 +1,10 @@
 import type {
-  InjectPartial as BaseInjectPartial,
-  InjectResolved as BaseInjectResolved,
   BasePartial,
   BaseResolved,
   GlobPartial,
   GlobResolved,
+  InjectPartial as BaseInjectPartial,
+  InjectResolved as BaseInjectResolved,
   ManifestEntry,
   RequiredGlobDirectoryPartial,
   RequiredGlobDirectoryResolved,

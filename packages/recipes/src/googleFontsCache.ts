@@ -5,17 +5,15 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-
-import { CacheableResponsePlugin, ExpirationPlugin } from "@serwist/sw/plugins";
-import { type Router, getSingletonRouter } from "@serwist/sw/routing";
-import { CacheFirst, StaleWhileRevalidate } from "@serwist/sw/strategies";
+import { Serwist } from "serwist";
+import { CacheableResponsePlugin, ExpirationPlugin } from "serwist/plugins";
+import { CacheFirst, StaleWhileRevalidate } from "serwist/strategies";
 
 export interface GoogleFontCacheOptions {
   /**
-   * An optional `Router` instance. If not provided, the singleton `Router`
-   * will be used.
+   * Your `Serwist` instance.
    */
-  router?: Router;
+  serwist: Serwist;
   /**
    * Cache prefix for caching stylesheets and webfonts. Defaults to google-fonts.
    */
@@ -36,13 +34,13 @@ export interface GoogleFontCacheOptions {
  * @param options
  */
 export const googleFontsCache = ({
-  router = getSingletonRouter(),
+  serwist,
   cachePrefix = "google-fonts",
   maxAgeSeconds = 60 * 60 * 24 * 365,
   maxEntries = 30,
-}: GoogleFontCacheOptions = {}): void => {
+}: GoogleFontCacheOptions): void => {
   // Cache the Google Fonts stylesheets with a stale-while-revalidate strategy.
-  router.registerCapture(
+  serwist.registerCapture(
     ({ url }) => url.origin === "https://fonts.googleapis.com",
     new StaleWhileRevalidate({
       cacheName: `${cachePrefix}-stylesheets`,
@@ -50,7 +48,7 @@ export const googleFontsCache = ({
   );
 
   // Cache the underlying font files with a cache-first strategy for 1 year.
-  router.registerCapture(
+  serwist.registerCapture(
     ({ url }) => url.origin === "https://fonts.gstatic.com",
     new CacheFirst({
       cacheName: `${cachePrefix}-webfonts`,

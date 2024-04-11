@@ -3,10 +3,10 @@ import { encodeOpenGraphImage } from "$lib/og";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
-  title: "CacheableResponse - Setting cacheability criteria - @serwist/sw/plugins",
+  title: "CacheableResponse - Setting cacheability criteria - serwist/plugins",
   ogImage: encodeOpenGraphImage({
     title: "CacheableResponse",
-    desc: "Setting cacheability criteria - @serwist/sw/plugins",
+    desc: "Setting cacheability criteria - serwist/plugins",
   }),
   toc: [
     {
@@ -41,7 +41,7 @@ export const load: PageServerLoad = ({ locals }) => ({
       locals.highlighter,
       {
         "sw.ts": {
-          code: `import { CacheableResponse } from "@serwist/sw/plugins";
+          code: `import { CacheableResponse } from "serwist/plugins";
 
 const cacheable = new CacheableResponse({
   statuses: [0, 200],

@@ -6,18 +6,17 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { RouteMatchCallback, RouteMatchCallbackOptions, SerwistPlugin } from "@serwist/core";
-import { CacheableResponsePlugin, ExpirationPlugin } from "@serwist/sw/plugins";
-import { type Router, getSingletonRouter } from "@serwist/sw/routing";
-import { CacheFirst } from "@serwist/sw/strategies";
+import type { RouteMatchCallback, RouteMatchCallbackOptions, SerwistPlugin } from "serwist";
+import { Serwist } from "serwist";
+import { CacheableResponsePlugin, ExpirationPlugin } from "serwist/plugins";
+import { CacheFirst } from "serwist/strategies";
 import { warmStrategyCache } from "./warmStrategyCache.js";
 
 export interface ImageCacheOptions {
   /**
-   * An optional `Router` instance. If not provided, the singleton `Router`
-   * will be used.
+   * Your `Serwist` instance.
    */
-  router?: Router;
+  serwist: Serwist;
   /**
    * Name for cache. Defaults to images.
    */
@@ -50,14 +49,14 @@ export interface ImageCacheOptions {
  * @param options
  */
 export const imageCache = ({
-  router = getSingletonRouter(),
+  serwist,
   cacheName = "images",
   matchCallback = ({ request }: RouteMatchCallbackOptions) => request.destination === "image",
   maxAgeSeconds = 30 * 24 * 60 * 60,
   maxEntries = 60,
   plugins = [],
   warmCache,
-}: ImageCacheOptions = {}): void => {
+}: ImageCacheOptions): void => {
   plugins.push(
     new CacheableResponsePlugin({
       statuses: [0, 200],
@@ -75,7 +74,7 @@ export const imageCache = ({
     plugins,
   });
 
-  router.registerCapture(matchCallback, strategy);
+  serwist.registerCapture(matchCallback, strategy);
 
   // Warms the cache
   if (warmCache) {

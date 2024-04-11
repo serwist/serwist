@@ -38,7 +38,6 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@serwist/core": "workspace:*",
     "common-tags": "1.8.2",
     "fast-json-stable-stringify": "2.1.0",
     "fs-extra": "11.2.0",

@@ -17,13 +17,12 @@ body:
       multiple: false
       label: Which project is this feature request for?
       options:
+        - "serwist"
         - "@serwist/build"
         - "@serwist/cli"
-        - "@serwist/core"
         - "@serwist/next"
         - "@serwist/recipes"
         - "@serwist/streams"
-        - "@serwist/sw"
         - "@serwist/webpack-plugin"
         - "@serwist/window"
   - type: textarea

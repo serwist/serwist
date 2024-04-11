@@ -6,8 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { RouteHandlerCallback, RouteHandlerCallbackOptions } from "@serwist/core";
-import { logger } from "@serwist/core/internal";
+import type { RouteHandlerCallback, RouteHandlerCallbackOptions } from "serwist";
+import { logger } from "serwist/internal";
 
 import type { StreamSource } from "./_types.js";
 import { concatenateToResponse } from "./concatenateToResponse.js";
@@ -23,7 +23,7 @@ export type StreamsHandlerCallback = ({ url, request, event, params }: RouteHand
  * strategy will automatically wait for all the `sourceFunctions` to complete,
  * and create a final response that concatenates their values together.
  *
- * @param sourceFunctions An array of functions similar to `@serwist/sw/routing.handlerCallback`
+ * @param sourceFunctions An array of functions similar to `serwist.handlerCallback`
  * but that instead return a `@serwist/streams.StreamSource` (or a Promise which resolves to one).
  * @param headersInit If there's no `Content-Type` specified, `'text/html'` will be used by default.
  * @returns
