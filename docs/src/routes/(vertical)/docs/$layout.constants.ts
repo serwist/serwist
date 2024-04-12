@@ -6,6 +6,103 @@ export const DOCS_SIDEBAR_LINKS = [
     href: "/docs",
   },
   {
+    title: "serwist",
+    href: "/docs/serwist",
+    children: [
+      {
+        title: "Abstracting away the APIs",
+        href: "/docs/serwist/abstractions",
+        children: [
+          {
+            title: "disableDevLogs",
+            href: "/docs/serwist/abstractions/disable-dev-logs",
+          },
+          {
+            title: "fallbacks",
+            href: "/docs/serwist/abstractions/fallbacks",
+          },
+          {
+            title: "handlePrecaching",
+            href: "/docs/serwist/abstractions/handle-precaching",
+          },
+          {
+            title: "Serwist",
+            href: "/docs/serwist/abstractions/serwist",
+          },
+          {
+            title: "registerRuntimeCaching",
+            href: "/docs/serwist/abstractions/register-runtime-caching",
+          },
+        ],
+      },
+      {
+        title: "Background synchronizing",
+        href: "/docs/serwist/background-syncing",
+        children: [
+          {
+            title: "BackgroundSyncPlugin",
+            href: "/docs/serwist/background-syncing/background-sync-plugin",
+          },
+          {
+            title: "BackgroundSyncQueue",
+            href: "/docs/serwist/background-syncing/background-sync-queue",
+          },
+        ],
+      },
+      {
+        title: "Broadcasting cache updates",
+        href: "/docs/serwist/broadcasting-updates",
+        children: [
+          {
+            title: "BroadcastCacheUpdate",
+            href: "/docs/serwist/broadcasting-updates/broadcast-cache-update",
+          },
+          {
+            title: "BroadcastUpdatePlugin",
+            href: "/docs/serwist/broadcasting-updates/broadcast-update-plugin",
+          },
+          {
+            title: "Constants",
+            href: "/docs/serwist/broadcasting-updates/constants",
+          },
+          {
+            title: "responsesAreSame",
+            href: "/docs/serwist/broadcasting-updates/responses-are-same",
+          },
+        ],
+      },
+      {
+        title: "Expiring outdated responses",
+        href: "/docs/serwist/expiring-outdated-responses",
+        children: [
+          { title: "CacheExpiration", href: "/docs/serwist/expiring-outdated-responses/cache-expiration" },
+          { title: "ExpirationPlugin", href: "/docs/serwist/expiring-outdated-responses/expiration-plugin" },
+        ],
+      },
+      {
+        title: "Navigation preloading",
+        href: "/docs/serwist/navigation-preloading",
+        children: [
+          { title: "disableNavigationPreload", href: "/docs/serwist/navigation-preloading/disable-navigation-preload" },
+          { title: "enableNavigationPreload", href: "/docs/serwist/navigation-preloading/enable-navigation-preload" },
+          { title: "isNavigationPreloadSupported", href: "/docs/serwist/navigation-preloading/is-navigation-preload-supported" },
+        ],
+      },
+      {
+        title: "Precaching",
+        href: "/docs/serwist/precaching",
+      },
+      {
+        title: "Setting cacheability criteria",
+        href: "/docs/serwist/setting-cacheability-criteria",
+        children: [
+          { title: "CacheableResponse", href: "/docs/serwist/setting-cacheability-criteria/cacheable-response" },
+          { title: "CacheableResponsePlugin", href: "/docs/serwist/setting-cacheability-criteria/cacheable-response-plugin" },
+        ],
+      },
+    ],
+  },
+  {
     title: "@serwist/build",
     href: "/docs/build",
     children: [
@@ -69,103 +166,6 @@ export const DOCS_SIDEBAR_LINKS = [
         ],
       },
       { title: "Worker exports", href: "/docs/next/worker-exports" },
-    ],
-  },
-  {
-    title: "serwist",
-    href: "/docs/sw",
-    children: [
-      {
-        title: "Abstracting away the APIs",
-        href: "/docs/sw/abstractions",
-        children: [
-          {
-            title: "disableDevLogs",
-            href: "/docs/sw/abstractions/disable-dev-logs",
-          },
-          {
-            title: "fallbacks",
-            href: "/docs/sw/abstractions/fallbacks",
-          },
-          {
-            title: "handlePrecaching",
-            href: "/docs/sw/abstractions/handle-precaching",
-          },
-          {
-            title: "Serwist",
-            href: "/docs/sw/abstractions/serwist",
-          },
-          {
-            title: "registerRuntimeCaching",
-            href: "/docs/sw/abstractions/register-runtime-caching",
-          },
-        ],
-      },
-      {
-        title: "Background synchronizing",
-        href: "/docs/sw/background-syncing",
-        children: [
-          {
-            title: "BackgroundSyncPlugin",
-            href: "/docs/sw/background-syncing/background-sync-plugin",
-          },
-          {
-            title: "BackgroundSyncQueue",
-            href: "/docs/sw/background-syncing/background-sync-queue",
-          },
-        ],
-      },
-      {
-        title: "Broadcasting cache updates",
-        href: "/docs/sw/broadcasting-updates",
-        children: [
-          {
-            title: "BroadcastCacheUpdate",
-            href: "/docs/sw/broadcasting-updates/broadcast-cache-update",
-          },
-          {
-            title: "BroadcastUpdatePlugin",
-            href: "/docs/sw/broadcasting-updates/broadcast-update-plugin",
-          },
-          {
-            title: "Constants",
-            href: "/docs/sw/broadcasting-updates/constants",
-          },
-          {
-            title: "responsesAreSame",
-            href: "/docs/sw/broadcasting-updates/responses-are-same",
-          },
-        ],
-      },
-      {
-        title: "Expiring outdated responses",
-        href: "/docs/sw/expiring-outdated-responses",
-        children: [
-          { title: "CacheExpiration", href: "/docs/sw/expiring-outdated-responses/cache-expiration" },
-          { title: "ExpirationPlugin", href: "/docs/sw/expiring-outdated-responses/expiration-plugin" },
-        ],
-      },
-      {
-        title: "Navigation preloading",
-        href: "/docs/sw/navigation-preloading",
-        children: [
-          { title: "disableNavigationPreload", href: "/docs/sw/navigation-preloading/disable-navigation-preload" },
-          { title: "enableNavigationPreload", href: "/docs/sw/navigation-preloading/enable-navigation-preload" },
-          { title: "isNavigationPreloadSupported", href: "/docs/sw/navigation-preloading/is-navigation-preload-supported" },
-        ],
-      },
-      {
-        title: "Precaching",
-        href: "/docs/sw/precaching",
-      },
-      {
-        title: "Setting cacheability criteria",
-        href: "/docs/sw/setting-cacheability-criteria",
-        children: [
-          { title: "CacheableResponse", href: "/docs/sw/setting-cacheability-criteria/cacheable-response" },
-          { title: "CacheableResponsePlugin", href: "/docs/sw/setting-cacheability-criteria/cacheable-response-plugin" },
-        ],
-      },
     ],
   },
   {
