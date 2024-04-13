@@ -15,11 +15,11 @@ jobs:
     name: ⚫️ Run Jest (development mode) tests for @serwist/next
     uses: ./.github/workflows/build-reusable.yml
     with:
-      afterBuild: TEST_MODE=dev pnpm test --filter=./__tests__/* -- --ci --runInBand
+      afterBuild: TEST_MODE=dev pnpm test --filter='./__tests__/*'
     secrets: inherit
   test-prod:
     name: ⚫️ Run Jest (production mode) tests for @serwist/next
     uses: ./.github/workflows/build-reusable.yml
     with:
-      afterBuild: TEST_MODE=start pnpm test --filter=./__tests__/* -- --ci --runInBand
+      afterBuild: TEST_MODE=start pnpm test --filter='./__tests__/*'
     secrets: inherit

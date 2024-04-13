@@ -1,3 +1,4 @@
+import { describe, beforeAll, afterAll } from "vitest";
 import type { NextInstance, NextInstanceOpts } from "./next-instance-base.ts";
 import { NextInstanceDev } from "./next-instance-dev.ts";
 import { NextInstanceStart } from "./next-instance-start.ts";
@@ -40,7 +41,7 @@ export const createDescribe = (name: string, opts: NextTestOpts, fn: (args: { ne
     let next: NextInstance;
     beforeAll(async () => {
       next = await createNext(opts);
-    });
+    }, 300 * 1000);
     afterAll(async () => {
       await next?.destroy();
     });

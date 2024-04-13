@@ -4,12 +4,11 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest"
+    "test": "vitest run --config ../vitest.config.ts"
   },
   "devDependencies": {
-    "@serwist-tests/config": "workspace:*",
     "@serwist/build": "workspace:*",
-    "jest": "29.7.0",
-    "serwist": "workspace:*"
+    "serwist": "workspace:*",
+    "vitest": "1.5.0"
   }
 }

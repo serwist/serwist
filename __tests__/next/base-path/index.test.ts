@@ -1,3 +1,4 @@
+import { expect, it } from "vitest";
 import { createDescribe } from "../utils/index.ts";
 
 createDescribe("@serwist/next - basePath", { sourceDir: __dirname, skipInstall: false }, ({ next, testMode }) => {
