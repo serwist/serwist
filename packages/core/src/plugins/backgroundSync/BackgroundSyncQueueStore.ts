@@ -6,8 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 import { assert } from "../../utils/assert.js";
-import type { QueueStoreEntry, UnidentifiedQueueStoreEntry } from "./QueueDb.js";
-import { QueueDb } from "./QueueDb.js";
+import type { BackgroundSyncQueueStoreEntry, UnidentifiedQueueStoreEntry } from "./BackgroundSyncQueueDb.js";
+import { BackgroundSyncQueueDb } from "./BackgroundSyncQueueDb.js";
 
 /**
  * A class to manage storing requests from a Queue in IndexedDB,
@@ -16,9 +16,9 @@ import { QueueDb } from "./QueueDb.js";
  * Most developers will not need to access this class directly;
  * it is exposed for advanced use cases.
  */
-export class QueueStore {
+export class BackgroundSyncQueueStore {
   private readonly _queueName: string;
-  private readonly _queueDb: QueueDb;
+  private readonly _queueDb: BackgroundSyncQueueDb;
 
   /**
    * Associates this instance with a Queue instance, so entries added can be
@@ -28,7 +28,7 @@ export class QueueStore {
    */
   constructor(queueName: string) {
     this._queueName = queueName;
-    this._queueDb = new QueueDb();
+    this._queueDb = new BackgroundSyncQueueDb();
   }
 
   /**
@@ -99,7 +99,7 @@ export class QueueStore {
    *
    * @returns
    */
-  async popEntry(): Promise<QueueStoreEntry | undefined> {
+  async popEntry(): Promise<BackgroundSyncQueueStoreEntry | undefined> {
     return this._removeEntry(await this._queueDb.getLastEntryByQueueName(this._queueName));
   }
 
@@ -108,7 +108,7 @@ export class QueueStore {
    *
    * @returns
    */
-  async shiftEntry(): Promise<QueueStoreEntry | undefined> {
+  async shiftEntry(): Promise<BackgroundSyncQueueStoreEntry | undefined> {
     return this._removeEntry(await this._queueDb.getFirstEntryByQueueName(this._queueName));
   }
 
@@ -117,7 +117,7 @@ export class QueueStore {
    *
    * @returns
    */
-  async getAll(): Promise<QueueStoreEntry[]> {
+  async getAll(): Promise<BackgroundSyncQueueStoreEntry[]> {
     return await this._queueDb.getAllEntriesByQueueName(this._queueName);
   }
 
@@ -151,7 +151,7 @@ export class QueueStore {
    * @returns
    * @private
    */
-  async _removeEntry(entry?: QueueStoreEntry): Promise<QueueStoreEntry | undefined> {
+  async _removeEntry(entry?: BackgroundSyncQueueStoreEntry): Promise<BackgroundSyncQueueStoreEntry | undefined> {
     if (entry) {
       await this.deleteEntry(entry.id);
     }

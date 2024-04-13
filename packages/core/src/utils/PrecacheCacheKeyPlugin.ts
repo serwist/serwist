@@ -6,8 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { SerwistPlugin, SerwistPluginCallbackParam } from "../types.js";
 import type { Serwist } from "../Serwist.js";
+import type { SerwistPlugin, SerwistPluginCallbackParam } from "../types.js";
 
 /**
  * A plugin, designed to be used with PrecacheController, to translate URLs into

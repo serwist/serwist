@@ -6,10 +6,10 @@
   https://opensource.org/licenses/MIT.
 */
 
+import { Route } from "./Route.js";
 import type { RouteHandler, RouteMatchCallbackOptions } from "./types.js";
 import { assert } from "./utils/assert.js";
 import { logger } from "./utils/logger.js";
-import { Route } from "./Route.js";
 
 export interface NavigationRouteMatchOptions {
   /**

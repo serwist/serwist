@@ -6,8 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { HandlerDidErrorCallbackParam, SerwistPlugin } from "../../types.js";
 import type { Serwist } from "../../Serwist.js";
+import type { HandlerDidErrorCallbackParam, SerwistPlugin } from "../../types.js";
 
 export interface PrecacheFallbackEntry {
   /**

@@ -6,15 +6,15 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { SerwistPlugin } from "./types.js";
 import { copyResponse } from "./copyResponse.js";
-import { SerwistError } from "./utils/SerwistError.js";
-import { getFriendlyURL } from "./utils/getFriendlyURL.js";
-import { logger } from "./utils/logger.js";
-import { cacheNames as privateCacheNames } from "./utils/cacheNames.js";
 import type { StrategyOptions } from "./strategies/Strategy.js";
 import { Strategy } from "./strategies/Strategy.js";
 import type { StrategyHandler } from "./strategies/StrategyHandler.js";
+import type { SerwistPlugin } from "./types.js";
+import { SerwistError } from "./utils/SerwistError.js";
+import { cacheNames as privateCacheNames } from "./utils/cacheNames.js";
+import { getFriendlyURL } from "./utils/getFriendlyURL.js";
+import { logger } from "./utils/logger.js";
 
 interface PrecacheStrategyOptions extends StrategyOptions {
   /**

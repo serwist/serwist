@@ -11,7 +11,12 @@ import { assert } from "../../utils/assert.js";
 import { logger } from "../../utils/logger.js";
 import { resultingClientExists } from "../../utils/resultingClientExists.js";
 import { timeout } from "../../utils/timeout.js";
-import { CACHE_UPDATED_MESSAGE_META, CACHE_UPDATED_MESSAGE_TYPE, defaultHeadersToCheck, defaultNotifyAllClients } from "./constants.js";
+import {
+  BROADCAST_UPDATE_DEFAULT_HEADERS,
+  BROADCAST_UPDATE_DEFAULT_NOTIFY,
+  BROADCAST_UPDATE_MESSAGE_META,
+  BROADCAST_UPDATE_MESSAGE_TYPE,
+} from "./constants.js";
 import { responsesAreSame } from "./responsesAreSame.js";
 import type { BroadcastCacheUpdateOptions, BroadcastMessage, BroadcastPayload, BroadcastPayloadGenerator } from "./types.js";
 
@@ -21,7 +26,7 @@ import type { BroadcastCacheUpdateOptions, BroadcastMessage, BroadcastPayload, B
 const isSafari = typeof navigator !== "undefined" && /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
 // Give TypeScript the correct global.
-declare let self: ServiceWorkerGlobalScope;
+declare const self: ServiceWorkerGlobalScope;
 /**
  * Generates the default payload used in update messages. By default the
  * payload includes the `cacheName` and `updatedURL` fields.
@@ -55,9 +60,9 @@ export class BroadcastCacheUpdate {
    * @param options
    */
   constructor({ generatePayload, headersToCheck, notifyAllClients }: BroadcastCacheUpdateOptions = {}) {
-    this._headersToCheck = headersToCheck || defaultHeadersToCheck;
+    this._headersToCheck = headersToCheck || BROADCAST_UPDATE_DEFAULT_HEADERS;
     this._generatePayload = generatePayload || defaultPayloadGenerator;
-    this._notifyAllClients = notifyAllClients ?? defaultNotifyAllClients;
+    this._notifyAllClients = notifyAllClients ?? BROADCAST_UPDATE_DEFAULT_NOTIFY;
   }
 
   /**
@@ -115,8 +120,8 @@ export class BroadcastCacheUpdate {
       }
 
       const messageData = {
-        type: CACHE_UPDATED_MESSAGE_TYPE,
-        meta: CACHE_UPDATED_MESSAGE_META,
+        type: BROADCAST_UPDATE_MESSAGE_TYPE,
+        meta: BROADCAST_UPDATE_MESSAGE_META,
         payload: this._generatePayload(options),
       } satisfies BroadcastMessage;
 

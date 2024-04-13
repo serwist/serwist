@@ -1,4 +1,4 @@
-import { describe, beforeAll, afterAll } from "vitest";
+import { afterAll, beforeAll, describe } from "vitest";
 import type { NextInstance, NextInstanceOpts } from "./next-instance-base.ts";
 import { NextInstanceDev } from "./next-instance-dev.ts";
 import { NextInstanceStart } from "./next-instance-start.ts";

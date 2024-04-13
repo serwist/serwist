@@ -15,6 +15,8 @@ import type { FallbackEntry, FallbacksOptions } from "./legacy/fallbacks.js";
 import { fallbacks } from "./legacy/fallbacks.js";
 import { getCacheKeyForURL } from "./legacy/getCacheKeyForURL.js";
 import { type HandlePrecachingOptions, handlePrecaching } from "./legacy/handlePrecaching.js";
+import type { GoogleAnalyticsInitializeOptions } from "./legacy/initializeGoogleAnalytics.js";
+import { initializeGoogleAnalytics } from "./legacy/initializeGoogleAnalytics.js";
 import { type InstallSerwistOptions, installSerwist } from "./legacy/installSerwist.js";
 import { matchPrecache } from "./legacy/matchPrecache.js";
 import { precache } from "./legacy/precache.js";
@@ -42,8 +44,10 @@ export {
   addPlugins,
   addRoute,
   createHandlerBoundToURL,
-  getCacheKeyForURL,
   fallbacks,
+  getCacheKeyForURL,
+  initializeGoogleAnalytics,
+  installSerwist,
   matchPrecache,
   precache,
   precacheAndRoute,
@@ -53,7 +57,6 @@ export {
   getSingletonPrecacheController,
   setSingletonPrecacheController,
   handlePrecaching,
-  installSerwist,
   registerRuntimeCaching,
   registerRoute,
   Router,
@@ -63,4 +66,12 @@ export {
   setSingletonRouter,
   unregisterRoute,
 };
-export type { HandlePrecachingOptions, InstallSerwistOptions, FallbackEntry, FallbacksOptions, PrecacheFallbackEntry, PrecacheFallbackPluginOptions };
+export type {
+  HandlePrecachingOptions,
+  GoogleAnalyticsInitializeOptions,
+  InstallSerwistOptions,
+  FallbackEntry,
+  FallbacksOptions,
+  PrecacheFallbackEntry,
+  PrecacheFallbackPluginOptions,
+};

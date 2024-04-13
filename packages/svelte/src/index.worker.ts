@@ -1,5 +1,5 @@
-import { logger } from "serwist/internal";
 import type { PrecacheEntry, RuntimeCaching } from "serwist";
+import { logger } from "serwist/internal";
 import { ExpirationPlugin } from "serwist/plugins";
 import { CacheFirst, NetworkFirst, StaleWhileRevalidate } from "serwist/strategies";
 

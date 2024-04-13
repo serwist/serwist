@@ -1,3 +1,18 @@
+import { parallel } from "@serwist/utils";
+import { NavigationRoute } from "./NavigationRoute.js";
+import { PrecacheRoute } from "./PrecacheRoute.js";
+import { PrecacheStrategy } from "./PrecacheStrategy.js";
+import type { Route } from "./Route.js";
+import { cleanupOutdatedCaches as cleanupOutdatedCachesImpl } from "./cleanupOutdatedCaches.js";
+import { clientsClaim as clientsClaimImpl } from "./clientsClaim.js";
+import { type HTTPMethod, defaultMethod } from "./constants.js";
+import { disableDevLogs as disableDevLogsImpl } from "./disableDevLogs.js";
+import { enableNavigationPreload } from "./navigationPreload.js";
+import { parseRoute } from "./parseRoute.js";
+import { type GoogleAnalyticsInitializeOptions, initializeGoogleAnalytics } from "./plugins/googleAnalytics/initializeGoogleAnalytics.js";
+import { type PrecacheFallbackEntry, PrecacheFallbackPlugin } from "./plugins/precaching/PrecacheFallbackPlugin.js";
+import { setCacheNameDetails } from "./setCacheNameDetails.js";
+import { Strategy } from "./strategies/Strategy.js";
 import type {
   RouteHandler,
   RouteHandlerCallback,
@@ -7,35 +22,20 @@ import type {
   RouteMatchCallbackOptions,
   SerwistPlugin,
 } from "./types.js";
-import { clientsClaim as clientsClaimImpl } from "./clientsClaim.js";
-import { setCacheNameDetails } from "./setCacheNameDetails.js";
-import { assert } from "./utils/assert.js";
-import { SerwistError } from "./utils/SerwistError.js";
-import { getFriendlyURL } from "./utils/getFriendlyURL.js";
-import { logger } from "./utils/logger.js";
-import { cacheNames as privateCacheNames } from "./utils/cacheNames.js";
-import { waitUntil } from "./utils/waitUntil.js";
-import { parallel } from "@serwist/utils";
-import { NavigationRoute } from "./NavigationRoute.js";
-import { PrecacheRoute } from "./PrecacheRoute.js";
-import { PrecacheStrategy } from "./PrecacheStrategy.js";
-import type { Route } from "./Route.js";
-import { cleanupOutdatedCaches as cleanupOutdatedCachesImpl } from "./cleanupOutdatedCaches.js";
-import { type HTTPMethod, defaultMethod } from "./constants.js";
-import { disableDevLogs as disableDevLogsImpl } from "./disableDevLogs.js";
-import { enableNavigationPreload } from "./navigationPreload.js";
-import { parseRoute } from "./parseRoute.js";
-import { type GoogleAnalyticsInitializeOptions, initialize } from "./plugins/googleAnalytics/initialize.js";
-import { type PrecacheFallbackEntry, PrecacheFallbackPlugin } from "./plugins/precaching/PrecacheFallbackPlugin.js";
-import { Strategy } from "./strategies/Strategy.js";
 import type { PrecacheRouteOptions, RuntimeCaching } from "./types.js";
 import type { CleanupResult, InstallResult, PrecacheEntry } from "./types.js";
 import { PrecacheCacheKeyPlugin } from "./utils/PrecacheCacheKeyPlugin.js";
 import { PrecacheInstallReportPlugin } from "./utils/PrecacheInstallReportPlugin.js";
+import { SerwistError } from "./utils/SerwistError.js";
+import { assert } from "./utils/assert.js";
+import { cacheNames as privateCacheNames } from "./utils/cacheNames.js";
 import { createCacheKey } from "./utils/createCacheKey.js";
+import { getFriendlyURL } from "./utils/getFriendlyURL.js";
+import { logger } from "./utils/logger.js";
 import { normalizeHandler } from "./utils/normalizeHandler.js";
 import { printCleanupDetails } from "./utils/printCleanupDetails.js";
 import { printInstallDetails } from "./utils/printInstallDetails.js";
+import { waitUntil } from "./utils/waitUntil.js";
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -258,9 +258,9 @@ export class Serwist {
 
     if (offlineAnalyticsConfig !== undefined) {
       if (typeof offlineAnalyticsConfig === "boolean") {
-        offlineAnalyticsConfig && initialize({ serwist: this });
+        offlineAnalyticsConfig && initializeGoogleAnalytics({ serwist: this });
       } else {
-        initialize({
+        initializeGoogleAnalytics({
           ...offlineAnalyticsConfig,
           serwist: this,
         });

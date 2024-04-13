@@ -6,8 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert } from "../../../utils/assert.js";
 import { SerwistError } from "../../../utils/SerwistError.js";
+import { assert } from "../../../utils/assert.js";
 
 /**
  * @param rangeHeader A Range: header value.

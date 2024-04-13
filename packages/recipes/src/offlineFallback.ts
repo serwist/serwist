@@ -36,12 +36,7 @@ declare let self: ServiceWorkerGlobalScope;
 
  * @param options
  */
-export const offlineFallback = ({
-  serwist,
-  pageFallback = "offline.html",
-  imageFallback,
-  fontFallback,
-}: OfflineFallbackOptions): void => {
+export const offlineFallback = ({ serwist, pageFallback = "offline.html", imageFallback, fontFallback }: OfflineFallbackOptions): void => {
   self.addEventListener("install", (event) => {
     const files = [pageFallback];
     if (imageFallback) {

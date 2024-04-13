@@ -1,5 +1,5 @@
 import type { CacheDidUpdateCallbackParam } from "../../types.js";
-import type { CACHE_UPDATED_MESSAGE_META, CACHE_UPDATED_MESSAGE_TYPE } from "./constants.js";
+import type { BROADCAST_UPDATE_MESSAGE_META, BROADCAST_UPDATE_MESSAGE_TYPE } from "./constants.js";
 
 export interface BroadcastCacheUpdateOptions {
   /**
@@ -31,7 +31,7 @@ export type BroadcastPayload = Record<string, any>;
 export type BroadcastPayloadGenerator = (options: CacheDidUpdateCallbackParam) => BroadcastPayload;
 
 export interface BroadcastMessage {
-  type: typeof CACHE_UPDATED_MESSAGE_TYPE;
-  meta: typeof CACHE_UPDATED_MESSAGE_META;
+  type: typeof BROADCAST_UPDATE_MESSAGE_TYPE;
+  meta: typeof BROADCAST_UPDATE_MESSAGE_META;
   payload: BroadcastPayload;
 }

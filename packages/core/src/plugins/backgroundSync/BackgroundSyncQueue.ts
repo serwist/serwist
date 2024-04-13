@@ -1,3 +1,4 @@
+import { SerwistError } from "../../utils/SerwistError.js";
 /*
   Copyright 2018 Google LLC
 
@@ -6,23 +7,22 @@
   https://opensource.org/licenses/MIT.
 */
 import { assert } from "../../utils/assert.js";
-import { SerwistError } from "../../utils/SerwistError.js";
 import { getFriendlyURL } from "../../utils/getFriendlyURL.js";
 import { logger } from "../../utils/logger.js";
-import type { QueueStoreEntry, UnidentifiedQueueStoreEntry } from "./QueueDb.js";
-import { QueueStore } from "./QueueStore.js";
+import type { BackgroundSyncQueueStoreEntry, UnidentifiedQueueStoreEntry } from "./BackgroundSyncQueueDb.js";
+import { BackgroundSyncQueueStore } from "./BackgroundSyncQueueStore.js";
 import { StorableRequest } from "./StorableRequest.js";
 
 // Give TypeScript the correct global.
-declare let self: ServiceWorkerGlobalScope;
+declare const self: ServiceWorkerGlobalScope;
 
 interface OnSyncCallbackOptions {
-  queue: Queue;
+  queue: BackgroundSyncQueue;
 }
 
 type OnSyncCallback = (options: OnSyncCallbackOptions) => void | Promise<void>;
 
-export interface QueueOptions {
+export interface BackgroundSyncQueueOptions {
   /**
    * If `true`, instead of attempting to use background sync events, always attempt
    * to replay queued request at service worker startup. Most folks will not need
@@ -50,7 +50,7 @@ export interface QueueOptions {
   onSync?: OnSyncCallback;
 }
 
-export interface QueueEntry {
+export interface BackgroundSyncQueueEntry {
   /**
    * The request to store in the queue.
    */
@@ -85,8 +85,8 @@ const queueNames = new Set<string>();
  * @returns
  * @private
  */
-const convertEntry = (queueStoreEntry: UnidentifiedQueueStoreEntry): QueueEntry => {
-  const queueEntry: QueueEntry = {
+const convertEntry = (queueStoreEntry: UnidentifiedQueueStoreEntry): BackgroundSyncQueueEntry => {
+  const queueEntry: BackgroundSyncQueueEntry = {
     request: new StorableRequest(queueStoreEntry.requestData).toRequest(),
     timestamp: queueStoreEntry.timestamp,
   };
@@ -101,11 +101,11 @@ const convertEntry = (queueStoreEntry: UnidentifiedQueueStoreEntry): QueueEntry 
  * later. All parts of the storing and replaying process are observable via
  * callbacks.
  */
-export class Queue {
+export class BackgroundSyncQueue {
   private readonly _name: string;
   private readonly _onSync: OnSyncCallback;
   private readonly _maxRetentionTime: number;
-  private readonly _queueStore: QueueStore;
+  private readonly _queueStore: BackgroundSyncQueueStore;
   private readonly _forceSyncFallback: boolean;
   private _syncInProgress = false;
   private _requestsAddedDuringSync = false;
@@ -119,7 +119,7 @@ export class Queue {
    * a duplicate name is detected.
    * @param options
    */
-  constructor(name: string, { forceSyncFallback, onSync, maxRetentionTime }: QueueOptions = {}) {
+  constructor(name: string, { forceSyncFallback, onSync, maxRetentionTime }: BackgroundSyncQueueOptions = {}) {
     // Ensure the store name is not already being used
     if (queueNames.has(name)) {
       throw new SerwistError("duplicate-queue-name", { name });
@@ -130,7 +130,7 @@ export class Queue {
     this._onSync = onSync || this.replayRequests;
     this._maxRetentionTime = maxRetentionTime || MAX_RETENTION_TIME;
     this._forceSyncFallback = Boolean(forceSyncFallback);
-    this._queueStore = new QueueStore(this._name);
+    this._queueStore = new BackgroundSyncQueueStore(this._name);
 
     this._addSyncListener();
   }
@@ -148,7 +148,7 @@ export class Queue {
    *
    * @param entry
    */
-  async pushRequest(entry: QueueEntry): Promise<void> {
+  async pushRequest(entry: BackgroundSyncQueueEntry): Promise<void> {
     if (process.env.NODE_ENV !== "production") {
       assert!.isType(entry, "object", {
         moduleName: "serwist/plugins",
@@ -173,7 +173,7 @@ export class Queue {
    *
    * @param entry
    */
-  async unshiftRequest(entry: QueueEntry): Promise<void> {
+  async unshiftRequest(entry: BackgroundSyncQueueEntry): Promise<void> {
     if (process.env.NODE_ENV !== "production") {
       assert!.isType(entry, "object", {
         moduleName: "serwist/plugins",
@@ -198,7 +198,7 @@ export class Queue {
    *
    * @returns
    */
-  async popRequest(): Promise<QueueEntry | undefined> {
+  async popRequest(): Promise<BackgroundSyncQueueEntry | undefined> {
     return this._removeRequest("pop");
   }
 
@@ -208,7 +208,7 @@ export class Queue {
    *
    * @returns
    */
-  async shiftRequest(): Promise<QueueEntry | undefined> {
+  async shiftRequest(): Promise<BackgroundSyncQueueEntry | undefined> {
     return this._removeRequest("shift");
   }
 
@@ -218,7 +218,7 @@ export class Queue {
    *
    * @returns
    */
-  async getAll(): Promise<QueueEntry[]> {
+  async getAll(): Promise<BackgroundSyncQueueEntry[]> {
     const allEntries = await this._queueStore.getAll();
     const now = Date.now();
 
@@ -254,7 +254,7 @@ export class Queue {
    * @param operation
    * @private
    */
-  async _addRequest({ request, metadata, timestamp = Date.now() }: QueueEntry, operation: "push" | "unshift"): Promise<void> {
+  async _addRequest({ request, metadata, timestamp = Date.now() }: BackgroundSyncQueueEntry, operation: "push" | "unshift"): Promise<void> {
     const storableRequest = await StorableRequest.fromRequest(request.clone());
     const entry: UnidentifiedQueueStoreEntry = {
       requestData: storableRequest.toObject(),
@@ -297,9 +297,9 @@ export class Queue {
    * @returns
    * @private
    */
-  async _removeRequest(operation: "pop" | "shift"): Promise<QueueEntry | undefined> {
+  async _removeRequest(operation: "pop" | "shift"): Promise<BackgroundSyncQueueEntry | undefined> {
     const now = Date.now();
-    let entry: QueueStoreEntry | undefined;
+    let entry: BackgroundSyncQueueStoreEntry | undefined;
     switch (operation) {
       case "pop":
         entry = await this._queueStore.popEntry();
@@ -329,7 +329,7 @@ export class Queue {
    * the queue (which registers a retry for the next sync event).
    */
   async replayRequests(): Promise<void> {
-    let entry: QueueEntry | undefined = undefined;
+    let entry: BackgroundSyncQueueEntry | undefined = undefined;
     while ((entry = await this.shiftRequest())) {
       try {
         await fetch(entry.request.clone());

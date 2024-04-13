@@ -1,2 +1,2 @@
-export { initializeGoogleAnalytics as initialize } from "serwist/plugins";
-export type { GoogleAnalyticsInitializeOptions } from "serwist/plugins";
+export { initializeGoogleAnalytics as initialize } from "serwist/legacy";
+export type { GoogleAnalyticsInitializeOptions } from "serwist/legacy";

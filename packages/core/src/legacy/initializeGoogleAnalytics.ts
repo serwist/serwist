@@ -6,15 +6,16 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { RouteMatchCallbackOptions } from "../../types.js";
-import { getFriendlyURL } from "../../utils/getFriendlyURL.js";
-import { logger } from "../../utils/logger.js";
-import { cacheNames as privateCacheNames } from "../../utils/cacheNames.js";
-import { Route } from "../../Route.js";
-import { NetworkFirst } from "../../strategies/NetworkFirst.js";
-import { NetworkOnly } from "../../strategies/NetworkOnly.js";
-import { BackgroundSyncPlugin } from "../backgroundSync/BackgroundSyncPlugin.js";
-import type { Queue, QueueEntry } from "../backgroundSync/Queue.js";
+import { Route } from "../Route.js";
+import { BackgroundSyncPlugin } from "../plugins/backgroundSync/BackgroundSyncPlugin.js";
+import type { BackgroundSyncQueue, BackgroundSyncQueueEntry } from "../plugins/backgroundSync/BackgroundSyncQueue.js";
+import { NetworkFirst } from "../strategies/NetworkFirst.js";
+import { NetworkOnly } from "../strategies/NetworkOnly.js";
+import type { RouteMatchCallbackOptions } from "../types.js";
+import { cacheNames as privateCacheNames } from "../utils/cacheNames.js";
+import { getFriendlyURL } from "../utils/getFriendlyURL.js";
+import { logger } from "../utils/logger.js";
+import { Router } from "./Router.js";
 import {
   ANALYTICS_JS_PATH,
   COLLECT_PATHS_REGEX,
@@ -25,10 +26,17 @@ import {
   MAX_RETENTION_TIME,
   QUEUE_NAME,
 } from "./constants.js";
-import type { Serwist } from "../../Serwist.js";
+import { getSingletonRouter } from "./singletonRouter.js";
 
+/**
+ * @deprecated
+ */
 export interface GoogleAnalyticsInitializeOptions {
-  serwist: Serwist;
+  /**
+   * An optional `Router` instance. If not provided, the singleton `Router`
+   * will be used.
+   */
+  router?: Router;
   /**
    * The cache name to store and retrieve analytics.js. Defaults to Serwist's default cache names.
    */
@@ -59,8 +67,8 @@ export interface GoogleAnalyticsInitializeOptions {
  * @private
  */
 const createOnSyncCallback = (config: Pick<GoogleAnalyticsInitializeOptions, "parameterOverrides" | "hitFilter">) => {
-  return async ({ queue }: { queue: Queue }) => {
-    let entry: QueueEntry | undefined = undefined;
+  return async ({ queue }: { queue: BackgroundSyncQueue }) => {
+    let entry: BackgroundSyncQueueEntry | undefined = undefined;
     while ((entry = await queue.shiftRequest())) {
       const { request, timestamp } = entry;
       const url = new URL(request.url);
@@ -187,8 +195,9 @@ const createGtmJsRoute = (cacheName: string) => {
  * Initialize Serwist's offline Google Analytics v3 support.
  *
  * @param options
+ * @deprecated Use `serwist.initializeGoogleAnalytics` instead.
  */
-export const initialize = ({ serwist, cacheName, ...options }: GoogleAnalyticsInitializeOptions): void => {
+export const initializeGoogleAnalytics = ({ router = getSingletonRouter(), cacheName, ...options }: GoogleAnalyticsInitializeOptions = {}): void => {
   const resolvedCacheName = privateCacheNames.getGoogleAnalyticsName(cacheName);
 
   const bgSyncPlugin = new BackgroundSyncPlugin(QUEUE_NAME, {
@@ -204,6 +213,6 @@ export const initialize = ({ serwist, cacheName, ...options }: GoogleAnalyticsIn
   ];
 
   for (const route of routes) {
-    serwist.registerRoute(route);
+    router.registerRoute(route);
   }
 };

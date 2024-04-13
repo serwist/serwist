@@ -6,8 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { logger } from "./logger.js";
 import { quotaErrorCallbacks } from "../models/quotaErrorCallbacks.js";
+import { logger } from "./logger.js";
 
 /**
  * Runs all of the callback functions, one at a time sequentially, in the order

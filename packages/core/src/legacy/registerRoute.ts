@@ -6,9 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { RouteHandler, RouteMatchCallback } from "../types.js";
 import type { Route } from "../Route.js";
 import type { HTTPMethod } from "../constants.js";
+import type { RouteHandler, RouteMatchCallback } from "../types.js";
 import { getSingletonRouter } from "./singletonRouter.js";
 
 /**

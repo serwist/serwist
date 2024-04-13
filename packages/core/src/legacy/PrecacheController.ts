@@ -6,20 +6,20 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { RouteHandlerCallback, SerwistPlugin } from "../types.js";
-import { assert } from "../utils/assert.js";
-import { SerwistError } from "../utils/SerwistError.js";
-import { logger } from "../utils/logger.js";
-import { cacheNames as privateCacheNames } from "../utils/cacheNames.js";
-import { waitUntil } from "../utils/waitUntil.js";
 import { parallel } from "@serwist/utils";
 import { PrecacheStrategy } from "../PrecacheStrategy.js";
 import type { Strategy } from "../strategies/Strategy.js";
+import type { RouteHandlerCallback, SerwistPlugin } from "../types.js";
 import type { CleanupResult, InstallResult, PrecacheEntry } from "../types.js";
 import { PrecacheInstallReportPlugin } from "../utils/PrecacheInstallReportPlugin.js";
+import { SerwistError } from "../utils/SerwistError.js";
+import { assert } from "../utils/assert.js";
+import { cacheNames as privateCacheNames } from "../utils/cacheNames.js";
 import { createCacheKey } from "../utils/createCacheKey.js";
+import { logger } from "../utils/logger.js";
 import { printCleanupDetails } from "../utils/printCleanupDetails.js";
 import { printInstallDetails } from "../utils/printInstallDetails.js";
+import { waitUntil } from "../utils/waitUntil.js";
 import { PrecacheCacheKeyPlugin } from "./utils/PrecacheCacheKeyPlugin.js";
 
 // Give TypeScript the correct global.

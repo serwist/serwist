@@ -1,12 +1,12 @@
-import { PrecacheFallbackPlugin } from "./PrecacheFallbackPlugin.js";
 import { Strategy } from "../strategies/Strategy.js";
 import type { PrecacheRouteOptions, RuntimeCaching } from "../types.js";
 import type { PrecacheController } from "./PrecacheController.js";
+import { PrecacheFallbackPlugin } from "./PrecacheFallbackPlugin.js";
+import type { PrecacheFallbackEntry } from "./PrecacheFallbackPlugin.js";
 import { PrecacheRoute } from "./PrecacheRoute.js";
 import type { Router } from "./Router.js";
 import { getSingletonPrecacheController } from "./singletonPrecacheController.js";
 import { getSingletonRouter } from "./singletonRouter.js";
-import type { PrecacheFallbackEntry } from "./PrecacheFallbackPlugin.js";
 
 export interface FallbackEntry extends PrecacheFallbackEntry {
   /**

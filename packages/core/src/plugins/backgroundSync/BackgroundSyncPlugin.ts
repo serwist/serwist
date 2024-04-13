@@ -7,15 +7,15 @@
 */
 
 import type { FetchDidFailCallbackParam, SerwistPlugin } from "../../types.js";
-import type { QueueOptions } from "./Queue.js";
-import { Queue } from "./Queue.js";
+import type { BackgroundSyncQueueOptions } from "./BackgroundSyncQueue.js";
+import { BackgroundSyncQueue } from "./BackgroundSyncQueue.js";
 
 /**
  * A class implementing the `fetchDidFail` lifecycle callback. This makes it
  * easier to add failed requests to a background sync Queue.
  */
 export class BackgroundSyncPlugin implements SerwistPlugin {
-  private readonly _queue: Queue;
+  private readonly _queue: BackgroundSyncQueue;
 
   /**
    * @param name See the `serwist/plugins.BackgroundSyncQueue`
@@ -24,8 +24,8 @@ export class BackgroundSyncPlugin implements SerwistPlugin {
    * documentation for parameter details.
    * @see https://serwist.pages.dev/docs/background-sync/queue
    */
-  constructor(name: string, options?: QueueOptions) {
-    this._queue = new Queue(name, options);
+  constructor(name: string, options?: BackgroundSyncQueueOptions) {
+    this._queue = new BackgroundSyncQueue(name, options);
   }
 
   /**

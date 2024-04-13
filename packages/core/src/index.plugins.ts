@@ -1,14 +1,14 @@
 import { BackgroundSyncPlugin } from "./plugins/backgroundSync/BackgroundSyncPlugin.js";
-import type { QueueEntry as BackgroundSyncQueueEntry, QueueOptions as BackgroundSyncQueueOptions } from "./plugins/backgroundSync/Queue.js";
-import { Queue as BackgroundSyncQueue } from "./plugins/backgroundSync/Queue.js";
-import { QueueStore as BackgroundSyncQueueStore } from "./plugins/backgroundSync/QueueStore.js";
+import type { BackgroundSyncQueueEntry, BackgroundSyncQueueOptions } from "./plugins/backgroundSync/BackgroundSyncQueue.js";
+import { BackgroundSyncQueue } from "./plugins/backgroundSync/BackgroundSyncQueue.js";
+import { BackgroundSyncQueueStore } from "./plugins/backgroundSync/BackgroundSyncQueueStore.js";
 import { StorableRequest } from "./plugins/backgroundSync/StorableRequest.js";
 import { BroadcastCacheUpdate } from "./plugins/broadcastUpdate/BroadcastCacheUpdate.js";
 import { BroadcastUpdatePlugin } from "./plugins/broadcastUpdate/BroadcastUpdatePlugin.js";
 import {
-  CACHE_UPDATED_MESSAGE_META as BROADCAST_UPDATE_MESSAGE_META,
-  CACHE_UPDATED_MESSAGE_TYPE as BROADCAST_UPDATE_MESSAGE_TYPE,
-  defaultHeadersToCheck as BROADCAST_UPDATE_DEFAULT_HEADERS,
+  BROADCAST_UPDATE_DEFAULT_HEADERS,
+  BROADCAST_UPDATE_MESSAGE_META,
+  BROADCAST_UPDATE_MESSAGE_TYPE,
 } from "./plugins/broadcastUpdate/constants.js";
 import { responsesAreSame } from "./plugins/broadcastUpdate/responsesAreSame.js";
 import type { BroadcastCacheUpdateOptions, BroadcastMessage, BroadcastPayload, BroadcastPayloadGenerator } from "./plugins/broadcastUpdate/types.js";
@@ -18,8 +18,8 @@ import { CacheableResponsePlugin } from "./plugins/cacheableResponse/CacheableRe
 import { CacheExpiration } from "./plugins/expiration/CacheExpiration.js";
 import type { ExpirationPluginOptions } from "./plugins/expiration/ExpirationPlugin.js";
 import { ExpirationPlugin } from "./plugins/expiration/ExpirationPlugin.js";
-import type { GoogleAnalyticsInitializeOptions } from "./plugins/googleAnalytics/initialize.js";
-import { initialize as initializeGoogleAnalytics } from "./plugins/googleAnalytics/initialize.js";
+import type { GoogleAnalyticsInitializeOptions } from "./plugins/googleAnalytics/initializeGoogleAnalytics.js";
+import { initializeGoogleAnalytics } from "./plugins/googleAnalytics/initializeGoogleAnalytics.js";
 import type { PrecacheFallbackEntry, PrecacheFallbackPluginOptions } from "./plugins/precaching/PrecacheFallbackPlugin.js";
 import { PrecacheFallbackPlugin } from "./plugins/precaching/PrecacheFallbackPlugin.js";
 import { RangeRequestsPlugin } from "./plugins/rangeRequests/RangeRequestsPlugin.js";

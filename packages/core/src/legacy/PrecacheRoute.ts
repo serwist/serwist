@@ -6,12 +6,12 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { RouteMatchCallback, RouteMatchCallbackOptions } from "../types.js";
-import { getFriendlyURL } from "../utils/getFriendlyURL.js";
-import { logger } from "../utils/logger.js";
 import { Route } from "../Route.js";
+import type { RouteMatchCallback, RouteMatchCallbackOptions } from "../types.js";
 import type { PrecacheRouteOptions } from "../types.js";
 import { generateURLVariations } from "../utils/generateURLVariations.js";
+import { getFriendlyURL } from "../utils/getFriendlyURL.js";
+import { logger } from "../utils/logger.js";
 import type { PrecacheController } from "./PrecacheController.js";
 
 /**

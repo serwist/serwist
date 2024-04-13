@@ -6,8 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { logger } from "./utils/logger.js";
 import { cacheNames as privateCacheNames } from "./utils/cacheNames.js";
+import { logger } from "./utils/logger.js";
 
 import { deleteOutdatedCaches } from "./utils/deleteOutdatedCaches.js";
 

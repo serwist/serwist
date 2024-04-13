@@ -6,8 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { SerwistError } from "./SerwistError.js";
 import type { MapLikeObject } from "../types.js";
+import { SerwistError } from "./SerwistError.js";
 
 /*
  * This method throws if the supplied value is not an array.

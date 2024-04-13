@@ -6,13 +6,13 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { RouteMatchCallback, RouteMatchCallbackOptions } from "./types.js";
-import { getFriendlyURL } from "./utils/getFriendlyURL.js";
-import { logger } from "./utils/logger.js";
 import { Route } from "./Route.js";
 import type { Serwist } from "./Serwist.js";
+import type { RouteMatchCallback, RouteMatchCallbackOptions } from "./types.js";
 import type { PrecacheRouteOptions } from "./types.js";
 import { generateURLVariations } from "./utils/generateURLVariations.js";
+import { getFriendlyURL } from "./utils/getFriendlyURL.js";
+import { logger } from "./utils/logger.js";
 
 /**
  * A subclass of `Route` that takes a `serwist.Serwist` instance and uses it to match

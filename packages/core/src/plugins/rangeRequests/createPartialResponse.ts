@@ -6,8 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert } from "../../utils/assert.js";
 import { SerwistError } from "../../utils/SerwistError.js";
+import { assert } from "../../utils/assert.js";
 import { logger } from "../../utils/logger.js";
 import { calculateEffectiveBoundaries } from "./utils/calculateEffectiveBoundaries.js";
 import { parseRangeHeader } from "./utils/parseRangeHeader.js";

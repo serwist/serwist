@@ -52,7 +52,7 @@ export interface PrecacheFallbackPluginOptions {
  * Unless you explicitly pass in a `PrecacheController` instance to the
  * constructor, the default instance will be used. Generally speaking, most
  * developers will end up using the default.
- * 
+ *
  * @deprecated
  */
 export class PrecacheFallbackPlugin implements SerwistPlugin {

@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-export const CACHE_UPDATED_MESSAGE_TYPE = "CACHE_UPDATED";
-export const CACHE_UPDATED_MESSAGE_META = "serwist-broadcast-update";
-export const defaultNotifyAllClients = true;
-export const defaultHeadersToCheck = ["content-length", "etag", "last-modified"];
+export const BROADCAST_UPDATE_MESSAGE_TYPE = "CACHE_UPDATED";
+export const BROADCAST_UPDATE_MESSAGE_META = "serwist-broadcast-update";
+export const BROADCAST_UPDATE_DEFAULT_NOTIFY = true;
+export const BROADCAST_UPDATE_DEFAULT_HEADERS = ["content-length", "etag", "last-modified"];

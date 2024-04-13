@@ -1,9 +1,9 @@
-import type { RouteHandler, RouteMatchCallback } from "./types.js";
-import { SerwistError } from "./utils/SerwistError.js";
-import { logger } from "./utils/logger.js";
 import { RegExpRoute } from "./RegExpRoute.js";
 import { Route } from "./Route.js";
 import type { HTTPMethod } from "./constants.js";
+import type { RouteHandler, RouteMatchCallback } from "./types.js";
+import { SerwistError } from "./utils/SerwistError.js";
+import { logger } from "./utils/logger.js";
 
 /**
  * Parses a `RegExp`, string, or function with a caching strategy into a `Route`. This is for

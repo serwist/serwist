@@ -11,16 +11,16 @@ import { openDB } from "idb";
 
 import type { RequestData } from "./StorableRequest.js";
 
-interface QueueDBSchema extends DBSchema {
+interface BackgroundSyncQueueDBSchema extends DBSchema {
   requests: {
     key: number;
-    value: QueueStoreEntry;
+    value: BackgroundSyncQueueStoreEntry;
     indexes: { queueName: string };
   };
 }
 
-const DB_VERSION = 3;
-const DB_NAME = "serwist-background-sync";
+const BACKGROUND_SYNC_DB_VERSION = 3;
+const BACKGROUND_SYNC_DB_NAME = "serwist-background-sync";
 const REQUEST_OBJECT_STORE_NAME = "requests";
 const QUEUE_NAME_INDEX = "queueName";
 
@@ -32,7 +32,7 @@ export interface UnidentifiedQueueStoreEntry {
   metadata?: Record<string, unknown>;
 }
 
-export interface QueueStoreEntry extends UnidentifiedQueueStoreEntry {
+export interface BackgroundSyncQueueStoreEntry extends UnidentifiedQueueStoreEntry {
   id: number;
 }
 
@@ -44,8 +44,8 @@ export interface QueueStoreEntry extends UnidentifiedQueueStoreEntry {
  * @private
  */
 
-export class QueueDb {
-  private _db: IDBPDatabase<QueueDBSchema> | null = null;
+export class BackgroundSyncQueueDb {
+  private _db: IDBPDatabase<BackgroundSyncQueueDBSchema> | null = null;
 
   /**
    * Add QueueStoreEntry to underlying db.
@@ -57,7 +57,7 @@ export class QueueDb {
     const tx = db.transaction(REQUEST_OBJECT_STORE_NAME, "readwrite", {
       durability: "relaxed",
     });
-    await tx.store.add(entry as QueueStoreEntry);
+    await tx.store.add(entry as BackgroundSyncQueueStoreEntry);
     await tx.done;
   }
 
@@ -78,10 +78,10 @@ export class QueueDb {
    * @param queueName
    * @returns
    */
-  async getAllEntriesByQueueName(queueName: string): Promise<QueueStoreEntry[]> {
+  async getAllEntriesByQueueName(queueName: string): Promise<BackgroundSyncQueueStoreEntry[]> {
     const db = await this.getDb();
     const results = await db.getAllFromIndex(REQUEST_OBJECT_STORE_NAME, QUEUE_NAME_INDEX, IDBKeyRange.only(queueName));
-    return results ? results : new Array<QueueStoreEntry>();
+    return results ? results : new Array<BackgroundSyncQueueStoreEntry>();
   }
 
   /**
@@ -110,7 +110,7 @@ export class QueueDb {
    * @param queueName
    * @returns
    */
-  async getFirstEntryByQueueName(queueName: string): Promise<QueueStoreEntry | undefined> {
+  async getFirstEntryByQueueName(queueName: string): Promise<BackgroundSyncQueueStoreEntry | undefined> {
     return await this.getEndEntryFromIndex(IDBKeyRange.only(queueName), "next");
   }
 
@@ -119,7 +119,7 @@ export class QueueDb {
    * @param queueName
    * @returns
    */
-  async getLastEntryByQueueName(queueName: string): Promise<QueueStoreEntry | undefined> {
+  async getLastEntryByQueueName(queueName: string): Promise<BackgroundSyncQueueStoreEntry | undefined> {
     return await this.getEndEntryFromIndex(IDBKeyRange.only(queueName), "prev");
   }
 
@@ -132,7 +132,7 @@ export class QueueDb {
    * @returns
    * @private
    */
-  async getEndEntryFromIndex(query: IDBKeyRange, direction: IDBCursorDirection): Promise<QueueStoreEntry | undefined> {
+  async getEndEntryFromIndex(query: IDBKeyRange, direction: IDBCursorDirection): Promise<BackgroundSyncQueueStoreEntry | undefined> {
     const db = await this.getDb();
 
     const cursor = await db.transaction(REQUEST_OBJECT_STORE_NAME).store.index(QUEUE_NAME_INDEX).openCursor(query, direction);
@@ -146,7 +146,7 @@ export class QueueDb {
    */
   private async getDb() {
     if (!this._db) {
-      this._db = await openDB(DB_NAME, DB_VERSION, {
+      this._db = await openDB(BACKGROUND_SYNC_DB_NAME, BACKGROUND_SYNC_DB_VERSION, {
         upgrade: this._upgradeDb,
       });
     }
@@ -160,8 +160,8 @@ export class QueueDb {
    * @param oldVersion
    * @private
    */
-  private _upgradeDb(db: IDBPDatabase<QueueDBSchema>, oldVersion: number) {
-    if (oldVersion > 0 && oldVersion < DB_VERSION) {
+  private _upgradeDb(db: IDBPDatabase<BackgroundSyncQueueDBSchema>, oldVersion: number) {
+    if (oldVersion > 0 && oldVersion < BACKGROUND_SYNC_DB_VERSION) {
       if (db.objectStoreNames.contains(REQUEST_OBJECT_STORE_NAME)) {
         db.deleteObjectStore(REQUEST_OBJECT_STORE_NAME);
       }
