@@ -41,7 +41,7 @@ export const createDescribe = (name: string, opts: NextTestOpts, fn: (args: { ne
     let next: NextInstance;
     beforeAll(async () => {
       next = await createNext(opts);
-    }, 300 * 1000);
+    });
     afterAll(async () => {
       await next?.destroy();
     });

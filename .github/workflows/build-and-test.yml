@@ -12,13 +12,13 @@ jobs:
       afterBuild: pnpm typecheck
     secrets: inherit
   test-dev:
-    name: ⚫️ Run Jest (development mode) tests for @serwist/next
+    name: ⚫️ Run Vitest (development mode) tests
     uses: ./.github/workflows/build-reusable.yml
     with:
       afterBuild: TEST_MODE=dev pnpm test --filter='./__tests__/*'
     secrets: inherit
   test-prod:
-    name: ⚫️ Run Jest (production mode) tests for @serwist/next
+    name: ⚫️ Run Vitest (production mode) tests
     uses: ./.github/workflows/build-reusable.yml
     with:
       afterBuild: TEST_MODE=start pnpm test --filter='./__tests__/*'
