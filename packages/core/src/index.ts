@@ -1,7 +1,6 @@
 import type { NavigationRouteMatchOptions } from "./NavigationRoute.js";
 import { NavigationRoute } from "./NavigationRoute.js";
 import { PrecacheRoute } from "./PrecacheRoute.js";
-import { PrecacheStrategy } from "./PrecacheStrategy.js";
 import { RegExpRoute } from "./RegExpRoute.js";
 import { Route } from "./Route.js";
 import { Serwist, type SerwistOptions } from "./Serwist.js";
@@ -28,7 +27,6 @@ export {
   isNavigationPreloadSupported,
   parseRoute,
   PrecacheRoute,
-  PrecacheStrategy,
   RegExpRoute,
   registerQuotaErrorCallback,
   Route,

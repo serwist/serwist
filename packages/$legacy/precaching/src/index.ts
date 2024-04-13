@@ -10,7 +10,7 @@ export {
   PrecacheController,
   PrecacheFallbackPlugin,
   PrecacheRoute,
-  PrecacheStrategy,
+  PrecacheOnly as PrecacheStrategy,
 } from "serwist/legacy";
 export type { CleanupResult, InstallResult, PrecacheEntry, PrecacheRouteOptions, UrlManipulation as urlManipulation } from "serwist";
 export type { PrecacheFallbackEntry, PrecacheFallbackPluginOptions } from "serwist/legacy";

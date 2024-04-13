@@ -1,7 +1,6 @@
 import { parallel } from "@serwist/utils";
 import { NavigationRoute } from "./NavigationRoute.js";
 import { PrecacheRoute } from "./PrecacheRoute.js";
-import { PrecacheStrategy } from "./PrecacheStrategy.js";
 import type { Route } from "./Route.js";
 import { cleanupOutdatedCaches as cleanupOutdatedCachesImpl } from "./cleanupOutdatedCaches.js";
 import { clientsClaim as clientsClaimImpl } from "./clientsClaim.js";
@@ -12,6 +11,7 @@ import { parseRoute } from "./parseRoute.js";
 import { type GoogleAnalyticsInitializeOptions, initializeGoogleAnalytics } from "./plugins/googleAnalytics/initializeGoogleAnalytics.js";
 import { type PrecacheFallbackEntry, PrecacheFallbackPlugin } from "./plugins/precaching/PrecacheFallbackPlugin.js";
 import { setCacheNameDetails } from "./setCacheNameDetails.js";
+import { PrecacheOnly } from "./strategies/PrecacheOnly.js";
 import { Strategy } from "./strategies/Strategy.js";
 import type {
   RouteHandler,
@@ -97,7 +97,7 @@ export interface SerwistOptions {
   /**
    * The number of precache requests that should be made concurrently.
    *
-   * @default 1
+   * @default 10
    */
   concurrentPrecaching?: number;
   /**
@@ -190,7 +190,7 @@ export class Serwist {
     navigateFallbackDenylist,
     plugins = [],
     fallbackToNetwork = true,
-    concurrentPrecaching = 1,
+    concurrentPrecaching = 10,
     skipWaiting = false,
     importScripts,
     navigationPreload = false,
@@ -202,7 +202,7 @@ export class Serwist {
     fallbacks,
   }: SerwistOptions = {}) {
     this._concurrentPrecaching = concurrentPrecaching;
-    this._precacheStrategy = new PrecacheStrategy({
+    this._precacheStrategy = new PrecacheOnly({
       cacheName: privateCacheNames.getPrecacheName(precacheOptions?.cacheName),
       plugins: [...plugins, new PrecacheCacheKeyPlugin({ precacheController: this })],
       fallbackToNetwork,

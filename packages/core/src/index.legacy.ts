@@ -1,5 +1,4 @@
 import { NavigationRoute } from "./NavigationRoute.js";
-import { PrecacheStrategy } from "./PrecacheStrategy.js";
 import { RegExpRoute } from "./RegExpRoute.js";
 import { Route } from "./Route.js";
 import { cleanupOutdatedCaches } from "./cleanupOutdatedCaches.js";
@@ -29,13 +28,14 @@ import { getSingletonPrecacheController, setSingletonPrecacheController } from "
 import { getSingletonRouter, setSingletonRouter } from "./legacy/singletonRouter.js";
 import { unregisterRoute } from "./legacy/unregisterRoute.js";
 import { parseRoute } from "./parseRoute.js";
+import { PrecacheOnly } from "./strategies/PrecacheOnly.js";
 
 export {
   // These are not deprecated, but we export them so legacy packages
   // can re-export them without having to import both the normal and legacy
   // import paths.
   NavigationRoute,
-  PrecacheStrategy,
+  PrecacheOnly,
   RegExpRoute,
   Route,
   cleanupOutdatedCaches,

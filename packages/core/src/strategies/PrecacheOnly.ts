@@ -6,15 +6,15 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { copyResponse } from "./copyResponse.js";
-import type { StrategyOptions } from "./strategies/Strategy.js";
-import { Strategy } from "./strategies/Strategy.js";
-import type { StrategyHandler } from "./strategies/StrategyHandler.js";
-import type { SerwistPlugin } from "./types.js";
-import { SerwistError } from "./utils/SerwistError.js";
-import { cacheNames as privateCacheNames } from "./utils/cacheNames.js";
-import { getFriendlyURL } from "./utils/getFriendlyURL.js";
-import { logger } from "./utils/logger.js";
+import { copyResponse } from "../copyResponse.js";
+import type { StrategyOptions } from "../strategies/Strategy.js";
+import { Strategy } from "../strategies/Strategy.js";
+import type { StrategyHandler } from "../strategies/StrategyHandler.js";
+import type { SerwistPlugin } from "../types.js";
+import { SerwistError } from "../utils/SerwistError.js";
+import { cacheNames as privateCacheNames } from "../utils/cacheNames.js";
+import { getFriendlyURL } from "../utils/getFriendlyURL.js";
+import { logger } from "../utils/logger.js";
 
 interface PrecacheStrategyOptions extends StrategyOptions {
   /**
@@ -29,9 +29,9 @@ interface PrecacheStrategyOptions extends StrategyOptions {
  * specifically designed to both cache and fetch precached assets.
  *
  * Note: an instance of this class is created automatically when creating a
- * `PrecacheController`; it's generally not necessary to create this yourself.
+ * `Serwist` instance; it's generally not necessary to create this yourself.
  */
-export class PrecacheStrategy extends Strategy {
+export class PrecacheOnly extends Strategy {
   private readonly _fallbackToNetwork: boolean;
 
   static readonly defaultPrecacheCacheabilityPlugin: SerwistPlugin = {
@@ -55,6 +55,7 @@ export class PrecacheStrategy extends Strategy {
    */
   constructor(options: PrecacheStrategyOptions = {}) {
     options.cacheName = privateCacheNames.getPrecacheName(options.cacheName);
+
     super(options);
 
     this._fallbackToNetwork = options.fallbackToNetwork === false ? false : true;
@@ -63,7 +64,7 @@ export class PrecacheStrategy extends Strategy {
     // any redirected response must be "copied" rather than cloned, so the new
     // response doesn't contain the `redirected` flag. See:
     // https://bugs.chromium.org/p/chromium/issues/detail?id=669363&desc=2#c1
-    this.plugins.push(PrecacheStrategy.copyRedirectedCacheableResponsesPlugin);
+    this.plugins.push(PrecacheOnly.copyRedirectedCacheableResponsesPlugin);
   }
 
   /**
@@ -74,6 +75,7 @@ export class PrecacheStrategy extends Strategy {
    */
   async _handle(request: Request, handler: StrategyHandler): Promise<Response> {
     const response = await handler.cacheMatch(request);
+
     if (response) {
       return response;
     }
@@ -91,6 +93,7 @@ export class PrecacheStrategy extends Strategy {
 
   async _handleFetch(request: Request, handler: StrategyHandler): Promise<Response> {
     let response: Response | undefined = undefined;
+
     const params = (handler.params || {}) as {
       cacheKey?: string;
       integrity?: string;
@@ -169,6 +172,7 @@ export class PrecacheStrategy extends Strategy {
     // Make sure we defer cachePut() until after we know the response
     // should be cached; see https://github.com/GoogleChrome/workbox/issues/2737
     const wasCached = await handler.cachePut(request, response.clone());
+
     if (!wasCached) {
       // Throwing here will lead to the `install` handler failing, which
       // we want to do if *any* of the responses aren't safe to cache.
@@ -214,12 +218,12 @@ export class PrecacheStrategy extends Strategy {
 
     for (const [index, plugin] of this.plugins.entries()) {
       // Ignore the copy redirected plugin when determining what to do.
-      if (plugin === PrecacheStrategy.copyRedirectedCacheableResponsesPlugin) {
+      if (plugin === PrecacheOnly.copyRedirectedCacheableResponsesPlugin) {
         continue;
       }
 
       // Save the default plugin's index, in case it needs to be removed.
-      if (plugin === PrecacheStrategy.defaultPrecacheCacheabilityPlugin) {
+      if (plugin === PrecacheOnly.defaultPrecacheCacheabilityPlugin) {
         defaultPluginIndex = index;
       }
 
@@ -229,7 +233,7 @@ export class PrecacheStrategy extends Strategy {
     }
 
     if (cacheWillUpdatePluginCount === 0) {
-      this.plugins.push(PrecacheStrategy.defaultPrecacheCacheabilityPlugin);
+      this.plugins.push(PrecacheOnly.defaultPrecacheCacheabilityPlugin);
     } else if (cacheWillUpdatePluginCount > 1 && defaultPluginIndex !== null) {
       // Only remove the default plugin; multiple custom plugins are allowed.
       this.plugins.splice(defaultPluginIndex, 1);

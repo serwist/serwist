@@ -7,7 +7,7 @@
 */
 
 import { parallel } from "@serwist/utils";
-import { PrecacheStrategy } from "../PrecacheStrategy.js";
+import { PrecacheOnly } from "../strategies/PrecacheOnly.js";
 import type { Strategy } from "../strategies/Strategy.js";
 import type { RouteHandlerCallback, SerwistPlugin } from "../types.js";
 import type { CleanupResult, InstallResult, PrecacheEntry } from "../types.js";
@@ -67,7 +67,7 @@ export class PrecacheController {
    */
   constructor({ cacheName, plugins = [], fallbackToNetwork = true, concurrentPrecaching = 1 }: PrecacheControllerOptions = {}) {
     this._concurrentPrecaching = concurrentPrecaching;
-    this._strategy = new PrecacheStrategy({
+    this._strategy = new PrecacheOnly({
       cacheName: privateCacheNames.getPrecacheName(cacheName),
       plugins: [...plugins, new PrecacheCacheKeyPlugin({ precacheController: this })],
       fallbackToNetwork,
