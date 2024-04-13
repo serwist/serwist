@@ -21,8 +21,8 @@
   },
   "author": "Google's Web DevRel Team, Serwist's Team",
   "license": "MIT",
-  "repository": "https://gitlab.com/serwist/serwist",
-  "bugs": "https://gitlab.com/serwist/serwist/issues",
+  "repository": "https://github.com/serwist/serwist",
+  "bugs": "https://github.com/serwist/serwist/issues",
   "homepage": "https://serwist.pages.dev",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -56,20 +56,20 @@
     "fs-extra": "11.2.0",
     "glob": "10.3.12",
     "pretty-bytes": "6.1.1",
-    "rollup": "4.14.0",
+    "rollup": "4.14.2",
     "source-map": "0.8.0-beta.0",
     "upath": "2.0.1",
     "zod": "3.22.4"
   },
   "devDependencies": {
-    "@serwist/constants": "workspace:*",
+    "@serwist/configs": "workspace:*",
     "@serwist/utils": "workspace:*",
     "@types/common-tags": "1.8.4",
     "@types/fs-extra": "11.0.4",
-    "@types/node": "20.12.4",
+    "@types/node": "20.12.7",
     "@types/stringify-object": "4.0.5",
     "type-fest": "4.15.0",
-    "typescript": "5.5.0-dev.20240404"
+    "typescript": "5.5.0-dev.20240413"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0"

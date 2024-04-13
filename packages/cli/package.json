@@ -21,8 +21,8 @@
   },
   "author": "Google's Web DevRel Team, Serwist's Team",
   "license": "MIT",
-  "repository": "https://gitlab.com/serwist/serwist",
-  "bugs": "https://gitlab.com/serwist/serwist/issues",
+  "repository": "https://github.com/serwist/serwist",
+  "bugs": "https://github.com/serwist/serwist/issues",
   "homepage": "https://serwist.pages.dev",
   "bin": {
     "serwist": "cli.js"
@@ -40,7 +40,7 @@
     "common-tags": "1.8.2",
     "fs-extra": "11.2.0",
     "glob": "10.3.12",
-    "inquirer": "9.2.17",
+    "inquirer": "9.2.18",
     "meow": "13.2.0",
     "pretty-bytes": "6.1.1",
     "stringify-object": "5.0.0",
@@ -48,13 +48,13 @@
     "update-notifier": "7.0.0"
   },
   "devDependencies": {
-    "@serwist/constants": "workspace:*",
+    "@serwist/configs": "workspace:*",
     "@types/common-tags": "1.8.4",
     "@types/fs-extra": "11.0.4",
     "@types/inquirer": "9.0.7",
     "@types/stringify-object": "4.0.5",
     "@types/update-notifier": "6.0.8",
-    "rollup": "4.14.0",
-    "typescript": "5.5.0-dev.20240404"
+    "rollup": "4.14.2",
+    "typescript": "5.5.0-dev.20240413"
   }
 }

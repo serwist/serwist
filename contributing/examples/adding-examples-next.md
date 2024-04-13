@@ -1,6 +1,6 @@
 ## Adding examples
 
-When you add an example to the [examples](https://gitlab.com/serwist/serwist/tree/main/examples) directory, please follow these guidelines (as well as the main guidelines):
+When you add an example to the [examples](https://github.com/serwist/serwist/tree/main/examples) directory, please follow these guidelines (as well as the main guidelines):
 
 - If API routes aren't used in an example, they should be omitted.
 - Use function expressions rather than arrow function expressions for pages and API routes.
@@ -14,7 +14,7 @@ This example demonstrates how to use Serwist with DESCRIPTION.
 
 ## Usage
 
-[![Open in Gitpod and run](https://img.shields.io/badge/Open%20In-Gitpod.io-%231966D2?style=for-the-badge&logo=gitpod)](https://gitpod.io/#https://gitlab.com/serwist/serwist/)
+[![Open in Gitpod and run](https://img.shields.io/badge/Open%20In-Gitpod.io-%231966D2?style=for-the-badge&logo=gitpod)](https://gitpod.io/#https://github.com/serwist/serwist/)
 
 ```bash
 cd examples/DIRECTORY_NAME
@@ -24,22 +24,22 @@ pnpm start
 
 or
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), [pnpm](https://pnpm.io), or [bun](https://bun.sh) to bootstrap the example:
+Execute [`degit`](https://github.com/Rich-Harris/degit) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), [pnpm](https://pnpm.io), or [bun](https://bun.sh) to bootstrap the example:
 
 ```bash
-npx create-next-app --example https://gitlab.com/serwist/serwist/tree/main/examples/DIRECTORY_NAME my-app
+npx degit serwist/serwist/examples/DIRECTORY_NAME my-app
 ```
 
 ```bash
-yarn create next-app --example https://gitlab.com/serwist/serwist/tree/main/examples/DIRECTORY_NAME my-app
+yarn degit serwist/serwist/examples/DIRECTORY_NAME my-app
 ```
 
 ```bash
-pnpm create next-app --example https://gitlab.com/serwist/serwist/tree/main/examples/DIRECTORY_NAME my-app
+pnpx degit serwist/serwist/examples/DIRECTORY_NAME my-app
 ```
 
 ```bash
-bun create next-app --example https://gitlab.com/serwist/serwist/tree/main/examples/DIRECTORY_NAME my-app
+bunx degit serwist/serwist/examples/DIRECTORY_NAME my-app
 ```
 
 ## Recommended `.gitignore`

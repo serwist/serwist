@@ -25,8 +25,8 @@
   },
   "author": "Serwist's Team",
   "license": "MIT",
-  "repository": "https://gitlab.com/serwist/serwist",
-  "bugs": "https://gitlab.com/serwist/serwist/issues",
+  "repository": "https://github.com/serwist/serwist",
+  "bugs": "https://github.com/serwist/serwist/issues",
   "homepage": "https://serwist.pages.dev",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -77,15 +77,15 @@
     "zod": "3.22.4"
   },
   "devDependencies": {
-    "@serwist/constants": "workspace:*",
+    "@serwist/configs": "workspace:*",
     "@serwist/utils": "workspace:*",
-    "@types/node": "20.12.4",
-    "next": "14.1.4",
+    "@types/node": "20.12.7",
+    "next": "14.2.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "rollup": "4.14.0",
+    "rollup": "4.14.2",
     "type-fest": "4.15.0",
-    "typescript": "5.5.0-dev.20240404",
+    "typescript": "5.5.0-dev.20240413",
     "webpack": "5.91.0"
   },
   "peerDependencies": {

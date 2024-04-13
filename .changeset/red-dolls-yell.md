@@ -9,7 +9,7 @@
 "@serwist/expiration": major
 "@serwist/precaching": major
 "@serwist/strategies": major
-"@serwist/constants": major
+"@serwist/configs": major
 "@serwist/recipes": major
 "@serwist/routing": major
 "@serwist/streams": major

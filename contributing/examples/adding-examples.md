@@ -1,6 +1,6 @@
 ## Adding examples
 
-When you add an example to the [examples](https://gitlab.com/serwist/serwist/tree/main/examples) directory, please follow these guidelines:
+When you add an example to the [examples](https://github.com/serwist/serwist/tree/main/examples) directory, please follow these guidelines:
 
 - TypeScript should be leveraged for new examples.
 - If an example exists for a certain library and you would like to showcase a specific feature of that library, the existing example should be updated (instead of adding a new example).

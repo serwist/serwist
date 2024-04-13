@@ -1,0 +1,38 @@
+name: Check a pull request
+on:
+  pull_request:
+    types: [opened, synchronize]
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+env:
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+  TURBO_REMOTE_ONLY: true
+jobs:
+  ensure_changelog_exists:
+    name: 🔎 Ensure that .changeset is not empty
+    runs-on: [ubuntu-latest]
+    strategy:
+      matrix:
+        node-version: ["20.x"]
+        pnpm-version: ["8.x"]
+    if: "${{ !contains(github.event.pull_request.title, 'chore(packages): publish packages') }}"
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      - name: Use Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install changeset CLI
+        run: npm i -g @changesets/cli@$(node -p "require('./package.json').devDependencies['@changesets/cli']")
+      - name: Ensure that a changelog is added
+        run: npx changeset status --since=origin/main
+  test:
+    name: ⬣, 🔎, 🔨 Test PR
+    uses: ./.github/workflows/build-and-test.yml
+    secrets: inherit

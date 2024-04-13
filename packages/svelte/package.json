@@ -22,8 +22,8 @@
   ],
   "author": "Serwist's Team",
   "license": "MIT",
-  "repository": "https://gitlab.com/serwist/serwist",
-  "bugs": "https://gitlab.com/serwist/serwist/issues",
+  "repository": "https://github.com/serwist/serwist",
+  "bugs": "https://github.com/serwist/serwist/issues",
   "homepage": "https://serwist.pages.dev",
   "typesVersions": {
     "*": {
@@ -49,9 +49,9 @@
     "serwist": "workspace:*"
   },
   "devDependencies": {
-    "@serwist/constants": "workspace:*",
+    "@serwist/configs": "workspace:*",
     "@sveltejs/kit": "2.5.5",
-    "rollup": "4.14.0"
+    "rollup": "4.14.2"
   },
   "peerDependencies": {
     "@sveltejs/kit": ">=2.0.0",

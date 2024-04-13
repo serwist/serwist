@@ -14,6 +14,6 @@ if (process.env.NODE_ENV !== "production") {
   const padding = "   ";
   logger.groupCollapsed("Welcome to Serwist!");
   logger.log(`📖 Read the guides and documentation\n${padding}https://serwist.pages.dev/`);
-  logger.log(`🐛 Found a bug or want to ask a question? Open a new issue on GitLab\n${padding}https://gitlab.com/serwist/serwist/issues/new`);
+  logger.log(`🐛 Found a bug or want to ask a question? Open a new issue on GitHub\n${padding}https://github.com/serwist/serwist/issues/new/choose`);
   logger.groupEnd();
 }

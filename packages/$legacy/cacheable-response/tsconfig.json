@@ -1,0 +1,7 @@
+{
+  "extends": "../../../tsconfig.json",
+  "compilerOptions": {
+    "module": "NodeNext"
+  },
+  "include": ["src/**/*.ts", "rollup.config.js"]
+}

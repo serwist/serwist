@@ -11,7 +11,7 @@
     "@serwist/build": "8.4.4",
     "@serwist/cacheable-response": "8.4.4",
     "@serwist/cli": "8.4.4",
-    "@serwist/constants": "8.4.4",
+    "@serwist/configs": "8.4.4",
     "@serwist/core": "8.4.4",
     "@serwist/expiration": "8.4.4",
     "@serwist/google-analytics": "8.4.4",

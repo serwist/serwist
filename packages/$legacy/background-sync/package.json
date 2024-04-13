@@ -1,0 +1,54 @@
+{
+  "name": "@serwist/background-sync",
+  "version": "9.0.0-preview.24",
+  "type": "module",
+  "description": "A module that queues failed requests and uses the Background Synchronization API to replay them when the network is available.",
+  "files": [
+    "src",
+    "dist"
+  ],
+  "keywords": [
+    "serwist",
+    "serwistjs",
+    "service worker",
+    "sw",
+    "background",
+    "sync",
+    "serwist-plugin"
+  ],
+  "author": "Google's Web DevRel Team, Serwist's Team",
+  "license": "MIT",
+  "repository": "https://github.com/serwist/serwist",
+  "bugs": "https://github.com/serwist/serwist/issues",
+  "homepage": "https://serwist.pages.dev",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js",
+    "lint": "biome lint ./src",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "serwist": "workspace:*"
+  },
+  "devDependencies": {
+    "@serwist/configs": "workspace:*",
+    "cross-env": "7.0.3",
+    "rollup": "4.14.2",
+    "typescript": "5.5.0-dev.20240413"
+  },
+  "peerDependencies": {
+    "typescript": ">=5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    }
+  }
+}

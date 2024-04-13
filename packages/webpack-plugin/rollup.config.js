@@ -1,5 +1,5 @@
 // @ts-check
-import { getRollupOptions } from "@serwist/constants/rollup";
+import { getRollupOptions } from "@serwist/configs/rollup";
 
 import packageJson from "./package.json" assert { type: "json" };
 

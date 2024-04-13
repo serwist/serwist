@@ -23,8 +23,8 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "repository": "https://gitlab.com/serwist/serwist",
-  "bugs": "https://gitlab.com/serwist/serwist/issues",
+  "repository": "https://github.com/serwist/serwist",
+  "bugs": "https://github.com/serwist/serwist/issues",
   "homepage": "https://serwist.pages.dev",
   "main": "./dist/module.mjs",
   "types": "./dist/types.d.ts",
@@ -63,7 +63,7 @@
     "dev:preview:generate": "nr dev:generate && serve playground/dist"
   },
   "dependencies": {
-    "@nuxt/kit": "3.11.1",
+    "@nuxt/kit": "3.11.2",
     "@serwist/build": "workspace:*",
     "@serwist/vite": "workspace:*",
     "@serwist/window": "workspace:*",
@@ -73,20 +73,20 @@
   },
   "devDependencies": {
     "@nuxt/module-builder": "0.5.5",
-    "@nuxt/schema": "3.11.1",
+    "@nuxt/schema": "3.11.2",
     "@nuxt/test-utils": "3.12.0",
-    "@playwright/test": "1.42.1",
-    "@serwist/constants": "workspace:*",
-    "@types/node": "20.12.4",
-    "eslint": "8.57.0",
-    "nuxt": "3.11.1",
+    "@playwright/test": "1.43.1",
+    "@serwist/configs": "workspace:*",
+    "@types/node": "20.12.7",
+    "eslint": "9.0.0",
+    "nuxt": "3.11.2",
     "publint": "0.2.7",
     "rimraf": "5.0.5",
     "serve": "14.2.1",
-    "typescript": "5.5.0-dev.20240404",
+    "typescript": "5.5.0-dev.20240413",
     "vite": "5.2.8",
-    "vitest": "1.4.0",
-    "vue-tsc": "2.0.7"
+    "vitest": "1.5.0",
+    "vue-tsc": "2.0.13"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0",

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import { GITLAB_REPO_URL } from "$lib/constants";
+  import { GITHUB_REPO_URL } from "$lib/constants";
   import type { TocEntry } from "$lib/types";
 
   import ChevronRight from "./icons/ChevronRight.svelte";
@@ -30,11 +30,11 @@
     <p>Table of Contents is not available at the moment.</p>
   {/if}
   <div class="mt-8 hidden flex-col items-start gap-2 border-t pb-8 pt-8 xl:flex border-neutral-300 dark:border-neutral-800">
-    <a href={`${GITLAB_REPO_URL}/issues/new`} target="_blank" rel="noreferrer" class="text-toc">
+    <a href={`${GITHUB_REPO_URL}/issues/new/choose`} target="_blank" rel="noreferrer" class="text-toc">
       Question? Give us feedback →
       <span class="sr-only">(opens in a new tab)</span>
     </a>
-    <a href={`${GITLAB_REPO_URL}/tree/main/docs/src/routes${$page.route.id}`} target="_blank" rel="noreferrer" class="text-toc">
+    <a href={`${GITHUB_REPO_URL}/tree/main/docs/src/routes${$page.route.id}`} target="_blank" rel="noreferrer" class="text-toc">
       Edit this page →<span class="sr-only"> (opens in a new tab)</span>
     </a>
   </div>

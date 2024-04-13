@@ -2,7 +2,7 @@
 "@serwist/cacheable-response": major
 "@serwist/navigation-preload": major
 "@serwist/webpack-plugin": major
-"@serwist/constants": major
+"@serwist/configs": major
 "@serwist/routing": major
 "@serwist/build": major
 "@serwist/core": major
