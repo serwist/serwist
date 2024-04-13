@@ -117,7 +117,7 @@ export const getOpenGraphTemplate = (title: string, desc: string) => {
     createElement(
       "div",
       {
-        tw: "flex flex-col gap-8",
+        tw: "flex flex-col",
       },
       createElement(
         "h1",

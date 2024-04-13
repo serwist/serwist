@@ -21,7 +21,7 @@ const { count, size, warnings } = await injectManifest({
   swDest: "dist/sw.js",
   globDirectory: "dist/static",
   templatedURLs: {
-    "/": "home/*.html",
+    "/": ["home/*.html"],
   },
 });
 if (warnings.length > 0) {

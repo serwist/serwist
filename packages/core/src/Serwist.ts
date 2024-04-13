@@ -133,7 +133,7 @@ export interface SerwistOptions {
   /**
    * A list of caching strategies.
    *
-   * @see https://serwist.pages.dev/docs/sw/runtime-caching
+   * @see https://serwist.pages.dev/docs/serwist/runtime-caching
    */
   runtimeCaching?: RuntimeCaching[];
   /**
@@ -154,7 +154,7 @@ export interface SerwistOptions {
    * Note: This option mutates `runtimeCaching`. It also precaches the URLs
    * defined in `entries`, so you must NOT precache any of them beforehand.
    *
-   * @see https://serwist.pages.dev/docs/sw/abstractions/fallbacks
+   * @see https://serwist.pages.dev/docs/serwist/abstractions/fallbacks
    */
   fallbacks?: FallbacksOptions;
 }

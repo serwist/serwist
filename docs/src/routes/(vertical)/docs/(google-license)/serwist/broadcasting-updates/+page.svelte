@@ -21,7 +21,7 @@
   >
     Broadcast Channel API
   </a>. This functionality is most commonly used along with the
-  <a class="link" href="/docs/sw/runtime-caching/stale-while-revalidate"><ICD>StaleWhileRevalidate</ICD></a> strategy.
+  <a class="link" href="/docs/serwist/runtime-caching/stale-while-revalidate"><ICD>StaleWhileRevalidate</ICD></a> strategy.
 </p>
 <p>
   Whenever the "revalidate" step of that strategy retrieves a response from the network that differs from what was previously cached, this module will

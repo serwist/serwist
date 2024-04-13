@@ -47,8 +47,8 @@
 <CodeTab codes={data.code.basicUsage.errorResponse} defaultTab="sw.ts" />
 <h2 id="advanced-usage">Advanced usage</h2>
 <p>
-  This module also provides <ICD>Queue</ICD>, which is a class you can instantiate and add failed requests to. The failed requests are stored in
-  IndexedDB and retried when the browser thinks connectivity is restored (i.e. when it receives the <ICD>sync</ICD> event).
+  Serwist also provides <ICD>BackgroundSyncQueue</ICD>, which is a class you can instantiate and add failed requests to. The failed requests are
+  stored in IndexedDB and retried when the browser thinks connectivity is restored (i.e. when it receives the <ICD>sync</ICD> event).
 </p>
 <h3 id="creating-a-queue">
   Creating a <ICD>BackgroundSyncQueue</ICD>

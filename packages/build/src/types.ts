@@ -38,9 +38,9 @@ export interface BasePartial {
    */
   manifestTransforms?: ManifestTransform[];
   /**
-   * This value can be used to determine the maximum size of files that will be
-   * precached. This prevents you from inadvertently precaching very large files
-   * that might have accidentally matched one of your patterns.
+   * Determines the maximum size of files that will be precached. This prevents
+   * you from inadvertently precaching very large files that might have accidentally
+   * matched one of your patterns.
    * @default 2097152
    */
   maximumFileSizeToCacheInBytes?: number;

@@ -63,24 +63,24 @@
   </li>
   <li>
     <ICD>
-      <a class="link" href="/docs/sw/abstractions/handle-precaching">serwist.handlePrecaching</a>
+      <a class="link" href="/docs/serwist/abstractions/handle-precaching">serwist.handlePrecaching</a>
     </ICD> (if <ICD>precacheEntries</ICD> is not <ICD>undefined</ICD> or empty)
   </li>
   <li>
     <ICD>
-      <a class="link" href="/docs/sw/abstractions/fallbacks">serwist.fallbacks</a>
+      <a class="link" href="/docs/serwist/abstractions/fallbacks">serwist.fallbacks</a>
     </ICD> (if <ICD>runtimeCaching</ICD> and <ICD>fallbacks</ICD> are not <ICD>undefined</ICD>)
   </li>
   <li>
     <ICD>
-      <a class="link" href="/docs/sw/abstractions/register-runtime-caching"> serwist.registerRuntimeCaching</a>
+      <a class="link" href="/docs/serwist/abstractions/register-runtime-caching"> serwist.registerRuntimeCaching</a>
     </ICD> (if <ICD>runtimeCaching</ICD> is not <ICD>undefined</ICD>)
   </li>
   <li>
     <ICD>serwist/plugins.initializeGoogleAnalytics</ICD> (if <ICD>offlineAnalyticsConfig</ICD> is set)
   </li>
   <li>
-    <a class="link" href="/docs/sw/abstractions/disable-dev-logs"><ICD>serwist.disableDevLogs</ICD></a> (if <ICD>disableDevLogs</ICD> is set to
+    <a class="link" href="/docs/serwist/abstractions/disable-dev-logs"><ICD>serwist.disableDevLogs</ICD></a> (if <ICD>disableDevLogs</ICD> is set to
     <ICD>true</ICD>)
   </li>
 </ul>

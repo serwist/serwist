@@ -6,254 +6,39 @@ export const load: PageServerLoad = ({ locals }) => ({
   title: "Home",
   ogImage: encodeOpenGraphImage("Home"),
   code: {
-    frameworks: {
-      next: highlightCode(
-        locals.highlighter,
-        {
-          "next.config.mjs": {
-            code: `import withSerwistInit from "@serwist/next";
+    gettingStarted: highlightCode(
+      locals.highlighter,
+      {
+        "sw.ts": {
+          code: `import { Serwist } from "serwist";
 
-const withSerwist = withSerwistInit({
+const serwist = new Serwist({
+  precacheEntries: self.__SW_MANIFEST,
+  skipWaiting: true,
+  clientsClaim: true,
+});
+
+serwist.addEventListeners();`,
+          lang: "typescript",
+        },
+        "build.ts": {
+          code: `import { injectManifest } from "@serwist/build";
+
+injectManifest({
   swSrc: "app/sw.ts",
-  swDest: "public/sw.js",
-});
-
-// https://nextjs.org/docs/app/api-reference/next-config-js
-export default withSerwist({
-  reactStrictMode: true,
+  swDest: "dist/sw.js",
+  globDirectory: "dist/static",
 });`,
-            lang: "javascript",
-          },
-          "app/sw.ts": {
-            code: `import { defaultCache } from "@serwist/next/worker";
-import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
-import { Serwist } from "serwist";
-
-declare global {
-  interface WorkerGlobalScope extends SerwistGlobalConfig {
-    // Change this attribute's name to your \`injectionPoint\`.
-    // \`injectionPoint\` is an InjectManifest option.
-    // See https://serwist.pages.dev/docs/build/inject-manifest/configuring
-    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
-  }
-}
-
-declare const self: ServiceWorkerGlobalScope;
-
-const serwist = new Serwist({
-  precacheEntries: self.__SW_MANIFEST,
-  skipWaiting: true,
-  clientsClaim: true,
-  navigationPreload: true,
-  runtimeCaching: defaultCache,
-});
-
-serwist.addEventListeners();`,
-            lang: "typescript",
-          },
+          lang: "typescript",
         },
-        { idPrefix: "nextjs-config-showcase" },
-      ),
-      webpack: highlightCode(
-        locals.highlighter,
-        {
-          "webpack.config.ts": {
-            code: `import fs from "node:fs";
-import path from "node:path";
-
-import { InjectManifest } from "@serwist/webpack-plugin";
-import type { Configuration } from "webpack";
-
-const dev = process.env.NODE_ENV === "development";
-const rootDir = fs.realpathSync(process.cwd());
-const srcDir = path.join(rootDir, "src");
-const destDir = path.join(rootDir, "dist");
-
-const clientEntry = path.resolve(srcDir, "client.ts");
-
-export default {
-  target: "web",
-  name: "client",
-  module: {
-    rules: [
-      // Insert rules...
-    ],
-  },
-  entry: clientEntry,
-  output: {
-    publicPath: "/",
-    path: path.resolve(destDir, "public"),
-    filename: "static/js/[name]-[contenthash:8].js",
-    chunkFilename: "static/js/[name]-[contenthash:8].chunk.js",
-    assetModuleFilename: "static/media/[name].[hash][ext]",
-  },
-  plugins: [
-    // swDest is automatically resolved to "$\{output.path}/sw.js"
-    new InjectManifest({
-      swSrc: path.resolve(srcDir, "sw.ts"),
-      disablePrecacheManifest: dev,
-      // Insert something...
-      additionalPrecacheEntries: !dev ? [] : undefined,
-    }),
-  ],
-} satisfies Configuration;`,
-            lang: "typescript",
-          },
-          "src/sw.ts": {
-            code: `import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
-import { Serwist } from "serwist";
-import { ExpirationPlugin } from "serwist/plugins";
-import { CacheFirst, NetworkFirst, StaleWhileRevalidate } from "serwist/strategies";
-
-declare global {
-  interface WorkerGlobalScope extends SerwistGlobalConfig {
-    // Change this attribute's name to your \`injectionPoint\`.
-    // \`injectionPoint\` is an InjectManifest option.
-    // See https://serwist.pages.dev/docs/build/inject-manifest/configuring
-    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
-  }
-}
-
-declare const self: ServiceWorkerGlobalScope;
-
-const serwist = new Serwist({
-  precacheEntries: self.__SW_MANIFEST,
-  skipWaiting: true,
-  clientsClaim: true,
-  navigationPreload: true,
-  runtimeCaching: [
-    {
-      matcher: /^https:\\/\\/fonts\\.(?:googleapis|gstatic)\\.com\\/.*/i,
-      handler: new CacheFirst({
-        cacheName: "google-fonts",
-        plugins: [
-          new ExpirationPlugin({
-            maxEntries: 4,
-            maxAgeSeconds: 365 * 24 * 60 * 60, // 365 days
-          }),
-        ],
-      }),
-    },
-    {
-      matcher: /\\.(?:eot|otf|ttc|ttf|woff|woff2|font.css)$/i,
-      handler: new StaleWhileRevalidate({
-        cacheName: "static-font-assets",
-        plugins: [
-          new ExpirationPlugin({
-            maxEntries: 4,
-            maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
-          }),
-        ],
-      }),
-    },
-    {
-      matcher: /\\.(?:jpg|jpeg|gif|png|svg|ico|webp)$/i,
-      handler: new StaleWhileRevalidate({
-        cacheName: "static-image-assets",
-        plugins: [
-          new ExpirationPlugin({
-            maxEntries: 64,
-            maxAgeSeconds: 24 * 60 * 60, // 24 hours
-          }),
-        ],
-      }),
-    },
-    {
-      matcher: /\\.(?:js)$/i,
-      handler: new StaleWhileRevalidate({
-        cacheName: "static-js-assets",
-        plugins: [
-          new ExpirationPlugin({
-            maxEntries: 32,
-            maxAgeSeconds: 24 * 60 * 60, // 24 hours
-          }),
-        ],
-      }),
-    },
-    {
-      matcher: /\\.(?:css|less)$/i,
-      handler: new StaleWhileRevalidate({
-        cacheName: "static-style-assets",
-        plugins: [
-          new ExpirationPlugin({
-            maxEntries: 32,
-            maxAgeSeconds: 24 * 60 * 60, // 24 hours
-          }),
-        ],
-      }),
-    },
-    {
-      matcher: /\\.(?:json|xml|csv)$/i,
-      handler: new NetworkFirst({
-        cacheName: "static-data-assets",
-        plugins: [
-          new ExpirationPlugin({
-            maxEntries: 32,
-            maxAgeSeconds: 24 * 60 * 60, // 24 hours
-          }),
-        ],
-      }),
-    },
-    {
-      matcher: /\\/api\\/.*$/i,
-      method: "GET",
-      handler: new NetworkFirst({
-        cacheName: "apis",
-        plugins: [
-          new ExpirationPlugin({
-            maxEntries: 16,
-            maxAgeSeconds: 24 * 60 * 60, // 24 hours
-          }),
-        ],
-        networkTimeoutSeconds: 10, // fallback to cache if API does not response within 10 seconds
-      }),
-    },
-    {
-      matcher: /.*/i,
-      handler: new NetworkFirst({
-        cacheName: "others",
-        plugins: [
-          new ExpirationPlugin({
-            maxEntries: 32,
-            maxAgeSeconds: 24 * 60 * 60, // 24 hours
-          }),
-        ],
-        networkTimeoutSeconds: 10,
-      }),
-    },
-  ],
-});
-
-serwist.addEventListeners();`,
-            lang: "typescript",
-          },
-        },
-        { idPrefix: "webpack-config-showcase" },
-      ),
-      vite: highlightCode(
-        locals.highlighter,
-        {
-          "vite.config.ts": {
-            code: `import { serwist } from "@serwist/vite";
-import { defineConfig } from "vite";
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [
-    // ...Other plugins
-    serwist({
-      swSrc: "src/sw.ts",
-      swDest: "sw.js",
-      globDirectory: "dist",
-      injectionPoint: "self.__SW_MANIFEST",
-      rollupFormat: "iife",
-    }),
-  ],
-});`,
-            lang: "typescript",
-          },
-          "src/sw.ts": {
-            code: `import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
+      },
+      { idPrefix: "getting-started", useTwoslash: false },
+    ),
+    customizing: highlightCode(
+      locals.highlighter,
+      {
+        "sw.ts": {
+          code: `import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
 import { Serwist } from "serwist";
 import { defaultCache } from "@serwist/vite/worker";
 
@@ -264,140 +49,45 @@ declare global {
     // See https://serwist.pages.dev/docs/build/inject-manifest/configuring
     __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
   }
-}
-
-declare const self: ServiceWorkerGlobalScope;
-
-const serwist = new Serwist({
-  precacheEntries: self.__SW_MANIFEST,
-  skipWaiting: true,
-  clientsClaim: true,
-  navigationPreload: true,
-  runtimeCaching: defaultCache,
-});
-
-serwist.addEventListeners();`,
-            lang: "typescript",
-          },
-        },
-        { idPrefix: "vite-config-showcase" },
-      ),
-      svelte: highlightCode(
-        locals.highlighter,
-        {
-          "src/service-worker.ts": {
-            code: `/// <reference no-default-lib="true"/>
-/// <reference lib="esnext" />
-/// <reference lib="webworker" />
-/// <reference types="@sveltejs/kit" />
-import { defaultCache, defaultIgnoreUrlParameters, getPrecacheManifest } from "@serwist/svelte/worker";
-import type { SerwistGlobalConfig } from "serwist";
-import { Serwist } from "serwist";
-
-declare global {
-  interface WorkerGlobalScope extends SerwistGlobalConfig {}
 }
 
 declare const self: ServiceWorkerGlobalScope;
 
 const serwist = new Serwist({
   concurrentPrecaching: 10,
-  precacheEntries: getPrecacheManifest({
-    staticRevisions: "static-v1",
-  }),
-  precacheOptions: {
-    ignoreURLParametersMatching: defaultIgnoreUrlParameters,
-  },
-  cleanupOutdatedCaches: true,
-  skipWaiting: true,
-  clientsClaim: true,
-  navigationPreload: false,
-  disableDevLogs: true,
-  runtimeCaching: defaultCache,
-});
-
-serwist.addEventListeners();`,
-            lang: "typescript",
-          },
-        },
-        { idPrefix: "svelte-config-showcase" },
-      ),
-      nuxt: highlightCode(
-        locals.highlighter,
-        {
-          "nuxt.config.ts": {
-            code: `/// <reference types="@serwist/nuxt" />
-/// <reference types="nuxt" />
-// ---cut-before---
-// https://nuxt.com/docs/api/configuration/nuxt-config
-export default defineNuxtConfig({
-  devtools: { enabled: true },
-  modules: ["@serwist/nuxt"],
-  serwist: {},
-});`,
-            lang: "typescript",
-          },
-          "service-worker/index.ts": {
-            code: `/// <reference no-default-lib="true"/>
-/// <reference lib="esnext" />
-/// <reference lib="webworker" />
-import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
-import { Serwist } from "serwist";
-import { defaultCache } from "@serwist/vite/worker";
-
-declare global {
-  interface WorkerGlobalScope extends SerwistGlobalConfig {
-    // Change this attribute's name to your \`injectionPoint\`.
-    // \`injectionPoint\` is an InjectManifest option.
-    // See https://serwist.pages.dev/docs/build/inject-manifest/configuring
-    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
-  }
-}
-
-declare const self: ServiceWorkerGlobalScope;
-
-const serwist = new Serwist({
+  // A list of URLs that should be cached. Usually, you don't generate
+  // this list yourself; rather, you'd rely on a Serwist build tool/your framework
+  // to do it for you. In this example, it is generated by \`@serwist/vite\`.
   precacheEntries: self.__SW_MANIFEST,
+  // Options to customize how Serwist precaches the URLs.
+  precacheOptions: {
+    ignoreURLParametersMatching: [],
+  },
+  // Whether outdated caches should be removed.
+  cleanupOutdatedCaches: true,
+  // Whether the service worker should skip waiting and become the active one.
   skipWaiting: true,
+  // Whether the service worker should claim any currently available clients.
   clientsClaim: true,
-  navigationPreload: true,
+  // Whether navigation preloading should be used.
+  navigationPreload: false,
+  // Whether Serwist should log in development mode.
   disableDevLogs: true,
+  // A list of runtime caching entries. When a request is made and its URL match
+  // any of the entries, the response to it will be cached according to the matching
+  // entry's \`handler\`. This does not apply to precached URLs.
   runtimeCaching: defaultCache,
+  // Other options...
+  // See https://serwist.pages.dev/docs/serwist/abstractions/serwist
 });
 
 serwist.addEventListeners();`,
-            lang: "typescript",
-          },
-        },
-        { idPrefix: "nuxt-config-showcase" },
-      ),
-    },
-    vanilla: highlightCode(
-      locals.highlighter,
-      {
-        "build.ts": {
-          code: `import { injectManifest } from "@serwist/build";
-// Build something...
-// Bundle the service worker...
-const { count, size, warnings } = await injectManifest({
-  swSrc: "app/sw.js",
-  swDest: "dist/sw.js",
-  globDirectory: "dist/static",
-});
-if (warnings.length > 0) {
-  console.warn("[@serwist/build] Oopsie, there are warnings from Serwist:", warnings);
-}
-console.log(\`[@serwist/build] Manifest injected: \${count} files, totaling \${size} bytes.\`);`,
           lang: "typescript",
         },
-      },
-      { idPrefix: "no-framework-showcase" },
-    ),
-    customizing: highlightCode(
-      locals.highlighter,
-      {
-        "@serwist/build": {
-          code: `/**
+        "build.ts": {
+          code: `import { injectManifest, type ManifestTransform } from "@serwist/build";
+
+/**
  * A custom build ID.
  */
 declare const BUILD_ID: string;
@@ -409,23 +99,31 @@ declare const hashFile: (file: string) => string;
  * Whether the server is currently in development mode.
  */
 declare const dev: boolean;
-// ---cut-before---
-import { injectManifest, type ManifestTransform } from "@serwist/build";
 
 const manifestTransform: ManifestTransform = async (manifestEntries) => {
   const manifest = manifestEntries.map((m) => {
-    if (m.url === "dQw4w9WgXcQ") m.url = "get-rick-rolled.mp4";
-    if (m.revision === null) m.revision = crypto.randomUUID();
+    if (m.url === "dQw4w9WgXcQ") {
+      m.url = "get-rick-rolled.mp4";
+      m.revision = hashFile("static/get-rick-rolled.mp4");
+    }
     return m;
   });
   return { manifest, warnings: [] };
 };
 
 injectManifest({
+  // The path to the service worker file that will be read during the build process.
   swSrc: "app/sw.ts",
+  // The path and filename of the service worker file that will be created by the build process.
   swDest: "dist/sw.js",
+  // The string to find inside of the \`swSrc\` file. Once found, it will be replaced by the
+  // generated precache manifest.
   injectionPoint: "self.__HI_MOM",
+  // Whether the precache manifest should be set to \`undefined\`. Useful when you want it to only
+  // check if the provided options are valid.
   disablePrecacheManifest: dev,
+  // A list of entries to be precached, in addition to any entries that are generated as part of
+  // the build configuration.
   additionalPrecacheEntries: [
     {
       url: "/~offline",
@@ -436,92 +134,103 @@ injectManifest({
       revision: hashFile("static/manifest.json"),
     },
   ],
+  // Assets that match this will be assumed to be uniquely versioned via their URL, and exempted
+  // from the normal HTTP cache-busting that's done when populating the precache.
   // NOTE: THE SERWIST TEAM IS NOT THAT GOOD AT REGEXPS. JUST KNOW THAT.
   dontCacheBustURLsMatching: /^dist\\/static\\/([a-zA-Z0-9]+)\\.([a-z0-9]+)\\.(css|js)$/,
+  // One or more functions which will be applied sequentially against the generated manifest.
   manifestTransforms: [manifestTransform],
+  // Determines the maximum size of files that will be precached.
   maximumFileSizeToCacheInBytes: 7355608,
   modifyURLPrefix: {
     // hi-mom/index.GdhNyhN1.js -> index.GdhNyhN1.js
     "hi-mom/": "",
   },
+  // The local directory you wish to match \`globPatterns\` against.
   globDirectory: "dist/static",
+  // Determines whether or not symlinks are followed when generating the precache manifest.
   globFollow: false,
+  // A set of patterns matching files to always exclude when generating the precache manifest.
   globIgnores: ["**\\/node_modules\\/**\\/*"],
+  // Files matching any of these patterns will be included in the precache manifest.
   globPatterns: [\"**\/*.{js,css,html,png,webmanifest,json}\"],
+  // If true, an error reading a directory when generating a precache manifest will cause the
+  // build to fail. If false, the problematic directory will be skipped.
   globStrict: false,
+  // A map from URLs whose content is server-side rendered to either unique keys or sets of glob
+  // patterns that should match the files used to render said content.
   templatedURLs: {
-    "/legacy-home": "legacy/home/*.html",
+    "/legacy-home": ["legacy/home/*.html"],
   },
-});`,
-          lang: "typescript",
-        },
-        "@serwist/webpack-plugin": {
-          code: `/**
- * A custom build ID.
- */
-declare const BUILD_ID: string;
-/**
- * Hash a file based on its contents.
- */
-declare const hashFile: (file: string) => string;
-/**
- * Whether the server is currently in development mode.
- */
-declare const dev: boolean;
-// ---cut-before---
-import { type ManifestTransform } from "@serwist/build";
-import { InjectManifest } from "@serwist/webpack-plugin";
-import webpack from "webpack";
-
-const manifestTransform: ManifestTransform = async (manifestEntries) => {
-  const manifest = manifestEntries.map((m) => {
-    if (m.url === "dQw4w9WgXcQ") m.url = "get-rick-rolled.mp4";
-    if (m.revision === null) m.revision = crypto.randomUUID();
-    return m;
-  });
-  return { manifest, warnings: [] };
-};
-
-new InjectManifest({
-  swSrc: "app/sw.ts",
-  swDest: "dist/sw.js",
-  injectionPoint: "self.__HI_MOM",
-  disablePrecacheManifest: dev,
-  additionalPrecacheEntries: [
-    {
-      url: "/~offline",
-      revision: BUILD_ID,
-    },
-    {
-      url: "/manifest.json",
-      revision: hashFile("static/manifest.json"),
-    },
-  ],
-  // NOTE: THE SERWIST TEAM IS NOT THAT GOOD AT REGEXPS. JUST KNOW THAT.
-  dontCacheBustURLsMatching: /^dist\\/static\\/([a-zA-Z0-9]+)\\.([a-z0-9]+)\\.(css|js)$/,
-  manifestTransforms: [manifestTransform],
-  maximumFileSizeToCacheInBytes: 7355608,
-  modifyURLPrefix: {
-    // hi-mom/index.GdhNyhN1.js -> index.GdhNyhN1.js
-    "hi-mom/": "",
-  },
-  chunks: ["some-chunk"],
-  exclude: [/\\.map$/, /^manifest.*\\.js$/],
-  excludeChunks: ["some-chunk-to-be-excluded"],
-  // Usually you don't actually set this value unless you need to only include some
-  // specific files.
-  include: [() => true],
-  compileSrc: true,
-  webpackCompilationPlugins: [
-    new webpack.DefinePlugin({
-      "self.__CUSTOM_VALUE": "'hi mom'",
-    }),
-  ],
+  // Other options...
+  // See http://serwist.pages.dev/docs/build/configuring
 });`,
           lang: "typescript",
         },
       },
-      { idPrefix: "customizing-showcase" },
+      { idPrefix: "customizing", useTwoslash: false },
+    ),
+    interoperating: highlightCode(
+      locals.highlighter,
+      {
+        "sw.ts": {
+          code: `import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
+import { Serwist } from "serwist";
+import { BackgroundSyncQueue } from "serwist/plugins";
+import { defaultCache } from "@serwist/vite/worker";
+
+declare global {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+  }
+}
+
+declare const self: ServiceWorkerGlobalScope;
+
+self.skipWaiting();
+
+self.addEventListener("activate", () => self.clients.claim());
+
+const queue = new BackgroundSyncQueue("myQueueName");
+
+const serwist = new Serwist({
+  concurrentPrecaching: 10,
+  precacheEntries: self.__SW_MANIFEST,
+  precacheOptions: {
+    ignoreURLParametersMatching: [],
+  },
+  cleanupOutdatedCaches: true,
+  skipWaiting: false,
+  clientsClaim: false,
+  navigationPreload: false,
+  disableDevLogs: true,
+  runtimeCaching: defaultCache,
+});
+
+self.addEventListener("fetch", (event) => {
+  const url = new URL(event.request.url);
+  // For "/legacy-post" with the method "POST", this simply makes a network request,
+  // but if that fails due to a network problem, the request is added to the Background
+  // Synchronization Queue and will be retried later.
+  if (event.request.method === "POST" && url.origin === location.origin && url.pathname === "/legacy-post") {
+    const backgroundSync = async () => {
+      try {
+        const response = await fetch(event.request.clone());
+        return response;
+      } catch (error) {
+        await queue.pushRequest({ request: event.request });
+        return Response.error();
+      }
+    };
+    event.respondWith(backgroundSync());
+  }
+});
+
+serwist.addEventListeners();`,
+          lang: "typescript",
+        },
+      },
+      { idPrefix: "interoperating", useTwoslash: false },
     ),
   },
 });

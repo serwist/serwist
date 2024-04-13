@@ -93,7 +93,7 @@ const serwist = new Serwist({
   // entry's \`handler\`. This does not apply to precached URLs.
   runtimeCaching: defaultCache,
   // Other options...
-  // See https://serwist.pages.dev/docs/sw/abstractions/serwist
+  // See https://serwist.pages.dev/docs/serwist/abstractions/serwist
 });
 
 serwist.addEventListeners();`,
