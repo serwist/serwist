@@ -3,14 +3,14 @@ import { encodeOpenGraphImage } from "$lib/og";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
-  title: "Precaching",
+  title: "Precaching assets",
   ogImage: encodeOpenGraphImage({
-    title: "Precaching",
+    title: "Precaching assets",
     desc: "serwist",
   }),
   toc: [
     {
-      title: "Precaching",
+      title: "Precaching assets",
       id: "precaching",
       children: [
         {
@@ -20,12 +20,6 @@ export const load: PageServerLoad = ({ locals }) => ({
         {
           title: "How precaching works",
           id: "how-precaching-works",
-          children: [
-            {
-              title: "Serving precached responses",
-              id: "serving-precached-responses",
-            },
-          ],
         },
         {
           title: "Explanation of the precache list",
@@ -45,7 +39,6 @@ export const load: PageServerLoad = ({ locals }) => ({
           title: "Advanced usage",
           id: "advanced-usage",
           children: [
-            { title: "Using PrecacheController", id: "using-precache-controller" },
             { title: "Reading precached assets", id: "reading-precached-assets" },
             { title: "Cleaning up old precaches", id: "cleaning-up-old-precaches" },
             { title: "Using subresource integrity", id: "using-subresource-integrity" },
@@ -59,9 +52,20 @@ export const load: PageServerLoad = ({ locals }) => ({
       locals.highlighter,
       {
         "sw.ts": {
-          code: `import { precacheAndRoute } from "serwist/legacy";
+          code: `import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
+import { Serwist } from "serwist";
 
-precacheAndRoute([
+declare global {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+  }
+}
+
+declare const self: ServiceWorkerGlobalScope;
+// ---cut-before---
+const serwist = new Serwist();
+
+serwist.addToPrecacheList([
   { url: "/index.html", revision: "383676" },
   { url: "/styles/app.0c9a31.css", revision: null },
   { url: "/scripts/app.0d5770.js", revision: null },
@@ -76,19 +80,24 @@ precacheAndRoute([
       locals.highlighter,
       {
         "sw.ts": {
-          code: `import { precacheAndRoute } from "serwist/legacy";
+          code: `import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
+import { Serwist } from "serwist";
 
-precacheAndRoute(
-  [
-    { url: "/index.html", revision: "383676" },
-    { url: "/styles/app.0c9a31.css", revision: null },
-    { url: "/scripts/app.0d5770.js", revision: null },
-  ],
-  {
+declare global {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+  }
+}
+
+declare const self: ServiceWorkerGlobalScope;
+// ---cut-before---
+const serwist = new Serwist({
+  precacheEntries: self.__SW_MANIFEST,
+  precacheOptions: {
     // Ignore all URL parameters.
     ignoreURLParametersMatching: [/.*/],
   },
-);`,
+});`,
           lang: "typescript",
         },
       },
@@ -98,18 +107,23 @@ precacheAndRoute(
       locals.highlighter,
       {
         "sw.ts": {
-          code: `import { precacheAndRoute } from "serwist/legacy";
+          code: `import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
+import { Serwist } from "serwist";
 
-precacheAndRoute(
-  [
-    { url: "/index.html", revision: "383676" },
-    { url: "/styles/app.0c9a31.css", revision: null },
-    { url: "/scripts/app.0d5770.js", revision: null },
-  ],
-  {
+declare global {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+  }
+}
+
+declare const self: ServiceWorkerGlobalScope;
+// ---cut-before---
+const serwist = new Serwist({
+  precacheEntries: self.__SW_MANIFEST,
+  precacheOptions: {
     directoryIndex: null,
   },
-);`,
+});`,
           lang: "typescript",
         },
       },
@@ -119,10 +133,22 @@ precacheAndRoute(
       locals.highlighter,
       {
         "sw.ts": {
-          code: `import { precacheAndRoute } from "serwist/legacy";
+          code: `import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
+import { Serwist } from "serwist";
 
-precacheAndRoute([{ url: "/about.html", revision: "b79cd4" }], {
-  cleanURLs: false,
+declare global {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+  }
+}
+
+declare const self: ServiceWorkerGlobalScope;
+// ---cut-before---
+const serwist = new Serwist({
+  precacheEntries: self.__SW_MANIFEST,
+  precacheOptions: {
+    cleanURLs: false,
+  },
 });`,
           lang: "typescript",
         },
@@ -133,99 +159,66 @@ precacheAndRoute([{ url: "/about.html", revision: "b79cd4" }], {
       locals.highlighter,
       {
         "sw.ts": {
-          code: `import { precacheAndRoute } from "serwist/legacy";
+          code: `import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
+import { Serwist } from "serwist";
 
-precacheAndRoute(
-  [
-    { url: "/index.html", revision: "383676" },
-    { url: "/styles/app.0c9a31.css", revision: null },
-    { url: "/scripts/app.0d5770.js", revision: null },
-  ],
-  {
+declare global {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+  }
+}
+
+declare const self: ServiceWorkerGlobalScope;
+// ---cut-before---
+const serwist = new Serwist({
+  precacheEntries: self.__SW_MANIFEST,
+  precacheOptions: {
     urlManipulation: ({ url }) => {
       const alteredUrl = new URL(url);
       // Your logic goes here...
       return [alteredUrl];
     },
   },
-);`,
+});`,
           lang: "typescript",
         },
       },
       { idPrefix: "manipulating-urls" },
     ),
     advancedUsage: {
-      precacheController: highlightCode(
-        locals.highlighter,
-        {
-          "sw.ts": {
-            code: `// @filename: $code.advancedUsage.precacheController.sw.ts
-// ---cut-before---
-import { PrecacheController } from "serwist/legacy";
-
-declare const self: ServiceWorkerGlobalScope;
-
-const precacheController = new PrecacheController();
-
-precacheController.addToCacheList([
-  { url: "/styles/example-1.abcd.css", revision: null },
-  { url: "/styles/example-2.1234.css", revision: null },
-  { url: "/scripts/example-1.abcd.js", revision: null },
-  { url: "/scripts/example-2.1234.js", revision: null },
-]);
-
-precacheController.addToCacheList([
-  {
-    url: "/index.html",
-    revision: "abcd",
-  },
-  {
-    url: "/about.html",
-    revision: "1234",
-  },
-]);
-
-self.addEventListener("install", (event) => {
-  event.waitUntil(precacheController.install(event));
-});
-
-self.addEventListener("activate", (event) => {
-  event.waitUntil(precacheController.activate(event));
-});
-
-self.addEventListener("fetch", (event) => {
-  const cacheKey = precacheController.getCacheKeyForURL(event.request.url);
-  if (cacheKey === undefined) {
-    return;
-  }
-  event.respondWith(
-    (async () => {
-      const cachedResponse = await caches.match(cacheKey);
-      if (cachedResponse !== undefined) {
-        return cachedResponse;
-      }
-      return Response.error();
-    })(),
-  );
-});`,
-            lang: "typescript",
-          },
-        },
-        { idPrefix: "using-precache-controller" },
-      ),
       readingPrecachedAssets: {
         getCacheKeyForUrl: highlightCode(
           locals.highlighter,
           {
             "sw.ts": {
-              code: `import { cacheNames } from "serwist";
-import { getCacheKeyForURL } from "serwist/legacy";
+              code: `import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
+import { Serwist } from "serwist";
 
-const cache = await caches.open(cacheNames.precache);
-const cacheKey = getCacheKeyForURL("/precached-file.html");
-if (cacheKey) {
-  const response = await cache.match(cacheKey);
-}`,
+declare global {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+  }
+}
+
+declare const self: ServiceWorkerGlobalScope;
+// ---cut-before---
+const serwist = new Serwist({
+  precacheEntries: self.__SW_MANIFEST,
+});
+
+const cache = await caches.open(serwist.precacheStrategy.cacheName);
+
+self.addEventListener("fetch", (event) => {
+  const url = new URL(event.request.url);
+  if (url.origin === location.origin && url.pathname === "/test-precache") {
+    const cacheKey = serwist.getPrecacheKeyForUrl("/precached-file.html");
+    if (cacheKey) {
+      event.respondWith((async () => (await cache.match(cacheKey)) ?? Response.error())());
+    }
+  }
+});
+
+serwist.addEventListeners();`,
               lang: "typescript",
             },
           },
@@ -235,9 +228,29 @@ if (cacheKey) {
           locals.highlighter,
           {
             "sw.ts": {
-              code: `import { matchPrecache } from "serwist/legacy";
+              code: `import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
+import { Serwist } from "serwist";
 
-const response = await matchPrecache("/precached-file.html");`,
+declare global {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+  }
+}
+
+declare const self: ServiceWorkerGlobalScope;
+// ---cut-before---
+const serwist = new Serwist({
+  precacheEntries: self.__SW_MANIFEST,
+});
+
+self.addEventListener("fetch", (event) => {
+  const url = new URL(event.request.url);
+  if (url.origin === location.origin && url.pathname === "/test-precache") {
+    event.respondWith((async () => (await serwist.matchPrecache("/precached-file.html")) ?? Response.error())());
+  }
+});
+
+serwist.addEventListeners();`,
               lang: "typescript",
             },
           },

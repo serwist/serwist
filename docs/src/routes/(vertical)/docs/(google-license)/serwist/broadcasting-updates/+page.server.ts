@@ -30,7 +30,7 @@ export const load: PageServerLoad = ({ locals }) => ({
           id: "basic-usage",
           children: [
             {
-              title: "Customize headers to check",
+              title: "Customizing the list of headers to check",
               id: "customize-headers-to-check",
             },
           ],

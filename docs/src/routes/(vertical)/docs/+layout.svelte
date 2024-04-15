@@ -2,16 +2,12 @@
   import { page } from "$app/stores";
   import Toc from "$components/Toc.svelte";
   import { TocObserver } from "$lib/TocObserver.svelte";
-  import type { TocEntry } from "$lib/types";
 
   const { children } = $props();
-  const toc = $derived($page.data.toc) as TocEntry[] | undefined;
-  let tocObserver: TocObserver | null = null;
+  const toc = $derived($page.data.toc);
 
   $effect(() => {
-    if (!tocObserver) {
-      tocObserver = new TocObserver();
-    }
+    const tocObserver = new TocObserver();
     tocObserver.observe(toc);
     return () => {
       tocObserver?.disconnect();

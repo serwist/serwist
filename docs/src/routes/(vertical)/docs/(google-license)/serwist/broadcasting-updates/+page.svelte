@@ -89,8 +89,8 @@
   Note: Make sure to add the message event listener before the DOMContentLoaded event, as browsers will queue messages received early in the page load
   (before your JavaScript code has had a chance to run) up until (but not after) the DOMContentLoaded event.
 </Callout>
-<h3 id="customize-headers-to-check">Customize headers to check</h3>
-<p>You can customize the headers to check by setting the headersToCheck property.</p>
+<h3 id="customize-headers-to-check">Customizing the list of headers to check</h3>
+<p>You can customize the list of headers to check by setting the headersToCheck property.</p>
 <CodeTab codes={data.code.basicUsage.customizeHeaders} defaultTab="sw.ts" />
 <h2 id="advanced-usage">Advanced usage</h2>
 <p>

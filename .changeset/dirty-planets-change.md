@@ -75,9 +75,9 @@ refactor(svelte): moved Svelte integration into a separate package
       staticRevisions: "static-v1",
     }),
     precacheOptions: {
+      cleanupOutdatedCaches: true,
       ignoreURLParametersMatching: defaultIgnoreUrlParameters,
     },
-    cleanupOutdatedCaches: true,
     skipWaiting: true,
     clientsClaim: true,
     navigationPreload: true,

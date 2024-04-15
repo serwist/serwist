@@ -87,8 +87,8 @@
     "serwist": "workspace:*",
     "@serwist/utils": "workspace:*",
     "@types/node": "20.12.7",
-    "rollup": "4.14.2",
-    "typescript": "5.5.0-dev.20240413",
+    "rollup": "4.14.3",
+    "typescript": "5.5.0-dev.20240415",
     "vite": "5.2.8"
   },
   "peerDependencies": {

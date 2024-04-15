@@ -264,9 +264,9 @@
         }, {} as StaticRevisions),
       }),
       precacheOptions: {
+        cleanupOutdatedCaches: true,
         ignoreURLParametersMatching: defaultIgnoreUrlParameters,
       },
-      cleanupOutdatedCaches: true,
       skipWaiting: true,
       clientsClaim: true,
       navigationPreload: true,

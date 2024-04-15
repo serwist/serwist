@@ -335,22 +335,27 @@ export declare interface PrecacheEntry {
 
 export interface PrecacheRouteOptions {
   /**
-   * The `directoryIndex` will check cache entries for a URL ending with '/'
-   * to see if there is a hit when appending the `directoryIndex` value.
+   * Tells Serwist to check the precache for an entry whose URL is the request URL appended
+   * with the specified value. Only applies if the request URL ends with "/".
+   * 
+   * @default "index.html"
    */
   directoryIndex?: string | null;
   /**
-   * An array of RegExp's to remove search params when looking for a cache match.
+   * An array of `RegExp` objects matching search params that should be removed when looking
+   * for a precache match.
    */
   ignoreURLParametersMatching?: RegExp[];
   /**
-   * The `cleanURLs` option will check the cache for the URL with a `.html` added
-   * to the end of the end.
+   * Tells Serwist to check the precache for an entry whose URL is the request URL appended
+   * with ".html".
+   * 
+   * @default true
    */
   cleanURLs?: boolean;
   /**
-   * This is a function that should take a URL and return an array of
-   * alternative URLs that should be checked for precache matches.
+   * A function that should take a URL and return an array of alternative URLs that should
+   * be checked for precache matches.
    */
   urlManipulation?: UrlManipulation;
 }

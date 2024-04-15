@@ -6,7 +6,7 @@
   const { data } = $props();
 </script>
 
-<h1 id="precaching">Precaching</h1>
+<h1 id="precaching">Precaching assets</h1>
 <a href="https://developer.chrome.com/docs/workbox/modules/workbox-precaching" class="link" target="_blank" rel="noreferrer">
   Original source (Apache 2.0 License). Adapted for Serwist's usage.
 </a>
@@ -40,18 +40,6 @@
 <p>
   Serwist performs these steps whenever your service worker is installed and activated, ensuring the user has the latest assets and only downloads
   files that have changed.
-</p>
-<h3 id="serving-precached-responses">Serving precached responses</h3>
-<p>Calling <ICD>precacheAndRoute()</ICD> or <ICD>addRoute()</ICD> creates a route that matches requests for precached URLs.</p>
-<p>
-  The response strategy used for this route is cache-first: the precached response will be used, unless that cached response is not present (due to
-  some unexpected error), in which case a network response will be used instead.
-</p>
-<p>
-  The order in which you register routes is important. You normally want to call <ICD>precacheAndRoute()</ICD> or <ICD>addRoute()</ICD> prior to registering
-  any additional routes with <ICD><a class="link" href="/docs/routing/register-route">registerRoute()</a></ICD>. If you call
-  <ICD>registerRoute()</ICD> first, and that route matches an incoming request, whatever strategy you defined in that additional route will be used to
-  respond, instead of the cache-first strategy used by Serwist's precaching mechanism.
 </p>
 <h2 id="explanation-of-the-precache-list">Explanation of the precache list</h2>
 <p>
@@ -131,13 +119,6 @@
 </p>
 <CodeTab codes={data.code.manipulatingUrls} defaultTab="sw.ts" />
 <h2 id="advanced-usage">Advanced usage</h2>
-<h3 id="using-precache-controller">Using PrecacheController</h3>
-<p>
-  By default, Serwist sets up the <ICD>install</ICD> and <ICD>activate</ICD> listeners for you. For developers familiar with service workers, this may
-  not be desirable if you need more control, in which case, you can directly use <ICD>PrecacheController</ICD> and determine when assets are precached
-  and when cleanup should occur on your own.
-</p>
-<CodeTab codes={data.code.advancedUsage.precacheController} defaultTab="sw.ts" />
 <h3 id="reading-precached-assets">Reading precached assets</h3>
 <p>
   There are times when you might need to read a precached asset directly, outside the context of the routing that Serwist can automatically perform.
@@ -153,17 +134,14 @@
 </p>
 <CodeTab codes={data.code.advancedUsage.readingPrecachedAssets.getCacheKeyForUrl} defaultTab="sw.ts" />
 <p>
-  Alternatively, if all you need is the precached <ICD>Response</ICD> object, you can call <ICD>matchPrecache()</ICD>, which will automatically use
-  the correct cache key and search in the according cache:
+  Alternatively, if all you need is the precached <ICD>Response</ICD> object, you can call the <ICD>matchPrecache()</ICD> method, which will automatically
+  use the correct cache key and search in the according cache:
 </p>
-<Callout type="info">
-  If you are using your own PrecacheController instance, instead of using the default instance via precacheAndRoute, you should call the
-  matchPrecache() or getCacheKeyForURL() methods directly on that instance.
-</Callout>
+<CodeTab codes={data.code.advancedUsage.readingPrecachedAssets.matchPrecache} defaultTab="sw.ts" />
 <h3 id="cleaning-up-old-precaches">Cleaning up old precaches</h3>
 <p>
   Obsolete data shouldn't interfere with normal operations, but it does contribute towards your overall storage quota usage, and it can be friendlier
-  to your users to explicitly delete it. You can do this by adding <ICD>cleanupOutdatedCaches()</ICD> to your service worker.
+  to your users to explicitly delete it. You can do this by setting the <ICD>precacheOptions.cleanupOutdatedCaches</ICD> option to <ICD>true</ICD>.
 </p>
 <h3 id="using-subresource-integrity">Using subresource integrity</h3>
 <p>Some developers might want the added guarantees offered by subresource integrity enforcement when retrieving precached URLs from the network.</p>

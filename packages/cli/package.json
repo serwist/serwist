@@ -54,7 +54,7 @@
     "@types/inquirer": "9.0.7",
     "@types/stringify-object": "4.0.5",
     "@types/update-notifier": "6.0.8",
-    "rollup": "4.14.2",
-    "typescript": "5.5.0-dev.20240413"
+    "rollup": "4.14.3",
+    "typescript": "5.5.0-dev.20240415"
   }
 }

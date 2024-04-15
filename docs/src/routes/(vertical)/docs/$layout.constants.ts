@@ -10,28 +10,16 @@ export const DOCS_SIDEBAR_LINKS = [
     href: "/docs/serwist",
     children: [
       {
-        title: "Abstracting away the APIs",
-        href: "/docs/serwist/abstractions",
+        title: "Using the Serwist API",
+        href: "/docs/serwist/core",
         children: [
           {
             title: "disableDevLogs",
-            href: "/docs/serwist/abstractions/disable-dev-logs",
-          },
-          {
-            title: "fallbacks",
-            href: "/docs/serwist/abstractions/fallbacks",
-          },
-          {
-            title: "handlePrecaching",
-            href: "/docs/serwist/abstractions/handle-precaching",
+            href: "/docs/serwist/core/disable-dev-logs",
           },
           {
             title: "Serwist",
-            href: "/docs/serwist/abstractions/serwist",
-          },
-          {
-            title: "registerRuntimeCaching",
-            href: "/docs/serwist/abstractions/register-runtime-caching",
+            href: "/docs/serwist/core/serwist",
           },
         ],
       },
@@ -80,7 +68,7 @@ export const DOCS_SIDEBAR_LINKS = [
         ],
       },
       {
-        title: "Navigation preloading",
+        title: "Preloading navigations",
         href: "/docs/serwist/navigation-preloading",
         children: [
           { title: "disableNavigationPreload", href: "/docs/serwist/navigation-preloading/disable-navigation-preload" },
@@ -89,7 +77,7 @@ export const DOCS_SIDEBAR_LINKS = [
         ],
       },
       {
-        title: "Precaching",
+        title: "Precaching assets",
         href: "/docs/serwist/precaching",
       },
       {

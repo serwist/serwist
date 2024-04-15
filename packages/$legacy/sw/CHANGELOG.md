@@ -108,12 +108,12 @@
 
     ```ts
     const serwist = new Serwist({
-      concurrentPrecaching: 10,
       precacheEntries: self.__SW_MANIFEST,
       precacheOptions: {
+        concurrency: 10,
+        cleanupOutdatedCaches: true,
         ignoreURLParametersMatching: defaultIgnoreUrlParameters,
       },
-      cleanupOutdatedCaches: true,
       skipWaiting: true,
       clientsClaim: true,
       navigationPreload: false,

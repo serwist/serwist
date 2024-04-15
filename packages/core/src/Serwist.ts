@@ -50,26 +50,26 @@ export interface FallbacksOptions {
 
 export interface PrecacheOptions extends PrecacheRouteOptions {
   /**
-   * The cache to use for precaching.
+   * The cache used for precaching.
    */
   cacheName?: string;
-}
-
-export interface SerwistOptions {
-  /**
-   * A list of URLs that should be cached.
-   */
-  precacheEntries?: (PrecacheEntry | string)[];
-  /**
-   * Options to customize how Serwist precaches the URLs in the precache list.
-   */
-  precacheOptions?: PrecacheOptions;
   /**
    * Whether outdated caches should be removed.
    *
    * @default false
    */
   cleanupOutdatedCaches?: boolean;
+  /**
+   * The number of precache requests that should be made concurrently.
+   *
+   * @default 10
+   */
+  concurrency?: number;
+  /**
+   * Whether to attempt to get the response from the network if there's
+   * a precache miss.
+   */
+  fallbackToNetwork?: boolean;
   /**
    * An URL that should point to a HTML file with which navigation requests for URLs that aren't
    * precached will be fulfilled.
@@ -89,17 +89,17 @@ export interface SerwistOptions {
    * events for precached assets.
    */
   plugins?: SerwistPlugin[];
+}
+
+export interface SerwistOptions {
   /**
-   * Whether to attempt to get the response from the network if there's
-   * a precache miss.
+   * A list of URLs that should be cached.
    */
-  fallbackToNetwork?: boolean;
+  precacheEntries?: (PrecacheEntry | string)[];
   /**
-   * The number of precache requests that should be made concurrently.
-   *
-   * @default 10
+   * Options to customize how Serwist precaches the URLs in the precache list.
    */
-  concurrentPrecaching?: number;
+  precacheOptions?: PrecacheOptions;
   /**
    * Forces the waiting service worker to become the active one.
    *
@@ -137,7 +137,7 @@ export interface SerwistOptions {
    */
   runtimeCaching?: RuntimeCaching[];
   /**
-   * Your configuration for `@serwist/google-analytics`. This plugin is
+   * Your configuration for `initializeGoogleAnalytics`. This plugin is
    * only initialized when this option is not `undefined` or `false`.
    */
   offlineAnalyticsConfig?: Omit<GoogleAnalyticsInitializeOptions, "serwist"> | boolean;
@@ -149,12 +149,12 @@ export interface SerwistOptions {
   disableDevLogs?: boolean;
   /**
    * Precaches routes so that they can be used as a fallback when
-   * a Strategy fails to generate a response.
+   * a `Strategy` fails to generate a response.
    *
-   * Note: This option mutates `runtimeCaching`. It also precaches the URLs
-   * defined in `entries`, so you must NOT precache any of them beforehand.
+   * Note: This option mutates `runtimeCaching`. It also expects the URLs
+   * defined in `entries` to have been precached beforehand.
    *
-   * @see https://serwist.pages.dev/docs/serwist/abstractions/fallbacks
+   * @see https://serwist.pages.dev/docs/serwist/core/fallbacks
    */
   fallbacks?: FallbacksOptions;
 }
@@ -184,13 +184,6 @@ export class Serwist {
   constructor({
     precacheEntries,
     precacheOptions,
-    cleanupOutdatedCaches,
-    navigateFallback,
-    navigateFallbackAllowlist,
-    navigateFallbackDenylist,
-    plugins = [],
-    fallbackToNetwork = true,
-    concurrentPrecaching = 10,
     skipWaiting = false,
     importScripts,
     navigationPreload = false,
@@ -201,11 +194,11 @@ export class Serwist {
     disableDevLogs = false,
     fallbacks,
   }: SerwistOptions = {}) {
-    this._concurrentPrecaching = concurrentPrecaching;
+    this._concurrentPrecaching = precacheOptions?.concurrency ?? 10;
     this._precacheStrategy = new PrecacheOnly({
       cacheName: privateCacheNames.getPrecacheName(precacheOptions?.cacheName),
-      plugins: [...plugins, new PrecacheCacheKeyPlugin({ precacheController: this })],
-      fallbackToNetwork,
+      plugins: [...(precacheOptions?.plugins ?? []), new PrecacheCacheKeyPlugin({ precacheController: this })],
+      fallbackToNetwork: precacheOptions?.fallbackToNetwork,
     });
     this._routes = new Map();
     this._defaultHandlerMap = new Map();
@@ -237,21 +230,21 @@ export class Serwist {
 
     if (clientsClaim) clientsClaimImpl();
 
-    this.registerRoute(new PrecacheRoute(this, precacheOptions));
-
     if (!!precacheEntries && precacheEntries.length > 0) {
       this.addToPrecacheList(precacheEntries);
     }
 
-    if (cleanupOutdatedCaches) {
+    if (precacheOptions?.cleanupOutdatedCaches) {
       cleanupOutdatedCachesImpl(precacheOptions?.cacheName);
     }
 
-    if (navigateFallback) {
+    this.registerRoute(new PrecacheRoute(this, precacheOptions));
+
+    if (precacheOptions?.navigateFallback) {
       this.registerRoute(
-        new NavigationRoute(this.createHandlerBoundToUrl(navigateFallback), {
-          allowlist: navigateFallbackAllowlist,
-          denylist: navigateFallbackDenylist,
+        new NavigationRoute(this.createHandlerBoundToUrl(precacheOptions?.navigateFallback), {
+          allowlist: precacheOptions?.navigateFallbackAllowlist,
+          denylist: precacheOptions?.navigateFallbackDenylist,
         }),
       );
     }
@@ -266,6 +259,7 @@ export class Serwist {
         });
       }
     }
+
     if (runtimeCaching !== undefined) {
       if (fallbacks !== undefined) {
         const fallbackPlugin = new PrecacheFallbackPlugin({
@@ -292,23 +286,21 @@ export class Serwist {
   }
 
   /**
-   * The strategy created by this controller and
-   * used to cache assets and respond to fetch events.
+   * The strategy used to precache assets and respond to fetch events.
    */
   get precacheStrategy(): Strategy {
     return this._precacheStrategy;
   }
   /**
-   * A `Map` of HTTP method name (`'GET'`, etc.) to an array of all the corresponding `Route`
-   * instances that are registered.
+   * A `Map` of HTTP method name (`'GET'`, etc.) to an array of all corresponding registered `Route`
+   * instances.
    */
   get routes(): Map<HTTPMethod, Route[]> {
     return this._routes;
   }
 
   /**
-   * This function adds Serwist's event listeners for you. Before calling it, add your own listeners
-   * should you need to.
+   * Adds Serwist's event listeners for you. Before calling it, add your own listeners should you need to.
    */
   addEventListeners() {
     self.addEventListener("install", this.handleInstall);
@@ -318,8 +310,7 @@ export class Serwist {
   }
 
   /**
-   * This method will add items to the precache list, removing duplicates
-   * and ensuring the information is valid.
+   * Adds items to the precache list, removing duplicates and ensuring the information is valid.
    *
    * @param entries Array of entries to precache.
    */
@@ -535,7 +526,7 @@ export class Serwist {
 
   /**
    * Registers a `RegExp`, string, or function with a caching
-   * strategy to the `Router`.
+   * strategy to the router.
    *
    * @param capture If the capture param is a `Route`, all other arguments will be ignored.
    * @param handler A callback function that returns a `Promise` resulting in a `Response`.
@@ -602,7 +593,7 @@ export class Serwist {
   }
 
   /**
-   * Unregisters a `Route` with the `Router`.
+   * Unregisters a `Route` with the router.
    *
    * @param route The `Route` to unregister.
    */
@@ -643,7 +634,7 @@ export class Serwist {
 
   /**
    * Returns the cache key used for storing a given URL. If that URL is
-   * unversioned, like `/index.html', then the cache key will be the original
+   * unversioned, like "/index.html", then the cache key will be the original
    * URL with a search parameter appended to it.
    *
    * @param url A URL whose cache key you want to look up.
@@ -713,7 +704,7 @@ export class Serwist {
   }
 
   /**
-   * Apply the routing rules to a `FetchEvent` object to get a `Response` from an
+   * Applies the routing rules to a `FetchEvent` object to get a `Response` from an
    * appropriate `Route`'s handler.
    *
    * @param options

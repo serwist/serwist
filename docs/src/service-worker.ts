@@ -2,7 +2,6 @@ import { basePath, defaultCache, defaultIgnoreUrlParameters, getPrecacheManifest
 import { Serwist } from "serwist";
 
 const serwist = new Serwist({
-  concurrentPrecaching: 20,
   precacheEntries: getPrecacheManifest({
     // IMPORTANT NOTE: BUMP THIS UP SHOULD YOU CHANGE
     // (NOT ADD!) A FILE IN THE STATIC DIRECTORY.
@@ -23,9 +22,10 @@ const serwist = new Serwist({
     ],
   }),
   precacheOptions: {
+    cleanupOutdatedCaches: true,
+    concurrency: 20,
     ignoreURLParametersMatching: defaultIgnoreUrlParameters,
   },
-  cleanupOutdatedCaches: true,
   skipWaiting: true,
   clientsClaim: true,
   navigationPreload: false,

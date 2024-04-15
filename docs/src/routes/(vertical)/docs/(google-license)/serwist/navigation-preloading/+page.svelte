@@ -6,7 +6,7 @@
   const { data } = $props();
 </script>
 
-<h1 id="navigation-preloading">Navigation preloading</h1>
+<h1 id="navigation-preloading">Preloading navigations</h1>
 <a href="https://developer.chrome.com/docs/workbox/modules/workbox-navigation-preload" class="link" target="_blank" rel="noreferrer">
   Original source (Apache 2.0 License). Adapted for Serwist's usage.
 </a>
