@@ -24,6 +24,11 @@
   </li>
   <li>
     <InlineCode>
+      <a class="link" href="/docs/cli">@serwist/cli</a>
+    </InlineCode>
+  </li>
+  <li>
+    <InlineCode>
       <a class="link" href="/docs/next">@serwist/next</a>
     </InlineCode>
   </li>

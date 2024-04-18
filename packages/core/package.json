@@ -22,17 +22,11 @@
   "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
-      "plugins": [
-        "./dist/index.plugins.d.ts"
-      ],
       "legacy": [
         "./dist/index.legacy.d.ts"
       ],
       "internal": [
         "./dist/index.internal.d.ts"
-      ],
-      "strategies": [
-        "./dist/index.strategies.d.ts"
       ]
     }
   },
@@ -41,10 +35,6 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
-    "./plugins": {
-      "types": "./dist/index.plugins.d.ts",
-      "default": "./dist/index.plugins.js"
-    },
     "./legacy": {
       "types": "./dist/index.legacy.d.ts",
       "default": "./dist/index.legacy.js"
@@ -52,10 +42,6 @@
     "./internal": {
       "types": "./dist/index.internal.d.ts",
       "default": "./dist/index.internal.js"
-    },
-    "./strategies": {
-      "types": "./dist/index.strategies.d.ts",
-      "default": "./dist/index.strategies.js"
     },
     "./package.json": "./package.json"
   },

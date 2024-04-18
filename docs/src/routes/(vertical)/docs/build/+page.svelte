@@ -28,7 +28,7 @@
 <ul class="list">
   <li>You want to have even more postprocess control over the precache manifest and inject it into the service worker yourself.</li>
 </ul>
-<h2 id="configuring">Configuring</h2>
+<h2 id="configuration">Configuration</h2>
 <p>See <a class="link" href="/docs/build/configuring">Configuring</a>.</p>
 <h2>Frameworks</h2>
 <p>

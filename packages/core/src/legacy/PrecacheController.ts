@@ -7,8 +7,8 @@
 */
 
 import { parallel } from "@serwist/utils";
-import { PrecacheOnly } from "../strategies/PrecacheOnly.js";
-import type { Strategy } from "../strategies/Strategy.js";
+import { PrecacheOnly } from "../lib/strategies/PrecacheOnly.js";
+import type { Strategy } from "../lib/strategies/Strategy.js";
 import type { RouteHandlerCallback, SerwistPlugin } from "../types.js";
 import type { CleanupResult, InstallResult, PrecacheEntry } from "../types.js";
 import { PrecacheInstallReportPlugin } from "../utils/PrecacheInstallReportPlugin.js";

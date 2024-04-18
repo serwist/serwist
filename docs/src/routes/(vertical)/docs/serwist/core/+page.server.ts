@@ -11,7 +11,7 @@ export const load: PageServerLoad = ({ locals }) => ({
   toc: [
     {
       title: "Using the Serwist API",
-      id: "abstractions",
+      id: "api",
       children: [
         {
           title: "Introduction",
@@ -206,8 +206,7 @@ declare const self: ServiceWorkerGlobalScope;
 // ---cut-before---
 // Again, where you import this depends on your stack.
 import { defaultCache } from "@serwist/vite/worker";
-import { RegExpRoute } from "serwist";
-import { NetworkOnly } from "serwist/strategies";
+import { NetworkOnly, RegExpRoute } from "serwist";
 
 const serwist = new Serwist({
   precacheEntries: self.__SW_MANIFEST,

@@ -112,7 +112,7 @@ export const messages = {
   },
 
   "duplicate-queue-name": ({ name }) => {
-    return `The Queue name '${name}' is already being used. All instances of backgroundSync.Queue must be given unique names.`;
+    return `The queue name '${name}' is already being used. All instances of 'serwist.BackgroundSyncQueue' must be given unique names.`;
   },
 
   "expired-test-without-max-age": ({ methodName, paramName }) => {

@@ -1,7 +1,6 @@
 import type { PrecacheEntry, RuntimeCaching } from "serwist";
+import { ExpirationPlugin, CacheFirst, NetworkFirst, StaleWhileRevalidate } from "serwist";
 import { logger } from "serwist/internal";
-import { ExpirationPlugin } from "serwist/plugins";
-import { CacheFirst, NetworkFirst, StaleWhileRevalidate } from "serwist/strategies";
 
 import {
   base as basePath,

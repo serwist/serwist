@@ -12,21 +12,77 @@
     <a class="link" href="./serwist/core">Using the Serwist API</a>
   </li>
   <li>
-    <a class="link" href="./serwist/background-syncing">Background synchronizing</a>
+    <a class="link" href="./serwist/guide/background-syncing">Background synchronizing</a>
   </li>
   <li>
-    <a class="link" href="./serwist/broadcasting-updates">Broadcasting cache updates</a>
+    <a class="link" href="./serwist/guide/broadcasting-updates">Broadcasting cache updates</a>
   </li>
   <li>
-    <a class="link" href="./serwist/expiring-outdated-responses">Expiring outdated responses</a>
+    <a class="link" href="./serwist/guide/expiring-outdated-responses">Expiring outdated responses</a>
   </li>
   <li>
-    <a class="link" href="./serwist/navigation-preloading">Preloading navigations</a>
+    <a class="link" href="./serwist/guide/navigation-preloading">Preloading navigations</a>
   </li>
   <li>
-    <a class="link" href="./serwist/precaching">Precaching assets</a>
+    <a class="link" href="./serwist/guide/precaching">Precaching assets</a>
   </li>
   <li>
-    <a class="link" href="./serwist/setting-cacheability-criteria">Setting cacheability criteria</a>
+    <a class="link" href="./serwist/guide/setting-cacheability-criteria">Setting cacheability criteria</a>
+  </li>
+</ul>
+<h2 id="api">The Serwist API</h2>
+<p>Here are <ICD>serwist</ICD>'s functions and plugins:</p>
+<ul class="list">
+  <li>
+    Core functions
+    <ul class="list">
+      <li>
+        <a class="link" href="./serwist/core/background-sync-queue">BackgroundSyncQueue</a>
+      </li>
+      <li>
+        <a class="link" href="./serwist/core/broadcast-cache-update">BroadcastCacheUpdate</a>
+      </li>
+      <li>
+        <a class="link" href="./serwist/core/cacheable-response">CacheableResponse</a>
+      </li>
+      <li>
+        <a class="link" href="./serwist/core/cache-expiration">CacheExpiration</a>
+      </li>
+      <li>
+        <a class="link" href="./serwist/core/disable-dev-logs">disableDevLogs</a>
+      </li>
+      <li>
+        <a class="link" href="./serwist/core/disable-navigation-preload">disableNavigationPreload</a>
+      </li>
+      <li>
+        <a class="link" href="./serwist/core/enable-navigation-preload">enableNavigationPreload</a>
+      </li>
+      <li>
+        <a class="link" href="./serwist/core/is-navigation-preload-supported">isNavigationPreloadSupported</a>
+      </li>
+      <li>
+        <a class="link" href="./serwist/core/serwist">Serwist</a>
+      </li>
+      <li>
+        <a class="link" href="./serwist/core/responses-are-same">responsesAreSame</a>
+      </li>
+    </ul>
+  </li>
+  <li>
+    Plugins
+    <ul class="list">
+      <li>
+        <a class="link" href="./serwist/plugins/background-sync-plugin">BackgroundSyncPlugin</a>
+      </li>
+      <li>
+        <a class="link" href="./serwist/plugins/broadcast-update-plugin">BroadcastUpdatePlugin</a>
+      </li>
+      <li>
+        <a class="link" href="./serwist/plugins/cacheable-response-plugin">CacheableResponsePlugin</a>
+      </li>
+      <li>
+        <a class="link" href="./serwist/plugins/expiration-plugin">ExpirationPlugin</a>
+      </li>
+    </ul>
   </li>
 </ul>

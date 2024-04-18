@@ -13,6 +13,10 @@ export const load: PageServerLoad = () => ({
           title: "Introduction",
           id: "introduction",
         },
+        {
+          title: "The Serwist API",
+          id: "api",
+        },
       ],
     },
   ],

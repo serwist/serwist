@@ -6,13 +6,13 @@ import { cleanupOutdatedCaches as cleanupOutdatedCachesImpl } from "./cleanupOut
 import { clientsClaim as clientsClaimImpl } from "./clientsClaim.js";
 import { type HTTPMethod, defaultMethod } from "./constants.js";
 import { disableDevLogs as disableDevLogsImpl } from "./disableDevLogs.js";
+import { type GoogleAnalyticsInitializeOptions, initializeGoogleAnalytics } from "./lib/googleAnalytics/initializeGoogleAnalytics.js";
+import { type PrecacheFallbackEntry, PrecacheFallbackPlugin } from "./lib/precaching/PrecacheFallbackPlugin.js";
 import { enableNavigationPreload } from "./navigationPreload.js";
 import { parseRoute } from "./parseRoute.js";
-import { type GoogleAnalyticsInitializeOptions, initializeGoogleAnalytics } from "./plugins/googleAnalytics/initializeGoogleAnalytics.js";
-import { type PrecacheFallbackEntry, PrecacheFallbackPlugin } from "./plugins/precaching/PrecacheFallbackPlugin.js";
 import { setCacheNameDetails } from "./setCacheNameDetails.js";
-import { PrecacheOnly } from "./strategies/PrecacheOnly.js";
-import { Strategy } from "./strategies/Strategy.js";
+import { PrecacheOnly } from "./lib/strategies/PrecacheOnly.js";
+import { Strategy } from "./lib/strategies/Strategy.js";
 import type {
   RouteHandler,
   RouteHandlerCallback,

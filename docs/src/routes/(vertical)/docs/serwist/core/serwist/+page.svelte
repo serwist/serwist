@@ -130,7 +130,7 @@
     </ICD> (if <ICD>runtimeCaching</ICD> and <ICD>fallbacks</ICD> are not <ICD>undefined</ICD>)
   </li>
   <li>
-    <ICD>serwist/plugins.initializeGoogleAnalytics</ICD> (if <ICD>offlineAnalyticsConfig</ICD> is set)
+    <ICD>serwist.initializeGoogleAnalytics</ICD> (if <ICD>offlineAnalyticsConfig</ICD> is set)
   </li>
   <li>
     <a class="link" href="/docs/serwist/core/disable-dev-logs"><ICD>serwist.disableDevLogs</ICD></a> (if <ICD>disableDevLogs</ICD> is set to

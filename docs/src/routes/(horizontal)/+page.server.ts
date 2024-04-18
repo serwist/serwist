@@ -175,8 +175,7 @@ injectManifest({
       {
         "sw.ts": {
           code: `import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
-import { Serwist } from "serwist";
-import { BackgroundSyncQueue } from "serwist/plugins";
+import { BackgroundSyncQueue, Serwist } from "serwist";
 import { defaultCache } from "@serwist/vite/worker";
 
 declare global {
@@ -210,8 +209,8 @@ const serwist = new Serwist({
 self.addEventListener("fetch", (event) => {
   const url = new URL(event.request.url);
   // For "/legacy-post" with the method "POST", this simply makes a network request,
-  // but if that fails due to a network problem, the request is added to the Background
-  // Synchronization Queue and will be retried later.
+  // but if that fails due to a network problem, the request is added to the background
+  // synchronization queue and will be retried later.
   if (event.request.method === "POST" && url.origin === location.origin && url.pathname === "/legacy-post") {
     const backgroundSync = async () => {
       try {

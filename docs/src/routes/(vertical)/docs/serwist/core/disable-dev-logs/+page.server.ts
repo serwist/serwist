@@ -3,10 +3,10 @@ import { encodeOpenGraphImage } from "$lib/og";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
-  title: "disableDevLogs - Using the Serwist API - serwist",
+  title: "disableDevLogs - The Serwist API - serwist",
   ogImage: encodeOpenGraphImage({
     title: "disableDevLogs",
-    desc: "Using the Serwist API - serwist",
+    desc: "The Serwist API - serwist",
   }),
   code: {
     usage: highlightCode(

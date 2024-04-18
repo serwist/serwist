@@ -32,8 +32,8 @@ export const load: PageServerLoad = () => ({
           ],
         },
         {
-          title: "Configuring",
-          id: "configuring",
+          title: "Configuration",
+          id: "configuration",
         },
       ],
     },

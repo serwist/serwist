@@ -7,10 +7,10 @@
 */
 
 import { Route } from "../Route.js";
-import { BackgroundSyncPlugin } from "../plugins/backgroundSync/BackgroundSyncPlugin.js";
-import type { BackgroundSyncQueue, BackgroundSyncQueueEntry } from "../plugins/backgroundSync/BackgroundSyncQueue.js";
-import { NetworkFirst } from "../strategies/NetworkFirst.js";
-import { NetworkOnly } from "../strategies/NetworkOnly.js";
+import { BackgroundSyncPlugin } from "../lib/backgroundSync/BackgroundSyncPlugin.js";
+import type { BackgroundSyncQueue, BackgroundSyncQueueEntry } from "../lib/backgroundSync/BackgroundSyncQueue.js";
+import { NetworkFirst } from "../lib/strategies/NetworkFirst.js";
+import { NetworkOnly } from "../lib/strategies/NetworkOnly.js";
 import type { RouteMatchCallbackOptions } from "../types.js";
 import { cacheNames as privateCacheNames } from "../utils/cacheNames.js";
 import { getFriendlyURL } from "../utils/getFriendlyURL.js";

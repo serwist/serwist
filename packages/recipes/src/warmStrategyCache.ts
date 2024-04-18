@@ -1,4 +1,4 @@
-import type { Strategy } from "serwist/strategies";
+import type { Strategy } from "serwist";
 
 export interface WarmStrategyCacheOptions {
   /**

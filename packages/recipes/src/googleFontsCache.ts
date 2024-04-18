@@ -5,9 +5,7 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-import { Serwist } from "serwist";
-import { CacheableResponsePlugin, ExpirationPlugin } from "serwist/plugins";
-import { CacheFirst, StaleWhileRevalidate } from "serwist/strategies";
+import { CacheableResponsePlugin, ExpirationPlugin, Serwist, CacheFirst, StaleWhileRevalidate } from "serwist";
 
 export interface GoogleFontCacheOptions {
   /**

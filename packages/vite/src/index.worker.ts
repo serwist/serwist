@@ -1,6 +1,5 @@
 import type { RuntimeCaching } from "serwist";
-import { ExpirationPlugin } from "serwist/plugins";
-import { CacheFirst, NetworkFirst, StaleWhileRevalidate } from "serwist/strategies";
+import { CacheFirst, NetworkFirst, StaleWhileRevalidate, ExpirationPlugin } from "serwist";
 
 /**
  * The default, recommended list of caching strategies for applications

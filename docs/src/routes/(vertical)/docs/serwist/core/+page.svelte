@@ -6,7 +6,7 @@
   const { data } = $props();
 </script>
 
-<h1 id="abstractions">Using the Serwist API</h1>
+<h1 id="api">Using the Serwist API</h1>
 <h2 id="introduction">Introduction</h2>
 <p>
   "A progressive web app (PWA) is an app that's built using web platform technologies, but that provides a user experience like that of a
@@ -43,21 +43,21 @@
 <p>Here is a list of resources you can read to learn more about the core of Serwist:</p>
 <ul class="list">
   <li>
-    <a class="link" href="./background-syncing">Background synchronizing</a>
+    <a class="link" href="./guide/background-syncing">Background synchronizing</a>
   </li>
   <li>
-    <a class="link" href="./broadcasting-updates">Broadcasting cache updates</a>
+    <a class="link" href="./guide/broadcasting-updates">Broadcasting cache updates</a>
   </li>
   <li>
-    <a class="link" href="./expiring-outdated-responses">Expiring outdated responses</a>
+    <a class="link" href="./guide/expiring-outdated-responses">Expiring outdated responses</a>
   </li>
   <li>
-    <a class="link" href="./navigation-preloading">Preloading navigations</a>
+    <a class="link" href="./guide/navigation-preloading">Preloading navigations</a>
   </li>
   <li>
-    <a class="link" href="./precaching">Precaching assets</a>
+    <a class="link" href="./guide/precaching">Precaching assets</a>
   </li>
   <li>
-    <a class="link" href="./setting-cacheability-criteria">Setting cacheability criteria</a>
+    <a class="link" href="./guide/setting-cacheability-criteria">Setting cacheability criteria</a>
   </li>
 </ul>

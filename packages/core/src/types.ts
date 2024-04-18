@@ -337,7 +337,7 @@ export interface PrecacheRouteOptions {
   /**
    * Tells Serwist to check the precache for an entry whose URL is the request URL appended
    * with the specified value. Only applies if the request URL ends with "/".
-   * 
+   *
    * @default "index.html"
    */
   directoryIndex?: string | null;
@@ -349,7 +349,7 @@ export interface PrecacheRouteOptions {
   /**
    * Tells Serwist to check the precache for an entry whose URL is the request URL appended
    * with ".html".
-   * 
+   *
    * @default true
    */
   cleanURLs?: boolean;
