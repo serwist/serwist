@@ -162,7 +162,7 @@ module.exports = async () => {
             lang: "typescript",
           },
         },
-        { idPrefix: "dropped-the-commonjs-build" },
+        { idPrefix: "dropped-the-commonjs-build", useTwoslash: false },
       ),
       minimumSupportedTsNode: highlightCode(
         locals.highlighter,

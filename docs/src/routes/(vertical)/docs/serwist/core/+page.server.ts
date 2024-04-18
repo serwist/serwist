@@ -148,7 +148,6 @@ declare global {
 declare const self: ServiceWorkerGlobalScope;
 
 // ---cut-before---
-
 const serwist = new Serwist({
   precacheEntries: self.__SW_MANIFEST,
   skipWaiting: false,

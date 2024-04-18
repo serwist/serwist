@@ -1,6 +1,6 @@
 <script lang="ts">
+  import Code from "$components/Code.svelte";
   import CodeTab from "$components/CodeTab.svelte";
-  import InlineCode from "$components/InlineCode.svelte";
   import { clsx } from "$lib/clsx";
 
   const { data } = $props();
@@ -14,7 +14,7 @@
 >
   <div class="py-24 md:py-0">
     <h1 class="text-5xl font-semibold tracking-tight">Serwist. <span class="text-comment">A Swiss Army knife for service workers.</span></h1>
-    <InlineCode showIcon>npm install serwist && npm install -D @serwist/build</InlineCode>
+    <Code showIcon>npm install serwist && npm install -D @serwist/build</Code>
   </div>
   <div>
     <h2 class="text-4xl font-semibold tracking-tight">

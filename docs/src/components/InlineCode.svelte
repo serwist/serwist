@@ -1,16 +1,11 @@
 <script lang="ts">
-  import type { CodeProps } from "./Code.svelte";
+  import type { HTMLAttributes } from "svelte/elements";
 
-  const { showIcon = false, children, ...props }: CodeProps = $props();
+  const { children, ...props }: Omit<HTMLAttributes<HTMLElement>, "class" | "contenteditable"> = $props();
 </script>
 
-<span class="text-comment inline-flex w-fit items-center gap-2 font-mono [&>*]:min-w-[auto]">
-  {#if showIcon}
-    <span class="select-none text-black dark:text-white" aria-hidden="true">{">_"}</span>
+<code class="text-comment break-all font-mono" {...props}>
+  {#if children}
+    {@render children()}
   {/if}
-  <code class="flex gap-2 break-all" {...props}>
-    {#if children}
-      {@render children()}
-    {/if}
-  </code>
-</span>
+</code>
