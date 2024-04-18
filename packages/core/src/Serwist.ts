@@ -132,8 +132,6 @@ export interface SerwistOptions {
   clientsClaim?: boolean;
   /**
    * A list of caching strategies.
-   *
-   * @see https://serwist.pages.dev/docs/serwist/runtime-caching
    */
   runtimeCaching?: RuntimeCaching[];
   /**
@@ -153,8 +151,6 @@ export interface SerwistOptions {
    *
    * Note: This option mutates `runtimeCaching`. It also expects the URLs
    * defined in `entries` to have been precached beforehand.
-   *
-   * @see https://serwist.pages.dev/docs/serwist/core/fallbacks
    */
   fallbacks?: FallbacksOptions;
 }
@@ -170,6 +166,8 @@ interface CacheURLsMessageData {
 
 /**
  * A class that helps bootstrap the service worker.
+ * 
+ * @see https://serwist.pages.dev/docs/serwist/core/serwist
  */
 export class Serwist {
   private readonly _urlsToCacheKeys: Map<string, string> = new Map();

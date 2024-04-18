@@ -20,7 +20,7 @@
     @apply scroll-smooth;
   }
   body {
-    @apply bg-neutral-50 font-sans font-normal text-black transition-colors duration-100 dark:bg-neutral-950 dark:text-white;
+    @apply bg-neutral-50 font-sans font-normal text-black dark:bg-neutral-950 dark:text-white;
   }
   h1,
   h2,

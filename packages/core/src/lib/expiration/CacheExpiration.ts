@@ -30,7 +30,7 @@ interface CacheExpirationConfig {
 
 /**
  * Allows you to expires cached responses based on age or maximum number of entries.
- * @see https://serwist.pages.dev/docs/expiration/cache-expiration
+ * @see https://serwist.pages.dev/docs/serwist/core/cache-expiration
  */
 export class CacheExpiration {
   private _isRunning = false;

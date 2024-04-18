@@ -16,19 +16,19 @@ export const BLOG_ENTRIES = [
       },
       {
         title: "Migrated to Zod",
-        id: "migrated-to-zod",
+        id: "migrate-to-zod",
       },
       {
-        title: "Support concurrent precaching",
-        id: "support-concurrent-precaching",
+        title: "Added support for concurrent precaching",
+        id: "concurrent-precaching",
       },
       {
-        title: "Dropped support for using string handlers with registerRuntimeCaching",
-        id: "dropped-support-for-runtime-caching-string-handlers",
+        title: "Removed RuntimeCaching's support for string handlers",
+        id: "removed-string-handlers",
       },
       {
-        title: "Moved Svelte integration into a separate package",
-        id: "moved-svelte-integration-into-a-separate-package",
+        title: "Moved Serwist's Svelte integration into a separate package",
+        id: "moved-svelte-integration",
       },
     ],
   },

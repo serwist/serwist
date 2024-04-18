@@ -64,8 +64,6 @@ export interface InstallSerwistOptions extends Omit<HandlePrecachingOptions, "pr
   clientsClaim?: boolean;
   /**
    * A list of caching strategies.
-   *
-   * @see https://serwist.pages.dev/docs/serwist/runtime-caching
    */
   runtimeCaching?: RuntimeCaching[];
   /**

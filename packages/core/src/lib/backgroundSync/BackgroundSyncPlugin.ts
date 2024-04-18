@@ -22,7 +22,7 @@ export class BackgroundSyncPlugin implements SerwistPlugin {
    * documentation for parameter details.
    * @param options See the `serwist/plugins.BackgroundSyncQueue`
    * documentation for parameter details.
-   * @see https://serwist.pages.dev/docs/background-sync/queue
+   * @see https://serwist.pages.dev/docs/core/background-sync-queue
    */
   constructor(name: string, options?: BackgroundSyncQueueOptions) {
     this._queue = new BackgroundSyncQueue(name, options);
