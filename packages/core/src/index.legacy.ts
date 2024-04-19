@@ -27,8 +27,8 @@ import { setDefaultHandler } from "./legacy/setDefaultHandler.js";
 import { getSingletonPrecacheController, setSingletonPrecacheController } from "./legacy/singletonPrecacheController.js";
 import { getSingletonRouter, setSingletonRouter } from "./legacy/singletonRouter.js";
 import { unregisterRoute } from "./legacy/unregisterRoute.js";
-import { parseRoute } from "./parseRoute.js";
 import { PrecacheOnly } from "./lib/strategies/PrecacheOnly.js";
+import { parseRoute } from "./parseRoute.js";
 
 export {
   // These are not deprecated, but we export them so legacy packages

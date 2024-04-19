@@ -7,7 +7,7 @@
 */
 
 import type { RouteMatchCallback, RouteMatchCallbackOptions, SerwistPlugin } from "serwist";
-import { CacheFirst, Serwist, CacheableResponsePlugin, ExpirationPlugin } from "serwist";
+import { CacheFirst, CacheableResponsePlugin, ExpirationPlugin, Serwist } from "serwist";
 import { warmStrategyCache } from "./warmStrategyCache.js";
 
 export interface ImageCacheOptions {

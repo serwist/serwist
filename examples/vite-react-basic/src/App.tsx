@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { getSerwist } from "@serwist/vite/browser";
+import { swUrl, swScope, swType } from "virtual:serwist";
 import { useEffect } from "react";
 
 import viteLogo from "/vite.svg";
@@ -10,10 +10,10 @@ import reactLogo from "./assets/react.svg";
 function App() {
   useEffect(() => {
     const registerSerwist = async () => {
-      const serwist = await getSerwist();
-      if (serwist) {
+      if ("serviceWorker" in navigator) {
+        const serwist = new (await import("@serwist/window")).Serwist(swUrl, { scope: swScope, type: swType });
         serwist.addEventListener("installed", () => console.log("Serwist installed!"));
-        await serwist.register();
+        void serwist.register();
       }
     };
     registerSerwist();

@@ -165,5 +165,17 @@ export const DOCS_SIDEBAR_LINKS = [
   {
     title: "@serwist/vite",
     href: "/docs/vite",
+    children: [
+      {
+        title: "Recipes",
+        href: "/docs/vite/recipes",
+        children: [
+          {
+            title: "SvelteKit",
+            href: "/docs/vite/recipes/svelte",
+          },
+        ],
+      },
+    ],
   },
 ] satisfies SidebarLink[];

@@ -24,7 +24,7 @@ export const buildPlugin = (ctx: SerwistViteContext, api: SerwistViteApi) => {
         }
       },
     },
-    async buildEnd(error) {
+    buildEnd(error) {
       if (error) throw error;
     },
   };

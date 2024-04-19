@@ -1,5 +1,5 @@
 import type { RuntimeCaching } from "serwist";
-import { CacheFirst, NetworkFirst, StaleWhileRevalidate, ExpirationPlugin, RangeRequestsPlugin } from "serwist";
+import { CacheFirst, ExpirationPlugin, NetworkFirst, RangeRequestsPlugin, StaleWhileRevalidate } from "serwist";
 
 import { PAGES_CACHE_NAME } from "./constants.js";
 

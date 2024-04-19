@@ -9,7 +9,6 @@ export default getRollupOptions({
     {
       input: {
         index: "src/index.ts",
-        "index.browser": "src/index.browser.ts",
         "index.worker": "src/index.worker.ts",
         "index.schema": "src/index.schema.ts",
       },
@@ -19,7 +18,6 @@ export default getRollupOptions({
         chunkFileNames: "chunks/[name].js",
         format: "esm",
       },
-      external: ["virtual:internal-serwist"],
     },
   ],
 });

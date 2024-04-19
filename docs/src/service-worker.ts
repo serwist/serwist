@@ -15,7 +15,8 @@ const serwist = new Serwist({
             // These two files are only used by the prerenderer's `fetch`, so
             // we need not cache them.
             entry.url === `${basePath}/noto-sans-mono.ttf` ||
-            entry.url === `${basePath}/yoga.wasm`
+            entry.url === `${basePath}/yoga.wasm` ||
+            entry.url === `${basePath}/_redirects`
           );
         }),
       }),

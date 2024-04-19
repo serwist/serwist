@@ -48,7 +48,8 @@
       "@serwist/vite",
       "pathe",
       "ufo",
-      "virtual:serwist-nuxt-configuration"
+      "virtual:serwist-nuxt-configuration",
+      "virtual:serwist"
     ]
   },
   "scripts": {

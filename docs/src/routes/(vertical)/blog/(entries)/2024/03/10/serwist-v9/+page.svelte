@@ -231,8 +231,7 @@
   Serwist, from now, only handles the service worker side for SvelteKit.
 </p>
 <p>
-  If the old behaviour is preferred, manual integration is required. You may look at the source code of
-  <ICD>@serwist/vite/integration/svelte@8.4.4</ICD> to see how this should be implemented. A guide will be added to the docs soon.
+  If the old behaviour is preferred, <a class="link" href="/docs/vite/recipes/svelte">manual integration</a> is required.
 </p>
 <p>
   To migrate, uninstall <ICD>@serwist/vite</ICD>, remove <ICD>@serwist/vite/integration/svelte.serwist</ICD> from your Vite config file, install

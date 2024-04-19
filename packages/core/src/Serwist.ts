@@ -8,11 +8,11 @@ import { type HTTPMethod, defaultMethod } from "./constants.js";
 import { disableDevLogs as disableDevLogsImpl } from "./disableDevLogs.js";
 import { type GoogleAnalyticsInitializeOptions, initializeGoogleAnalytics } from "./lib/googleAnalytics/initializeGoogleAnalytics.js";
 import { type PrecacheFallbackEntry, PrecacheFallbackPlugin } from "./lib/precaching/PrecacheFallbackPlugin.js";
+import { PrecacheOnly } from "./lib/strategies/PrecacheOnly.js";
+import { Strategy } from "./lib/strategies/Strategy.js";
 import { enableNavigationPreload } from "./navigationPreload.js";
 import { parseRoute } from "./parseRoute.js";
 import { setCacheNameDetails } from "./setCacheNameDetails.js";
-import { PrecacheOnly } from "./lib/strategies/PrecacheOnly.js";
-import { Strategy } from "./lib/strategies/Strategy.js";
 import type {
   RouteHandler,
   RouteHandlerCallback,
@@ -166,7 +166,7 @@ interface CacheURLsMessageData {
 
 /**
  * A class that helps bootstrap the service worker.
- * 
+ *
  * @see https://serwist.pages.dev/docs/serwist/core/serwist
  */
 export class Serwist {

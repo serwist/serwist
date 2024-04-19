@@ -1,2 +1,2 @@
-export const INTERNAL_SERWIST_VIRTUAL = "virtual:internal-serwist";
-export const RESOLVED_INTERNAL_SERWIST_VIRTUAL = `\0${INTERNAL_SERWIST_VIRTUAL}`;
+export const SERWIST_VIRTUAL = "virtual:serwist";
+export const RESOLVED_SERWIST_VIRTUAL = `\0${SERWIST_VIRTUAL}`;

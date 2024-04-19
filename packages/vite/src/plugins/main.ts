@@ -2,7 +2,7 @@ import path from "node:path";
 
 import type { Plugin, UserConfig } from "vite";
 
-import { INTERNAL_SERWIST_VIRTUAL, RESOLVED_INTERNAL_SERWIST_VIRTUAL } from "../lib/constants.js";
+import { SERWIST_VIRTUAL, RESOLVED_SERWIST_VIRTUAL } from "../lib/constants.js";
 import type { SerwistViteContext } from "../lib/context.js";
 import { resolveOptions } from "../lib/options.js";
 import type { SerwistViteApi } from "../lib/types.js";
@@ -31,13 +31,13 @@ export const mainPlugin = (ctx: SerwistViteContext, api: SerwistViteApi) => {
       ctx.options = await resolveOptions(ctx.userOptions, config);
     },
     resolveId(id) {
-      if (id === INTERNAL_SERWIST_VIRTUAL) {
-        return RESOLVED_INTERNAL_SERWIST_VIRTUAL;
+      if (id === SERWIST_VIRTUAL) {
+        return RESOLVED_SERWIST_VIRTUAL;
       }
       return undefined;
     },
     load(id) {
-      if (id === RESOLVED_INTERNAL_SERWIST_VIRTUAL) {
+      if (id === RESOLVED_SERWIST_VIRTUAL) {
         return `export const swUrl = "${path.posix.join(ctx.options.base, ctx.options.swUrl)}";
 export const swScope = "${ctx.options.scope}";
 export const swType = "${ctx.devEnvironment ? "module" : ctx.options.type}";`;

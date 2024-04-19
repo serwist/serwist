@@ -62,7 +62,7 @@ export default defineNuxtModule<Require<ModuleOptions, "swUrl" | "swSrc" | "swDe
     }
 
     nuxt.hook("prepare:types", ({ references }) => {
-      references.push({ path: resolver.resolve(runtimeDir, "plugins/augmentation") });
+      references.push({ path: resolver.resolve(runtimeDir, "plugins/augmentation.d.ts") });
     });
 
     nuxt.hook("nitro:init", (nitro) => {

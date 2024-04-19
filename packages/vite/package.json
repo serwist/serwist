@@ -38,14 +38,14 @@
   "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
-      "browser": [
-        "./dist/index.browser.d.ts"
-      ],
       "worker": [
         "./dist/index.worker.d.ts"
       ],
       "schema": [
         "./dist/index.schema.d.ts"
+      ],
+      "typings": [
+        "./typings.d.ts"
       ]
     }
   },
@@ -54,10 +54,6 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
-    "./browser": {
-      "types": "./dist/index.browser.d.ts",
-      "default": "./dist/index.browser.js"
-    },
     "./worker": {
       "types": "./dist/index.worker.d.ts",
       "default": "./dist/index.worker.js"
@@ -65,6 +61,9 @@
     "./schema": {
       "types": "./dist/index.schema.d.ts",
       "default": "./dist/index.schema.js"
+    },
+    "./typings": {
+      "types": "./typings.d.ts"
     },
     "./package.json": "./package.json"
   },

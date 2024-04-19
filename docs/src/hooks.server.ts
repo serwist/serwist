@@ -5,7 +5,7 @@ import { getHighlighter } from "shiki";
 
 export const handle: Handle = async ({ event, resolve }) => {
   event.locals.highlighter = await getHighlighter({
-    langs: ["bash", "json", "typescript", "javascript", "tsx", "jsx"],
+    langs: ["bash", "json", "typescript", "javascript", "tsx", "jsx", "svelte"],
     themes: [githubDark, githubLight],
   });
   return resolve(event);
