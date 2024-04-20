@@ -1,6 +1,5 @@
 <script lang="ts">
   import CodeTab from "$components/CodeTab.svelte";
-  import InlineCode from "$components/InlineCode.svelte";
 
   const { data } = $props();
 </script>
@@ -10,9 +9,7 @@
 <p>Run the following command:</p>
 <CodeTab codes={data.code.install} defaultTab="npm" />
 <h2 id="basic-usage">Basic usage</h2>
-<h3 id="basic-usage-wrap-next-config">
-  Step 1: Wrap your Next.js config with <InlineCode>withSerwist</InlineCode>
-</h3>
+<h3 id="basic-usage-wrap-next-config">Step 1: Wrap your Next.js config with withSerwist</h3>
 <p>Update or create next.config.js with the following content:</p>
 <CodeTab codes={data.code.basicUsage.wrapConfig} defaultTab="next.config.mjs" />
 <h3 id="basic-usage-update-tsconfig">Step 2: Update tsconfig.json</h3>
@@ -22,13 +19,11 @@
 <h3 id="basic-usage-create-sw">Step 3: Create a service worker</h3>
 <p>Basic service worker template to get Serwist up and running:</p>
 <CodeTab codes={data.code.basicUsage.createEntry} defaultTab="sw.ts" />
-<p>If you use the template shown above, make sure you also install the following additional dependencies:</p>
-<CodeTab codes={data.code.basicUsage.createEntryAdditionalPackages} defaultTab="npm" />
 <h3 id="basic-usage-add-manifest">Step 4: Add a web application manifest</h3>
 <p>Update app/manifest.json (App Router) or public/manifest.json (Pages Router) with the following content:</p>
-<CodeTab codes={[data.code.basicUsage.manifestJson]} defaultTab="manifest.json" />
+<CodeTab codes={data.code.basicUsage.manifestJson} defaultTab="manifest.json" />
 <h3 id="basic-usage-add-metadata">
-  Step 5: Add metadata to <InlineCode>{"<head />"}</InlineCode>
+  Step 5: Add metadata to {"<head />"}
 </h3>
 <p>Add the following content to app/layout.tsx or pages/_app.tsx:</p>
 <CodeTab codes={data.code.basicUsage.metaAndLinkTags} defaultTab="app/layout.tsx" />

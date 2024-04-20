@@ -49,7 +49,7 @@
 <CodeTab codes={data.code.injectManifest} defaultTab="npm" />
 <h2 id="configuration">Configuration</h2>
 <p>
-  Edit your config file. The full set of configuration options can be found in <a class="link" href="/docs/build/inject-manifest/configuring">
+  Edit your config file. The full set of configuration options can be found in <a class="link" href="/docs/build/configuring">
     the reference documentation
   </a>.
 </p>

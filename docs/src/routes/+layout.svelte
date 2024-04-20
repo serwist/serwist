@@ -2,6 +2,8 @@
   import "$components/TwoslashHover.svelte";
   import "../app.css";
 
+  import { swUrl, swScope, swType } from "virtual:serwist";
+
   import { mount, unmount } from "svelte";
 
   import { dev } from "$app/environment";
@@ -10,6 +12,7 @@
   import { PUBLIC_CANONICAL_URL } from "$env/static/public";
   import { isColorScheme } from "$lib/isColorScheme";
   import { colorScheme } from "$lib/stores/colorScheme";
+  import { REROUTE } from "$lib/constants";
 
   const { data, children } = $props();
   const isDark = $derived($colorScheme === "dark");
@@ -27,11 +30,11 @@
   $effect(() => {
     const registerSerwist = async () => {
       if (!dev && "serviceWorker" in navigator) {
-        const serwist = new (await import("@serwist/window")).Serwist("/service-worker.js", { scope: "/", type: "classic" });
+        const serwist = new (await import("@serwist/window")).Serwist(swUrl, { scope: swScope, type: swType });
         serwist.addEventListener("installed", () => {
           console.log("Serwist installed!");
         });
-        await serwist.register();
+        void serwist.register();
       }
     };
     registerSerwist();
@@ -49,7 +52,7 @@
 
 <svelte:head>
   <title>{title}</title>
-  <link rel="canonical" href={new URL($page.url.pathname, PUBLIC_CANONICAL_URL).href} />
+  <link rel="canonical" href={new URL($page.url.pathname in REROUTE ? REROUTE[$page.url.pathname] : $page.url.pathname, PUBLIC_CANONICAL_URL).href} />
   <link rel="manifest" href="/manifest.webmanifest" />
   <meta property="og:title" content={title} />
   <meta property="og:image" content={ogImage} />

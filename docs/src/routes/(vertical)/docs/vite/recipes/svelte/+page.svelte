@@ -15,6 +15,9 @@
   where <ICD>@serwist/vite</ICD> comes in: it can generate a valid and efficient precache manifest for you. This page serves as a guide to help you integrate
   <ICD>@serwist/vite</ICD> into your SvelteKit application.
 </p>
+<h2 id="install">Install</h2>
+<p>Run the following command:</p>
+<CodeTab codes={data.code.install} defaultTab="npm" />
 <h2 id="implementation">Implementation</h2>
 <h3 id="updating-tsconfig">Step 1: Update tsconfig.json</h3>
 <p>If you use TypeScript, you should add the following content to tsconfig.json in order to get the correct types:</p>
@@ -22,12 +25,12 @@
 <p>Otherwise, safely skip this step.</p>
 <h3 id="configuring-svelte">Step 2: Configure SvelteKit</h3>
 <p>
-  Firstly, we need to configure SvelteKit so that it does not automatically register your service worker. This is, by default, done when it detects a
-  service worker in your source code.
+  Then, configure SvelteKit so that it does not automatically register your service worker. This is, by default, done when it detects a service worker
+  in your source tree.
 </p>
 <CodeTab codes={data.code.svelteConfig} defaultTab="svelte.config.js" />
 <h3 id="configuring-vite">Step 3: Configure Vite</h3>
-<p>Secondly, we need to write a small Vite plugin:</p>
+<p>Next, write a small Vite plugin:</p>
 <CodeTab codes={data.code.viteConfig} defaultTab="vite.config.ts" />
 <p>
   The configuration in the code above aims to precache all static assets and prerendered pages, same as <ICD>@serwist/svelte</ICD>'s behaviour.
@@ -38,11 +41,11 @@
   causes the <ICD>revision</ICD> of these assets to be <ICD>null</ICD>.
 </p>
 <h3 id="writing-a-sw">Step 4: Write a service worker</h3>
-<p>As always, we will need to write a service worker:</p>
+<p>As always, you need to write a service worker:</p>
 <CodeTab codes={data.code.serviceWorker} defaultTab="src/service-worker.ts" />
 <h3 id="adding-webmanifest">Step 5: Add a web application manifest</h3>
-<p>We will then need to write a web application manifest:</p>
+<p>We are almost there! To turn your website into a PWA, write a web application manifest:</p>
 <CodeTab codes={data.code.manifestJson} defaultTab="static/manifest.json" />
 <h3 id="updating-layout">Step 6: Register the service worker and add metadata to {"<head />"}</h3>
-<p>Finally, we need to update the app's main layout:</p>
+<p>Finally, update the app's main layout:</p>
 <CodeTab codes={data.code.register} defaultTab="+layout.svelte" />

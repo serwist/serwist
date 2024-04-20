@@ -48,23 +48,23 @@ export const load: PageServerLoad = ({ locals }) => ({
       locals.highlighter,
       {
         npm: {
-          code: "npm i @serwist/next",
+          code: "npm i @serwist/next && npm i -D serwist",
           lang: "bash",
         },
         yarn: {
-          code: "yarn add @serwist/next",
+          code: "yarn add @serwist/next && yarn add -D serwist",
           lang: "bash",
         },
         pnpm: {
-          code: "pnpm add @serwist/next",
+          code: "pnpm add @serwist/next && pnpm add -D serwist",
           lang: "bash",
         },
         bun: {
-          code: "bun add @serwist/next",
+          code: "bun add @serwist/next && bun add -D serwist",
           lang: "bash",
         },
       },
-      { idPrefix: "install-serwist-next-instruction" },
+      { idPrefix: "installing-serwist-next" },
     ),
     basicUsage: {
       wrapConfig: highlightCode(
@@ -138,93 +138,7 @@ module.exports = async (phase) => {
             lang: "javascript",
           },
         },
-        { idPrefix: "basic-usage-wrap-config-instruction" },
-      ),
-      createEntry: highlightCode(
-        locals.highlighter,
-        {
-          "sw.ts": {
-            code: `import { defaultCache } from "@serwist/next/worker";
-import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
-import { Serwist } from "serwist";
-
-declare global {
-  interface WorkerGlobalScope extends SerwistGlobalConfig {
-    // Change this attribute's name to your \`injectionPoint\`.
-    // \`injectionPoint\` is an InjectManifest option.
-    // See https://serwist.pages.dev/docs/build/inject-manifest/configuring
-    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
-  }
-}
-
-declare const self: ServiceWorkerGlobalScope;
-
-const serwist = new Serwist({
-  precacheEntries: self.__SW_MANIFEST,
-  skipWaiting: true,
-  clientsClaim: true,
-  navigationPreload: true,
-  runtimeCaching: defaultCache,
-});
-
-serwist.addEventListeners();`,
-            lang: "typescript",
-          },
-          "sw.js": {
-            code: `// @filename: sw-decl.d.ts
-import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
-
-declare global {
-  interface WorkerGlobalScope extends SerwistGlobalConfig {
-    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
-  }
-}
-
-// @filename: sw.js
-// @types: ./sw-decl.d.ts
-// @lib: esnext,webworker
-const self = /** @type {ServiceWorkerGlobalScope} */(/** @type {unknown} */(globalThis.self));
-// ---cut-before---
-import { defaultCache } from "@serwist/next/worker";
-import { Serwist } from "serwist";
-
-const serwist = new Serwist({
-  precacheEntries: self.__SW_MANIFEST,
-  skipWaiting: true,
-  clientsClaim: true,
-  navigationPreload: true,
-  runtimeCaching: defaultCache,
-});
-
-serwist.addEventListeners();`,
-            lang: "javascript",
-          },
-        },
-        { idPrefix: "basic-usage-create-entry-instruction" },
-      ),
-      createEntryAdditionalPackages: highlightCode(
-        locals.highlighter,
-        {
-          npm: {
-            code: "npm i -D serwist",
-            lang: "bash",
-          },
-          yarn: {
-            code: "yarn add -D serwist",
-            lang: "bash",
-          },
-          pnpm: {
-            code: "pnpm add -D serwist",
-            lang: "bash",
-          },
-          bun: {
-            code: "bun add -D serwist",
-            lang: "bash",
-          },
-        },
-        {
-          idPrefix: "basic-usage-create-usage-additional-packages-instruction",
-        },
+        { idPrefix: "updating-next-config" },
       ),
       tsConfig: highlightCode(
         locals.highlighter,
@@ -249,7 +163,41 @@ serwist.addEventListeners();`,
             lang: "json",
           },
         },
-        { idPrefix: "basic-usage-tsconfig-instruction" },
+        { idPrefix: "updating-tsconfig" },
+      ),
+      createEntry: highlightCode(
+        locals.highlighter,
+        {
+          "sw.ts": {
+            code: `import { defaultCache } from "@serwist/next/worker";
+import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
+import { Serwist } from "serwist";
+
+// This declares the value of \`injectionPoint\` to TypeScript.
+// \`injectionPoint\` is the string that will be replaced by the
+// actual precache manifest. By default, this string is set to
+// \`"self.__SW_MANIFEST"\`.
+declare global {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+  }
+}
+
+declare const self: ServiceWorkerGlobalScope;
+
+const serwist = new Serwist({
+  precacheEntries: self.__SW_MANIFEST,
+  skipWaiting: true,
+  clientsClaim: true,
+  navigationPreload: true,
+  runtimeCaching: defaultCache,
+});
+
+serwist.addEventListeners();`,
+            lang: "typescript",
+          },
+        },
+        { idPrefix: "writing-a-sw" },
       ),
       manifestJson: highlightCode(
         locals.highlighter,
@@ -286,8 +234,8 @@ serwist.addEventListeners();`,
             lang: "json",
           },
         },
-        { idPrefix: "basic-usage-manifest-json-instruction" },
-      )[0],
+        { idPrefix: "writing-a-webmanifest" },
+      ),
       metaAndLinkTags: highlightCode(
         locals.highlighter,
         {
@@ -580,7 +528,7 @@ export default function App({ Component, pageProps }) {
             lang: "jsx",
           },
         },
-        { idPrefix: "basic-usage-meta-and-link-tags-instruction" },
+        { idPrefix: "updating-layout" },
       ),
     },
   },

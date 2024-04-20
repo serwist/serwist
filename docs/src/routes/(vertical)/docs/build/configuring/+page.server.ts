@@ -7,4 +7,16 @@ export const load: PageServerLoad = () => ({
     title: "Configuring",
     desc: "@serwist/build",
   }),
+  toc: [
+    {
+      title: "Configuring",
+      id: "configuring",
+      children: [
+        {
+          title: "Available options",
+          id: "available-options",
+        },
+      ],
+    },
+  ],
 });

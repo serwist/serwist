@@ -1,3 +1,13 @@
 /docs/next/browser-exports /docs/next/worker-exports 301
 /docs/sw /docs/serwist 301
 /docs/sw/install-serwist /docs/serwist/core/serwist 301
+/docs/build/configuring/base-options /docs/build/configuring 301
+/docs/build/configuring/glob-options /docs/build/configuring 301
+/docs/build/configuring/base-options/:option /docs/build/configuring/:option 301
+/docs/build/configuring/glob-options/:option /docs/build/configuring/:option 301
+/docs/build/inject-manifest /docs/build 301
+/docs/build/get-manifest /docs/build 301
+/docs/build/inject-manifest/configuring /docs/build/configuring 301
+/docs/build/get-manifest/configuring /docs/build/configuring 301
+/docs/build/inject-manifest/configuring/:option /docs/build/configuring/:option 301
+/docs/build/get-manifest/configuring/:option /docs/build/configuring/:option 301

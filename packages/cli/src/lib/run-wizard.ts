@@ -25,6 +25,6 @@ export async function runWizard(): Promise<void> {
 as part of a build process.`);
 
   logger.log(
-    `You can further customize your service worker by making changes to ${configLocation}. See https://serwist.pages.dev/docs/build/inject-manifest/configuring for details.`,
+    `You can further customize your service worker by making changes to ${configLocation}. See https://serwist.pages.dev/docs/build/configuring for details.`,
   );
 }

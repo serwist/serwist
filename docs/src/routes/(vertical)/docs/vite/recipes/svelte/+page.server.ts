@@ -17,6 +17,7 @@ export const load: PageServerLoad = ({ locals }) => ({
           title: "Introduction",
           id: "introduction",
         },
+        { title: "Install", id: "install" },
         {
           title: "Implementation",
           id: "implementation",
@@ -51,6 +52,28 @@ export const load: PageServerLoad = ({ locals }) => ({
     },
   ],
   code: {
+    install: highlightCode(
+      locals.highlighter,
+      {
+        npm: {
+          code: "npm i -D @serwist/build @serwist/vite @serwist/window serwist",
+          lang: "bash",
+        },
+        yarn: {
+          code: "yarn add -D @serwist/build @serwist/vite @serwist/window serwist",
+          lang: "bash",
+        },
+        pnpm: {
+          code: "pnpm add -D @serwist/build @serwist/vite @serwist/window serwist",
+          lang: "bash",
+        },
+        bun: {
+          code: "bun add -D @serwist/build @serwist/vite serwist",
+          lang: "bash",
+        },
+      },
+      { idPrefix: "installing-serwist-vite" },
+    ),
     tsConfig: highlightCode(
       locals.highlighter,
       {
@@ -300,14 +323,15 @@ export default defineConfig({
 /// <reference lib="webworker" />
 /// <reference types="@sveltejs/kit" />
 import { defaultCache } from "@serwist/vite/worker";
-import { PrecacheEntry, Serwist } from "serwist";
+import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
+import { Serwist } from "serwist";
 
 // This declares the value of \`injectionPoint\` to TypeScript.
 // \`injectionPoint\` is the string that will be replaced by the
 // actual precache manifest. By default, this string is set to
 // \`"self.__SW_MANIFEST"\`.
 declare global {
-  interface WorkerGlobalScope {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {
   	__SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
   }
 }

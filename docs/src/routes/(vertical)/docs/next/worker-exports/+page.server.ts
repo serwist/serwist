@@ -8,6 +8,28 @@ export const load: PageServerLoad = ({ locals }) => ({
     title: "Worker exports",
     desc: "@serwist/next",
   }),
+  toc: [
+    {
+      title: "Worker exports",
+      id: "worker-exports",
+      children: [
+        {
+          title: "Introduction",
+          id: "introduction",
+        },
+        {
+          title: "Exported values",
+          id: "exported-values",
+          children: [
+            {
+              title: "defaultCache",
+              id: "default-cache",
+            },
+          ],
+        },
+      ],
+    },
+  ],
   code: {
     defaultCache: {
       usage: highlightCode(
@@ -22,7 +44,7 @@ declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
     // Change this attribute's name to your \`injectionPoint\`.
     // \`injectionPoint\` is an InjectManifest option.
-    // See https://serwist.pages.dev/docs/build/inject-manifest/configuring
+    // See https://serwist.pages.dev/docs/build/configuring
     __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
   }
 }

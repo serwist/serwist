@@ -29,6 +29,7 @@
     "@types/node": "20.12.7",
     "@types/react": "18.2.78",
     "@types/ssri": "7.1.5",
+    "@vitejs/plugin-react-swc": "3.6.0",
     "autoprefixer": "10.4.19",
     "hast-util-to-html": "9.0.1",
     "mdast-util-from-markdown": "2.0.0",

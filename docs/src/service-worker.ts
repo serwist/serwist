@@ -1,31 +1,20 @@
-import { basePath, defaultCache, defaultIgnoreUrlParameters, getPrecacheManifest } from "@serwist/svelte/worker";
-import { Serwist } from "serwist";
+import { defaultCache } from "@serwist/vite/worker";
+import { type PrecacheEntry, Serwist } from "serwist";
+
+declare global {
+  interface WorkerGlobalScope {
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+  }
+}
+
+declare const self: ServiceWorkerGlobalScope;
 
 const serwist = new Serwist({
-  precacheEntries: getPrecacheManifest({
-    // IMPORTANT NOTE: BUMP THIS UP SHOULD YOU CHANGE
-    // (NOT ADD!) A FILE IN THE STATIC DIRECTORY.
-    staticRevisions: "serwist-docs-static-v2",
-    manifestTransforms: [
-      (manifestEntries) => ({
-        manifest: manifestEntries.filter((entry) => {
-          // These files are not needed by the user.
-          return !(
-            entry.url.startsWith(`${basePath}/og/`) ||
-            // These two files are only used by the prerenderer's `fetch`, so
-            // we need not cache them.
-            entry.url === `${basePath}/noto-sans-mono.ttf` ||
-            entry.url === `${basePath}/yoga.wasm` ||
-            entry.url === `${basePath}/_redirects`
-          );
-        }),
-      }),
-    ],
-  }),
+  precacheEntries: self.__SW_MANIFEST,
   precacheOptions: {
     cleanupOutdatedCaches: true,
     concurrency: 20,
-    ignoreURLParametersMatching: defaultIgnoreUrlParameters,
+    ignoreURLParametersMatching: [/^x-sveltekit-invalidated$/],
   },
   skipWaiting: true,
   clientsClaim: true,
