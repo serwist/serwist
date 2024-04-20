@@ -8,26 +8,44 @@ export const load: PageServerLoad = ({ locals }) => ({
     title: "disable",
     desc: "Configuring - @serwist/next",
   }),
+  toc: [
+    {
+      title: "disable",
+      id: "disable",
+      children: [
+        {
+          title: "First added",
+          id: "first-added",
+        },
+        {
+          title: "Default",
+          id: "default",
+        },
+        {
+          title: "About",
+          id: "about",
+        },
+        {
+          title: "Usage",
+          id: "usage",
+        },
+      ],
+    },
+  ],
   code: {
     usage: highlightCode(
       locals.highlighter,
       {
         "next.config.mjs": {
-          code: `import withSerwistInit from "@serwist/next";
-      
-const withSerwist = withSerwistInit({
+          code: `withSerwistInit({
   swSrc: "app/sw.ts",
   swDest: "public/sw.js",
   disable: true,
-});
-         
-export default withSerwist({
-  // Your Next.js config
 });`,
           lang: "javascript",
         },
       },
-      { idPrefix: "usage-example" },
+      { idPrefix: "usage-example", useTwoslash: false },
     ),
   },
 });

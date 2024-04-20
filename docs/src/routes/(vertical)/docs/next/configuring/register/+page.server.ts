@@ -14,30 +14,21 @@ export const load: PageServerLoad = ({ locals }) => ({
         locals.highlighter,
         {
           "next.config.mjs": {
-            code: `import withSerwistInit from "@serwist/next";
-      
-const withSerwist = withSerwistInit({
+            code: `withSerwistInit({
   swSrc: "app/sw.ts",
   swDest: "public/sw.js",
   register: false,
-});
-         
-export default withSerwist({
-  // Your Next.js config
 });`,
             lang: "javascript",
           },
         },
-        { idPrefix: "usage-config-example" },
+        { idPrefix: "usage-config-example", useTwoslash: false },
       ),
       app: highlightCode(
         locals.highlighter,
         {
           "app/register-pwa.jsx": {
-            code: `// @filename: register-pwa.jsx
-/// <reference types="@serwist/next/typings" />
-// ---cut-before---
-"use client";
+            code: `"use client";
 import { useEffect } from "react";
 
 export default function RegisterPWA() {
@@ -51,7 +42,7 @@ export default function RegisterPWA() {
             lang: "jsx",
           },
         },
-        { idPrefix: "usage-app-example" },
+        { idPrefix: "usage-app-example", useTwoslash: false },
       ),
     },
   },

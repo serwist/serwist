@@ -2,6 +2,7 @@
   import Callout from "$components/Callout.svelte";
   import Code from "$components/Code.svelte";
   import CodeTab from "$components/CodeTab.svelte";
+  import ICD from "$components/InlineCode.svelte";
 
   const { data } = $props();
 </script>
@@ -12,7 +13,7 @@
 <h2>Default</h2>
 <Code>nextConfig.basePath</Code>
 <h2>About</h2>
-<p>The service worker's URL scope. Set to "/foo/" so that paths under "/foo/" are under the service worker's control while others are not.</p>
+<p>The service worker's URL scope. Set to <ICD>"/foo/"</ICD> so that paths under "/foo/" are under the service worker's control while others are not.</p>
 <Callout type="warning">Note: "/foo" does NOT belong to the aforementioned scope! Consider configuring how Next.js handles trailing slashes.</Callout>
 <h2>Usage</h2>
 <Callout type="warning">

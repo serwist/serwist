@@ -13,7 +13,17 @@
   </li>
   <li>
     <ICD>
-      <a class="link" href="/docs/vite/configuring/disable-precache-manifest">disablePrecacheManifest</a>
+      <a class="link" href="/docs/vite/configuring/base">base</a>
+    </ICD>
+  </li>
+  <li>
+    <ICD>
+      <a class="link" href="/docs/vite/configuring/dev-options">devOptions</a>
+    </ICD>
+  </li>
+  <li>
+    <ICD>
+      <a class="link" href="/docs/vite/configuring/disable">disable</a>
     </ICD>
   </li>
   <li>
@@ -53,6 +63,11 @@
   </li>
   <li>
     <ICD>
+      <a class="link" href="/docs/vite/configuring/integration">integration</a>
+    </ICD>
+  </li>
+  <li>
+    <ICD>
       <a class="link" href="/docs/vite/configuring/manifest-transforms">manifestTransforms</a>
     </ICD>
   </li>
@@ -63,7 +78,32 @@
   </li>
   <li>
     <ICD>
+      <a class="link" href="/docs/vite/configuring/mode">mode</a>
+    </ICD>
+  </li>
+  <li>
+    <ICD>
       <a class="link" href="/docs/vite/configuring/modify-url-prefix">modifyURLPrefix</a>
+    </ICD>
+  </li>
+  <li>
+    <ICD>
+      <a class="link" href="/docs/vite/configuring/plugins">plugins</a>
+    </ICD>
+  </li>
+  <li>
+    <ICD>
+      <a class="link" href="/docs/vite/configuring/rollup-format">rollupFormat</a>
+    </ICD>
+  </li>
+  <li>
+    <ICD>
+      <a class="link" href="/docs/vite/configuring/rollup-options">rollupOptions</a>
+    </ICD>
+  </li>
+  <li>
+    <ICD>
+      <a class="link" href="/docs/vite/configuring/scope">scope</a>
     </ICD>
   </li>
   <li>
@@ -78,7 +118,17 @@
   </li>
   <li>
     <ICD>
+      <a class="link" href="/docs/vite/configuring/sw-url">swUrl</a>
+    </ICD>
+  </li>
+  <li>
+    <ICD>
       <a class="link" href="/docs/vite/configuring/templated-urls">templatedURLs</a>
+    </ICD>
+  </li>
+  <li>
+    <ICD>
+      <a class="link" href="/docs/vite/configuring/type">type</a>
     </ICD>
   </li>
 </ul>

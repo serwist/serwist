@@ -8,26 +8,44 @@ export const load: PageServerLoad = ({ locals }) => ({
     title: "swUrl",
     desc: "Configuring - @serwist/next",
   }),
+  toc: [
+    {
+      title: "swUrl",
+      id: "sw-url",
+      children: [
+        {
+          title: "First added",
+          id: "first-added",
+        },
+        {
+          title: "About",
+          id: "about",
+        },
+        {
+          title: "Why?",
+          id: "why",
+        },
+        {
+          title: "Usage",
+          id: "usage",
+        },
+      ],
+    },
+  ],
   code: {
     usage: highlightCode(
       locals.highlighter,
       {
         "next.config.mjs": {
-          code: `import withSerwistInit from "@serwist/next";
-      
-const withSerwist = withSerwistInit({
+          code: `withSerwistInit({
   swSrc: "app/sw.ts",
   swDest: "public/weird-sw.js",
   swUrl: "/weird-sw.js",
-});
-         
-export default withSerwist({
-  // Your Next.js config
 });`,
           lang: "javascript",
         },
       },
-      { idPrefix: "usage-example" },
+      { idPrefix: "usage-example", useTwoslash: false },
     ),
   },
 });

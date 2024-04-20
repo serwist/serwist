@@ -48,6 +48,16 @@
   </li>
   <li>
     <ICD>
+      <a class="link" href="/docs/next/configuring/register">register</a>
+    </ICD>
+  </li>
+  <li>
+    <ICD>
+      <a class="link" href="/docs/next/configuring/reload-on-online">reloadOnOnline</a>
+    </ICD>
+  </li>
+  <li>
+    <ICD>
       <a class="link" href="/docs/next/configuring/scope">scope</a>
     </ICD>
   </li>
@@ -64,16 +74,6 @@
   <li>
     <ICD>
       <a class="link" href="/docs/next/configuring/sw-url">swUrl</a>
-    </ICD>
-  </li>
-  <li>
-    <ICD>
-      <a class="link" href="/docs/next/configuring/register">register</a>
-    </ICD>
-  </li>
-  <li>
-    <ICD>
-      <a class="link" href="/docs/next/configuring/reload-on-online">reloadOnOnline</a>
     </ICD>
   </li>
 </ul>

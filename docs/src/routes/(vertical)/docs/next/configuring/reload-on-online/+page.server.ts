@@ -13,33 +13,15 @@ export const load: PageServerLoad = ({ locals }) => ({
       locals.highlighter,
       {
         "next.config.mjs": {
-          code: `import withSerwistInit from "@serwist/next";
-      
-const withSerwist = withSerwistInit({
+          code: `withSerwistInit({
   swSrc: "app/sw.ts",
   swDest: "public/sw.js",
   reloadOnOnline: true,
-});
-         
-export default withSerwist({
-  // Your Next.js config
-});`,
-          lang: "javascript",
-        },
-        "next.config.js": {
-          code: `const withSerwist = require("@serwist/next").default({
-  swSrc: "app/sw.ts",
-  swDest: "public/sw.js",
-  reloadOnOnline: true,
-});
-
-module.exports = withSerwist({
-  // Your Next.js config
 });`,
           lang: "javascript",
         },
       },
-      { idPrefix: "usage-example" },
+      { idPrefix: "usage-example", useTwoslash: false },
     ),
   },
 });

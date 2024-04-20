@@ -11,13 +11,10 @@
 <h2 id="available-modes">Available modes</h2>
 <ul class="list">
   <li>
-    <a class="link" href="/docs/build/inject-manifest">InjectManifest</a> — Generates a manifest of local files that should be precached, injects it into
-    the service worker, and returns a list of warnings, the number of precache entries, and the number of bytes that they accumulate to.
+    InjectManifest — Generates a manifest of local files that should be precached, injects it into the service worker, and returns a list of warnings,
+    the number of precache entries, and the number of bytes that they accumulate to.
   </li>
-  <li>
-    <a class="link" href="/docs/build/get-manifest">GetManifest</a> — Although this mode is conceptually similar to InjectManifest, it simply returns the
-    manifest alongside other details that InjectManifest also returns instead of injecting it into the source.
-  </li>
+  <li>GetManifest — Conceptually similar to InjectManifest, but it simply returns the manifest instead of injecting it into the source.</li>
 </ul>
 <h2 id="each-modes-use-cases">Each mode's use cases</h2>
 <h3 id="when-to-use-injectmanifest">When to use InjectManifest?</h3>

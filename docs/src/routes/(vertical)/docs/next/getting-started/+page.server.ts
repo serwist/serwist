@@ -15,28 +15,28 @@ export const load: PageServerLoad = ({ locals }) => ({
       children: [
         { title: "Install", id: "install" },
         {
-          title: "Basic usage",
-          id: "basic-usage",
+          title: "Implementation",
+          id: "implementation",
           children: [
             {
               title: "Step 1: Wrap your Next.js config with withSerwist",
-              id: "basic-usage-wrap-next-config",
+              id: "adding-plugin",
             },
             {
               title: "Step 2: Update tsconfig.json",
-              id: "basic-usage-update-tsconfig",
+              id: "updating-tsconfig",
             },
             {
               title: "Step 3: Create a service worker",
-              id: "basic-usage-create-sw",
+              id: "writing-a-sw",
             },
             {
               title: "Step 4: Add a web application manifest",
-              id: "basic-usage-add-manifest",
+              id: "writing-a-webmanifest",
             },
             {
               title: "Step 5: Add metadata to <head />",
-              id: "basic-usage-add-metadata",
+              id: "updating-layout",
             },
           ],
         },
@@ -528,7 +528,7 @@ export default function App({ Component, pageProps }) {
             lang: "jsx",
           },
         },
-        { idPrefix: "updating-layout" },
+        { idPrefix: "updating-layout", useTwoslash: false },
       ),
     },
   },

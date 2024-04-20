@@ -17,28 +17,34 @@ import type { BuildOptions, Plugin, ResolvedConfig } from "vite";
 
 export interface InjectPartial {
   /**
-   * The mode in which Serwist should be built.
+   * The mode in which your service worker should be built.
    *
    * @default
    * process.env.NODE_ENV // or "production" if undefined
    */
   mode?: "development" | "production";
   /**
-   * The service worker type.
+   * The module type with which the service worker should be registered. Usually used alongside
+   * `rollupFormat`.
    *
    * @default "classic"
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerContainer/register#type
    */
   type?: WorkerType;
   /**
-   * The scope with which Serwist should register the service worker.
+   * The service worker's URL scope. Set to `"/foo/"` so that paths under "/foo/"
+   * are under the service worker's control while others are not.
    *
    * @default viteOptions.base
+   * @see https://vitejs.dev/config/shared-options.html#base
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerContainer/register#scope
    */
   scope?: string;
   /**
    * The base from which Serwist resolves URLs.
    *
    * @default viteOptions.base
+   * @see https://vitejs.dev/config/shared-options.html#base
    */
   base?: string;
   /**
@@ -58,7 +64,7 @@ export interface InjectPartial {
    */
   swUrl?: string;
   /**
-   * Plugins used to build your service worker.
+   * Rollup/Vite plugins used to build the service worker.
    */
   plugins?: Plugin[];
   /**
@@ -98,19 +104,28 @@ export interface InjectManifestOptionsComplete
     InjectResolved {}
 
 export interface Hooks {
+  /**
+   * Allows you to run some logic before the service worker is built.
+   * @param options 
+   * @returns 
+   */
   beforeBuildServiceWorker?: (options: PluginOptionsComplete) => void | Promise<void>;
+  /**
+   * Adjusts the application order of `@serwist/vite`'s `closeBundle` hook.
+   */
   closeBundleOrder?: "pre" | "post" | null;
+  /**
+   * Allows you to configure the options of Serwist and Vite. Useful when there is a dependency between the two.
+   * @param viteOptions 
+   * @param options 
+   * @returns 
+   */
   configureOptions?: (viteOptions: ResolvedConfig, options: PluginOptions) => void | Promise<void>;
 }
 
 export interface DevOptions {
   /**
    * Whether the service worker should be bundled in development mode.
-   *
-   * Many browsers still [do not support ES Modules in service workers](https://caniuse.com/mdn-api_serviceworker_ecmascript_modules). However, in development
-   * mode, certain frameworks, such as SvelteKit, do not bundle the service worker. As a result, trying to register that service worker on browsers lacking
-   * support, such as Firefox or Safari, will fail, but doing so on browsers not lacking support will not fail. This option is provided to prevent that from
-   * happening. What the plugin does is intercepting any request to the service worker (requests for `swUrl`) and returning a bundled one.
    *
    * @default true
    */
@@ -128,21 +143,6 @@ export interface PluginOptions extends InjectManifestOptions {}
 export interface PluginOptionsComplete extends InjectResolved {
   injectManifest: Omit<InjectManifestOptionsComplete, keyof InjectResolved>;
 }
-
-export interface ShareTargetFiles {
-  name: string;
-  accept: string | string[];
-}
-
-// biome-ignore lint/complexity/noBannedTypes: We intentionally do this.
-type Nothing = {};
-
-/**
- * type StringLiteralUnion<'maskable'> = 'maskable' | string
- * This has auto completion whereas `'maskable' | string` doesn't
- * Adapted from https://github.com/microsoft/TypeScript/issues/29729
- */
-export type StringLiteralUnion<T extends U, U = string> = T | (U & Nothing);
 
 export interface SerwistViteApi {
   /**

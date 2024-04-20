@@ -5,12 +5,12 @@
   const { data } = $props();
 </script>
 
-<h1>disable</h1>
-<h2>First added</h2>
+<h1 id="disable">disable</h1>
+<h2 id="first-added">First added</h2>
 <Code>next-pwa</Code>
-<h2>Default</h2>
+<h2 id="default">Default</h2>
 <Code>false</Code>
-<h2>About</h2>
+<h2 id="about">About</h2>
 <p>Whether Serwist should be disabled.</p>
-<h2>Usage</h2>
+<h2 id="usage">Usage</h2>
 <CodeTab codes={data.code.usage} defaultTab="next.config.mjs" />
