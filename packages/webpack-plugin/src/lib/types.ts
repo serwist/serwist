@@ -14,10 +14,6 @@ export interface WebpackPartial {
    * in the precache manifest.
    */
   chunks?: string[];
-  // We can't use the @default annotation here to assign the value via AJV, as
-  // an (RegExp)[] can't be serialized into JSON.
-  // The default value of [/\.map$/, /^manifest.*\.js$/] will be assigned by
-  // the validation function, and we need to reflect that in the docs.
   /**
    * One or more specifiers used to exclude assets from the precache manifest.
    * This is interpreted following
@@ -59,7 +55,7 @@ export interface InjectPartial {
   // logic and needs to be documented.
   /**
    * Optional webpack plugins that will be used when compiling the `swSrc`
-   * input file. Only valid if `compileSrc` is `true`.
+   * file. Only valid if `compileSrc` is `true`.
    */
   webpackCompilationPlugins?: any[];
 }

@@ -9,14 +9,14 @@ import reactLogo from "./assets/react.svg";
 
 function App() {
   useEffect(() => {
-    const registerSerwist = async () => {
+    const loadSerwist = async () => {
       if ("serviceWorker" in navigator) {
         const serwist = new (await import("@serwist/window")).Serwist(swUrl, { scope: swScope, type: swType });
         serwist.addEventListener("installed", () => console.log("Serwist installed!"));
         void serwist.register();
       }
     };
-    registerSerwist();
+    loadSerwist();
   });
 
   return (

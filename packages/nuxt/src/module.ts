@@ -46,7 +46,7 @@ export default defineNuxtModule<Require<ModuleOptions, "swUrl" | "swSrc" | "swDe
     let ctx: SerwistViteContext | undefined;
     let api: SerwistViteApi | undefined;
 
-    const { manifest: manifestPath, client: _client, ...userOptions } = options;
+    const { client: _client, ...userOptions } = options;
 
     const client = { registerPlugin: true, ..._client } satisfies ClientOptions;
 

@@ -26,6 +26,7 @@ const config = {
       relative: false,
     },
     prerender: {
+      concurrency: 20,
       handleHttpError: "warn",
       handleMissingId: "warn",
     },

@@ -64,7 +64,7 @@ export const load: PageServerLoad = ({ locals }) => ({
           lang: "bash",
         },
         bun: {
-          code: "bun add -D @serwist/vite serwist",
+          code: "bun add -D @serwist/vite @serwist/window serwist",
           lang: "bash",
         },
       },
@@ -161,19 +161,14 @@ serwist.addEventListeners();`,
         {
           "manifest.json": {
             code: `{
-  "name": "My awesome PWA app",
+  "name": "My Awesome PWA app",
   "short_name": "PWA App",
   "icons": [
     {
       "src": "/icons/android-chrome-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/icons/android-chrome-384x384.png",
-      "sizes": "384x384",
-      "type": "image/png"
+      "purpose": "maskable"
     },
     {
       "src": "/icons/icon-512x512.png",
@@ -186,7 +181,6 @@ serwist.addEventListeners();`,
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait"
-  // ...
 }`,
             lang: "json",
           },
@@ -244,11 +238,11 @@ export default function App() {
   <link rel="manifest" href="/manifest.json">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:url" content="https://yourdomain.com">
-  <meta name="twitter:title" content="My awesome PWA app">
+  <meta name="twitter:title" content="My Awesome PWA app">
   <meta name="twitter:description" content="Best PWA app in the world!">
   <meta name="twitter:image" content="/icons/twitter.png">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="My awesome PWA app">
+  <meta property="og:title" content="My Awesome PWA app">
   <meta property="og:description" content="Best PWA app in the world!">
   <meta property="og:site_name" content="My awesome PWA app">
   <meta property="og:url" content="https://yourdomain.com">

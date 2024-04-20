@@ -4,7 +4,7 @@ import type { Handle } from "@sveltejs/kit";
 import { getHighlighter } from "shiki";
 
 const highlighter = await getHighlighter({
-  langs: ["bash", "json", "typescript", "javascript", "tsx", "jsx", "svelte", "html"],
+  langs: ["bash", "json", "typescript", "javascript", "tsx", "jsx", "svelte", "html", "vue"],
   themes: [githubDark, githubLight],
 });
 

@@ -10,7 +10,7 @@
 <CodeTab codes={data.code.install} defaultTab="npm" />
 <h2 id="implementation">Implementation</h2>
 <h3 id="adding-plugin">Step 1: Wrap your Next.js config with withSerwist</h3>
-<p>Update or create next.config.js with the following content:</p>
+<p>Update or create your Next.js configuration file with the following content:</p>
 <CodeTab codes={data.code.basicUsage.wrapConfig} defaultTab="next.config.mjs" />
 <h3 id="updating-tsconfig">Step 2: Update tsconfig.json</h3>
 <p>If you use TypeScript, you should add the following content to tsconfig.json in order to get the correct types:</p>

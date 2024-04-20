@@ -50,8 +50,8 @@ export default defineConfig({
       rollupFormat: "iife",
       plugins: [
         replace({
-          BUILD_DATE: () => JSON.stringify(new Date()),
-          BUILD_VERSION: 15,
+          __BUILD_DATE__: () => JSON.stringify(new Date()),
+          __BUILD_VERSION__: 15,
         }),
       ],
     }),

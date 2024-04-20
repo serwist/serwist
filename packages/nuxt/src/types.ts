@@ -9,7 +9,6 @@ export interface ClientOptions {
 }
 
 export interface ModuleOptions extends Optional<PluginOptions, "swSrc" | "swDest" | "globDirectory"> {
-  manifest?: string;
   /**
    * Options for plugin.
    */

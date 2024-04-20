@@ -67,14 +67,14 @@
     </ICD>
   </li>
   <li>
-    <ICD>
-      <a class="link" href="/docs/build/configuring/sw-dest">swDest (InjectManifest only)</a>
-    </ICD>
+    <a class="link" href="/docs/build/configuring/sw-dest">
+      <ICD>swDest</ICD> (InjectManifest only)
+    </a>
   </li>
   <li>
-    <ICD>
-      <a class="link" href="/docs/build/configuring/sw-src">swSrc (InjectManifest only)</a>
-    </ICD>
+    <a class="link" href="/docs/build/configuring/sw-src">
+      <ICD>swSrc</ICD> (InjectManifest only)
+    </a>
   </li>
   <li>
     <ICD>
