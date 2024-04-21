@@ -13,44 +13,36 @@
 - Code blocks should be sent from the server through +page.server.ts or +layout.server.ts. Although this causes SvelteKit to inline a fairly large amount of data into the produced HTML, it is still generally acceptable, more readable, and it saves the client from a bit of extra work that is highlighting code.
 
 ```ts
-import { getHighlighter } from "shiki";
-
 import { highlightCode } from "$lib/highlightCode";
 
 import type { PageServerLoad } from "./$types";
 
-export const load: PageServerLoad = async () => {
-  const highlighter = await getHighlighter({
-    themes: ["github-light", "github-dark"],
-    langs: ["bash", "typescript", "javascript", "tsx", "jsx", "json"],
-  });
-  return {
-    code: {
-      install: highlightCode(
-        highlighter,
-        {
-          npm: {
-            code: "npm i @serwist/next",
-            lang: "bash",
-          },
-          yarn: {
-            code: "yarn add @serwist/next",
-            lang: "bash",
-          },
-          pnpm: {
-            code: "pnpm add @serwist/next",
-            lang: "bash",
-          },
-          bun: {
-            code: "bun add @serwist/next",
-            lang: "bash",
-          },
+export const load: PageServerLoad = ({ locals }) => ({
+  code: {
+    install: highlightCode(
+      locals.highlighter,
+      {
+        npm: {
+          code: "npm i @serwist/next",
+          lang: "bash",
         },
-        { idPrefix: "install-serwist-next-instruction" }
-      ),
-    },
-  };
-};
+        yarn: {
+          code: "yarn add @serwist/next",
+          lang: "bash",
+        },
+        pnpm: {
+          code: "pnpm add @serwist/next",
+          lang: "bash",
+        },
+        bun: {
+          code: "bun add @serwist/next",
+          lang: "bash",
+        },
+      },
+      { idPrefix: "install-serwist-next-instruction" }
+    ),
+  },
+});
 ```
 
 `highlightCode` creates data that is specifically meant for `<CodeTab />`. You should feed the data to that component, rather than use it directly.
@@ -64,30 +56,6 @@ export const load: PageServerLoad = async () => {
 </script>
 
 <CodeTab codes={data.code.install} defaultTab="npm" />
-```
-
-## Sections
-
-- A docs page should be divided into sections. Sections are separated with a `<br /><br />`. Parts of a section are separated with a `<br />`.
-
-```svelte
-<script>
-  import InlineCode from "$components/InlineCode.svelte";
-</script>
-
-<h1>Welcome to Serwist!</h1>
-<br /><br />
-<h2>Introduction</h2>
-<br />
-<p>
-  Serwist is the Swiss Army knife for service workers.
-</p>
-<br /><br />
-<h2>Getting started</h2>
-<br />
-<p>
-  See <a class="link" href="/docs/getting-started">Getting started</a>.
-</p>
 ```
 
 ## Styling

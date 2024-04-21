@@ -49,3 +49,9 @@ __tests__/next/*/public/sw.js*
 __tests__/next/*/public/swe-worker-*.js*
 examples/next-*/public/sw.js
 examples/next-*/public/swe-worker-*.js
+
+# typescript
+tsconfig.tsbuildinfo
+
+# pnpm ci
+.pnpm-store

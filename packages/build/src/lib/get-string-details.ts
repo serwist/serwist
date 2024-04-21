@@ -9,10 +9,8 @@
 import type { FileDetails } from "../types.js";
 import { getStringHash } from "./get-string-hash.js";
 
-export function getStringDetails(url: string, str: string): FileDetails {
-  return {
-    file: url,
-    hash: getStringHash(str),
-    size: str.length,
-  };
-}
+export const getStringDetails = (url: string, str: string): FileDetails => ({
+  file: url,
+  hash: getStringHash(str),
+  size: str.length,
+});

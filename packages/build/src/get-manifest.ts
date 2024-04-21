@@ -26,8 +26,8 @@ import type { GetManifestOptions, GetManifestResult } from "./types.js";
  * });
  * ```
  */
-export async function getManifest(config: GetManifestOptions): Promise<GetManifestResult> {
-  const options = validateGetManifestOptions(config);
+export const getManifest = async (config: GetManifestOptions): Promise<GetManifestResult> => {
+  const options = await validateGetManifestOptions(config);
 
   return await getFileManifestEntries(options);
-}
+};

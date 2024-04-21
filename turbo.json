@@ -1,6 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalEnv": ["NODE_ENV", "NEXT_TEST_MODE", "PUBLISH"],
+  "globalEnv": ["NODE_ENV", "TEST_MODE"],
   "pipeline": {
     "dev": {
       "cache": false,
@@ -8,12 +8,14 @@
     },
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**", "out/**", "dist/**", ".svelte-kit/**", ".vercel/**"]
+      "outputs": [".next/**", "!.next/cache/**", "out/**", "dist/**", ".svelte-kit/**", ".vercel/**", ".output/**", ".nuxt/**", "public/*.js"]
     },
     "lint": {
       "outputs": []
     },
-    "test": {},
+    "test": {
+      "dependsOn": ["^build"]
+    },
     "typecheck": {
       "outputs": []
     }

@@ -6,13 +6,13 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { FileDetails, ManifestEntry, WebpackInjectManifestOptions } from "@serwist/build";
+import type { FileDetails, ManifestEntry } from "@serwist/build";
 import { transformManifest } from "@serwist/build";
 import type { Asset, Chunk, Compilation, WebpackError } from "webpack";
-import webpack from "webpack";
 
 import { getAssetHash } from "./get-asset-hash.js";
 import { resolveWebpackURL } from "./resolve-webpack-url.js";
+import type { InjectManifestOptions, InjectManifestOptionsComplete } from "./types.js";
 
 /**
  * For a given asset, checks whether at least one of the conditions matches.
@@ -25,28 +25,25 @@ import { resolveWebpackURL } from "./resolve-webpack-url.js";
  * @returns Whether or not at least one condition matches.
  * @private
  */
-function checkConditions(
+const checkConditions = (
   asset: Asset,
   compilation: Compilation,
 
-  conditions: Array<
-    //eslint-disable-next-line @typescript-eslint/ban-types
-    string | RegExp | ((arg0: any) => boolean)
-  > = [],
-): boolean {
+  conditions: Array<string | RegExp | ((arg0: any) => boolean)> = [],
+): boolean => {
   for (const condition of conditions) {
     if (typeof condition === "function") {
       return condition({ asset, compilation });
       //return compilation !== null;
     }
-    if (webpack.ModuleFilenameHelpers.matchPart(asset.name, condition)) {
+    if (compilation.compiler.webpack.ModuleFilenameHelpers.matchPart(asset.name, condition)) {
       return true;
     }
   }
 
   // We'll only get here if none of the conditions applied.
   return false;
-}
+};
 
 /**
  * Returns the names of all the assets in all the chunks in a chunk group,
@@ -59,7 +56,7 @@ function checkConditions(
  * @returns
  * @private
  */
-function getNamesOfAssetsInChunkOrGroup(compilation: Compilation, chunkOrGroup: string): Array<string> | null {
+const getNamesOfAssetsInChunkOrGroup = (compilation: Compilation, chunkOrGroup: string): string[] | null => {
   const chunkGroup = compilation.namedChunkGroups?.get(chunkOrGroup);
   if (chunkGroup) {
     const assetNames = [];
@@ -75,7 +72,7 @@ function getNamesOfAssetsInChunkOrGroup(compilation: Compilation, chunkOrGroup: 
 
   // If we get here, there's no chunkGroup or chunk with that name.
   return null;
-}
+};
 
 /**
  * Returns the names of all the assets in a chunk.
@@ -84,8 +81,8 @@ function getNamesOfAssetsInChunkOrGroup(compilation: Compilation, chunkOrGroup: 
  * @returns
  * @private
  */
-function getNamesOfAssetsInChunk(chunk: Chunk): Array<string> {
-  const assetNames: Array<string> = [];
+const getNamesOfAssetsInChunk = (chunk: Chunk): string[] => {
+  const assetNames: string[] = [];
 
   assetNames.push(...chunk.files);
 
@@ -95,7 +92,7 @@ function getNamesOfAssetsInChunk(chunk: Chunk): Array<string> {
   }
 
   return assetNames;
-}
+};
 
 /**
  * Filters the set of assets out, based on the configuration options provided:
@@ -108,7 +105,7 @@ function getNamesOfAssetsInChunk(chunk: Chunk): Array<string> {
  * based on the criteria provided.
  * @private
  */
-function filterAssets(compilation: Compilation, config: WebpackInjectManifestOptions): Set<Asset> {
+const filterAssets = (compilation: Compilation, config: InjectManifestOptions): Set<Asset> => {
   const filteredAssets = new Set<Asset>();
   const assets = compilation.getAssets();
 
@@ -177,12 +174,12 @@ function filterAssets(compilation: Compilation, config: WebpackInjectManifestOpt
   }
 
   return filteredAssets;
-}
+};
 
-export async function getManifestEntriesFromCompilation(
+export const getManifestEntriesFromCompilation = async (
   compilation: Compilation,
-  config: WebpackInjectManifestOptions,
-): Promise<{ size: number; sortedEntries: ManifestEntry[] | undefined }> {
+  config: InjectManifestOptionsComplete,
+): Promise<{ size: number; sortedEntries: ManifestEntry[] | undefined }> => {
   const filteredAssets = filterAssets(compilation, config);
 
   const { publicPath } = compilation.options.output;
@@ -192,7 +189,7 @@ export async function getManifestEntriesFromCompilation(
       file: resolveWebpackURL(publicPath as string, asset.name),
       hash: getAssetHash(asset),
       size: asset.source.size() || 0,
-    } as FileDetails;
+    } satisfies FileDetails;
   });
 
   const { manifestEntries, size, warnings } = await transformManifest({
@@ -203,6 +200,7 @@ export async function getManifestEntriesFromCompilation(
     maximumFileSizeToCacheInBytes: config.maximumFileSizeToCacheInBytes,
     modifyURLPrefix: config.modifyURLPrefix,
     transformParam: compilation,
+    disablePrecacheManifest: config.disablePrecacheManifest,
   });
 
   // See https://github.com/GoogleChrome/workbox/issues/2790
@@ -214,4 +212,4 @@ export async function getManifestEntriesFromCompilation(
   const sortedEntries = manifestEntries?.sort((a, b) => (a.url === b.url ? 0 : a.url > b.url ? 1 : -1));
 
   return { size, sortedEntries };
-}
+};

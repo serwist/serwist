@@ -6,11 +6,13 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { RouteHandler, RouteHandlerCallbackOptions } from "@serwist/core";
-import { matchPrecache } from "@serwist/precaching";
-import { setCatchHandler } from "@serwist/routing";
+import type { RouteHandler, RouteHandlerCallbackOptions, Serwist } from "serwist";
 
 export interface OfflineFallbackOptions {
+  /**
+   * Your `Serwist` instance.
+   */
+  serwist: Serwist;
   /**
    * Precache name to match for page fallbacks. Defaults to offline.html.
    */
@@ -34,11 +36,7 @@ declare let self: ServiceWorkerGlobalScope;
 
  * @param options
  */
-function offlineFallback(options: OfflineFallbackOptions = {}): void {
-  const pageFallback = options.pageFallback || "offline.html";
-  const imageFallback = options.imageFallback || false;
-  const fontFallback = options.fontFallback || false;
-
+export const offlineFallback = ({ serwist, pageFallback = "offline.html", imageFallback, fontFallback }: OfflineFallbackOptions): void => {
   self.addEventListener("install", (event) => {
     const files = [pageFallback];
     if (imageFallback) {
@@ -56,24 +54,22 @@ function offlineFallback(options: OfflineFallbackOptions = {}): void {
     const cache = await self.caches.open("serwist-offline-fallbacks");
 
     if (dest === "document") {
-      const match = (await matchPrecache(pageFallback)) || (await cache.match(pageFallback));
+      const match = (await serwist.matchPrecache(pageFallback)) || (await cache.match(pageFallback));
       return match || Response.error();
     }
 
-    if (dest === "image" && imageFallback !== false) {
-      const match = (await matchPrecache(imageFallback)) || (await cache.match(imageFallback));
+    if (dest === "image" && imageFallback !== undefined) {
+      const match = (await serwist.matchPrecache(imageFallback)) || (await cache.match(imageFallback));
       return match || Response.error();
     }
 
-    if (dest === "font" && fontFallback !== false) {
-      const match = (await matchPrecache(fontFallback)) || (await cache.match(fontFallback));
+    if (dest === "font" && fontFallback !== undefined) {
+      const match = (await serwist.matchPrecache(fontFallback)) || (await cache.match(fontFallback));
       return match || Response.error();
     }
 
     return Response.error();
   };
 
-  setCatchHandler(handler);
-}
-
-export { offlineFallback };
+  serwist.setCatchHandler(handler);
+};

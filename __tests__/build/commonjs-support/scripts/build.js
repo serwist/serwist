@@ -1,8 +1,8 @@
 // @ts-check
 const path = require("node:path");
-const { injectManifest } = require("@serwist/build");
 
 (async () => {
+  const { injectManifest } = await import("@serwist/build");
   const { count, size, warnings } = await injectManifest({
     swSrc: path.join(__dirname, "../service-worker/index.js"),
     swDest: path.join(__dirname, "../dist/service-worker.js"),

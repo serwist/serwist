@@ -1,68 +1,65 @@
 {
   "name": "@serwist/next",
-  "version": "8.4.4",
+  "version": "9.0.0-preview.26",
   "type": "module",
   "description": "A module that integrates Serwist into your Next.js application.",
   "files": [
-    "dist",
-    "!dist/dts"
+    "src",
+    "dist"
   ],
   "keywords": [
     "serwist",
     "serwistjs",
     "sw",
     "service worker",
+    "progressive web apps",
     "web",
-    "service-worker"
+    "service-worker",
+    "progressive-web-apps",
+    "next",
+    "next.js",
+    "pwa"
   ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "author": "Serwist's Team",
   "license": "MIT",
-  "repository": "serwist/serwist",
+  "repository": "https://github.com/serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",
   "homepage": "https://serwist.pages.dev",
-  "module": "./dist/index.js",
-  "main": "./dist/index.cjs",
+  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      }
-    },
-    "./browser": {
-      "import": {
-        "types": "./dist/index.browser.d.ts",
-        "default": "./dist/index.browser.js"
-      },
-      "require": {
-        "types": "./dist/index.browser.d.cts",
-        "default": "./dist/index.browser.cjs"
-      }
-    },
-    "./typings": {
-      "import": {
-        "types": "./dist/sw-entry.d.ts"
-      },
-      "require": {
-        "types": "./dist/sw-entry.d.cts"
-      }
-    },
-    "./package.json": "./package.json"
-  },
   "typesVersions": {
     "*": {
-      "browser": [
-        "./dist/index.browser.d.ts"
+      "worker": [
+        "./dist/index.worker.d.ts"
       ],
       "typings": [
         "./dist/sw-entry.d.ts"
+      ],
+      "schema": [
+        "./dist/index.schema.d.ts"
       ]
     }
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./worker": {
+      "types": "./dist/index.worker.d.ts",
+      "default": "./dist/index.worker.js"
+    },
+    "./typings": {
+      "types": "./dist/sw-entry.d.ts"
+    },
+    "./schema": {
+      "types": "./dist/index.schema.d.ts",
+      "default": "./dist/index.schema.js"
+    },
+    "./package.json": "./package.json"
   },
   "scripts": {
     "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js",
@@ -74,23 +71,30 @@
     "@serwist/build": "workspace:*",
     "@serwist/webpack-plugin": "workspace:*",
     "@serwist/window": "workspace:*",
-    "clean-webpack-plugin": "4.0.0",
-    "fast-glob": "3.3.2"
+    "chalk": "5.3.0",
+    "glob": "10.3.12",
+    "serwist": "workspace:*",
+    "zod": "3.22.4"
   },
   "devDependencies": {
-    "@serwist/constants": "workspace:*",
-    "@types/node": "20.10.5",
-    "chalk": "5.3.0",
-    "next": "14.0.4",
+    "@serwist/configs": "workspace:*",
+    "@serwist/utils": "workspace:*",
+    "@types/node": "20.12.7",
+    "next": "14.2.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "rollup": "4.9.1",
-    "type-fest": "4.8.3",
-    "typescript": "5.4.0-dev.20231226",
-    "webpack": "5.89.0"
+    "rollup": "4.14.3",
+    "type-fest": "4.15.0",
+    "typescript": "5.5.0-dev.20240415",
+    "webpack": "5.91.0"
   },
   "peerDependencies": {
     "next": ">=14.0.0",
-    "webpack": ">=5.9.0"
+    "typescript": ">=5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    }
   }
 }

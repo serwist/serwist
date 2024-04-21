@@ -1,3 +1,4 @@
+import { afterAll, beforeAll, describe } from "vitest";
 import type { NextInstance, NextInstanceOpts } from "./next-instance-base.ts";
 import { NextInstanceDev } from "./next-instance-dev.ts";
 import { NextInstanceStart } from "./next-instance-start.ts";
@@ -14,7 +15,7 @@ const isValidTestMode = (mode: string | undefined): mode is NextTestMode => type
 
 let testMode: NextTestMode = "start";
 
-const envTestMode = process.env.NEXT_TEST_MODE;
+const envTestMode = process.env.TEST_MODE;
 
 if (isValidTestMode(envTestMode)) {
   testMode = envTestMode;
@@ -22,27 +23,17 @@ if (isValidTestMode(envTestMode)) {
 
 const createNext = async (opts: NextTestOpts) => {
   let nextInstance: NextInstance | undefined = undefined;
-  try {
-    switch (testMode) {
-      case "dev":
-        nextInstance = new NextInstanceDev(opts);
-        break;
-      case "start":
-        nextInstance = new NextInstanceStart(opts);
-        break;
-    }
-    await nextInstance.setup(opts.sourceDir);
-    await nextInstance.spawn();
-    return nextInstance;
-  } catch (err) {
-    console.error(`failed to create next instance: ${err}, cliOutput:${nextInstance?.cliOutput ? `\n${nextInstance.cliOutput}` : "N/A"}`);
-    try {
-      await nextInstance?.destroy();
-    } catch (err) {
-      console.error("failed to clean up after failure", err);
-    }
-    throw new Error("failed to create next instance.");
+  switch (testMode) {
+    case "dev":
+      nextInstance = new NextInstanceDev(opts);
+      break;
+    case "start":
+      nextInstance = new NextInstanceStart(opts);
+      break;
   }
+  await nextInstance.setup(opts.sourceDir);
+  await nextInstance.spawn();
+  return nextInstance;
 };
 
 export const createDescribe = (name: string, opts: NextTestOpts, fn: (args: { next: NextInstance; testMode: NextTestMode }) => void) => {

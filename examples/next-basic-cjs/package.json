@@ -11,16 +11,15 @@
   },
   "dependencies": {
     "@serwist/next": "latest",
-    "@serwist/sw": "latest",
-    "next": "14.0.4",
+    "next": "14.2.1",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "serwist": "latest"
   },
   "devDependencies": {
-    "@serwist/precaching": "latest",
-    "@types/node": "20.10.5",
-    "@types/react": "18.2.45",
-    "@types/react-dom": "18.2.18",
-    "typescript": "5.3.3"
+    "@types/node": "20.12.7",
+    "@types/react": "18.2.78",
+    "@types/react-dom": "18.2.25",
+    "typescript": "5.4.5"
   }
 }

@@ -1,9 +1,11 @@
 <script lang="ts">
-  import Code, { type CodeProps } from "./Code.svelte";
+  import type { HTMLAttributes } from "svelte/elements";
 
-  const { ...props } = $props<CodeProps>();
+  const { children, ...props }: Omit<HTMLAttributes<HTMLElement>, "class" | "contenteditable"> = $props();
 </script>
 
-<span class="inline-block">
-  <Code {...props} />
-</span>
+<code class="text-comment break-all font-mono" {...props}>
+  {#if children}
+    {@render children()}
+  {/if}
+</code>

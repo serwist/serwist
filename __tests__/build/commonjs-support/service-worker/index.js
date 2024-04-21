@@ -1,7 +1,7 @@
 // @ts-check
-import { installSerwist } from "@serwist/sw";
+import { Serwist } from "serwist";
 
-installSerwist({
+const serwist = new Serwist({
   precacheEntries: self.__SW_MANIFEST,
   skipWaiting: true,
   clientsClaim: true,
@@ -9,3 +9,5 @@ installSerwist({
   disableDevLogs: true,
   runtimeCaching: [],
 });
+
+serwist.addEventListeners();

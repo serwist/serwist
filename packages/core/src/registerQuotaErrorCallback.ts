@@ -6,9 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { assert } from "./_private/assert.js";
-import { logger } from "./_private/logger.js";
 import { quotaErrorCallbacks } from "./models/quotaErrorCallbacks.js";
+import { assert } from "./utils/assert.js";
+import { logger } from "./utils/logger.js";
 
 /**
  * Adds a function to the set of quotaErrorCallbacks that will be executed if
@@ -17,7 +17,7 @@ import { quotaErrorCallbacks } from "./models/quotaErrorCallbacks.js";
  * @param callback
  */
 // biome-ignore lint/complexity/noBannedTypes: Can't change Function type
-function registerQuotaErrorCallback(callback: Function): void {
+export const registerQuotaErrorCallback = (callback: Function): void => {
   if (process.env.NODE_ENV !== "production") {
     assert!.isType(callback, "function", {
       moduleName: "@serwist/core",
@@ -31,6 +31,4 @@ function registerQuotaErrorCallback(callback: Function): void {
   if (process.env.NODE_ENV !== "production") {
     logger.log("Registered a callback to respond to quota errors.", callback);
   }
-}
-
-export { registerQuotaErrorCallback };
+};

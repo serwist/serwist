@@ -7,5 +7,8 @@
 */
 
 import { InjectManifest } from "./inject-manifest.js";
+import type { InjectManifestOptions, InjectManifestOptionsComplete, WebpackPartial, WebpackResolved } from "./lib/types.js";
+import { validateInjectManifestOptions } from "./lib/validator.js";
 
-export { InjectManifest };
+export { InjectManifest, validateInjectManifestOptions };
+export type { InjectManifestOptions, InjectManifestOptionsComplete, WebpackPartial, WebpackResolved };

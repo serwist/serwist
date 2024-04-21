@@ -1,5 +1,414 @@
 # @serwist/recipes
 
+## 9.0.0-preview.26
+
+### Patch Changes
+
+- [`3a16582`](https://github.com/serwist/serwist/commit/3a165826cd07bb02f2cd2a8a7bedaf7c2bbeaed5) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore: second stability test before stable release
+
+- Updated dependencies [[`3a16582`](https://github.com/serwist/serwist/commit/3a165826cd07bb02f2cd2a8a7bedaf7c2bbeaed5)]:
+  - serwist@9.0.0-preview.26
+
+## 9.0.0-preview.25
+
+### Patch Changes
+
+- [`7e00b79`](https://github.com/serwist/serwist/commit/7e00b79d3888fcdd0b2ac0c2cf5060b9cf91a9ea) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore: stability test before stable release
+
+- Updated dependencies [[`7e00b79`](https://github.com/serwist/serwist/commit/7e00b79d3888fcdd0b2ac0c2cf5060b9cf91a9ea)]:
+  - serwist@9.0.0-preview.25
+
+## 9.0.0-preview.24
+
+### Major Changes
+
+- e4c00af: refactor(core): replaced `PrecacheController` and `Router` with `Serwist`
+
+  - `PrecacheController` and `Router` have been moved to `serwist/legacy`. Their functionalities have been merged into the `Serwist` class.
+  - The new `Serwist` class does NOT have a singleton instance. As such, `serwist/plugins.initializeGoogleAnalytics()` and `@serwist/recipes`'s functions now require you to pass in your own `Serwist` instance.
+  - This was done because separating Serwist's functionalities into three separate classes, namely `PrecacheController`, `Router`, and `Serwist`, was not only unnecessary, but it also required the code to be rather... boilerplatey. In the past, to set up, you needed to install all the necessary packages (`workbox-routing`, `workbox-precaching`, `workbox-strategies`), import all the necessary classes (`PrecacheController`, `Router`,...), and know all the APIs needed (`PrecacheController.precache`, `Router.registerRoute`, `new PrecacheRoute()`, runtime caching strategies,...) to get yourself started. To simplify that whole process, the Workbox team provided GenerateSW, which allowed you to create a service worker without having to write one. However, this design was not my cup of tea, one of the reasons of which was that you needed to migrate from GenerateSW to InjectManifest if you needed to do anything remotely complex, so I replaced it with `installSerwist`. Still, I was not satisfied by the result. I wanted an API where things are simple enough that you don't need to have multiple ways of doing one same thing, some more straightforward than others. This change where we merge the three classes is an effort to simplify and unify the API.
+  - To migrate, either:
+
+    - Use the new `Serwist` class:
+
+    ```ts
+    import { Serwist } from "serwist";
+
+    const serwist = new Serwist({
+      // Initial list of precache entries.
+      precacheEntries: [],
+      // Initial list of runtime caching strategies.
+      runtimeCaching: [],
+    });
+
+    // Additionally append another list of precache entries.
+    // Make sure there are no duplicates in the initial list.
+    serwist.addToPrecacheList([]);
+
+    // Register another runtime caching strategy.
+    serwist.registerRoute(
+      new Route(/\/api\/.*\/*.json/, new NetworkOnly(), "POST"),
+    );
+
+    // This should be called before `Serwist.addEventListeners`.
+    self.addEventListener("message", (event) => {
+      if (event.data && event.data.type === "YOUR_MESSAGE_TYPE") {
+        // Do something
+      }
+    });
+
+    // Finally, add Serwist's listeners.
+    serwist.addEventListeners();
+    ```
+
+    - Or import `PrecacheController` and `Router` from `serwist/legacy`:
+
+    ```ts
+    import { PrecacheController, Router } from "serwist/legacy";
+    ```
+
+### Patch Changes
+
+- Updated dependencies [e4c00af]
+  - serwist@9.0.0-preview.24
+
+## 9.0.0-preview.23
+
+### Patch Changes
+
+- @serwist/core@9.0.0-preview.23
+- @serwist/sw@9.0.0-preview.23
+
+## 9.0.0-preview.22
+
+### Patch Changes
+
+- @serwist/core@9.0.0-preview.22
+- @serwist/sw@9.0.0-preview.22
+
+## 9.0.0-preview.21
+
+### Patch Changes
+
+- @serwist/core@9.0.0-preview.21
+- @serwist/sw@9.0.0-preview.21
+
+## 9.0.0-preview.20
+
+### Patch Changes
+
+- Updated dependencies [10c9394]
+  - @serwist/sw@9.0.0-preview.20
+  - @serwist/core@9.0.0-preview.20
+
+## 9.0.0-preview.19
+
+### Patch Changes
+
+- 6d294f9: refactor: migrate to GitLab
+
+  - Serwist and `@ducanh2912/next-pwa` have migrated to GitLab.
+  - This was the result of GitHub flagging my account, organizations, and repositories as spam. Sorry for the inconvenience.
+
+- Updated dependencies [6d294f9]
+  - @serwist/cacheable-response@9.0.0-preview.19
+  - @serwist/expiration@9.0.0-preview.19
+  - @serwist/precaching@9.0.0-preview.19
+  - @serwist/strategies@9.0.0-preview.19
+  - @serwist/routing@9.0.0-preview.19
+  - @serwist/core@9.0.0-preview.19
+
+## 9.0.0-preview.18
+
+### Patch Changes
+
+- Updated dependencies [[`c65578b`](https://github.com/serwist/serwist/commit/c65578b68f1ae88822238c3c03aa5e859a4f2b7e)]:
+  - @serwist/cacheable-response@9.0.0-preview.18
+  - @serwist/expiration@9.0.0-preview.18
+  - @serwist/precaching@9.0.0-preview.18
+  - @serwist/strategies@9.0.0-preview.18
+  - @serwist/routing@9.0.0-preview.18
+  - @serwist/core@9.0.0-preview.18
+
+## 9.0.0-preview.17
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/cacheable-response@9.0.0-preview.17
+  - @serwist/core@9.0.0-preview.17
+  - @serwist/expiration@9.0.0-preview.17
+  - @serwist/precaching@9.0.0-preview.17
+  - @serwist/routing@9.0.0-preview.17
+  - @serwist/strategies@9.0.0-preview.17
+
+## 9.0.0-preview.16
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/cacheable-response@9.0.0-preview.16
+  - @serwist/core@9.0.0-preview.16
+  - @serwist/expiration@9.0.0-preview.16
+  - @serwist/precaching@9.0.0-preview.16
+  - @serwist/routing@9.0.0-preview.16
+  - @serwist/strategies@9.0.0-preview.16
+
+## 9.0.0-preview.15
+
+### Patch Changes
+
+- Updated dependencies [[`c47a8b2`](https://github.com/serwist/serwist/commit/c47a8b27c0dcd4fad4195b15eb7bd7b0a7c234c8)]:
+  - @serwist/expiration@9.0.0-preview.15
+  - @serwist/cacheable-response@9.0.0-preview.15
+  - @serwist/core@9.0.0-preview.15
+  - @serwist/precaching@9.0.0-preview.15
+  - @serwist/routing@9.0.0-preview.15
+  - @serwist/strategies@9.0.0-preview.15
+
+## 9.0.0-preview.14
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/cacheable-response@9.0.0-preview.14
+  - @serwist/core@9.0.0-preview.14
+  - @serwist/expiration@9.0.0-preview.14
+  - @serwist/precaching@9.0.0-preview.14
+  - @serwist/routing@9.0.0-preview.14
+  - @serwist/strategies@9.0.0-preview.14
+
+## 9.0.0-preview.13
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/cacheable-response@9.0.0-preview.13
+  - @serwist/core@9.0.0-preview.13
+  - @serwist/expiration@9.0.0-preview.13
+  - @serwist/precaching@9.0.0-preview.13
+  - @serwist/routing@9.0.0-preview.13
+  - @serwist/strategies@9.0.0-preview.13
+
+## 9.0.0-preview.12
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/cacheable-response@9.0.0-preview.12
+  - @serwist/core@9.0.0-preview.12
+  - @serwist/expiration@9.0.0-preview.12
+  - @serwist/precaching@9.0.0-preview.12
+  - @serwist/routing@9.0.0-preview.12
+  - @serwist/strategies@9.0.0-preview.12
+
+## 9.0.0-preview.11
+
+### Major Changes
+
+- [`ea0944c`](https://github.com/serwist/serwist/commit/ea0944c5b7b9d39cecda423e1e60b7bd11723063) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor: use iterables
+
+  - Serwist now uses iterables in its code. For instance, `Headers.prototype.entries()` can be noticed at parts of `@serwist/cacheable-response`.
+  - This is partly thanks to our Node.js requirement being bumped to 18.0.0. Iterables have been supported in all major browsers for ages, so they wouldn't be a problem (hell, all browsers that support service workers have support for iterables).
+  - Still, since this requires us to enforce the use of Node.js 18.0.0 or later, it is marked a breaking change.
+
+### Patch Changes
+
+- Updated dependencies [[`ea0944c`](https://github.com/serwist/serwist/commit/ea0944c5b7b9d39cecda423e1e60b7bd11723063), [`ea0944c`](https://github.com/serwist/serwist/commit/ea0944c5b7b9d39cecda423e1e60b7bd11723063)]:
+  - @serwist/cacheable-response@9.0.0-preview.11
+  - @serwist/expiration@9.0.0-preview.11
+  - @serwist/precaching@9.0.0-preview.11
+  - @serwist/strategies@9.0.0-preview.11
+  - @serwist/routing@9.0.0-preview.11
+  - @serwist/core@9.0.0-preview.11
+
+## 9.0.0-preview.10
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/cacheable-response@9.0.0-preview.10
+  - @serwist/core@9.0.0-preview.10
+  - @serwist/expiration@9.0.0-preview.10
+  - @serwist/precaching@9.0.0-preview.10
+  - @serwist/routing@9.0.0-preview.10
+  - @serwist/strategies@9.0.0-preview.10
+
+## 9.0.0-preview.9
+
+### Patch Changes
+
+- Updated dependencies [[`7e42ad9`](https://github.com/serwist/serwist/commit/7e42ad912d96fdda160a7aad9a5548e7c046bc27)]:
+  - @serwist/strategies@9.0.0-preview.9
+  - @serwist/precaching@9.0.0-preview.9
+  - @serwist/cacheable-response@9.0.0-preview.9
+  - @serwist/core@9.0.0-preview.9
+  - @serwist/expiration@9.0.0-preview.9
+  - @serwist/routing@9.0.0-preview.9
+
+## 9.0.0-preview.8
+
+### Major Changes
+
+- [`b1df273`](https://github.com/serwist/serwist/commit/b1df273379ee018fd850f962345740874c9fd54d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(core): allow non-Promise return types for `SerwistPlugin` callbacks
+
+  - Usually you don't need to do anything to migrate, but we still mark it as a breaking change because changing a function's signature is considered a breaking one in this project.
+
+### Patch Changes
+
+- Updated dependencies [[`b1df273`](https://github.com/serwist/serwist/commit/b1df273379ee018fd850f962345740874c9fd54d)]:
+  - @serwist/cacheable-response@9.0.0-preview.8
+  - @serwist/expiration@9.0.0-preview.8
+  - @serwist/strategies@9.0.0-preview.8
+  - @serwist/routing@9.0.0-preview.8
+  - @serwist/core@9.0.0-preview.8
+  - @serwist/precaching@9.0.0-preview.8
+
+## 9.0.0-preview.7
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/cacheable-response@9.0.0-preview.7
+  - @serwist/core@9.0.0-preview.7
+  - @serwist/expiration@9.0.0-preview.7
+  - @serwist/precaching@9.0.0-preview.7
+  - @serwist/routing@9.0.0-preview.7
+  - @serwist/strategies@9.0.0-preview.7
+
+## 9.0.0-preview.6
+
+### Patch Changes
+
+- Updated dependencies [[`cbf3e46`](https://github.com/serwist/serwist/commit/cbf3e4603388257a799e4da5ba1f32bca58aba4b)]:
+  - @serwist/precaching@9.0.0-preview.6
+  - @serwist/cacheable-response@9.0.0-preview.6
+  - @serwist/core@9.0.0-preview.6
+  - @serwist/expiration@9.0.0-preview.6
+  - @serwist/routing@9.0.0-preview.6
+  - @serwist/strategies@9.0.0-preview.6
+
+## 9.0.0-preview.5
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/cacheable-response@9.0.0-preview.5
+  - @serwist/core@9.0.0-preview.5
+  - @serwist/expiration@9.0.0-preview.5
+  - @serwist/precaching@9.0.0-preview.5
+  - @serwist/routing@9.0.0-preview.5
+  - @serwist/strategies@9.0.0-preview.5
+
+## 9.0.0-preview.4
+
+### Patch Changes
+
+- Updated dependencies [[`6c3e789`](https://github.com/serwist/serwist/commit/6c3e789724533dab23a6f5afb2a0f40d8f26bf16)]:
+  - @serwist/precaching@9.0.0-preview.4
+  - @serwist/cacheable-response@9.0.0-preview.4
+  - @serwist/core@9.0.0-preview.4
+  - @serwist/expiration@9.0.0-preview.4
+  - @serwist/routing@9.0.0-preview.4
+  - @serwist/strategies@9.0.0-preview.4
+
+## 9.0.0-preview.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/cacheable-response@9.0.0-preview.3
+  - @serwist/core@9.0.0-preview.3
+  - @serwist/expiration@9.0.0-preview.3
+  - @serwist/precaching@9.0.0-preview.3
+  - @serwist/routing@9.0.0-preview.3
+  - @serwist/strategies@9.0.0-preview.3
+
+## 9.0.0-preview.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/cacheable-response@9.0.0-preview.2
+  - @serwist/core@9.0.0-preview.2
+  - @serwist/expiration@9.0.0-preview.2
+  - @serwist/precaching@9.0.0-preview.2
+  - @serwist/routing@9.0.0-preview.2
+  - @serwist/strategies@9.0.0-preview.2
+
+## 9.0.0-preview.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/cacheable-response@9.0.0-preview.1
+  - @serwist/core@9.0.0-preview.1
+  - @serwist/expiration@9.0.0-preview.1
+  - @serwist/precaching@9.0.0-preview.1
+  - @serwist/routing@9.0.0-preview.1
+  - @serwist/strategies@9.0.0-preview.1
+
+## 9.0.0-preview.0
+
+### Major Changes
+
+- [`defdd5a`](https://github.com/serwist/serwist/commit/defdd5a50f80e6c58e00dff8c608466c02fdc459) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(js): migrate to ESM-only
+
+  - Serwist is now an ESM-only project.
+  - This was done because our tooling around supporting CJS had always been crappy: it was slow, had no way of supporting emitting `.d.cts` (we used to copy `.d.ts` to `.d.cts`), and was too error-prone (there were various issues of our builds crashing due to an ESM-only package slipping in).
+  - If you already use ESM, there's nothing to be done. Great! Otherwise, to migrate:
+
+    - Migrate to ESM if possible.
+    - Otherwise, use dynamic imports. For example, to migrate to the new `@serwist/next`:
+
+      - Old:
+
+      ```js
+      // @ts-check
+      const withSerwist = require("@serwist/next").default({
+        cacheOnNavigation: true,
+        swSrc: "app/sw.ts",
+        swDest: "public/sw.js",
+      });
+      /** @type {import("next").NextConfig} */
+      const nextConfig = {
+        reactStrictMode: true,
+      };
+
+      module.exports = withSerwist(nextConfig);
+      ```
+
+      - New:
+
+      ```js
+      // @ts-check
+      /** @type {import("next").NextConfig} */
+      const nextConfig = {
+        reactStrictMode: true,
+      };
+
+      module.exports = async () => {
+        const withSerwist = (await import("@serwist/next")).default({
+          cacheOnNavigation: true,
+          swSrc: "app/sw.ts",
+          swDest: "public/sw.js",
+        });
+        return withSerwist(nextConfig);
+      };
+      ```
+
+  - I know that most of our current userbase use Next.js, which still suggests using a CJS config file, so I am really sorry for the trouble I have caused for you :( However, what needs to be done has to be done. It was time to migrate and get rid of old, legacy things.
+
+### Patch Changes
+
+- Updated dependencies [[`30e4c25`](https://github.com/serwist/serwist/commit/30e4c25ac9fc319902c75682b16a5ba31bfbae58), [`defdd5a`](https://github.com/serwist/serwist/commit/defdd5a50f80e6c58e00dff8c608466c02fdc459)]:
+  - @serwist/cacheable-response@9.0.0-preview.0
+  - @serwist/routing@9.0.0-preview.0
+  - @serwist/core@9.0.0-preview.0
+  - @serwist/expiration@9.0.0-preview.0
+  - @serwist/precaching@9.0.0-preview.0
+  - @serwist/strategies@9.0.0-preview.0
+
 ## 8.4.4
 
 ### Patch Changes

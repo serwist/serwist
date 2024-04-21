@@ -4,6 +4,9 @@ export default {
   content: ["./src/**/*.{html,js,svelte,ts}"],
   theme: {
     extend: {
+      fontFamily: {
+        sans: "'Geist', Arial, sans-serif",
+      },
       colors: {
         accent: {
           light: "#1e40af",
@@ -27,6 +30,10 @@ export default {
         yellow: {
           75: "#FFF4CE",
           1000: "#433519",
+        },
+        neutral: {
+          150: "#EEEEEE",
+          250: "#DDDDDD",
         },
       },
     },

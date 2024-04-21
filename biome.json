@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.5.1/schema.json",
+  "$schema": "https://biomejs.dev/schemas/1.5.3/schema.json",
   "vcs": {
     "enabled": true,
     "clientKind": "git",
@@ -18,7 +18,9 @@
       "recommended": true,
       "style": {
         "noNonNullAssertion": "off",
-        "noParameterAssign": "off"
+        "noParameterAssign": "off",
+        "noVar": "off",
+        "useConst": "off"
       },
       "suspicious": {
         "noExplicitAny": "off",

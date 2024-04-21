@@ -6,31 +6,29 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { RouteHandlerCallback, RouteHandlerCallbackOptions } from "@serwist/core";
-import { logger } from "@serwist/core/internal";
+import type { RouteHandlerCallback, RouteHandlerCallbackOptions } from "serwist";
+import { logger } from "serwist/internal";
 
 import type { StreamSource } from "./_types.js";
 import { concatenateToResponse } from "./concatenateToResponse.js";
 import { isSupported } from "./isSupported.js";
 import { createHeaders } from "./utils/createHeaders.js";
 
-export interface StreamsHandlerCallback {
-  ({ url, request, event, params }: RouteHandlerCallbackOptions): Promise<StreamSource> | StreamSource;
-}
+export type StreamsHandlerCallback = ({ url, request, event, params }: RouteHandlerCallbackOptions) => Promise<StreamSource> | StreamSource;
 
 /**
- * A shortcut to create a strategy that could be dropped-in to Serwist's router.
+ * A shortcut to create a strategy that could be dropped-in to Serwist's `Router`.
  *
  * On browsers that do not support constructing new `ReadableStream`s, this
  * strategy will automatically wait for all the `sourceFunctions` to complete,
  * and create a final response that concatenates their values together.
  *
- * @param sourceFunctions An array of functions similar to `@serwist/routing.handlerCallback`
+ * @param sourceFunctions An array of functions similar to `serwist.handlerCallback`
  * but that instead return a `@serwist/streams.StreamSource` (or a Promise which resolves to one).
  * @param headersInit If there's no `Content-Type` specified, `'text/html'` will be used by default.
  * @returns
  */
-function strategy(sourceFunctions: StreamsHandlerCallback[], headersInit: HeadersInit): RouteHandlerCallback {
+export const strategy = (sourceFunctions: StreamsHandlerCallback[], headersInit: HeadersInit): RouteHandlerCallback => {
   return async ({ event, request, url, params }: RouteHandlerCallbackOptions) => {
     const sourcePromises = sourceFunctions.map((fn) => {
       // Ensure the return value of the function is always a promise.
@@ -70,6 +68,4 @@ function strategy(sourceFunctions: StreamsHandlerCallback[], headersInit: Header
     // So is constructing a new Blob from multiple source Blobs or strings.
     return new Response(new Blob(blobParts), { headers });
   };
-}
-
-export { strategy };
+};

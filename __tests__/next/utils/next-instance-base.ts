@@ -1,10 +1,9 @@
 import type { ChildProcessWithoutNullStreams } from "node:child_process";
+import { lstatSync } from "node:fs";
 import fs from "node:fs/promises";
-import path from "node:path";
-
 import * as cheerio from "cheerio";
+import { glob } from "glob";
 import type { PackageJson } from "type-fest";
-
 import treeKill from "./tree-kill.ts";
 
 export interface NextInstanceOpts {
@@ -37,11 +36,17 @@ export abstract class NextInstance {
   }
   protected async clean() {
     try {
-      await Promise.all([
-        fs.rm(path.join(this._appTestDir, ".next"), { recursive: true, force: true, maxRetries: 10, retryDelay: 1000 }),
-        fs.rm(path.join(this._appTestDir, "public/sw.js"), { maxRetries: 10, force: true }),
-        fs.rm(path.join(this._appTestDir, "next-env.d.ts"), { maxRetries: 10, force: true }),
-      ]);
+      const filesToRemove = await glob(
+        [".next", "next-env.d.ts", "public/sw.js", "public/sw.js.map", "public/swe-worker-*.js", "public/swe-worker-*.js.map"],
+        { absolute: true, cwd: this._appTestDir },
+      );
+      console.log("cleaning up test dir", filesToRemove);
+      await Promise.all(
+        filesToRemove.map((file) => {
+          const isDirectory = lstatSync(file).isDirectory();
+          return fs.rm(file, { force: true, maxRetries: 10, recursive: isDirectory, retryDelay: 1000 });
+        }),
+      );
     } catch (err) {
       console.error("failed to clean up test dir", err);
     }

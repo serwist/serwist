@@ -27,7 +27,7 @@ import type { Compilation } from "webpack";
  * name of that asset. Otherwise, it will return undefined.
  * @private
  */
-export function getSourcemapAssetName(compilation: Compilation, swContents: string, swDest: string): string | undefined {
+export const getSourcemapAssetName = (compilation: Compilation, swContents: string, swDest: string): string | undefined => {
   const url = getSourceMapURL(swContents);
   if (url) {
     // Translate the relative URL to what the presumed name for the webpack
@@ -44,4 +44,4 @@ export function getSourcemapAssetName(compilation: Compilation, swContents: stri
     }
   }
   return undefined;
-}
+};

@@ -1,47 +1,51 @@
-import { getHighlighter } from "shiki";
-
 import { highlightCode } from "$lib/highlightCode";
+import { encodeOpenGraphImage } from "$lib/og";
+import type { PageServerLoad } from "./$types";
 
-export const load = async () => {
-  const highligher = await getHighlighter({
-    themes: ["github-dark", "github-light"],
-    langs: ["javascript"],
-  });
-  return {
-    title: "swUrl - Configuring - @serwist/next",
-    code: {
-      usage: highlightCode(
-        highligher,
+export const load: PageServerLoad = ({ locals }) => ({
+  title: "swUrl - Configuring - @serwist/next",
+  ogImage: encodeOpenGraphImage({
+    title: "swUrl",
+    desc: "Configuring - @serwist/next",
+  }),
+  toc: [
+    {
+      title: "swUrl",
+      id: "sw-url",
+      children: [
         {
-          "next.config.mjs": {
-            code: `import withSerwistInit from "@serwist/next";
-      
-const withSerwist = withSerwistInit({
-    swSrc: "app/sw.ts",
-    swDest: "public/weird-sw.js",
-    swUrl: "/weird-sw.js",
-});
-         
-export default withSerwist({
-    // Your Next.js config
-});`,
-            lang: "javascript",
-          },
-          "next.config.js": {
-            code: `const withSerwist = require("@serwist/next").default({
-    swSrc: "app/sw.ts",
-    swDest: "public/weird-sw.js",
-    swUrl: "/weird-sw.js",
-});
-      
-module.exports = withSerwist({
-    // Your Next.js config
-});`,
-            lang: "javascript",
-          },
+          title: "First added",
+          id: "first-added",
         },
-        { idPrefix: "usage-example" },
-      ),
+        {
+          title: "About",
+          id: "about",
+        },
+        {
+          title: "Why?",
+          id: "why",
+        },
+        {
+          title: "Usage",
+          id: "usage",
+        },
+      ],
     },
-  };
-};
+  ],
+  code: {
+    usage: highlightCode(
+      locals.highlighter,
+      {
+        "next.config.mjs": {
+          code: `withSerwistInit({
+  swSrc: "app/sw.ts",
+  swDest: "public/weird-sw.js",
+  swUrl: "/weird-sw.js",
+});`,
+          lang: "javascript",
+        },
+      },
+      { idPrefix: "usage-example", useTwoslash: false },
+    ),
+  },
+});

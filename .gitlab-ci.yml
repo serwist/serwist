@@ -1,0 +1,42 @@
+default:
+  image: node:20.10.0
+  before_script:
+    - corepack enable pnpm
+    - pnpm config set store-dir .pnpm-store
+    - pnpm i
+  cache:
+    key:
+      files:
+        - pnpm-lock.yaml
+    paths:
+      - .pnpm-store
+
+workflow:
+  rules:
+    - if: '$CI_COMMIT_MESSAGE !~ /\[skip ci\]/'
+
+stages:
+  - build-and-test
+  - publish
+
+build-and-test-job:
+  stage: build-and-test
+  script:
+    - pnpm build
+    - pnpm typecheck
+    - TEST_MODE=dev pnpm test --filter=./__tests__/* -- --ci --runInBand
+    - TEST_MODE=start pnpm test --filter=./__tests__/* -- --ci --runInBand
+
+publish-job:
+  stage: publish
+  id_tokens:
+    SIGSTORE_ID_TOKEN:
+      aud: sigstore
+  script:
+    - pnpm build
+    - pnpm typecheck
+    - pnpm serwist-release
+  rules:
+    - if: '($CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "9.0.0") && 
+          $CI_PIPELINE_SOURCE != "merge_request_event" && 
+          ($CI_COMMIT_TITLE =~ /chore\(packages\): publish packages/ || $CI_COMMIT_MESSAGE =~ /\[bump\]/)'

@@ -6,16 +6,16 @@
   https://opensource.org/licenses/MIT.
 */
 
-import fse from "fs-extra";
+import { readFileSync } from "node:fs";
 
 import { errors } from "./errors.js";
 import { getStringHash } from "./get-string-hash.js";
 
-export function getFileHash(file: string): string {
+export const getFileHash = (file: string): string => {
   try {
-    const buffer = fse.readFileSync(file);
+    const buffer = readFileSync(file);
     return getStringHash(buffer);
   } catch (err) {
     throw new Error(`${errors["unable-to-get-file-hash"]} '${err instanceof Error && err.message ? err.message : ""}'`);
   }
-}
+};

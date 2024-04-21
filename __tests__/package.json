@@ -6,10 +6,9 @@
   "private": true,
   "author": "Serwist's Team",
   "license": "MIT",
-  "repository": "serwist/serwist",
-  "bugs": "https://github.com/serwist/serwist/issues",
   "homepage": "https://serwist.pages.dev",
   "devDependencies": {
-    "@types/jest": "29.5.11"
+    "type-fest": "4.15.0",
+    "vitest": "1.5.0"
   }
 }

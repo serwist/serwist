@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
+    "noErrorTruncation": true,
     "target": "ESNext",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "lib": ["DOM", "ES6", "ES2017", "ESNext.AsyncIterable", "WebWorker"],
+    "lib": ["DOM", "ESNext", "DOM.Iterable", "ESNext.AsyncIterable", "WebWorker"],
     "skipLibCheck": true,
     "sourceMap": false,
     "strict": true,
@@ -15,6 +16,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "isolatedModules": true,
+    "verbatimModuleSyntax": true,
     "removeComments": false,
     "noEmit": true,
     "checkJs": true

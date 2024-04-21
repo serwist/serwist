@@ -1,4 +1,4 @@
-<script lang="ts" generics="T extends [string, string, { dark: string, light: string }][]">
+<script lang="ts" generics="T extends [string, string, string][]">
   import { clsx } from "$lib/clsx";
 
   type TKeys = T[number][0];
@@ -12,7 +12,7 @@
     defaultTab: TKeys;
   }
 
-  const { codes, defaultTab } = $props<CodeTabProps>();
+  const { codes, defaultTab }: CodeTabProps = $props();
   let currentTab = $state(defaultTab);
 
   $effect(() => {
@@ -20,43 +20,39 @@
   });
 </script>
 
-<div class="w-full rounded-xl bg-white dark:bg-neutral-950 flex flex-col overflow-hidden border-[0.5px] border-gray-300 dark:border-gray-800">
-  <div class="w-full bg-white dark:bg-black relative">
-    <div class="w-full overflow-auto flex">
+<div class="flex w-full flex-col rounded-xl border border-neutral-300 bg-white dark:border-neutral-800 dark:bg-neutral-950 my-3">
+  <div class="relative w-full rounded-t-xl bg-white dark:bg-black">
+    <div role="tablist" aria-orientation="horizontal" class="flex w-full overflow-auto rounded-t-xl">
       {#each codes as [tab, id]}
         {@const isActive = tab === currentTab}
         <button
           id={`${id}-button`}
-          class={clsx(
-            "py-2 px-4 border-gray-300 dark:border-gray-800 relative border-r-[0.5px]",
-            isActive ? "bg-white text-black dark:bg-neutral-950 dark:text-white" : "text-gray-600 dark:text-gray-400"
-          )}
-          on:click={() => (currentTab = tab)}
+          role="tab"
           aria-controls={`${id}-code`}
+          aria-selected={isActive}
+          class={clsx(
+            "relative min-w-max border-r border-neutral-300 px-4 py-2 dark:border-neutral-800",
+            isActive ? "bg-white text-black dark:bg-neutral-950 dark:text-white" : "text-neutral-600 dark:text-neutral-400"
+          )}
+          onclick={() => (currentTab = tab)}
         >
           {tab}
           {#if isActive}
-            <span class="w-full h-[1px] z-[2] bg-white dark:bg-neutral-950 absolute bottom-0 left-0 pointer-events-none" aria-hidden="true" />
+            <span class="pointer-events-none absolute bottom-0 left-0 z-[2] h-[1px] w-full bg-white dark:bg-neutral-950" aria-hidden="true" />
           {/if}
         </button>
       {/each}
     </div>
-    <div class="w-full h-[1px] z-[1] bg-gray-300 dark:bg-gray-800 absolute bottom-0 left-0 pointer-events-none" aria-hidden="true" />
+    <div class="pointer-events-none absolute bottom-0 left-0 z-[1] h-[1px] w-full bg-neutral-300 dark:bg-neutral-800" aria-hidden="true" />
   </div>
-  <div class="margin-0 p-4">
+  <div class="margin-0 overflow-auto p-4">
     {#each codes as [tab, id, code]}
       {@const isActive = tab === currentTab}
-      <div id={`${id}-code`} class={clsx("whitespace-normal overflow-auto", !isActive && "hidden")} aria-labelledby={`${id}-button`}>
+      <div role="tabpanel" id={`${id}-code`} class="whitespace-normal" class:hidden={!isActive} aria-labelledby={`${id}-button`}>
         {#if isActive}
-          <span class="code-tab-dark [&>*]:!bg-transparent">
-            <!-- Only use trusted code! -->
-            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-            {@html code.dark}
-          </span>
-          <span class="code-tab-light [&>*]:!bg-transparent">
-            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-            {@html code.light}
-          </span>
+          <!-- Only use trusted code! -->
+          <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+          {@html code}
         {/if}
       </div>
     {/each}

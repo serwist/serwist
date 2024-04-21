@@ -1,47 +1,51 @@
-import { getHighlighter } from "shiki";
-
 import { highlightCode } from "$lib/highlightCode";
+import { encodeOpenGraphImage } from "$lib/og";
+import type { PageServerLoad } from "./$types";
 
-export const load = async () => {
-  const highligher = await getHighlighter({
-    themes: ["github-dark", "github-light"],
-    langs: ["javascript"],
-  });
-  return {
-    title: "disable - Configuring - @serwist/next",
-    code: {
-      usage: highlightCode(
-        highligher,
+export const load: PageServerLoad = ({ locals }) => ({
+  title: "disable - Configuring - @serwist/next",
+  ogImage: encodeOpenGraphImage({
+    title: "disable",
+    desc: "Configuring - @serwist/next",
+  }),
+  toc: [
+    {
+      title: "disable",
+      id: "disable",
+      children: [
         {
-          "next.config.mjs": {
-            code: `import withSerwistInit from "@serwist/next";
-      
-const withSerwist = withSerwistInit({
-    swSrc: "app/sw.ts",
-    swDest: "public/sw.js",
-    disable: true,
-});
-         
-export default withSerwist({
-    // Your Next.js config
-});`,
-            lang: "javascript",
-          },
-          "next.config.js": {
-            code: `const withSerwist = require("@serwist/next").default({
-    swSrc: "app/sw.ts",
-    swDest: "public/sw.js",
-    disable: true,
-});
-      
-module.exports = withSerwist({
-    // Your Next.js config
-});`,
-            lang: "javascript",
-          },
+          title: "First added",
+          id: "first-added",
         },
-        { idPrefix: "usage-example" },
-      ),
+        {
+          title: "Default",
+          id: "default",
+        },
+        {
+          title: "About",
+          id: "about",
+        },
+        {
+          title: "Usage",
+          id: "usage",
+        },
+      ],
     },
-  };
-};
+  ],
+  code: {
+    usage: highlightCode(
+      locals.highlighter,
+      {
+        "next.config.mjs": {
+          code: `withSerwistInit({
+  swSrc: "app/sw.ts",
+  swDest: "public/sw.js",
+  disable: true,
+});`,
+          lang: "javascript",
+        },
+      },
+      { idPrefix: "usage-example", useTwoslash: false },
+    ),
+  },
+});

@@ -5,29 +5,26 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-
-import { oneLine as ol } from "common-tags";
-import fse from "fs-extra";
+import { writeFileSync } from "node:fs";
 import stringifyObject from "stringify-object";
 
+import { askQuestions } from "./ask-questions.js";
 import { logger } from "./logger.js";
-import { askQuestions } from "./questions/ask-questions.js";
 
-export async function runWizard(options = {}): Promise<void> {
-  const { configLocation, config } = await askQuestions(options);
+export async function runWizard(): Promise<void> {
+  const { configLocation, config } = await askQuestions();
 
-  // See https://github.com/GoogleChrome/workbox/issues/2796
-  const contents = `module.exports = ${stringifyObject(config)};`;
-  await fse.writeFile(configLocation, contents);
+  const contents = `/** @type {import("@serwist/build").InjectManifestOptions} */\nexport default ${stringifyObject(config)};`;
+
+  writeFileSync(configLocation, contents);
 
   logger.log(`To build your service worker, run
 
-  serwist injectManifest ${configLocation}
+  serwist inject-manifest ${configLocation}
 
-as part of a build process. See https://goo.gl/fdTQBf for details.`);
+as part of a build process.`);
 
-  const configDocsURL = "injectManifest" in options ? "https://goo.gl/8bs14N" : "https://goo.gl/gVo87N";
-
-  logger.log(ol`You can further customize your service worker by making changes
-    to ${configLocation}. See ${configDocsURL} for details.`);
+  logger.log(
+    `You can further customize your service worker by making changes to ${configLocation}. See https://serwist.pages.dev/docs/build/configuring for details.`,
+  );
 }

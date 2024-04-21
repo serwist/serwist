@@ -11,24 +11,15 @@ jobs:
     with:
       afterBuild: pnpm typecheck
     secrets: inherit
-  test-next-dev:
-    name: ⚫️ Run Jest (development mode) tests for @serwist/next
+  test-dev:
+    name: ⚫️ Run Vitest (development mode) tests
     uses: ./.github/workflows/build-reusable.yml
     with:
-      afterBuild: |
-        NEXT_TEST_MODE=dev pnpm test --filter=./__tests__/next -- --ci --runInBand
+      afterBuild: TEST_MODE=dev pnpm test --filter='./__tests__/*'
     secrets: inherit
-  test-next-prod:
-    name: ⚫️ Run Jest (production mode) tests for @serwist/next
+  test-prod:
+    name: ⚫️ Run Vitest (production mode) tests
     uses: ./.github/workflows/build-reusable.yml
     with:
-      afterBuild: |
-        NEXT_TEST_MODE=start pnpm test --filter=./__tests__/next -- --ci --runInBand
-    secrets: inherit
-  test-build:
-    name: ⚫️ Run Jest tests for @serwist/build
-    uses: ./.github/workflows/build-reusable.yml
-    with:
-      afterBuild: |
-        NEXT_TEST_MODE=dev pnpm test --filter=./__tests__/build -- --ci --runInBand
+      afterBuild: TEST_MODE=start pnpm test --filter='./__tests__/*'
     secrets: inherit

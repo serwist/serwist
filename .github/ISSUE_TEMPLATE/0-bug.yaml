@@ -17,23 +17,12 @@ body:
       multiple: false
       label: Which project is this issue for?
       options:
-        - "@serwist/background-sync"
-        - "@serwist/broadcast-update"
+        - "serwist"
         - "@serwist/build"
-        - "@serwist/cacheable-response"
         - "@serwist/cli"
-        - "@serwist/core"
-        - "@serwist/expiration"
-        - "@serwist/google-analytics"
-        - "@serwist/navigation-preload"
         - "@serwist/next"
-        - "@serwist/precaching"
-        - "@serwist/range-requests"
         - "@serwist/recipes"
-        - "@serwist/routing"
-        - "@serwist/strategies"
         - "@serwist/streams"
-        - "@serwist/sw"
         - "@serwist/webpack-plugin"
         - "@serwist/window"
   - type: input

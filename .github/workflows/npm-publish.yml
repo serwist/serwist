@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - "9.0.0"
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -25,7 +26,7 @@ jobs:
       pull-requests: write
     strategy:
       matrix:
-        node-version: ["18.x"]
+        node-version: ["20.x"]
         pnpm-version: ["8.x"]
     if: "${{ contains(github.event.head_commit.message, '[bump]') || contains(github.event.head_commit.message, 'chore(packages): publish packages') }}"
     steps:
@@ -40,8 +41,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
-      - name: Update npm
-        run: npm i -g npm@9
       - name: Install dependencies
         run: pnpm install
       - name: Publish to npm

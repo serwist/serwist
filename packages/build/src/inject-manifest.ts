@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import assert from "assert";
+import assert from "node:assert";
 import stringify from "fast-json-stable-stringify";
 import fse from "fs-extra";
 import type { RawSourceMap } from "source-map";
@@ -48,8 +48,8 @@ import type { BuildResult, InjectManifestOptions } from "./types.js";
  * });
  * ```
  */
-export async function injectManifest(config: InjectManifestOptions): Promise<BuildResult> {
-  const options = validateInjectManifestOptions(config);
+export const injectManifest = async (config: InjectManifestOptions): Promise<BuildResult> => {
+  const options = await validateInjectManifestOptions(config);
 
   // Make sure we leave swSrc and swDest out of the precache manifest.
   for (const file of [options.swSrc, options.swDest]) {
@@ -137,4 +137,4 @@ export async function injectManifest(config: InjectManifestOptions): Promise<Bui
     // Use upath.resolve() to make all the paths absolute.
     filePaths: Object.keys(filesToWrite).map((f) => upath.resolve(f)),
   };
-}
+};

@@ -6,11 +6,10 @@
   https://opensource.org/licenses/MIT.
 */
 
-import assert from "assert";
+import assert from "node:assert";
 import { type InjectManifestOptions, injectManifest } from "@serwist/build";
 import type { WatchOptions } from "chokidar";
 import { default as chokidar } from "chokidar";
-// import { oneLine as ol } from "common-tags";
 import type { Result as MeowResult } from "meow";
 import prettyBytes from "pretty-bytes";
 import upath from "upath";
@@ -32,7 +31,7 @@ type BuildCommand = {
  *
  * @param options
  */
-async function runBuildCommand({ config, watch }: BuildCommand) {
+const runBuildCommand = async ({ config, watch }: BuildCommand) => {
   const { count, filePaths, size, warnings } = await injectManifest(config);
 
   for (const warning of warnings) {
@@ -54,7 +53,7 @@ async function runBuildCommand({ config, watch }: BuildCommand) {
   if (watch) {
     logger.log("\nWatching for changes...");
   }
-}
+};
 
 export const app = async (params: MeowResult<SupportedFlags>): Promise<void> => {
   // This should not be a user-visible error, unless meow() messes something up.
@@ -65,31 +64,16 @@ export const app = async (params: MeowResult<SupportedFlags>): Promise<void> => 
 
   switch (command) {
     case "wizard": {
-      await runWizard(params.flags);
+      await runWizard();
       break;
     }
 
-    case "copyLibraries": {
-      logger.log("This feature is under maintenance. We are really sorry for the inconvenience.");
-      // assert(option, errors["missing-dest-dir-param"]);
-      // const parentDirectory = upath.resolve(process.cwd(), option);
-
-      // const dirName = await copySerwistLibraries(parentDirectory);
-      // const fullPath = upath.join(parentDirectory, dirName);
-
-      // logger.log(`The Serwist libraries were copied to ${fullPath}`);
-      // logger.log(ol`Add a call to serwist.setConfig({modulePathPrefix: '...'})
-      //   to your service worker to use these local libraries.`);
-      // logger.log(`See https://goo.gl/Fo9gPX for further documentation.`);
-      break;
-    }
-
-    case "injectManifest": {
+    case "inject-manifest": {
       const configPath = upath.resolve(process.cwd(), option || constants.defaultConfigFile);
 
       let config: InjectManifestOptions | null;
       try {
-        config = readConfig(configPath);
+        config = await readConfig(configPath);
       } catch (error) {
         config = null;
         if (error instanceof Error) {

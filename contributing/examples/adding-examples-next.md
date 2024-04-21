@@ -24,31 +24,28 @@ pnpm start
 
 or
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), [pnpm](https://pnpm.io), or [bun](https://bun.sh) to bootstrap the example:
+Execute [`degit`](https://github.com/Rich-Harris/degit) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), [pnpm](https://pnpm.io), or [bun](https://bun.sh) to bootstrap the example:
 
 ```bash
-npx create-next-app --example https://github.com/serwist/serwist/tree/main/examples/DIRECTORY_NAME my-app
+npx degit serwist/serwist/examples/DIRECTORY_NAME my-app
 ```
 
 ```bash
-yarn create next-app --example https://github.com/serwist/serwist/tree/main/examples/DIRECTORY_NAME my-app
+yarn degit serwist/serwist/examples/DIRECTORY_NAME my-app
 ```
 
 ```bash
-pnpm create next-app --example https://github.com/serwist/serwist/tree/main/examples/DIRECTORY_NAME my-app
+pnpx degit serwist/serwist/examples/DIRECTORY_NAME my-app
 ```
 
 ```bash
-bun create next-app --example https://github.com/serwist/serwist/tree/main/examples/DIRECTORY_NAME my-app
+bunx degit serwist/serwist/examples/DIRECTORY_NAME my-app
 ```
 
 ## Recommended `.gitignore`
 
 ```gitignore
-**/public/serwist**
 **/public/sw**
-**/public/worker**
-**/public/fallback**
-**/public/precache**
+**/public/swe**
 ```
 ````

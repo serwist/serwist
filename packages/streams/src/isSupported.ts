@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { canConstructReadableStream } from "@serwist/core/internal";
+import { canConstructReadableStream } from "serwist/internal";
 
 /**
  * This is a utility method that determines whether the current browser supports
@@ -17,8 +17,4 @@ import { canConstructReadableStream } from "@serwist/core/internal";
  * @returns `true`, if the current browser meets the requirements for
  * streaming responses, and `false` otherwise.
  */
-function isSupported(): boolean {
-  return canConstructReadableStream();
-}
-
-export { isSupported };
+export const isSupported = (): boolean => canConstructReadableStream();

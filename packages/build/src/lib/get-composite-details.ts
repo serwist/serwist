@@ -6,17 +6,17 @@
   https://opensource.org/licenses/MIT.
 */
 
-import crypto from "crypto";
+import crypto from "node:crypto";
 
 import type { FileDetails } from "../types.js";
 
-export function getCompositeDetails(compositeURL: string, dependencyDetails: Array<FileDetails>): FileDetails {
+export const getCompositeDetails = (compositeURL: string, dependencyDetails: FileDetails[]): FileDetails => {
   let totalSize = 0;
   let compositeHash = "";
 
   for (const fileDetails of dependencyDetails) {
     totalSize += fileDetails.size;
-    compositeHash += fileDetails.hash;
+    compositeHash += fileDetails.hash === null ? "" : fileDetails.hash;
   }
 
   const md5 = crypto.createHash("md5");
@@ -28,4 +28,4 @@ export function getCompositeDetails(compositeURL: string, dependencyDetails: Arr
     hash: hashOfHashes,
     size: totalSize,
   };
-}
+};
