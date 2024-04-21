@@ -2,16 +2,13 @@ import { parallel } from "@serwist/utils";
 import { NavigationRoute } from "./NavigationRoute.js";
 import { PrecacheRoute } from "./PrecacheRoute.js";
 import type { Route } from "./Route.js";
-import { cleanupOutdatedCaches as cleanupOutdatedCachesImpl } from "./cleanupOutdatedCaches.js";
-import { clientsClaim as clientsClaimImpl } from "./clientsClaim.js";
 import { type HTTPMethod, defaultMethod } from "./constants.js";
 import { disableDevLogs as disableDevLogsImpl } from "./disableDevLogs.js";
 import { type GoogleAnalyticsInitializeOptions, initializeGoogleAnalytics } from "./lib/googleAnalytics/initializeGoogleAnalytics.js";
 import { type PrecacheFallbackEntry, PrecacheFallbackPlugin } from "./lib/precaching/PrecacheFallbackPlugin.js";
-import { PrecacheOnly } from "./lib/strategies/PrecacheOnly.js";
+import { PrecacheStrategy } from "./lib/strategies/PrecacheStrategy.js";
 import { Strategy } from "./lib/strategies/Strategy.js";
 import { enableNavigationPreload } from "./navigationPreload.js";
-import { parseRoute } from "./parseRoute.js";
 import { setCacheNameDetails } from "./setCacheNameDetails.js";
 import type {
   RouteHandler,
@@ -29,10 +26,13 @@ import { PrecacheInstallReportPlugin } from "./utils/PrecacheInstallReportPlugin
 import { SerwistError } from "./utils/SerwistError.js";
 import { assert } from "./utils/assert.js";
 import { cacheNames as privateCacheNames } from "./utils/cacheNames.js";
+import { cleanupOutdatedCaches as cleanupOutdatedCachesImpl } from "./utils/cleanupOutdatedCaches.js";
+import { clientsClaim as clientsClaimImpl } from "./utils/clientsClaim.js";
 import { createCacheKey } from "./utils/createCacheKey.js";
 import { getFriendlyURL } from "./utils/getFriendlyURL.js";
 import { logger } from "./utils/logger.js";
 import { normalizeHandler } from "./utils/normalizeHandler.js";
+import { parseRoute } from "./utils/parseRoute.js";
 import { printCleanupDetails } from "./utils/printCleanupDetails.js";
 import { printInstallDetails } from "./utils/printInstallDetails.js";
 import { waitUntil } from "./utils/waitUntil.js";
@@ -193,7 +193,7 @@ export class Serwist {
     fallbacks,
   }: SerwistOptions = {}) {
     this._concurrentPrecaching = precacheOptions?.concurrency ?? 10;
-    this._precacheStrategy = new PrecacheOnly({
+    this._precacheStrategy = new PrecacheStrategy({
       cacheName: privateCacheNames.getPrecacheName(precacheOptions?.cacheName),
       plugins: [...(precacheOptions?.plugins ?? []), new PrecacheCacheKeyPlugin({ precacheController: this })],
       fallbackToNetwork: precacheOptions?.fallbackToNetwork,
@@ -532,7 +532,11 @@ export class Serwist {
    * @param method The HTTP method to match the Route against. Defaults to `'GET'`.
    * @returns The generated `Route`.
    */
-  registerCapture(capture: RegExp | string | RouteMatchCallback | Route, handler?: RouteHandler, method?: HTTPMethod): Route {
+  registerCapture<T extends RegExp | string | RouteMatchCallback | Route>(
+    capture: T,
+    handler?: T extends Route ? never : RouteHandler,
+    method?: T extends Route ? never : HTTPMethod,
+  ): Route {
     const route = parseRoute(capture, handler, method);
     this.registerRoute(route);
     return route;

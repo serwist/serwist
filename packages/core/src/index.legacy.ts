@@ -1,7 +1,3 @@
-import { NavigationRoute } from "./NavigationRoute.js";
-import { RegExpRoute } from "./RegExpRoute.js";
-import { Route } from "./Route.js";
-import { cleanupOutdatedCaches } from "./cleanupOutdatedCaches.js";
 import { PrecacheController } from "./legacy/PrecacheController.js";
 import { PrecacheFallbackPlugin } from "./legacy/PrecacheFallbackPlugin.js";
 import type { PrecacheFallbackEntry, PrecacheFallbackPluginOptions } from "./legacy/PrecacheFallbackPlugin.js";
@@ -27,19 +23,8 @@ import { setDefaultHandler } from "./legacy/setDefaultHandler.js";
 import { getSingletonPrecacheController, setSingletonPrecacheController } from "./legacy/singletonPrecacheController.js";
 import { getSingletonRouter, setSingletonRouter } from "./legacy/singletonRouter.js";
 import { unregisterRoute } from "./legacy/unregisterRoute.js";
-import { PrecacheOnly } from "./lib/strategies/PrecacheOnly.js";
-import { parseRoute } from "./parseRoute.js";
 
 export {
-  // These are not deprecated, but we export them so legacy packages
-  // can re-export them without having to import both the normal and legacy
-  // import paths.
-  NavigationRoute,
-  PrecacheOnly,
-  RegExpRoute,
-  Route,
-  cleanupOutdatedCaches,
-  parseRoute,
   // Actual deprecated modules start here
   addPlugins,
   addRoute,

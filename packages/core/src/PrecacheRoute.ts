@@ -20,8 +20,8 @@ import { logger } from "./utils/logger.js";
  */
 export class PrecacheRoute extends Route {
   /**
-   * @param serwist A `PrecacheController`
-   * instance used to both match requests and respond to fetch events.
+   * @param serwist A `Serwist` instance used to both match requests
+   * and respond to fetch events.
    * @param options Options to control how requests are matched
    * against the list of precached URLs.
    */

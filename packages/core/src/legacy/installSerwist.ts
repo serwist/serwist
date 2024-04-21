@@ -1,8 +1,8 @@
-import { clientsClaim as clientsClaimImpl } from "../clientsClaim.js";
 import { disableDevLogs as disableDevLogsImpl } from "../disableDevLogs.js";
 import { enableNavigationPreload } from "../navigationPreload.js";
 import { setCacheNameDetails } from "../setCacheNameDetails.js";
 import type { RuntimeCaching } from "../types.js";
+import { clientsClaim as clientsClaimImpl } from "../utils/clientsClaim.js";
 import type { PrecacheController } from "./PrecacheController.js";
 import type { Router } from "./Router.js";
 import type { FallbacksOptions } from "./fallbacks.js";

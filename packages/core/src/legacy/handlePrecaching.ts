@@ -1,6 +1,6 @@
 import { NavigationRoute } from "../NavigationRoute.js";
-import { cleanupOutdatedCaches as cleanupOutdatedCachesImpl } from "../cleanupOutdatedCaches.js";
 import type { PrecacheEntry, PrecacheRouteOptions } from "../types.js";
+import { cleanupOutdatedCaches as cleanupOutdatedCachesImpl } from "../utils/cleanupOutdatedCaches.js";
 import type { PrecacheController } from "./PrecacheController.js";
 import { PrecacheRoute } from "./PrecacheRoute.js";
 import type { Router } from "./Router.js";

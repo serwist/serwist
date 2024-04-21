@@ -31,7 +31,7 @@ interface PrecacheStrategyOptions extends StrategyOptions {
  * Note: an instance of this class is created automatically when creating a
  * `Serwist` instance; it's generally not necessary to create this yourself.
  */
-export class PrecacheOnly extends Strategy {
+export class PrecacheStrategy extends Strategy {
   private readonly _fallbackToNetwork: boolean;
 
   static readonly defaultPrecacheCacheabilityPlugin: SerwistPlugin = {
@@ -64,7 +64,7 @@ export class PrecacheOnly extends Strategy {
     // any redirected response must be "copied" rather than cloned, so the new
     // response doesn't contain the `redirected` flag. See:
     // https://bugs.chromium.org/p/chromium/issues/detail?id=669363&desc=2#c1
-    this.plugins.push(PrecacheOnly.copyRedirectedCacheableResponsesPlugin);
+    this.plugins.push(PrecacheStrategy.copyRedirectedCacheableResponsesPlugin);
   }
 
   /**
@@ -218,12 +218,12 @@ export class PrecacheOnly extends Strategy {
 
     for (const [index, plugin] of this.plugins.entries()) {
       // Ignore the copy redirected plugin when determining what to do.
-      if (plugin === PrecacheOnly.copyRedirectedCacheableResponsesPlugin) {
+      if (plugin === PrecacheStrategy.copyRedirectedCacheableResponsesPlugin) {
         continue;
       }
 
       // Save the default plugin's index, in case it needs to be removed.
-      if (plugin === PrecacheOnly.defaultPrecacheCacheabilityPlugin) {
+      if (plugin === PrecacheStrategy.defaultPrecacheCacheabilityPlugin) {
         defaultPluginIndex = index;
       }
 
@@ -233,7 +233,7 @@ export class PrecacheOnly extends Strategy {
     }
 
     if (cacheWillUpdatePluginCount === 0) {
-      this.plugins.push(PrecacheOnly.defaultPrecacheCacheabilityPlugin);
+      this.plugins.push(PrecacheStrategy.defaultPrecacheCacheabilityPlugin);
     } else if (cacheWillUpdatePluginCount > 1 && defaultPluginIndex !== null) {
       // Only remove the default plugin; multiple custom plugins are allowed.
       this.plugins.splice(defaultPluginIndex, 1);

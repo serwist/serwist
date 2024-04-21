@@ -126,7 +126,7 @@
   </li>
   <li>
     <ICD>
-      <a class="link" href="/docs/serwist/plugins/precache-fallback-plugin">serwist.PrecacheFallbackPlugin</a>
+      <a class="link" href="/docs/serwist/runtime-caching/plugins/precache-fallback-plugin">serwist.PrecacheFallbackPlugin</a>
     </ICD> (if <ICD>runtimeCaching</ICD> and <ICD>fallbacks</ICD> are not <ICD>undefined</ICD>)
   </li>
   <li>

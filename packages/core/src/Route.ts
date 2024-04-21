@@ -13,10 +13,10 @@ import { assert } from "./utils/assert.js";
 import { normalizeHandler } from "./utils/normalizeHandler.js";
 
 /**
- * A `Route` consists of a pair of callback functions, "match" and "handler".
- * The "match" callback determine if a route should be used to "handle" a
- * request by returning a non-falsy value if it can. The "handler" callback
- * is called when there is a match and should return a Promise that resolves
+ * A `Route` consists of a pair of callback functions, `match and `handler.
+ * The `match` callback determines if a route should be used to handle a
+ * request by returning a truthy value if it can. The `handler callback
+ * is called when the route matches and should return a `Promise` that resolves
  * to a `Response`.
  */
 export class Route {
@@ -29,11 +29,11 @@ export class Route {
    * Constructor for Route class.
    *
    * @param match A callback function that determines whether the
-   * route matches a given `fetch` event by returning a non-falsy value.
-   * @param handler A callback function that returns a Promise resolving
-   * to a Response.
-   * @param method The HTTP method to match the Route against. Defaults
-   * to GET.
+   * route matches a given `fetch` event by returning a truthy value.
+   * @param handler A callback function that returns a `Promise` resolving
+   * to a `Response`.
+   * @param method The HTTP method to match the route against. Defaults
+   * to `GET`.
    */
   constructor(match: RouteMatchCallback, handler: RouteHandler, method: HTTPMethod = defaultMethod) {
     if (process.env.NODE_ENV !== "production") {

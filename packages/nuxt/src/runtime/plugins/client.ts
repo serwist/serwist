@@ -1,5 +1,5 @@
-import { swUrl, swScope, swType } from "virtual:serwist";
 import type { Serwist } from "@serwist/window";
+import { swScope, swType, swUrl } from "virtual:serwist";
 
 import { defineNuxtPlugin } from "#imports";
 

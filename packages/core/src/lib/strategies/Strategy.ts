@@ -19,27 +19,26 @@ export interface StrategyOptions {
    */
   cacheName?: string;
   /**
-   * [Plugins](https://developer.chrome.com/docs/workbox/using-plugins)
-   * to use in conjunction with this caching strategy.
+   * [Plugins](https://serwist.pages.dev/docs/serwist/runtime-caching/plugins) to use in conjunction with this caching strategy.
    */
   plugins?: SerwistPlugin[];
   /**
-   * Values passed along to the [`init`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters)
-   * of [non-navigation](https://github.com/GoogleChrome/workbox/issues/1796) `fetch()` requests made by this strategy.
+   * Options passed to [non-navigation](https://github.com/GoogleChrome/workbox/issues/1796) `fetch()` calls made by
+   * this strategy.
    */
   fetchOptions?: RequestInit;
   /**
    * The [`CacheQueryOptions`](https://w3c.github.io/ServiceWorker/#dictdef-cachequeryoptions)
-   * for any `cache.match()` or `cache.put()` calls made by this strategy.
+   * passed to any `cache.match()` or `cache.put()` call made by this strategy.
    */
   matchOptions?: CacheQueryOptions;
 }
 
 /**
- * Classes extending the `Strategy` based class should implement this method,
- * and leverage `serwist/strategies`'s `StrategyHandler` arg to perform all
- * fetching and cache logic, which will ensure all relevant cache, cache options,
- * fetch options and plugins are used (per the current strategy instance).
+ * Abstract class for implementing runtime caching strategies.
+ * 
+ * Custom strategies should extend this class and leverage `StrategyHandler`, which will ensure all relevant cache options, 
+ * fetch options, and plugins are used (per the current strategy instance), to perform all fetching and caching logic.
  */
 export abstract class Strategy implements RouteHandlerObject {
   cacheName: string;
@@ -67,7 +66,7 @@ export abstract class Strategy implements RouteHandlerObject {
   }
 
   /**
-   * Perform a request strategy and returns a `Promise` that will resolve with
+   * Performs a request strategy and returns a `Promise` that will resolve with
    * a `Response`, invoking all relevant plugin callbacks.
    *
    * When a strategy instance is registered with a `Route`, this method is automatically
@@ -88,12 +87,11 @@ export abstract class Strategy implements RouteHandlerObject {
   }
 
   /**
-   * Similar to `serwist/strategies`'s `Strategy.handle`, but
-   * instead of just returning a `Promise` that resolves to a `Response` it
-   * it will return an tuple of `[response, done]` promises, where the former
-   * (`response`) is equivalent to what `handle()` returns, and the latter is a
-   * Promise that will resolve once any promises that were added to
-   * `event.waitUntil()` as part of performing the strategy have completed.
+   * Similar to `handle()`, but instead of just returning a `Promise` that 
+   * resolves to a `Response`, it will return an tuple of `[response, done]` promises, 
+   * where `response` is equivalent to what `handle()` returns, and `done` is a
+   * `Promise` that will resolve once all promises added to `event.waitUntil()` as a part
+   * of performing the strategy have completed.
    *
    * You can await the `done` promise to ensure any extra work performed by
    * the strategy (usually caching responses) completes successfully.

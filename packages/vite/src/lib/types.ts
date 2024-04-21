@@ -106,8 +106,8 @@ export interface InjectManifestOptionsComplete
 export interface Hooks {
   /**
    * Allows you to run some logic before the service worker is built.
-   * @param options 
-   * @returns 
+   * @param options
+   * @returns
    */
   beforeBuildServiceWorker?: (options: PluginOptionsComplete) => void | Promise<void>;
   /**
@@ -116,9 +116,9 @@ export interface Hooks {
   closeBundleOrder?: "pre" | "post" | null;
   /**
    * Allows you to configure the options of Serwist and Vite. Useful when there is a dependency between the two.
-   * @param viteOptions 
-   * @param options 
-   * @returns 
+   * @param viteOptions
+   * @param options
+   * @returns
    */
   configureOptions?: (viteOptions: ResolvedConfig, options: PluginOptions) => void | Promise<void>;
 }

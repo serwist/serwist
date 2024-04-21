@@ -10,12 +10,12 @@
 <p>Workbox</p>
 <h2 id="about">About</h2>
 <p>
-  This plugin can be used in a <a class="link" href="/docs/strategies/strategy"><ICD>Strategy</ICD></a> to regularly enforce a limit on the age and/or
-  the number of cached requests.
+  This plugin can be used in a <a class="link" href="/docs/strategies/runtime-caching/caching-strategies/strategy"><ICD>Strategy</ICD></a> to regularly
+  enforce a limit on the age and/or the number of cached requests.
 </p>
 <p>
-  It can only be used with Strategy instances that have a custom <ICD>cacheName</ICD> property set. In other words, it can't be used to expire entries
-  in strategies that use the default runtime cache name.
+  It can only be used with <ICD>Strategy</ICD> instances that have a custom <ICD>cacheName</ICD> property set. In other words, it can't be used to expire
+  entries in strategies that use the default runtime cache name.
 </p>
 <p>Whenever a cached response is used or updated, this plugin will look at the associated cache and remove any old or extra responses.</p>
 <p>

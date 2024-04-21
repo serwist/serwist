@@ -1,7 +1,7 @@
 import "./App.css";
 
-import { swUrl, swScope, swType } from "virtual:serwist";
 import { useEffect } from "react";
+import { swScope, swType, swUrl } from "virtual:serwist";
 
 import viteLogo from "/vite.svg";
 

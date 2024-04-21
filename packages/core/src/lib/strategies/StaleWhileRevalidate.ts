@@ -17,7 +17,7 @@ import { messages } from "./utils/messages.js";
 
 /**
  * An implementation of the
- * [stale-while-revalidate](https://developer.chrome.com/docs/workbox/caching-strategies-overview/#stale-while-revalidate)
+ * [stale-while-revalidate](https://developer.chrome.com/docs/workbox/caching-strategies-overview/#stale_while_revalidate)
  * request strategy.
  *
  * Resources are requested from both the cache and the network in parallel.

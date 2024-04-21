@@ -2,7 +2,7 @@ import path from "node:path";
 
 import type { Plugin, UserConfig } from "vite";
 
-import { SERWIST_VIRTUAL, RESOLVED_SERWIST_VIRTUAL } from "../lib/constants.js";
+import { RESOLVED_SERWIST_VIRTUAL, SERWIST_VIRTUAL } from "../lib/constants.js";
 import type { SerwistViteContext } from "../lib/context.js";
 import { resolveOptions } from "../lib/options.js";
 import type { SerwistViteApi } from "../lib/types.js";

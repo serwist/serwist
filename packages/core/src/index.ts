@@ -5,8 +5,6 @@ import { RegExpRoute } from "./RegExpRoute.js";
 import { Route } from "./Route.js";
 import { Serwist, type SerwistOptions } from "./Serwist.js";
 import { cacheNames } from "./cacheNames.js";
-import { cleanupOutdatedCaches } from "./cleanupOutdatedCaches.js";
-import { clientsClaim } from "./clientsClaim.js";
 import type { HTTPMethod } from "./constants.js";
 import { copyResponse } from "./copyResponse.js";
 import { disableDevLogs } from "./disableDevLogs.js";
@@ -38,13 +36,12 @@ import type { NetworkFirstOptions } from "./lib/strategies/NetworkFirst.js";
 import { NetworkFirst } from "./lib/strategies/NetworkFirst.js";
 import type { NetworkOnlyOptions } from "./lib/strategies/NetworkOnly.js";
 import { NetworkOnly } from "./lib/strategies/NetworkOnly.js";
-import { PrecacheOnly } from "./lib/strategies/PrecacheOnly.js";
+import { PrecacheStrategy } from "./lib/strategies/PrecacheStrategy.js";
 import { StaleWhileRevalidate } from "./lib/strategies/StaleWhileRevalidate.js";
 import type { StrategyOptions } from "./lib/strategies/Strategy.js";
 import { Strategy } from "./lib/strategies/Strategy.js";
 import { StrategyHandler } from "./lib/strategies/StrategyHandler.js";
 import { disableNavigationPreload, enableNavigationPreload, isNavigationPreloadSupported } from "./navigationPreload.js";
-import { parseRoute } from "./parseRoute.js";
 import { registerQuotaErrorCallback } from "./registerQuotaErrorCallback.js";
 import { setCacheNameDetails } from "./setCacheNameDetails.js";
 
@@ -52,19 +49,19 @@ export {
   // Core
   Serwist,
   cacheNames,
-  cleanupOutdatedCaches,
-  clientsClaim,
   copyResponse,
   disableDevLogs,
   disableNavigationPreload,
   enableNavigationPreload,
   isNavigationPreloadSupported,
+  registerQuotaErrorCallback,
+  setCacheNameDetails,
   // Caching strategies
   CacheFirst,
   CacheOnly,
   NetworkFirst,
   NetworkOnly,
-  PrecacheOnly,
+  PrecacheStrategy,
   StaleWhileRevalidate,
   Strategy,
   StrategyHandler,
@@ -73,7 +70,6 @@ export {
   PrecacheRoute,
   RegExpRoute,
   Route,
-  parseRoute,
   // Background synchronizing
   BackgroundSyncPlugin,
   BackgroundSyncQueue,
@@ -97,9 +93,6 @@ export {
   // Handling range requests
   createPartialResponse,
   RangeRequestsPlugin,
-  // Misc
-  registerQuotaErrorCallback,
-  setCacheNameDetails,
 };
 export type {
   // Core

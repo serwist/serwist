@@ -29,7 +29,7 @@
 <p>
   However, in most cases, the defaults probably do not suit you. For example, you may want Serwist to precache some URLs, sometimes concurrently as
   well; clean up outdated caches; or claim all available clients on activation. The <ICD>Serwist</ICD> class provides
-  <a class="link" href="./core/serwist#parameters">a set of options for you to configure its behaviour</a>.
+  <a class="link" href="./core/serwist#options">a set of options for you to configure its behaviour</a>.
 </p>
 <CodeTab codes={data.code.basicUsage.customizing} defaultTab="sw.ts" />
 <h2 id="advanced-usage">Advanced usage</h2>

@@ -23,11 +23,11 @@ export interface NetworkFirstOptions extends StrategyOptions {
 }
 
 /**
- * An implementation of the [network first](https://developer.chrome.com/docs/workbox/caching-strategies-overview/#network-first-falling-back-to-cache)
+ * An implementation of the [network first](https://developer.chrome.com/docs/workbox/caching-strategies-overview/#network_first_falling_back_to_cache)
  * request strategy.
  *
  * By default, this strategy will cache responses with a 200 status code as
- * well as [opaque responses](https://developer.chrome.com/docs/workbox/caching-resources-during-runtime/#opaque-responses).
+ * well as [opaque responses](https://developer.chrome.com/docs/workbox/caching-resources-during-runtime/#opaque_responses).
  * Opaque responses are are cross-origin requests where the response doesn't
  * support [CORS](https://enable-cors.org/).
  *

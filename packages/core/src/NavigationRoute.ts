@@ -27,10 +27,9 @@ export interface NavigationRouteMatchOptions {
 }
 
 /**
- * NavigationRoute makes it easy to create a `Route` that matches for browser
- * [navigation requests](https://developers.google.com/web/fundamentals/primers/service-workers/high-performance-loading#first_what_are_navigation_requests).
+ * `NavigationRoute` makes it easy to create a `Route` object that matches navigation requests.
  *
- * It will only match incoming Requests whose [mode](https://fetch.spec.whatwg.org/#concept-request-mode) is set to `navigate`.
+ * It will only match incoming Requests whose [`mode`](https://fetch.spec.whatwg.org/#concept-request-mode) is set to `"navigate"`.
  *
  * You can optionally only apply this route to a subset of navigation requests
  * by using one or both of the `denylist` and `allowlist` parameters.
@@ -40,8 +39,8 @@ export class NavigationRoute extends Route {
   private readonly _denylist: RegExp[];
 
   /**
-   * If both `denylist` and `allowlist` are provided, the `denylist` will
-   * take precedence and the request will not match this route.
+   * If both `denylist` and `allowlist` are provided, `denylist` will
+   * take precedence.
    *
    * The regular expressions in `allowlist` and `denylist`
    * are matched against the concatenated
@@ -54,7 +53,7 @@ export class NavigationRoute extends Route {
    * [complex RegExps](https://github.com/GoogleChrome/workbox/issues/3077),
    * or else your users may see delays when navigating your site.
    *
-   * @param handler A callback function that returns a Promise resulting in a Response.
+   * @param handler A callback function that returns a `Promise` resulting in a `Response`.
    * @param options
    */
   constructor(handler: RouteHandler, { allowlist = [/./], denylist = [] }: NavigationRouteMatchOptions = {}) {

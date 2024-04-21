@@ -1,7 +1,7 @@
+export { PrecacheStrategy } from "serwist";
 export {
   addPlugins,
   addRoute,
-  cleanupOutdatedCaches,
   createHandlerBoundToURL,
   getCacheKeyForURL,
   matchPrecache,
@@ -10,7 +10,7 @@ export {
   PrecacheController,
   PrecacheFallbackPlugin,
   PrecacheRoute,
-  PrecacheOnly as PrecacheStrategy,
 } from "serwist/legacy";
+export { cleanupOutdatedCaches } from "serwist/internal";
 export type { CleanupResult, InstallResult, PrecacheEntry, PrecacheRouteOptions, UrlManipulation as urlManipulation } from "serwist";
 export type { PrecacheFallbackEntry, PrecacheFallbackPluginOptions } from "serwist/legacy";

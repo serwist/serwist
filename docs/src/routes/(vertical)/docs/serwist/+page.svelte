@@ -29,9 +29,12 @@
   <li>
     <a class="link" href="./serwist/guide/setting-cacheability-criteria">Setting cacheability criteria</a>
   </li>
+  <li>
+    <a class="link" href="./serwist/runtime-caching">Runtime caching</a>
+  </li>
 </ul>
 <h2 id="api">The Serwist API</h2>
-<p>Here are <ICD>serwist</ICD>'s functions and plugins:</p>
+<p>Here lists those which <ICD>serwist</ICD> offers:</p>
 <ul class="list">
   <li>
     Core functions
@@ -69,19 +72,19 @@
     </ul>
   </li>
   <li>
-    Plugins
+    Strategies' plugins
     <ul class="list">
       <li>
-        <a class="link" href="./serwist/plugins/background-sync-plugin">BackgroundSyncPlugin</a>
+        <a class="link" href="./serwist/runtime-caching/plugins/background-sync-plugin">BackgroundSyncPlugin</a>
       </li>
       <li>
-        <a class="link" href="./serwist/plugins/broadcast-update-plugin">BroadcastUpdatePlugin</a>
+        <a class="link" href="./serwist/runtime-caching/plugins/broadcast-update-plugin">BroadcastUpdatePlugin</a>
       </li>
       <li>
-        <a class="link" href="./serwist/plugins/cacheable-response-plugin">CacheableResponsePlugin</a>
+        <a class="link" href="./serwist/runtime-caching/plugins/cacheable-response-plugin">CacheableResponsePlugin</a>
       </li>
       <li>
-        <a class="link" href="./serwist/plugins/expiration-plugin">ExpirationPlugin</a>
+        <a class="link" href="./serwist/runtime-caching/plugins/expiration-plugin">ExpirationPlugin</a>
       </li>
     </ul>
   </li>

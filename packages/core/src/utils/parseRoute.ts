@@ -1,9 +1,9 @@
-import { RegExpRoute } from "./RegExpRoute.js";
-import { Route } from "./Route.js";
-import type { HTTPMethod } from "./constants.js";
-import type { RouteHandler, RouteMatchCallback } from "./types.js";
-import { SerwistError } from "./utils/SerwistError.js";
-import { logger } from "./utils/logger.js";
+import { RegExpRoute } from "../RegExpRoute.js";
+import { Route } from "../Route.js";
+import type { HTTPMethod } from "../constants.js";
+import type { RouteHandler, RouteMatchCallback } from "../types.js";
+import { SerwistError } from "./SerwistError.js";
+import { logger } from "./logger.js";
 
 /**
  * Parses a `RegExp`, string, or function with a caching strategy into a `Route`. This is for
@@ -17,8 +17,6 @@ import { logger } from "./utils/logger.js";
  * @returns The generated `Route`.
  */
 export const parseRoute = (capture: RegExp | string | RouteMatchCallback | Route, handler?: RouteHandler, method?: HTTPMethod): Route => {
-  let route: Route;
-
   if (typeof capture === "string") {
     const captureUrl = new URL(capture, location.href);
 
@@ -57,22 +55,22 @@ export const parseRoute = (capture: RegExp | string | RouteMatchCallback | Route
     };
 
     // If `capture` is a string then `handler` and `method` must be present.
-    route = new Route(matchCallback, handler!, method);
-  } else if (capture instanceof RegExp) {
-    // If `capture` is a `RegExp` then `handler` and `method` must be present.
-    route = new RegExpRoute(capture, handler!, method);
-  } else if (typeof capture === "function") {
-    // If `capture` is a function then `handler` and `method` must be present.
-    route = new Route(capture, handler!, method);
-  } else if (capture instanceof Route) {
-    route = capture;
-  } else {
-    throw new SerwistError("unsupported-route-type", {
-      moduleName: "serwist",
-      funcName: "parseRoute",
-      paramName: "capture",
-    });
+    return new Route(matchCallback, handler!, method);
   }
-
-  return route;
+  if (capture instanceof RegExp) {
+    // If `capture` is a `RegExp` then `handler` and `method` must be present.
+    return new RegExpRoute(capture, handler!, method);
+  }
+  if (typeof capture === "function") {
+    // If `capture` is a function then `handler` and `method` must be present.
+    return new Route(capture, handler!, method);
+  }
+  if (capture instanceof Route) {
+    return capture;
+  }
+  throw new SerwistError("unsupported-route-type", {
+    moduleName: "serwist",
+    funcName: "parseRoute",
+    paramName: "capture",
+  });
 };

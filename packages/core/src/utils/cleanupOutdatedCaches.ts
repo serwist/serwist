@@ -6,10 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { cacheNames as privateCacheNames } from "./utils/cacheNames.js";
-import { logger } from "./utils/logger.js";
-
-import { deleteOutdatedCaches } from "./utils/deleteOutdatedCaches.js";
+import { cacheNames as privateCacheNames } from "./cacheNames.js";
+import { deleteOutdatedCaches } from "./deleteOutdatedCaches.js";
+import { logger } from "./logger.js";
 
 declare const self: ServiceWorkerGlobalScope;
 

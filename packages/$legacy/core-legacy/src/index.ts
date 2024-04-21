@@ -5,7 +5,8 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-export { cacheNames, clientsClaim, copyResponse, registerQuotaErrorCallback, setCacheNameDetails } from "serwist";
+export { cacheNames, copyResponse, registerQuotaErrorCallback, setCacheNameDetails } from "serwist";
+export { clientsClaim } from "serwist/internal";
 export type {
   PromiseOrNot,
   MapLikeObject,

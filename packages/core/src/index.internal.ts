@@ -5,6 +5,8 @@ import { cacheMatchIgnoreParams } from "./utils/cacheMatchIgnoreParams.js";
 import { cacheNames as privateCacheNames } from "./utils/cacheNames.js";
 import { canConstructReadableStream } from "./utils/canConstructReadableStream.js";
 import { canConstructResponseFromBodyStream } from "./utils/canConstructResponseFromBodyStream.js";
+import { cleanupOutdatedCaches } from "./utils/cleanupOutdatedCaches.js";
+import { clientsClaim } from "./utils/clientsClaim.js";
 import { dontWaitFor } from "./utils/dontWaitFor.js";
 import { executeQuotaErrorCallbacks } from "./utils/executeQuotaErrorCallbacks.js";
 import { getFriendlyURL } from "./utils/getFriendlyURL.js";
@@ -19,6 +21,8 @@ export {
   Deferred,
   SerwistError,
   assert,
+  cleanupOutdatedCaches,
+  clientsClaim,
   cacheMatchIgnoreParams,
   privateCacheNames,
   canConstructReadableStream,

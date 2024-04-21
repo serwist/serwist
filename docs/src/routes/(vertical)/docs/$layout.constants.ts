@@ -21,11 +21,21 @@ export const DOCS_SIDEBAR_LINKS = [
             title: "BroadcastCacheUpdate",
             href: "/docs/serwist/core/broadcast-cache-update",
           },
-          { title: "CacheableResponse", href: "/docs/serwist/core/cacheable-response" },
-          { title: "CacheExpiration", href: "/docs/serwist/core/cache-expiration" },
+          {
+            title: "CacheExpiration",
+            href: "/docs/serwist/core/cache-expiration",
+          },
+          {
+            title: "CacheableResponse",
+            href: "/docs/serwist/core/cacheable-response",
+          },
           {
             title: "Constants",
             href: "/docs/serwist/core/constants",
+          },
+          {
+            title: "copyResponse",
+            href: "/docs/serwist/core/copy-response",
           },
           {
             title: "disableDevLogs",
@@ -35,29 +45,91 @@ export const DOCS_SIDEBAR_LINKS = [
           { title: "enableNavigationPreload", href: "/docs/serwist/core/enable-navigation-preload" },
           { title: "isNavigationPreloadSupported", href: "/docs/serwist/core/is-navigation-preload-supported" },
           {
-            title: "Serwist",
-            href: "/docs/serwist/core/serwist",
-          },
-          {
             title: "responsesAreSame",
             href: "/docs/serwist/core/responses-are-same",
+          },
+          {
+            title: "Serwist",
+            href: "/docs/serwist/core/serwist",
           },
         ],
       },
       {
-        title: "Using plugins",
-        href: "/docs/serwist/plugins",
+        title: "Runtime caching",
+        href: "/docs/serwist/runtime-caching",
         children: [
           {
-            title: "BackgroundSyncPlugin",
-            href: "/docs/serwist/plugins/background-sync-plugin",
+            title: "Caching strategies",
+            href: "/docs/serwist/runtime-caching/caching-strategies",
+            children: [
+              {
+                title: "CacheFirst",
+                href: "/docs/serwist/runtime-caching/caching-strategies/cache-first",
+              },
+              {
+                title: "CacheOnly",
+                href: "/docs/serwist/runtime-caching/caching-strategies/cache-only",
+              },
+              {
+                title: "NetworkFirst",
+                href: "/docs/serwist/runtime-caching/caching-strategies/network-first",
+              },
+              {
+                title: "NetworkOnly",
+                href: "/docs/serwist/runtime-caching/caching-strategies/network-only",
+              },
+              {
+                title: "StaleWhileRevalidate",
+                href: "/docs/serwist/runtime-caching/caching-strategies/stale-while-revalidate",
+              },
+              {
+                title: "Strategy",
+                href: "/docs/serwist/runtime-caching/caching-strategies/strategy",
+              },
+              {
+                title: "StrategyHandler",
+                href: "/docs/serwist/runtime-caching/caching-strategies/strategy-handler",
+              },
+            ],
           },
           {
-            title: "BroadcastUpdatePlugin",
-            href: "/docs/serwist/plugins/broadcast-update-plugin",
+            title: "Routing",
+            href: "/docs/serwist/runtime-caching/routing",
+            children: [
+              {
+                title: "NavigationRoute",
+                href: "/docs/serwist/runtime-caching/routing/navigation-route",
+              },
+              {
+                title: "PrecacheRoute",
+                href: "/docs/serwist/runtime-caching/routing/precache-route",
+              },
+              {
+                title: "RegExpRoute",
+                href: "/docs/serwist/runtime-caching/routing/reg-exp-route",
+              },
+              {
+                title: "Route",
+                href: "/docs/serwist/runtime-caching/routing/route",
+              },
+            ],
           },
-          { title: "CacheableResponsePlugin", href: "/docs/serwist/plugins/cacheable-response-plugin" },
-          { title: "ExpirationPlugin", href: "/docs/serwist/plugins/expiration-plugin" },
+          {
+            title: "Using plugins",
+            href: "/docs/serwist/runtime-caching/plugins",
+            children: [
+              {
+                title: "BackgroundSyncPlugin",
+                href: "/docs/serwist/runtime-caching/plugins/background-sync-plugin",
+              },
+              {
+                title: "BroadcastUpdatePlugin",
+                href: "/docs/serwist/runtime-caching/plugins/broadcast-update-plugin",
+              },
+              { title: "CacheableResponsePlugin", href: "/docs/serwist/runtime-caching/plugins/cacheable-response-plugin" },
+              { title: "ExpirationPlugin", href: "/docs/serwist/runtime-caching/plugins/expiration-plugin" },
+            ],
+          },
         ],
       },
       {

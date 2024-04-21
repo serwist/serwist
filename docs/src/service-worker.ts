@@ -1,5 +1,5 @@
 import { defaultCache } from "@serwist/vite/worker";
-import { type PrecacheEntry, Serwist } from "serwist";
+import { type PrecacheEntry, Serwist, Route } from "serwist";
 
 declare global {
   interface WorkerGlobalScope {

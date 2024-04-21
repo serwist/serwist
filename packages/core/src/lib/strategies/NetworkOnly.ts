@@ -23,10 +23,10 @@ export interface NetworkOnlyOptions extends Omit<StrategyOptions, "cacheName" | 
 }
 
 /**
- * An implementation of the [network only](https://developer.chrome.com/docs/workbox/caching-strategies-overview/#network-only)
+ * An implementation of the [network only](https://developer.chrome.com/docs/workbox/caching-strategies-overview/#network_only)
  * request strategy.
  *
- * This class is useful if you want to take advantage of any Serwist plugin.
+ * This class is useful if you require specific requests to only be fulfilled from the network.
  *
  * If the network request fails, this will throw a `SerwistError` exception.
  */

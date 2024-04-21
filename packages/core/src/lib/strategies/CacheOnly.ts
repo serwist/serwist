@@ -14,10 +14,10 @@ import type { StrategyHandler } from "./StrategyHandler.js";
 import { messages } from "./utils/messages.js";
 
 /**
- * An implementation of the [cache only](https://developer.chrome.com/docs/workbox/caching-strategies-overview/#cache-only)
+ * An implementation of the [cache only](https://developer.chrome.com/docs/workbox/caching-strategies-overview/#cache_only)
  * request strategy.
  *
- * This class is useful if you want to take advantage of any Serwist plugin.
+ * This class is useful if you already have your own precaching step.
  *
  * If there is no cache match, this will throw a `SerwistError` exception.
  */

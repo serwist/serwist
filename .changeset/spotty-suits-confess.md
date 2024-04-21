@@ -26,4 +26,4 @@
 "@serwist/cli": patch
 ---
 
-chore: stability test before stable release
+chore: second stability test before stable release

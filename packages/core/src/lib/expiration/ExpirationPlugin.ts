@@ -62,7 +62,7 @@ export interface ExpirationPluginOptions {
  * When using `maxEntries`, the least recently requested entry will be removed
  * from the cache.
  *
- * @see https://serwist.pages.dev/docs/serwist/plugins/expiration-plugin
+ * @see https://serwist.pages.dev/docs/serwist/runtime-caching/plugins/expiration-plugin
  */
 export class ExpirationPlugin implements SerwistPlugin {
   private readonly _config: ExpirationPluginOptions;
