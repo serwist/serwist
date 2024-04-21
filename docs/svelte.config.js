@@ -27,8 +27,6 @@ const config = {
     },
     prerender: {
       concurrency: 20,
-      handleHttpError: "warn",
-      handleMissingId: "warn",
     },
     serviceWorker: {
       register: false,

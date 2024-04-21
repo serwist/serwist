@@ -46,10 +46,13 @@
         <a class="link" href="./serwist/core/broadcast-cache-update">BroadcastCacheUpdate</a>
       </li>
       <li>
+        <a class="link" href="./serwist/core/cache-expiration">CacheExpiration</a>
+      </li>
+      <li>
         <a class="link" href="./serwist/core/cacheable-response">CacheableResponse</a>
       </li>
       <li>
-        <a class="link" href="./serwist/core/cache-expiration">CacheExpiration</a>
+        <a class="link" href="./serwist/core/copy-response">copyResponse</a>
       </li>
       <li>
         <a class="link" href="./serwist/core/disable-dev-logs">disableDevLogs</a>
@@ -64,15 +67,61 @@
         <a class="link" href="./serwist/core/is-navigation-preload-supported">isNavigationPreloadSupported</a>
       </li>
       <li>
+        <a class="link" href="./serwist/core/responses-are-same">responsesAreSame</a>
+      </li>
+      <li>
         <a class="link" href="./serwist/core/serwist">Serwist</a>
       </li>
       <li>
-        <a class="link" href="./serwist/core/responses-are-same">responsesAreSame</a>
+        <a class="link" href="./serwist/core/storable-request">StorableRequest</a>
       </li>
     </ul>
   </li>
   <li>
-    Strategies' plugins
+    Routing
+    <ul class="list">
+      <li>
+        <a class="link" href="./serwist/runtime-caching/routing/navigation-route">NavigationRoute</a>
+      </li>
+      <li>
+        <a class="link" href="./serwist/runtime-caching/routing/precache-route">PrecacheRoute</a>
+      </li>
+      <li>
+        <a class="link" href="./serwist/runtime-caching/routing/reg-exp-route">RegExpRoute</a>
+      </li>
+      <li>
+        <a class="link" href="./serwist/runtime-caching/routing/route">Route</a>
+      </li>
+    </ul>
+  </li>
+  <li>
+    Strategies
+    <ul class="list">
+      <li>
+        <a class="link" href="./serwist/runtime-caching/caching-strategies/cache-first">CacheFirst</a>
+      </li>
+      <li>
+        <a class="link" href="./serwist/runtime-caching/caching-strategies/cache-only">CacheOnly</a>
+      </li>
+      <li>
+        <a class="link" href="./serwist/runtime-caching/caching-strategies/network-first">NetworkFirst</a>
+      </li>
+      <li>
+        <a class="link" href="./serwist/runtime-caching/caching-strategies/network-only">NetworkOnly</a>
+      </li>
+      <li>
+        <a class="link" href="./serwist/runtime-caching/caching-strategies/stale-while-revalidate">StaleWhileRevalidate</a>
+      </li>
+      <li>
+        <a class="link" href="./serwist/runtime-caching/caching-strategies/strategy">Strategy</a>
+      </li>
+      <li>
+        <a class="link" href="./serwist/runtime-caching/caching-strategies/strategy-handler">StrategyHandler</a>
+      </li>
+    </ul>
+  </li>
+  <li>
+    Plugins for strategies
     <ul class="list">
       <li>
         <a class="link" href="./serwist/runtime-caching/plugins/background-sync-plugin">BackgroundSyncPlugin</a>
@@ -85,6 +134,9 @@
       </li>
       <li>
         <a class="link" href="./serwist/runtime-caching/plugins/expiration-plugin">ExpirationPlugin</a>
+      </li>
+      <li>
+        <a class="link" href="./serwist/runtime-caching/plugins/precache-fallback-plugin">PrecacheFallbackPlugin</a>
       </li>
     </ul>
   </li>

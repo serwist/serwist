@@ -40,7 +40,13 @@ export const mainPlugin = (ctx: SerwistViteContext, api: SerwistViteApi) => {
       if (id === RESOLVED_SERWIST_VIRTUAL) {
         return `export const swUrl = "${path.posix.join(ctx.options.base, ctx.options.swUrl)}";
 export const swScope = "${ctx.options.scope}";
-export const swType = "${ctx.devEnvironment ? "module" : ctx.options.type}";`;
+export const swType = "${ctx.devEnvironment ? "module" : ctx.options.type}";
+export const getSerwist = async () => {
+  if ("serviceWorker" in navigator) {
+    return new (await import("@serwist/window")).Serwist(swUrl, { scope: swScope, type: swType });
+  }
+  return undefined;
+}`;
       }
       return undefined;
     },

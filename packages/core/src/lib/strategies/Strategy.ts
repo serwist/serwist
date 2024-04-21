@@ -36,8 +36,8 @@ export interface StrategyOptions {
 
 /**
  * Abstract class for implementing runtime caching strategies.
- * 
- * Custom strategies should extend this class and leverage `StrategyHandler`, which will ensure all relevant cache options, 
+ *
+ * Custom strategies should extend this class and leverage `StrategyHandler`, which will ensure all relevant cache options,
  * fetch options, and plugins are used (per the current strategy instance), to perform all fetching and caching logic.
  */
 export abstract class Strategy implements RouteHandlerObject {
@@ -87,8 +87,8 @@ export abstract class Strategy implements RouteHandlerObject {
   }
 
   /**
-   * Similar to `handle()`, but instead of just returning a `Promise` that 
-   * resolves to a `Response`, it will return an tuple of `[response, done]` promises, 
+   * Similar to `handle()`, but instead of just returning a `Promise` that
+   * resolves to a `Response`, it will return an tuple of `[response, done]` promises,
    * where `response` is equivalent to what `handle()` returns, and `done` is a
    * `Promise` that will resolve once all promises added to `event.waitUntil()` as a part
    * of performing the strategy have completed.

@@ -2,7 +2,7 @@
   import "$components/TwoslashHover.svelte";
   import "../app.css";
 
-  import { swUrl, swScope, swType } from "virtual:serwist";
+  import { getSerwist } from "virtual:serwist";
 
   import { mount, unmount } from "svelte";
 
@@ -30,11 +30,11 @@
   $effect(() => {
     const registerSerwist = async () => {
       if (!dev && "serviceWorker" in navigator) {
-        const serwist = new (await import("@serwist/window")).Serwist(swUrl, { scope: swScope, type: swType });
-        serwist.addEventListener("installed", () => {
+        const serwist = await getSerwist();
+        serwist?.addEventListener("installed", () => {
           console.log("Serwist installed!");
         });
-        void serwist.register();
+        void serwist?.register();
       }
     };
     registerSerwist();

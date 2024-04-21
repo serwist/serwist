@@ -52,6 +52,10 @@ export const DOCS_SIDEBAR_LINKS = [
             title: "Serwist",
             href: "/docs/serwist/core/serwist",
           },
+          {
+            title: "StorableRequest",
+            href: "/docs/serwist/core/storable-request",
+          },
         ],
       },
       {
@@ -128,6 +132,10 @@ export const DOCS_SIDEBAR_LINKS = [
               },
               { title: "CacheableResponsePlugin", href: "/docs/serwist/runtime-caching/plugins/cacheable-response-plugin" },
               { title: "ExpirationPlugin", href: "/docs/serwist/runtime-caching/plugins/expiration-plugin" },
+              {
+                title: "PrecacheFallbackPlugin",
+                href: "/docs/serwist/runtime-caching/plugins/precache-fallback-plugin",
+              },
             ],
           },
         ],

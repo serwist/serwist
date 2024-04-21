@@ -41,7 +41,7 @@ export class StorableRequest {
 
   /**
    * Converts a Request object to a plain object that can be structured
-   * cloned or JSON-stringified.
+   * cloned or stringified to JSON.
    *
    * @param request
    * @returns
@@ -79,8 +79,8 @@ export class StorableRequest {
    * Accepts an object of request data that can be used to construct a
    * `Request` but can also be stored in IndexedDB.
    *
-   * @param requestData An object of request data that includes the `url` plus any relevant properties of
-   * [requestInit](https://fetch.spec.whatwg.org/#requestinit).
+   * @param requestData An object of request data that includes the `url` plus any relevant property of
+   * [`requestInit`](https://fetch.spec.whatwg.org/#requestinit).
    */
   constructor(requestData: RequestData) {
     if (process.env.NODE_ENV !== "production") {
@@ -108,7 +108,7 @@ export class StorableRequest {
   }
 
   /**
-   * Returns a deep clone of the instances `_requestData` object.
+   * Returns a deep clone of the instance's `requestData` object.
    *
    * @returns
    */

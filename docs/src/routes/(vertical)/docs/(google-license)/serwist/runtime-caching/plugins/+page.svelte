@@ -17,19 +17,23 @@
 <p>Serwist provides these plugins out of the box:</p>
 <ul class="list">
   <li>
-    <a class="link" href="./plugins/background-sync-plugin"><ICD>BackgroundSyncPlugin</ICD></a> — Allows you to add failed network requests to
-    a background sync queue so that they can be requested again when the next <ICD>sync</ICD> event is triggered.
+    <a class="link" href="./plugins/background-sync-plugin"><ICD>BackgroundSyncPlugin</ICD></a> — Allows you to add failed network requests to a
+    background sync queue so that they can be requested again when the next <ICD>sync</ICD> event is triggered.
   </li>
   <li>
-    <a class="link" href="./plugins/broadcast-update-plugin"><ICD>BroadcastUpdatePlugin</ICD></a> — Allows you to dispatch a message on a
-    Broadcast Channel or via <ICD>postMessage()</ICD> whenever a cache is updated.
+    <a class="link" href="./plugins/broadcast-update-plugin"><ICD>BroadcastUpdatePlugin</ICD></a> — Allows you to dispatch a message on a Broadcast
+    Channel or via <ICD>postMessage()</ICD> whenever a cache is updated.
   </li>
   <li>
-    <a class="link" href="./plugins/cacheable-response-plugin"><ICD>CacheableResponsePlugin</ICD></a> — Determines if requests can be cached based
-    on some specific criteria.
+    <a class="link" href="./plugins/cacheable-response-plugin"><ICD>CacheableResponsePlugin</ICD></a> — Determines if requests can be cached based on some
+    specific criteria.
   </li>
   <li>
     <a class="link" href="./plugins/expiration-plugin"><ICD>ExpirationPlugin</ICD></a> — Manages the number and maximum age of items in a cache.
+  </li>
+  <li>
+    <a class="link" href="./plugins/precache-fallback-plugin"><ICD>PrecacheFallbackPlugin</ICD></a> — Allows you to specify offline fallbacks to be used
+    when a given strategy is unable to generate a response.
   </li>
 </ul>
 <h2 id="lifecycle-methods">Lifecycle methods</h2>

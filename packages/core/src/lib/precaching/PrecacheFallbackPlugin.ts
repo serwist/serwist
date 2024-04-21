@@ -40,10 +40,6 @@ export interface PrecacheFallbackPluginOptions {
  * It does this by intercepting the `handlerDidError` plugin callback
  * and returning a precached response, taking the expected revision parameter
  * into account automatically.
- *
- * Unless you explicitly pass in a `PrecacheController` instance to the
- * constructor, the default instance will be used. Generally speaking, most
- * developers will end up using the default.
  */
 export class PrecacheFallbackPlugin implements SerwistPlugin {
   private readonly _fallbackUrls: (string | PrecacheFallbackEntry)[];

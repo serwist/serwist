@@ -10,7 +10,7 @@
 <p>Workbox</p>
 <h2 id="about">About</h2>
 <p>
-  This plugin can be used in a <a class="link" href="/docs/strategies/runtime-caching/caching-strategies/strategy"><ICD>Strategy</ICD></a> to regularly
+  This plugin can be used in a <a class="link" href="/docs/serwist/runtime-caching/caching-strategies/strategy"><ICD>Strategy</ICD></a> to regularly
   enforce a limit on the age and/or the number of cached requests.
 </p>
 <p>

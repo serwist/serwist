@@ -401,20 +401,20 @@ serwist.addEventListeners();`,
       {
         "+layout.svelte": {
           code: `<script>
-  import { swUrl, swScope, swType } from "virtual:serwist";
+  import { getSerwist } from "virtual:serwist";
 
   const { children } = $props();
 
   $effect(() => {
     const loadSerwist = async () => {
       if ("serviceWorker" in navigator) {
-        const serwist = new (await import("@serwist/window")).Serwist(swUrl, { scope: swScope, type: swType });
+        const serwist = await getSerwist();
 
-        serwist.addEventListener("installed", () => {
-          console.log("Serwist is installed!");
+        serwist?.addEventListener("installed", () => {
+          console.log("Serwist installed!");
         });
 
-        void serwist.register();
+        void serwist?.register();
       }
     }
     loadSerwist();

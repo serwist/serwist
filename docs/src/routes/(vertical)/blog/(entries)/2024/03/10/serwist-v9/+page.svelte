@@ -50,7 +50,7 @@
   Serwist now ships TS source files and declaration maps alongside bundled code. This allows you to read the source code without the hassle of having
   to go to GitHub and navigate through the files.
 </p>
-<video class="rounded-xl aspect-video" muted controls src="/2024-03-10-serwist-v9-ship-ts-source.mp4" />
+<video class="aspect-video rounded-xl" muted controls src="/2024-03-10-serwist-v9-ship-ts-source.mp4" />
 <h2 id="core-changes">Core changes</h2>
 <p>These are the changes done to the core <ICD>serwist</ICD> package.</p>
 <h3 id="merged-service-worker-packages">Merged all service worker packages</h3>
@@ -110,6 +110,13 @@
     <ICD>@serwist/google-analytics.initialize</ICD> as <ICD>serwist/legacy.initializeGoogleAnalytics</ICD> (modern counterpart is
     <ICD>serwist.initializeGoogleAnalytics</ICD>)
   </li>
+</ul>
+<p>
+  The following items are now internal functions. You can still import them from <ICD>serwist/internal</ICD>:
+</p>
+<ul class="list">
+  <li><ICD>@serwist/precaching.cleanupOutdatedCaches</ICD></li>
+  <li><ICD>@serwist/core.clientsClaim</ICD></li>
 </ul>
 <p>The rest are available in <ICD>serwist</ICD>. You can simply update the imports.</p>
 <h3 id="added-serwist">Added Serwist</h3>
@@ -238,3 +245,16 @@
   <ICD>@serwist/svelte</ICD>, and then update your service worker:
 </p>
 <CodeTab codes={data.code.svelteMigration} defaultTab="Old" />
+<h3 id="vite">@serwist/vite</h3>
+<h4 id="moved-get-serwist">Moved getSerwist</h4>
+<p>
+  <ICD>getSerwist</ICD> required <ICD>@serwist/vite</ICD> to provide it build time information through virtual modules. However, this seemed to cause bugs
+  in development mode, and it is not a great pattern to use. As such, we are moving <ICD>getSerwist</ICD> from <ICD>@serwist/vite/browser</ICD> to
+  <ICD>virtual:serwist</ICD>.
+</p>
+<p>To migrate, simply update the import.</p>
+<CodeTab codes={data.code.viteVirtual} defaultTab="Old" />
+<p>
+  If you use TypeScript, you may also want to add <ICD>@serwist/vite/typings</ICD> to <ICD>compilerOptions.types</ICD> so Serwist can properly type the
+  virtual module for you.
+</p>

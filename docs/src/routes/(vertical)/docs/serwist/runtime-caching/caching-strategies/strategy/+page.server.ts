@@ -3,10 +3,10 @@ import { encodeOpenGraphImage } from "$lib/og";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
-  title: "Strategy - Runtime caching - serwist",
+  title: "Strategy - Caching strategies - Runtime caching - serwist",
   ogImage: encodeOpenGraphImage({
     title: "Strategy",
-    desc: "Runtime caching - serwist",
+    desc: "Caching strategies - Runtime caching - serwist",
   }),
   toc: [
     {

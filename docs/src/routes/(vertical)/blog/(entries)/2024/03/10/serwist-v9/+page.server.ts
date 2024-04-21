@@ -119,6 +119,16 @@ export const load: PageServerLoad = ({ locals }) => ({
                 },
               ],
             },
+            {
+              title: "@serwist/vite",
+              id: "vite",
+              children: [
+                {
+                  title: "Moved getSerwist",
+                  id: "moved-get-serwist",
+                },
+              ],
+            },
           ],
         },
       ],
@@ -418,6 +428,20 @@ serwist.addEventListeners();`,
         },
       },
       { idPrefix: "moved-svelte-integration", useTwoslash: false },
+    ),
+    viteVirtual: highlightCode(
+      locals.highlighter,
+      {
+        Old: {
+          code: `import { getSerwist } from "@serwist/vite/browser";`,
+          lang: "typescript",
+        },
+        New: {
+          code: `import { getSerwist } from "virtual:serwist";`,
+          lang: "typescript",
+        },
+      },
+      { idPrefix: "vite-virtual", useTwoslash: false },
     ),
   },
 });

@@ -3,15 +3,15 @@ import { encodeOpenGraphImage } from "$lib/og";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = ({ locals }) => ({
-  title: "NetworkOnly - Caching strategies - Runtime caching - serwist",
+  title: "StorableRequest - The Serwist API - serwist",
   ogImage: encodeOpenGraphImage({
-    title: "NetworkOnly",
-    desc: "Caching strategies - Runtime caching - serwist",
+    title: "StorableRequest",
+    desc: "The Serwist API - serwist",
   }),
   toc: [
     {
-      title: "NetworkOnly",
-      id: "network-only",
+      title: "StorableRequest",
+      id: "storable-request",
       children: [
         {
           title: "First added",
@@ -26,12 +26,12 @@ export const load: PageServerLoad = ({ locals }) => ({
           id: "parameters",
         },
         {
-          title: "Usage",
-          id: "usage",
+          title: "Methods and fields",
+          id: "methods-and-fields",
         },
         {
-          title: "More resources",
-          id: "more-resources",
+          title: "Usage",
+          id: "usage",
         },
       ],
     },
@@ -41,16 +41,16 @@ export const load: PageServerLoad = ({ locals }) => ({
       locals.highlighter,
       {
         "sw.ts": {
-          code: `import { NetworkOnly, Serwist } from "serwist";
+          code: `declare const request: Request;
+// ---cut-before---
+import { StorableRequest } from "serwist";
 
-const serwist = new Serwist({
-  runtimeCaching: [
-    {
-      matcher: ({ url }) => url.pathname.startsWith("/admin/"),
-      handler: new NetworkOnly(),
-    },
-  ],
-});`,
+const storableRequest = await StorableRequest.fromRequest(request);
+
+// This object can be saved in IndexedDB.
+const objectRequest = storableRequest.toObject();
+
+const parsedRequest = new StorableRequest(objectRequest).toRequest();`,
           lang: "typescript",
         },
       },
