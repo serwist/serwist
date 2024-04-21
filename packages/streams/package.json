@@ -1,6 +1,6 @@
 {
   "name": "@serwist/streams",
-  "version": "9.0.0-preview.25",
+  "version": "9.0.0-preview.26",
   "type": "module",
   "description": "A library that makes it easier to work with Streams in the browser.",
   "files": [
