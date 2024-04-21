@@ -36,7 +36,22 @@
   </li>
   <li>
     <ICD>
+      <a class="link" href="/docs/nuxt">@serwist/nuxt</a>
+    </ICD>
+  </li>
+  <li>
+    <ICD>
       <a class="link" href="/docs/vite">@serwist/vite</a>
+    </ICD>
+  </li>
+  <li>
+    <ICD>
+      <a class="link" href="/docs/webpack-plugin">@serwist/webpack-plugin</a>
+    </ICD>
+  </li>
+  <li>
+    <ICD>
+      <a class="link" href="/docs/window">@serwist/window</a>
     </ICD>
   </li>
 </ul>
