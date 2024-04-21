@@ -10,8 +10,7 @@ refactor(svelte): moved Svelte integration into a separate package
   - This is because SvelteKit itself is capable of generating a list of precache manifest, and we'd like to leverage
     that capability. Essentially, Serwist, from now, only handles the service worker side for SvelteKit.
 
-  - If the old behaviour is preferred, manual Serwist integration is required. You may look at the source code of `@serwist/vite/integration/svelte@8.4.4`
-    to see how this should be implemented. A guide will be added to the docs soon.
+  - If the old behaviour is preferred, [manual integration](https://serwist.pages.dev/docs/vite/recipes/svelte) is required.
 
 - To migrate, uninstall `@serwist/vite`, remove `@serwist/vite/integration/svelte.serwist` from vite.config.(js|ts), install `@serwist/svelte`, and then update your service-worker.ts:
 

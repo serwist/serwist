@@ -11,39 +11,31 @@
 "serwist": minor
 ---
 
-refactor: merge service worker modules into `@serwist/sw`
+refactor: merge service worker modules into `serwist`
 
-- These service worker modules have been merged into `@serwist/sw`:
+- These service worker modules have been merged into `serwist`:
 
-  - Modules now located at `@serwist/sw`:
+  - Modules now located at `serwist`:
 
     - `@serwist/navigation-preload`:
 
-      - `@serwist/navigation-preload.disable` -> `@serwist/sw.disableNavigationPreload`.
+      - `@serwist/navigation-preload.disable` -> `serwist.disableNavigationPreload`.
 
-      - `@serwist/navigation-preload.enable` -> `@serwist/sw.enableNavigationPreload`.
+      - `@serwist/navigation-preload.enable` -> `serwist.enableNavigationPreload`.
 
-      - `@serwist/navigation-preload.isSupported` -> `@serwist/sw.isNavigationPreloadSupported`.
-
-  - Modules now located at `@serwist/sw/plugins`:
+      - `@serwist/navigation-preload.isSupported` -> `serwist.isNavigationPreloadSupported`.
 
     - `@serwist/background-sync`
 
-      - `@serwist/background-sync.QueueEntry` -> `@serwist/sw/plugins.BackgroundSyncQueueEntry`
+      - `@serwist/background-sync.QueueEntry` -> `serwist.BackgroundSyncQueueEntry`
 
-      - `@serwist/background-sync.QueueOptions` -> `@serwist/sw/plugins.BackgroundSyncQueueOptions`
+      - `@serwist/background-sync.QueueOptions` -> `serwist.BackgroundSyncQueueOptions`
 
-      - `@serwist/background-sync.Queue` -> `@serwist/sw/plugins.BackgroundSyncQueue`
+      - `@serwist/background-sync.Queue` -> `serwist.BackgroundSyncQueue`
 
-      - `@serwist/background-sync.QueueStore` -> `@serwist/sw/plugins.BackgroundSyncQueueStore`
+      - `@serwist/background-sync.QueueStore` -> `serwist.BackgroundSyncQueueStore`
 
     - `@serwist/broadcast-update`
-
-      - `@serwist/broadcast-update.CACHE_UPDATED_MESSAGE_META` -> `@serwist/sw/plugins.BROADCAST_UPDATE_MESSAGE_META`
-
-      - `@serwist/broadcast-update.BROADCAST_UPDATE_MESSAGE_TYPE` -> `@serwist/sw/plugins.BROADCAST_UPDATE_MESSAGE_TYPE`
-
-      - `@serwist/broadcast-update.defaultHeadersToCheck` -> `@serwist/sw.BROADCAST_UPDATE_DEFAULT_HEADERS`
 
     - `@serwist/cacheable-response`
 
@@ -51,21 +43,13 @@ refactor: merge service worker modules into `@serwist/sw`
 
     - `@serwist/google-analytics`
 
-      - `@serwist/google-analytics.initialize` -> `@serwist/sw/plugins.initializeGoogleAnalytics`
+      - `@serwist/google-analytics.initialize` -> `serwist.initializeGoogleAnalytics`
 
     - `@serwist/range-requests`
 
-  - Modules now located at `@serwist/sw/precaching`:
-
-    - `@serwist/precaching`:
-
-      - Excluding `PrecacheFallbackPlugin`, `PrecacheFallbackEntry`, and `PrecacheFallbackPluginOptions`, which are now at `@serwist/sw/plugins`.
-
-  - Modules now located at `@serwist/sw/routing`:
+    - `@serwist/precaching`
 
     - `@serwist/routing`
-
-  - Modules now located at `@serwist/sw/strategies`:
 
     - `@serwist/strategies`
 

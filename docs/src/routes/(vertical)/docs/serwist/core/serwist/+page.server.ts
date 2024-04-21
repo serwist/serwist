@@ -22,8 +22,8 @@ export const load: PageServerLoad = ({ locals }) => ({
           id: "about",
         },
         {
-          title: "Parameters",
-          id: "parameters",
+          title: "Options",
+          id: "options",
         },
         {
           title: "Behind the constructor",

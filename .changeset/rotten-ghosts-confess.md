@@ -4,9 +4,9 @@
 "serwist": major
 ---
 
-refactor(core): replaced `PrecacheController` and `Router` with `Serwist`
+refactor(core): replaced `installSerwist`, `PrecacheController`, and `Router` with `Serwist`
 
-- `PrecacheController` and `Router` have been moved to `serwist/legacy`. Their functionalities have been merged into the `Serwist` class. 
+- ``installSerwist`, `PrecacheController`, and `Router` have been moved to `serwist/legacy`. Their functionalities have been merged into the `Serwist` class. 
 
 - The new `Serwist` class does NOT have a singleton instance. As such, `serwist.initializeGoogleAnalytics()` and `@serwist/recipes`'s functions now require you to pass in your own `Serwist` instance.
 

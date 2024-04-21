@@ -275,4 +275,12 @@ export const DOCS_SIDEBAR_LINKS = [
       },
     ],
   },
+  {
+    title: "@serwist/window",
+    href: "/docs/window",
+    children: [
+      { title: "messageSW", href: "/docs/window/message-sw" },
+      { title: "Serwist", href: "/docs/window/serwist" },
+    ],
+  },
 ] satisfies SidebarLink[];

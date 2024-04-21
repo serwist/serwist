@@ -11,7 +11,7 @@
 <p>9.0.0</p>
 <h2 id="about">About</h2>
 <p>A class that helps bootstrap the service worker.</p>
-<h2 id="parameters">Parameters</h2>
+<h2 id="options">Options</h2>
 <ul class="list">
   <li>
     <ICD>precacheEntries</ICD> — A list of URLs that should be cached.

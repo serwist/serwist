@@ -4,9 +4,9 @@
 
 refactor(sw): removed support for string handlers in `registerRuntimeCaching`
 
-- `serwist.Serwist.runtimeCaching` no longer supports string handlers, such as `"NetworkFirst"`, `"NetworkOnly"`, `"CacheFirst"`, etc. You should migrate to passing `serwist/strategies` instances yourself.
+- The `runtimeCaching` option of the `Serwist` class and its legacy counterpart `registerRuntimeCaching` no longer support string handlers, such as `"NetworkFirst"`, `"NetworkOnly"`, `"CacheFirst"`, etc. You should migrate to passing the strategies' instances yourself:
 
-- I believe that by supporting this, a relic of GenerateSW, we are simply adding unwarranted complexity to the codebase.
+- By supporting this, a relic of GenerateSW, we are simply adding unwarranted complexity to the codebase.
 
 - Usually, if you only use the `defaultCache` array from a Serwist framework integration, you don't need to do anything. Otherwise, to migrate:
 

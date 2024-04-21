@@ -17,7 +17,7 @@ import { BackgroundSyncQueueStore } from "./lib/backgroundSync/BackgroundSyncQue
 import { StorableRequest } from "./lib/backgroundSync/StorableRequest.js";
 import { BroadcastCacheUpdate } from "./lib/broadcastUpdate/BroadcastCacheUpdate.js";
 import { BroadcastUpdatePlugin } from "./lib/broadcastUpdate/BroadcastUpdatePlugin.js";
-import { BROADCAST_UPDATE_DEFAULT_HEADERS, BROADCAST_UPDATE_MESSAGE_META, BROADCAST_UPDATE_MESSAGE_TYPE } from "./lib/broadcastUpdate/constants.js";
+import { BROADCAST_UPDATE_DEFAULT_HEADERS } from "./lib/broadcastUpdate/constants.js";
 import { responsesAreSame } from "./lib/broadcastUpdate/responsesAreSame.js";
 import type { BroadcastCacheUpdateOptions, BroadcastMessage, BroadcastPayload, BroadcastPayloadGenerator } from "./lib/broadcastUpdate/types.js";
 import { CacheableResponse } from "./lib/cacheableResponse/CacheableResponse.js";
@@ -82,8 +82,6 @@ export {
   // Broadcasting updates
   BroadcastCacheUpdate,
   BroadcastUpdatePlugin,
-  BROADCAST_UPDATE_MESSAGE_META,
-  BROADCAST_UPDATE_MESSAGE_TYPE,
   BROADCAST_UPDATE_DEFAULT_HEADERS,
   responsesAreSame,
   // Setting cacheability criteria

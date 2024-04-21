@@ -18,14 +18,6 @@ export const load: PageServerLoad = ({ locals }) => ({
           id: "exported-values",
           children: [
             {
-              title: "BROADCAST_UPDATE_MESSAGE_META",
-              id: "cache-updated-message-meta",
-            },
-            {
-              title: "BROADCAST_UPDATE_MESSAGE_TYPE",
-              id: "cache-updated-message-type",
-            },
-            {
               title: "BROADCAST_UPDATE_DEFAULT_HEADERS",
               id: "default-headers-to-check",
             },
@@ -35,66 +27,6 @@ export const load: PageServerLoad = ({ locals }) => ({
     },
   ],
   code: {
-    cacheUpdatedMessageMeta: {
-      usage: highlightCode(
-        locals.highlighter,
-        {
-          "sw.ts": {
-            code: `import { BROADCAST_UPDATE_MESSAGE_META } from "serwist";
-
-navigator.serviceWorker.addEventListener("message", async (event) => {
-  // Ensure the message came from Serwist
-  if (event.data.meta === BROADCAST_UPDATE_MESSAGE_META) {
-    const { cacheName, updatedURL } = event.data.payload;
-
-    // Do something with cacheName and updatedURL.
-    // For example, get the cached content and update
-    // the content on the page.
-    const cache = await caches.open(cacheName);
-    const updatedResponse = await cache.match(updatedURL);
-    if (!updatedResponse) {
-      return;
-    }
-
-    const updatedText = await updatedResponse.text();
-  }
-});`,
-            lang: "typescript",
-          },
-        },
-        { idPrefix: "cache-updated-message-meta-usage" },
-      ),
-    },
-    cacheUpdatedMessageType: {
-      usage: highlightCode(
-        locals.highlighter,
-        {
-          "sw.ts": {
-            code: `import { BROADCAST_UPDATE_MESSAGE_TYPE } from "serwist";
-
-navigator.serviceWorker.addEventListener("message", async (event) => {
-  // Ensure the message came from Serwist
-  if (event.data.type === BROADCAST_UPDATE_MESSAGE_TYPE) {
-    const { cacheName, updatedURL } = event.data.payload;
-
-    // Do something with cacheName and updatedURL.
-    // For example, get the cached content and update
-    // the content on the page.
-    const cache = await caches.open(cacheName);
-    const updatedResponse = await cache.match(updatedURL);
-    if (!updatedResponse) {
-      return;
-    }
-
-    const updatedText = await updatedResponse.text();
-  }
-});`,
-            lang: "typescript",
-          },
-        },
-        { idPrefix: "cache-updated-message-type-usage" },
-      ),
-    },
     defaultHeadersToCheck: {
       usage: highlightCode(
         locals.highlighter,

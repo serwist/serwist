@@ -66,11 +66,9 @@ broadcastUpdate.notifyIfUpdated({
           lang: "typescript",
         },
         "message.ts": {
-          code: `import { BROADCAST_UPDATE_MESSAGE_META } from "serwist";
-
-navigator.serviceWorker.addEventListener("message", async (event) => {
+          code: `navigator.serviceWorker.addEventListener("message", async (event) => {
   // Optional: ensure the message came from Serwist
-  if (event.data.meta === BROADCAST_UPDATE_MESSAGE_META) {
+  if (event.data.meta === "serwist-broadcast-update" && event.data.type === "CACHE_UPDATED") {
     const { cacheName, updatedURL } = event.data.payload;
 
     // Do something with cacheName and updatedURL.

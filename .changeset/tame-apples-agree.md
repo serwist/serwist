@@ -4,7 +4,8 @@
 
 chore(next): renamed `cacheOnFrontEndNav` to `cacheOnNavigation`
 
-- I intended to make this breaking change in 8.0.0, but forgot. To clarify, generally, we avoids abbreviations (except for acronyms) when naming our APIs.
+- Generally, we avoid using abbreviations (except for acronyms) to name Serwist's APIs.
+
 - To migrate, simply replace `cacheOnFrontEndNav` with `cacheOnNavigation`:
 
   - Old:
