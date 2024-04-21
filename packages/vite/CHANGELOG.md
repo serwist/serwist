@@ -1,5 +1,35 @@
 # @serwist/vite
 
+## 9.0.0-preview.27
+
+### Major Changes
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`691ef0d`](https://github.com/serwist/serwist/commit/691ef0d706a47bacd8c45b8e569669af76535766) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(vite): moved getSerwist from `@serwist/vite/browser` to `virtual:serwist`
+
+  - `@serwist/vite/browser.getSerwist` required `@serwist/vite` to provide it build time information through virtual modules. However, this seems to cause bugs in development mode, and it is not a great pattern to use. As such, we are moving `getSerwist` from `@serwist/vite/browser` to `virtual:serwist`.
+  - To migrate, simply update the import.
+
+    - Old:
+
+    ```ts
+    import { getSerwist } from "@serwist/vite/browser";
+    ```
+
+    - New:
+
+    ```ts
+    import { getSerwist } from "virtual:serwist";
+    ```
+
+  - If you use TypeScript, you may also want to add `@serwist/vite/typings` to `compilerOptions.types` so Serwist can properly type the virtual module for you.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/build@9.0.0-preview.27
+  - @serwist/window@9.0.0-preview.27
+  - serwist@9.0.0-preview.26
+
 ## 9.0.0-preview.26
 
 ### Patch Changes

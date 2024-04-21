@@ -1,6 +1,6 @@
 {
   "name": "@serwist/sw",
-  "version": "9.0.0-preview.26",
+  "version": "9.0.0-preview.27",
   "type": "module",
   "description": "A service worker helper module.",
   "files": [

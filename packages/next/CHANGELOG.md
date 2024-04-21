@@ -1,5 +1,15 @@
 # @serwist/next
 
+## 9.0.0-preview.27
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/build@9.0.0-preview.27
+  - @serwist/webpack-plugin@9.0.0-preview.27
+  - @serwist/window@9.0.0-preview.27
+  - serwist@9.0.0-preview.26
+
 ## 9.0.0-preview.26
 
 ### Patch Changes

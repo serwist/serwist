@@ -1,5 +1,12 @@
 # @serwist/cli
 
+## 9.0.0-preview.27
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/build@9.0.0-preview.27
+
 ## 9.0.0-preview.26
 
 ### Patch Changes

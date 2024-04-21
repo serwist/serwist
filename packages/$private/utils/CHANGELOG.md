@@ -1,5 +1,7 @@
 # @serwist/utils
 
+## 9.0.0-preview.27
+
 ## 9.0.0-preview.26
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @serwist/strategies
 
+## 9.0.0-preview.27
+
+### Patch Changes
+
+- Updated dependencies []:
+  - serwist@9.0.0-preview.26
+
 ## 9.0.0-preview.26
 
 ### Patch Changes
