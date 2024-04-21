@@ -1,5 +1,11 @@
 # @serwist/utils
 
+## 9.0.0-preview.26
+
+### Patch Changes
+
+- [`3a16582`](https://github.com/serwist/serwist/commit/3a165826cd07bb02f2cd2a8a7bedaf7c2bbeaed5) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore: second stability test before stable release
+
 ## 9.0.0-preview.25
 
 ### Patch Changes
