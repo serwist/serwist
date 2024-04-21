@@ -1,5 +1,75 @@
 # @serwist/nuxt
 
+## 9.0.0
+
+### Major Changes
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`4a5d51a`](https://github.com/serwist/serwist/commit/4a5d51ac8e9ed97b97754d8164990a08be65846d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(peerDeps): bump minimum supported TypeScript and Node.js version
+
+  - From now, we only support TypeScript versions later than 5.0.0 and Node.js ones later than 18.0.0.
+  - To migrate, simply update these tools.
+
+  ```bash
+  # Change to your preferred way of updating Node.js
+  nvm use 18
+  # Change to your package manager
+  npm i -D typescript@5
+  ```
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`7b55ac5`](https://github.com/serwist/serwist/commit/7b55ac526a73826cb2d179a863d7eb29182616ee) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(js): dropped the CommonJS build
+
+  - Serwist is now an ESM-only project.
+  - This was done because our tooling around supporting CJS had always been crappy: it was slow, had no way of supporting emitting `.d.cts` (we used to copy `.d.ts` to `.d.cts`), and was too error-prone (there were various issues of our builds crashing due to an ESM-only package slipping in).
+  - If you already use ESM, there's nothing to be done. Great! Otherwise, to migrate:
+
+    - Migrate to ESM if possible.
+    - Otherwise, use dynamic imports. For example, to migrate to the new `@serwist/next`:
+
+      - Old:
+
+      ```js
+      // @ts-check
+      const withSerwist = require("@serwist/next").default({
+        cacheOnNavigation: true,
+        swSrc: "app/sw.ts",
+        swDest: "public/sw.js",
+      });
+      /** @type {import("next").NextConfig} */
+      const nextConfig = {
+        reactStrictMode: true,
+      };
+
+      module.exports = withSerwist(nextConfig);
+      ```
+
+      - New:
+
+      ```js
+      // @ts-check
+      /** @type {import("next").NextConfig} */
+      const nextConfig = {
+        reactStrictMode: true,
+      };
+
+      module.exports = async () => {
+        const withSerwist = (await import("@serwist/next")).default({
+          cacheOnNavigation: true,
+          swSrc: "app/sw.ts",
+          swDest: "public/sw.js",
+        });
+        return withSerwist(nextConfig);
+      };
+      ```
+
+    - If all else fails, use `require(esm)`. This may or may not be supported on your current Node.js version.
+
+### Patch Changes
+
+- Updated dependencies [[`add4fdd`](https://github.com/serwist/serwist/commit/add4fdd390555053d023faebfe1dca41510b2e2f), [`691ef0d`](https://github.com/serwist/serwist/commit/691ef0d706a47bacd8c45b8e569669af76535766), [`db9f327`](https://github.com/serwist/serwist/commit/db9f3275cd2f78287516668b50a62cff7c1a4d1d), [`7b55ac5`](https://github.com/serwist/serwist/commit/7b55ac526a73826cb2d179a863d7eb29182616ee), [`4a5d51a`](https://github.com/serwist/serwist/commit/4a5d51ac8e9ed97b97754d8164990a08be65846d), [`7b55ac5`](https://github.com/serwist/serwist/commit/7b55ac526a73826cb2d179a863d7eb29182616ee), [`db7776e`](https://github.com/serwist/serwist/commit/db7776e6f55f4d1cf62ea8975c8460cb92c28138)]:
+  - @serwist/build@9.0.0
+  - @serwist/vite@9.0.0
+  - @serwist/window@9.0.0
+
 ## 9.0.0-preview.26
 
 ### Patch Changes

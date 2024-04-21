@@ -1,5 +1,117 @@
 # @serwist/cacheable-response
 
+## 9.0.0
+
+### Major Changes
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`b1df273`](https://github.com/serwist/serwist/commit/b1df273379ee018fd850f962345740874c9fd54d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(core): allow non-Promise return types for `SerwistPlugin` callbacks
+
+  - Usually you don't need to do anything to migrate, but we still mark it as a breaking change because changing a function's signature is considered a breaking one in this project.
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`4a5d51a`](https://github.com/serwist/serwist/commit/4a5d51ac8e9ed97b97754d8164990a08be65846d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(peerDeps): bump minimum supported TypeScript and Node.js version
+
+  - From now, we only support TypeScript versions later than 5.0.0 and Node.js ones later than 18.0.0.
+  - To migrate, simply update these tools.
+
+  ```bash
+  # Change to your preferred way of updating Node.js
+  nvm use 18
+  # Change to your package manager
+  npm i -D typescript@5
+  ```
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`7b55ac5`](https://github.com/serwist/serwist/commit/7b55ac526a73826cb2d179a863d7eb29182616ee) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(js): dropped the CommonJS build
+
+  - Serwist is now an ESM-only project.
+  - This was done because our tooling around supporting CJS had always been crappy: it was slow, had no way of supporting emitting `.d.cts` (we used to copy `.d.ts` to `.d.cts`), and was too error-prone (there were various issues of our builds crashing due to an ESM-only package slipping in).
+  - If you already use ESM, there's nothing to be done. Great! Otherwise, to migrate:
+
+    - Migrate to ESM if possible.
+    - Otherwise, use dynamic imports. For example, to migrate to the new `@serwist/next`:
+
+      - Old:
+
+      ```js
+      // @ts-check
+      const withSerwist = require("@serwist/next").default({
+        cacheOnNavigation: true,
+        swSrc: "app/sw.ts",
+        swDest: "public/sw.js",
+      });
+      /** @type {import("next").NextConfig} */
+      const nextConfig = {
+        reactStrictMode: true,
+      };
+
+      module.exports = withSerwist(nextConfig);
+      ```
+
+      - New:
+
+      ```js
+      // @ts-check
+      /** @type {import("next").NextConfig} */
+      const nextConfig = {
+        reactStrictMode: true,
+      };
+
+      module.exports = async () => {
+        const withSerwist = (await import("@serwist/next")).default({
+          cacheOnNavigation: true,
+          swSrc: "app/sw.ts",
+          swDest: "public/sw.js",
+        });
+        return withSerwist(nextConfig);
+      };
+      ```
+
+    - If all else fails, use `require(esm)`. This may or may not be supported on your current Node.js version.
+
+### Minor Changes
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`c65578b`](https://github.com/serwist/serwist/commit/c65578b68f1ae88822238c3c03aa5e859a4f2b7e) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor: merge service worker modules into `serwist`
+
+  - These service worker modules have been merged into `serwist`:
+
+    - Modules now located at `serwist`:
+
+      - `@serwist/navigation-preload`:
+
+        - `@serwist/navigation-preload.disable` -> `serwist.disableNavigationPreload`.
+        - `@serwist/navigation-preload.enable` -> `serwist.enableNavigationPreload`.
+        - `@serwist/navigation-preload.isSupported` -> `serwist.isNavigationPreloadSupported`.
+
+      - `@serwist/background-sync`
+
+        - `@serwist/background-sync.QueueEntry` -> `serwist.BackgroundSyncQueueEntry`
+        - `@serwist/background-sync.QueueOptions` -> `serwist.BackgroundSyncQueueOptions`
+        - `@serwist/background-sync.Queue` -> `serwist.BackgroundSyncQueue`
+        - `@serwist/background-sync.QueueStore` -> `serwist.BackgroundSyncQueueStore`
+
+      - `@serwist/broadcast-update`
+      - `@serwist/cacheable-response`
+      - `@serwist/expiration`
+      - `@serwist/google-analytics`
+
+        - `@serwist/google-analytics.initialize` -> `serwist.initializeGoogleAnalytics`
+
+      - `@serwist/range-requests`
+      - `@serwist/precaching`
+      - `@serwist/routing`
+      - `@serwist/strategies`
+
+  - They remain operable for compatibility, but they will be marked as deprecated on npm.
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`ea0944c`](https://github.com/serwist/serwist/commit/ea0944c5b7b9d39cecda423e1e60b7bd11723063) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(cacheable-response): use `Headers` instead of a `headers` object
+
+  - Since `Headers.prototype.get()` is case-insensitive, it would be nice to have our `headers` be the same. The easiest way to do that would be to also use `Headers`.
+  - Now, you can use a `HeadersInit` for `headers` rather than be limited to a map from `string` to `string` like before.
+
+### Patch Changes
+
+- Updated dependencies [[`b1df273`](https://github.com/serwist/serwist/commit/b1df273379ee018fd850f962345740874c9fd54d), [`c65578b`](https://github.com/serwist/serwist/commit/c65578b68f1ae88822238c3c03aa5e859a4f2b7e), [`b273b8c`](https://github.com/serwist/serwist/commit/b273b8cd9a240f8bf8ba357339e2e2d5dc2e8870), [`6c3e789`](https://github.com/serwist/serwist/commit/6c3e789724533dab23a6f5afb2a0f40d8f26bf16), [`4a5d51a`](https://github.com/serwist/serwist/commit/4a5d51ac8e9ed97b97754d8164990a08be65846d), [`7b55ac5`](https://github.com/serwist/serwist/commit/7b55ac526a73826cb2d179a863d7eb29182616ee), [`e4c00af`](https://github.com/serwist/serwist/commit/e4c00af72a9bd6a9d06e8a51d7db0006c732f7fd), [`dc12dda`](https://github.com/serwist/serwist/commit/dc12ddad60526db921b557f8dc5808ba17fc4d8e), [`10c3c17`](https://github.com/serwist/serwist/commit/10c3c17a0021c87886c47c2588d8beca1cb21535), [`4a5d51a`](https://github.com/serwist/serwist/commit/4a5d51ac8e9ed97b97754d8164990a08be65846d)]:
+  - serwist@9.0.0
+
 ## 9.0.0-preview.26
 
 ### Patch Changes

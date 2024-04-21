@@ -1,5 +1,477 @@
 # @serwist/sw
 
+## 9.0.0
+
+### Major Changes
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`b1df273`](https://github.com/serwist/serwist/commit/b1df273379ee018fd850f962345740874c9fd54d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(core): allow non-Promise return types for `SerwistPlugin` callbacks
+
+  - Usually you don't need to do anything to migrate, but we still mark it as a breaking change because changing a function's signature is considered a breaking one in this project.
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`6c3e789`](https://github.com/serwist/serwist/commit/6c3e789724533dab23a6f5afb2a0f40d8f26bf16) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(precaching.PrecacheFallbackPlugin): renamed `fallbackURL`, added support for a `matcher`
+
+  - `fallbackURL` has been renamed to `fallbackUrls`, which should now be an array of strings or `PrecacheFallbackEntry`'s.
+
+    - `PrecacheFallbackEntry` is an interface that requires a fallback URL and a matcher, which is used to check whether the current fallback entry can be used for a request.
+    - To migrate:
+
+      - Old:
+
+      ```js
+      new PrecacheFallbackPlugin({
+        fallbackURL: "/~offline",
+      });
+      ```
+
+      - New:
+
+      ```js
+      new PrecacheFallbackPlugin({
+        fallbackUrls: ["/~offline"],
+      });
+      // Or
+      new PrecacheFallbackPlugin({
+        fallbackUrls: [
+          {
+            url: "/~offline",
+            matcher({ request }) {
+              return request.destination === "document";
+            },
+          },
+        ],
+      });
+      ```
+
+  - With this change, `serwist.Serwist.fallbacks` now also uses `PrecacheFallbackPlugin`. This means that `FallbackEntry.cacheMatchOptions` has been removed, for `PrecacheController.matchPrecache` doesn't support a custom `matchOptions`. This option is most likely not needed anyway.
+
+    - To migrate:
+
+      - Old:
+
+      ```js
+      fallbacks({
+        entries: [
+          {
+            url: "/~offline",
+            revision,
+            matcher({ request }) {
+              return request.destination === "document";
+            },
+            cacheMatchOptions: { ignoreSearch: true },
+          },
+        ],
+        runtimeCaching,
+      });
+      ```
+
+      - New:
+
+      ```js
+      new Serwist({
+        fallbacks: {
+          entries: [
+            {
+              url: "/~offline",
+              revision,
+              matcher({ request }) {
+                return request.destination === "document";
+              },
+            },
+          ],
+        }
+        runtimeCaching,
+      });
+      ```
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`4a5d51a`](https://github.com/serwist/serwist/commit/4a5d51ac8e9ed97b97754d8164990a08be65846d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(peerDeps): bump minimum supported TypeScript and Node.js version
+
+  - From now, we only support TypeScript versions later than 5.0.0 and Node.js ones later than 18.0.0.
+  - To migrate, simply update these tools.
+
+  ```bash
+  # Change to your preferred way of updating Node.js
+  nvm use 18
+  # Change to your package manager
+  npm i -D typescript@5
+  ```
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`7b55ac5`](https://github.com/serwist/serwist/commit/7b55ac526a73826cb2d179a863d7eb29182616ee) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(js): dropped the CommonJS build
+
+  - Serwist is now an ESM-only project.
+  - This was done because our tooling around supporting CJS had always been crappy: it was slow, had no way of supporting emitting `.d.cts` (we used to copy `.d.ts` to `.d.cts`), and was too error-prone (there were various issues of our builds crashing due to an ESM-only package slipping in).
+  - If you already use ESM, there's nothing to be done. Great! Otherwise, to migrate:
+
+    - Migrate to ESM if possible.
+    - Otherwise, use dynamic imports. For example, to migrate to the new `@serwist/next`:
+
+      - Old:
+
+      ```js
+      // @ts-check
+      const withSerwist = require("@serwist/next").default({
+        cacheOnNavigation: true,
+        swSrc: "app/sw.ts",
+        swDest: "public/sw.js",
+      });
+      /** @type {import("next").NextConfig} */
+      const nextConfig = {
+        reactStrictMode: true,
+      };
+
+      module.exports = withSerwist(nextConfig);
+      ```
+
+      - New:
+
+      ```js
+      // @ts-check
+      /** @type {import("next").NextConfig} */
+      const nextConfig = {
+        reactStrictMode: true,
+      };
+
+      module.exports = async () => {
+        const withSerwist = (await import("@serwist/next")).default({
+          cacheOnNavigation: true,
+          swSrc: "app/sw.ts",
+          swDest: "public/sw.js",
+        });
+        return withSerwist(nextConfig);
+      };
+      ```
+
+    - If all else fails, use `require(esm)`. This may or may not be supported on your current Node.js version.
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`e4c00af`](https://github.com/serwist/serwist/commit/e4c00af72a9bd6a9d06e8a51d7db0006c732f7fd) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(core): replaced `installSerwist`, `PrecacheController`, and `Router` with `Serwist`
+
+  - ``installSerwist`, `PrecacheController`, and `Router` have been moved to `serwist/legacy`. Their functionalities have been merged into the `Serwist` class.
+  - The new `Serwist` class does NOT have a singleton instance. As such, `serwist.initializeGoogleAnalytics()` and `@serwist/recipes`'s functions now require you to pass in your own `Serwist` instance.
+  - This was done because separating Serwist's functionalities into three separate classes, namely `PrecacheController`, `Router`, and `Serwist`, was not only unnecessary, but it also required the code to be rather... boilerplatey. In the past, to set up, you needed to install all the necessary packages (`workbox-routing`, `workbox-precaching`, `workbox-strategies`), import all the necessary classes (`PrecacheController`, `Router`,...), and know all the APIs needed (`PrecacheController.precache`, `Router.registerRoute`, `new PrecacheRoute()`, runtime caching strategies,...) to get yourself started. To simplify that whole process, the Workbox team provided GenerateSW, which allowed you to create a service worker without having to write one. However, this design was not my cup of tea, one of the reasons of which was that you needed to migrate from GenerateSW to InjectManifest if you needed to do anything remotely complex, so I replaced it with `installSerwist`. Still, I was not satisfied by the result. I wanted an API where things are simple enough that you don't need to have multiple ways of doing one same thing, some more straightforward than others. This change where we merge the three classes is an effort to simplify and unify the API.
+  - To migrate, either:
+
+    - Use the new `Serwist` class:
+
+    ```ts
+    import { Serwist } from "serwist";
+
+    const serwist = new Serwist({
+      // Initial list of precache entries.
+      precacheEntries: [],
+      // Initial list of runtime caching strategies.
+      runtimeCaching: [],
+    });
+
+    // Additionally append another list of precache entries.
+    // Make sure there are no duplicates in the initial list.
+    serwist.addToPrecacheList([]);
+
+    // Register another runtime caching strategy.
+    serwist.registerRoute(
+      new Route(/\/api\/.*\/*.json/, new NetworkOnly(), "POST"),
+    );
+
+    // This should be called before `Serwist.addEventListeners`.
+    self.addEventListener("message", (event) => {
+      if (event.data && event.data.type === "YOUR_MESSAGE_TYPE") {
+        // Do something
+      }
+    });
+
+    // Finally, add Serwist's listeners.
+    serwist.addEventListeners();
+    ```
+
+    - Or import `PrecacheController` and `Router` from `serwist/legacy`:
+
+    ```ts
+    import { PrecacheController, Router } from "serwist/legacy";
+    ```
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`dc12dda`](https://github.com/serwist/serwist/commit/dc12ddad60526db921b557f8dc5808ba17fc4d8e) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(sw): renamed `urlPattern` to `matcher`
+
+  - Quoting jeffposnick:
+
+  > Workbox used to go all-in on RegExp based routing for runtime caching, and the runtimeCaching options in our build tools use the property named urlPattern to configure the match criteria. This criteria is passed in under the hood to the first parameter of registerRoute(), which is overloaded and takes either a string, a RegExp, or a matchCallback function.
+  >
+  > Beyond the fact that this overloaded can be confusing, I think it's doubly-confusing that the runtimeCaching property is called urlPattern, in that it makes it seem like only a RegExp pattern is supported.
+  >
+  > I'd like to change that name to match as an alias for urlPattern, and then eventually deprecate urlPattern in a future release of Workbox.
+
+  - To migrate, simply rename `urlPattern` to `matcher`.
+
+    - Old:
+
+    ```ts
+    registerRuntimeCaching(
+      {
+        urlPattern: /\.(?:jpg|jpeg|gif|png|svg|ico|webp)$/i,
+        handler: new StaleWhileRevalidate({
+          cacheName: "static-image-assets",
+          plugins: [
+            new ExpirationPlugin({
+              maxEntries: 64,
+              maxAgeSeconds: 24 * 60 * 60, // 24 hours
+            }),
+          ],
+        }),
+      },
+      {
+        urlPattern: /\.(?:js)$/i,
+        handler: new StaleWhileRevalidate({
+          cacheName: "static-js-assets",
+          plugins: [
+            new ExpirationPlugin({
+              maxEntries: 32,
+              maxAgeSeconds: 24 * 60 * 60, // 24 hours
+            }),
+          ],
+        }),
+      },
+      {
+        urlPattern: /\.(?:css|less)$/i,
+        handler: new StaleWhileRevalidate({
+          cacheName: "static-style-assets",
+          plugins: [
+            new ExpirationPlugin({
+              maxEntries: 32,
+              maxAgeSeconds: 24 * 60 * 60, // 24 hours
+            }),
+          ],
+        }),
+      },
+    );
+    ```
+
+    - New:
+
+    ```ts
+    new Serwist({
+      runtimeCaching: [
+        {
+          matcher: /\.(?:jpg|jpeg|gif|png|svg|ico|webp)$/i,
+          handler: new StaleWhileRevalidate({
+            cacheName: "static-image-assets",
+            plugins: [
+              new ExpirationPlugin({
+                maxEntries: 64,
+                maxAgeSeconds: 24 * 60 * 60, // 24 hours
+              }),
+            ],
+          }),
+        },
+        {
+          matcher: /\.(?:js)$/i,
+          handler: new StaleWhileRevalidate({
+            cacheName: "static-js-assets",
+            plugins: [
+              new ExpirationPlugin({
+                maxEntries: 32,
+                maxAgeSeconds: 24 * 60 * 60, // 24 hours
+              }),
+            ],
+          }),
+        },
+        {
+          matcher: /\.(?:css|less)$/i,
+          handler: new StaleWhileRevalidate({
+            cacheName: "static-style-assets",
+            plugins: [
+              new ExpirationPlugin({
+                maxEntries: 32,
+                maxAgeSeconds: 24 * 60 * 60, // 24 hours
+              }),
+            ],
+          }),
+        },
+      ],
+    });
+    ```
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`10c3c17`](https://github.com/serwist/serwist/commit/10c3c17a0021c87886c47c2588d8beca1cb21535) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(sw): removed support for string handlers in `registerRuntimeCaching`
+
+  - The `runtimeCaching` option of the `Serwist` class and its legacy counterpart `registerRuntimeCaching` no longer support string handlers, such as `"NetworkFirst"`, `"NetworkOnly"`, `"CacheFirst"`, etc. You should migrate to passing the strategies' instances yourself:
+  - By supporting this, a relic of GenerateSW, we are simply adding unwarranted complexity to the codebase.
+  - Usually, if you only use the `defaultCache` array from a Serwist framework integration, you don't need to do anything. Otherwise, to migrate:
+
+    - Old:
+
+    ```ts
+    import { defaultCache } from "@serwist/next/worker";
+    import { installSerwist } from "@serwist/sw";
+
+    installSerwist({
+      // Other options...
+      runtimeCaching: [
+        {
+          urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
+            request.headers.get("RSC") === "1" &&
+            request.headers.get("Next-Router-Prefetch") === "1" &&
+            sameOrigin &&
+            !pathname.startsWith("/api/"),
+          // OLD: a string handler alongside `options`.
+          handler: "NetworkFirst",
+          options: {
+            cacheName: "pages-rsc-prefetch",
+            expiration: {
+              maxEntries: 32,
+              maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+            },
+          },
+        },
+        {
+          urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
+            request.headers.get("RSC") === "1" &&
+            sameOrigin &&
+            !pathname.startsWith("/api/"),
+          // OLD: a string handler alongside `options`.
+          handler: "NetworkFirst",
+          options: {
+            cacheName: "pages-rsc",
+            expiration: {
+              maxEntries: 32,
+              maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+            },
+          },
+        },
+        {
+          urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
+            request.headers.get("Content-Type")?.includes("text/html") &&
+            sameOrigin &&
+            !pathname.startsWith("/api/"),
+          // OLD: a string handler alongside `options`.
+          handler: "NetworkFirst",
+          options: {
+            cacheName: "pages",
+            expiration: {
+              maxEntries: 32,
+              maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+            },
+          },
+        },
+        ...defaultCache,
+      ],
+    });
+    ```
+
+    - New:
+
+    ```ts
+    import { defaultCache, PAGES_CACHE_NAME } from "@serwist/next/worker";
+    import { Serwist } from "serwist";
+
+    const serwist = new Serwist({
+      // Other options...
+      runtimeCaching: [
+        {
+          matcher: ({ request, url: { pathname }, sameOrigin }) =>
+            request.headers.get("RSC") === "1" &&
+            request.headers.get("Next-Router-Prefetch") === "1" &&
+            sameOrigin &&
+            !pathname.startsWith("/api/"),
+          // NEW: an initialized instance.
+          handler: new NetworkFirst({
+            cacheName: PAGES_CACHE_NAME.rscPrefetch,
+            plugins: [
+              new ExpirationPlugin({
+                maxEntries: 32,
+                maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+              }),
+            ],
+          }),
+        },
+        {
+          matcher: ({ request, url: { pathname }, sameOrigin }) =>
+            request.headers.get("RSC") === "1" &&
+            sameOrigin &&
+            !pathname.startsWith("/api/"),
+          // NEW: an initialized instance.
+          handler: new NetworkFirst({
+            cacheName: PAGES_CACHE_NAME.rsc,
+            plugins: [
+              new ExpirationPlugin({
+                maxEntries: 32,
+                maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+              }),
+            ],
+          }),
+        },
+        {
+          matcher: ({ request, url: { pathname }, sameOrigin }) =>
+            request.headers.get("Content-Type")?.includes("text/html") &&
+            sameOrigin &&
+            !pathname.startsWith("/api/"),
+          // NEW: an initialized instance.
+          handler: new NetworkFirst({
+            cacheName: PAGES_CACHE_NAME.html,
+            plugins: [
+              new ExpirationPlugin({
+                maxEntries: 32,
+                maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+              }),
+            ],
+          }),
+        },
+        ...defaultCache,
+      ],
+    });
+
+    serwist.addEventListeners();
+    ```
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`4a5d51a`](https://github.com/serwist/serwist/commit/4a5d51ac8e9ed97b97754d8164990a08be65846d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(sw): moved `@serwist/build.RuntimeCaching` to `serwist`
+
+  - Since `runtimeCaching` is now a part of `serwist` rather than `@serwist/build`, it makes more sense to move the types there as well.
+  - To migrate, simply update the imports.
+    - Old:
+    ```ts
+    import type { StrategyName, RuntimeCaching } from "@serwist/build";
+    ```
+    - New:
+    ```ts
+    import type { StrategyName, RuntimeCaching } from "serwist";
+    ```
+
+### Minor Changes
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`c65578b`](https://github.com/serwist/serwist/commit/c65578b68f1ae88822238c3c03aa5e859a4f2b7e) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor: merge service worker modules into `serwist`
+
+  - These service worker modules have been merged into `serwist`:
+
+    - Modules now located at `serwist`:
+
+      - `@serwist/navigation-preload`:
+
+        - `@serwist/navigation-preload.disable` -> `serwist.disableNavigationPreload`.
+        - `@serwist/navigation-preload.enable` -> `serwist.enableNavigationPreload`.
+        - `@serwist/navigation-preload.isSupported` -> `serwist.isNavigationPreloadSupported`.
+
+      - `@serwist/background-sync`
+
+        - `@serwist/background-sync.QueueEntry` -> `serwist.BackgroundSyncQueueEntry`
+        - `@serwist/background-sync.QueueOptions` -> `serwist.BackgroundSyncQueueOptions`
+        - `@serwist/background-sync.Queue` -> `serwist.BackgroundSyncQueue`
+        - `@serwist/background-sync.QueueStore` -> `serwist.BackgroundSyncQueueStore`
+
+      - `@serwist/broadcast-update`
+      - `@serwist/cacheable-response`
+      - `@serwist/expiration`
+      - `@serwist/google-analytics`
+
+        - `@serwist/google-analytics.initialize` -> `serwist.initializeGoogleAnalytics`
+
+      - `@serwist/range-requests`
+      - `@serwist/precaching`
+      - `@serwist/routing`
+      - `@serwist/strategies`
+
+  - They remain operable for compatibility, but they will be marked as deprecated on npm.
+
+### Patch Changes
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`b273b8c`](https://github.com/serwist/serwist/commit/b273b8cd9a240f8bf8ba357339e2e2d5dc2e8870) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(sw.handlePrecaching): fixed code still being erroneously executed when `precacheEntries` is falsy
+
+  - We weren't supposed to handle `cleanupOutdatedCaches` and `navigateFallback` when the precache manifest is falsy. Really sorry for the inconvenience!
+
 ## 9.0.0-preview.26
 
 ### Patch Changes

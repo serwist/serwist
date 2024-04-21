@@ -1,5 +1,100 @@
 # @serwist/build
 
+## 9.0.0
+
+### Major Changes
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`add4fdd`](https://github.com/serwist/serwist/commit/add4fdd390555053d023faebfe1dca41510b2e2f) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(build): moved framework-specific types out of `@serwist/build`
+
+  - Types the likes of `WebpackPartial`, `WebpackInjectManifestOptions`, `ViteInjectManifestOptions`, along with their according validators have been moved out of `@serwist/build`.
+  - This design, a relic of Workbox, never made any sense in the first place. As such, we are getting rid of it and migrating to a design where types and validators are co-located with their related packages.
+  - To migrate, update the imports:
+
+    - `@serwist/build.WebpackPartial` -> `@serwist/webpack-plugin.WebpackPartial`
+    - `@serwist/build.WebpackInjectManifestOptions` -> `@serwist/webpack-plugin.InjectManifestOptions`
+    - `@serwist/build.WebpackInjectManifestPartial` -> `Omit<import("@serwist/webpack-plugin").InjectManifestOptions, keyof import("@serwist/build").BasePartial | keyof import("@serwist/build").InjectPartial | keyof import("@serwist/webpack-plugin").WebpackPartial | keyof import("@serwist/build").OptionalSwDestPartial>`
+    - `@serwist/build.ViteInjectManifestOptions` -> `@serwist/vite.PluginOptions`
+
+  - With this change, validators and schemas have also been made public. Validators can be imported from "/" files, whereas schemas can be imported from "/schema" ones.
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`7b55ac5`](https://github.com/serwist/serwist/commit/7b55ac526a73826cb2d179a863d7eb29182616ee) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(validators): migrate to Zod
+
+  - We now use Zod instead of AJV.
+  - This allows us to further validate the values, as AJV didn't support validating functions, classes, and more.
+  - Usually, you don't need to do anything. However, if you manipulate the log/error message to do something wicked, you may need to adapt to the new format:
+
+  ```
+  Received an invalid Serwist configuration: {
+    "_errors": [
+      "Received unrecognized keys: someInvalidKey"
+    ],
+    "additionalPrecacheEntries": {
+      "_errors": [
+        "Received invalid type: expected array, received string."
+      ]
+    }
+  }
+  ```
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`4a5d51a`](https://github.com/serwist/serwist/commit/4a5d51ac8e9ed97b97754d8164990a08be65846d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(peerDeps): bump minimum supported TypeScript and Node.js version
+
+  - From now, we only support TypeScript versions later than 5.0.0 and Node.js ones later than 18.0.0.
+  - To migrate, simply update these tools.
+
+  ```bash
+  # Change to your preferred way of updating Node.js
+  nvm use 18
+  # Change to your package manager
+  npm i -D typescript@5
+  ```
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`7b55ac5`](https://github.com/serwist/serwist/commit/7b55ac526a73826cb2d179a863d7eb29182616ee) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(js): dropped the CommonJS build
+
+  - Serwist is now an ESM-only project.
+  - This was done because our tooling around supporting CJS had always been crappy: it was slow, had no way of supporting emitting `.d.cts` (we used to copy `.d.ts` to `.d.cts`), and was too error-prone (there were various issues of our builds crashing due to an ESM-only package slipping in).
+  - If you already use ESM, there's nothing to be done. Great! Otherwise, to migrate:
+
+    - Migrate to ESM if possible.
+    - Otherwise, use dynamic imports. For example, to migrate to the new `@serwist/next`:
+
+      - Old:
+
+      ```js
+      // @ts-check
+      const withSerwist = require("@serwist/next").default({
+        cacheOnNavigation: true,
+        swSrc: "app/sw.ts",
+        swDest: "public/sw.js",
+      });
+      /** @type {import("next").NextConfig} */
+      const nextConfig = {
+        reactStrictMode: true,
+      };
+
+      module.exports = withSerwist(nextConfig);
+      ```
+
+      - New:
+
+      ```js
+      // @ts-check
+      /** @type {import("next").NextConfig} */
+      const nextConfig = {
+        reactStrictMode: true,
+      };
+
+      module.exports = async () => {
+        const withSerwist = (await import("@serwist/next")).default({
+          cacheOnNavigation: true,
+          swSrc: "app/sw.ts",
+          swDest: "public/sw.js",
+        });
+        return withSerwist(nextConfig);
+      };
+      ```
+
+    - If all else fails, use `require(esm)`. This may or may not be supported on your current Node.js version.
+
 ## 9.0.0-preview.26
 
 ### Patch Changes
