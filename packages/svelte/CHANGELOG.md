@@ -1,5 +1,103 @@
 # @serwist/svelte
 
+## 9.0.0
+
+### Major Changes
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`db9f327`](https://github.com/serwist/serwist/commit/db9f3275cd2f78287516668b50a62cff7c1a4d1d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(svelte): moved Svelte integration into a separate package
+
+  - IMPORTANT NOTE: with this change, `@serwist/svelte` no longer makes use of any of the Serwist build tools.
+
+    - This is because SvelteKit itself is capable of generating a list of precache manifest, and we'd like to leverage
+      that capability. Essentially, Serwist, from now, only handles the service worker side for SvelteKit.
+    - If the old behaviour is preferred, [manual integration](https://serwist.pages.dev/docs/vite/recipes/svelte) is required.
+
+  - To migrate, uninstall `@serwist/vite`, remove `@serwist/vite/integration/svelte.serwist` from vite.config.(js|ts), install `@serwist/svelte`, and then update your service-worker.ts:
+
+    - Old:
+
+    ```ts
+    /// <reference no-default-lib="true"/>
+    /// <reference lib="esnext" />
+    /// <reference lib="webworker" />
+    /// <reference types="@sveltejs/kit" />
+    import type { PrecacheEntry } from "@serwist/precaching";
+    import { installSerwist } from "@serwist/sw";
+    import { defaultCache } from "@serwist/vite/worker";
+
+    declare global {
+      interface WorkerGlobalScope {
+        __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+      }
+    }
+
+    declare const self: ServiceWorkerGlobalScope;
+
+    installSerwist({
+      precacheEntries: self.__SW_MANIFEST,
+      skipWaiting: true,
+      clientsClaim: true,
+      navigationPreload: true,
+      disableDevLogs: true,
+      runtimeCaching: defaultCache,
+    });
+    ```
+
+    - New:
+
+    ```ts
+    /// <reference no-default-lib="true"/>
+    /// <reference lib="esnext" />
+    /// <reference lib="webworker" />
+    /// <reference types="@sveltejs/kit" />
+    import {
+      type StaticRevisions,
+      // NOTE: `defaultCache` should now be imported from `@serwist/svelte/worker`.
+      defaultCache,
+      defaultIgnoreUrlParameters,
+      getPrecacheManifest,
+      staticAssets,
+    } from "@serwist/svelte/worker";
+    import { type SerwistGlobalConfig, Serwist } from "serwist";
+
+    declare global {
+      interface WorkerGlobalScope extends SerwistGlobalConfig {}
+    }
+
+    declare const self: ServiceWorkerGlobalScope;
+
+    const serwist = new Serwist({
+      precacheEntries: getPrecacheManifest({
+        // precacheImmutable: false,
+        // precacheStatic: false,
+        // precachePrerendered: false,
+        staticRevisions: "static-v1",
+      }),
+      precacheOptions: {
+        cleanupOutdatedCaches: true,
+        ignoreURLParametersMatching: defaultIgnoreUrlParameters,
+      },
+      skipWaiting: true,
+      clientsClaim: true,
+      navigationPreload: true,
+      disableDevLogs: true,
+      runtimeCaching: defaultCache,
+    });
+
+    serwist.addEventListeners();
+    ```
+
+### Patch Changes
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`db7776e`](https://github.com/serwist/serwist/commit/db7776e6f55f4d1cf62ea8975c8460cb92c28138) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(svelte,next,vite): force `defaultCache` to only use `NetworkOnly` in development mode
+
+  - This is to prevent files from being accidentally cached during development mode, which isn't the behaviour you would expect to see anyway.
+  - URLs that are matched by these entries in production are now handled by `NetworkOnly` in development. No option to override this behaviour is provided, for it would provide little to no value. If you do need runtime caching to work during development, you have to copy `defaultCache` into your code.
+  - As a reminder for those who extend `defaultCache`, it should be placed below any custom entry, since such an entry wouldn't ever be matched otherwise.
+
+- Updated dependencies [[`b1df273`](https://github.com/serwist/serwist/commit/b1df273379ee018fd850f962345740874c9fd54d), [`c65578b`](https://github.com/serwist/serwist/commit/c65578b68f1ae88822238c3c03aa5e859a4f2b7e), [`b273b8c`](https://github.com/serwist/serwist/commit/b273b8cd9a240f8bf8ba357339e2e2d5dc2e8870), [`6c3e789`](https://github.com/serwist/serwist/commit/6c3e789724533dab23a6f5afb2a0f40d8f26bf16), [`4a5d51a`](https://github.com/serwist/serwist/commit/4a5d51ac8e9ed97b97754d8164990a08be65846d), [`7b55ac5`](https://github.com/serwist/serwist/commit/7b55ac526a73826cb2d179a863d7eb29182616ee), [`e4c00af`](https://github.com/serwist/serwist/commit/e4c00af72a9bd6a9d06e8a51d7db0006c732f7fd), [`dc12dda`](https://github.com/serwist/serwist/commit/dc12ddad60526db921b557f8dc5808ba17fc4d8e), [`10c3c17`](https://github.com/serwist/serwist/commit/10c3c17a0021c87886c47c2588d8beca1cb21535), [`4a5d51a`](https://github.com/serwist/serwist/commit/4a5d51ac8e9ed97b97754d8164990a08be65846d)]:
+  - serwist@9.0.0
+
 ## 9.0.0-preview.26
 
 ### Patch Changes

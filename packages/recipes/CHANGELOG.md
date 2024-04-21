@@ -1,5 +1,110 @@
 # @serwist/recipes
 
+## 9.0.0
+
+### Major Changes
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`b1df273`](https://github.com/serwist/serwist/commit/b1df273379ee018fd850f962345740874c9fd54d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(core): allow non-Promise return types for `SerwistPlugin` callbacks
+
+  - Usually you don't need to do anything to migrate, but we still mark it as a breaking change because changing a function's signature is considered a breaking one in this project.
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`7b55ac5`](https://github.com/serwist/serwist/commit/7b55ac526a73826cb2d179a863d7eb29182616ee) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(js): dropped the CommonJS build
+
+  - Serwist is now an ESM-only project.
+  - This was done because our tooling around supporting CJS had always been crappy: it was slow, had no way of supporting emitting `.d.cts` (we used to copy `.d.ts` to `.d.cts`), and was too error-prone (there were various issues of our builds crashing due to an ESM-only package slipping in).
+  - If you already use ESM, there's nothing to be done. Great! Otherwise, to migrate:
+
+    - Migrate to ESM if possible.
+    - Otherwise, use dynamic imports. For example, to migrate to the new `@serwist/next`:
+
+      - Old:
+
+      ```js
+      // @ts-check
+      const withSerwist = require("@serwist/next").default({
+        cacheOnNavigation: true,
+        swSrc: "app/sw.ts",
+        swDest: "public/sw.js",
+      });
+      /** @type {import("next").NextConfig} */
+      const nextConfig = {
+        reactStrictMode: true,
+      };
+
+      module.exports = withSerwist(nextConfig);
+      ```
+
+      - New:
+
+      ```js
+      // @ts-check
+      /** @type {import("next").NextConfig} */
+      const nextConfig = {
+        reactStrictMode: true,
+      };
+
+      module.exports = async () => {
+        const withSerwist = (await import("@serwist/next")).default({
+          cacheOnNavigation: true,
+          swSrc: "app/sw.ts",
+          swDest: "public/sw.js",
+        });
+        return withSerwist(nextConfig);
+      };
+      ```
+
+    - If all else fails, use `require(esm)`. This may or may not be supported on your current Node.js version.
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`e4c00af`](https://github.com/serwist/serwist/commit/e4c00af72a9bd6a9d06e8a51d7db0006c732f7fd) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(core): replaced `installSerwist`, `PrecacheController`, and `Router` with `Serwist`
+
+  - ``installSerwist`, `PrecacheController`, and `Router` have been moved to `serwist/legacy`. Their functionalities have been merged into the `Serwist` class.
+  - The new `Serwist` class does NOT have a singleton instance. As such, `serwist.initializeGoogleAnalytics()` and `@serwist/recipes`'s functions now require you to pass in your own `Serwist` instance.
+  - This was done because separating Serwist's functionalities into three separate classes, namely `PrecacheController`, `Router`, and `Serwist`, was not only unnecessary, but it also required the code to be rather... boilerplatey. In the past, to set up, you needed to install all the necessary packages (`workbox-routing`, `workbox-precaching`, `workbox-strategies`), import all the necessary classes (`PrecacheController`, `Router`,...), and know all the APIs needed (`PrecacheController.precache`, `Router.registerRoute`, `new PrecacheRoute()`, runtime caching strategies,...) to get yourself started. To simplify that whole process, the Workbox team provided GenerateSW, which allowed you to create a service worker without having to write one. However, this design was not my cup of tea, one of the reasons of which was that you needed to migrate from GenerateSW to InjectManifest if you needed to do anything remotely complex, so I replaced it with `installSerwist`. Still, I was not satisfied by the result. I wanted an API where things are simple enough that you don't need to have multiple ways of doing one same thing, some more straightforward than others. This change where we merge the three classes is an effort to simplify and unify the API.
+  - To migrate, either:
+
+    - Use the new `Serwist` class:
+
+    ```ts
+    import { Serwist } from "serwist";
+
+    const serwist = new Serwist({
+      // Initial list of precache entries.
+      precacheEntries: [],
+      // Initial list of runtime caching strategies.
+      runtimeCaching: [],
+    });
+
+    // Additionally append another list of precache entries.
+    // Make sure there are no duplicates in the initial list.
+    serwist.addToPrecacheList([]);
+
+    // Register another runtime caching strategy.
+    serwist.registerRoute(
+      new Route(/\/api\/.*\/*.json/, new NetworkOnly(), "POST"),
+    );
+
+    // This should be called before `Serwist.addEventListeners`.
+    self.addEventListener("message", (event) => {
+      if (event.data && event.data.type === "YOUR_MESSAGE_TYPE") {
+        // Do something
+      }
+    });
+
+    // Finally, add Serwist's listeners.
+    serwist.addEventListeners();
+    ```
+
+    - Or import `PrecacheController` and `Router` from `serwist/legacy`:
+
+    ```ts
+    import { PrecacheController, Router } from "serwist/legacy";
+    ```
+
+### Patch Changes
+
+- Updated dependencies [[`b1df273`](https://github.com/serwist/serwist/commit/b1df273379ee018fd850f962345740874c9fd54d), [`c65578b`](https://github.com/serwist/serwist/commit/c65578b68f1ae88822238c3c03aa5e859a4f2b7e), [`b273b8c`](https://github.com/serwist/serwist/commit/b273b8cd9a240f8bf8ba357339e2e2d5dc2e8870), [`6c3e789`](https://github.com/serwist/serwist/commit/6c3e789724533dab23a6f5afb2a0f40d8f26bf16), [`4a5d51a`](https://github.com/serwist/serwist/commit/4a5d51ac8e9ed97b97754d8164990a08be65846d), [`7b55ac5`](https://github.com/serwist/serwist/commit/7b55ac526a73826cb2d179a863d7eb29182616ee), [`e4c00af`](https://github.com/serwist/serwist/commit/e4c00af72a9bd6a9d06e8a51d7db0006c732f7fd), [`dc12dda`](https://github.com/serwist/serwist/commit/dc12ddad60526db921b557f8dc5808ba17fc4d8e), [`10c3c17`](https://github.com/serwist/serwist/commit/10c3c17a0021c87886c47c2588d8beca1cb21535), [`4a5d51a`](https://github.com/serwist/serwist/commit/4a5d51ac8e9ed97b97754d8164990a08be65846d)]:
+  - serwist@9.0.0
+
 ## 9.0.0-preview.26
 
 ### Patch Changes

@@ -1,5 +1,293 @@
 # @serwist/next
 
+## 9.0.0
+
+### Major Changes
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`add4fdd`](https://github.com/serwist/serwist/commit/add4fdd390555053d023faebfe1dca41510b2e2f) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(build): moved framework-specific types out of `@serwist/build`
+
+  - Types the likes of `WebpackPartial`, `WebpackInjectManifestOptions`, `ViteInjectManifestOptions`, along with their according validators have been moved out of `@serwist/build`.
+  - This design, a relic of Workbox, never made any sense in the first place. As such, we are getting rid of it and migrating to a design where types and validators are co-located with their related packages.
+  - To migrate, update the imports:
+
+    - `@serwist/build.WebpackPartial` -> `@serwist/webpack-plugin.WebpackPartial`
+    - `@serwist/build.WebpackInjectManifestOptions` -> `@serwist/webpack-plugin.InjectManifestOptions`
+    - `@serwist/build.WebpackInjectManifestPartial` -> `Omit<import("@serwist/webpack-plugin").InjectManifestOptions, keyof import("@serwist/build").BasePartial | keyof import("@serwist/build").InjectPartial | keyof import("@serwist/webpack-plugin").WebpackPartial | keyof import("@serwist/build").OptionalSwDestPartial>`
+    - `@serwist/build.ViteInjectManifestOptions` -> `@serwist/vite.PluginOptions`
+
+  - With this change, validators and schemas have also been made public. Validators can be imported from "/" files, whereas schemas can be imported from "/schema" ones.
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`4a5d51a`](https://github.com/serwist/serwist/commit/4a5d51ac8e9ed97b97754d8164990a08be65846d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(next): renamed "/browser" to "/worker"
+
+  - This new name makes more sense than the old one, for these exports are actually for use in service workers.
+  - To migrate, simply change all imports of `@serwist/next/browser` to those of `@serwist/next/worker`:
+
+    - Old:
+
+    ```ts
+    import { installSerwist } from "@serwist/sw";
+    import { defaultCache } from "@serwist/next/browser";
+
+    installSerwist({
+      // Other options
+      runtimeCaching: defaultCache,
+    });
+    ```
+
+    - New:
+
+    ```ts
+    import { Serwist } from "serwist";
+    import { defaultCache } from "@serwist/next/worker";
+
+    const serwist = new Serwist({
+      // Other options
+      runtimeCaching: defaultCache,
+    });
+
+    serwist.addEventListeners();
+    ```
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`4a5d51a`](https://github.com/serwist/serwist/commit/4a5d51ac8e9ed97b97754d8164990a08be65846d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(peerDeps): bump minimum supported TypeScript and Node.js version
+
+  - From now, we only support TypeScript versions later than 5.0.0 and Node.js ones later than 18.0.0.
+  - To migrate, simply update these tools.
+
+  ```bash
+  # Change to your preferred way of updating Node.js
+  nvm use 18
+  # Change to your package manager
+  npm i -D typescript@5
+  ```
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`7b55ac5`](https://github.com/serwist/serwist/commit/7b55ac526a73826cb2d179a863d7eb29182616ee) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(js): dropped the CommonJS build
+
+  - Serwist is now an ESM-only project.
+  - This was done because our tooling around supporting CJS had always been crappy: it was slow, had no way of supporting emitting `.d.cts` (we used to copy `.d.ts` to `.d.cts`), and was too error-prone (there were various issues of our builds crashing due to an ESM-only package slipping in).
+  - If you already use ESM, there's nothing to be done. Great! Otherwise, to migrate:
+
+    - Migrate to ESM if possible.
+    - Otherwise, use dynamic imports. For example, to migrate to the new `@serwist/next`:
+
+      - Old:
+
+      ```js
+      // @ts-check
+      const withSerwist = require("@serwist/next").default({
+        cacheOnNavigation: true,
+        swSrc: "app/sw.ts",
+        swDest: "public/sw.js",
+      });
+      /** @type {import("next").NextConfig} */
+      const nextConfig = {
+        reactStrictMode: true,
+      };
+
+      module.exports = withSerwist(nextConfig);
+      ```
+
+      - New:
+
+      ```js
+      // @ts-check
+      /** @type {import("next").NextConfig} */
+      const nextConfig = {
+        reactStrictMode: true,
+      };
+
+      module.exports = async () => {
+        const withSerwist = (await import("@serwist/next")).default({
+          cacheOnNavigation: true,
+          swSrc: "app/sw.ts",
+          swDest: "public/sw.js",
+        });
+        return withSerwist(nextConfig);
+      };
+      ```
+
+    - If all else fails, use `require(esm)`. This may or may not be supported on your current Node.js version.
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`7524712`](https://github.com/serwist/serwist/commit/75247128031de3067676b08b21833b5d2e1d1f14) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(next): changed `defaultCache`'s `"next-data"`'s handler to `NetworkFirst`
+
+  - Using `StaleWhileRevalidate` affects `getServerSideProps`'s freshness. See https://github.com/serwist/serwist/issues/74 for more details.
+  - There's nothing to be done on your side.
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`837cd0d`](https://github.com/serwist/serwist/commit/837cd0d7caaa03e0d3334bbf707ac9147a844285) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(next): renamed `cacheOnFrontEndNav` to `cacheOnNavigation`
+
+  - Generally, we avoid using abbreviations (except for acronyms) to name Serwist's APIs.
+  - To migrate, simply replace `cacheOnFrontEndNav` with `cacheOnNavigation`:
+
+    - Old:
+
+    ```js
+    const withSerwist = withSerwistInit({
+      cacheOnFrontEndNav: true,
+    });
+
+    /** @type {import("next").NextConfig} */
+    const nextConfig = {};
+
+    export default withSerwist(nextConfig);
+    ```
+
+    - New:
+
+    ```js
+    const withSerwist = withSerwistInit({
+      cacheOnNavigation: true,
+    });
+
+    /** @type {import("next").NextConfig} */
+    const nextConfig = {};
+
+    export default withSerwist(nextConfig);
+    ```
+
+### Minor Changes
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`51a686f`](https://github.com/serwist/serwist/commit/51a686f10980ff45a0f8c10a2745ba5035d2e34d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(webpack,next): allow webpack to be an optional `peerDependency`
+
+  - Since we support frameworks that ship a prebundled webpack, such as Next.js, it would be nice if we can take advantage of that as well.
+  - As a result, webpack is now an optional `peerDependency` for `@serwist/webpack-plugin` and is no longer a `peerDependency` for `@serwist/next`. Thanks to the fact that we currently don't use any webpack plugin, it is also not indirectly installed.
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`4a5d51a`](https://github.com/serwist/serwist/commit/4a5d51ac8e9ed97b97754d8164990a08be65846d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(next): added `@serwist/next/worker.PAGES_CACHE_NAME`
+
+  - Due to the fact that App Router pages use RSC, we define 3 `runtimeCaching` entries in `defaultCache`, which are `"pages-rsc-prefetch"`, `"pages-rsc"`, and `"pages"`. This simply re-exports these `cacheName`'s for the users so that they can use them in their own extensions of our `defaultCache`.
+  - If you previously copied these values from the source code, it is recommended that you migrate to this constant:
+
+    - Old:
+
+    ```ts
+    import { defaultCache } from "@serwist/next/browser";
+    import { installSerwist } from "@serwist/sw";
+
+    installSerwist({
+      // Other options...
+      runtimeCaching: [
+        {
+          urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
+            request.headers.get("RSC") === "1" &&
+            request.headers.get("Next-Router-Prefetch") === "1" &&
+            sameOrigin &&
+            !pathname.startsWith("/api/"),
+          handler: "NetworkFirst",
+          options: {
+            cacheName: "pages-rsc-prefetch",
+            expiration: {
+              maxEntries: 32,
+              maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+            },
+          },
+        },
+        {
+          urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
+            request.headers.get("RSC") === "1" &&
+            sameOrigin &&
+            !pathname.startsWith("/api/"),
+          handler: "NetworkFirst",
+          options: {
+            cacheName: "pages-rsc",
+            expiration: {
+              maxEntries: 32,
+              maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+            },
+          },
+        },
+        {
+          urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
+            request.headers.get("Content-Type")?.includes("text/html") &&
+            sameOrigin &&
+            !pathname.startsWith("/api/"),
+          handler: "NetworkFirst",
+          options: {
+            cacheName: "pages",
+            expiration: {
+              maxEntries: 32,
+              maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+            },
+          },
+        },
+        ...defaultCache,
+      ],
+    });
+    ```
+
+    - New:
+
+    ```ts
+    import { defaultCache, PAGES_CACHE_NAME } from "@serwist/next/worker";
+    import { Serwist } from "serwist";
+
+    const serwist = new Serwist({
+      // Other options...
+      runtimeCaching: [
+        {
+          matcher: ({ request, url: { pathname }, sameOrigin }) =>
+            request.headers.get("RSC") === "1" &&
+            request.headers.get("Next-Router-Prefetch") === "1" &&
+            sameOrigin &&
+            !pathname.startsWith("/api/"),
+          handler: new NetworkFirst({
+            cacheName: PAGES_CACHE_NAME.rscPrefetch,
+            plugins: [
+              new ExpirationPlugin({
+                maxEntries: 32,
+                maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+              }),
+            ],
+          }),
+        },
+        {
+          matcher: ({ request, url: { pathname }, sameOrigin }) =>
+            request.headers.get("RSC") === "1" &&
+            sameOrigin &&
+            !pathname.startsWith("/api/"),
+          handler: new NetworkFirst({
+            cacheName: PAGES_CACHE_NAME.rsc,
+            plugins: [
+              new ExpirationPlugin({
+                maxEntries: 32,
+                maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+              }),
+            ],
+          }),
+        },
+        {
+          matcher: ({ request, url: { pathname }, sameOrigin }) =>
+            request.headers.get("Content-Type")?.includes("text/html") &&
+            sameOrigin &&
+            !pathname.startsWith("/api/"),
+          handler: new NetworkFirst({
+            cacheName: PAGES_CACHE_NAME.html,
+            plugins: [
+              new ExpirationPlugin({
+                maxEntries: 32,
+                maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+              }),
+            ],
+          }),
+        },
+        ...defaultCache,
+      ],
+    });
+
+    serwist.addEventListeners();
+    ```
+
+### Patch Changes
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`db7776e`](https://github.com/serwist/serwist/commit/db7776e6f55f4d1cf62ea8975c8460cb92c28138) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(svelte,next,vite): force `defaultCache` to only use `NetworkOnly` in development mode
+
+  - This is to prevent files from being accidentally cached during development mode, which isn't the behaviour you would expect to see anyway.
+  - URLs that are matched by these entries in production are now handled by `NetworkOnly` in development. No option to override this behaviour is provided, for it would provide little to no value. If you do need runtime caching to work during development, you have to copy `defaultCache` into your code.
+  - As a reminder for those who extend `defaultCache`, it should be placed below any custom entry, since such an entry wouldn't ever be matched otherwise.
+
+- Updated dependencies [[`add4fdd`](https://github.com/serwist/serwist/commit/add4fdd390555053d023faebfe1dca41510b2e2f), [`b1df273`](https://github.com/serwist/serwist/commit/b1df273379ee018fd850f962345740874c9fd54d), [`c65578b`](https://github.com/serwist/serwist/commit/c65578b68f1ae88822238c3c03aa5e859a4f2b7e), [`b273b8c`](https://github.com/serwist/serwist/commit/b273b8cd9a240f8bf8ba357339e2e2d5dc2e8870), [`6c3e789`](https://github.com/serwist/serwist/commit/6c3e789724533dab23a6f5afb2a0f40d8f26bf16), [`7b55ac5`](https://github.com/serwist/serwist/commit/7b55ac526a73826cb2d179a863d7eb29182616ee), [`4a5d51a`](https://github.com/serwist/serwist/commit/4a5d51ac8e9ed97b97754d8164990a08be65846d), [`51a686f`](https://github.com/serwist/serwist/commit/51a686f10980ff45a0f8c10a2745ba5035d2e34d), [`dc12dda`](https://github.com/serwist/serwist/commit/dc12ddad60526db921b557f8dc5808ba17fc4d8e), [`7b55ac5`](https://github.com/serwist/serwist/commit/7b55ac526a73826cb2d179a863d7eb29182616ee), [`e4c00af`](https://github.com/serwist/serwist/commit/e4c00af72a9bd6a9d06e8a51d7db0006c732f7fd), [`dc12dda`](https://github.com/serwist/serwist/commit/dc12ddad60526db921b557f8dc5808ba17fc4d8e), [`10c3c17`](https://github.com/serwist/serwist/commit/10c3c17a0021c87886c47c2588d8beca1cb21535), [`4a5d51a`](https://github.com/serwist/serwist/commit/4a5d51ac8e9ed97b97754d8164990a08be65846d)]:
+  - @serwist/webpack-plugin@9.0.0
+  - @serwist/build@9.0.0
+  - serwist@9.0.0
+  - @serwist/window@9.0.0
+
 ## 9.0.0-preview.26
 
 ### Patch Changes

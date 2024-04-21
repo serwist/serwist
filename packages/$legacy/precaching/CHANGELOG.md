@@ -1,5 +1,176 @@
 # @serwist/precaching
 
+## 9.0.0
+
+### Major Changes
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`6c3e789`](https://github.com/serwist/serwist/commit/6c3e789724533dab23a6f5afb2a0f40d8f26bf16) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(precaching.PrecacheFallbackPlugin): renamed `fallbackURL`, added support for a `matcher`
+
+  - `fallbackURL` has been renamed to `fallbackUrls`, which should now be an array of strings or `PrecacheFallbackEntry`'s.
+
+    - `PrecacheFallbackEntry` is an interface that requires a fallback URL and a matcher, which is used to check whether the current fallback entry can be used for a request.
+    - To migrate:
+
+      - Old:
+
+      ```js
+      new PrecacheFallbackPlugin({
+        fallbackURL: "/~offline",
+      });
+      ```
+
+      - New:
+
+      ```js
+      new PrecacheFallbackPlugin({
+        fallbackUrls: ["/~offline"],
+      });
+      // Or
+      new PrecacheFallbackPlugin({
+        fallbackUrls: [
+          {
+            url: "/~offline",
+            matcher({ request }) {
+              return request.destination === "document";
+            },
+          },
+        ],
+      });
+      ```
+
+  - With this change, `serwist.Serwist.fallbacks` now also uses `PrecacheFallbackPlugin`. This means that `FallbackEntry.cacheMatchOptions` has been removed, for `PrecacheController.matchPrecache` doesn't support a custom `matchOptions`. This option is most likely not needed anyway.
+
+    - To migrate:
+
+      - Old:
+
+      ```js
+      fallbacks({
+        entries: [
+          {
+            url: "/~offline",
+            revision,
+            matcher({ request }) {
+              return request.destination === "document";
+            },
+            cacheMatchOptions: { ignoreSearch: true },
+          },
+        ],
+        runtimeCaching,
+      });
+      ```
+
+      - New:
+
+      ```js
+      new Serwist({
+        fallbacks: {
+          entries: [
+            {
+              url: "/~offline",
+              revision,
+              matcher({ request }) {
+                return request.destination === "document";
+              },
+            },
+          ],
+        }
+        runtimeCaching,
+      });
+      ```
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`7b55ac5`](https://github.com/serwist/serwist/commit/7b55ac526a73826cb2d179a863d7eb29182616ee) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(js): dropped the CommonJS build
+
+  - Serwist is now an ESM-only project.
+  - This was done because our tooling around supporting CJS had always been crappy: it was slow, had no way of supporting emitting `.d.cts` (we used to copy `.d.ts` to `.d.cts`), and was too error-prone (there were various issues of our builds crashing due to an ESM-only package slipping in).
+  - If you already use ESM, there's nothing to be done. Great! Otherwise, to migrate:
+
+    - Migrate to ESM if possible.
+    - Otherwise, use dynamic imports. For example, to migrate to the new `@serwist/next`:
+
+      - Old:
+
+      ```js
+      // @ts-check
+      const withSerwist = require("@serwist/next").default({
+        cacheOnNavigation: true,
+        swSrc: "app/sw.ts",
+        swDest: "public/sw.js",
+      });
+      /** @type {import("next").NextConfig} */
+      const nextConfig = {
+        reactStrictMode: true,
+      };
+
+      module.exports = withSerwist(nextConfig);
+      ```
+
+      - New:
+
+      ```js
+      // @ts-check
+      /** @type {import("next").NextConfig} */
+      const nextConfig = {
+        reactStrictMode: true,
+      };
+
+      module.exports = async () => {
+        const withSerwist = (await import("@serwist/next")).default({
+          cacheOnNavigation: true,
+          swSrc: "app/sw.ts",
+          swDest: "public/sw.js",
+        });
+        return withSerwist(nextConfig);
+      };
+      ```
+
+    - If all else fails, use `require(esm)`. This may or may not be supported on your current Node.js version.
+
+### Minor Changes
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`c65578b`](https://github.com/serwist/serwist/commit/c65578b68f1ae88822238c3c03aa5e859a4f2b7e) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor: merge service worker modules into `serwist`
+
+  - These service worker modules have been merged into `serwist`:
+
+    - Modules now located at `serwist`:
+
+      - `@serwist/navigation-preload`:
+
+        - `@serwist/navigation-preload.disable` -> `serwist.disableNavigationPreload`.
+        - `@serwist/navigation-preload.enable` -> `serwist.enableNavigationPreload`.
+        - `@serwist/navigation-preload.isSupported` -> `serwist.isNavigationPreloadSupported`.
+
+      - `@serwist/background-sync`
+
+        - `@serwist/background-sync.QueueEntry` -> `serwist.BackgroundSyncQueueEntry`
+        - `@serwist/background-sync.QueueOptions` -> `serwist.BackgroundSyncQueueOptions`
+        - `@serwist/background-sync.Queue` -> `serwist.BackgroundSyncQueue`
+        - `@serwist/background-sync.QueueStore` -> `serwist.BackgroundSyncQueueStore`
+
+      - `@serwist/broadcast-update`
+      - `@serwist/cacheable-response`
+      - `@serwist/expiration`
+      - `@serwist/google-analytics`
+
+        - `@serwist/google-analytics.initialize` -> `serwist.initializeGoogleAnalytics`
+
+      - `@serwist/range-requests`
+      - `@serwist/precaching`
+      - `@serwist/routing`
+      - `@serwist/strategies`
+
+  - They remain operable for compatibility, but they will be marked as deprecated on npm.
+
+- [#123](https://github.com/serwist/serwist/pull/123) [`cbf3e46`](https://github.com/serwist/serwist/commit/cbf3e4603388257a799e4da5ba1f32bca58aba4b) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(precaching): support concurrent precaching
+
+  - `Serwist` now accepts a new option, `precacheOptions.concurrency`, which should be the number of precache requests that should be made concurrently.
+  - By default, we precache things 10 assets each, but this can be changed by setting this option.
+
+### Patch Changes
+
+- Updated dependencies [[`b1df273`](https://github.com/serwist/serwist/commit/b1df273379ee018fd850f962345740874c9fd54d), [`c65578b`](https://github.com/serwist/serwist/commit/c65578b68f1ae88822238c3c03aa5e859a4f2b7e), [`b273b8c`](https://github.com/serwist/serwist/commit/b273b8cd9a240f8bf8ba357339e2e2d5dc2e8870), [`6c3e789`](https://github.com/serwist/serwist/commit/6c3e789724533dab23a6f5afb2a0f40d8f26bf16), [`4a5d51a`](https://github.com/serwist/serwist/commit/4a5d51ac8e9ed97b97754d8164990a08be65846d), [`7b55ac5`](https://github.com/serwist/serwist/commit/7b55ac526a73826cb2d179a863d7eb29182616ee), [`e4c00af`](https://github.com/serwist/serwist/commit/e4c00af72a9bd6a9d06e8a51d7db0006c732f7fd), [`dc12dda`](https://github.com/serwist/serwist/commit/dc12ddad60526db921b557f8dc5808ba17fc4d8e), [`10c3c17`](https://github.com/serwist/serwist/commit/10c3c17a0021c87886c47c2588d8beca1cb21535), [`4a5d51a`](https://github.com/serwist/serwist/commit/4a5d51ac8e9ed97b97754d8164990a08be65846d)]:
+  - serwist@9.0.0
+
 ## 9.0.0-preview.26
 
 ### Patch Changes
