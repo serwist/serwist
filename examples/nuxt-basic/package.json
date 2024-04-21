@@ -1,7 +1,9 @@
 {
   "name": "@serwist-example/nuxt-basic",
-  "private": true,
+  "version": "1.0.0",
   "type": "module",
+  "license": "MIT",
+  "private": true,
   "scripts": {
     "build": "npm run prep && nuxt build",
     "dev": "npm run prep && nuxt dev",
@@ -11,10 +13,10 @@
   },
   "devDependencies": {
     "@serwist/nuxt": "latest",
-    "@serwist/precaching": "latest",
-    "@serwist/sw": "latest",
-    "nuxt": "3.9.0",
-    "vue": "3.4.3",
-    "vue-router": "4.2.5"
+    "@serwist/vite": "latest",
+    "nuxt": "3.11.2",
+    "serwist": "latest",
+    "vue": "3.4.21",
+    "vue-router": "4.3.0"
   }
 }

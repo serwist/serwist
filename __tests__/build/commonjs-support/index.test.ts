@@ -1,4 +1,5 @@
 import { spawn } from "node:child_process";
+import { describe, expect, test } from "vitest";
 
 describe("@serwist/build - CommonJS basic test", () => {
   test("Simple build", async () => {

@@ -2,7 +2,7 @@
 
 Anyone can propose a change. However, adding new features often requires community discussions before proceeding with the implementation.
 
-Therefore, before opening a PR, you should use the [Feature Request discussion template](https://github.com/serwist/serwist/discussions/new?category=ideas) and collect feedback.
+Therefore, before opening a PR, you should [open a new issue](https://github.com/serwist/serwist/issues/new/choose) and collect feedback.
 
 ## Why use a discussion?
 

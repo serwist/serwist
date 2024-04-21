@@ -12,7 +12,7 @@ import type { ManifestTransform } from "../types.js";
 
 export function maximumSizeTransform(maximumFileSizeToCacheInBytes: number): ManifestTransform {
   return (originalManifest) => {
-    const warnings: Array<string> = [];
+    const warnings: string[] = [];
     const manifest = originalManifest.filter((entry) => {
       if (entry.size <= maximumFileSizeToCacheInBytes) {
         return true;

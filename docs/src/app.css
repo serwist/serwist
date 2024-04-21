@@ -1,16 +1,26 @@
+@import "./geist.css";
+@import "./syntax-highlighting.css";
+@import "./twoslash.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  * {
+    @apply relative box-border min-w-0;
+  }
+  button {
+    @apply cursor-pointer;
+  }
   html,
   body {
     @apply m-0 flex h-full w-full p-0;
   }
+  html {
+    @apply scroll-smooth;
+  }
   body {
-    font-family: "Geist";
-    font-weight: 400;
-    @apply box-border bg-gray-50 text-black transition-colors duration-100 dark:bg-neutral-950 dark:text-white;
+    @apply bg-neutral-50 font-sans font-normal text-black dark:bg-neutral-950 dark:text-white;
   }
   h1,
   h2,
@@ -28,37 +38,112 @@
     @apply text-3xl font-semibold leading-10 tracking-tight;
   }
   h3 {
-    @apply text-2xl leading-7 tracking-tight;
+    @apply text-2xl font-semibold leading-7 tracking-tight;
   }
   h4 {
-    @apply text-xl leading-5 tracking-tight;
+    @apply text-xl font-medium leading-5 tracking-tight;
+  }
+  .prose h1:not(:where([class~="not-prose"] *)) {
+    @apply mb-6;
+  }
+  .prose h2:not(:where([class~="not-prose"] *)) {
+    @apply mt-6 mb-3;
+  }
+  .prose :where(h3, h4, p,video):not(:where([class~="not-prose"] *)) {
+    @apply my-3;
+  }
+  details > summary {
+    @apply cursor-pointer select-none list-none;
+  }
+  details > summary::-webkit-details-marker {
+    @apply hidden;
   }
 
   #root-container {
-    @apply m-0 flex h-fit min-h-screen w-full flex-col p-0;
+    @apply relative m-0 flex h-fit min-h-screen w-full flex-col p-0;
   }
   #main-content {
-    @apply flex flex-grow;
+    @apply flex;
+    flex-grow: 1;
   }
-
-  html[data-theme="light"] .code-tab-dark,
-  html[data-theme="dark"] .code-tab-light {
-    @apply !invisible !hidden;
+  #nav-mobile-menu[open] > summary {
+    @apply [&>:nth-child(1)]:translate-y-[0.7rem] [&>:nth-child(1)]:rotate-45 [&>:nth-child(2)]:opacity-0 [&>:nth-child(3)]:-translate-y-[0.7rem] [&>:nth-child(3)]:-rotate-45;
+  }
+  .frsc-button {
+    @apply my-0 flex min-w-[auto] flex-1 justify-center border-black md:my-0;
+  }
+  .frsc-button[data-active="false"] > svg {
+    @apply contrast-0;
+  }
+  .frsc-button[data-active="false"]:hover > svg {
+    @apply contrast-100;
+  }
+  .nav-button {
+    @apply flex cursor-pointer items-center justify-center rounded-full bg-transparent p-3 duration-100 hover:bg-neutral-250 dark:hover:bg-neutral-800;
+  }
+  .text-toc {
+    @apply font-medium text-neutral-600 transition-colors duration-100 hover:text-black dark:text-neutral-400 dark:hover:text-white;
+  }
+  .text-toc.active {
+    @apply xl:text-accent-light xl:dark:text-accent-dark;
   }
 }
 
 @layer utilities {
-  .link {
-    @apply text-accent-light dark:text-accent-dark underline underline-offset-[6px];
+  @keyframes details-show {
+    from {
+      opacity: 0;
+      transform: var(--details-translate, translateY(-2em));
+    }
+  }
+  details.details-anim[open] > *:not(summary) {
+    animation: details-show 100ms ease-out;
+  }
+  details[open] > summary > .details-chevron {
+    @apply rotate-90;
+  }
+  .text-comment {
+    @apply text-neutral-600 dark:text-neutral-400;
+  }
+  .link,
+  .link > * {
+    @apply !text-accent-light dark:!text-accent-dark underline underline-offset-[5px];
+  }
+  .link.sm,
+  .link.sm > * {
+    @apply !underline-offset-4;
   }
   .list {
-    @apply list-inside list-disc pl-4 marker:text-black dark:marker:text-white;
+    @apply list-inside list-disc break-words pl-4 marker:text-black dark:marker:text-white;
   }
+  .list > li {
+    @apply mb-2;
+  }
+  .list > li > .list {
+    @apply mt-2;
+  }
+  .button {
+    @apply rounded-md bg-neutral-100 px-3 py-2 text-center transition-colors duration-100 hover:bg-neutral-250 dark:bg-neutral-900 hover:dark:bg-neutral-800;
+  }
+  html[data-theme="light"] .visible-dark,
+  html[data-theme="dark"] .visible-light {
+    @apply !invisible !hidden;
+  }
+  .square-conic {
+		@apply flex items-center justify-center overflow-hidden rounded-xl shadow-lg;
+
+		@apply before:absolute before:-z-10 before:h-[200%] before:w-[200%] before:animate-[spin_6s_linear_reverse_infinite] before:bg-gradient-conic;
+		@apply before:from-transparent before:content-[''] before:dark:opacity-50;
+		@apply before:via-black after:content-[''] before:dark:via-white before:dark:to-transparent;
+
+		@apply after:absolute after:inset-[1px] after:-z-10 after:rounded-xl;
+		@apply after:bg-gradient-to-br after:from-slate-50 after:to-slate-200  after:dark:from-black after:dark:to-black;
+	}
 }
 
 @media (prefers-reduced-motion) {
   html {
-    @apply !animate-none !transition-none;
+    @apply !animate-none !scroll-auto !transition-none;
   }
   html *,
   html *:before,

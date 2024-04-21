@@ -1,21 +1,26 @@
-/// <reference no-default-lib="true"/>
-/// <reference lib="esnext" />
-/// <reference lib="webworker" />
-/// <reference types="@sveltejs/kit" />
-import type { PrecacheEntry } from "@serwist/precaching";
-import { installSerwist } from "@serwist/sw";
 import { defaultCache } from "@serwist/vite/worker";
+import { type PrecacheEntry, Route, Serwist } from "serwist";
 
-declare const self: ServiceWorkerGlobalScope & {
-  // Change this attribute's name to your `injectionPoint`.
-  __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
-};
+declare global {
+  interface WorkerGlobalScope {
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+  }
+}
 
-installSerwist({
+declare const self: ServiceWorkerGlobalScope;
+
+const serwist = new Serwist({
   precacheEntries: self.__SW_MANIFEST,
+  precacheOptions: {
+    cleanupOutdatedCaches: true,
+    concurrency: 20,
+    ignoreURLParametersMatching: [/^x-sveltekit-invalidated$/],
+  },
   skipWaiting: true,
   clientsClaim: true,
-  navigationPreload: true,
+  navigationPreload: false,
   disableDevLogs: true,
   runtimeCaching: defaultCache,
 });
+
+serwist.addEventListeners();

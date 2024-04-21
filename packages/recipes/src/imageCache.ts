@@ -6,15 +6,15 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { CacheableResponsePlugin } from "@serwist/cacheable-response";
-import type { RouteMatchCallback, RouteMatchCallbackOptions, SerwistPlugin } from "@serwist/core";
-import { ExpirationPlugin } from "@serwist/expiration";
-import { registerRoute } from "@serwist/routing";
-import { CacheFirst } from "@serwist/strategies";
-
+import type { RouteMatchCallback, RouteMatchCallbackOptions, SerwistPlugin } from "serwist";
+import { CacheFirst, CacheableResponsePlugin, ExpirationPlugin, Serwist } from "serwist";
 import { warmStrategyCache } from "./warmStrategyCache.js";
 
 export interface ImageCacheOptions {
+  /**
+   * Your `Serwist` instance.
+   */
+  serwist: Serwist;
   /**
    * Name for cache. Defaults to images.
    */
@@ -46,14 +46,15 @@ export interface ImageCacheOptions {
  *
  * @param options
  */
-function imageCache(options: ImageCacheOptions = {}): void {
-  const defaultMatchCallback = ({ request }: RouteMatchCallbackOptions) => request.destination === "image";
-
-  const cacheName = options.cacheName || "images";
-  const matchCallback = options.matchCallback || defaultMatchCallback;
-  const maxAgeSeconds = options.maxAgeSeconds || 30 * 24 * 60 * 60;
-  const maxEntries = options.maxEntries || 60;
-  const plugins = options.plugins || [];
+export const imageCache = ({
+  serwist,
+  cacheName = "images",
+  matchCallback = ({ request }: RouteMatchCallbackOptions) => request.destination === "image",
+  maxAgeSeconds = 30 * 24 * 60 * 60,
+  maxEntries = 60,
+  plugins = [],
+  warmCache,
+}: ImageCacheOptions): void => {
   plugins.push(
     new CacheableResponsePlugin({
       statuses: [0, 200],
@@ -71,12 +72,10 @@ function imageCache(options: ImageCacheOptions = {}): void {
     plugins,
   });
 
-  registerRoute(matchCallback, strategy);
+  serwist.registerCapture(matchCallback, strategy);
 
   // Warms the cache
-  if (options.warmCache) {
-    warmStrategyCache({ urls: options.warmCache, strategy });
+  if (warmCache) {
+    warmStrategyCache({ urls: warmCache, strategy });
   }
-}
-
-export { imageCache };
+};

@@ -9,22 +9,22 @@
     isActive?: boolean;
     wideText?: boolean;
     textCenter?: boolean;
-    button?: Snippet<void>;
+    button?: Snippet<[]>;
   }
 
-  const { href, isActive = false, wideText = false, textCenter = true, children, button, ...props } = $props<NavLinkProps>();
+  const { href, isActive = false, wideText = false, textCenter = true, children, button, ...props }: NavLinkProps = $props();
 </script>
 
 <span
   class={clsx(
-    "w-full transition-colors-opacity duration-100 rounded-md flex flex-row justify-between cursor-pointer",
-    isActive ? "bg-gray-200 dark:bg-neutral-800" : "hover:bg-gray-200 dark:hover:bg-neutral-800"
+    "transition-colors-opacity flex w-full cursor-pointer flex-row justify-between rounded-md duration-100",
+    isActive ? "bg-neutral-250 dark:bg-neutral-800" : "hover:bg-neutral-250 dark:hover:bg-neutral-800"
   )}
 >
   <a
     {href}
     class={clsx(
-      "w-full h-full font-medium text-black dark:text-white gap-2 px-3 py-2 break-words",
+      "h-full w-full gap-2 break-words px-3 py-2 font-medium text-black dark:text-white",
       textCenter && "text-center",
       wideText ? "shrink-0 text-base uppercase tracking-widest" : "text-base md:text-sm"
     )}

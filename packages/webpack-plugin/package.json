@@ -1,11 +1,11 @@
 {
   "name": "@serwist/webpack-plugin",
-  "version": "8.4.4",
+  "version": "9.0.0-preview.26",
   "type": "module",
-  "description": "A plugin for your Webpack build process, helping you generate a manifest of local files that should be precached.",
+  "description": "A plugin for your webpack build process, helping you generate a manifest of local files that should be precached.",
   "files": [
-    "dist",
-    "!dist/**/dts"
+    "src",
+    "dist"
   ],
   "keywords": [
     "serwist",
@@ -18,43 +18,37 @@
     "file manifest"
   ],
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18.0.0"
   },
   "author": "Google's Web DevRel Team, Serwist's Team",
   "license": "MIT",
-  "repository": "serwist/serwist",
+  "repository": "https://github.com/serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",
   "homepage": "https://serwist.pages.dev",
-  "module": "./dist/index.js",
-  "main": "./dist/index.cjs",
+  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
       "internal": [
         "./dist/index.internal.d.ts"
+      ],
+      "schema": [
+        "./dist/index.schema.d.ts"
       ]
     }
   },
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      }
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./internal": {
-      "import": {
-        "types": "./dist/index.internal.d.ts",
-        "default": "./dist/index.internal.js"
-      },
-      "require": {
-        "types": "./dist/index.internal.d.cts",
-        "default": "./dist/index.internal.cjs"
-      }
+      "types": "./dist/index.internal.d.ts",
+      "default": "./dist/index.internal.js"
+    },
+    "./schema": {
+      "types": "./dist/index.schema.d.ts",
+      "default": "./dist/index.schema.js"
     },
     "./package.json": "./package.json"
   },
@@ -66,17 +60,29 @@
   },
   "dependencies": {
     "@serwist/build": "workspace:*",
-    "fast-json-stable-stringify": "2.1.0",
-    "upath": "2.0.1"
-  },
-  "peerDependencies": {
-    "webpack": "4.4.0 || ^5.9.0"
+    "pretty-bytes": "6.1.1",
+    "upath": "2.0.1",
+    "zod": "3.22.4"
   },
   "devDependencies": {
-    "@serwist/constants": "workspace:*",
-    "@types/node": "20.10.5",
+    "@serwist/configs": "workspace:*",
+    "@serwist/utils": "workspace:*",
+    "@types/node": "20.12.7",
     "@types/webpack": "5.28.5",
-    "pretty-bytes": "6.1.1",
-    "rollup": "4.9.1"
+    "rollup": "4.14.3",
+    "typescript": "5.5.0-dev.20240415",
+    "webpack": "5.91.0"
+  },
+  "peerDependencies": {
+    "typescript": ">=5.0.0",
+    "webpack": "4.4.0 || ^5.9.0"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    },
+    "webpack": {
+      "optional": true
+    }
   }
 }

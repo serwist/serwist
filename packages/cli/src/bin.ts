@@ -11,7 +11,6 @@
 import type { Result as MeowResult } from "meow";
 import meow from "meow";
 import updateNotifier, { type Package } from "update-notifier";
-
 import { app } from "./app.js";
 import { cleanupStackTrace } from "./lib/cleanup-stack-trace.js";
 import { helpText } from "./lib/help-text.js";
@@ -20,7 +19,6 @@ import type { AnyFlags, BooleanFlag } from "./types.js";
 
 export interface SupportedFlags extends AnyFlags {
   debug: BooleanFlag;
-  injectManifest: BooleanFlag;
   watch: BooleanFlag;
 }
 

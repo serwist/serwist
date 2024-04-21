@@ -1,11 +1,11 @@
 {
   "name": "@serwist/build",
-  "version": "8.4.4",
+  "version": "9.0.0-preview.26",
   "type": "module",
   "description": "A module that integrates into your build process, helping you generate a manifest of local files that should be precached.",
   "files": [
-    "dist",
-    "!dist/**/dts"
+    "src",
+    "dist"
   ],
   "keywords": [
     "serwist",
@@ -17,26 +17,30 @@
     "file manifest"
   ],
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18.0.0"
   },
   "author": "Google's Web DevRel Team, Serwist's Team",
   "license": "MIT",
-  "repository": "serwist/serwist",
+  "repository": "https://github.com/serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",
   "homepage": "https://serwist.pages.dev",
-  "module": "./dist/index.js",
-  "main": "./dist/index.cjs",
+  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "schema": [
+        "./dist/index.schema.d.ts"
+      ]
+    }
+  },
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      }
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./schema": {
+      "types": "./dist/index.schema.d.ts",
+      "default": "./dist/index.schema.js"
     },
     "./package.json": "./package.json"
   },
@@ -47,31 +51,32 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@apideck/better-ajv-errors": "0.3.6",
-    "@serwist/background-sync": "workspace:*",
-    "@serwist/broadcast-update": "workspace:*",
-    "@serwist/cacheable-response": "workspace:*",
-    "@serwist/core": "workspace:*",
-    "@serwist/expiration": "workspace:*",
-    "@serwist/google-analytics": "workspace:*",
-    "@serwist/precaching": "workspace:*",
-    "@serwist/routing": "workspace:*",
-    "ajv": "8.12.0",
     "common-tags": "1.8.2",
     "fast-json-stable-stringify": "2.1.0",
     "fs-extra": "11.2.0",
-    "glob": "10.3.10",
-    "rollup": "4.9.1",
+    "glob": "10.3.12",
+    "pretty-bytes": "6.1.1",
+    "rollup": "4.14.3",
     "source-map": "0.8.0-beta.0",
-    "upath": "2.0.1"
+    "upath": "2.0.1",
+    "zod": "3.22.4"
   },
   "devDependencies": {
-    "@serwist/constants": "workspace:*",
+    "@serwist/configs": "workspace:*",
+    "@serwist/utils": "workspace:*",
     "@types/common-tags": "1.8.4",
     "@types/fs-extra": "11.0.4",
-    "@types/node": "20.10.5",
+    "@types/node": "20.12.7",
     "@types/stringify-object": "4.0.5",
-    "pretty-bytes": "6.1.1",
-    "type-fest": "4.8.3"
+    "type-fest": "4.15.0",
+    "typescript": "5.5.0-dev.20240415"
+  },
+  "peerDependencies": {
+    "typescript": ">=5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    }
   }
 }

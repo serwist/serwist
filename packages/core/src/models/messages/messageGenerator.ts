@@ -6,7 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { messages } from "./messages.js";
+import type { MapLikeObject } from "../../types.js";
+import { type MessageKey, messages } from "./messages.js";
 
 const fallback = (code: string, ...args: any[]) => {
   let msg = code;
@@ -16,7 +17,7 @@ const fallback = (code: string, ...args: any[]) => {
   return msg;
 };
 
-const generatorFunction = (code: string, details = {}) => {
+const generatorFunction = (code: MessageKey, details: MapLikeObject = {}) => {
   const message = messages[code];
   if (!message) {
     throw new Error(`Unable to find message for code '${code}'.`);

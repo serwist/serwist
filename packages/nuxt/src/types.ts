@@ -1,6 +1,5 @@
 import type { PluginOptions } from "@serwist/vite";
-
-import type { OptionalFields } from "./utils-types.js";
+import type { Optional } from "./utils.js";
 
 export interface ClientOptions {
   /**
@@ -9,8 +8,7 @@ export interface ClientOptions {
   registerPlugin?: boolean;
 }
 
-export interface ModuleOptions extends OptionalFields<PluginOptions, "swSrc" | "swDest" | "globDirectory"> {
-  manifest?: string;
+export interface ModuleOptions extends Optional<PluginOptions, "swSrc" | "swDest" | "globDirectory"> {
   /**
    * Options for plugin.
    */

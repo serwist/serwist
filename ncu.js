@@ -17,6 +17,7 @@ const packageJsonList = await fg("**/package.json", {
 const examplesPackageJsonList = await fg("examples/*/package.json", {
   ignore: ["**/node_modules/**"],
 });
+const excludePackages = ["eslint", "@biomejs/biome"];
 
 /**
  * @type {Promise<any>[]}
@@ -28,6 +29,9 @@ for (const packageFile of packageJsonList) {
     updateAndLog({
       packageFile,
       upgrade: true,
+      filter(packageName) {
+        return !excludePackages.includes(packageName);
+      },
       target: (dependencyName) => {
         if (dependencyName === "typescript" || dependencyName === "svelte") {
           return "@next";

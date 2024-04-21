@@ -1,7 +1,7 @@
 import "./App.css";
 
-import { getSerwist } from "@serwist/vite/browser";
 import { useEffect } from "react";
+import { getSerwist } from "virtual:serwist";
 
 import viteLogo from "/vite.svg";
 
@@ -9,14 +9,16 @@ import reactLogo from "./assets/react.svg";
 
 function App() {
   useEffect(() => {
-    const registerSerwist = async () => {
-      const serwist = await getSerwist();
-      if (serwist) {
-        serwist.addEventListener("installed", () => console.log("Serwist installed!"));
-        await serwist.register();
+    const loadSerwist = async () => {
+      if ("serviceWorker" in navigator) {
+        const serwist = await getSerwist();
+        serwist?.addEventListener("installed", () => {
+          console.log("Serwist installed!");
+        });
+        void serwist?.register();
       }
     };
-    registerSerwist();
+    loadSerwist();
   });
 
   return (

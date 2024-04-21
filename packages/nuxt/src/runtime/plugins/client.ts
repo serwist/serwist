@@ -1,5 +1,5 @@
-import { getSerwist } from "@serwist/vite/browser";
 import type { Serwist } from "@serwist/window";
+import { getSerwist } from "virtual:serwist";
 
 import { defineNuxtPlugin } from "#imports";
 

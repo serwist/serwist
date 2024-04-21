@@ -60,7 +60,7 @@ export async function replaceAndUpdateSourceMap({
 
   let pos: number;
   let src = originalSource;
-  const replacements: Array<{ line: number; column: number }> = [];
+  const replacements: { line: number; column: number }[] = [];
   let lineNum = 0;
   let filePos = 0;
 

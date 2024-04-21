@@ -1,10 +1,6 @@
-/*
-  Copyright 2019 Google LLC
+import type { HTTPMethod } from "./constants.js";
 
-  Use of this source code is governed by an MIT-style
-  license that can be found in the LICENSE file or at
-  https://opensource.org/licenses/MIT.
-*/
+export type PromiseOrNot<T> = T | Promise<T>;
 
 export interface MapLikeObject {
   [key: string]: any;
@@ -37,14 +33,12 @@ export interface RouteMatchCallbackOptions {
  * is a non-empty array or object, that value will be set on the handler's
  * `options.params` argument.
  */
-export interface RouteMatchCallback {
-  (options: RouteMatchCallbackOptions): any;
-}
+export type RouteMatchCallback = (options: RouteMatchCallbackOptions) => any;
 
 /**
  * Options passed to a `RouteHandlerCallback` function.
  */
-export declare interface RouteHandlerCallbackOptions {
+export interface RouteHandlerCallbackOptions {
   /**
    * The event associated with the request.
    */
@@ -54,9 +48,6 @@ export declare interface RouteHandlerCallbackOptions {
    */
   request: Request;
   url: URL;
-  /**
-   * The return value from `@serwist/routing`'s `matchCallback` (if applicable).
-   */
   params?: string[] | MapLikeObject;
 }
 /**
@@ -71,6 +62,11 @@ export interface ManualHandlerCallbackOptions {
    * A request to run this strategy for.
    */
   request: Request | string;
+  url?: never;
+  /**
+   * The return value from `serwist.matchCallback` (if applicable).
+   */
+  params?: never;
 }
 
 export type HandlerCallbackOptions = RouteHandlerCallbackOptions | ManualHandlerCallbackOptions;
@@ -83,9 +79,7 @@ export type HandlerCallbackOptions = RouteHandlerCallbackOptions | ManualHandler
  * If a non-empty array or object is returned by the `RouteMatchCallback` it
  * will be passed in as this handler's `options.params` argument.
  */
-export interface RouteHandlerCallback {
-  (options: RouteHandlerCallbackOptions): Promise<Response>;
-}
+export type RouteHandlerCallback = (options: RouteHandlerCallbackOptions) => Promise<Response>;
 
 /**
  * The "handler" callback is invoked whenever a `Router` matches a URL/Request
@@ -95,16 +89,14 @@ export interface RouteHandlerCallback {
  * If a non-empty array or object is returned by the `RouteMatchCallback` it
  * will be passed in as this handler's `options.params` argument.
  */
-export interface ManualHandlerCallback {
-  (options: ManualHandlerCallbackOptions): Promise<Response>;
-}
+export type ManualHandlerCallback = (options: ManualHandlerCallbackOptions) => Promise<Response>;
 
 /**
  * An object with a `handle` method of type `RouteHandlerCallback`.
  *
  * A `Route` object can be created with either an `RouteHandlerCallback`
  * function or this `RouteHandler` object. The benefit of the `RouteHandler`
- * is it can be extended (as is done by the `@serwist/strategies` package).
+ * is it can be extended (as is done by the `serwist/strategies` package).
  */
 export interface RouteHandlerObject {
   handle: RouteHandlerCallback;
@@ -112,7 +104,7 @@ export interface RouteHandlerObject {
 
 /**
  * Either a `RouteHandlerCallback` or a `RouteHandlerObject`.
- * Most APIs in `@serwist/routing` that accept route handlers take either.
+ * Most APIs that accept route handlers take either.
  */
 export type RouteHandler = RouteHandlerCallback | RouteHandlerObject;
 
@@ -122,9 +114,7 @@ export interface HandlerWillStartCallbackParam {
   state?: PluginState;
 }
 
-export interface HandlerWillStartCallback {
-  (param: HandlerWillStartCallbackParam): Promise<any>;
-}
+export type HandlerWillStartCallback = (param: HandlerWillStartCallbackParam) => Promise<any>;
 
 export interface CacheDidUpdateCallbackParam {
   /**
@@ -151,9 +141,7 @@ export interface CacheDidUpdateCallbackParam {
   state?: PluginState;
 }
 
-export interface CacheDidUpdateCallback {
-  (param: CacheDidUpdateCallbackParam): Promise<any>;
-}
+export type CacheDidUpdateCallback = (param: CacheDidUpdateCallbackParam) => PromiseOrNot<any>;
 
 export interface CacheKeyWillBeUsedCallbackParam {
   mode: string;
@@ -163,9 +151,7 @@ export interface CacheKeyWillBeUsedCallbackParam {
   state?: PluginState;
 }
 
-export interface CacheKeyWillBeUsedCallback {
-  (param: CacheKeyWillBeUsedCallbackParam): Promise<Request | string>;
-}
+export type CacheKeyWillBeUsedCallback = (param: CacheKeyWillBeUsedCallbackParam) => PromiseOrNot<Request | string>;
 
 export interface CacheWillUpdateCallbackParam {
   request: Request;
@@ -174,9 +160,7 @@ export interface CacheWillUpdateCallbackParam {
   state?: PluginState;
 }
 
-export interface CacheWillUpdateCallback {
-  (param: CacheWillUpdateCallbackParam): Promise<any>;
-}
+export type CacheWillUpdateCallback = (param: CacheWillUpdateCallbackParam) => PromiseOrNot<any>;
 
 export interface CachedResponseWillBeUsedCallbackParam {
   /**
@@ -198,9 +182,7 @@ export interface CachedResponseWillBeUsedCallbackParam {
   state?: PluginState;
 }
 
-export interface CachedResponseWillBeUsedCallback {
-  (param: CachedResponseWillBeUsedCallbackParam): Promise<any>;
-}
+export type CachedResponseWillBeUsedCallback = (param: CachedResponseWillBeUsedCallbackParam) => PromiseOrNot<any>;
 
 export interface FetchDidFailCallbackParam {
   error: Error;
@@ -210,9 +192,7 @@ export interface FetchDidFailCallbackParam {
   state?: PluginState;
 }
 
-export interface FetchDidFailCallback {
-  (param: FetchDidFailCallbackParam): Promise<any>;
-}
+export type FetchDidFailCallback = (param: FetchDidFailCallbackParam) => PromiseOrNot<any>;
 
 export interface FetchDidSucceedCallbackParam {
   request: Request;
@@ -221,9 +201,7 @@ export interface FetchDidSucceedCallbackParam {
   state?: PluginState;
 }
 
-export interface FetchDidSucceedCallback {
-  (param: FetchDidSucceedCallbackParam): Promise<Response>;
-}
+export type FetchDidSucceedCallback = (param: FetchDidSucceedCallbackParam) => PromiseOrNot<Response>;
 
 export interface RequestWillFetchCallbackParam {
   request: Request;
@@ -231,9 +209,7 @@ export interface RequestWillFetchCallbackParam {
   state?: PluginState;
 }
 
-export interface RequestWillFetchCallback {
-  (param: RequestWillFetchCallbackParam): Promise<Request>;
-}
+export type RequestWillFetchCallback = (param: RequestWillFetchCallbackParam) => PromiseOrNot<Request>;
 
 export interface HandlerWillRespondCallbackParam {
   request: Request;
@@ -242,9 +218,7 @@ export interface HandlerWillRespondCallbackParam {
   state?: PluginState;
 }
 
-export interface HandlerWillRespondCallback {
-  (param: HandlerWillRespondCallbackParam): Promise<Response>;
-}
+export type HandlerWillRespondCallback = (param: HandlerWillRespondCallbackParam) => PromiseOrNot<Response>;
 
 export interface HandlerDidErrorCallbackParam {
   request: Request;
@@ -253,9 +227,7 @@ export interface HandlerDidErrorCallbackParam {
   state?: PluginState;
 }
 
-export interface HandlerDidErrorCallback {
-  (param: HandlerDidErrorCallbackParam): Promise<Response | undefined>;
-}
+export type HandlerDidErrorCallback = (param: HandlerDidErrorCallbackParam) => PromiseOrNot<Response | undefined>;
 
 export interface HandlerDidRespondCallbackParam {
   request: Request;
@@ -264,9 +236,7 @@ export interface HandlerDidRespondCallbackParam {
   state?: PluginState;
 }
 
-export interface HandlerDidRespondCallback {
-  (param: HandlerDidRespondCallbackParam): Promise<any>;
-}
+export type HandlerDidRespondCallback = (param: HandlerDidRespondCallbackParam) => PromiseOrNot<any>;
 
 export interface HandlerDidCompleteCallbackParam {
   request: Request;
@@ -276,9 +246,7 @@ export interface HandlerDidCompleteCallbackParam {
   state?: PluginState;
 }
 
-export interface HandlerDidCompleteCallback {
-  (param: HandlerDidCompleteCallbackParam): Promise<any>;
-}
+export type HandlerDidCompleteCallback = (param: HandlerDidCompleteCallbackParam) => PromiseOrNot<any>;
 
 /**
  * An object with optional lifecycle callback properties for the fetch and
@@ -313,3 +281,83 @@ export interface SerwistPluginCallbackParam {
   handlerWillStart: HandlerWillStartCallbackParam;
   requestWillFetch: RequestWillFetchCallbackParam;
 }
+
+export interface SerwistGlobalConfig {
+  /**
+   * Whether Serwist should disable development logging.
+   *
+   * @default false
+   */
+  __WB_DISABLE_DEV_LOGS: boolean;
+}
+
+export interface RuntimeCaching {
+  /**
+   * The HTTP method to match against. The default value of `'GET'` is normally
+   * sufficient, unless you explicitly need to match `'POST'`, `'PUT'`, or
+   * another type of request.
+   * @default "GET"
+   */
+  method?: HTTPMethod;
+  /**
+   * This match criteria determines whether the configured handler will
+   * generate a response for any requests that don't match one of the precached
+   * URLs. If multiple `RuntimeCaching` routes are defined, then the first one
+   * whose `matcher` matches will be the one that responds.
+   *
+   * This value directly maps to the first parameter passed to
+   * `Serwist.registerRoute`. It's recommended to use a
+   * `serwist.RouteMatchCallback` function for greatest flexibility.
+   */
+  matcher: RegExp | string | RouteMatchCallback;
+  /**
+   * This determines how the runtime route will generate a response. It
+   * can be a `serwist.RouteHandler` callback function with custom
+   * response logic.
+   */
+  handler: RouteHandler;
+}
+
+export interface InstallResult {
+  updatedURLs: string[];
+  notUpdatedURLs: string[];
+}
+
+export interface CleanupResult {
+  deletedCacheRequests: string[];
+}
+
+export declare interface PrecacheEntry {
+  integrity?: string;
+  url: string;
+  revision?: string | null;
+}
+
+export interface PrecacheRouteOptions {
+  /**
+   * Tells Serwist to check the precache for an entry whose URL is the request URL appended
+   * with the specified value. Only applies if the request URL ends with "/".
+   *
+   * @default "index.html"
+   */
+  directoryIndex?: string | null;
+  /**
+   * An array of `RegExp` objects matching search params that should be removed when looking
+   * for a precache match.
+   */
+  ignoreURLParametersMatching?: RegExp[];
+  /**
+   * Tells Serwist to check the precache for an entry whose URL is the request URL appended
+   * with ".html".
+   *
+   * @default true
+   */
+  cleanURLs?: boolean;
+  /**
+   * A function that should take a URL and return an array of alternative URLs that should
+   * be checked for precache matches.
+   */
+  urlManipulation?: UrlManipulation;
+}
+
+export type UrlManipulation = ({ url }: { url: URL }) => URL[];

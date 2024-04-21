@@ -1,14 +1,14 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 
-const APP_NAME = "Serwist example";
-const APP_DESCRIPTION = "This is an example of using Serwist with Next.js";
+const APP_NAME = "NJS App";
+const APP_DESCRIPTION = "Next.js + Serwist PWA";
 
 export const metadata: Metadata = {
   applicationName: APP_NAME,
   title: {
     default: APP_NAME,
-    template: "%s - PWA App",
+    template: "%s - NJS App",
   },
   description: APP_DESCRIPTION,
   manifest: "/manifest.json",

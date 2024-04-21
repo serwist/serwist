@@ -9,18 +9,14 @@
 import type { ManifestEntry } from "../types.js";
 import { errors } from "./errors.js";
 
-type AdditionalManifestEntriesTransform = {
-  (
-    manifest: Array<ManifestEntry & { size: number }>,
-  ): {
-    manifest: Array<ManifestEntry & { size: number }>;
-    warnings: string[];
-  };
+type AdditionalManifestEntriesTransform = (manifest: (ManifestEntry & { size: number })[]) => {
+  manifest: (ManifestEntry & { size: number })[];
+  warnings: string[];
 };
 
-export function additionalPrecacheEntriesTransform(additionalPrecacheEntries: Array<ManifestEntry | string>): AdditionalManifestEntriesTransform {
-  return (manifest: Array<ManifestEntry & { size: number }>) => {
-    const warnings: Array<string> = [];
+export const additionalPrecacheEntriesTransform = (additionalPrecacheEntries: (ManifestEntry | string)[]): AdditionalManifestEntriesTransform => {
+  return (manifest: (ManifestEntry & { size: number })[]) => {
+    const warnings: string[] = [];
     const stringEntries = new Set<string>();
 
     for (const additionalEntry of additionalPrecacheEntries) {
@@ -34,7 +30,7 @@ export function additionalPrecacheEntriesTransform(additionalPrecacheEntries: Ar
           url: additionalEntry,
         });
       } else {
-        if (additionalEntry && additionalEntry.revision === undefined) {
+        if (additionalEntry && !additionalEntry.integrity && additionalEntry.revision === undefined) {
           stringEntries.add(additionalEntry.url);
         }
         manifest.push(Object.assign({ size: 0 }, additionalEntry));
@@ -55,4 +51,4 @@ export function additionalPrecacheEntriesTransform(additionalPrecacheEntries: Ar
       warnings,
     };
   };
-}
+};

@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { Deferred, dontWaitFor, logger } from "@serwist/core/internal";
+import { Deferred, logger } from "serwist/internal";
 import type { TrustedScriptURL } from "trusted-types/lib";
 
 import { messageSW } from "./messageSW.js";
@@ -26,7 +26,7 @@ const REGISTRATION_TIMEOUT_DURATION = 60000;
 
 // The de facto standard message that a service worker should be listening for
 // to trigger a call to skipWaiting().
-const SKIP_WAITING_MESSAGE = { type: "SKIP_WAITING" };
+const SKIP_WAITING_MESSAGE = { type: "SKIP_WAITING" } as const;
 
 /**
  * A class to aid in handling service worker registration, updates, and
@@ -63,14 +63,11 @@ export class Serwist extends SerwistEventTarget {
    * options. The script URL and options are the same as those used when
    * calling [navigator.serviceWorker.register(scriptURL, options)](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerContainer/register).
    *
-   * @param scriptURL The service worker script
-   *     associated with this instance. Using a
-   *     [`TrustedScriptURL`](https://web.dev/trusted-types/) is supported.
-   * @param registerOptions The service worker options associated
-   *     with this instance.
+   * @param scriptURL The service worker script associated with this instance. Using a
+   * [`TrustedScriptURL`](https://developer.mozilla.org/en-US/docs/Web/API/TrustedScriptURL) is supported.
+   * @param registerOptions The service worker options associated with this instance.
    */
-  // biome-ignore lint/complexity/noBannedTypes: Unknown reason
-  constructor(scriptURL: string | TrustedScriptURL, registerOptions: {} = {}) {
+  constructor(scriptURL: string | TrustedScriptURL, registerOptions: RegistrationOptions = {}) {
     super();
 
     this._scriptURL = scriptURL;
@@ -100,7 +97,7 @@ export class Serwist extends SerwistEventTarget {
   } = {}): Promise<ServiceWorkerRegistration | undefined> {
     if (process.env.NODE_ENV !== "production") {
       if (this._registrationTime) {
-        logger.error("Cannot re-register a Serwist instance after it has " + "been registered. Create a new instance instead.");
+        logger.error("Cannot re-register a Serwist instance after it has been registered. Create a new instance instead.");
         return;
       }
     }
@@ -114,7 +111,7 @@ export class Serwist extends SerwistEventTarget {
     this._isUpdate = Boolean(navigator.serviceWorker.controller);
 
     // Before registering, attempt to determine if a SW is already controlling
-    // the page, and if that SW script (and version, if specified) matches this
+    // the page and if that SW script (and version, if specified) matches this
     // instance's script.
     this._compatibleControllingSW = this._getControllingSWIfCompatible();
 
@@ -137,25 +134,23 @@ export class Serwist extends SerwistEventTarget {
     // https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle#waiting
     const waitingSW = this._registration.waiting;
     if (waitingSW && urlsMatch(waitingSW.scriptURL, this._scriptURL.toString())) {
-      // Store the waiting SW as the "own" Sw, even if it means overwriting
+      // Store the waiting SW as the "own" SW, even if it means overwriting
       // a compatible controller.
       this._sw = waitingSW;
 
       // Run this in the next microtask, so any code that adds an event
       // listener after awaiting `register()` will get this event.
-      dontWaitFor(
-        Promise.resolve().then(() => {
-          this.dispatchEvent(
-            new SerwistEvent("waiting", {
-              sw: waitingSW,
-              wasWaitingBeforeRegister: true,
-            }),
-          );
-          if (process.env.NODE_ENV !== "production") {
-            logger.warn("A service worker was already waiting to activate " + "before this script was registered...");
-          }
-        }),
-      );
+      void Promise.resolve().then(() => {
+        this.dispatchEvent(
+          new SerwistEvent("waiting", {
+            sw: waitingSW,
+            wasWaitingBeforeRegister: true,
+          }),
+        );
+        if (process.env.NODE_ENV !== "production") {
+          logger.warn("A service worker was already waiting to activate before this script was registered...");
+        }
+      });
     }
 
     // If an "own" SW is already set, resolve the deferred.
@@ -169,12 +164,10 @@ export class Serwist extends SerwistEventTarget {
 
       if (navigator.serviceWorker.controller) {
         if (this._compatibleControllingSW) {
-          logger.debug("A service worker with the same script URL " + "is already controlling this page.");
+          logger.debug("A service worker with the same script URL is already controlling this page.");
         } else {
           logger.debug(
-            "A service worker with a different script URL is " +
-              "currently controlling the page. The browser is now fetching " +
-              "the new script now...",
+            "A service worker with a different script URL is currently controlling the page. The browser is now fetching the new script now...",
           );
         }
       }
@@ -185,7 +178,7 @@ export class Serwist extends SerwistEventTarget {
         return !location.pathname.startsWith(scopeURLBasePath);
       };
       if (currentPageIsOutOfScope()) {
-        logger.warn("The current page is not in scope for the registered " + "service worker. Was this a mistake?");
+        logger.warn("The current page is not in scope for the registered service worker. Was this a mistake?");
       }
     }
 
@@ -201,7 +194,7 @@ export class Serwist extends SerwistEventTarget {
   async update(): Promise<void> {
     if (!this._registration) {
       if (process.env.NODE_ENV !== "production") {
-        logger.error("Cannot update a Serwist instance without " + "being registered. Register the Serwist instance first.");
+        logger.error("Cannot update a Serwist instance without being registered. Register the Serwist instance first.");
       }
       return;
     }
@@ -262,29 +255,26 @@ export class Serwist extends SerwistEventTarget {
 
   /**
    * Sends the passed data object to the service worker registered by this
-   * instance (via `@serwist/window.Serwist.getSW`) and resolves
-   * with a response (if any).
+   * instance (via `getSW`) and resolves with a response (if any).
    *
-   * A response can be set in a message handler in the service worker by
-   * calling `event.ports[0].postMessage(...)`, which will resolve the promise
-   * returned by `messageSW()`. If no response is set, the promise will never
-   * resolve.
+   * A response can be sent by calling `event.ports[0].postMessage(...)`, which will
+   * resolve the promise returned by `messageSW()`. If no response is sent, the promise
+   * will never resolve.
    *
    * @param data An object to send to the service worker
    * @returns
    */
   // We might be able to change the 'data' type to Record<string, unknown> in the future.
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  async messageSW(data: object): Promise<any> {
+  async messageSW(data: any): Promise<any> {
     const sw = await this.getSW();
     return messageSW(sw, data);
   }
 
   /**
-   * Sends a `{type: 'SKIP_WAITING'}` message to the service worker that's
-   * currently in the `waiting` state associated with the current registration.
+   * Sends a `{ type: "SKIP_WAITING" }` message to the service worker that is
+   * currently waiting and associated with the current registration.
    *
-   * If there is no current registration or no service worker is `waiting`,
+   * If there is no current registration, or no service worker is waiting,
    * calling this will have no effect.
    */
   messageSkipWaiting(): void {
@@ -370,11 +360,9 @@ export class Serwist extends SerwistEventTarget {
       // If all of the above are false, then we use a time-based heuristic:
       // Any `updatefound` event that occurs long after our registration is
       // assumed to be external.
-      performance.now() > this._registrationTime + REGISTRATION_TIMEOUT_DURATION
-        ? // If any of the above are not true, we assume the update was
-          // triggered by this instance.
-          true
-        : false;
+      performance.now() > this._registrationTime + REGISTRATION_TIMEOUT_DURATION;
+    // If any of the above are not true, we assume the update was
+    // triggered by this instance.
 
     if (updateLikelyTriggeredExternally) {
       this._externalSW = installingSW;
@@ -539,8 +527,6 @@ export class Serwist extends SerwistEventTarget {
    * @param originalEvent
    */
   private readonly _onMessage = async (originalEvent: MessageEvent) => {
-    // Can't change type 'any' of data.
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const { data, ports, source } = originalEvent;
 
     // Wait until there's an "own" service worker. This is used to buffer
@@ -556,8 +542,6 @@ export class Serwist extends SerwistEventTarget {
     if (this._ownSWs.has(source as ServiceWorker)) {
       this.dispatchEvent(
         new SerwistEvent("message", {
-          // Can't change type 'any' of data.
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           data,
           originalEvent,
           ports,

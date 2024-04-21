@@ -6,18 +6,18 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { SerwistError } from "./_private/SerwistError.js";
-import { assert } from "./_private/assert.js";
-import type { PartialCacheNameDetails } from "./_private/cacheNames.js";
-import { cacheNames } from "./_private/cacheNames.js";
+import { SerwistError } from "./utils/SerwistError.js";
+import { assert } from "./utils/assert.js";
+import type { PartialCacheNameDetails } from "./utils/cacheNames.js";
+import { cacheNames } from "./utils/cacheNames.js";
 
 /**
- * Modifies the default cache names used by the Serwist packages.
+ * Modifies the default cache names used by Serwist packages.
  * Cache names are generated as `<prefix>-<Cache Name>-<suffix>`.
  *
  * @param details
  */
-function setCacheNameDetails(details: PartialCacheNameDetails): void {
+export const setCacheNameDetails = (details: PartialCacheNameDetails): void => {
   if (process.env.NODE_ENV !== "production") {
     for (const key of Object.keys(details)) {
       assert!.isType(details[key], "string", {
@@ -50,6 +50,4 @@ function setCacheNameDetails(details: PartialCacheNameDetails): void {
   }
 
   cacheNames.updateDetails(details);
-}
-
-export { setCacheNameDetails };
+};

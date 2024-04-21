@@ -1,5 +1,5 @@
 // @ts-check
-import { getRollupOptions } from "@serwist/constants/rollup";
+import { getRollupOptions } from "@serwist/configs/rollup";
 
 import packageJson from "./package.json" assert { type: "json" };
 
@@ -10,23 +10,14 @@ export default getRollupOptions({
       input: {
         index: "src/index.ts",
         "index.internal": "src/index.internal.ts",
+        "index.schema": "src/index.schema.ts",
       },
-      output: [
-        {
-          dir: "dist",
-          entryFileNames: "[name].cjs",
-          chunkFileNames: "[name].cjs",
-          format: "cjs",
-          exports: "named",
-        },
-        {
-          dir: "dist",
-          entryFileNames: "[name].js",
-          chunkFileNames: "[name].js",
-          format: "esm",
-        },
-      ],
+      output: {
+        dir: "dist",
+        entryFileNames: "[name].js",
+        chunkFileNames: "chunks/[name].js",
+        format: "esm",
+      },
     },
   ],
-  shouldEmitDeclaration: true,
 });

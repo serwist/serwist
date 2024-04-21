@@ -3,15 +3,15 @@ import path from "node:path";
 import { addPlugin, createResolver, defineNuxtModule, extendWebpackConfig } from "@nuxt/kit";
 import type { SerwistViteApi, SerwistViteContext } from "@serwist/vite";
 import { createApi, createContext, dev as devPlugin, main as mainPlugin, resolveEntry } from "@serwist/vite";
+import type { Require } from "./utils.js";
 
 import { version } from "../package.json";
 import { configurePwaOptions } from "./config.js";
 import type { ClientOptions, ModuleOptions } from "./types.js";
-import type { RequiredFields } from "./utils-types.js";
 
 export * from "./types.js";
 
-export default defineNuxtModule<RequiredFields<ModuleOptions, "swUrl" | "swSrc" | "swDest" | "globDirectory" | "injectionPoint">>({
+export default defineNuxtModule<Require<ModuleOptions, "swUrl" | "swSrc" | "swDest" | "globDirectory" | "injectionPoint">>({
   meta: {
     name: "@serwist/nuxt",
     configKey: "serwist",
@@ -28,7 +28,6 @@ export default defineNuxtModule<RequiredFields<ModuleOptions, "swUrl" | "swSrc" 
     return {
       base: nuxt.options.app.baseURL,
       scope: nuxt.options.app.baseURL,
-      injectRegister: false,
       client: {
         registerPlugin: true,
       },
@@ -47,7 +46,7 @@ export default defineNuxtModule<RequiredFields<ModuleOptions, "swUrl" | "swSrc" 
     let ctx: SerwistViteContext | undefined;
     let api: SerwistViteApi | undefined;
 
-    const { manifest: manifestPath, client: _client, ...userOptions } = options;
+    const { client: _client, ...userOptions } = options;
 
     const client = { registerPlugin: true, ..._client } satisfies ClientOptions;
 
@@ -63,7 +62,7 @@ export default defineNuxtModule<RequiredFields<ModuleOptions, "swUrl" | "swSrc" 
     }
 
     nuxt.hook("prepare:types", ({ references }) => {
-      references.push({ path: resolver.resolve(runtimeDir, "plugins/augmentation") });
+      references.push({ path: resolver.resolve(runtimeDir, "plugins/augmentation.d.ts") });
     });
 
     nuxt.hook("nitro:init", (nitro) => {
@@ -73,7 +72,7 @@ export default defineNuxtModule<RequiredFields<ModuleOptions, "swUrl" | "swSrc" 
     nuxt.hook("vite:extend", ({ config }) => {
       const plugin = config.plugins?.find((p) => p && typeof p === "object" && "name" in p && p.name === "@serwist/vite");
       if (plugin) {
-        throw new Error("Remove @serwist/vite from your Vite configuration! Do not use it alongside @serwist/nuxt.");
+        throw new Error("Remove '@serwist/vite' from your Vite configuration! Do not use it alongside '@serwist/nuxt'.");
       }
     });
 
@@ -83,7 +82,7 @@ export default defineNuxtModule<RequiredFields<ModuleOptions, "swUrl" | "swSrc" 
       }
       const plugin = viteInlineConfig.plugins.find((p) => p && typeof p === "object" && "name" in p && p.name === "@serwist/vite");
       if (plugin) {
-        throw new Error("Remove @serwist/vite from your Vite conoptionsfiguration! Do not use it alongside @serwist/nuxt.");
+        throw new Error("Remove '@serwist/vite' from your Vite configuration! Do not use it alongside '@serwist/nuxt'.");
       }
 
       if (isClient) {
@@ -115,7 +114,7 @@ export default defineNuxtModule<RequiredFields<ModuleOptions, "swUrl" | "swSrc" 
     });
 
     extendWebpackConfig(() => {
-      throw new Error("Webpack is not supported: @serwist/nuxt can only be used with Vite!");
+      throw new Error("Webpack is not supported: '@serwist/nuxt' can only be used with Vite!");
     });
 
     if (!nuxt.options.dev) {

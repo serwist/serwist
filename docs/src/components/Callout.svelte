@@ -15,14 +15,14 @@
     type?: CalloutVariant;
   }
 
-  const { type = "info", children } = $props<CalloutProps>();
+  const { type = "info", children }: CalloutProps = $props();
 
   const mapVariantToClass = {
     parent: {
       error: "dark:bg-red-1000 bg-red-100",
       success: "bg-green-150 dark:bg-lime-1000",
       warning: "bg-yellow-75 dark:bg-yellow-1000",
-      info: "bg-gray-200 dark:bg-zinc-800",
+      info: "bg-neutral-150 dark:bg-zinc-800",
     },
     icon: {
       error: "bg-red-650 dark:bg-red-300",
@@ -45,7 +45,7 @@
 <div
   class={clsx(
     "flex h-fit max-h-full w-full flex-row items-center gap-2 rounded-md px-3 py-2 text-base font-medium",
-    "text-black dark:text-white md:text-sm [&>p]:!text-inherit",
+    "text-black md:text-sm dark:text-white [&>*]:min-w-[auto] my-3",
     mapVariantToClass.parent[type]
   )}
 >

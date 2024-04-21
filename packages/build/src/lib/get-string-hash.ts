@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import crypto from "crypto";
+import crypto from "node:crypto";
 
 export function getStringHash(input: crypto.BinaryLike): string {
   const md5 = crypto.createHash("md5");

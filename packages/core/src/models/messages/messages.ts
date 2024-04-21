@@ -13,7 +13,7 @@ interface MessageMap {
   [messageID: string]: (param: LoggableObject) => string;
 }
 
-export const messages: MessageMap = {
+export const messages = {
   "invalid-value": ({ paramName, validValueDescription, value }) => {
     if (!paramName || !validValueDescription) {
       throw new Error(`Unexpected input to 'invalid-value' error.`);
@@ -64,7 +64,7 @@ export const messages: MessageMap = {
   },
 
   "add-to-cache-list-unexpected-type": ({ entry }) => {
-    return `An unexpected entry was passed to '@serwist/precaching.PrecacheController.addToCacheList()' The entry '${JSON.stringify(
+    return `An unexpected entry was passed to 'serwist.Serwist.addToPrecacheList()' The entry '${JSON.stringify(
       entry,
     )}' isn't supported. You must supply an array of strings with one or more characters, objects with a url property or Request objects.`;
   },
@@ -74,7 +74,7 @@ export const messages: MessageMap = {
       throw new Error("Unexpected input to " + `'add-to-cache-list-duplicate-entries' error.`);
     }
 
-    return `Two of the entries passed to '@serwist/precaching.PrecacheController.addToCacheList()' had the URL ${firstEntry} but different revision details. Serwist is unable to cache and version the asset correctly. Please remove one of the entries.`;
+    return `Two of the entries passed to 'serwist.Serwist.addToPrecacheList()' had the URL ${firstEntry} but different revision details. Serwist is unable to cache and version the asset correctly. Please remove one of the entries.`;
   },
 
   "plugin-error-request-will-fetch": ({ thrownErrorMessage }) => {
@@ -82,7 +82,7 @@ export const messages: MessageMap = {
       throw new Error("Unexpected input to " + `'plugin-error-request-will-fetch', error.`);
     }
 
-    return `An error was thrown by a plugins 'requestWillFetch()' method. The thrown error message was: '${thrownErrorMessage}'.`;
+    return `An error was thrown by a plugin's 'requestWillFetch()' method. The thrown error message was: '${thrownErrorMessage}'.`;
   },
 
   "invalid-cache-name": ({ cacheNameId, value }) => {
@@ -112,7 +112,7 @@ export const messages: MessageMap = {
   },
 
   "duplicate-queue-name": ({ name }) => {
-    return `The Queue name '${name}' is already being used. All instances of backgroundSync.Queue must be given unique names.`;
+    return `The queue name '${name}' is already being used. All instances of 'serwist.BackgroundSyncQueue' must be given unique names.`;
   },
 
   "expired-test-without-max-age": ({ methodName, paramName }) => {
@@ -130,11 +130,11 @@ export const messages: MessageMap = {
   },
 
   "max-entries-or-age-required": ({ moduleName, className, funcName }) => {
-    return `You must define either config.maxEntries or config.maxAgeSecondsin ${moduleName}.${className}.${funcName}`;
+    return `You must define either 'config.maxEntries' or 'config.maxAgeSeconds' in '${moduleName}.${className}.${funcName}'`;
   },
 
   "statuses-or-headers-required": ({ moduleName, className, funcName }) => {
-    return `You must define either config.statuses or config.headersin ${moduleName}.${className}.${funcName}`;
+    return `You must define either 'config.statuses' or 'config.headers' in '${moduleName}.${className}.${funcName}'`;
   },
 
   "invalid-string": ({ moduleName, funcName, paramName }) => {
@@ -206,11 +206,11 @@ export const messages: MessageMap = {
   },
 
   "non-precached-url": ({ url }) => {
-    return `createHandlerBoundToURL('${url}') was called, but that URL is not precached. Please pass in a URL that is precached instead.`;
+    return `'createHandlerBoundToURL("${url}")' was called, but that URL is not precached. Please pass in a URL that is precached instead.`;
   },
 
   "add-to-cache-list-conflicting-integrities": ({ url }) => {
-    return `Two of the entries passed to '@serwist/precaching.PrecacheController.addToCacheList()' had the URL ${url} with different integrity values. Please remove one of them.`;
+    return `Two of the entries passed to 'serwist.Serwist.addToPrecacheList()' had the URL ${url} with different integrity values. Please remove one of them.`;
   },
 
   "missing-precache-entry": ({ cacheName, url }) => {
@@ -218,14 +218,16 @@ export const messages: MessageMap = {
   },
 
   "cross-origin-copy-response": ({ origin }) => {
-    return `@serwist/core.copyResponse() can only be used with same-origin responses. It was passed a response with origin ${origin}.`;
+    return `'@serwist/core.copyResponse()' can only be used with same-origin responses. It was passed a response with origin ${origin}.`;
   },
 
   "opaque-streams-source": ({ type }) => {
-    const message = `One of the @serwist/streams sources resulted in an '${type}' response.`;
+    const message = `One of the '@serwist/streams' sources resulted in an '${type}' response.`;
     if (type === "opaqueredirect") {
       return `${message} Please do not use a navigation request that results in a redirect as a source.`;
     }
     return `${message} Please ensure your sources are CORS-enabled.`;
   },
-};
+} satisfies MessageMap;
+
+export type MessageKey = keyof typeof messages;

@@ -1,4 +1,4 @@
-import { ChildProcessWithoutNullStreams, exec, spawn } from "node:child_process";
+import { type ChildProcessWithoutNullStreams, exec, spawn } from "node:child_process";
 
 type Callback = (error?: Error) => void;
 
@@ -103,7 +103,7 @@ function buildProcessTree(
 
     if (matches) {
       for (const pidMatch of matches) {
-        const pid = parseInt(pidMatch, 10);
+        const pid = Number.parseInt(pidMatch, 10);
         tree.get(parentPid)?.push(pid);
         tree.set(pid, []);
         pidsToProcess.add(pid);

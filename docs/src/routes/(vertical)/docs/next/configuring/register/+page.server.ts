@@ -1,53 +1,34 @@
-import { getHighlighter } from "shiki";
-
 import { highlightCode } from "$lib/highlightCode";
+import { encodeOpenGraphImage } from "$lib/og";
+import type { PageServerLoad } from "./$types";
 
-export const load = async () => {
-  const highligher = await getHighlighter({
-    themes: ["github-dark", "github-light"],
-    langs: ["javascript", "jsx"],
-  });
-  return {
-    title: "register - Configuring - @serwist/next",
-    code: {
-      usage: {
-        config: highlightCode(
-          highligher,
-          {
-            "next.config.mjs": {
-              code: `import withSerwistInit from "@serwist/next";
-      
-const withSerwist = withSerwistInit({
-    swSrc: "app/sw.ts",
-    swDest: "public/sw.js",
-    register: false,
-});
-         
-export default withSerwist({
-    // Your Next.js config
+export const load: PageServerLoad = ({ locals }) => ({
+  title: "register - Configuring - @serwist/next",
+  ogImage: encodeOpenGraphImage({
+    title: "register",
+    desc: "Configuring - @serwist/next",
+  }),
+  code: {
+    usage: {
+      config: highlightCode(
+        locals.highlighter,
+        {
+          "next.config.mjs": {
+            code: `withSerwistInit({
+  swSrc: "app/sw.ts",
+  swDest: "public/sw.js",
+  register: false,
 });`,
-              lang: "javascript",
-            },
-            "next.config.js": {
-              code: `const withSerwist = require("@serwist/next").default({
-    swSrc: "app/sw.ts",
-    swDest: "public/sw.js",
-    cacheOnFrontEndNav: true,
-});
-      
-module.exports = withSerwist({
-    // Your Next.js config
-});`,
-              lang: "javascript",
-            },
+            lang: "javascript",
           },
-          { idPrefix: "usage-config-example" },
-        ),
-        app: highlightCode(
-          highligher,
-          {
-            "app/register-pwa.jsx": {
-              code: `"use client";
+        },
+        { idPrefix: "usage-config-example", useTwoslash: false },
+      ),
+      app: highlightCode(
+        locals.highlighter,
+        {
+          "app/register-pwa.jsx": {
+            code: `"use client";
 import { useEffect } from "react";
 
 export default function RegisterPWA() {
@@ -58,12 +39,11 @@ export default function RegisterPWA() {
   }, []);
   return <></>;
 }`,
-              lang: "jsx",
-            },
+            lang: "jsx",
           },
-          { idPrefix: "usage-app-example" },
-        ),
-      },
+        },
+        { idPrefix: "usage-app-example", useTwoslash: false },
+      ),
     },
-  };
-};
+  },
+});
