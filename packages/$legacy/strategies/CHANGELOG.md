@@ -1,5 +1,14 @@
 # @serwist/strategies
 
+## 9.0.0-preview.25
+
+### Patch Changes
+
+- [`7e00b79`](https://github.com/serwist/serwist/commit/7e00b79d3888fcdd0b2ac0c2cf5060b9cf91a9ea) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore: stability test before stable release
+
+- Updated dependencies [[`7e00b79`](https://github.com/serwist/serwist/commit/7e00b79d3888fcdd0b2ac0c2cf5060b9cf91a9ea)]:
+  - serwist@9.0.0-preview.25
+
 ## 9.0.0-preview.24
 
 ### Patch Changes
