@@ -13,6 +13,7 @@ import { messageSW } from "./messageSW.js";
 import type { SerwistLifecycleEventMap } from "./utils/SerwistEvent.js";
 import { SerwistEvent } from "./utils/SerwistEvent.js";
 import { SerwistEventTarget } from "./utils/SerwistEventTarget.js";
+import { isCurrentPageOutOfScope } from "./utils/isCurrentPageOutOfScope.js";
 import { urlsMatch } from "./utils/urlsMatch.js";
 
 // The time a SW must be in the waiting phase before we can conclude
@@ -172,12 +173,7 @@ export class Serwist extends SerwistEventTarget {
         }
       }
 
-      const currentPageIsOutOfScope = () => {
-        const scopeURL = new URL(this._registerOptions.scope || this._scriptURL.toString(), document.baseURI);
-        const scopeURLBasePath = new URL("./", scopeURL.href).pathname;
-        return !location.pathname.startsWith(scopeURLBasePath);
-      };
-      if (currentPageIsOutOfScope()) {
+      if (isCurrentPageOutOfScope(this._registerOptions.scope || this._scriptURL.toString())) {
         logger.warn("The current page is not in scope for the registered service worker. Was this a mistake?");
       }
     }

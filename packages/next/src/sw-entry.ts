@@ -1,4 +1,5 @@
 import { Serwist } from "@serwist/window";
+import { isCurrentPageOutOfScope } from "@serwist/window/internal";
 
 import type { SerwistNextOptions } from "./internal-types.js";
 import type { MessageType } from "./sw-entry-worker.js";
@@ -16,17 +17,17 @@ declare const self: Window &
   };
 
 if (typeof window !== "undefined" && "serviceWorker" in navigator && typeof caches !== "undefined") {
+  const scope = self.__SERWIST_SW_ENTRY.scope;
+
   let swEntryWorker: Worker | undefined;
 
   if (self.__SERWIST_SW_ENTRY.swEntryWorker) {
     swEntryWorker = new Worker(self.__SERWIST_SW_ENTRY.swEntryWorker);
   }
 
-  window.serwist = new Serwist(window.location.origin + self.__SERWIST_SW_ENTRY.sw, {
-    scope: self.__SERWIST_SW_ENTRY.scope,
-  });
+  window.serwist = new Serwist(window.location.origin + self.__SERWIST_SW_ENTRY.sw, { scope });
 
-  if (self.__SERWIST_SW_ENTRY.register) {
+  if (self.__SERWIST_SW_ENTRY.register && !isCurrentPageOutOfScope(scope)) {
     window.serwist.register();
   }
 
