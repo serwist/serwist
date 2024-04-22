@@ -1,5 +1,12 @@
 # @serwist/google-analytics
 
+## 9.0.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - serwist@9.0.0
+
 ## 9.0.0
 
 ### Major Changes
