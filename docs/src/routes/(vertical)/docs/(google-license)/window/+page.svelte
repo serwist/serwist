@@ -49,8 +49,8 @@
 <h3 id="examples-broadcast-update">Notify the user of cache updates</h3>
 <p>
   <a class="link" href="/docs/serwist/core/broadcast-cache-update"><ICD>BroadcastCacheUpdate</ICD></a> and
-  <a class="link" href="/docs/serwist/runtime-caching/plugins/broadcast-update-plugin"><ICD>BroadcastUpdatePlugin</ICD></a> are great ways to inform the user of updates
-  to cached content.
+  <a class="link" href="/docs/serwist/runtime-caching/plugins/broadcast-update-plugin"><ICD>BroadcastUpdatePlugin</ICD></a> are great ways to inform the
+  user of updates to cached content.
 </p>
 <p>Here is how you can listen to those updates from the window:</p>
 <CodeTab codes={data.code.examples.broadcastUpdate} defaultTab="index.ts" />

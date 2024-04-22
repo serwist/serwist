@@ -19,8 +19,6 @@
 <p>Here is a list of resources you can read to learn more about <ICD>webpackCompilationPlugins</ICD>:</p>
 <ul class="list">
   <li>
-    <ExternalLink class="link" href="https://webpack.js.org/plugins/">
-      webpack: Plugins
-    </ExternalLink>
+    <ExternalLink class="link" href="https://webpack.js.org/plugins/">webpack: Plugins</ExternalLink>
   </li>
 </ul>

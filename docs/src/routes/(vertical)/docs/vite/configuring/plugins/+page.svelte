@@ -17,13 +17,9 @@
 <p>Here is a list of resources you can read to learn more about <ICD>plugins</ICD>:</p>
 <ul class="list">
   <li>
-    <ExternalLink class="link" href="https://vitejs.dev/guide/using-plugins.html">
-      Vite: Using plugins
-    </ExternalLink>
+    <ExternalLink class="link" href="https://vitejs.dev/guide/using-plugins.html">Vite: Using plugins</ExternalLink>
   </li>
   <li>
-    <ExternalLink class="link" href="https://vitejs.dev/guide/api-plugin.html">
-      Vite: Plugin API
-    </ExternalLink>
+    <ExternalLink class="link" href="https://vitejs.dev/guide/api-plugin.html">Vite: Plugin API</ExternalLink>
   </li>
 </ul>

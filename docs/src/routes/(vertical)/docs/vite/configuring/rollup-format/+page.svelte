@@ -28,8 +28,6 @@
     </ExternalLink>
   </li>
   <li>
-    <ExternalLink class="link" href="https://web.dev/articles/es-modules-in-sw">
-      web.dev: ES modules in service workers
-    </ExternalLink>
+    <ExternalLink class="link" href="https://web.dev/articles/es-modules-in-sw">web.dev: ES modules in service workers</ExternalLink>
   </li>
 </ul>

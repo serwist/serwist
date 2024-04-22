@@ -10,8 +10,8 @@
 <p>Workbox</p>
 <h2 id="about">About</h2>
 <p>
-  This plugin can be used in a <a class="link" href="/docs/serwist/runtime-caching/caching-strategies/strategy"><ICD>Strategy</ICD></a> to regularly
-  enforce a limit on the age and/or the number of cached requests.
+  This plugin can be used in a <a class="link" href="/docs/serwist/runtime-caching/caching-strategies/strategy"><ICD>Strategy</ICD></a> to regularly enforce
+  a limit on the age and/or the number of cached requests.
 </p>
 <p>
   It can only be used with <ICD>Strategy</ICD> instances that have a custom <ICD>cacheName</ICD> property set. In other words, it can't be used to expire

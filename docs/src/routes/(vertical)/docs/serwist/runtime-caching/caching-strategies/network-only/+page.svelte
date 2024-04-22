@@ -11,16 +11,11 @@
 <p>Workbox</p>
 <h2 id="about">About</h2>
 <p>
-  An implementation of the <ETL
-    class="link"
-    href="https://developer.chrome.com/docs/workbox/caching-strategies-overview/#network_only"
-  >
+  An implementation of the <ETL class="link" href="https://developer.chrome.com/docs/workbox/caching-strategies-overview/#network_only">
     network only
   </ETL> request strategy.
 </p>
-<p>
-  This class is useful if you require specific requests to only be fulfilled from the network.
-</p>
+<p>This class is useful if you require specific requests to only be fulfilled from the network.</p>
 <p>If the network request fails, this will throw a <ICD>SerwistError</ICD> exception.</p>
 <h2 id="parameters">Parameters</h2>
 <ul class="list">

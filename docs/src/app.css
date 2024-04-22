@@ -47,9 +47,9 @@
     @apply mb-6;
   }
   .prose h2:not(:where([class~="not-prose"] *)) {
-    @apply mt-6 mb-3;
+    @apply mb-3 mt-6;
   }
-  .prose :where(h3, h4, p,video):not(:where([class~="not-prose"] *)) {
+  .prose :where(h3, h4, p, video):not(:where([class~="not-prose"] *)) {
     @apply my-3;
   }
   details > summary {
@@ -79,7 +79,7 @@
     @apply contrast-100;
   }
   .nav-button {
-    @apply flex cursor-pointer items-center justify-center rounded-full bg-transparent p-3 duration-100 hover:bg-neutral-250 dark:hover:bg-neutral-800;
+    @apply hover:bg-neutral-250 flex cursor-pointer items-center justify-center rounded-full bg-transparent p-3 duration-100 dark:hover:bg-neutral-800;
   }
   .text-toc {
     @apply font-medium text-neutral-600 transition-colors duration-100 hover:text-black dark:text-neutral-400 dark:hover:text-white;
@@ -123,22 +123,22 @@
     @apply mt-2;
   }
   .button {
-    @apply rounded-md bg-neutral-100 px-3 py-2 text-center transition-colors duration-100 hover:bg-neutral-250 dark:bg-neutral-900 hover:dark:bg-neutral-800;
+    @apply hover:bg-neutral-250 rounded-md bg-neutral-100 px-3 py-2 text-center transition-colors duration-100 dark:bg-neutral-900 hover:dark:bg-neutral-800;
   }
   html[data-theme="light"] .visible-dark,
   html[data-theme="dark"] .visible-light {
     @apply !invisible !hidden;
   }
   .square-conic {
-		@apply flex items-center justify-center overflow-hidden rounded-xl shadow-lg;
+    @apply flex items-center justify-center overflow-hidden rounded-xl shadow-lg;
 
-		@apply before:absolute before:-z-10 before:h-[200%] before:w-[200%] before:animate-[spin_6s_linear_reverse_infinite] before:bg-gradient-conic;
-		@apply before:from-transparent before:content-[''] before:dark:opacity-50;
-		@apply before:via-black after:content-[''] before:dark:via-white before:dark:to-transparent;
+    @apply before:bg-gradient-conic before:absolute before:-z-10 before:h-[200%] before:w-[200%] before:animate-[spin_6s_linear_reverse_infinite];
+    @apply before:from-transparent before:content-[''] before:dark:opacity-50;
+    @apply before:via-black after:content-[''] before:dark:via-white before:dark:to-transparent;
 
-		@apply after:absolute after:inset-[1px] after:-z-10 after:rounded-xl;
-		@apply after:bg-gradient-to-br after:from-slate-50 after:to-slate-200  after:dark:from-black after:dark:to-black;
-	}
+    @apply after:absolute after:inset-[1px] after:-z-10 after:rounded-xl;
+    @apply after:bg-gradient-to-br after:from-slate-50 after:to-slate-200  after:dark:from-black after:dark:to-black;
+  }
 }
 
 @media (prefers-reduced-motion) {

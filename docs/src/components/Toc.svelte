@@ -29,7 +29,7 @@
   {:else}
     <p>Table of Contents is not available at the moment.</p>
   {/if}
-  <div class="mt-8 hidden flex-col items-start gap-2 border-t pb-8 pt-8 xl:flex border-neutral-300 dark:border-neutral-800">
+  <div class="mt-8 hidden flex-col items-start gap-2 border-t border-neutral-300 pb-8 pt-8 xl:flex dark:border-neutral-800">
     <a href={`${GITHUB_REPO_URL}/issues/new/choose`} target="_blank" rel="noreferrer" class="text-toc">
       Question? Give us feedback →
       <span class="sr-only">(opens in a new tab)</span>

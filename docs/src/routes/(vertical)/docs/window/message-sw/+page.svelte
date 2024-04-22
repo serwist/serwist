@@ -22,4 +22,3 @@
 </ul>
 <h2 id="usage">Usage</h2>
 <CodeTab codes={data.code.usage} defaultTab="index.ts" />
-

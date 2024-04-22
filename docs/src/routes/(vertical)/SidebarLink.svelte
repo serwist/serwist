@@ -28,8 +28,8 @@
           class={clsx(
             "flex items-center px-1 text-black transition-all duration-100 dark:text-white",
             isActive
-              ? "rounded-e border-l border-black/40 bg-neutral-250 dark:border-white/40 dark:bg-neutral-800"
-              : "rounded hover:bg-neutral-250 hover:dark:bg-neutral-800"
+              ? "bg-neutral-250 rounded-e border-l border-black/40 dark:border-white/40 dark:bg-neutral-800"
+              : "hover:bg-neutral-250 rounded hover:dark:bg-neutral-800"
           )}
         >
           <ChevronRight width={16} height={16} class="transition-transform duration-100" />
@@ -40,7 +40,7 @@
         <ul
           class={clsx(
             "relative flex flex-col before:absolute before:inset-y-1 ltr:ml-3 ltr:pl-3 rtl:mr-3 rtl:pr-3",
-            "before:w-px before:bg-neutral-250 before:content-[''] ltr:before:left-0 rtl:before:right-0 dark:before:bg-neutral-800"
+            "before:bg-neutral-250 before:w-px before:content-[''] ltr:before:left-0 rtl:before:right-0 dark:before:bg-neutral-800"
           )}
         >
           {#each children as child}

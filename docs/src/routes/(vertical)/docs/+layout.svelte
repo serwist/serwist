@@ -17,7 +17,7 @@
 
 <main id="main-content" class="flex w-full flex-col xl:flex-row xl:justify-between">
   <nav
-    class="top-0 max-h-dvh shrink-0 px-6 pt-6 md:px-12 xl:sticky xl:order-last xl:w-[350px] xl:px-4 print:hidden"
+    class="top-0 shrink-0 px-6 pt-6 md:px-12 xl:sticky xl:order-last xl:max-h-dvh xl:w-[350px] xl:px-4 print:hidden"
     aria-label="Table of contents"
   >
     <Toc {toc} />

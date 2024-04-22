@@ -124,7 +124,7 @@ export const load: PageServerLoad = ({ locals }) => ({
               id: "vite",
               children: [
                 {
-                  title: "Moved getSerwist",
+                  title: "Moved getSerwist from @serwist/vite/browser to virtual:serwist",
                   id: "moved-get-serwist",
                 },
               ],

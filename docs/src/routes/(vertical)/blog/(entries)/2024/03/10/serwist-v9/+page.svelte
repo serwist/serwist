@@ -246,7 +246,7 @@
 </p>
 <CodeTab codes={data.code.svelteMigration} defaultTab="Old" />
 <h3 id="vite">@serwist/vite</h3>
-<h4 id="moved-get-serwist">Moved getSerwist</h4>
+<h4 id="moved-get-serwist">Moved getSerwist from @serwist/vite/browser to virtual:serwist</h4>
 <p>
   <ICD>getSerwist</ICD> required <ICD>@serwist/vite</ICD> to provide it build time information through virtual modules. However, this seemed to cause bugs
   in development mode, and it is not a great pattern to use. As such, we are moving <ICD>getSerwist</ICD> from <ICD>@serwist/vite/browser</ICD> to

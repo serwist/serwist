@@ -55,12 +55,6 @@
   };
 </script>
 
-<span
-  bind:this={span}
-  role="status"
-  onmouseenter={mouseEnter}
-  onmouseleave={mouseLeave}
-  aria-describedby={isActive ? $twoslash.id : undefined}
->
+<span bind:this={span} role="status" onmouseenter={mouseEnter} onmouseleave={mouseLeave} aria-describedby={isActive ? $twoslash.id : undefined}>
   <slot />
 </span>

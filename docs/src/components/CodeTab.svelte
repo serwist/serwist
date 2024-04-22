@@ -20,7 +20,7 @@
   });
 </script>
 
-<div class="flex w-full flex-col rounded-xl border border-neutral-300 bg-white dark:border-neutral-800 dark:bg-neutral-950 my-3">
+<div class="my-3 flex w-full flex-col rounded-xl border border-neutral-300 bg-white dark:border-neutral-800 dark:bg-neutral-950">
   <div class="relative w-full rounded-t-xl bg-white dark:bg-black">
     <div role="tablist" aria-orientation="horizontal" class="flex w-full overflow-auto rounded-t-xl">
       {#each codes as [tab, id]}

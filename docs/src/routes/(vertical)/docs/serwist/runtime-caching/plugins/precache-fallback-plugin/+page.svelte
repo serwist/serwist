@@ -1,6 +1,6 @@
 <script lang="ts">
   import Callout from "$components/Callout.svelte";
-import CodeTab from "$components/CodeTab.svelte";
+  import CodeTab from "$components/CodeTab.svelte";
   import ICD from "$components/InlineCode.svelte";
 
   const { data } = $props();
@@ -17,9 +17,7 @@ import CodeTab from "$components/CodeTab.svelte";
   It does this by intercepting the <ICD>handlerDidError</ICD> plugin callback and returning a precached response, taking the expected revision parameter
   into account automatically.
 </p>
-<Callout type="info">
-  Generally, you don't need to use this plugin directly. Ratherly, you'd use the fallbacks option of the Serwist class.
-</Callout>
+<Callout type="info">Generally, you don't need to use this plugin directly. Ratherly, you'd use the fallbacks option of the Serwist class.</Callout>
 <h2 id="options">Options</h2>
 <ul class="list">
   <li>

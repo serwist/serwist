@@ -28,8 +28,8 @@
     offline access to the asset.
   </li>
   <li>
-    <a class="link" href="./caching-strategies/cache-first"><ICD>CacheFirst</ICD></a> — Checks the cache for a response first and uses it if available. If
-    the request isn't in the cache, the network is used and any valid response is added to the cache before being passed to the browser.
+    <a class="link" href="./caching-strategies/cache-first"><ICD>CacheFirst</ICD></a> — Checks the cache for a response first and uses it if available.
+    If the request isn't in the cache, the network is used and any valid response is added to the cache before being passed to the browser.
   </li>
   <li>
     <a class="link" href="./caching-strategies/network-only"><ICD>NetworkOnly</ICD></a> — Forces the response to come from the network.
