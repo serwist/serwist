@@ -3,19 +3,8 @@
   "version": "9.0.0",
   "type": "module",
   "description": "Simplifies communications with Serwist packages running in the service worker",
-  "files": [
-    "src",
-    "dist"
-  ],
-  "keywords": [
-    "serwist",
-    "serwistjs",
-    "service worker",
-    "sw",
-    "window",
-    "message",
-    "postMessage"
-  ],
+  "files": ["src", "dist"],
+  "keywords": ["serwist", "serwistjs", "service worker", "sw", "window", "message", "postMessage"],
   "author": "Google's Web DevRel Team, Serwist's Team",
   "license": "MIT",
   "repository": "https://github.com/serwist/serwist",
@@ -23,10 +12,19 @@
   "homepage": "https://serwist.pages.dev",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "internal": ["./dist/index.internal.d.ts"]
+    }
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
+    },
+    "./internal": {
+      "types": "./dist/index.internal.d.ts",
+      "default": "./dist/index.internal.js"
     },
     "./package.json": "./package.json"
   },
