@@ -1,5 +1,20 @@
 # @serwist/next
 
+## 9.0.1
+
+### Patch Changes
+
+- [#128](https://github.com/serwist/serwist/pull/128) [`ee8fa90`](https://github.com/serwist/serwist/commit/ee8fa9026ada9d708cf828c0b1ef0e37bb1e1020) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(next): check if the current page is in the service worker's scope before registering
+
+  - Before, if `InjectPartial.scope` was set to some value, and you visited a page out of that scope, you would see the warning "The current page is not in scope for the registered service worker. Was this a mistake?" logged. This simply fixes that by checking if the page is in the scope before calling `window.serwist.register()`.
+  - Wondering if we should have removed /sw-entry.ts before the 9.0.0 release...
+
+- Updated dependencies []:
+  - @serwist/build@9.0.1
+  - @serwist/webpack-plugin@9.0.1
+  - @serwist/window@9.0.1
+  - serwist@9.0.0
+
 ## 9.0.0
 
 ### Major Changes
