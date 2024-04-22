@@ -2,7 +2,7 @@
   "$schema": "https://unpkg.com/@changesets/config@3.0.0/schema.json",
   "changelog": ["@changesets/changelog-github", { "repo": "serwist/serwist" }],
   "commit": false,
-  "fixed": [["@serwist/*"]],
+  "fixed": [["@serwist/*", "serwist"]],
   "linked": [],
   "access": "public",
   "baseBranch": "main",
