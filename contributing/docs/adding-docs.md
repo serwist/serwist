@@ -120,7 +120,7 @@ registerRoute(navigationRoute);`,
 
 ## Adding a page to the sidebar
 
-- Simply edit `DOCS_SIDEBAR_LINKS`, located at docs/src/routes/(vertical)/docs/$layout.constants.ts.
+- Simply edit `DOCS_SIDEBAR_LINKS`, located at docs/src/lib/constants.ts.
 
 ## Updating a static asset
 

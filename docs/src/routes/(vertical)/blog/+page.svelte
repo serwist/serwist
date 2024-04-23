@@ -1,5 +1,5 @@
 <script>
-  import { BLOG_ENTRIES } from "./$layout.constants";
+  import { BLOG_ENTRIES } from "$lib/constants";
 </script>
 
 <h1>Blog</h1>

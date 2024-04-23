@@ -8,7 +8,7 @@
   const { data }: TableOfContentsProps = $props();
 </script>
 
-<ul class="list mt-2">
+<ol class="list mt-2">
   {#each data as { title, id, children }}
     <li>
       <a href={`#${id}`} class="text-toc">
@@ -19,4 +19,4 @@
       {/if}
     </li>
   {/each}
-</ul>
+</ol>

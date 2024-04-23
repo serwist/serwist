@@ -1,6 +1,7 @@
 <script>
   import ExternalLink from "$components/ExternalLink.svelte";
   import ICD from "$components/InlineCode.svelte";
+  import { DOCS_SIDEBAR_LINKS } from "$lib/constants";
 </script>
 
 <h1 id="welcome">Welcome to Serwist!</h1>
@@ -14,46 +15,13 @@
 </p>
 <p>Take a look around:</p>
 <ul class="list">
-  <li>
-    <ICD>
-      <a class="link" href="/docs/serwist">serwist</a>
-    </ICD>
-  </li>
-  <li>
-    <ICD>
-      <a class="link" href="/docs/build">@serwist/build</a>
-    </ICD>
-  </li>
-  <li>
-    <ICD>
-      <a class="link" href="/docs/cli">@serwist/cli</a>
-    </ICD>
-  </li>
-  <li>
-    <ICD>
-      <a class="link" href="/docs/next">@serwist/next</a>
-    </ICD>
-  </li>
-  <li>
-    <ICD>
-      <a class="link" href="/docs/nuxt">@serwist/nuxt</a>
-    </ICD>
-  </li>
-  <li>
-    <ICD>
-      <a class="link" href="/docs/vite">@serwist/vite</a>
-    </ICD>
-  </li>
-  <li>
-    <ICD>
-      <a class="link" href="/docs/webpack-plugin">@serwist/webpack-plugin</a>
-    </ICD>
-  </li>
-  <li>
-    <ICD>
-      <a class="link" href="/docs/window">@serwist/window</a>
-    </ICD>
-  </li>
+  {#each DOCS_SIDEBAR_LINKS.filter(e => e.title !== "Introduction") as { title, href }}
+    <li>
+      <ICD>
+        <a class="link" {href}>{title}</a>
+      </ICD>
+    </li>
+  {/each}
 </ul>
 <h2 id="alternatives">Alternatives</h2>
 <p>There are also some alternatives to Serwist:</p>

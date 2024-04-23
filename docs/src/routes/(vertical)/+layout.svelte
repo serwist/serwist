@@ -3,11 +3,10 @@
   import ChevronRight from "$components/icons/ChevronRight.svelte";
   import VerticalNavbar from "$components/layouts/VerticalNavbar.svelte";
   import { clsx } from "$lib/clsx";
+  import { BLOG_ENTRIES, BREAKPOINTS, DOCS_SIDEBAR_LINKS } from "$lib/constants";
   import type { SidebarLink as SidebarLinkProps } from "$lib/types";
 
   import SidebarLink from "./SidebarLink.svelte";
-  import { BLOG_ENTRIES } from "./blog/$layout.constants";
-  import { DOCS_SIDEBAR_LINKS } from "./docs/$layout.constants";
 
   const sidebarLinks = $derived(
     $page.url.pathname.startsWith("/blog")
@@ -20,7 +19,7 @@
   $effect(() => {
     $page.url.pathname;
     if (sidebarDetails) {
-      sidebarDetails.open = window.innerWidth >= 768;
+      sidebarDetails.open = window.innerWidth >= BREAKPOINTS.md;
     }
   });
 </script>

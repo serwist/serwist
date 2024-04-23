@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import { GITHUB_REPO_URL } from "$lib/constants";
+  import { BREAKPOINTS, GITHUB_REPO_URL } from "$lib/constants";
   import type { TocEntry } from "$lib/types";
 
   import ChevronRight from "./icons/ChevronRight.svelte";
@@ -12,7 +12,7 @@
   $effect(() => {
     // Toc is placed right above the content for devices of width smaller than 1280,
     // so manipulating `isTocOpen` for them is not a good idea due to CLS.
-    if (tocDetails && window.innerWidth >= 1280) {
+    if (tocDetails && window.innerWidth >= BREAKPOINTS.lg) {
       tocDetails.open = true;
     }
   });
