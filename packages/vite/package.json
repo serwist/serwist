@@ -5,7 +5,8 @@
   "description": "A module that integrates Serwist into your Vite application.",
   "files": [
     "src",
-    "dist"
+    "dist",
+    "*.d.ts"
   ],
   "keywords": [
     "react",

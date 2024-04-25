@@ -37,6 +37,9 @@ output/
 # vscode
 .vscode
 
+# jetbrains ide
+.idea
+
 # rollup
 .rollup.cache
 
