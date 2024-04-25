@@ -1,5 +1,18 @@
 # @serwist/vite
 
+## 9.0.2
+
+### Patch Changes
+
+- [`693679a`](https://github.com/serwist/serwist/commit/693679a2b9fc066d4636974039131fd48bfb9b28) Thanks [@userquin](https://github.com/userquin)! - fix(vite): add missing types for typings subpackage export
+
+  - `typings.d.ts` was not included in the final tgz before.
+
+- Updated dependencies []:
+  - @serwist/build@9.0.2
+  - @serwist/window@9.0.2
+  - serwist@9.0.2
+
 ## 9.0.1
 
 ### Patch Changes

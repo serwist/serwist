@@ -1,6 +1,6 @@
 {
   "name": "@serwist/utils",
-  "version": "9.0.1",
+  "version": "9.0.2",
   "type": "module",
   "description": "This module contains utilities used by Serwist packages.",
   "private": true,
