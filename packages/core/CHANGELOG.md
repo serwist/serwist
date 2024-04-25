@@ -1,5 +1,7 @@
 # @serwist/sw
 
+## 9.0.2
+
 ## 9.0.0
 
 ### Major Changes
