@@ -1,1 +1,1 @@
-This module's documentation can be found at https://developers.google.com/web/tools/workbox/modules/workbox-navigation-preload
+This module has been deprecated. Use [`serwist`](https://www.npmjs.com/package/serwist) instead.

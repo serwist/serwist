@@ -1,1 +1,1 @@
-This module's documentation can be found at https://developers.google.com/web/tools/workbox/modules/workbox-recipes
+This module's documentation is a work-in-progress.

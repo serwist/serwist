@@ -1,1 +1,1 @@
-This module's documentation can be found at https://serwist.pages.dev/docs/build
+This module's documentation can be found at https://serwist.pages.dev/docs/build.

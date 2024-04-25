@@ -28,7 +28,7 @@
     "serwist": "cli.js"
   },
   "scripts": {
-    "build": "rimraf dist && cross-env NODE_ENV=production rollup --config rollup.config.js",
+    "build": "rimraf dist && NODE_ENV=production rollup --config rollup.config.js",
     "dev": "rollup --config rollup.config.js --watch",
     "lint": "biome lint ./src",
     "typecheck": "tsc"

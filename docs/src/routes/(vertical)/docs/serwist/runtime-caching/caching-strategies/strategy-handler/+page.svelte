@@ -44,8 +44,8 @@
     <ICD>cacheName</ICD>, <ICD>matchOptions</ICD>, and <ICD>plugins</ICD> provided to the <ICD>Strategy</ICD> object. The following lifecycle methods are
     invoked when using this method:
     <ul class="list">
-      <li><ICD>cacheKeyWillByUsed</ICD></li>
-      <li><ICD>cachedResponseWillByUsed</ICD></li>
+      <li><ICD>cacheKeyWillBeUsed</ICD></li>
+      <li><ICD>cachedResponseWillBeUsed</ICD></li>
     </ul>
   </li>
   <li>
@@ -53,7 +53,7 @@
     <ICD>cacheName</ICD> and <ICD>plugins</ICD> provided to the <ICD>Strategy</ICD> object. The following plugin lifecycle methods are invoked when using
     this method:
     <ul class="list">
-      <li><ICD>cacheKeyWillByUsed</ICD></li>
+      <li><ICD>cacheKeyWillBeUsed</ICD></li>
       <li><ICD>cacheWillUpdate</ICD></li>
       <li><ICD>cacheDidUpdate</ICD></li>
     </ul>

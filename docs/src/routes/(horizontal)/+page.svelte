@@ -8,13 +8,14 @@
 
 <div
   class={clsx(
-    "flex w-full flex-col gap-8 self-stretch bg-white px-5 py-4 text-black md:gap-24 md:p-24 dark:bg-black dark:text-white",
+    "flex w-full flex-col gap-8 self-stretch bg-white px-8 py-6 text-black md:gap-24 md:p-24 dark:bg-black dark:text-white",
     "[&>div]:flex [&>div]:w-full [&>div]:max-w-screen-lg [&>div]:flex-col [&>div]:gap-6 [&>div]:md:self-center"
   )}
 >
   <div class="py-24 md:py-0">
-    <h1 class="text-5xl font-semibold tracking-tight">Serwist. <span class="text-comment">A Swiss Army knife for service workers.</span></h1>
-    <Code showIcon>npm install serwist && npm install -D @serwist/build</Code>
+    <h1 class="text-6xl font-semibold tracking-tight">Serwist.</h1>
+    <h2 class="text-4xl font-semibold tracking-tight text-comment">A Swiss Army knife for service workers.</h2>
+    <Code showIcon>npm install -D serwist @serwist/build</Code>
   </div>
   <div>
     <h2 class="text-4xl font-semibold tracking-tight">

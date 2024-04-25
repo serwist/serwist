@@ -222,8 +222,8 @@ export class StrategyHandler {
    * provided to the `Strategy` object.
    *
    * The following lifecycle methods are invoked when using this method:
-   * - `cacheKeyWillByUsed`
-   * - `cachedResponseWillByUsed`
+   * - `cacheKeyWillBeUsed`
+   * - `cachedResponseWillBeUsed`
    *
    * @param key The `Request` or `URL` object to use as the cache key.
    * @returns A matching response, if found.
@@ -265,7 +265,7 @@ export class StrategyHandler {
    * the `Strategy` object.
    *
    * The following plugin lifecycle methods are invoked when using this method:
-   * - `cacheKeyWillByUsed`
+   * - `cacheKeyWillBeUsed`
    * - `cacheWillUpdate`
    * - `cacheDidUpdate`
    *
