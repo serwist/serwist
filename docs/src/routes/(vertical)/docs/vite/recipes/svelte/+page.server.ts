@@ -226,12 +226,12 @@ const serwist = (): Plugin[] => {
         const clientOutDir = path.resolve(viteConfig.root, viteConfig.build.outDir, "../client");
 
         // Kit fixes the service worker's name to 'service-worker.js'
-		    // This tells Serwist to replace \`injectionPoint\` with the precache manifest in the bundled service worker.
+        // This tells Serwist to replace \`injectionPoint\` with the precache manifest in the bundled service worker.
         if (viteConfig.isProduction) {
           options.swSrc = path.resolve(clientOutDir, "service-worker.js");
           options.swDest = path.resolve(clientOutDir, "service-worker.js");
         } else {
-		      // In development, you may want \`@serwist/vite\` to bundle your service worker and make it available at \`swUrl\`.
+          // In development, you may want \`@serwist/vite\` to bundle your service worker and make it available at \`swUrl\`.
           // Resolve \`swSrc\` the same way as SvelteKit's.
           const swSrc = resolveEntry(path.join(viteConfig.root, config.kit?.files?.serviceWorker ?? "src/service-worker"));
           if (swSrc) {

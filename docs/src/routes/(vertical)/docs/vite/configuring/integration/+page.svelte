@@ -16,7 +16,7 @@
     <ICD>beforeBuildServiceWorker(options)</ICD> — Allows you to run some logic before the service worker is built.
   </li>
   <li>
-    <ICD>closeBundleOrder</ICD> — Adjusts the application order of <ICD>order</ICD> of <ICD>@serwist/vite</ICD>'s <ICD>closeBundle</ICD> hook.
+    <ICD>closeBundleOrder</ICD> — Adjusts the application order of <ICD>@serwist/vite</ICD>'s <ICD>closeBundle</ICD> hook.
   </li>
   <li>
     <ICD>configureOptions(viteOptions, options)</ICD> — Allows you to configure the options of Serwist and Vite. Useful when there is a dependency between
