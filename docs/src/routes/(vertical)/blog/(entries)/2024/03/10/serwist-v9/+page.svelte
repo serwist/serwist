@@ -199,12 +199,12 @@
 <h3 id="webpack-plugin">@serwist/webpack-plugin</h3>
 <h4 id="webpack-plugin-removed-mode">Removed mode</h4>
 <p>This option was already a no-op before that, so this simply removes it from the types.</p>
-<p>To migrate, just remove mode from your options.</p>
+<p>To migrate, just remove <ICD>mode</ICD> from your options.</p>
 <h4 id="webpack-plugin-webpack-optional">Allow webpack to be an optional peerDependency</h4>
-<p>Since we support frameworks that ship a prebundled webpack, such as Next.js, it would be nice if we can take advantage of that as well.</p>
+<p>Since we support frameworks that ship a prebundled <ICD>webpack</ICD>, such as Next.js, it would be nice if we can take advantage of that as well.</p>
 <p>
-  As a result, webpack is now an optional peerDependency for @serwist/webpack-plugin and is no longer a peerDependency for @serwist/next. Thanks to
-  the fact that we currently don't use any webpack plugin, it is also not indirectly installed.
+  As such, <ICD>webpack</ICD> is now an optional <ICD>peerDependency</ICD> of <ICD>@serwist/webpack-plugin</ICD> and is no longer a <ICD>peerDependency</ICD>
+  of <ICD>@serwist/next</ICD>.
 </p>
 <h3 id="next">@serwist/next</h3>
 <h4 id="renamed-next-browser-to-worker">Moved worker exports from "/browser" to "/worker"</h4>
