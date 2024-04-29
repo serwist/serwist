@@ -14,12 +14,15 @@
       : DOCS_SIDEBAR_LINKS
   );
   const { children } = $props();
-  let sidebarDetails = $state<HTMLDetailsElement | undefined>(undefined);
+
+  let menuCheckbox = $state<HTMLInputElement | null>(null);
 
   $effect(() => {
     $page.url.pathname;
-    if (sidebarDetails) {
-      sidebarDetails.open = window.innerWidth >= BREAKPOINTS.md;
+    const isMenuOpen = window.innerWidth >= BREAKPOINTS.md;
+    if (menuCheckbox) {
+      menuCheckbox.checked = isMenuOpen;
+      menuCheckbox.ariaExpanded = isMenuOpen ? "true" : "false";
     }
   });
 </script>
@@ -36,21 +39,36 @@
   >
     <VerticalNavbar />
     {#if sidebarLinks && sidebarLinks.length > 0}
-      <details bind:this={sidebarDetails} id="sidebar-mobile-menu" class="overflow-y-auto">
-        <summary
-          class="z-20 flex h-fit w-full flex-row items-center justify-start gap-2 px-3 py-2 text-base font-medium text-black duration-100 md:mt-[5px] md:text-sm dark:text-white"
-        >
-          Menu
-          <ChevronRight class="details-chevron transition-transform duration-100" width={18} height={18} />
-        </summary>
-        <aside class="self-stretch">
-          <ul>
-            {#each sidebarLinks as sidebarLink}
-              <SidebarLink {...sidebarLink} />
-            {/each}
-          </ul>
-        </aside>
-      </details>
+      <input
+        type="checkbox"
+        id="sidebar-menu-toggle"
+        class="peer hidden"
+        aria-labelledby="sidebar-menu-toglab"
+        aria-controls="sidebar-menu"
+        bind:this={menuCheckbox}
+      />
+      <label
+        id="sidebar-menu-toglab"
+        for="sidebar-menu-toggle"
+        class={clsx(
+          "z-20 flex h-fit w-full cursor-pointer select-none flex-row items-center justify-start gap-2 px-3 py-2 text-base font-medium",
+          "text-black duration-100 md:mt-[5px] md:text-sm dark:text-white peer-checked:[&>svg]:rotate-90"
+        )}
+        aria-label="Toggle navbar menu"
+      >
+        Menu
+        <ChevronRight class="transition-transform duration-100" width={18} height={18} />
+      </label>
+      <aside
+        id="sidebar-menu"
+        class="hidden animate-[details-show_100ms_ease-out] overflow-y-auto overscroll-contain peer-checked:block md:animate-none"
+      >
+        <ul>
+          {#each sidebarLinks as sidebarLink}
+            <SidebarLink {...sidebarLink} />
+          {/each}
+        </ul>
+      </aside>
     {/if}
   </div>
   {@render children()}

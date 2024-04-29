@@ -985,9 +985,6 @@ importers:
       '@serwist/build':
         specifier: workspace:*
         version: link:../build
-      '@serwist/window':
-        specifier: workspace:*
-        version: link:../window
       glob:
         specifier: 10.3.12
         version: 10.3.12
@@ -1007,6 +1004,9 @@ importers:
       '@serwist/utils':
         specifier: workspace:*
         version: link:../$private/utils
+      '@serwist/window':
+        specifier: workspace:*
+        version: link:../window
       '@types/node':
         specifier: 20.12.7
         version: 20.12.7

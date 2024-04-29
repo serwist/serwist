@@ -7,26 +7,25 @@
 
   const { title, href, children }: SidebarLinkProps = $props();
   const isActive = $derived(href === $page.url.pathname || href === `${$page.url.pathname}/`);
-
-  let details = $state<HTMLDetailsElement | null>(null);
+  let isOpen = $state(false);
 
   $effect(() => {
-    if (details && !details.open) {
-      details.open = $page.url.pathname.startsWith(href);
+    if (!isOpen) {
+      isOpen = $page.url.pathname.startsWith(href);
     }
   });
 </script>
 
 <li class="flex flex-col pt-[5px]">
   {#if children}
-    <details bind:this={details} class="[&[open]>summary>div>svg]:rotate-90">
+    <details open={isOpen || $page.url.pathname.startsWith(href)} class="[&[open]>summary>div>svg]:rotate-90">
       <summary class={clsx("flex flex-row", isActive && "[&>span]:rounded-e-none")}>
         <NavLink {href} textCenter={false} {isActive}>
           {title}
         </NavLink>
         <div
           class={clsx(
-            "flex items-center px-1 text-black transition-all duration-100 dark:text-white",
+            "flex items-center px-2 text-black transition-all duration-100 dark:text-white",
             isActive
               ? "bg-neutral-250 rounded-e border-l border-black/40 dark:border-white/40 dark:bg-neutral-800"
               : "hover:bg-neutral-250 rounded hover:dark:bg-neutral-800"

@@ -93,7 +93,7 @@
   @keyframes details-show {
     from {
       opacity: 0;
-      transform: var(--details-translate, translateY(-2em));
+      transform: var(--details-translate, translateY(-1rem));
     }
   }
   details.details-anim[open] > *:not(summary) {
