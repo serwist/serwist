@@ -1,5 +1,5 @@
 import { defaultCache } from "@serwist/vite/worker";
-import { type PrecacheEntry, Route, Serwist } from "serwist";
+import { type PrecacheEntry, Serwist } from "serwist";
 
 declare global {
   interface WorkerGlobalScope {
@@ -16,10 +16,7 @@ const serwist = new Serwist({
     concurrency: 20,
     ignoreURLParametersMatching: [/^x-sveltekit-invalidated$/],
   },
-  skipWaiting: true,
-  clientsClaim: true,
   navigationPreload: false,
-  disableDevLogs: true,
   runtimeCaching: defaultCache,
 });
 

@@ -1,6 +1,7 @@
 // @ts-check
 import adapter from "@sveltejs/adapter-static";
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
+import packageJson from "../packages/core/package.json" with { type: "json" };
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -30,6 +31,9 @@ const config = {
     },
     serviceWorker: {
       register: false,
+    },
+    version: {
+      name: packageJson.version,
     },
   },
 };
