@@ -1,4 +1,5 @@
 import type { HTTPMethod } from "./constants.js";
+import type { Serwist } from "./Serwist.js";
 
 export type PromiseOrNot<T> = T | Promise<T>;
 
@@ -64,7 +65,7 @@ export interface ManualHandlerCallbackOptions {
   request: Request | string;
   url?: never;
   /**
-   * The return value from `serwist.matchCallback` (if applicable).
+   * The return value from {@link RouteMatchCallback} (if applicable).
    */
   params?: never;
 }
@@ -306,13 +307,13 @@ export interface RuntimeCaching {
    * whose `matcher` matches will be the one that responds.
    *
    * This value directly maps to the first parameter passed to
-   * `Serwist.registerRoute`. It's recommended to use a
-   * `serwist.RouteMatchCallback` function for greatest flexibility.
+   * {@link Serwist.registerRoute}. It's recommended to use a
+   * {@link RouteMatchCallback} function for greatest flexibility.
    */
   matcher: RegExp | string | RouteMatchCallback;
   /**
    * This determines how the runtime route will generate a response. It
-   * can be a `serwist.RouteHandler` callback function with custom
+   * can be a {@link RouteHandler} callback function with custom
    * response logic.
    */
   handler: RouteHandler;

@@ -15,7 +15,7 @@ import { getFriendlyURL } from "./utils/getFriendlyURL.js";
 import { logger } from "./utils/logger.js";
 
 /**
- * A subclass of `Route` that takes a `serwist.Serwist` instance and uses it to match
+ * A subclass of {@link Route} that takes a {@link Serwist} instance and uses it to match
  * incoming requests and handle fetching responses from the precache.
  */
 export class PrecacheRoute extends Route {

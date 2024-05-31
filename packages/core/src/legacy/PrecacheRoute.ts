@@ -15,7 +15,7 @@ import { logger } from "../utils/logger.js";
 import type { PrecacheController } from "./PrecacheController.js";
 
 /**
- * A subclass of `serwist.Route` that takes a `serwist/legacy.PrecacheController`
+ * A subclass of {@link Route} that takes a {@link PrecacheController}
  * instance and uses it to match incoming requests and handle fetching
  * responses from the precache.
  * @deprecated

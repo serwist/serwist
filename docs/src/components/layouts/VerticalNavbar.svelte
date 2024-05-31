@@ -78,7 +78,7 @@
         </details>
         <a class="nav-button" href={GITHUB_REPO_URL} target="_blank" rel="noreferrer">
           <GitHubLogo width={24} height={24} class="max-h-6 min-h-6 min-w-6 max-w-6" />
-          <span class="sr-only">Our Github repo (opens in a new tab)</span>
+          <span class="sr-only">Our GitHub repo (opens in a new tab)</span>
         </a>
         <NavToggleScheme />
       </div>

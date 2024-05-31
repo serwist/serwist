@@ -159,6 +159,7 @@ module.exports = async (phase) => {
       "webworker"
     ],
   },
+  "exclude": ["public/sw.js"]
 }`,
             lang: "json",
           },

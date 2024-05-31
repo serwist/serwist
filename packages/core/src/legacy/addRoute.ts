@@ -20,7 +20,7 @@ import { getSingletonPrecacheController } from "./singletonPrecacheController.js
  * responded to, allowing the event to fall through to other `fetch` event
  * listeners.
  *
- * @param options See `serwist.PrecacheRouteOptions`.
+ * @param options See {@link PrecacheRouteOptions}.
  * @deprecated
  */
 export const addRoute = (options?: PrecacheRouteOptions): void => {

@@ -19,7 +19,7 @@ import { precache } from "./precache.js";
  * `serwist/legacy.addRoute` in a single call.
  *
  * @param entries Array of entries to precache.
- * @param options See the `serwist.PrecacheRouteOptions` options.
+ * @param options See the {@link PrecacheRouteOptions} options.
  * @deprecated
  */
 export const precacheAndRoute = (entries: (PrecacheEntry | string)[], options?: PrecacheRouteOptions): void => {

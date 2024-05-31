@@ -73,17 +73,17 @@
     "ufo": "1.5.3"
   },
   "devDependencies": {
-    "@nuxt/module-builder": "0.5.5",
+    "@nuxt/module-builder": "0.7.0",
     "@nuxt/schema": "3.11.2",
     "@serwist/configs": "workspace:*",
-    "@types/node": "20.12.7",
-    "eslint": "9.0.0",
+    "@types/node": "20.12.13",
+    "eslint": "8.57.0",
     "nuxt": "3.11.2",
-    "rimraf": "5.0.5",
-    "serve": "14.2.1",
-    "typescript": "5.5.0-dev.20240415",
-    "vite": "5.2.8",
-    "vue-tsc": "2.0.13"
+    "rimraf": "5.0.7",
+    "serve": "14.2.3",
+    "typescript": "5.4.5",
+    "vite": "5.2.12",
+    "vue-tsc": "2.0.19"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0",

@@ -26,7 +26,7 @@ export const getRollupOptions = ({ packageJson, jsFiles }) => {
           nodeResolve({
             exportConditions: ["node"],
             preferBuiltins: true,
-            extensions: [".js", ".ts"],
+            extensions: [".mjs", ".js", ".ts", ".cjs", ".json", ".node"],
           }),
           json(),
           swc({

@@ -50,7 +50,7 @@
   Serwist now ships TS source files and declaration maps alongside bundled code. This allows you to read the source code without the hassle of having
   to go to GitHub and navigate through the files.
 </p>
-<video class="aspect-video rounded-xl" muted controls src="/2024-03-10-serwist-v9-ship-ts-source.mp4" />
+<video class="aspect-video rounded-xl" muted controls src="/2024-03-10-serwist-v9-ship-ts-source.mp4"></video>
 <h2 id="core-changes">Core changes</h2>
 <p>These are the changes done to the core <ICD>serwist</ICD> package.</p>
 <h3 id="merged-service-worker-packages">Merged all service worker packages</h3>
@@ -125,8 +125,8 @@
   deprecated.
 </p>
 <p>
-  The new Serwist class does NOT have a singleton instance. As such, <ICD>serwist.initializeGoogleAnalytics()</ICD> and <ICD>@serwist/recipes</ICD>'s
-  functions require you to pass in your own <ICD>Serwist</ICD> instance.
+  The new <ICD>Serwist</ICD> class does NOT have a singleton instance. As such, <ICD>serwist.initializeGoogleAnalytics()</ICD> and
+  <ICD>@serwist/recipes</ICD>'s functions require you to pass in your own <ICD>Serwist</ICD> instance.
 </p>
 <p>To migrate, see <a class="link" href="/docs/serwist/core/serwist">the reference documentation of <ICD>Serwist</ICD></a>.</p>
 <h3 id="concurrent-precaching">Added support for concurrent precaching</h3>
@@ -201,9 +201,13 @@
 <p>This option was already a no-op before that, so this simply removes it from the types.</p>
 <p>To migrate, just remove <ICD>mode</ICD> from your options.</p>
 <h4 id="webpack-plugin-webpack-optional">Allow webpack to be an optional peerDependency</h4>
-<p>Since we support frameworks that ship a prebundled <ICD>webpack</ICD>, such as Next.js, it would be nice if we can take advantage of that as well.</p>
 <p>
-  As such, <ICD>webpack</ICD> is now an optional <ICD>peerDependency</ICD> of <ICD>@serwist/webpack-plugin</ICD> and is no longer a <ICD>peerDependency</ICD>
+  Since we support frameworks that ship a prebundled <ICD>webpack</ICD>, such as Next.js, it would be nice if we can take advantage of that as well.
+</p>
+<p>
+  As such, <ICD>webpack</ICD> is now an optional <ICD>peerDependency</ICD> of <ICD>@serwist/webpack-plugin</ICD> and is no longer a <ICD
+    >peerDependency</ICD
+  >
   of <ICD>@serwist/next</ICD>.
 </p>
 <h3 id="next">@serwist/next</h3>

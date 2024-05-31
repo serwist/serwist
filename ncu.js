@@ -33,7 +33,7 @@ for (const packageFile of packageJsonList) {
         return !excludePackages.includes(packageName);
       },
       target: (dependencyName) => {
-        if (dependencyName === "typescript" || dependencyName === "svelte") {
+        if (dependencyName === "svelte") {
           return "@next";
         }
         if (/^react(-dom)?$/.test(dependencyName)) {
@@ -50,6 +50,9 @@ for (const packageFile of examplesPackageJsonList) {
     updateAndLog({
       packageFile,
       upgrade: true,
+      filter(packageName) {
+        return !excludePackages.includes(packageName);
+      },
     }),
   );
 }

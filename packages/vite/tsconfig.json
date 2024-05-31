@@ -3,7 +3,8 @@
   "compilerOptions": {
     "rootDir": "src",
     "module": "NodeNext",
-    "types": ["vite/client"]
+    "moduleResolution": "NodeNext",
+    "types": ["node", "vite/client"]
   },
   "include": ["src/**/*.ts", "src/**/*.js"],
   "exclude": ["dist", "node_modules"]

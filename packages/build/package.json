@@ -54,22 +54,22 @@
     "common-tags": "1.8.2",
     "fast-json-stable-stringify": "2.1.0",
     "fs-extra": "11.2.0",
-    "glob": "10.3.12",
+    "glob": "10.4.1",
     "pretty-bytes": "6.1.1",
     "rollup": "4.14.3",
     "source-map": "0.8.0-beta.0",
     "upath": "2.0.1",
-    "zod": "3.22.4"
+    "zod": "3.23.8"
   },
   "devDependencies": {
     "@serwist/configs": "workspace:*",
     "@serwist/utils": "workspace:*",
     "@types/common-tags": "1.8.4",
     "@types/fs-extra": "11.0.4",
-    "@types/node": "20.12.7",
+    "@types/node": "20.12.13",
     "@types/stringify-object": "4.0.5",
-    "type-fest": "4.15.0",
-    "typescript": "5.5.0-dev.20240415"
+    "type-fest": "4.18.3",
+    "typescript": "5.4.5"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0"
