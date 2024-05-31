@@ -13,7 +13,7 @@ import { assert } from "./utils/assert.js";
 import { logger } from "./utils/logger.js";
 
 /**
- * `RegExpRoute` makes it easy to create a `Route` object with a regular expression.
+ * A class that makes it easy to create a {@linkcode Route} object with a regular expression.
  *
  * For same-origin requests the `RegExp` only needs to match part of the URL. For
  * requests against third-party servers, you must define a `RegExp` that matches
@@ -27,7 +27,7 @@ export class RegExpRoute extends Route {
    *
    * @param regExp The regular expression to match against URLs.
    * @param handler A callback function that returns a `Promise` resulting in a `Response`.
-   * @param method The HTTP method to match the route against. Defaults to `GET`.
+   * @param method The HTTP method to match the {@linkcode Route} against. Defaults to `GET`.
    * against.
    */
   constructor(regExp: RegExp, handler: RouteHandler, method?: HTTPMethod) {

@@ -6,15 +6,15 @@ import { SerwistError } from "./SerwistError.js";
 import { logger } from "./logger.js";
 
 /**
- * Parses a `RegExp`, string, or function with a caching strategy into a `Route`. This is for
- * when you want to create a `Route`, but you don't want to register it just yet: sometimes
- * you want to call `setCatchHandler` first, for example.
+ * Parses a `RegExp`, string, or function with a caching strategy into a {@linkcode Route}. This is for
+ * when you want to create a {@linkcode Route}, but you don't want to register it just yet: sometimes
+ * you want to call {@linkcode Route.setCatchHandler} first, for example.
  *
- * @param capture If the capture param is a `Route`, all other arguments will be ignored.
- * @param handler A callback function that returns a `Promise` resulting in a `Response`.
- * This parameter is required if `capture` is not a `Route` object.
- * @param method The HTTP method to match the `Route` against. Defaults to `'GET'`.
- * @returns The generated `Route`.
+ * @param capture If the capture param is a {@linkcode Route} object, all other arguments will be ignored.
+ * @param handler A callback function that returns a promise resulting in a response.
+ * This parameter is required if `capture` is not a {@linkcode Route} object.
+ * @param method The HTTP method to match the route against. Defaults to `'GET'`.
+ * @returns The generated {@linkcode Route}.
  */
 export const parseRoute = (capture: RegExp | string | RouteMatchCallback | Route, handler?: RouteHandler, method?: HTTPMethod): Route => {
   if (typeof capture === "string") {

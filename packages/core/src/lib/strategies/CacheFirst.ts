@@ -22,7 +22,7 @@ import { messages } from "./utils/messages.js";
  * can be cached for long periods of time.
  *
  * If the network request fails, and there is no cache match, this will throw
- * a `SerwistError` exception.
+ * a {@linkcode SerwistError} exception.
  */
 export class CacheFirst extends Strategy {
   /**

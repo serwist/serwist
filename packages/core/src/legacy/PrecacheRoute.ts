@@ -15,15 +15,15 @@ import { logger } from "../utils/logger.js";
 import type { PrecacheController } from "./PrecacheController.js";
 
 /**
- * A subclass of {@link Route} that takes a {@link PrecacheController}
+ * A subclass of {@linkcode Route} that takes a {@linkcode PrecacheController}
  * instance and uses it to match incoming requests and handle fetching
  * responses from the precache.
  * @deprecated
  */
 export class PrecacheRoute extends Route {
   /**
-   * @param precacheController A `PrecacheController`
-   * instance used to both match requests and respond to fetch events.
+   * @param precacheController A {@linkcode PrecacheController}
+   * instance used to both match requests and respond to `fetch` events.
    * @param options Options to control how requests are matched
    * against the list of precached URLs.
    */

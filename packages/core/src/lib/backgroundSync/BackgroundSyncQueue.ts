@@ -312,7 +312,7 @@ export class BackgroundSyncQueue {
 
   /**
    * Removes and returns the first or last (depending on `operation`) entry
-   * from the QueueStore that's not older than the `maxRetentionTime`.
+   * from the {@linkcode BackgroundSyncQueueStore} that's not older than the `maxRetentionTime`.
    *
    * @param operation
    * @returns

@@ -10,10 +10,10 @@ let supportStatus: boolean | undefined;
 
 /**
  * A utility function that determines whether the current browser supports
- * constructing a new `Response` from a `response.body` stream.
+ * constructing a new response from a `response.body` stream.
  *
  * @returns `true`, if the current browser can successfully construct
- * a `Response` from a `response.body` stream, `false` otherwise.
+ * a response from a `response.body` stream, `false` otherwise.
  * @private
  */
 function canConstructResponseFromBodyStream(): boolean {

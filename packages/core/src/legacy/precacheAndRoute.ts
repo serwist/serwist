@@ -12,14 +12,13 @@ import { precache } from "./precache.js";
 
 /**
  * This method will add entries to the precache list and add a route to
- * respond to fetch events.
+ * respond to `fetch` events.
  *
  * This is a convenience method that will call
- * `serwist/legacy.precache` and
- * `serwist/legacy.addRoute` in a single call.
+ * {@linkcode precache} and {@linkcode addRoute} in a single call.
  *
  * @param entries Array of entries to precache.
- * @param options See the {@link PrecacheRouteOptions} options.
+ * @param options See the {@linkcode PrecacheRouteOptions} options.
  * @deprecated
  */
 export const precacheAndRoute = (entries: (PrecacheEntry | string)[], options?: PrecacheRouteOptions): void => {

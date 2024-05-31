@@ -16,7 +16,7 @@
 <h2 id="parameters">Parameters</h2>
 <ul class="list">
   <li>
-    <ICD>serwist</ICD> — A <ICD>Serwist</ICD> instance used to both match requests and respond to fetch events.
+    <ICD>serwist</ICD> — A <ICD>Serwist</ICD> instance used to both match requests and respond to <ICD>fetch</ICD> events.
   </li>
   <li>
     <ICD>options</ICD> — Options to control how requests are matched against the list of precached URLs:

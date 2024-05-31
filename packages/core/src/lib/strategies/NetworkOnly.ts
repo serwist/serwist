@@ -28,7 +28,7 @@ export interface NetworkOnlyOptions extends Omit<StrategyOptions, "cacheName" | 
  *
  * This class is useful if you require specific requests to only be fulfilled from the network.
  *
- * If the network request fails, this will throw a `SerwistError` exception.
+ * If the network request fails, this will throw a {@linkcode SerwistError} exception.
  */
 export class NetworkOnly extends Strategy {
   private readonly _networkTimeoutSeconds: number;

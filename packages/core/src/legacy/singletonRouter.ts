@@ -11,12 +11,12 @@ import { Router } from "./Router.js";
 let defaultRouter: Router | undefined = undefined;
 
 /**
- * Creates a new, singleton `Router` if one does not exist. If one does
+ * Creates a new, singleton {@linkcode Router} if one does not exist. If one does
  * already exist, that instance is returned. This instance is used by
- * Serwist's `Router`-dependent functions and classes unless you provide
- * a different `Router` to them.
+ * Serwist's {@linkcode Router}-dependent functions and classes unless you provide
+ * a different {@linkcode Router} to them.
  *
- * @returns The singleton `Router`.
+ * @returns The singleton {@linkcode Router}.
  * @deprecated
  */
 export const getSingletonRouter = (): Router => {
@@ -31,10 +31,10 @@ export const getSingletonRouter = (): Router => {
 };
 
 /**
- * Changes the singleton `Router` to a different instance. This is meant for when you do not
- * want to pass your own `Router` to every one of Serwist's `Router`-dependent functions and classes.
- * If this or `getSingletonRouter` has been called before, it removes the listeners of the
- * previous singleton `Router`. It also adds those of the new one, so you need not do that yourself.
+ * Changes the singleton {@linkcode Router} to a different instance. This is meant for when you do not
+ * want to pass your own {@linkcode Router} to every one of Serwist's {@linkcode Router}-dependent functions and classes.
+ * If this or {@linkcode getSingletonRouter} has been called before, it removes the listeners of the
+ * previous singleton {@linkcode Router}. It also adds those of the new one, so you need not do that yourself.
  *
  * It is highly recommended that you call this before anything else, if you plan on doing so.
  *
@@ -55,7 +55,7 @@ export const getSingletonRouter = (): Router => {
  * );
  * ```
  * @param router
- * @returns The new singleton `Router`.
+ * @returns The new singleton {@linkcode Router}.
  * @deprecated
  */
 export const setSingletonRouter = (router: Router): Router => {

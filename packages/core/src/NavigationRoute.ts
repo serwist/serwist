@@ -27,9 +27,9 @@ export interface NavigationRouteMatchOptions {
 }
 
 /**
- * `NavigationRoute` makes it easy to create a `Route` object that matches navigation requests.
+ * A class that makes it easy to create a {@linkcode Route} object that matches navigation requests.
  *
- * It will only match incoming Requests whose [`mode`](https://fetch.spec.whatwg.org/#concept-request-mode) is set to `"navigate"`.
+ * It will only match incoming requests whose [`mode`](https://fetch.spec.whatwg.org/#concept-request-mode) is set to `"navigate"`.
  *
  * You can optionally only apply this route to a subset of navigation requests
  * by using one or both of the `denylist` and `allowlist` parameters.

@@ -5,6 +5,7 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
+import type { initializeGoogleAnalytics } from "../lib/googleAnalytics/initializeGoogleAnalytics.js";
 
 declare let registration: ServiceWorkerRegistration | undefined;
 
@@ -34,7 +35,7 @@ export interface PartialCacheNameDetails {
    */
   runtime?: string;
   /**
-   * The cache name to use for `@serwist/google-analytics` caching.
+   * The cache name to use for {@linkcode initializeGoogleAnalytics}.
    */
   googleAnalytics?: string;
   [propName: string]: string | undefined;

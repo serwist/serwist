@@ -14,6 +14,7 @@ import { cacheNames as privateCacheNames } from "../../utils/cacheNames.js";
 import { getFriendlyURL } from "../../utils/getFriendlyURL.js";
 import { logger } from "../../utils/logger.js";
 import { CacheExpiration } from "./CacheExpiration.js";
+import type { Strategy } from "../strategies/Strategy.js";
 
 export interface ExpirationPluginOptions {
   /**
@@ -44,10 +45,10 @@ export interface ExpirationPluginOptions {
 }
 
 /**
- * This plugin can be used in a `serwist/strategies` Strategy to regularly enforce a
+ * This plugin can be used in a {@linkcode Strategy} to regularly enforce a
  * limit on the age and/or the number of cached requests.
  *
- * It can only be used with Strategy instances that have a custom `cacheName` property set.
+ * It can only be used with {@linkcode Strategy} instances that have a custom `cacheName` property set.
  * In other words, it can't be used to expire entries in strategies that use the default runtime
  * cache name.
  *
@@ -143,11 +144,10 @@ export class ExpirationPlugin implements SerwistPlugin {
   }
 
   /**
-   * A "lifecycle" callback that will be triggered automatically by the
-   * `serwist/strategies` handlers when a `Response` is about to be returned
-   * from a [Cache](https://developer.mozilla.org/en-US/docs/Web/API/Cache) to
-   * the handler. It allows the `Response` to be inspected for freshness and
-   * prevents it from being used if the `Response`'s `Date` header value is
+   * A lifecycle callback that will be triggered automatically when a 
+   * response is about to be returned from a [`Cache`](https://developer.mozilla.org/en-US/docs/Web/API/Cache).
+   * It allows the response to be inspected for freshness and
+   * prevents it from being used if the response's `Date` header value is
    * older than the configured `maxAgeSeconds`.
    *
    * @param options
@@ -247,8 +247,8 @@ export class ExpirationPlugin implements SerwistPlugin {
   }
 
   /**
-   * A "lifecycle" callback that will be triggered automatically by the
-   * `serwist/strategies` handlers when an entry is added to a cache.
+   * A lifecycle callback that will be triggered automatically when an entry is added
+   * to a cache.
    *
    * @param options
    * @private

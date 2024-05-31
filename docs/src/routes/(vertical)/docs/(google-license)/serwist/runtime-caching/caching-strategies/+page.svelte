@@ -11,7 +11,7 @@
   Original source (Apache 2.0 License). Adapted for Serwist's usage.
 </ETL>
 <h2 id="introduction">Introduction</h2>
-<p>A caching strategy is a pattern that determines how a service worker generates a response after receiving a fetch event.</p>
+<p>A caching strategy is a pattern that determines how a service worker generates a response after receiving a <ICD>fetch</ICD> event.</p>
 <p>Serwist provides a number of strategies out of the box, and you can write your own strategies tailored to your use cases.</p>
 <h2 id="built-in-strategies">Built-in strategies</h2>
 <p>These strategies are built into Serwist:</p>

@@ -31,7 +31,7 @@ import { messages } from "./utils/messages.js";
  * support [CORS](https://enable-cors.org/).
  *
  * If the network request fails, and there is no cache match, this will throw
- * a `SerwistError` exception.
+ * a {@linkcode SerwistError} exception.
  */
 export class StaleWhileRevalidate extends Strategy {
   /**

@@ -9,7 +9,7 @@ import { CacheFirst, CacheableResponsePlugin, ExpirationPlugin, Serwist, StaleWh
 
 export interface GoogleFontCacheOptions {
   /**
-   * Your `Serwist` instance.
+   * A {@linkcode Serwist} instance.
    */
   serwist: Serwist;
   /**

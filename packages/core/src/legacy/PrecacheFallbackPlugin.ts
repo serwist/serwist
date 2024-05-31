@@ -35,23 +35,22 @@ export interface PrecacheFallbackPluginOptions {
    */
   fallbackUrls: (string | PrecacheFallbackEntry)[];
   /**
-   * An optional `PrecacheController` instance. If not provided, the default
-   * `PrecacheController` will be used.
+   * An optional {@linkcode PrecacheController} instance. If not provided, 
+   * the default {@linkcode PrecacheController} will be used.
    */
   precacheController?: PrecacheController;
 }
 
 /**
- * `PrecacheFallbackPlugin` allows you to specify offline fallbacks
+ * A class that allows you to specify offline fallbacks
  * to be used when a given strategy is unable to generate a response.
  *
  * It does this by intercepting the `handlerDidError` plugin callback
  * and returning a precached response, taking the expected revision parameter
  * into account automatically.
  *
- * Unless you explicitly pass in a `PrecacheController` instance to the
- * constructor, the default instance will be used. Generally speaking, most
- * developers will end up using the default.
+ * Unless you explicitly pass in a {@linkcode PrecacheController} instance to the
+ * constructor, the default instance will be used.
  *
  * @deprecated
  */
@@ -60,7 +59,7 @@ export class PrecacheFallbackPlugin implements SerwistPlugin {
   private readonly _precacheController: PrecacheController;
 
   /**
-   * Constructs a new `PrecacheFallbackPlugin` with the associated `fallbackUrls`.
+   * Constructs a new instance with the associated `fallbackUrls`.
    *
    * @param config
    */

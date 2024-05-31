@@ -11,12 +11,12 @@ import { PrecacheController } from "./PrecacheController.js";
 let defaultPrecacheController: PrecacheController | undefined = undefined;
 
 /**
- * Creates a new, singleton `PrecacheController` if one does not exist. If one does
+ * Creates a new, singleton {@linkcode PrecacheController} if one does not exist. If one does
  * already exist, that instance is returned. This instance is used by Serwist's
- * `PrecacheController`-dependent functions and classes unless you provide a different
- * `Router` to them.
+ * {@linkcode PrecacheController}-dependent functions and classes unless you provide a different
+ * {@linkcode PrecacheController} to them.
  *
- * @returns The singleton `PrecacheController`.
+ * @returns The singleton {@linkcode PrecacheController}.
  * @deprecated
  */
 export const getSingletonPrecacheController = (): PrecacheController => {
@@ -27,8 +27,8 @@ export const getSingletonPrecacheController = (): PrecacheController => {
 };
 
 /**
- * Changes the singleton `PrecacheController` to a different instance. This is meant for when you do not
- * want to pass your own `PrecacheController` to every one of Serwist's `PrecacheController`-dependent
+ * Changes the singleton {@linkcode PrecacheController} to a different instance. This is meant for when you do not
+ * want to pass your own {@linkcode PrecacheController} to every one of Serwist's {@linkcode PrecacheController}-dependent
  * functions and classes.
  *
  * It is highly recommended that you call this before anything else, if you plan on doing so.
@@ -44,7 +44,7 @@ export const getSingletonPrecacheController = (): PrecacheController => {
  * // Do something with your controller...
  * ```
  * @param router
- * @returns The new singleton `PrecacheController`.
+ * @returns The new singleton {@linkcode PrecacheController}.
  * @deprecated
  */
 export const setSingletonPrecacheController = (precacheController: PrecacheController): PrecacheController => {

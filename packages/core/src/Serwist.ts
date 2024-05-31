@@ -135,7 +135,7 @@ export interface SerwistOptions {
    */
   runtimeCaching?: RuntimeCaching[];
   /**
-   * Your configuration for `initializeGoogleAnalytics`. This plugin is
+   * Your configuration for {@linkcode initializeGoogleAnalytics}. This plugin is
    * only initialized when this option is not `undefined` or `false`.
    */
   offlineAnalyticsConfig?: Omit<GoogleAnalyticsInitializeOptions, "serwist"> | boolean;
@@ -147,7 +147,7 @@ export interface SerwistOptions {
   disableDevLogs?: boolean;
   /**
    * Precaches routes so that they can be used as a fallback when
-   * a `Strategy` fails to generate a response.
+   * a {@linkcode Strategy} fails to generate a response.
    *
    * Note: This option mutates `runtimeCaching`. It also expects the URLs
    * defined in `entries` to have been precached beforehand.
@@ -284,13 +284,13 @@ export class Serwist {
   }
 
   /**
-   * The strategy used to precache assets and respond to fetch events.
+   * The strategy used to precache assets and respond to `fetch` events.
    */
   get precacheStrategy(): Strategy {
     return this._precacheStrategy;
   }
   /**
-   * A `Map` of HTTP method name (`'GET'`, etc.) to an array of all corresponding registered `Route`
+   * A `Map` of HTTP method name (`'GET'`, etc.) to an array of all corresponding registered {@linkcode Route}
    * instances.
    */
   get routes(): Map<HTTPMethod, Route[]> {
@@ -495,7 +495,7 @@ export class Serwist {
   }
 
   /**
-   * Define a default `handler` that's called when no routes explicitly
+   * Define a default handler that's called when no routes explicitly
    * match the incoming request.
    *
    * Each HTTP method (`'GET'`, `'POST'`, etc.) gets its own default handler.
@@ -512,11 +512,11 @@ export class Serwist {
   }
 
   /**
-   * If a `Route` throws an error while handling a request, this `handler`
+   * If a {@linkcode Route} throws an error while handling a request, this handler
    * will be called and given a chance to provide a response.
    *
-   * @param handler A callback function that returns a Promise resulting
-   * in a Response.
+   * @param handler A callback function that returns a `Promise` resulting
+   * in a `Response`.
    */
   setCatchHandler(handler: RouteHandler): void {
     this._catchHandler = normalizeHandler(handler);
@@ -526,11 +526,11 @@ export class Serwist {
    * Registers a `RegExp`, string, or function with a caching
    * strategy to the router.
    *
-   * @param capture If the capture param is a `Route`, all other arguments will be ignored.
+   * @param capture If the capture param is a {@linkcode Route} object, all other arguments will be ignored.
    * @param handler A callback function that returns a `Promise` resulting in a `Response`.
-   * This parameter is required if `capture` is not a `Route` object.
-   * @param method The HTTP method to match the Route against. Defaults to `'GET'`.
-   * @returns The generated `Route`.
+   * This parameter is required if `capture` is not a {@linkcode Route} object.
+   * @param method The HTTP method to match the route against. Defaults to `'GET'`.
+   * @returns The generated {@linkcode Route} object.
    */
   registerCapture<T extends RegExp | string | RouteMatchCallback | Route>(
     capture: T,
@@ -543,9 +543,9 @@ export class Serwist {
   }
 
   /**
-   * Registers a `Route` with the router.
+   * Registers a {@linkcode Route} with the router.
    *
-   * @param route The `Route` to register.
+   * @param route The {@linkcode Route} to register.
    */
   registerRoute(route: Route): void {
     if (process.env.NODE_ENV !== "production") {
@@ -595,9 +595,9 @@ export class Serwist {
   }
 
   /**
-   * Unregisters a `Route` with the router.
+   * Unregisters a route from the router.
    *
-   * @param route The `Route` to unregister.
+   * @param route The {@linkcode Route} object to unregister.
    */
   unregisterRoute(route: Route): void {
     if (!this._routes.has(route.method)) {
@@ -706,12 +706,12 @@ export class Serwist {
   }
 
   /**
-   * Applies the routing rules to a `FetchEvent` object to get a `Response` from an
-   * appropriate `Route`'s handler.
+   * Applies the routing rules to a `FetchEvent` object to get a response from an
+   * appropriate route.
    *
    * @param options
    * @returns A promise is returned if a registered route can handle the request.
-   * If there is no matching route and there's no `defaultHandler`, `undefined`
+   * If there is no matching route and there's no default handler, `undefined`
    * is returned.
    */
   handleRequest({

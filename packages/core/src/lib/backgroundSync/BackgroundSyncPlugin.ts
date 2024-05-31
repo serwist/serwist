@@ -12,15 +12,15 @@ import { BackgroundSyncQueue } from "./BackgroundSyncQueue.js";
 
 /**
  * A class implementing the `fetchDidFail` lifecycle callback. This makes it
- * easier to add failed requests to a background sync Queue.
+ * easier to add failed requests to a {@linkcode BackgroundSyncQueue}.
  */
 export class BackgroundSyncPlugin implements SerwistPlugin {
   private readonly _queue: BackgroundSyncQueue;
 
   /**
-   * @param name See the `serwist/plugins.BackgroundSyncQueue`
+   * @param name See the {@linkcode BackgroundSyncQueue}
    * documentation for parameter details.
-   * @param options See the `serwist/plugins.BackgroundSyncQueue`
+   * @param options See the {@linkcode BackgroundSyncQueue}
    * documentation for parameter details.
    * @see https://serwist.pages.dev/docs/core/background-sync-queue
    */

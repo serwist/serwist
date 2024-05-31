@@ -66,13 +66,13 @@ export abstract class Strategy implements RouteHandlerObject {
   }
 
   /**
-   * Performs a request strategy and returns a `Promise` that will resolve with
-   * a `Response`, invoking all relevant plugin callbacks.
+   * Performs a request strategy and returns a promise that will resolve to
+   * a response, invoking all relevant plugin callbacks.
    *
-   * When a strategy instance is registered with a `Route`, this method is automatically
+   * When a strategy instance is registered with a route, this method is automatically
    * called when the route matches.
    *
-   * Alternatively, this method can be used in a standalone `FetchEvent`
+   * Alternatively, this method can be used in a standalone `fetch` event
    * listener by passing it to `event.respondWith()`.
    *
    * @param options A `FetchEvent` or an object with the properties listed below.
@@ -87,10 +87,10 @@ export abstract class Strategy implements RouteHandlerObject {
   }
 
   /**
-   * Similar to `handle()`, but instead of just returning a `Promise` that
-   * resolves to a `Response`, it will return an tuple of `[response, done]` promises,
+   * Similar to `handle()`, but instead of just returning a promise that
+   * resolves to a response, it will return an tuple of `[response, done]` promises,
    * where `response` is equivalent to what `handle()` returns, and `done` is a
-   * `Promise` that will resolve once all promises added to `event.waitUntil()` as a part
+   * promise that will resolve once all promises added to `event.waitUntil()` as a part
    * of performing the strategy have completed.
    *
    * You can await the `done` promise to ensure any extra work performed by

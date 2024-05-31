@@ -10,8 +10,7 @@ import type { SerwistPlugin } from "../../types.js";
 import { createPartialResponse } from "./createPartialResponse.js";
 
 /**
- * The range request plugin makes it easy for a request with a 'Range' header to
- * be fulfilled by a cached response.
+ * Makes it easy for a request with a `Range` header to be fulfilled by a cached response.
  *
  * It does this by intercepting the `cachedResponseWillBeUsed` plugin callback
  * and returning the appropriate subset of the cached response body.
@@ -19,8 +18,8 @@ import { createPartialResponse } from "./createPartialResponse.js";
 export class RangeRequestsPlugin implements SerwistPlugin {
   /**
    * @param options
-   * @returns If request contains a 'Range' header, then a
-   * new response with status 206 whose body is a subset of `cachedResponse` is
+   * @returns If request contains a `Range` header, then a
+   * partial response whose body is a subset of `cachedResponse` is
    * returned. Otherwise, `cachedResponse` is returned as-is.
    * @private
    */

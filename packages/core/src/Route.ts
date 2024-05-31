@@ -13,11 +13,11 @@ import { assert } from "./utils/assert.js";
 import { normalizeHandler } from "./utils/normalizeHandler.js";
 
 /**
- * A `Route` consists of a pair of callback functions, `match and `handler.
+ * A `Route` consists of a pair of callback functions, `match` and `handler`.
  * The `match` callback determines if a route should be used to handle a
- * request by returning a truthy value if it can. The `handler callback
- * is called when the route matches and should return a `Promise` that resolves
- * to a `Response`.
+ * request by returning a truthy value if it can. The `handler` callback
+ * is called when the route matches and should return a promise that resolves
+ * to a response.
  */
 export class Route {
   handler: RouteHandlerObject;

@@ -7,13 +7,14 @@
 */
 
 import { getSingletonPrecacheController } from "./singletonPrecacheController.js";
+import type { PrecacheController } from "./PrecacheController.js";
 
 /**
- * Helper function that calls `PrecacheController#matchPrecache`
- * on the default `PrecacheController` instance.
+ * Helper function that calls {@linkcode PrecacheController.matchPrecache}
+ * on the default {@linkcode PrecacheController} instance.
  *
- * If you are creating your own `PrecacheController`, then call
- * `PrecacheController#matchPrecache` on that instance,
+ * If you are creating your own {@linkcode PrecacheController}, then call
+ * the {@linkcode PrecacheController.matchPrecache} function on that instance
  * instead of using this function.
  *
  * @param request The key (without revisioning parameters)

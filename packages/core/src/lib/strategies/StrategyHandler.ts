@@ -16,14 +16,15 @@ import { getFriendlyURL } from "../../utils/getFriendlyURL.js";
 import { logger } from "../../utils/logger.js";
 import { timeout } from "../../utils/timeout.js";
 import type { Strategy } from "./Strategy.js";
+import type { Route } from "../../Route.js";
 
 function toRequest(input: RequestInfo) {
   return typeof input === "string" ? new Request(input) : input;
 }
 
 /**
- * A class created every time a `Strategy` instance calls `Strategy.handle` or
- * `Strategy.handleAll` that wraps all fetch and cache actions around plugin callbacks
+ * A class created every time a {@linkcode Strategy} instance calls {@linkcode Strategy.handle} or
+ * {@linkcode Strategy.handleAll} that wraps all fetch and cache actions around plugin callbacks
  * and keeps track of when the strategy is "done" (i.e. when all added `event.waitUntil()` promises
  * have resolved).
  */
@@ -41,15 +42,16 @@ export class StrategyHandler {
    * A `URL` instance of `request.url` (if passed to the strategy's
    * `handle()` or `handleAll()` method).
    * Note: the `url` param will be present if the strategy is invoked
-   * from a `Route` object.
+   * from a {@linkcode Route} object.
    */
   public url?: URL;
   /**
    * Some additional params (if passed to the strategy's
    * `handle()` or `handleAll()` method).
+   * 
    * Note: the `params` param will be present if the strategy is invoked
-   * from a `Route` object and that route's matcher returned a truthy value
-   * (it will be that value).
+   * from a {@linkcode Route} object and that route's matcher returned a truthy
+   * value (it will be that value).
    */
   public params?: string[] | MapLikeObject;
 
@@ -115,7 +117,7 @@ export class StrategyHandler {
   /**
    * Fetches a given request (and invokes any applicable plugin callback
    * methods), taking the `fetchOptions` (for non-navigation requests) and
-   * `plugins` provided to the `Strategy` object into account.
+   * `plugins` provided to the {@linkcode Strategy} object into account.
    *
    * The following plugin lifecycle methods are invoked when using this method:
    * - `requestWillFetch()`
@@ -262,7 +264,7 @@ export class StrategyHandler {
   /**
    * Puts a request/response pair into the cache (and invokes any applicable
    * plugin callback method) using the `cacheName` and `plugins` provided to
-   * the `Strategy` object.
+   * the {@linkcode Strategy} object.
    *
    * The following plugin lifecycle methods are invoked when using this method:
    * - `cacheKeyWillBeUsed`
@@ -271,7 +273,7 @@ export class StrategyHandler {
    *
    * @param key The request or URL to use as the cache key.
    * @param response The response to cache.
-   * @returns `false` if a cacheWillUpdate caused the response
+   * @returns `false` if a `cacheWillUpdate` caused the response to
    * not be cached, and `true` otherwise.
    */
   async cachePut(key: RequestInfo, response: Response): Promise<boolean> {
@@ -369,7 +371,7 @@ export class StrategyHandler {
   }
 
   /**
-   * Checks the `plugins` provided to the `Strategy` object for `cacheKeyWillBeUsed`
+   * Checks the `plugins` provided to the {@linkcode Strategy} object for `cacheKeyWillBeUsed`
    * callbacks and executes found callbacks in sequence. The final `Request`
    * object returned by the last plugin is treated as the cache key for cache
    * reads and/or writes. If no `cacheKeyWillBeUsed` plugin callbacks have
@@ -422,7 +424,7 @@ export class StrategyHandler {
    *
    * Note: since this method runs all plugins, it's not suitable for cases
    * where the return value of a callback needs to be applied prior to calling
-   * the next callback. See `serwist/strategies.iterateCallbacks` for how to handle that case.
+   * the next callback. See {@linkcode StrategyHandler.iterateCallbacks} for how to handle that case.
    *
    * @param name The name of the callback to run within each plugin.
    * @param param The object to pass as the first (and only) param when executing each callback. This object will be merged with the
@@ -463,9 +465,7 @@ export class StrategyHandler {
    * [extend lifetime promises](https://w3c.github.io/ServiceWorker/#extendableevent-extend-lifetime-promises)
    * of the event event associated with the request being handled (usually a `FetchEvent`).
    *
-   * Note: you can await
-   * `serwist/strategies.StrategyHandler.doneWaiting`
-   * to know when all added promises have settled.
+   * Note: you can await {@linkcode StrategyHandler.doneWaiting} to know when all added promises have settled.
    *
    * @param promise A promise to add to the extend lifetime promises of
    * the event that triggered the request.

@@ -19,7 +19,7 @@ import { messages } from "./utils/messages.js";
  *
  * This class is useful if you already have your own precaching step.
  *
- * If there is no cache match, this will throw a `SerwistError` exception.
+ * If there is no cache match, this will throw a {@linkcode SerwistError} exception.
  */
 export class CacheOnly extends Strategy {
   /**

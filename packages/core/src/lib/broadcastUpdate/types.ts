@@ -6,7 +6,8 @@ export interface BroadcastCacheUpdateOptions {
    * A list of headers that will be used to determine whether the responses
    * differ.
    *
-   * @default ['content-length', 'etag', 'last-modified']
+   * @default
+   * ['content-length', 'etag', 'last-modified']`
    */
   headersToCheck?: string[];
   /**

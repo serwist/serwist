@@ -32,7 +32,7 @@ export interface NetworkFirstOptions extends StrategyOptions {
  * support [CORS](https://enable-cors.org/).
  *
  * If the network request fails, and there is no cache match, this will throw
- * a `SerwistError` exception.
+ * a {@linkcode SerwistError} exception.
  */
 export class NetworkFirst extends Strategy {
   private readonly _networkTimeoutSeconds: number;

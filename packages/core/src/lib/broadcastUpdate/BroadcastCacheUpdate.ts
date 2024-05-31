@@ -54,8 +54,7 @@ export class BroadcastCacheUpdate {
   private readonly _notifyAllClients: boolean;
 
   /**
-   * Construct a BroadcastCacheUpdate instance with a specific `channelName` to
-   * broadcast messages on
+   * Construct an instance of `BroadcastCacheUpdate`.
    *
    * @param options
    */

@@ -10,10 +10,10 @@ import type { RouteHandler } from "../types.js";
 import { getSingletonRouter } from "./singletonRouter.js";
 
 /**
- * If a `Route` throws an error while handling a request, this `handler`
+ * If a route throws an error while handling a request, this handler
  * will be called and given a chance to provide a response.
  *
- * @param handler A callback function that returns a Promise resulting in a Response.
+ * @param handler A callback function that returns a promise resulting in a response.
  * @deprecated
  */
 export const setCatchHandler = (handler: RouteHandler): void => {

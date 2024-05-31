@@ -59,7 +59,9 @@ const hoverInfoProcessor = (type: string) => {
  */
 const renderMarkdown = (shiki: ShikiTransformerContextCommon, md: string) => {
   const mdast = fromMarkdown(
-    md.replace(/{@link ([^}]*)}/g, "$1"), // Replace JSDoc links
+    md
+      .replace(/{@link ([^}]*)}/g, "$1")
+      .replace(/{@linkcode ([^}]*)}/g, "`$1`"), // Replace JSDoc links
     { mdastExtensions: [gfmFromMarkdown()] },
   );
 

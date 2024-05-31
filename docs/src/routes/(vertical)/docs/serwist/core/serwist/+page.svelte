@@ -53,7 +53,7 @@
         <ICD>navigateFallbackAllowlist</ICD>.
       </li>
       <li>
-        <ICD>plugins</ICD> — Plugins to use when precaching as well as responding to fetch events for precached assets.
+        <ICD>plugins</ICD> — Plugins to use when precaching as well as responding to <ICD>fetch</ICD> events for precached assets.
       </li>
       <li>
         <ICD>urlManipulation</ICD> — A function that should take a URL and return an array of alternative URLs that should be checked for precache matches.
@@ -140,7 +140,7 @@
 <h2 id="methods-and-fields">Methods and fields</h2>
 <ul class="list">
   <li>
-    <ICD>precacheStrategy</ICD> — The strategy used to precache assets and respond to fetch events.
+    <ICD>precacheStrategy</ICD> — The strategy used to precache assets and respond to <ICD>fetch</ICD> events.
   </li>
   <li>
     <ICD>routes</ICD> — A <ICD>Map</ICD> of HTTP methods (<ICD>'GET'</ICD>, etc.) to an array of all corresponding registered <ICD>Route</ICD> instances.

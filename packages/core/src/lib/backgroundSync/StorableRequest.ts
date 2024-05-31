@@ -77,7 +77,7 @@ export class StorableRequest {
 
   /**
    * Accepts an object of request data that can be used to construct a
-   * `Request` but can also be stored in IndexedDB.
+   * `Request` object but can also be stored in IndexedDB.
    *
    * @param requestData An object of request data that includes the `url` plus any relevant property of
    * [`requestInit`](https://fetch.spec.whatwg.org/#requestinit).

@@ -33,7 +33,7 @@ import { getSingletonRouter } from "./singletonRouter.js";
  */
 export interface GoogleAnalyticsInitializeOptions {
   /**
-   * An optional `Router` instance. If not provided, the singleton `Router`
+   * An optional {@linkcode Router} instance. If not provided, the singleton {@linkcode Router}
    * will be used.
    */
   router?: Router;

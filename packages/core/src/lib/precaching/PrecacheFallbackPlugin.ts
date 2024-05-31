@@ -28,14 +28,14 @@ export interface PrecacheFallbackPluginOptions {
    */
   fallbackUrls: (string | PrecacheFallbackEntry)[];
   /**
-   * Your `Serwist` instance.
+   * A {@linkcode Serwist} instance.
    */
   serwist: Serwist;
 }
 
 /**
- * `PrecacheFallbackPlugin` allows you to specify offline fallbacks
- * to be used when a given strategy is unable to generate a response.
+ * Allows you to specify offline fallbacks to be used when a given strategy
+ * is unable to generate a response.
  *
  * It does this by intercepting the `handlerDidError` plugin callback
  * and returning a precached response, taking the expected revision parameter
@@ -46,7 +46,7 @@ export class PrecacheFallbackPlugin implements SerwistPlugin {
   private readonly _serwist: Serwist;
 
   /**
-   * Constructs a new `PrecacheFallbackPlugin` with the associated `fallbackUrls`.
+   * Constructs a new instance with the associated `fallbackUrls`.
    *
    * @param config
    */

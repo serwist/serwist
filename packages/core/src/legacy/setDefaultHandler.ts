@@ -10,13 +10,13 @@ import type { RouteHandler } from "../types.js";
 import { getSingletonRouter } from "./singletonRouter.js";
 
 /**
- * Defines a default `handler` that's called when no routes explicitly
+ * Defines a default handler that's called when no routes explicitly
  * match the incoming request.
  *
- * Without a default `handler`, unmatched requests will go against the
+ * Without a default handler, unmatched requests will go against the
  * network as if there were no service worker present.
  *
- * @param handler A callback function that returns a Promise resulting in a Response.
+ * @param handler A callback function that returns a promise resulting in a response.
  * @deprecated
  */
 export const setDefaultHandler = (handler: RouteHandler): void => {

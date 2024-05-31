@@ -10,9 +10,9 @@ import { SerwistError } from "../../../utils/SerwistError.js";
 import { assert } from "../../../utils/assert.js";
 
 /**
- * @param rangeHeader A Range: header value.
+ * @param rangeHeader A `Range` header value.
  * @returns An object with `start` and `end` properties, reflecting
- * the parsed value of the Range: header. If either the `start` or `end` are
+ * the parsed value of the `Range` header. If either the `start` or `end` are
  * omitted, then `null` will be returned.
  * @private
  */

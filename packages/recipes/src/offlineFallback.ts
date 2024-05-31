@@ -10,7 +10,7 @@ import type { RouteHandler, RouteHandlerCallbackOptions, Serwist } from "serwist
 
 export interface OfflineFallbackOptions {
   /**
-   * Your `Serwist` instance.
+   * A {@linkcode Serwist} instance.
    */
   serwist: Serwist;
   /**

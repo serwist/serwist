@@ -12,7 +12,7 @@ import { warmStrategyCache } from "./warmStrategyCache.js";
 
 export interface ImageCacheOptions {
   /**
-   * Your `Serwist` instance.
+   * A {@linkcode Serwist} instance.
    */
   serwist: Serwist;
   /**

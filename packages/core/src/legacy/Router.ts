@@ -29,15 +29,15 @@ interface CacheURLsMessageData {
 }
 
 /**
- * `Router` can be used to process a `FetchEvent` using one or more `Route`(s), responding with a `Response`
+ * A class that can be used to process a `fetch` event using one or more route(s), responding with a response
  * if a matching route exists.
  *
- * If no `Route` matches given a `Request`, the `Router` will use the default handler if one is defined.
+ * If no route matches given a request, the router will use the default handler if one is defined.
  *
- * Should the matching Route throw an error, the Router will use the catch handler if one is defined to
- * gracefully deal with issues and respond with a `Request`.
+ * Should the matching route throw an error, the router will use the catch handler if one is defined to
+ * gracefully deal with issues and respond with a response.
  *
- * If a `Request` matches multiple routes, the earliest registered route will be used to respond to the `Request`.
+ * If a request matches multiple routes, the earliest registered route will be used to respond to the it.
  * @deprecated
  */
 export class Router {
@@ -56,16 +56,16 @@ export class Router {
   }
 
   /**
-   * @returns routes A `Map` of HTTP method name (`'GET'`, etc.) to an array of all the corresponding `Route`
-   * instances that are registered.
+   * @returns routes A `Map` of HTTP method name (`'GET'`, etc.) to an array of all
+   * the corresponding {@linkcode Route} instances that are registered.
    */
   get routes(): Map<HTTPMethod, Route[]> {
     return this._routes;
   }
 
   /**
-   * Adds a `fetch` event listener to respond to events when a `Route` matches
-   * the event's request. Effectively no-op if `addFEtchListener` has been
+   * Adds a `fetch` event listener to respond to events when a route matches
+   * the event's request. Effectively no-op if `addFetchListener` has been
    * called, but `removeFetchListener` has not.
    */
   addFetchListener(): void {
@@ -161,8 +161,8 @@ export class Router {
   }
 
   /**
-   * Apply the routing rules to a `FetchEvent` object to get a `Response` from an
-   * appropriate `Route`'s handler.
+   * Apply the routing rules to a `fetch` event to get a response from an
+   * appropriate route.
    *
    * @param options
    * @returns A promise is returned if a registered route can handle the request.
@@ -367,7 +367,7 @@ export class Router {
   }
 
   /**
-   * Define a default `handler` that's called when no routes explicitly
+   * Define a default handler that's called when no routes explicitly
    * match the incoming request.
    *
    * Each HTTP method (`'GET'`, `'POST'`, etc.) gets its own default handler.
@@ -375,7 +375,7 @@ export class Router {
    * Without a default handler, unmatched requests will go against the
    * network as if there were no service worker present.
    *
-   * @param handler A callback function that returns a `Promise` resulting in a `Response`.
+   * @param handler A callback function that returns a promise resulting in a response.
    * @param method The HTTP method to associate with this default handler. Each method
    * has its own default. Defaults to `'GET'`.
    */
@@ -396,13 +396,13 @@ export class Router {
 
   /**
    * Registers a `RegExp`, string, or function with a caching
-   * strategy to the `Router`.
+   * strategy to the router.
    *
-   * @param capture If the capture param is a `Route`, all other arguments will be ignored.
-   * @param handler A callback function that returns a `Promise` resulting in a `Response`.
-   * This parameter is required if `capture` is not a `Route` object.
-   * @param method The HTTP method to match the Route against. Defaults to `'GET'`.
-   * @returns The generated `Route`.
+   * @param capture If the capture param is a {@linkcode Route} object, all other arguments will be ignored.
+   * @param handler A callback function that returns a promise resulting in a response.
+   * This parameter is required if `capture` is not a {@linkcode Route} object.
+   * @param method The HTTP method to match the route against. Defaults to `'GET'`.
+   * @returns The generated {@linkcode Route} object.
    */
   registerCapture(capture: RegExp | string | RouteMatchCallback | Route, handler?: RouteHandler, method?: HTTPMethod): Route {
     const route = parseRoute(capture, handler, method);
@@ -411,9 +411,9 @@ export class Router {
   }
 
   /**
-   * Registers a `Route` with the router.
+   * Registers a route with the router.
    *
-   * @param route The `Route` to register.
+   * @param route The route to register.
    */
   registerRoute(route: Route): void {
     if (process.env.NODE_ENV !== "production") {
@@ -463,9 +463,9 @@ export class Router {
   }
 
   /**
-   * Unregisters a `Route` with the `Router`.
+   * Unregisters a route from the router.
    *
-   * @param route The `Route` to unregister.
+   * @param route The route to unregister.
    */
   unregisterRoute(route: Route): void {
     if (!this._routes.has(route.method)) {

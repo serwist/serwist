@@ -13,20 +13,20 @@ import { calculateEffectiveBoundaries } from "./utils/calculateEffectiveBoundari
 import { parseRangeHeader } from "./utils/parseRangeHeader.js";
 
 /**
- * Given a `Request` and `Response` objects as input, this will return a
- * promise for a new `Response`.
+ * Given a request and a response, this will return a
+ * promise that resolves to a partial response.
  *
- * If the original `Response` already contains partial content (i.e. it has
- * a status of 206), then this assumes it already fulfills the `Range:`
+ * If the original response already contains partial content (i.e. it has
+ * a status of 206), then this assumes it already fulfills the `Range`
  * requirements, and will return it as-is.
  *
- * @param request A request, which should contain a Range:
+ * @param request A request, which should contain a `Range`
  * header.
  * @param originalResponse A response.
  * @returns Either a `206 Partial Content` response, with
  * the response body set to the slice of content specified by the request's
- * `Range:` header, or a `416 Range Not Satisfiable` response if the
- * conditions of the `Range:` header can't be met.
+ * `Range` header, or a `416 Range Not Satisfiable` response if the
+ * conditions of the `Range` header can't be met.
  */
 export const createPartialResponse = async (request: Request, originalResponse: Response): Promise<Response> => {
   try {

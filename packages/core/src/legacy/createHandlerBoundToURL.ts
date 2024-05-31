@@ -7,18 +7,18 @@
 */
 
 import type { RouteHandlerCallback } from "../types.js";
+import type { PrecacheController } from "./PrecacheController.js";
 import { getSingletonPrecacheController } from "./singletonPrecacheController.js";
 
 /**
- * Helper function that calls `PrecacheController#createHandlerBoundToURL`
- * on the default `PrecacheController` instance.
+ * Helper function that calls {@linkcode PrecacheController.createHandlerBoundToURL}
+ * on the default {@linkcode PrecacheController} instance.
  *
- * If you are creating your own `PrecacheController`, then call the
- * `PrecacheController#createHandlerBoundToURL` on that instance,
+ * If you are creating your own {@linkcode PrecacheController}, then call the
+ * {@linkcode PrecacheController.createHandlerBoundToURL} function on that instance
  * instead of using this function.
  *
- * @param url The precached URL which will be used to lookup the
- * `Response`.
+ * @param url The precached URL which will be used to look up the response.
  * @param fallbackToNetwork Whether to attempt to get the
  * response from the network if there's a precache miss.
  * @return

@@ -13,11 +13,11 @@ import { logger } from "../../utils/logger.js";
 
 export interface CacheableResponseOptions {
   /**
-   * One or more status codes that a `Response` can have to be considered cacheable.
+   * One or more HTTP status codes that a response can have to be considered cacheable.
    */
   statuses?: number[];
   /**
-   * A mapping of header names and expected values that a `Response` can have and be
+   * A mapping of header names and expected values that a response can have and be
    * considered cacheable. If multiple headers are provided, only one needs to be present.
    */
   headers?: HeadersInit;
@@ -25,7 +25,7 @@ export interface CacheableResponseOptions {
 
 /**
  * Allows you to set up rules determining what status codes and/or headers need
- * to be present in order for a [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response)
+ * to be present in order for a [response](https://developer.mozilla.org/en-US/docs/Web/API/Response)
  * to be considered cacheable.
  */
 export class CacheableResponse {
@@ -33,11 +33,11 @@ export class CacheableResponse {
   private readonly _headers?: Headers;
 
   /**
-   * To construct a new CacheableResponse instance you must provide at least
+   * To construct a new `CacheableResponse` instance you must provide at least
    * one of the `config` properties.
    *
    * If both `statuses` and `headers` are specified, then both conditions must
-   * be met for the `Response` to be considered cacheable.
+   * be met for the response to be considered cacheable.
    *
    * @param config
    */
@@ -81,7 +81,7 @@ export class CacheableResponse {
    *
    * @param response The response whose cacheability is being
    * checked.
-   * @returns `true` if the `Response` is cacheable, and `false`
+   * @returns `true` if the response is cacheable, and `false`
    * otherwise.
    */
   isResponseCacheable(response: Response): boolean {

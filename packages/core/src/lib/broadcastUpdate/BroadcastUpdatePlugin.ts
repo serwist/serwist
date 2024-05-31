@@ -18,9 +18,9 @@ export class BroadcastUpdatePlugin implements SerwistPlugin {
   private readonly _broadcastUpdate: BroadcastCacheUpdate;
 
   /**
-   * Construct a {@link BroadcastCacheUpdate} instance with
-   * the passed options and calls its {@link BroadcastCacheUpdate.notifyIfUpdated}
-   * method whenever the plugin's {@link BroadcastUpdatePlugin.cacheDidUpdate} callback
+   * Construct a {@linkcode BroadcastCacheUpdate} instance with
+   * the passed options and calls its {@linkcode BroadcastCacheUpdate.notifyIfUpdated}
+   * method whenever the plugin's {@linkcode BroadcastUpdatePlugin.cacheDidUpdate} callback
    * is invoked.
    *
    * @param options
@@ -30,10 +30,6 @@ export class BroadcastUpdatePlugin implements SerwistPlugin {
   }
 
   /**
-   * A "lifecycle" callback that will be triggered automatically by
-   * `@serwist/build.RuntimeCaching` handlers when an entry is
-   * added to a cache.
-   *
    * @private
    * @param options The input object to this function.
    */

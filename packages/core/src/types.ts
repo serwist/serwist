@@ -1,4 +1,5 @@
 import type { HTTPMethod } from "./constants.js";
+import type { Route } from "./Route.js";
 import type { Serwist } from "./Serwist.js";
 
 export type PromiseOrNot<T> = T | Promise<T>;
@@ -8,13 +9,13 @@ export interface MapLikeObject {
 }
 
 /**
- * Using a plain `MapLikeObject` for now, but could extend/restrict this
+ * Using a plain {@linkcode MapLikeObject} for now, but could extend/restrict this
  * in the future.
  */
 export type PluginState = MapLikeObject;
 
 /**
- * Options passed to a `RouteMatchCallback` function.
+ * Options passed to a {@linkcode RouteMatchCallback} function.
  */
 export interface RouteMatchCallbackOptions {
   event: ExtendableEvent;
@@ -24,20 +25,22 @@ export interface RouteMatchCallbackOptions {
 }
 
 /**
- * The "match" callback is used to determine if a `Route` should apply for a
- * particular URL and request. When matching occurs in response to a fetch
- * event from the client, the `event` object is also supplied. However, since
- * the match callback can be invoked outside of a fetch event, matching logic
- * should not assume the `event` object will always be available.
+ * The match callback is used to determine if a route should apply for a
+ * particular URL and request. 
+ * 
+ * When matching occurs in response to a `fetch` event from the client, the `event`
+ * object is also supplied. However, since the match callback can be invoked outside
+ * of a `fetch` event, matching logic should not assume the `event` object will always
+ * be available.
+ * 
  * If the match callback returns a truthy value, the matching route's
- * `RouteHandlerCallback` will be invoked immediately. If the value returned
- * is a non-empty array or object, that value will be set on the handler's
- * `options.params` argument.
+ * handler will be invoked immediately. If the value returned is a non-empty array
+ * or object, that value will be the handler's `options.params` argument.
  */
 export type RouteMatchCallback = (options: RouteMatchCallbackOptions) => any;
 
 /**
- * Options passed to a `RouteHandlerCallback` function.
+ * Options passed to a {@linkcode RouteHandlerCallback} function.
  */
 export interface RouteHandlerCallbackOptions {
   /**
@@ -52,7 +55,7 @@ export interface RouteHandlerCallbackOptions {
   params?: string[] | MapLikeObject;
 }
 /**
- * Options passed to a `ManualHandlerCallback` function.
+ * Options passed to a {@linkcode ManualHandlerCallback} function.
  */
 export interface ManualHandlerCallbackOptions {
   /**
@@ -65,7 +68,7 @@ export interface ManualHandlerCallbackOptions {
   request: Request | string;
   url?: never;
   /**
-   * The return value from {@link RouteMatchCallback} (if applicable).
+   * The return value from {@linkcode RouteMatchCallback} (if applicable).
    */
   params?: never;
 }
@@ -73,38 +76,37 @@ export interface ManualHandlerCallbackOptions {
 export type HandlerCallbackOptions = RouteHandlerCallbackOptions | ManualHandlerCallbackOptions;
 
 /**
- * The "handler" callback is invoked whenever a `Router` matches a URL/Request
- * to a `Route` via its `RouteMatchCallback`. This handler callback should
- * return a `Promise` that resolves with a `Response`.
+ * The "handler" callback is invoked whenever a request is matched to a 
+ * {@linkcode Route} via its {@linkcode RouteMatchCallback} This handler
+ * callback should return a promise that resolves to a response.
  *
- * If a non-empty array or object is returned by the `RouteMatchCallback` it
+ * If a non-empty array or object is returned by the matcher, it
  * will be passed in as this handler's `options.params` argument.
  */
 export type RouteHandlerCallback = (options: RouteHandlerCallbackOptions) => Promise<Response>;
 
 /**
- * The "handler" callback is invoked whenever a `Router` matches a URL/Request
- * to a `Route` via its `RouteMatchCallback`. This handler callback should
- * return a `Promise` that resolves with a `Response`.
+ * The "handler" callback is invoked whenever a request is matched to a 
+ * {@linkcode Route} via its {@linkcode RouteMatchCallback} This handler
+ * callback should return a promise that resolves to a response.
  *
- * If a non-empty array or object is returned by the `RouteMatchCallback` it
+ * If a non-empty array or object is returned by the matcher, it
  * will be passed in as this handler's `options.params` argument.
  */
 export type ManualHandlerCallback = (options: ManualHandlerCallbackOptions) => Promise<Response>;
 
 /**
- * An object with a `handle` method of type `RouteHandlerCallback`.
+ * An object with a `handle` method of type {@linkcode RouteHandlerCallback}.
  *
- * A `Route` object can be created with either an `RouteHandlerCallback`
- * function or this `RouteHandler` object. The benefit of the `RouteHandler`
- * is it can be extended (as is done by the `serwist/strategies` package).
+ * A {@linkcode Route} object can be created with either an `RouteHandlerCallback`
+ * function or this {@linkcode RouteHandler} object.
  */
 export interface RouteHandlerObject {
   handle: RouteHandlerCallback;
 }
 
 /**
- * Either a `RouteHandlerCallback` or a `RouteHandlerObject`.
+ * Either a {@linkcode RouteHandlerCallback} or a {@linkcode RouteHandlerObject}.
  * Most APIs that accept route handlers take either.
  */
 export type RouteHandler = RouteHandlerCallback | RouteHandlerObject;
@@ -124,11 +126,11 @@ export interface CacheDidUpdateCallbackParam {
    */
   cacheName: string;
   /**
-   * Possibly updated response to compare.
+   * The possibly updated response.
    */
   newResponse: Response;
   /**
-   * The `Request` object for the cached entry.
+   * The request for the cached entry.
    */
   request: Request;
   /**
@@ -136,7 +138,7 @@ export interface CacheDidUpdateCallbackParam {
    */
   event: ExtendableEvent;
   /**
-   * Cached response to compare.
+   * The previous cached response.
    */
   oldResponse?: Response | null;
   state?: PluginState;
@@ -301,19 +303,19 @@ export interface RuntimeCaching {
    */
   method?: HTTPMethod;
   /**
-   * This match criteria determines whether the configured handler will
-   * generate a response for any requests that don't match one of the precached
-   * URLs. If multiple `RuntimeCaching` routes are defined, then the first one
+   * The match callback determines whether the configured handler will be used to
+   * generate a response for any request that doesn't match one of the precached
+   * URLs. If multiple routes are defined, then the first one
    * whose `matcher` matches will be the one that responds.
    *
    * This value directly maps to the first parameter passed to
-   * {@link Serwist.registerRoute}. It's recommended to use a
-   * {@link RouteMatchCallback} function for greatest flexibility.
+   * {@linkcode Serwist.registerRoute}. It's recommended to use a
+   * {@linkcode RouteMatchCallback} function for greatest flexibility.
    */
   matcher: RegExp | string | RouteMatchCallback;
   /**
    * This determines how the runtime route will generate a response. It
-   * can be a {@link RouteHandler} callback function with custom
+   * can be a {@linkcode RouteHandler} callback function with custom
    * response logic.
    */
   handler: RouteHandler;

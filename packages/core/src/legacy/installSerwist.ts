@@ -17,18 +17,18 @@ import { getSingletonRouter } from "./singletonRouter.js";
 declare const self: ServiceWorkerGlobalScope;
 
 /**
- * Options for `installSerwist`.
+ * Options for {@linkcode installSerwist}.
  *
  * @deprecated
  */
 export interface InstallSerwistOptions extends Omit<HandlePrecachingOptions, "precacheController" | "router"> {
   /**
-   * An optional `PrecacheController` instance. If not provided, the singleton
-   * `PrecacheController` will be used.
+   * An optional {@linkcode PrecacheController} instance. If not provided, the singleton
+   * {@linkcode PrecacheController} will be used.
    */
   precacheController?: PrecacheController;
   /**
-   * An optional `Router` instance. If not provided, the singleton `Router`
+   * An optional {@linkcode Router} instance. If not provided, the singleton {@linkcode Router}
    * will be used.
    */
   router?: Router;

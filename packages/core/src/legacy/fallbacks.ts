@@ -29,12 +29,12 @@ export interface FallbacksOptions {
 
 export interface FallbacksOptions {
   /**
-   * An optional `PrecacheController` instance. If not provided, the singleton
-   * `PrecacheController` will be used.
+   * An optional {@linkcode PrecacheController} instance. If not provided, the singleton
+   * {@linkcode PrecacheController} will be used.
    */
   precacheController?: PrecacheController;
   /**
-   * An optional `Router` instance. If not provided, the singleton `Router`
+   * An optional {@linkcode Router} instance. If not provided, the singleton {@linkcode Router}
    * will be used.
    */
   router?: Router;

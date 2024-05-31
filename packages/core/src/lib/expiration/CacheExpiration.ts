@@ -42,7 +42,7 @@ export class CacheExpiration {
   private readonly _timestampModel: CacheTimestampsModel;
 
   /**
-   * To construct a new CacheExpiration instance you must provide at least
+   * To construct a new `CacheExpiration` instance you must provide at least
    * one of the `config` properties.
    *
    * @param cacheName Name of the cache to apply restrictions to.

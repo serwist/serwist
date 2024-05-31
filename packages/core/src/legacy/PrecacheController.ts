@@ -79,7 +79,7 @@ export class PrecacheController {
 
   /**
    * The strategy created by this controller and
-   * used to cache assets and respond to fetch events.
+   * used to cache assets and respond to `fetch` events.
    */
   get strategy(): Strategy {
     return this._strategy;

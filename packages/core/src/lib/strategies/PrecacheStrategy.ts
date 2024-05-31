@@ -12,6 +12,7 @@ import { SerwistError } from "../../utils/SerwistError.js";
 import { cacheNames as privateCacheNames } from "../../utils/cacheNames.js";
 import { getFriendlyURL } from "../../utils/getFriendlyURL.js";
 import { logger } from "../../utils/logger.js";
+import type { Serwist } from "../../Serwist.js";
 import type { StrategyOptions } from "./Strategy.js";
 import { Strategy } from "./Strategy.js";
 import type { StrategyHandler } from "./StrategyHandler.js";
@@ -25,11 +26,11 @@ interface PrecacheStrategyOptions extends StrategyOptions {
 }
 
 /**
- * A `serwist/strategies.Strategy` implementation
- * specifically designed to both cache and fetch precached assets.
+ * A {@linkcode Strategy} implementation specifically designed to both cache
+ * and fetch precached assets.
  *
  * Note: an instance of this class is created automatically when creating a
- * `Serwist` instance; it's generally not necessary to create this yourself.
+ * {@linkcode Serwist} instance; it's generally not necessary to create this yourself.
  */
 export class PrecacheStrategy extends Strategy {
   private readonly _fallbackToNetwork: boolean;

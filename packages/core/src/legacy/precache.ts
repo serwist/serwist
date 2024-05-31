@@ -8,6 +8,8 @@
 
 import type { PrecacheEntry } from "../types.js";
 import { getSingletonPrecacheController } from "./singletonPrecacheController.js";
+import type { addRoute } from "./addRoute.js";
+import type { precacheAndRoute } from "./precacheAndRoute.js";
 
 /**
  * Adds items to the precache list, removing any duplicates and
@@ -18,10 +20,10 @@ import { getSingletonPrecacheController } from "./singletonPrecacheController.js
  *
  * Please note: This method **will not** serve any of the cached files for you.
  * It only precaches files. To respond to a network request you call
- * `serwist/legacy.addRoute`.
+ * {@linkcode addRoute}.
  *
  * If you have a single array of files to precache, you can just call
- * `serwist/legacy.precacheAndRoute`.
+ * {@linkcode precacheAndRoute}.
  *
  * @param entries Array of entries to precache.
  * @deprecated

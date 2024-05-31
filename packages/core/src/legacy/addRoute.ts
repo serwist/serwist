@@ -11,16 +11,14 @@ import { registerRoute } from "./registerRoute.js";
 import { getSingletonPrecacheController } from "./singletonPrecacheController.js";
 
 /**
- * Add a `fetch` listener to the service worker that will
- * respond to
- * [network requests](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers#Custom_responses_to_requests)
- * with precached assets.
+ * Add a `fetch` listener that will
+ * respond to [network requests](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers#Custom_responses_to_requests)
+ * with precached assets to the service worker.
  *
- * Requests for assets that aren't precached, the `FetchEvent` will not be
- * responded to, allowing the event to fall through to other `fetch` event
- * listeners.
+ * As for requests for assets that aren't precached, the `fetch` event will not be
+ * responded to, allowing the event to fall through to other `fetch` event listeners.
  *
- * @param options See {@link PrecacheRouteOptions}.
+ * @param options See {@linkcode PrecacheRouteOptions}.
  * @deprecated
  */
 export const addRoute = (options?: PrecacheRouteOptions): void => {

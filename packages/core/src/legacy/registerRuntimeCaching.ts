@@ -4,7 +4,7 @@ import type { RuntimeCaching } from "../types.js";
 
 /**
  * Registers caching strategies to a singleton Router instance. It is a simple
- * syntatic sugar for `serwist/legacy.registerRoute`.
+ * syntatic sugar for {@linkcode registerRoute}.
  *
  * @param runtimeCachingList
  * @returns
