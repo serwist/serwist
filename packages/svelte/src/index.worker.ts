@@ -1,5 +1,5 @@
 import type { PrecacheEntry, RuntimeCaching } from "serwist";
-import { CacheFirst, ExpirationPlugin, NetworkFirst, StaleWhileRevalidate } from "serwist";
+import { CacheFirst, ExpirationPlugin, NetworkFirst, NetworkOnly, StaleWhileRevalidate } from "serwist";
 import { logger } from "serwist/internal";
 
 import {
@@ -127,7 +127,12 @@ export const defaultIgnoreUrlParameters = [/^x-sveltekit-invalidated$/];
  * @see https://serwist.pages.dev/docs/svelte/worker-exports#default-cache
  */
 export const defaultCache: RuntimeCaching[] = import.meta.env.DEV
-  ? []
+  ? [
+      {
+        matcher: /.*/i,
+        handler: new NetworkOnly(),
+      },
+    ]
   : [
       {
         matcher: /^https:\/\/fonts\.(?:googleapis|gstatic)\.com\/.*/i,

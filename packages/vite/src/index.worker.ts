@@ -1,5 +1,5 @@
 import type { RuntimeCaching } from "serwist";
-import { CacheFirst, ExpirationPlugin, NetworkFirst, StaleWhileRevalidate } from "serwist";
+import { CacheFirst, ExpirationPlugin, NetworkFirst, NetworkOnly, StaleWhileRevalidate } from "serwist";
 
 /**
  * The default, recommended list of caching strategies for applications
@@ -8,7 +8,12 @@ import { CacheFirst, ExpirationPlugin, NetworkFirst, StaleWhileRevalidate } from
  * @see https://serwist.pages.dev/docs/vite/worker-exports#default-cache
  */
 export const defaultCache: RuntimeCaching[] = import.meta.env.DEV
-  ? []
+  ? [
+      {
+        matcher: /.*/i,
+        handler: new NetworkOnly(),
+      },
+    ]
   : [
       {
         matcher: /^https:\/\/fonts\.(?:googleapis|gstatic)\.com\/.*/i,

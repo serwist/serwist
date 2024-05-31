@@ -1,5 +1,5 @@
 import type { RuntimeCaching } from "serwist";
-import { CacheFirst, ExpirationPlugin, NetworkFirst, RangeRequestsPlugin, StaleWhileRevalidate } from "serwist";
+import { CacheFirst, ExpirationPlugin, NetworkFirst, NetworkOnly, RangeRequestsPlugin, StaleWhileRevalidate } from "serwist";
 
 import { PAGES_CACHE_NAME } from "./constants.js";
 
@@ -11,7 +11,12 @@ import { PAGES_CACHE_NAME } from "./constants.js";
  */
 export const defaultCache: RuntimeCaching[] =
   process.env.NODE_ENV !== "production"
-    ? []
+    ? [
+        {
+          matcher: /.*/i,
+          handler: new NetworkOnly(),
+        },
+      ]
     : [
         {
           matcher: /^https:\/\/fonts\.(?:gstatic)\.com\/.*/i,

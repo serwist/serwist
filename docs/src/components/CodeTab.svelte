@@ -38,12 +38,12 @@
         >
           {tab}
           {#if isActive}
-            <span class="pointer-events-none absolute bottom-0 left-0 z-[2] h-[1px] w-full bg-white dark:bg-neutral-950" aria-hidden="true" />
+            <span class="pointer-events-none absolute bottom-0 left-0 z-[2] h-[1px] w-full bg-white dark:bg-neutral-950" aria-hidden="true"></span>
           {/if}
         </button>
       {/each}
     </div>
-    <div class="pointer-events-none absolute bottom-0 left-0 z-[1] h-[1px] w-full bg-neutral-300 dark:bg-neutral-800" aria-hidden="true" />
+    <div class="pointer-events-none absolute bottom-0 left-0 z-[1] h-[1px] w-full bg-neutral-300 dark:bg-neutral-800" aria-hidden="true"></div>
   </div>
   <div class="margin-0 overflow-auto p-4">
     {#each codes as [tab, id, code]}

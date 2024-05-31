@@ -31,7 +31,8 @@
   <div class="relative mx-auto flex flex-row justify-between overflow-x-clip md:flex-col">
     <div class="flex items-center gap-2 md:block md:items-start md:py-2">
       <a href="/" aria-label="Go to home">
-        <enhanced:img src="$images/logo-200x50-transparent.png" alt="Serwist" class="h-auto min-w-[100px] max-w-[100px] invert dark:invert-0" />
+        <enhanced:img src="$images/logo-200x50-transparent.png" alt="Serwist" class="h-auto min-w-[100px] max-w-[100px] invert dark:invert-0"
+        ></enhanced:img>
       </a>
     </div>
     <div class="flex flex-col gap-[5px] md:flex-col-reverse">
@@ -58,9 +59,9 @@
             )}
             aria-label="Toggle navbar menu"
           >
-            <span class="origin-center duration-300" />
-            <span class="duration-200 ease-out" />
-            <span class="origin-center duration-300" />
+            <span class="origin-center duration-300"></span>
+            <span class="duration-200 ease-out"></span>
+            <span class="origin-center duration-300"></span>
           </summary>
           <div class="absolute right-0 w-[150px] md:hidden">
             <ul

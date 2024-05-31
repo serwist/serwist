@@ -23,7 +23,7 @@
     <p class="font-semibold tracking-tight text-black dark:text-white">On This Page</p>
     <ChevronRight class="details-chevron ml-2 transition-transform duration-100" width={18} height={18} />
   </summary>
-  <div class="pointer-events-none w-full self-stretch overflow-y-auto" aria-hidden="true" />
+  <div class="pointer-events-none w-full self-stretch overflow-y-auto" aria-hidden="true"></div>
   {#if toc}
     <TocRenderer data={toc} />
   {:else}
