@@ -526,20 +526,16 @@ export class StrategyHandler {
 
     if (!pluginsUsed) {
       if (responseToCache && responseToCache.status !== 200) {
-        responseToCache = undefined;
-      }
-      if (process.env.NODE_ENV !== "production") {
-        if (responseToCache) {
-          if (responseToCache.status !== 200) {
-            if (responseToCache.status === 0) {
-              logger.warn(
-                `The response for '${this.request.url}' is an opaque response. The caching strategy that you're using will not cache opaque responses by default.`,
-              );
-            } else {
-              logger.debug(`The response for '${this.request.url}' returned a status code of '${response.status}' and won't be cached as a result.`);
-            }
+        if (process.env.NODE_ENV !== "production") {
+          if (responseToCache.status === 0) {
+            logger.warn(
+              `The response for '${this.request.url}' is an opaque response. The caching strategy that you're using will not cache opaque responses by default.`,
+            );
+          } else {
+            logger.debug(`The response for '${this.request.url}' returned a status code of '${response.status}' and won't be cached as a result.`);
           }
         }
+        responseToCache = undefined;
       }
     }
 
