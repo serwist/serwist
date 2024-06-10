@@ -21,8 +21,11 @@ body:
         - "@serwist/build"
         - "@serwist/cli"
         - "@serwist/next"
+        - "@serwist/nuxt"
         - "@serwist/recipes"
         - "@serwist/streams"
+        - "@serwist/svelte"
+        - "@serwist/vite"
         - "@serwist/webpack-plugin"
         - "@serwist/window"
   - type: textarea
