@@ -2,6 +2,8 @@ import type { BlogEntry, SidebarLink } from "./types";
 
 export const COLOR_SCHEMES = ["dark", "light"] as const;
 
+export const CANONICAL_URL = "https://serwist.pages.dev";
+
 export const GITHUB_REPO_URL = "https://github.com/serwist/serwist";
 
 export const REROUTE: Record<string, string> = {

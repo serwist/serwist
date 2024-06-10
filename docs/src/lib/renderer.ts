@@ -1,11 +1,11 @@
 import crypto from "node:crypto";
-import { PUBLIC_CANONICAL_URL } from "$env/static/public";
 import type { TwoslashRenderer } from "@shikijs/twoslash";
 import { toHtml } from "hast-util-to-html";
 import { fromMarkdown } from "mdast-util-from-markdown";
 import { gfmFromMarkdown } from "mdast-util-gfm";
 import { defaultHandlers, toHast } from "mdast-util-to-hast";
 import type { ShikiTransformerContextCommon } from "shiki";
+import { CANONICAL_URL } from "./constants"; 
 
 const getErrorLevelClass = (error: any) => {
   switch (error.level) {
@@ -90,7 +90,7 @@ const renderMarkdown = (shiki: ShikiTransformerContextCommon, md: string) => {
           if (typeof result.properties.href === "string" && result.properties.href.startsWith("http")) {
             try {
               const href = new URL(result.properties.href);
-              if (href.origin === PUBLIC_CANONICAL_URL) {
+              if (href.origin === CANONICAL_URL) {
                 result.properties.href = `${href.pathname}${href.hash}`;
               } else {
                 result.properties.target = "_blank";

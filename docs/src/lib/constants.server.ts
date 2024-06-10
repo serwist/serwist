@@ -1,4 +1,4 @@
-import { PUBLIC_CANONICAL_URL } from "$env/static/public";
 import { encodeBase64 } from "./base64";
+import { CANONICAL_URL } from "./constants";
 
-export const ENCODED_CANONICAL_URL = encodeBase64(PUBLIC_CANONICAL_URL);
+export const ENCODED_CANONICAL_URL = encodeBase64(CANONICAL_URL);

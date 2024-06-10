@@ -9,10 +9,9 @@
   import { dev } from "$app/environment";
   import { page } from "$app/stores";
   import Twoslash from "$components/Twoslash.svelte";
-  import { PUBLIC_CANONICAL_URL } from "$env/static/public";
   import { isColorScheme } from "$lib/isColorScheme";
   import { colorScheme } from "$lib/stores/colorScheme";
-  import { REROUTE } from "$lib/constants";
+  import { CANONICAL_URL, REROUTE } from "$lib/constants";
 
   const { data, children } = $props();
   const isDark = $derived($colorScheme === "dark");
@@ -52,7 +51,7 @@
 
 <svelte:head>
   <title>{title}</title>
-  <link rel="canonical" href={new URL($page.url.pathname in REROUTE ? REROUTE[$page.url.pathname] : $page.url.pathname, PUBLIC_CANONICAL_URL).href} />
+  <link rel="canonical" href={new URL($page.url.pathname in REROUTE ? REROUTE[$page.url.pathname] : $page.url.pathname, CANONICAL_URL).href} />
   <link rel="manifest" href="/manifest.webmanifest" />
   <meta property="og:title" content={title} />
   <meta property="og:image" content={ogImage} />
