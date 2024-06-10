@@ -1,5 +1,16 @@
 # @serwist/google-analytics
 
+## 9.0.3
+
+### Patch Changes
+
+- [`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): updated all dependencies
+
+  - We have updated all dependencies to latest, as usual.
+
+- Updated dependencies [[`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed), [`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed), [`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed)]:
+  - serwist@9.0.3
+
 ## 9.0.2
 
 ### Patch Changes
@@ -93,9 +104,7 @@
     serwist.addToPrecacheList([]);
 
     // Register another runtime caching strategy.
-    serwist.registerRoute(
-      new Route(/\/api\/.*\/*.json/, new NetworkOnly(), "POST"),
-    );
+    serwist.registerRoute(new Route(/\/api\/.*\/*.json/, new NetworkOnly(), "POST"));
 
     // This should be called before `Serwist.addEventListeners`.
     self.addEventListener("message", (event) => {
@@ -200,9 +209,7 @@
     serwist.addToPrecacheList([]);
 
     // Register another runtime caching strategy.
-    serwist.registerRoute(
-      new Route(/\/api\/.*\/*.json/, new NetworkOnly(), "POST"),
-    );
+    serwist.registerRoute(new Route(/\/api\/.*\/*.json/, new NetworkOnly(), "POST"));
 
     // This should be called before `Serwist.addEventListeners`.
     self.addEventListener("message", (event) => {

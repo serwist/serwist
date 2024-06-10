@@ -1,5 +1,16 @@
 # @serwist/sw
 
+## 9.0.3
+
+### Patch Changes
+
+- [`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): updated all dependencies
+
+  - We have updated all dependencies to latest, as usual.
+
+- Updated dependencies [[`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed), [`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed), [`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed)]:
+  - serwist@9.0.3
+
 ## 9.0.2
 
 ### Patch Changes
@@ -493,7 +504,7 @@
             }),
           ],
         }),
-      },
+      }
     );
     ```
 
@@ -536,7 +547,7 @@
             }),
           ],
         }),
-      },
+      }
     );
     ```
 
@@ -671,10 +682,7 @@
       runtimeCaching: [
         {
           urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
-            request.headers.get("RSC") === "1" &&
-            request.headers.get("Next-Router-Prefetch") === "1" &&
-            sameOrigin &&
-            !pathname.startsWith("/api/"),
+            request.headers.get("RSC") === "1" && request.headers.get("Next-Router-Prefetch") === "1" && sameOrigin && !pathname.startsWith("/api/"),
           // OLD: a string handler alongside `options`.
           handler: "NetworkFirst",
           options: {
@@ -687,9 +695,7 @@
         },
         {
           urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
-            request.headers.get("RSC") === "1" &&
-            sameOrigin &&
-            !pathname.startsWith("/api/"),
+            request.headers.get("RSC") === "1" && sameOrigin && !pathname.startsWith("/api/"),
           // OLD: a string handler alongside `options`.
           handler: "NetworkFirst",
           options: {
@@ -702,9 +708,7 @@
         },
         {
           urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
-            request.headers.get("Content-Type")?.includes("text/html") &&
-            sameOrigin &&
-            !pathname.startsWith("/api/"),
+            request.headers.get("Content-Type")?.includes("text/html") && sameOrigin && !pathname.startsWith("/api/"),
           // OLD: a string handler alongside `options`.
           handler: "NetworkFirst",
           options: {
@@ -731,10 +735,7 @@
       runtimeCaching: [
         {
           urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
-            request.headers.get("RSC") === "1" &&
-            request.headers.get("Next-Router-Prefetch") === "1" &&
-            sameOrigin &&
-            !pathname.startsWith("/api/"),
+            request.headers.get("RSC") === "1" && request.headers.get("Next-Router-Prefetch") === "1" && sameOrigin && !pathname.startsWith("/api/"),
           // NEW: an initialized instance.
           handler: new NetworkFirst({
             cacheName: PAGES_CACHE_NAME.rscPrefetch,
@@ -748,9 +749,7 @@
         },
         {
           urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
-            request.headers.get("RSC") === "1" &&
-            sameOrigin &&
-            !pathname.startsWith("/api/"),
+            request.headers.get("RSC") === "1" && sameOrigin && !pathname.startsWith("/api/"),
           // NEW: an initialized instance.
           handler: new NetworkFirst({
             cacheName: PAGES_CACHE_NAME.rsc,
@@ -764,9 +763,7 @@
         },
         {
           urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
-            request.headers.get("Content-Type")?.includes("text/html") &&
-            sameOrigin &&
-            !pathname.startsWith("/api/"),
+            request.headers.get("Content-Type")?.includes("text/html") && sameOrigin && !pathname.startsWith("/api/"),
           // NEW: an initialized instance.
           handler: new NetworkFirst({
             cacheName: PAGES_CACHE_NAME.html,
