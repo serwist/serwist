@@ -18,8 +18,9 @@ import type { Strategy } from "../strategies/Strategy.js";
 
 export interface ExpirationPluginOptions {
   /**
-   * The maximum number of entries to cache. Entries used the least will be removed
-   * as the maximum is reached.
+   * The maximum number of entries to cache. Entries used (if `maxAgeFrom` is
+   * `"last-used"`) or fetched from the network (if `maxAgeFrom` is `"last-fetched"`)
+   * least recently will be removed as the maximum is reached.
    */
   maxEntries?: number;
   /**

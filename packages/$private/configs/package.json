@@ -25,9 +25,9 @@
   "devDependencies": {
     "@rollup/plugin-json": "6.1.0",
     "@rollup/plugin-node-resolve": "15.2.3",
-    "@rollup/plugin-swc": "0.3.0",
+    "@rollup/plugin-swc": "0.3.1",
     "@rollup/plugin-typescript": "11.1.6",
-    "@swc/core": "1.5.7",
-    "rollup": "4.14.3"
+    "@swc/core": "1.5.27",
+    "rollup": "4.18.0"
   }
 }

@@ -13,7 +13,9 @@
 <h2 id="options">Options</h2>
 <ul class="list">
   <li>
-    <ICD>maxEntries</ICD> — The maximum number of entries to cache. Entries used least recently will be removed as the maximum is reached.
+    <ICD>maxEntries</ICD> — The maximum number of entries to cache. Entries used (if <ICD>maxAgeFrom</ICD> is
+    <ICD>{'"last-used"'}</ICD>) or fetched from the network (if <ICD>maxAgeFrom</ICD> is <ICD>{'"last-fetched"'}</ICD>) least recently will be removed
+    as the maximum is reached.
   </li>
   <li>
     <ICD>maxAgeSeconds</ICD> — The maximum age of an entry before it's treated as stale and removed.

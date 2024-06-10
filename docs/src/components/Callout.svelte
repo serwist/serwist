@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { ComponentType, SvelteComponent } from "svelte";
+  import type { Component } from "svelte";
   import type { HTMLAttributes } from "svelte/elements";
   import type { SVGAttributes } from "svelte/elements";
 
@@ -37,9 +37,7 @@
     success: Check,
     warning: ExclamationMark,
     info: ExclamationMark,
-  } satisfies Record<CalloutVariant, ComponentType<SvelteComponent<SVGAttributes<SVGElement>>>>;
-
-  const IconComponent = $derived(mapVariantToIcon[type]);
+  } satisfies Record<CalloutVariant, Component<SVGAttributes<SVGElement>>>;
 </script>
 
 <div
@@ -50,7 +48,12 @@
   )}
 >
   <span class="size-5">
-    <IconComponent width={20} height={20} class={clsx("rounded-full p-[2px] text-white dark:text-black", mapVariantToClass.icon[type])} />
+    <svelte:component
+      this={mapVariantToIcon[type]}
+      width={20}
+      height={20}
+      class={clsx("rounded-full p-[2px] text-white dark:text-black", mapVariantToClass.icon[type])}
+    />
   </span>
   <span class="[&>*]:!m-0">
     {#if children}

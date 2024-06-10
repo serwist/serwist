@@ -305,8 +305,8 @@ export interface RuntimeCaching {
   /**
    * The match callback determines whether the configured handler will be used to
    * generate a response for any request that doesn't match one of the precached
-   * URLs. If multiple routes are defined, then the first one
-   * whose `matcher` matches will be the one that responds.
+   * URLs. If multiple routes are defined, then the first one to match the request
+   * will be the one that responds.
    *
    * This value directly maps to the first parameter passed to
    * {@linkcode Serwist.registerRoute}. It's recommended to use a

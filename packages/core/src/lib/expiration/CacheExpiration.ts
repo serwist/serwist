@@ -13,7 +13,7 @@ import { CacheTimestampsModel } from "./models/CacheTimestampsModel.js";
 
 interface CacheExpirationConfig {
   /**
-   * The maximum number of entries to cache. Entries used the least will
+   * The maximum number of entries to cache. Entries used least recently will
    * be removed as the maximum is reached.
    */
   maxEntries?: number;
