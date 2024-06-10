@@ -1,6 +1,6 @@
 {
   "name": "@serwist/window",
-  "version": "9.0.2",
+  "version": "9.0.3",
   "type": "module",
   "description": "Simplifies communications with Serwist packages running in the service worker",
   "files": [

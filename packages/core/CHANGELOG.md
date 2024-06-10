@@ -1,5 +1,28 @@
 # @serwist/sw
 
+## 9.0.3
+
+### Patch Changes
+
+- [`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(docs/core): fixed inconsistencies between `ExpirationPlugin`'s documentation and its actual behaviour
+
+  - `maxEntries` honours `maxAgeFrom`, but this wasn't documented before.
+
+- [`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(core): fixed `StrategyHandler`'s logging
+
+  - Thanks @jon-smith!
+  - Their PR message:
+
+  > Dev logging in `StrategyHandler` `_ensureResponseSafeToCache` would previously never get called as `responseToCache` was set to `undefined` before checking the status to log. Have rearranged the logic to fix this.
+  >
+  > Also as I was following the docs to make this change I noticed the git clone command had some extra `--` so updated the docs to fix this.
+  >
+  > Super minor things but thought I'd make a PR just in case it's useful!
+
+- [`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): updated all dependencies
+
+  - We have updated all dependencies to latest, as usual.
+
 ## 9.0.2
 
 ## 9.0.0
@@ -168,9 +191,7 @@
     serwist.addToPrecacheList([]);
 
     // Register another runtime caching strategy.
-    serwist.registerRoute(
-      new Route(/\/api\/.*\/*.json/, new NetworkOnly(), "POST"),
-    );
+    serwist.registerRoute(new Route(/\/api\/.*\/*.json/, new NetworkOnly(), "POST"));
 
     // This should be called before `Serwist.addEventListeners`.
     self.addEventListener("message", (event) => {
@@ -240,7 +261,7 @@
             }),
           ],
         }),
-      },
+      }
     );
     ```
 
@@ -306,10 +327,7 @@
       runtimeCaching: [
         {
           urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
-            request.headers.get("RSC") === "1" &&
-            request.headers.get("Next-Router-Prefetch") === "1" &&
-            sameOrigin &&
-            !pathname.startsWith("/api/"),
+            request.headers.get("RSC") === "1" && request.headers.get("Next-Router-Prefetch") === "1" && sameOrigin && !pathname.startsWith("/api/"),
           // OLD: a string handler alongside `options`.
           handler: "NetworkFirst",
           options: {
@@ -322,9 +340,7 @@
         },
         {
           urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
-            request.headers.get("RSC") === "1" &&
-            sameOrigin &&
-            !pathname.startsWith("/api/"),
+            request.headers.get("RSC") === "1" && sameOrigin && !pathname.startsWith("/api/"),
           // OLD: a string handler alongside `options`.
           handler: "NetworkFirst",
           options: {
@@ -337,9 +353,7 @@
         },
         {
           urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
-            request.headers.get("Content-Type")?.includes("text/html") &&
-            sameOrigin &&
-            !pathname.startsWith("/api/"),
+            request.headers.get("Content-Type")?.includes("text/html") && sameOrigin && !pathname.startsWith("/api/"),
           // OLD: a string handler alongside `options`.
           handler: "NetworkFirst",
           options: {
@@ -366,10 +380,7 @@
       runtimeCaching: [
         {
           matcher: ({ request, url: { pathname }, sameOrigin }) =>
-            request.headers.get("RSC") === "1" &&
-            request.headers.get("Next-Router-Prefetch") === "1" &&
-            sameOrigin &&
-            !pathname.startsWith("/api/"),
+            request.headers.get("RSC") === "1" && request.headers.get("Next-Router-Prefetch") === "1" && sameOrigin && !pathname.startsWith("/api/"),
           // NEW: an initialized instance.
           handler: new NetworkFirst({
             cacheName: PAGES_CACHE_NAME.rscPrefetch,
@@ -382,10 +393,7 @@
           }),
         },
         {
-          matcher: ({ request, url: { pathname }, sameOrigin }) =>
-            request.headers.get("RSC") === "1" &&
-            sameOrigin &&
-            !pathname.startsWith("/api/"),
+          matcher: ({ request, url: { pathname }, sameOrigin }) => request.headers.get("RSC") === "1" && sameOrigin && !pathname.startsWith("/api/"),
           // NEW: an initialized instance.
           handler: new NetworkFirst({
             cacheName: PAGES_CACHE_NAME.rsc,
@@ -399,9 +407,7 @@
         },
         {
           matcher: ({ request, url: { pathname }, sameOrigin }) =>
-            request.headers.get("Content-Type")?.includes("text/html") &&
-            sameOrigin &&
-            !pathname.startsWith("/api/"),
+            request.headers.get("Content-Type")?.includes("text/html") && sameOrigin && !pathname.startsWith("/api/"),
           // NEW: an initialized instance.
           handler: new NetworkFirst({
             cacheName: PAGES_CACHE_NAME.html,
@@ -514,9 +520,7 @@
     serwist.addToPrecacheList([]);
 
     // Register another runtime caching strategy.
-    serwist.registerRoute(
-      new Route(/\/api\/.*\/*.json/, new NetworkOnly(), "POST"),
-    );
+    serwist.registerRoute(new Route(/\/api\/.*\/*.json/, new NetworkOnly(), "POST"));
 
     // This should be called before `Serwist.addEventListeners`.
     self.addEventListener("message", (event) => {
@@ -921,7 +925,7 @@
             }),
           ],
         }),
-      },
+      }
     );
     ```
 
@@ -964,7 +968,7 @@
             }),
           ],
         }),
-      },
+      }
     );
     ```
 
@@ -1099,10 +1103,7 @@
       runtimeCaching: [
         {
           urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
-            request.headers.get("RSC") === "1" &&
-            request.headers.get("Next-Router-Prefetch") === "1" &&
-            sameOrigin &&
-            !pathname.startsWith("/api/"),
+            request.headers.get("RSC") === "1" && request.headers.get("Next-Router-Prefetch") === "1" && sameOrigin && !pathname.startsWith("/api/"),
           // OLD: a string handler alongside `options`.
           handler: "NetworkFirst",
           options: {
@@ -1115,9 +1116,7 @@
         },
         {
           urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
-            request.headers.get("RSC") === "1" &&
-            sameOrigin &&
-            !pathname.startsWith("/api/"),
+            request.headers.get("RSC") === "1" && sameOrigin && !pathname.startsWith("/api/"),
           // OLD: a string handler alongside `options`.
           handler: "NetworkFirst",
           options: {
@@ -1130,9 +1129,7 @@
         },
         {
           urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
-            request.headers.get("Content-Type")?.includes("text/html") &&
-            sameOrigin &&
-            !pathname.startsWith("/api/"),
+            request.headers.get("Content-Type")?.includes("text/html") && sameOrigin && !pathname.startsWith("/api/"),
           // OLD: a string handler alongside `options`.
           handler: "NetworkFirst",
           options: {
@@ -1159,10 +1156,7 @@
       runtimeCaching: [
         {
           urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
-            request.headers.get("RSC") === "1" &&
-            request.headers.get("Next-Router-Prefetch") === "1" &&
-            sameOrigin &&
-            !pathname.startsWith("/api/"),
+            request.headers.get("RSC") === "1" && request.headers.get("Next-Router-Prefetch") === "1" && sameOrigin && !pathname.startsWith("/api/"),
           // NEW: an initialized instance.
           handler: new NetworkFirst({
             cacheName: PAGES_CACHE_NAME.rscPrefetch,
@@ -1176,9 +1170,7 @@
         },
         {
           urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
-            request.headers.get("RSC") === "1" &&
-            sameOrigin &&
-            !pathname.startsWith("/api/"),
+            request.headers.get("RSC") === "1" && sameOrigin && !pathname.startsWith("/api/"),
           // NEW: an initialized instance.
           handler: new NetworkFirst({
             cacheName: PAGES_CACHE_NAME.rsc,
@@ -1192,9 +1184,7 @@
         },
         {
           urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
-            request.headers.get("Content-Type")?.includes("text/html") &&
-            sameOrigin &&
-            !pathname.startsWith("/api/"),
+            request.headers.get("Content-Type")?.includes("text/html") && sameOrigin && !pathname.startsWith("/api/"),
           // NEW: an initialized instance.
           handler: new NetworkFirst({
             cacheName: PAGES_CACHE_NAME.html,

@@ -1,5 +1,13 @@
 # @serwist/configs
 
+## 9.0.3
+
+### Patch Changes
+
+- [`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): updated all dependencies
+
+  - We have updated all dependencies to latest, as usual.
+
 ## 9.0.2
 
 ## 9.0.1

@@ -1,5 +1,23 @@
 # @serwist/next
 
+## 9.0.3
+
+### Patch Changes
+
+- [`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): updated all dependencies
+
+  - We have updated all dependencies to latest, as usual.
+
+- [`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(frameworks): use `NetworkOnly` for `defaultCache` in dev
+
+  - If we set `runtimeCaching` to an empty array, all preload responses are discarded, causing certain browsers to log a certain error message. This change fixes that error for developers using `defaultCache` in development mode.
+
+- Updated dependencies [[`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed), [`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed), [`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed)]:
+  - serwist@9.0.3
+  - @serwist/webpack-plugin@9.0.3
+  - @serwist/window@9.0.3
+  - @serwist/build@9.0.3
+
 ## 9.0.2
 
 ### Patch Changes
@@ -191,10 +209,7 @@
       runtimeCaching: [
         {
           urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
-            request.headers.get("RSC") === "1" &&
-            request.headers.get("Next-Router-Prefetch") === "1" &&
-            sameOrigin &&
-            !pathname.startsWith("/api/"),
+            request.headers.get("RSC") === "1" && request.headers.get("Next-Router-Prefetch") === "1" && sameOrigin && !pathname.startsWith("/api/"),
           handler: "NetworkFirst",
           options: {
             cacheName: "pages-rsc-prefetch",
@@ -206,9 +221,7 @@
         },
         {
           urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
-            request.headers.get("RSC") === "1" &&
-            sameOrigin &&
-            !pathname.startsWith("/api/"),
+            request.headers.get("RSC") === "1" && sameOrigin && !pathname.startsWith("/api/"),
           handler: "NetworkFirst",
           options: {
             cacheName: "pages-rsc",
@@ -220,9 +233,7 @@
         },
         {
           urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
-            request.headers.get("Content-Type")?.includes("text/html") &&
-            sameOrigin &&
-            !pathname.startsWith("/api/"),
+            request.headers.get("Content-Type")?.includes("text/html") && sameOrigin && !pathname.startsWith("/api/"),
           handler: "NetworkFirst",
           options: {
             cacheName: "pages",
@@ -248,10 +259,7 @@
       runtimeCaching: [
         {
           matcher: ({ request, url: { pathname }, sameOrigin }) =>
-            request.headers.get("RSC") === "1" &&
-            request.headers.get("Next-Router-Prefetch") === "1" &&
-            sameOrigin &&
-            !pathname.startsWith("/api/"),
+            request.headers.get("RSC") === "1" && request.headers.get("Next-Router-Prefetch") === "1" && sameOrigin && !pathname.startsWith("/api/"),
           handler: new NetworkFirst({
             cacheName: PAGES_CACHE_NAME.rscPrefetch,
             plugins: [
@@ -263,10 +271,7 @@
           }),
         },
         {
-          matcher: ({ request, url: { pathname }, sameOrigin }) =>
-            request.headers.get("RSC") === "1" &&
-            sameOrigin &&
-            !pathname.startsWith("/api/"),
+          matcher: ({ request, url: { pathname }, sameOrigin }) => request.headers.get("RSC") === "1" && sameOrigin && !pathname.startsWith("/api/"),
           handler: new NetworkFirst({
             cacheName: PAGES_CACHE_NAME.rsc,
             plugins: [
@@ -279,9 +284,7 @@
         },
         {
           matcher: ({ request, url: { pathname }, sameOrigin }) =>
-            request.headers.get("Content-Type")?.includes("text/html") &&
-            sameOrigin &&
-            !pathname.startsWith("/api/"),
+            request.headers.get("Content-Type")?.includes("text/html") && sameOrigin && !pathname.startsWith("/api/"),
           handler: new NetworkFirst({
             cacheName: PAGES_CACHE_NAME.html,
             plugins: [
