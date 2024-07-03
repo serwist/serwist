@@ -43,7 +43,7 @@
 <div
   class={clsx(
     "flex h-fit max-h-full w-full flex-row items-center gap-2 rounded-md px-3 py-2 text-base font-medium",
-    "my-3 text-black md:text-sm dark:text-white [&>*]:min-w-[auto]",
+    "my-3 text-black md:text-sm dark:text-white [&>*]:min-w-[auto] shadow-md border border-neutral-300 dark:border-neutral-800",
     mapVariantToClass.parent[type]
   )}
 >

@@ -31,13 +31,13 @@ jobs:
     if: "${{ contains(github.event.head_commit.message, '[bump]') || contains(github.event.head_commit.message, 'chore(packages): publish packages') }}"
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Use pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: ${{ matrix.pnpm-version }}
       - name: Use Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"

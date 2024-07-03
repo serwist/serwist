@@ -43,15 +43,6 @@
   h4 {
     @apply text-xl font-medium leading-5 tracking-tight;
   }
-  .prose h1:not(:where([class~="not-prose"] *)) {
-    @apply mb-6;
-  }
-  .prose h2:not(:where([class~="not-prose"] *)) {
-    @apply mb-3 mt-6;
-  }
-  .prose :where(h3, h4, p, video):not(:where([class~="not-prose"] *)) {
-    @apply my-3;
-  }
   details > summary {
     @apply cursor-pointer select-none list-none;
   }
@@ -69,24 +60,6 @@
   #nav-mobile-menu[open] > summary {
     @apply [&>:nth-child(1)]:translate-y-[0.7rem] [&>:nth-child(1)]:rotate-45 [&>:nth-child(2)]:opacity-0 [&>:nth-child(3)]:-translate-y-[0.7rem] [&>:nth-child(3)]:-rotate-45;
   }
-  .frsc-button {
-    @apply my-0 flex min-w-[auto] flex-1 justify-center border-black md:my-0;
-  }
-  .frsc-button[data-active="false"] > svg {
-    @apply contrast-0;
-  }
-  .frsc-button[data-active="false"]:hover > svg {
-    @apply contrast-100;
-  }
-  .nav-button {
-    @apply hover:bg-neutral-250 flex cursor-pointer items-center justify-center rounded-full bg-transparent p-3 duration-100 dark:hover:bg-neutral-800;
-  }
-  .text-toc {
-    @apply font-medium text-neutral-600 transition-colors duration-100 hover:text-black dark:text-neutral-400 dark:hover:text-white;
-  }
-  .text-toc.active {
-    @apply xl:text-accent-light xl:dark:text-accent-dark;
-  }
 }
 
 @layer utilities {
@@ -101,6 +74,21 @@
   }
   details[open] > summary > .details-chevron {
     @apply rotate-90;
+  }
+  .prose h1:not(:where([class~="not-prose"] *)) {
+    @apply mb-6;
+  }
+  .prose h2:not(:where([class~="not-prose"] *)) {
+    @apply mb-3 mt-6;
+  }
+  .prose :where(h3, h4, p, video):not(:where([class~="not-prose"] *)) {
+    @apply my-3;
+  }
+  .text-toc {
+    @apply font-medium text-neutral-600 transition-colors duration-100 hover:text-black dark:text-neutral-400 dark:hover:text-white;
+  }
+  .text-toc.active {
+    @apply xl:text-accent-light xl:dark:text-accent-dark;
   }
   .text-comment {
     @apply text-neutral-600 dark:text-neutral-400;
@@ -121,6 +109,9 @@
   }
   .list > li > .list {
     @apply mt-2;
+  }
+  .nav-button {
+    @apply hover:bg-neutral-250 flex cursor-pointer items-center justify-center rounded-full bg-transparent p-3 duration-100 dark:hover:bg-neutral-800;
   }
   .button {
     @apply rounded-md border px-3 py-2 text-center transition-colors duration-100;
