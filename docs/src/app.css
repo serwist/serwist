@@ -123,7 +123,8 @@
     @apply mt-2;
   }
   .button {
-    @apply hover:bg-neutral-250 rounded-md bg-neutral-100 px-3 py-2 text-center transition-colors duration-100 dark:bg-neutral-900 hover:dark:bg-neutral-800;
+    @apply rounded-md border px-3 py-2 text-center transition-colors duration-100;
+    @apply hover:bg-neutral-200 border-neutral-300 bg-neutral-100 dark:border-neutral-800 dark:bg-neutral-1000 hover:dark:bg-neutral-800;
   }
   html[data-theme="light"] .visible-dark,
   html[data-theme="dark"] .visible-light {
@@ -137,7 +138,7 @@
     @apply before:via-black after:content-[''] before:dark:via-white before:dark:to-transparent;
 
     @apply after:absolute after:inset-[1px] after:-z-10 after:rounded-xl;
-    @apply after:bg-gradient-to-br after:from-slate-50 after:to-slate-200  after:dark:from-black after:dark:to-black;
+    @apply after:bg-gradient-to-br after:from-slate-50 after:to-slate-200 after:dark:from-black after:dark:to-black;
   }
 }
 

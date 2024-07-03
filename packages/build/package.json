@@ -54,7 +54,7 @@
     "common-tags": "1.8.2",
     "fast-json-stable-stringify": "2.1.0",
     "fs-extra": "11.2.0",
-    "glob": "10.4.1",
+    "glob": "10.4.2",
     "pretty-bytes": "6.1.1",
     "rollup": "4.18.0",
     "source-map": "0.8.0-beta.0",
@@ -66,10 +66,10 @@
     "@serwist/utils": "workspace:*",
     "@types/common-tags": "1.8.4",
     "@types/fs-extra": "11.0.4",
-    "@types/node": "20.14.2",
+    "@types/node": "20.14.9",
     "@types/stringify-object": "4.0.5",
-    "type-fest": "4.20.0",
-    "typescript": "5.4.5"
+    "type-fest": "4.21.0",
+    "typescript": "5.5.3"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0"

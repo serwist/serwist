@@ -23,17 +23,21 @@
 <p>If you use TypeScript, you should add the following content to tsconfig.json in order to get the correct types:</p>
 <CodeTab codes={data.code.basicUsage.tsConfig} defaultTab="tsconfig.json" />
 <p>Otherwise, safely skip this step.</p>
-<h3 id="writing-a-sw">Step 3: Create a service worker</h3>
+<h3 id="updating-gitignore">Step 3: Update .gitignore</h3>
+<p>If you use Git, update your .gitignore like so:</p>
+<CodeTab codes={data.code.basicUsage.gitignore} defaultTab=".gitignore" />
+<p>Otherwise, safely skip this step.</p>
+<h3 id="writing-a-sw">Step 4: Create a service worker</h3>
 <p>Basic service worker template to get Serwist up and running:</p>
 <CodeTab codes={data.code.basicUsage.createEntry} defaultTab="sw.ts" />
-<h3 id="writing-a-webmanifest">Step 4: Add a web application manifest</h3>
+<h3 id="writing-a-webmanifest">Step 5: Add a web application manifest</h3>
 <p>Update public/manifest.json with the following content:</p>
 <CodeTab codes={data.code.basicUsage.manifestJson} defaultTab="manifest.json" />
-<h3 id="updating-entrypoint">Step 5: Update your client entrypoint</h3>
+<h3 id="updating-entrypoint">Step 6: Update your client entrypoint</h3>
 <p>Next up, update src/App.tsx with the following content:</p>
 <CodeTab codes={data.code.basicUsage.registerSw} defaultTab="src/App.tsx" />
 <h3 id="updating-html">
-  Step 6: Add metadata to {"<head />"}
+  Step 7: Add metadata to {"<head />"}
 </h3>
 <p>Add the following content to your HTML file:</p>
 <CodeTab codes={data.code.basicUsage.metaAndLinkTags} defaultTab="index.html" />

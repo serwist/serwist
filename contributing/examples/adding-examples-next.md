@@ -45,7 +45,7 @@ bunx degit serwist/serwist/examples/DIRECTORY_NAME my-app
 ## Recommended `.gitignore`
 
 ```gitignore
-**/public/sw**
-**/public/swe**
+public/sw*
+public/swe-worker*
 ```
 ````

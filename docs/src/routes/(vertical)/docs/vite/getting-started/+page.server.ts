@@ -27,19 +27,23 @@ export const load: PageServerLoad = ({ locals }) => ({
               id: "updating-tsconfig",
             },
             {
-              title: "Step 3: Create a service worker",
+              title: "Step 3: Update .gitignore",
+              id: "updating-gitignore",
+            },
+            {
+              title: "Step 4: Create a service worker",
               id: "writing-a-sw",
             },
             {
-              title: "Step 4: Add a web application manifest",
+              title: "Step 5: Add a web application manifest",
               id: "writing-a-webmanifest",
             },
             {
-              title: "Step 5: Update your client entrypoint",
+              title: "Step 6: Update your client entrypoint",
               id: "updating-entrypoint",
             },
             {
-              title: "Step 6: Add metadata to <head />",
+              title: "Step 7: Add metadata to <head />",
               id: "updating-html",
             },
           ],
@@ -118,6 +122,18 @@ export default defineConfig({
   },
 }`,
             lang: "json",
+          },
+        },
+        { idPrefix: "updating-tsconfig" },
+      ),
+      gitignore: highlightCode(
+        locals.highlighter,
+        {
+          ".gitignore": {
+            code: `# Serwist
+public/sw*
+public/swe-worker*`,
+            lang: "sh",
           },
         },
         { idPrefix: "updating-tsconfig" },

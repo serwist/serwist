@@ -56,6 +56,6 @@ This example demonstrates how to add push notifications to an app using Serwist 
 ## Recommended `.gitignore`
 
 ```gitignore
-**/public/sw**
-**/public/swe**
+public/sw*
+public/swe-worker*
 ```

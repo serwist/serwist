@@ -6,7 +6,7 @@
 <div class="my-3 grid grid-flow-row gap-4 lg:grid-cols-3">
   {#each BLOG_ENTRIES as { title, description, date, href, keyPoints }}
     <article
-      class="not-prose flex min-w-0 flex-col gap-3 rounded-[.875rem] border border-neutral-300 bg-white p-2 dark:border-neutral-800 dark:bg-neutral-950"
+      class="not-prose flex min-w-0 flex-col gap-3 rounded-[.875rem] border border-neutral-300 bg-white p-2 shadow-md dark:border-neutral-800 dark:bg-neutral-950"
     >
       <div class="flex flex-col gap-1 p-2">
         <p class="text-comment text-sm">{date}</p>

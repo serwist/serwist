@@ -35,6 +35,6 @@ bunx degit serwist/serwist/examples/next-basic-cjs my-app
 ## Recommended `.gitignore`
 
 ```gitignore
-**/public/sw**
-**/public/swe**
+public/sw*
+public/swe-worker*
 ```

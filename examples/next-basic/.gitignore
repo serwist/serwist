@@ -37,8 +37,5 @@ yarn-error.log*
 next-env.d.ts
 
 # Serwist
-**/public/serwist**
-**/public/sw**
-**/public/worker**
-**/public/fallback**
-**/public/precache**
+public/sw*
+public/swe-worker*

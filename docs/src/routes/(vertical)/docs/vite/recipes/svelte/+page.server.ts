@@ -27,23 +27,27 @@ export const load: PageServerLoad = ({ locals }) => ({
               id: "updating-tsconfig",
             },
             {
-              title: "Step 2: Configure SvelteKit",
+              title: "Step 2: Update .gitignore",
+              id: "updating-gitignore",
+            },
+            {
+              title: "Step 3: Configure SvelteKit",
               id: "configuring-svelte",
             },
             {
-              title: "Step 3: Configure Vite",
+              title: "Step 4: Configure Vite",
               id: "configuring-vite",
             },
             {
-              title: "Step 4: Write a service worker",
+              title: "Step 5: Write a service worker",
               id: "writing-a-sw",
             },
             {
-              title: "Step 5: Add a web application manifest",
+              title: "Step 6: Add a web application manifest",
               id: "adding-webmanifest",
             },
             {
-              title: "Step 6: Register the service worker and add metadata to <head />",
+              title: "Step 7: Register the service worker and add metadata to <head />",
               id: "updating-layout",
             },
           ],
@@ -90,6 +94,18 @@ export const load: PageServerLoad = ({ locals }) => ({
   },
 }`,
           lang: "json",
+        },
+      },
+      { idPrefix: "updating-tsconfig" },
+    ),
+    gitignore: highlightCode(
+      locals.highlighter,
+      {
+        ".gitignore": {
+          code: `# Serwist
+public/sw*
+public/swe-worker*`,
+          lang: "sh",
         },
       },
       { idPrefix: "updating-tsconfig" },

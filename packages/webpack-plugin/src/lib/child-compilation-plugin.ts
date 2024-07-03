@@ -59,7 +59,7 @@ export class ChildCompilationPlugin implements WebpackPluginInstance {
     };
 
     const childCompiler = compilation.createChildCompiler(this.constructor.name, outputOptions, []);
-
+    childCompiler.options.target = "webworker";
     childCompiler.context = parentCompiler.context;
     childCompiler.inputFileSystem = parentCompiler.inputFileSystem;
     childCompiler.outputFileSystem = parentCompiler.outputFileSystem;

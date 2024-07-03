@@ -34,6 +34,7 @@ export default {
         neutral: {
           150: "#EEEEEE",
           250: "#DDDDDD",
+          1000: "#111111",
         },
       },
     },
