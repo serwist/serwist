@@ -16,7 +16,6 @@ jobs:
     strategy:
       matrix:
         node-version: ["20.x"]
-        pnpm-version: ["9.x"]
     if: "${{ !contains(github.event.pull_request.title, 'chore(packages): publish packages') }}"
     steps:
       - name: Checkout repo

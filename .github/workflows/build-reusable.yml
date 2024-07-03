@@ -29,15 +29,12 @@ jobs:
     strategy:
       matrix:
         node-version: ${{ fromJson(inputs.nodeVersion || '["20.x"]') }}
-        pnpm-version: ${{ fromJson(inputs.pnpmVersion || '["9.x"]') }}
         os: [ubuntu-latest]
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
       - name: Use pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: ${{ matrix.pnpm-version }}
       - name: Use Node ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
