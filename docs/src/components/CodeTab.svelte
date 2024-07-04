@@ -20,7 +20,7 @@
   });
 </script>
 
-<div class="my-3 flex w-full flex-col rounded-xl border border-neutral-300 bg-white dark:border-neutral-800 shadow-md dark:bg-neutral-950">
+<div class="my-3 flex w-full flex-col rounded-xl border border-neutral-300 bg-white dark:border-neutral-800 shadow-md dark:bg-neutral-925">
   <div class="relative w-full rounded-t-xl bg-white dark:bg-black">
     <div role="tablist" aria-orientation="horizontal" class="flex w-full overflow-auto rounded-t-xl">
       {#each codes as [tab, id]}
@@ -32,13 +32,13 @@
           aria-selected={isActive}
           class={clsx(
             "relative min-w-max border-r border-neutral-300 px-4 py-2 dark:border-neutral-800",
-            isActive ? "bg-white text-black dark:bg-neutral-950 dark:text-white" : "text-neutral-600 dark:text-neutral-400"
+            isActive ? "bg-white text-black dark:bg-neutral-925 dark:text-white" : "text-neutral-600 dark:text-neutral-400"
           )}
           onclick={() => (currentTab = tab)}
         >
           {tab}
           {#if isActive}
-            <span class="pointer-events-none absolute bottom-0 left-0 z-[2] h-[1px] w-full bg-white dark:bg-neutral-950" aria-hidden="true"></span>
+            <span class="pointer-events-none absolute bottom-0 left-0 z-[2] h-[1px] w-full bg-white dark:bg-neutral-925" aria-hidden="true"></span>
           {/if}
         </button>
       {/each}
