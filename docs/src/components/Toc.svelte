@@ -20,7 +20,7 @@
 
 <details bind:this={tocDetails} class="flex h-full flex-col overflow-y-auto hyphens-auto text-lg md:text-base xl:text-sm details-anim">
   <summary class="mb-4 flex items-center">
-    <p class="font-semibold tracking-tight text-black dark:text-white">On This Page</p>
+    <span class="font-semibold tracking-tight text-black dark:text-white">On This Page</span>
     <ChevronRight class="details-chevron ml-2 transition-transform duration-100" width={18} height={18} />
   </summary>
   <div class="pointer-events-none w-full self-stretch overflow-y-auto" aria-hidden="true"></div>

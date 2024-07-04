@@ -23,6 +23,7 @@
     if (menuCheckbox) {
       menuCheckbox.checked = isMenuOpen;
       menuCheckbox.ariaExpanded = isMenuOpen ? "true" : "false";
+      menuCheckbox.ariaPressed = isMenuOpen ? "true" : "false";
     }
   });
 </script>
@@ -41,8 +42,9 @@
     {#if sidebarLinks && sidebarLinks.length > 0}
       <input
         type="checkbox"
+        role="button"
         id="sidebar-menu-toggle"
-        class="peer hidden"
+        class="peer sr-only"
         aria-labelledby="sidebar-menu-toglab"
         aria-controls="sidebar-menu"
         bind:this={menuCheckbox}
@@ -52,9 +54,11 @@
         for="sidebar-menu-toggle"
         class={clsx(
           "z-20 flex h-fit w-full cursor-pointer select-none flex-row items-center justify-start gap-2 px-3 py-2 text-base font-medium",
-          "text-black duration-100 md:mt-[5px] md:text-sm dark:text-white peer-checked:[&>svg]:rotate-90"
+          "text-black duration-100 md:mt-[5px] md:text-sm dark:text-white peer-checked:[&>svg]:rotate-90",
+          "peer-focus-visible:ring-2 peer-focus-visible:ring-white peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-gray-800"
         )}
         aria-label="Toggle navbar menu"
+        aria-hidden="true"
       >
         Menu
         <ChevronRight class="transition-transform duration-100" width={18} height={18} />
@@ -62,6 +66,7 @@
       <aside
         id="sidebar-menu"
         class="hidden animate-[details-show_100ms_ease-out] overflow-y-auto overscroll-contain peer-checked:block md:animate-none"
+        aria-labelledby="sidebar-menu-toggle"
       >
         <ul>
           {#each sidebarLinks as sidebarLink}

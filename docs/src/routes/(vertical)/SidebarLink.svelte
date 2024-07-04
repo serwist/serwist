@@ -23,7 +23,7 @@
         <NavLink {href} textCenter={false} {isActive}>
           {title}
         </NavLink>
-        <div
+        <span
           class={clsx(
             "flex items-center px-2 text-black transition-all duration-100 dark:text-white",
             isActive
@@ -33,7 +33,7 @@
         >
           <ChevronRight width={16} height={16} class="transition-transform duration-100" />
           <span class="sr-only">Expand section</span>
-        </div>
+        </span>
       </summary>
       <div class="transform-gpu overflow-hidden opacity-100 transition-all duration-500 ease-in-out motion-reduce:transition-none ltr:pr-0 rtl:pl-0">
         <ul
