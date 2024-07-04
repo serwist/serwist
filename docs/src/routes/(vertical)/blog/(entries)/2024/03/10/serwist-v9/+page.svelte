@@ -50,7 +50,7 @@
   Serwist now ships TS source files and declaration maps alongside bundled code. This allows you to read the source code without the hassle of having
   to go to GitHub and navigate through the files.
 </p>
-<video class="aspect-video rounded-xl" muted controls src="/2024-03-10-serwist-v9-ship-ts-source.mp4"></video>
+<video class="aspect-video rounded-xl" muted controls src="/2024-03-10-serwist-v9-ship-ts-source.mp4" crossorigin="anonymous"></video>
 <h2 id="core-changes">Core changes</h2>
 <p>These are the changes done to the core <ICD>serwist</ICD> package.</p>
 <h3 id="merged-service-worker-packages">Merged all service worker packages</h3>

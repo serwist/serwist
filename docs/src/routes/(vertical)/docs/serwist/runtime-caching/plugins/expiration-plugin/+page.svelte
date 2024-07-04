@@ -35,6 +35,9 @@
     <ICD>maxAgeSeconds</ICD> — The maximum age of an entry before it's treated as stale and removed.
   </li>
   <li>
+    <ICD>maxAgeFrom</ICD> — Determines whether <ICD>maxAgeSeconds</ICD> should be calculated from when an entry was last fetched or when it was last used.
+  </li>
+  <li>
     <ICD>matchOptions</ICD> — The
     <a class="link" target="_blank" rel="noreferrer" href="https://developer.mozilla.org/en-US/docs/Web/API/Cache/delete#Parameters">
       <ICD>CacheQueryOptions</ICD>

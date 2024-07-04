@@ -1,5 +1,5 @@
 import { defaultCache } from "@serwist/vite/worker";
-import { type PrecacheEntry, Serwist } from "serwist";
+import { type PrecacheEntry, Serwist, CacheFirst, ExpirationPlugin, CacheableResponsePlugin, RangeRequestsPlugin } from "serwist";
 
 declare global {
   interface WorkerGlobalScope {
@@ -17,7 +17,28 @@ const serwist = new Serwist({
     ignoreURLParametersMatching: [/^x-sveltekit-invalidated$/],
   },
   navigationPreload: false,
-  runtimeCaching: defaultCache,
+  runtimeCaching: [
+    {
+      matcher({ request }) {
+        return request.destination === "video";
+      },
+      handler: new CacheFirst({
+        cacheName: "static-video-assets",
+        plugins: [
+          new ExpirationPlugin({
+            maxEntries: 16,
+            maxAgeSeconds: 30 * 24 * 60 * 60, // ~30 days
+            maxAgeFrom: "last-used",
+          }),
+          new CacheableResponsePlugin({
+            statuses: [200],
+          }),
+          new RangeRequestsPlugin(),
+        ],
+      }),
+    },
+    ...defaultCache,
+  ],
 });
 
 serwist.addEventListeners();
