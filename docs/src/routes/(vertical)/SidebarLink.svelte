@@ -18,9 +18,9 @@
 
 <li class="flex flex-col pt-[5px]">
   {#if children}
-    <details open={isOpen || $page.url.pathname.startsWith(href)} class="[&[open]>summary>div>svg]:rotate-90">
-      <summary class={clsx("flex flex-row", isActive && "[&>span]:rounded-e-none")}>
-        <NavLink {href} textCenter={false} {isActive}>
+    <details open={isOpen || $page.url.pathname.startsWith(href)} class="[&[open]>summary>span>svg]:rotate-90">
+      <summary class="flex flex-row">
+        <NavLink {href} {isActive} noEndRounded={isActive} textCenter={false}>
           {title}
         </NavLink>
         <span

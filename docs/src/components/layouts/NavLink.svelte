@@ -4,21 +4,23 @@
 
   import { clsx } from "$lib/clsx";
 
-  interface NavLinkProps extends HTMLAnchorAttributes {
+  interface NavLinkProps extends Omit<HTMLAnchorAttributes, "class"> {
     href: string;
     isActive?: boolean;
+    noEndRounded?: boolean;
     wideText?: boolean;
     textCenter?: boolean;
     button?: Snippet<[]>;
   }
 
-  const { href, isActive = false, wideText = false, textCenter = true, children, button, ...props }: NavLinkProps = $props();
+  const { href, isActive = false, noEndRounded = false, wideText = false, textCenter = true, children, button, ...props }: NavLinkProps = $props();
 </script>
 
 <span
   class={clsx(
-    "transition-colors-opacity flex w-full cursor-pointer flex-row justify-between rounded-md duration-100",
-    isActive ? "bg-neutral-250 dark:bg-neutral-800" : "hover:bg-neutral-250 dark:hover:bg-neutral-800"
+    "transition-colors-opacity flex w-full cursor-pointer flex-row justify-between duration-100",
+    isActive ? "bg-neutral-250 dark:bg-neutral-800" : "hover:bg-neutral-250 dark:hover:bg-neutral-800",
+    noEndRounded ? "rounded-s-md" : "rounded-md"
   )}
 >
   <a
