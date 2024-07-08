@@ -53,10 +53,12 @@
   #root-container {
     @apply relative m-0 flex h-fit min-h-screen w-full flex-col p-0;
   }
+
   #main-content {
     @apply flex;
     flex-grow: 1;
   }
+
   #nav-mobile-menu[open] > summary {
     @apply [&>:nth-child(1)]:translate-y-[0.7rem] [&>:nth-child(1)]:rotate-45 [&>:nth-child(2)]:opacity-0 [&>:nth-child(3)]:-translate-y-[0.7rem] [&>:nth-child(3)]:-rotate-45;
   }
@@ -115,21 +117,11 @@
   }
   .button {
     @apply rounded-md border px-3 py-2 text-center transition-colors duration-100;
-    @apply hover:bg-neutral-200 border-neutral-300 bg-neutral-100 dark:border-neutral-800 dark:bg-neutral-1000 hover:dark:bg-neutral-800;
+    @apply dark:bg-neutral-1000 border-neutral-300 bg-neutral-100 hover:bg-neutral-200 dark:border-neutral-800 hover:dark:bg-neutral-800;
   }
   html[data-theme="light"] .visible-dark,
   html[data-theme="dark"] .visible-light {
     @apply !invisible !hidden;
-  }
-  .square-conic {
-    @apply flex items-center justify-center overflow-hidden rounded-xl shadow-lg;
-
-    @apply before:bg-gradient-conic before:absolute before:-z-10 before:h-[200%] before:w-[200%] before:animate-[spin_6s_linear_reverse_infinite];
-    @apply before:from-transparent before:content-[''] before:dark:opacity-50;
-    @apply before:via-black after:content-[''] before:dark:via-white before:dark:to-transparent;
-
-    @apply after:absolute after:inset-[1px] after:-z-10 after:rounded-xl;
-    @apply after:bg-gradient-to-br after:from-slate-50 after:to-slate-200 after:dark:from-black after:dark:to-black;
   }
 }
 

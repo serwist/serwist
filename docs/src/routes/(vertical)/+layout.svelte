@@ -57,8 +57,7 @@
           "text-black duration-100 md:mt-[5px] md:text-sm dark:text-white peer-checked:[&>svg]:rotate-90",
           "peer-focus-visible:ring-2 peer-focus-visible:ring-white peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-gray-800"
         )}
-        aria-label="Toggle navbar menu"
-        aria-hidden="true"
+        aria-label="Toggle menu"
       >
         Menu
         <ChevronRight class="transition-transform duration-100" width={18} height={18} />
