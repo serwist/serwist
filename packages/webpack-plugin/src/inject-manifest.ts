@@ -177,8 +177,12 @@ export class InjectManifest {
         if (error) {
           reject(error);
         } else {
-          compilation.warnings = compilation.warnings.concat(childCompilation?.warnings ?? []);
-          compilation.errors = compilation.errors.concat(childCompilation?.errors ?? []);
+          if (childCompilation?.warnings) {
+            compilation.warnings.push(...childCompilation.warnings);
+          }
+          if (childCompilation?.errors) {
+            compilation.errors.push(...childCompilation.errors);
+          }
 
           resolve();
         }
