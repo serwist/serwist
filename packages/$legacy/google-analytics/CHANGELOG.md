@@ -1,5 +1,14 @@
 # @serwist/google-analytics
 
+## 9.0.4
+
+### Patch Changes
+
+- [`db66e96`](https://github.com/serwist/serwist/commit/db66e96cb7fd8857200efc261d60cffaca1c0177) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): monthly dependencies maintenance
+
+- Updated dependencies [[`db66e96`](https://github.com/serwist/serwist/commit/db66e96cb7fd8857200efc261d60cffaca1c0177)]:
+  - serwist@9.0.4
+
 ## 9.0.3
 
 ### Patch Changes
