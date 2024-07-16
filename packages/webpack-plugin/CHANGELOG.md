@@ -1,5 +1,24 @@
 # @serwist/webpack-plugin
 
+## 9.0.4
+
+### Patch Changes
+
+- [`db66e96`](https://github.com/serwist/serwist/commit/db66e96cb7fd8857200efc261d60cffaca1c0177) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): monthly dependencies maintenance
+
+- [`db66e96`](https://github.com/serwist/serwist/commit/db66e96cb7fd8857200efc261d60cffaca1c0177) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(webpack-plugin): compatibility with Rspack
+
+  - Thanks @JoseVSeb! Quoting their message:
+
+  > Currently, `@serwist/webpack-plugin` fails to run in `Rspack` and `Rsbuild` by throwing `TypeError: Cannot set property warnings of #<Compilation> which has only a getter`.
+  >
+  > The reason for this error is that `Compilation` instance in Rspack has read-only properties for `warnings` and `errors` arrays unlike webpack and the plugin tries to assign a concatenated array.
+  >
+  > The issue can be remedied by using `push` instead of `concat` on the `warnings` and `errors` arrays.
+
+- Updated dependencies [[`db66e96`](https://github.com/serwist/serwist/commit/db66e96cb7fd8857200efc261d60cffaca1c0177)]:
+  - @serwist/build@9.0.4
+
 ## 9.0.3
 
 ### Patch Changes
