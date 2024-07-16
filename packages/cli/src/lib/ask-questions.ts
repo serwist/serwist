@@ -1,9 +1,8 @@
 import assert from "node:assert";
 import { statSync } from "node:fs";
 import type { InjectManifestOptions } from "@serwist/build";
-import { oneLine as ol } from "common-tags";
 import { glob } from "glob";
-import inquirer from "inquirer";
+import { checkbox, input, select, Separator } from "@inquirer/prompts";
 import upath from "upath";
 import { constants } from "./constants.js";
 import { errors } from "./errors.js";
@@ -19,34 +18,31 @@ const getSubdirectories = async (): Promise<string[]> => {
 };
 
 const askRootOfWebApp = async (): Promise<string> => {
-  const subdirectories: (string | InstanceType<typeof inquirer.Separator>)[] = await getSubdirectories();
+  const subdirectories = await getSubdirectories();
 
-  const { manualDirectoryInput, globDirectory } = await (() => {
+  const { globDirectory, manualDirectoryInput } = await (async () => {
     if (subdirectories.length > 0) {
       const manualEntryChoice = "Manually enter path";
-      return inquirer.prompt<{ globDirectory: string; manualDirectoryInput: string | undefined }>([
-        {
-          name: "globDirectory",
-          type: "list",
-          message: ol`What is the root of your web app (i.e. which directory do
-          you deploy)?`,
-          choices: [...subdirectories, new inquirer.Separator(), manualEntryChoice],
-        },
-        {
-          name: "manualDirectoryInput",
-          when: (answers: { globDirectory: string }) => answers.globDirectory === manualEntryChoice,
-          message: "Please enter the path to the root of your web app:",
-        },
-      ]);
+      const globDirectory = await select({
+        message: "What is the root of your web app (i.e. which directory do you deploy)?",
+        choices: [...subdirectories.map((dir) => ({ value: dir })), new Separator(), { value: manualEntryChoice }],
+      });
+      let manualDirectoryInput: string | undefined = undefined;
+      if (globDirectory === manualEntryChoice) {
+        manualDirectoryInput = await input({ message: "Please enter the path to the root of your web app:" });
+      }
+      return {
+        globDirectory,
+        manualDirectoryInput,
+      };
     }
 
-    return inquirer.prompt<{ globDirectory: string; manualDirectoryInput: never }>([
-      {
-        name: "globDirectory",
-        message: "Please enter the path to the root of your web app:",
-        default: ".",
-      },
-    ]);
+    const globDirectory = await input({ message: "Please enter the path to the root of your web app:", default: "." });
+
+    return {
+      globDirectory,
+      manualDirectoryInput: undefined,
+    };
   })();
 
   const stat = statSync(manualDirectoryInput || globDirectory);
@@ -99,69 +95,54 @@ export const askQuestions = async (): Promise<ConfigWithConfigLocation> => {
 
   assert(fileExtensions.length > 0, errors["no-file-extensions-found"]);
 
-  const { swSrc, swDest, selectedExtensions, configLocation } = await inquirer.prompt<{
-    swSrc: string;
-    swDest: string;
-    selectedExtensions: string[];
-    configLocation: string;
-  }>([
-    {
-      name: "swSrc",
-      message: ol`Where's your existing service worker file? To be used with
-        injectManifest, it should include a call to
-        'self.__SW_MANIFEST'`,
-      type: "input",
-      validate(input) {
-        if (typeof input !== "string") {
-          return "You must provide a valid 'swSrc'!";
-        }
-        if (!statSync(input, { throwIfNoEntry: false })?.isFile()) {
-          return "'swSrc' must point to a valid file!";
-        }
-        return true;
-      },
+  const swSrc = await input({
+    message: "Where's your existing service worker file? To be used with 'injectManifest', it should include a call to 'self.__SW_MANIFEST'",
+    validate(input) {
+      if (typeof input !== "string") {
+        return "You must provide a valid 'swSrc'!";
+      }
+      if (!statSync(input, { throwIfNoEntry: false })?.isFile()) {
+        return "'swSrc' must point to a valid file!";
+      }
+      return true;
     },
-    {
-      name: "swDest",
-      message: "Where would you like your service worker file to be saved?",
-      type: "input",
-      default: upath.join(globDirectory, "sw.js"),
-      validate(input) {
-        if (typeof input !== "string") {
-          return "You must provide a valid 'swDest'!";
-        }
-        return true;
-      },
+  });
+
+  const swDest = await input({
+    message: "Where would you like your service worker file to be saved?",
+    default: upath.join(globDirectory, "sw.js"),
+    validate(input) {
+      if (typeof input !== "string") {
+        return "You must provide a valid 'swDest'!";
+      }
+      return true;
     },
-    {
-      name: "selectedExtensions",
-      message: "Which file types would you like to precache?",
-      type: "checkbox",
-      choices: fileExtensions,
-      default: fileExtensions,
-      validate(input) {
-        if (!Array.isArray(input)) {
-          return "'selectedExtensions' is not an array. This is most likely a bug.";
-        }
-        if (input.length === 0) {
-          return errors["no-file-extensions-selected"];
-        }
-        return true;
-      },
+  });
+
+  const selectedExtensions = await checkbox({
+    message: "Which file types would you like to precache?",
+    choices: fileExtensions.map((ext) => ({ value: ext, checked: true })),
+    validate(input) {
+      if (!Array.isArray(input)) {
+        return "'selectedExtensions' is not an array. This is most likely a bug.";
+      }
+      if (input.length === 0) {
+        return errors["no-file-extensions-selected"];
+      }
+      return true;
     },
-    {
-      name: "configLocation",
-      message: "Where would you like to save these configuration options?",
-      type: "input",
-      default: constants.defaultConfigFile,
-      validate(input) {
-        if (typeof input !== "string") {
-          return "You must provide a valid location!";
-        }
-        return true;
-      },
+  });
+
+  const configLocation = await input({
+    message: "Where would you like to save these configuration options?",
+    default: constants.defaultConfigFile,
+    validate(input) {
+      if (typeof input !== "string") {
+        return "You must provide a valid location!";
+      }
+      return true;
     },
-  ]);
+  });
 
   // glob isn't happy with a single option inside of a {} group, so use a
   // pattern without a {} group when there's only one extension.

@@ -26,6 +26,7 @@ void (async () => {
   const params: MeowResult<any> = meow(helpText, {
     importMeta: import.meta,
   });
+
   updateNotifier({ pkg: params.pkg as Package }).notify();
 
   try {

@@ -9,6 +9,6 @@
   "homepage": "https://serwist.pages.dev",
   "devDependencies": {
     "type-fest": "4.21.0",
-    "vitest": "1.6.0"
+    "vitest": "2.0.3"
   }
 }
