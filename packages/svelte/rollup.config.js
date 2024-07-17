@@ -1,7 +1,7 @@
 // @ts-check
 import { getRollupOptions } from "@serwist/configs/rollup";
 
-import packageJson from "./package.json" assert { type: "json" };
+import packageJson from "./package.json" with { type: "json" };
 
 export default getRollupOptions({
   packageJson,
