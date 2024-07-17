@@ -11,6 +11,8 @@
     "serwist",
     "serwistjs",
     "webpack",
+    "rspack",
+    "rsbuild",
     "service worker",
     "caching",
     "fetch requests",
