@@ -16,6 +16,18 @@
 <p>
   See <a class="link" href="./webpack-plugin/configuring">Configuring</a>.
 </p>
+<h2 id="supported-webpack-alt">Supported webpack alternatives</h2>
+<p>
+  <ICD>@serwist/webpack-plugin</ICD> also supports the following webpack alternatives:
+</p>
+<ul class="list">
+  <li>
+    <ExternalLink class="link" href="https://www.rspack.dev/">Rspack</ExternalLink>
+  </li>
+  <li>
+    <ExternalLink class="link" href="https://rsbuild.dev/">Rsbuild</ExternalLink>
+  </li>
+</ul>
 <h2 id="alternatives">Alternatives</h2>
 <p>
   There are also some alternatives to <ICD>@serwist/webpack-plugin</ICD>:

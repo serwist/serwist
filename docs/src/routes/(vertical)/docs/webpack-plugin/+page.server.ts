@@ -22,6 +22,10 @@ export const load: PageServerLoad = () => ({
           id: "configuring",
         },
         {
+          title: "Supported webpack alternatives",
+          id: "supported-webpack-alt",
+        },
+        {
           title: "Alternatives",
           id: "alternatives",
         },

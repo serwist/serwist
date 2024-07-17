@@ -1,0 +1,25 @@
+{
+  "name": "@serwist-example/rsbuild",
+  "version": "1.0.0",
+  "type": "module",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "rsbuild dev",
+    "build": "rsbuild build",
+    "preview": "rsbuild preview"
+  },
+  "dependencies": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@rsbuild/core": "1.0.1-beta.2",
+    "@rsbuild/plugin-react": "1.0.1-beta.2",
+    "@serwist/webpack-plugin": "latest",
+    "@serwist/window": "workspace:*",
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.0",
+    "serwist": "latest"
+  }
+}
