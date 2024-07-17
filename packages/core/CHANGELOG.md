@@ -1,5 +1,7 @@
 # @serwist/sw
 
+## 9.0.5
+
 ## 9.0.4
 
 ### Patch Changes
