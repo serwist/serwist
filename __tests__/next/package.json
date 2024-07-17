@@ -10,7 +10,7 @@
     "@serwist/next": "workspace:*",
     "cheerio": "1.0.0-rc.12",
     "fs-extra": "11.2.0",
-    "glob": "11.0.0",
+    "glob": "10.4.5",
     "next": "14.2.5",
     "serwist": "workspace:*",
     "vitest": "2.0.3"

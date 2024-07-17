@@ -183,7 +183,6 @@ export class InjectManifest {
           if (childCompilation?.errors) {
             compilation.errors.push(...childCompilation.errors);
           }
-
           resolve();
         }
       });

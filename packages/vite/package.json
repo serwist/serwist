@@ -77,7 +77,7 @@
   "dependencies": {
     "@serwist/build": "workspace:*",
     "serwist": "workspace:*",
-    "glob": "11.0.0",
+    "glob": "10.4.5",
     "kolorist": "1.8.0",
     "zod": "3.23.8"
   },

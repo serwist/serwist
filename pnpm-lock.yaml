@@ -114,8 +114,8 @@ importers:
         specifier: 11.2.0
         version: 11.2.0
       glob:
-        specifier: 11.0.0
-        version: 11.0.0
+        specifier: 10.4.5
+        version: 10.4.5
       next:
         specifier: 14.2.5
         version: 14.2.5(@babel/core@7.24.7)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -682,8 +682,8 @@ importers:
         specifier: 11.2.0
         version: 11.2.0
       glob:
-        specifier: 11.0.0
-        version: 11.0.0
+        specifier: 10.4.5
+        version: 10.4.5
       pretty-bytes:
         specifier: 6.1.1
         version: 6.1.1
@@ -746,8 +746,8 @@ importers:
         specifier: 11.2.0
         version: 11.2.0
       glob:
-        specifier: 11.0.0
-        version: 11.0.0
+        specifier: 10.4.5
+        version: 10.4.5
       meow:
         specifier: 13.2.0
         version: 13.2.0
@@ -823,8 +823,8 @@ importers:
         specifier: 5.3.0
         version: 5.3.0
       glob:
-        specifier: 11.0.0
-        version: 11.0.0
+        specifier: 10.4.5
+        version: 10.4.5
       serwist:
         specifier: workspace:*
         version: link:../core
@@ -978,8 +978,8 @@ importers:
         specifier: workspace:*
         version: link:../build
       glob:
-        specifier: 11.0.0
-        version: 11.0.0
+        specifier: 10.4.5
+        version: 10.4.5
       kolorist:
         specifier: 1.8.0
         version: 1.8.0
@@ -5101,9 +5101,8 @@ packages:
   glob-to-regexp@0.4.1:
     resolution: {integrity: sha512-lkX1HJXwyMcprw/5YUZc2s7DrpAiHB21/V+E1rHUrVNokkvB6bqMzT0VfV6/86ZNabt1k14YOIaT7nDvOX3Iiw==}
 
-  glob@10.4.2:
-    resolution: {integrity: sha512-GwMlUF6PkPo3Gk21UxkCohOv0PLcIXVtKyLlpEI28R/cO/4eNOdmLk3CMW1wROV/WR/EsZOWAfBbBOqYvs88/w==}
-    engines: {node: '>=16 || 14 >=14.18'}
+  glob@10.4.5:
+    resolution: {integrity: sha512-7Bv8RF0k6xjo7d4A/PxYLbUCfb6c+Vpd2/mB2yRDlew7Jb5hEXiCD9ibfO7wpk8i4sevK6DFny9h7EYbM3/sHg==}
     hasBin: true
 
   glob@11.0.0:
@@ -11806,7 +11805,7 @@ snapshots:
 
   archiver-utils@5.0.2:
     dependencies:
-      glob: 10.4.2
+      glob: 10.4.5
       graceful-fs: 4.2.11
       is-stream: 2.0.1
       lazystream: 1.0.1
@@ -12012,7 +12011,7 @@ snapshots:
     dependencies:
       '@npmcli/fs': 3.1.0
       fs-minipass: 3.0.3
-      glob: 10.4.2
+      glob: 10.4.5
       lru-cache: 7.18.3
       minipass: 7.1.2
       minipass-collect: 1.0.2
@@ -13193,7 +13192,7 @@ snapshots:
 
   glob-to-regexp@0.4.1: {}
 
-  glob@10.4.2:
+  glob@10.4.5:
     dependencies:
       foreground-child: 3.1.1
       jackspeak: 3.1.2
@@ -15620,7 +15619,7 @@ snapshots:
 
   read-package-json@6.0.4:
     dependencies:
-      glob: 10.4.2
+      glob: 10.4.5
       json-parse-even-better-errors: 3.0.0
       normalize-package-data: 5.0.0
       npm-normalize-package-bin: 3.0.1
@@ -15737,7 +15736,7 @@ snapshots:
 
   rimraf@5.0.7:
     dependencies:
-      glob: 10.4.2
+      glob: 10.4.5
 
   rimraf@6.0.1:
     dependencies:

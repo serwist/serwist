@@ -54,7 +54,7 @@
     "common-tags": "1.8.2",
     "fast-json-stable-stringify": "2.1.0",
     "fs-extra": "11.2.0",
-    "glob": "11.0.0",
+    "glob": "10.4.5",
     "pretty-bytes": "6.1.1",
     "rollup": "4.18.1",
     "source-map": "0.8.0-beta.0",
