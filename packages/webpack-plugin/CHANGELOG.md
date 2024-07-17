@@ -1,5 +1,17 @@
 # @serwist/webpack-plugin
 
+## 9.0.5
+
+### Patch Changes
+
+- [#168](https://github.com/serwist/serwist/pull/168) [`c7bed2b`](https://github.com/serwist/serwist/commit/c7bed2b3a16be9b60cbb485500a3e893615f321d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(dependencies): reverted `glob` to v10 and `rimraf` to v5
+
+  - Turns out `glob` v11 and `rimraf` v6 drops support for Node.js 18, so we are back to v10 and v5 for now.
+  - This also adds test for Node.js 18 and 22.
+
+- Updated dependencies [[`c7bed2b`](https://github.com/serwist/serwist/commit/c7bed2b3a16be9b60cbb485500a3e893615f321d)]:
+  - @serwist/build@9.0.5
+
 ## 9.0.4
 
 ### Patch Changes
