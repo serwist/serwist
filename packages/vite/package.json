@@ -29,7 +29,10 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "author": "antfu <anthonyfu117@hotmail.com>, Serwist's Team",
+  "author": "antfu <anthonyfu117@hotmail.com>",
+  "contributors": [
+    "Serwist <ducanh2912.rusty@gmail.com> (https://serwist.pages.dev/)"
+  ],
   "license": "MIT",
   "repository": "https://github.com/serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",

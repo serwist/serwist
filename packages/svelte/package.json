@@ -20,7 +20,7 @@
     "sveltekit",
     "pwa"
   ],
-  "author": "Serwist's Team",
+  "author": "Serwist <ducanh2912.rusty@gmail.com> (https://serwist.pages.dev/)",
   "license": "MIT",
   "repository": "https://github.com/serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",
