@@ -17,7 +17,7 @@ import type { StrategyOptions } from "./Strategy.js";
 import { Strategy } from "./Strategy.js";
 import type { StrategyHandler } from "./StrategyHandler.js";
 
-interface PrecacheStrategyOptions extends StrategyOptions {
+export interface PrecacheStrategyOptions extends StrategyOptions {
   /**
    * Whether to attempt to get the response from the network
    * if there's a precache miss.
@@ -75,6 +75,12 @@ export class PrecacheStrategy extends Strategy {
    * @returns
    */
   async _handle(request: Request, handler: StrategyHandler): Promise<Response> {
+    const preloadResponse = await handler.getPreloadResponse();
+
+    if (preloadResponse) {
+      return preloadResponse;
+    }
+
     const response = await handler.cacheMatch(request);
 
     if (response) {

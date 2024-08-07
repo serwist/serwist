@@ -1,4 +1,5 @@
 import type { HTTPMethod } from "./constants.js";
+import type { PrecacheStrategyOptions } from "./lib/strategies/PrecacheStrategy.js";
 import type { Route } from "./Route.js";
 import type { Serwist } from "./Serwist.js";
 
@@ -361,6 +362,35 @@ export interface PrecacheRouteOptions {
    * be checked for precache matches.
    */
   urlManipulation?: UrlManipulation;
+}
+
+export interface PrecacheOptions extends PrecacheStrategyOptions, PrecacheRouteOptions {
+  /**
+   * Whether outdated caches should be removed.
+   *
+   * @default false
+   */
+  cleanupOutdatedCaches?: boolean;
+  /**
+   * The number of precache requests that should be made concurrently.
+   *
+   * @default 10
+   */
+  concurrency?: number;
+  /**
+   * An URL that should point to a HTML file with which navigation requests for URLs that aren't
+   * precached will be fulfilled.
+   */
+  navigateFallback?: string;
+  /**
+   * URLs that should be allowed to use the `navigateFallback` handler.
+   */
+  navigateFallbackAllowlist?: RegExp[];
+  /**
+   * URLs that should not be allowed to use the `navigateFallback` handler. This takes precedence
+   * over `navigateFallbackAllowlist`.
+   */
+  navigateFallbackDenylist?: RegExp[];
 }
 
 export type UrlManipulation = ({ url }: { url: URL }) => URL[];

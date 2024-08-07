@@ -131,14 +131,10 @@ export class StrategyHandler {
     const { event } = this;
     let request: Request = toRequest(input);
 
-    if (request.mode === "navigate" && event instanceof FetchEvent && event.preloadResponse) {
-      const possiblePreloadResponse = (await event.preloadResponse) as Response | undefined;
-      if (possiblePreloadResponse) {
-        if (process.env.NODE_ENV !== "production") {
-          logger.log(`Using a preloaded navigation response for '${getFriendlyURL(request.url)}'`);
-        }
-        return possiblePreloadResponse;
-      }
+    const preloadResponse = await this.getPreloadResponse();
+
+    if (preloadResponse) {
+      return preloadResponse;
     }
 
     // If there is a fetchDidFail plugin, we need to save a clone of the
@@ -496,6 +492,26 @@ export class StrategyHandler {
    */
   destroy(): void {
     this._handlerDeferred.resolve(null);
+  }
+
+  /**
+   * This method checks if the navigation preload `Response` is available.
+   * 
+   * @param request 
+   * @param event 
+   * @returns
+   */
+  async getPreloadResponse(): Promise<Response | undefined> {
+    if (this.event instanceof FetchEvent && this.event.request.mode === "navigate" && "preloadResponse" in this.event) {
+      const possiblePreloadResponse = (await this.event.preloadResponse) as Response | undefined;
+      if (possiblePreloadResponse) {
+        if (process.env.NODE_ENV !== "production") {
+          logger.log(`Using a preloaded navigation response for '${getFriendlyURL(this.event.request.url)}'`);
+        }
+        return possiblePreloadResponse;
+      }
+    }
+    return undefined;
   }
 
   /**

@@ -11,21 +11,19 @@ import { Strategy } from "./lib/strategies/Strategy.js";
 import { enableNavigationPreload } from "./navigationPreload.js";
 import { setCacheNameDetails } from "./setCacheNameDetails.js";
 import type {
+  PrecacheOptions,
   RouteHandler,
   RouteHandlerCallback,
   RouteHandlerCallbackOptions,
   RouteHandlerObject,
   RouteMatchCallback,
   RouteMatchCallbackOptions,
-  SerwistPlugin,
 } from "./types.js";
-import type { PrecacheRouteOptions, RuntimeCaching } from "./types.js";
+import type { RuntimeCaching } from "./types.js";
 import type { CleanupResult, InstallResult, PrecacheEntry } from "./types.js";
-import { PrecacheCacheKeyPlugin } from "./utils/PrecacheCacheKeyPlugin.js";
 import { PrecacheInstallReportPlugin } from "./utils/PrecacheInstallReportPlugin.js";
 import { SerwistError } from "./utils/SerwistError.js";
 import { assert } from "./utils/assert.js";
-import { cacheNames as privateCacheNames } from "./utils/cacheNames.js";
 import { cleanupOutdatedCaches as cleanupOutdatedCachesImpl } from "./utils/cleanupOutdatedCaches.js";
 import { clientsClaim as clientsClaimImpl } from "./utils/clientsClaim.js";
 import { createCacheKey } from "./utils/createCacheKey.js";
@@ -36,6 +34,7 @@ import { parseRoute } from "./utils/parseRoute.js";
 import { printCleanupDetails } from "./utils/printCleanupDetails.js";
 import { printInstallDetails } from "./utils/printInstallDetails.js";
 import { waitUntil } from "./utils/waitUntil.js";
+import { parsePrecacheOptions } from "./utils/parsePrecacheOptions.js";
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -46,49 +45,6 @@ export interface FallbacksOptions {
    * A list of fallback entries.
    */
   entries: FallbackEntry[];
-}
-
-export interface PrecacheOptions extends PrecacheRouteOptions {
-  /**
-   * The cache used for precaching.
-   */
-  cacheName?: string;
-  /**
-   * Whether outdated caches should be removed.
-   *
-   * @default false
-   */
-  cleanupOutdatedCaches?: boolean;
-  /**
-   * The number of precache requests that should be made concurrently.
-   *
-   * @default 10
-   */
-  concurrency?: number;
-  /**
-   * Whether to attempt to get the response from the network if there's
-   * a precache miss.
-   */
-  fallbackToNetwork?: boolean;
-  /**
-   * An URL that should point to a HTML file with which navigation requests for URLs that aren't
-   * precached will be fulfilled.
-   */
-  navigateFallback?: string;
-  /**
-   * URLs that should be allowed to use the `navigateFallback` handler.
-   */
-  navigateFallbackAllowlist?: RegExp[];
-  /**
-   * URLs that should not be allowed to use the `navigateFallback` handler. This takes precedence
-   * over `navigateFallbackAllowlist`.
-   */
-  navigateFallbackDenylist?: RegExp[];
-  /**
-   * Plugins to use when precaching as well as responding to fetch
-   * events for precached assets.
-   */
-  plugins?: SerwistPlugin[];
 }
 
 export interface SerwistOptions {
@@ -192,12 +148,10 @@ export class Serwist {
     disableDevLogs = false,
     fallbacks,
   }: SerwistOptions = {}) {
-    this._concurrentPrecaching = precacheOptions?.concurrency ?? 10;
-    this._precacheStrategy = new PrecacheStrategy({
-      cacheName: privateCacheNames.getPrecacheName(precacheOptions?.cacheName),
-      plugins: [...(precacheOptions?.plugins ?? []), new PrecacheCacheKeyPlugin({ precacheController: this })],
-      fallbackToNetwork: precacheOptions?.fallbackToNetwork,
-    });
+    const { precacheStrategyOptions, precacheRouteOptions, precacheMiscOptions } = parsePrecacheOptions(this, precacheOptions);
+
+    this._concurrentPrecaching = precacheMiscOptions.concurrency;
+    this._precacheStrategy = new PrecacheStrategy(precacheStrategyOptions);
     this._routes = new Map();
     this._defaultHandlerMap = new Map();
 
@@ -232,17 +186,17 @@ export class Serwist {
       this.addToPrecacheList(precacheEntries);
     }
 
-    if (precacheOptions?.cleanupOutdatedCaches) {
-      cleanupOutdatedCachesImpl(precacheOptions?.cacheName);
+    if (precacheMiscOptions.cleanupOutdatedCaches) {
+      cleanupOutdatedCachesImpl(precacheStrategyOptions.cacheName);
     }
 
-    this.registerRoute(new PrecacheRoute(this, precacheOptions));
+    this.registerRoute(new PrecacheRoute(this, precacheRouteOptions));
 
-    if (precacheOptions?.navigateFallback) {
+    if (precacheMiscOptions.navigateFallback) {
       this.registerRoute(
-        new NavigationRoute(this.createHandlerBoundToUrl(precacheOptions?.navigateFallback), {
-          allowlist: precacheOptions?.navigateFallbackAllowlist,
-          denylist: precacheOptions?.navigateFallbackDenylist,
+        new NavigationRoute(this.createHandlerBoundToUrl(precacheMiscOptions.navigateFallback), {
+          allowlist: precacheMiscOptions.navigateFallbackAllowlist,
+          denylist: precacheMiscOptions.navigateFallbackDenylist,
         }),
       );
     }
@@ -268,7 +222,7 @@ export class Serwist {
         runtimeCaching.forEach((cacheEntry) => {
           if (
             cacheEntry.handler instanceof Strategy &&
-            // PrecacheFallbackPlugin also has `handlerDidError`, so we don't need to check for its instances.
+            // This also filters entries with `PrecacheFallbackPlugin` as it also has `handlerDidError`.
             !cacheEntry.handler.plugins.some((plugin) => "handlerDidError" in plugin)
           ) {
             cacheEntry.handler.plugins.push(fallbackPlugin);
