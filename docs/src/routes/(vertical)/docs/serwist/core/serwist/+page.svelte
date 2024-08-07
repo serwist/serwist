@@ -1,6 +1,6 @@
 <script>
   import CodeTab from "$components/CodeTab.svelte";
-  import ExternalLink from "$components/ExternalLink.svelte";
+  import ETL from "$components/ExternalLink.svelte";
   import ICD from "$components/InlineCode.svelte";
 
   const { data } = $props();
@@ -20,27 +20,43 @@
     <ICD>precacheOptions</ICD> — Options to customize how Serwist precaches the URLs in the precache list.
     <ul class="list">
       <li>
-        <ICD>cacheName</ICD> — The cache used for precaching.
+        <ICD>cacheName</ICD> — Cache name to store and retrieve requests. Defaults to Serwist's default cache names.
       </li>
       <li>
-        <ICD>cleanupOutdatedCaches</ICD> — Whether outdated caches should be removed.
+        <ICD>plugins</ICD> — Plugins to use when precaching as well as responding to <ICD>fetch</ICD> events for precached assets.
       </li>
       <li>
-        <ICD>cleanURLs</ICD> — Tells Serwist to check the precache for an entry whose URL is the request URL appended with ".html".
+        <ICD>fetchOptions</ICD> — Options passed to
+        <ETL class="link" href="https://github.com/GoogleChrome/workbox/issues/1796">non-navigation</ETL>
+        <ICD>fetch()</ICD> calls made by this strategy.
       </li>
       <li>
-        <ICD>concurrency</ICD> — The number of precache requests that should be made concurrently.
+        <ICD>matchOptions</ICD> — The
+        <ETL class="link" href="https://w3c.github.io/ServiceWorker/#dictdef-cachequeryoptions">CacheQueryOptions</ETL>
+        passed to any <ICD>cache.match()</ICD> or <ICD>cache.put()</ICD> call made by this strategy.
+      </li>
+      <li>
+        <ICD>fallbackToNetwork</ICD> — Whether to attempt to get the response from the network if there's a precache miss.
       </li>
       <li>
         <ICD>directoryIndex</ICD> — Tells Serwist to check the precache for an entry whose URL is the request URL appended with the specified value. Only
         applies if the request URL ends with "/".
       </li>
       <li>
-        <ICD>fallbackToNetwork</ICD> — Whether to attempt to get the response from the network if there's a precache miss.
-      </li>
-      <li>
         <ICD>ignoreURLParametersMatching</ICD> — An array of <ICD>RegExp</ICD> objects matching search params that should be removed when looking for a
         precache match.
+      </li>
+      <li>
+        <ICD>cleanURLs</ICD> — Tells Serwist to check the precache for an entry whose URL is the request URL appended with ".html".
+      </li>
+      <li>
+        <ICD>urlManipulation</ICD> — A function that should take a URL and return an array of alternative URLs that should be checked for precache matches.
+      </li>
+      <li>
+        <ICD>cleanupOutdatedCaches</ICD> — Whether outdated caches should be removed.
+      </li>
+      <li>
+        <ICD>concurrency</ICD> — The number of precache requests that should be made concurrently.
       </li>
       <li>
         <ICD>navigateFallback</ICD> — An URL that should point to a HTML file with which navigation requests for URLs that aren't precached will be fulfilled.
@@ -51,12 +67,6 @@
       <li>
         <ICD>navigateFallbackDenylist</ICD> — URLs that should not be allowed to use the `navigateFallback` handler. This takes precedence over
         <ICD>navigateFallbackAllowlist</ICD>.
-      </li>
-      <li>
-        <ICD>plugins</ICD> — Plugins to use when precaching as well as responding to <ICD>fetch</ICD> events for precached assets.
-      </li>
-      <li>
-        <ICD>urlManipulation</ICD> — A function that should take a URL and return an array of alternative URLs that should be checked for precache matches.
       </li>
     </ul>
   </li>
@@ -95,9 +105,7 @@
 <ul class="list">
   <li>
     <ICD>
-      <ExternalLink class="link" href="https://developer.mozilla.org/en-US/docs/Web/API/WorkerGlobalScope/importScripts">
-        self.importScripts
-      </ExternalLink>
+      <ETL class="link" href="https://developer.mozilla.org/en-US/docs/Web/API/WorkerGlobalScope/importScripts">self.importScripts</ETL>
     </ICD> (if <ICD>importScripts</ICD> is not <ICD>undefined</ICD>)
   </li>
   <li>
@@ -108,9 +116,7 @@
   </li>
   <li>
     <ICD>
-      <ExternalLink class="link" href="https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerGlobalScope/skipWaiting">
-        self.skipWaiting
-      </ExternalLink>
+      <ETL class="link" href="https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerGlobalScope/skipWaiting">self.skipWaiting</ETL>
     </ICD> in the following situations:
     <ul class="list">
       <li>
@@ -197,12 +203,12 @@
     <ICD>getIntegrityForPrecacheKey(cacheKey)</ICD> — Retrieves the subresource integrity associated with the cache key, or undefined if it's not set.
   </li>
   <li>
-    <ICD>matchPrecache(request)</ICD> — This acts as a drop-in replacement for <ExternalLink
+    <ICD>matchPrecache(request)</ICD> — This acts as a drop-in replacement for <ETL
       href="https://developer.mozilla.org/en-US/docs/Web/API/Cache/match"
       class="link"
     >
       <ICD>cache.match()</ICD>
-    </ExternalLink> with the following differences:
+    </ETL> with the following differences:
     <ul class="list">
       <li>It knows what the name of the precache is, and only checks in that cache.</li>
       <li>

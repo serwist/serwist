@@ -19,6 +19,10 @@ import type { StrategyHandler } from "./StrategyHandler.js";
 
 export interface PrecacheStrategyOptions extends StrategyOptions {
   /**
+   * Plugins to use when precaching as well as responding to `fetch` events for precached assets.
+   */
+  plugins?: StrategyOptions["plugins"];
+  /**
    * Whether to attempt to get the response from the network
    * if there's a precache miss.
    */
