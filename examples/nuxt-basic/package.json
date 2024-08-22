@@ -14,9 +14,9 @@
   "devDependencies": {
     "@serwist/nuxt": "latest",
     "@serwist/vite": "latest",
-    "nuxt": "3.12.3",
+    "nuxt": "3.12.4",
     "serwist": "latest",
-    "vue": "3.4.31",
-    "vue-router": "4.4.0"
+    "vue": "3.4.38",
+    "vue-router": "4.4.3"
   }
 }

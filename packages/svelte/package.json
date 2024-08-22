@@ -50,8 +50,8 @@
   },
   "devDependencies": {
     "@serwist/configs": "workspace:*",
-    "@sveltejs/kit": "2.5.18",
-    "rollup": "4.18.1"
+    "@sveltejs/kit": "2.5.24",
+    "rollup": "4.21.0"
   },
   "peerDependencies": {
     "@sveltejs/kit": ">=2.0.0",

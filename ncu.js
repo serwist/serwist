@@ -32,11 +32,11 @@ for (const packageFile of packageJsonList) {
       filter(packageName) {
         return !excludePackages.includes(packageName);
       },
-      target: (dependencyName) => {
-        if (dependencyName === "svelte") {
+      target(dep) {
+        if (dep === "svelte" || dep === "@sveltejs/vite-plugin-svelte") {
           return "@next";
         }
-        if (/^react(-dom)?$/.test(dependencyName)) {
+        if (/^react(-dom)?$/.test(dep)) {
           return "@latest";
         }
         return "latest";
