@@ -1,5 +1,16 @@
 # @serwist/webpack-plugin
 
+## 9.0.6
+
+### Patch Changes
+
+- [#189](https://github.com/serwist/serwist/pull/189) [`12f6e82`](https://github.com/serwist/serwist/commit/12f6e824020ded438e0afa91a570d8e321a1a3f7) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(webpack-plugin): explicitly call webpack's internal `WebWorkerTemplatePlugin`
+
+  - This plugin calls `ArrayPushCallbackChunkFormatPlugin` on our child compiler, allowing chunks to work properly.
+
+- Updated dependencies []:
+  - @serwist/build@9.0.6
+
 ## 9.0.5
 
 ### Patch Changes
