@@ -154,21 +154,15 @@ export class InjectManifest {
    * @private
    */
   private async performChildCompilation(compilation: Compilation, parentCompiler: Compiler): Promise<void> {
-    const outputOptions: Parameters<Compilation["createChildCompiler"]>["1"] = {
-      filename: this.config.swDest,
-    };
+    const childCompiler = compilation.createChildCompiler(
+      this.constructor.name,
+      {
+        filename: this.config.swDest,
+      },
+      this.config.webpackCompilationPlugins,
+    );
 
-    const childCompiler = compilation.createChildCompiler(this.constructor.name, outputOptions, []);
-
-    childCompiler.context = parentCompiler.context;
-    childCompiler.inputFileSystem = parentCompiler.inputFileSystem;
-    childCompiler.outputFileSystem = parentCompiler.outputFileSystem;
-
-    if (Array.isArray(this.config.webpackCompilationPlugins)) {
-      for (const plugin of this.config.webpackCompilationPlugins) {
-        plugin.apply(childCompiler);
-      }
-    }
+    new this.webpack.webworker.WebWorkerTemplatePlugin().apply(childCompiler);
 
     new this.webpack.EntryPlugin(parentCompiler.context, this.config.swSrc, this.constructor.name).apply(childCompiler);
 
@@ -196,7 +190,7 @@ export class InjectManifest {
    * @private
    */
   private addSrcToAssets(compilation: Compilation, parentCompiler: Compiler): void {
-    const source = (parentCompiler.inputFileSystem as any).readFileSync(this.config.swSrc);
+    const source = parentCompiler.inputFileSystem!.readFileSync!(this.config.swSrc);
     compilation.emitAsset(this.config.swDest!, new this.webpack.sources.RawSource(source));
   }
 

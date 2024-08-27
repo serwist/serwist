@@ -7,6 +7,7 @@ import type {
   OptionalSwDestResolved,
 } from "@serwist/build";
 import type { Require } from "@serwist/utils";
+import type { WebpackPluginFunction, WebpackPluginInstance } from "webpack";
 
 export interface WebpackPartial {
   /**
@@ -57,7 +58,7 @@ export interface InjectPartial {
    * Optional webpack plugins that will be used when compiling the `swSrc`
    * file. Only valid if `compileSrc` is `true`.
    */
-  webpackCompilationPlugins?: any[];
+  webpackCompilationPlugins?: (WebpackPluginFunction | WebpackPluginInstance)[];
 }
 
 export type InjectResolved = Require<InjectPartial, "compileSrc">;
