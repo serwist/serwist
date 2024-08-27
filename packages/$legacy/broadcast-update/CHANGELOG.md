@@ -1,5 +1,12 @@
 # @serwist/broadcast-update
 
+## 9.0.6
+
+### Patch Changes
+
+- Updated dependencies [[`1e9cc3c`](https://github.com/serwist/serwist/commit/1e9cc3c45511f93d328555eb090df0e613bca403)]:
+  - serwist@9.0.6
+
 ## 9.0.5
 
 ### Patch Changes

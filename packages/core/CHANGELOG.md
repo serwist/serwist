@@ -1,5 +1,11 @@
 # @serwist/sw
 
+## 9.0.6
+
+### Patch Changes
+
+- [`1e9cc3c`](https://github.com/serwist/serwist/commit/1e9cc3c45511f93d328555eb090df0e613bca403) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(core): allow `fetchOptions` and `matchOptions` in `precacheOptions`
+
 ## 9.0.5
 
 ## 9.0.4
