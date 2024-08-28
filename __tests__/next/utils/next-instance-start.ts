@@ -7,7 +7,7 @@ import { getURLFromLog } from "./utils.ts";
 export class NextInstanceStart extends NextInstance {
   public async spawn() {
     const spawnOpts: SpawnOptionsWithoutStdio = {
-      shell: false,
+      shell: process.platform === "win32",
       env: {
         ...process.env,
         NODE_ENV: "" as any,
@@ -25,13 +25,13 @@ export class NextInstanceStart extends NextInstance {
         const msg = chunk.toString();
         this._cliOutput += msg;
         buildStdout += msg;
-        console.log(msg);
+        if (msg) console.log(msg);
       });
       this._process.stderr.on("data", (chunk: Buffer) => {
         const msg = chunk.toString();
         this._cliOutput += msg;
         buildStderr += msg;
-        console.error(msg);
+        if (msg) console.error(msg);
       });
       this._process.on("error", (err) => {
         reject(err);
@@ -59,12 +59,12 @@ export class NextInstanceStart extends NextInstance {
           this._url = potentialUrl;
           resolve();
         }
-        console.log(msg);
+        if (msg) console.log(msg);
       });
       this._process.stderr.on("data", (chunk: Buffer) => {
         const msg = chunk.toString();
         this._cliOutput += msg;
-        console.error(msg);
+        if (msg) console.error(msg);
       });
       this._process.on("error", (err) => {
         reject(err);
