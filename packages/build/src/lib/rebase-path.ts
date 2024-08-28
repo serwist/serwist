@@ -6,17 +6,18 @@
   https://opensource.org/licenses/MIT.
 */
 
-import upath from "upath";
+import { toUnix } from "@serwist/utils";
+import path from "node:path";
 
 export function rebasePath({ baseDirectory, file }: { baseDirectory: string; file: string }): string {
   // The initial path is relative to the current directory, so make it absolute.
-  const absolutePath = upath.resolve(file);
+  const absolutePath = path.resolve(file);
 
   // Convert the absolute path so that it's relative to the baseDirectory.
-  const relativePath = upath.relative(baseDirectory, absolutePath);
+  const relativePath = path.relative(baseDirectory, absolutePath);
 
   // Remove any leading ./ as it won't work in a glob pattern.
-  const normalizedPath = upath.normalize(relativePath);
+  const normalizedPath = path.normalize(relativePath);
 
-  return normalizedPath;
+  return toUnix(normalizedPath);
 }

@@ -46,8 +46,6 @@
       "@nuxt/kit",
       "@serwist/build",
       "@serwist/vite",
-      "pathe",
-      "ufo",
       "virtual:serwist-nuxt-configuration",
       "virtual:serwist"
     ]
@@ -67,10 +65,7 @@
     "@nuxt/kit": "3.12.4",
     "@serwist/build": "workspace:*",
     "@serwist/vite": "workspace:*",
-    "@serwist/window": "workspace:*",
-    "fast-json-stable-stringify": "2.1.0",
-    "pathe": "1.1.2",
-    "ufo": "1.5.4"
+    "@serwist/window": "workspace:*"
   },
   "devDependencies": {
     "@nuxt/module-builder": "0.8.3",

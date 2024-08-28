@@ -5,8 +5,7 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-
-import upath from "upath";
+import path from "node:path";
 import type { Compilation, WebpackError } from "webpack";
 
 import { resolveWebpackURL } from "./resolve-webpack-url.js";
@@ -21,7 +20,7 @@ export const getScriptFilesForChunks = (compilation: Compilation, chunkNames: st
     if (chunk) {
       for (const file of chunk?.files ?? []) {
         // See https://github.com/GoogleChrome/workbox/issues/2161
-        if (upath.extname(file) === ".js") {
+        if (path.extname(file) === ".js") {
           scriptFiles.add(resolveWebpackURL(publicPath as string, file));
         }
       }

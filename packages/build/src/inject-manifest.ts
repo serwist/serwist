@@ -5,13 +5,11 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-
 import assert from "node:assert";
-import stringify from "fast-json-stable-stringify";
-import fse from "fs-extra";
+import fsp from "node:fs/promises";
+import path from "node:path";
+import { toUnix } from "@serwist/utils";
 import type { RawSourceMap } from "source-map";
-import upath from "upath";
-
 import { errors } from "./lib/errors.js";
 import { escapeRegExp } from "./lib/escape-regexp.js";
 import { getFileManifestEntries } from "./lib/get-file-manifest-entries.js";
@@ -66,7 +64,7 @@ export const injectManifest = async (config: InjectManifestOptions): Promise<Bui
   const { count, size, manifestEntries, warnings } = await getFileManifestEntries(options);
   let swFileContents: string;
   try {
-    swFileContents = await fse.readFile(options.swSrc, "utf8");
+    swFileContents = await fsp.readFile(options.swSrc, "utf8");
   } catch (error) {
     throw new Error(`${errors["invalid-sw-src"]} ${error instanceof Error && error.message ? error.message : ""}`);
   }
@@ -75,7 +73,7 @@ export const injectManifest = async (config: InjectManifestOptions): Promise<Bui
   // See https://github.com/GoogleChrome/workbox/issues/2230
   const injectionPoint = options.injectionPoint ? options.injectionPoint : "";
   if (!injectionResults) {
-    if (upath.resolve(options.swSrc) === upath.resolve(options.swDest)) {
+    if (path.resolve(options.swSrc) === path.resolve(options.swDest)) {
       throw new Error(`${errors["same-src-and-dest"]} ${injectionPoint}`);
     }
     throw new Error(`${errors["injection-point-not-found"]} ${injectionPoint}`);
@@ -83,7 +81,8 @@ export const injectManifest = async (config: InjectManifestOptions): Promise<Bui
 
   assert(injectionResults.length === 1, `${errors["multiple-injection-points"]} ${injectionPoint}`);
 
-  const manifestString = manifestEntries === undefined ? "undefined" : stringify(manifestEntries);
+  const manifestString = manifestEntries === undefined ? "undefined" : JSON.stringify(manifestEntries);
+
   const filesToWrite: { [key: string]: string } = {};
 
   const url = getSourceMapURL(swFileContents);
@@ -100,13 +99,11 @@ export const injectManifest = async (config: InjectManifestOptions): Promise<Bui
   // See https://github.com/GoogleChrome/workbox/issues/2235
   // and https://github.com/GoogleChrome/workbox/issues/2648
   if (srcPath && destPath) {
-    const originalMap = (await fse.readJSON(srcPath, {
-      encoding: "utf8",
-    })) as RawSourceMap;
+    const originalMap = JSON.parse(await fsp.readFile(srcPath, "utf-8")) as RawSourceMap;
 
     const { map, source } = await replaceAndUpdateSourceMap({
       originalMap,
-      jsFilename: upath.basename(options.swDest),
+      jsFilename: toUnix(path.basename(options.swDest)),
       originalSource: swFileContents,
       replaceString: manifestString,
       searchString: options.injectionPoint!,
@@ -122,19 +119,19 @@ export const injectManifest = async (config: InjectManifestOptions): Promise<Bui
 
   for (const [file, contents] of Object.entries(filesToWrite)) {
     try {
-      await fse.mkdirp(upath.dirname(file));
+      await fsp.mkdir(path.dirname(file), { recursive: true });
     } catch (error: unknown) {
       throw new Error(`${errors["unable-to-make-sw-directory"]} '${error instanceof Error && error.message ? error.message : ""}'`);
     }
 
-    await fse.writeFile(file, contents);
+    await fsp.writeFile(file, contents);
   }
 
   return {
     count,
     size,
     warnings,
-    // Use upath.resolve() to make all the paths absolute.
-    filePaths: Object.keys(filesToWrite).map((f) => upath.resolve(f)),
+    // Use path.resolve() to make all the paths absolute.
+    filePaths: Object.keys(filesToWrite).map((f) => toUnix(path.resolve(f))),
   };
 };

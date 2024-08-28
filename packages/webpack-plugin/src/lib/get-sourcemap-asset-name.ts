@@ -5,9 +5,8 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-
+import path from "node:path";
 import { getSourceMapURL } from "@serwist/build";
-import upath from "upath";
 import type { Compilation } from "webpack";
 
 /**
@@ -35,9 +34,8 @@ export const getSourcemapAssetName = (compilation: Compilation, swContents: stri
     // This *might* not be a valid asset if the sourcemap URL that was found
     // was added by another module incidentally.
     // See https://github.com/GoogleChrome/workbox/issues/2250
-    const swAssetDirname = upath.dirname(swDest);
-    const sourcemapURLAssetName = upath.normalize(upath.join(swAssetDirname, url));
-
+    const swAssetDirname = path.dirname(swDest);
+    const sourcemapURLAssetName = path.normalize(path.join(swAssetDirname, url));
     // Not sure if there's a better way to check for asset existence?
     if (compilation.getAsset(sourcemapURLAssetName)) {
       return sourcemapURLAssetName;

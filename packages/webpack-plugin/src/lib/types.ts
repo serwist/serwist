@@ -58,7 +58,7 @@ export interface InjectPartial {
    * Optional webpack plugins that will be used when compiling the `swSrc`
    * file. Only valid if `compileSrc` is `true`.
    */
-  webpackCompilationPlugins?: (WebpackPluginFunction | WebpackPluginInstance)[];
+  webpackCompilationPlugins?: WebpackPlugin[];
 }
 
 export type InjectResolved = Require<InjectPartial, "compileSrc">;
@@ -66,3 +66,5 @@ export type InjectResolved = Require<InjectPartial, "compileSrc">;
 export interface InjectManifestOptions extends BasePartial, WebpackPartial, BaseInjectPartial, OptionalSwDestPartial, InjectPartial {}
 
 export interface InjectManifestOptionsComplete extends BaseResolved, WebpackResolved, BaseInjectResolved, OptionalSwDestResolved, InjectResolved {}
+
+export type WebpackPlugin = WebpackPluginFunction | WebpackPluginInstance;

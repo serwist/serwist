@@ -1,9 +1,10 @@
 import assert from "node:assert";
 import { statSync } from "node:fs";
-import type { InjectManifestOptions } from "@serwist/build";
-import { glob } from "glob";
+import path from "node:path";
 import { checkbox, input, select, Separator } from "@inquirer/prompts";
-import upath from "upath";
+import type { InjectManifestOptions } from "@serwist/build";
+import { toUnix } from "@serwist/utils";
+import { glob } from "glob";
 import { constants } from "./constants.js";
 import { errors } from "./errors.js";
 
@@ -71,7 +72,7 @@ const getAllFileExtensions = async (globDirectory: string) => {
 
   const extensions: Set<string> = new Set();
   for (const file of files) {
-    const extension = upath.extname(file);
+    const extension = path.extname(file);
     if (extension) {
       // Get rid of the leading . character.
       extensions.add(extension.replace(/^\./, ""));
@@ -110,7 +111,7 @@ export const askQuestions = async (): Promise<ConfigWithConfigLocation> => {
 
   const swDest = await input({
     message: "Where would you like your service worker file to be saved?",
-    default: upath.join(globDirectory, "sw.js"),
+    default: toUnix(path.join(globDirectory, "sw.js")),
     validate(input) {
       if (typeof input !== "string") {
         return "You must provide a valid 'swDest'!";
