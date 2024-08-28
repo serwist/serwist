@@ -6,13 +6,12 @@
   https://opensource.org/licenses/MIT.
 */
 
-import fse from "fs-extra";
-
+import fs from "node:fs";
 import { errors } from "./errors.js";
 
-export function getFileSize(file: string): number | null {
+export const getFileSize = (file: string): number | null => {
   try {
-    const stat = fse.statSync(file);
+    const stat = fs.statSync(file);
     if (!stat.isFile()) {
       return null;
     }

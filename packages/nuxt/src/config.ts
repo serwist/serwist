@@ -1,12 +1,10 @@
 import { createHash } from "node:crypto";
 import { createReadStream } from "node:fs";
-import fs from "node:fs/promises";
-
+import fsp from "node:fs/promises";
+import path from "node:path";
 import type { Nuxt } from "@nuxt/schema";
 import type { ManifestTransform } from "@serwist/build";
 import type { NitroConfig } from "nitropack";
-import pathe from "pathe";
-
 import type { ModuleOptions } from "./types.js";
 
 export function configurePwaOptions(options: ModuleOptions, nuxt: Nuxt, nitroConfig: NitroConfig) {
@@ -39,7 +37,7 @@ export function configurePwaOptions(options: ModuleOptions, nuxt: Nuxt, nitroCon
 
   const _public: string | undefined = nitroConfig.output?.publicDir ?? nuxt.options.nitro?.output?.publicDir;
 
-  const publicDir = _public ? pathe.resolve(_public) : pathe.resolve(nuxt.options.buildDir, "../.output/public");
+  const publicDir = _public ? path.resolve(_public) : path.resolve(nuxt.options.buildDir, "../.output/public");
 
   // allow override manifestTransforms
   if (!nuxt.options.dev && !options.manifestTransforms) {
@@ -47,7 +45,7 @@ export function configurePwaOptions(options: ModuleOptions, nuxt: Nuxt, nitroCon
   }
 }
 
-function createManifestTransform(base: string, publicFolder: string, appManifestFolder?: string): ManifestTransform {
+function createManifestTransform(base: string, publicDir: string, appManifestFolder?: string): ManifestTransform {
   return async (entries) => {
     entries
       .filter((e) => e.url.endsWith(".html"))
@@ -74,8 +72,8 @@ function createManifestTransform(base: string, publicFolder: string, appManifest
         });
       // add revision to latest.json file: we are excluding `_nuxt/` assets from dontCacheBustURLsMatching
       const latest = `${appManifestFolder}latest.json`;
-      const latestJson = pathe.resolve(publicFolder, latest);
-      const data = await fs.lstat(latestJson).catch(() => undefined);
+      const latestJson = path.resolve(publicDir, latest);
+      const data = await fsp.lstat(latestJson).catch(() => undefined);
       if (data?.isFile()) {
         const revision = await new Promise<string>((resolve, reject) => {
           const cHash = createHash("MD5");

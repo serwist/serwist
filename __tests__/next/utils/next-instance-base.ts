@@ -62,22 +62,24 @@ export abstract class NextInstance {
     this._isDestroyed = true;
     if (this._process) {
       try {
+        console.log("stopping next server");
         let exitResolve: () => void;
         const exitPromise = new Promise<void>((resolve) => {
           exitResolve = resolve;
         });
         this._process.addListener("exit", () => exitResolve());
         await new Promise<void>((resolve) => {
-          if (this._process?.pid) {
-            treeKill(this._process.pid, "SIGKILL", (err) => {
+          const pid = this._process?.pid;
+          if (pid) {
+            treeKill(pid, "SIGKILL", (err) => {
               if (err) {
-                console.error("failed to kill tree of process", this._process?.pid, "err:", err);
+                console.error("failed to kill tree of process", pid, "err:", err);
               }
               resolve();
             });
           }
         });
-        this._process.kill("SIGKILL");
+        this._process?.kill("SIGKILL");
         await exitPromise;
         this._process = undefined;
         console.log("stopped next server");

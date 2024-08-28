@@ -110,9 +110,6 @@ importers:
       cheerio:
         specifier: 1.0.0
         version: 1.0.0
-      fs-extra:
-        specifier: 11.2.0
-        version: 11.2.0
       glob:
         specifier: 10.4.5
         version: 10.4.5
@@ -675,12 +672,6 @@ importers:
       common-tags:
         specifier: 1.8.2
         version: 1.8.2
-      fast-json-stable-stringify:
-        specifier: 2.1.0
-        version: 2.1.0
-      fs-extra:
-        specifier: 11.2.0
-        version: 11.2.0
       glob:
         specifier: 10.4.5
         version: 10.4.5
@@ -693,9 +684,6 @@ importers:
       source-map:
         specifier: 0.8.0-beta.0
         version: 0.8.0-beta.0
-      upath:
-        specifier: 2.0.1
-        version: 2.0.1
       zod:
         specifier: 3.23.8
         version: 3.23.8
@@ -709,15 +697,9 @@ importers:
       '@types/common-tags':
         specifier: 1.8.4
         version: 1.8.4
-      '@types/fs-extra':
-        specifier: 11.0.4
-        version: 11.0.4
       '@types/node':
         specifier: 22.5.0
         version: 22.5.0
-      '@types/stringify-object':
-        specifier: 4.0.5
-        version: 4.0.5
       type-fest:
         specifier: 4.25.0
         version: 4.25.0
@@ -742,9 +724,6 @@ importers:
       common-tags:
         specifier: 1.8.2
         version: 1.8.2
-      fs-extra:
-        specifier: 11.2.0
-        version: 11.2.0
       glob:
         specifier: 10.4.5
         version: 10.4.5
@@ -757,9 +736,6 @@ importers:
       stringify-object:
         specifier: 5.0.0
         version: 5.0.0
-      upath:
-        specifier: 2.0.1
-        version: 2.0.1
       update-notifier:
         specifier: 7.2.0
         version: 7.2.0
@@ -767,12 +743,12 @@ importers:
       '@serwist/configs':
         specifier: workspace:*
         version: link:../$private/configs
+      '@serwist/utils':
+        specifier: workspace:*
+        version: link:../$private/utils
       '@types/common-tags':
         specifier: 1.8.4
         version: 1.8.4
-      '@types/fs-extra':
-        specifier: 11.0.4
-        version: 11.0.4
       '@types/inquirer':
         specifier: 9.0.7
         version: 9.0.7
@@ -877,15 +853,6 @@ importers:
       '@serwist/window':
         specifier: workspace:*
         version: link:../window
-      fast-json-stable-stringify:
-        specifier: 2.1.0
-        version: 2.1.0
-      pathe:
-        specifier: 1.1.2
-        version: 1.1.2
-      ufo:
-        specifier: 1.5.4
-        version: 1.5.4
     devDependencies:
       '@nuxt/module-builder':
         specifier: 0.8.3
@@ -1020,9 +987,6 @@ importers:
       pretty-bytes:
         specifier: 6.1.1
         version: 6.1.1
-      upath:
-        specifier: 2.0.1
-        version: 2.0.1
       zod:
         specifier: 3.23.8
         version: 3.23.8
@@ -3182,9 +3146,6 @@ packages:
   '@types/estree@1.0.5':
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
 
-  '@types/fs-extra@11.0.4':
-    resolution: {integrity: sha512-yTbItCNreRooED33qjunPthRcSjERP1r4MqCZc7wv0u2sUkzTFp45tgUfS5+r7FrZPdmCCNflLhVSP/o+SemsQ==}
-
   '@types/hast@3.0.4':
     resolution: {integrity: sha512-WPs+bbQw5aCj+x6laNGWLH3wviHtoCv/P3+otBhbOhJgG8qtpdAMlTCxLtsTWA7LH1Oh/bFCHsBn0TPS5m30EQ==}
 
@@ -3196,9 +3157,6 @@ packages:
 
   '@types/json-schema@7.0.14':
     resolution: {integrity: sha512-U3PUjAudAdJBeC2pgN8uTIKgxrb4nlDF3SF0++EldXQvQBGkpFZMSnwQiIoDU77tv45VgNkl/L4ouD+rEomujw==}
-
-  '@types/jsonfile@6.1.2':
-    resolution: {integrity: sha512-8t92P+oeW4d/CRQfJaSqEwXujrhH4OEeHRjGU3v1Q8mUS8GPF3yiX26sw4svv6faL2HfBtGTe2xWIoVgN3dy9w==}
 
   '@types/mdast@4.0.3':
     resolution: {integrity: sha512-LsjtqsyF+d2/yFOYaN22dHZI1Cpwkrj+g06G8+qtUKlhovPW89YhqSnfKtMbkgmEtYpH2gydRNULd6y8mciAFg==}
@@ -7453,10 +7411,6 @@ packages:
   unwasm@0.3.9:
     resolution: {integrity: sha512-LDxTx/2DkFURUd+BU1vUsF/moj0JsoTvl+2tcg2AUOiEzVturhGGx17/IMgGvKUYdZwr33EJHtChCJuhu9Ouvg==}
 
-  upath@2.0.1:
-    resolution: {integrity: sha512-1uEe95xksV1O0CYKXo8vQvN1JEbtJp7lb7C5U9HMsIp6IVwntkH/oNUzyVNQSd4S1sYk2FpSSW44FqMc8qee5w==}
-    engines: {node: '>=4'}
-
   update-browserslist-db@1.1.0:
     resolution: {integrity: sha512-EdRAaAyk2cUE1wOf2DkEhzxqOQvFOoRJFNS6NeyJ01Gp2beMRpBAINjM2iDXE3KCuKhwnvHIQCJm6ThL2Z+HzQ==}
     hasBin: true
@@ -8640,7 +8594,7 @@ snapshots:
   '@eslint/eslintrc@3.1.0':
     dependencies:
       ajv: 6.12.6
-      debug: 4.3.5
+      debug: 4.3.6
       espree: 10.0.1
       globals: 14.0.0
       ignore: 5.3.1
@@ -8682,7 +8636,7 @@ snapshots:
   '@humanwhocodes/config-array@0.13.0':
     dependencies:
       '@humanwhocodes/object-schema': 2.0.3
-      debug: 4.3.5
+      debug: 4.3.6
       minimatch: 3.1.2
     transitivePeerDependencies:
       - supports-color
@@ -10213,11 +10167,6 @@ snapshots:
 
   '@types/estree@1.0.5': {}
 
-  '@types/fs-extra@11.0.4':
-    dependencies:
-      '@types/jsonfile': 6.1.2
-      '@types/node': 22.5.0
-
   '@types/hast@3.0.4':
     dependencies:
       '@types/unist': 3.0.2
@@ -10232,10 +10181,6 @@ snapshots:
       rxjs: 7.8.1
 
   '@types/json-schema@7.0.14': {}
-
-  '@types/jsonfile@6.1.2':
-    dependencies:
-      '@types/node': 22.5.0
 
   '@types/mdast@4.0.3':
     dependencies:
@@ -11924,7 +11869,7 @@ snapshots:
       ajv: 6.12.6
       chalk: 4.1.2
       cross-spawn: 7.0.3
-      debug: 4.3.5
+      debug: 4.3.6
       escape-string-regexp: 4.0.0
       eslint-scope: 8.0.1
       eslint-visitor-keys: 4.0.0
@@ -15333,8 +15278,6 @@ snapshots:
       pathe: 1.1.2
       pkg-types: 1.1.3
       unplugin: 1.11.0
-
-  upath@2.0.1: {}
 
   update-browserslist-db@1.1.0(browserslist@4.23.1):
     dependencies:

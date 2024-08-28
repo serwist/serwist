@@ -20,7 +20,7 @@ export default (pid: number, signal?: string | number, callback?: Callback) => {
 
   switch (process.platform) {
     case "win32":
-      exec(`taskkill /pid ${pid} /T /F`, (err) => void (!!err && callback?.(err)));
+      exec(`taskkill /pid ${pid} /T /F`, (err) => callback?.(err ?? undefined));
       break;
     case "darwin":
       buildProcessTree(

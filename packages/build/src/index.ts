@@ -5,8 +5,6 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-import stringify from "fast-json-stable-stringify";
-
 import { getManifest } from "./get-manifest.js";
 import { injectManifest } from "./inject-manifest.js";
 import { errors } from "./lib/errors.js";
@@ -18,6 +16,14 @@ import { replaceAndUpdateSourceMap } from "./lib/replace-and-update-source-map.j
 import { transformManifest } from "./lib/transform-manifest.js";
 import { translateURLToSourcemapPaths } from "./lib/translate-url-to-sourcemap-paths.js";
 import { validateGetManifestOptions, validateInjectManifestOptions } from "./lib/validate-options.js";
+
+// TODO: remove in v10.
+/**
+ * Use `JSON.stringify` instead.
+ * 
+ * @deprecated
+ */
+const stringify = JSON.stringify;
 
 export {
   errors,

@@ -5,10 +5,9 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-
-import fse from "fs-extra";
-import upath from "upath";
-
+import fs from "node:fs";
+import path from "node:path";
+import { toUnix } from "@serwist/utils";
 import { errors } from "./errors.js";
 
 export function translateURLToSourcemapPaths(
@@ -25,10 +24,10 @@ export function translateURLToSourcemapPaths(
   let warning: string | undefined = undefined;
 
   if (url && !url.startsWith("data:")) {
-    const possibleSrcPath = upath.resolve(upath.dirname(swSrc), url);
-    if (fse.existsSync(possibleSrcPath)) {
-      srcPath = possibleSrcPath;
-      destPath = upath.resolve(upath.dirname(swDest), url);
+    const possibleSrcPath = path.resolve(path.dirname(swSrc), url);
+    if (fs.existsSync(possibleSrcPath)) {
+      srcPath = toUnix(possibleSrcPath);
+      destPath = toUnix(path.resolve(path.dirname(swDest), url));
     } else {
       warning = `${errors["cant-find-sourcemap"]} ${possibleSrcPath}`;
     }

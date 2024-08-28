@@ -12,15 +12,11 @@ export const loadTSConfig = (baseDir: string, relativeTSConfigPath: string | und
       const resolvedPath = path.join(baseDir, filePath);
       return fs.existsSync(resolvedPath) ? resolvedPath : undefined;
     });
-
     if (!tsConfigPath) {
       return undefined;
     }
-
     // Read tsconfig.json file
-    const tsConfigFile = JSON.parse(fs.readFileSync(tsConfigPath, "utf-8"));
-
-    return tsConfigFile;
+    return JSON.parse(fs.readFileSync(tsConfigPath, "utf-8"));
   } catch {
     return undefined;
   }
