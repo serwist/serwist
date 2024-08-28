@@ -79,7 +79,7 @@ export abstract class NextInstance {
             });
           }
         });
-        this._process.kill("SIGKILL");
+        this._process?.kill("SIGKILL");
         await exitPromise;
         this._process = undefined;
         console.log("stopped next server");
