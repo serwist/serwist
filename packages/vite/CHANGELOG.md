@@ -1,5 +1,13 @@
 # @serwist/vite
 
+## 9.0.7
+
+### Patch Changes
+
+- Updated dependencies [[`ceea5d1`](https://github.com/serwist/serwist/commit/ceea5d1d56dfec9b3aafba41bd0b0f2916a4ac17)]:
+  - @serwist/build@9.0.7
+  - serwist@9.0.7
+
 ## 9.0.6
 
 ### Patch Changes
