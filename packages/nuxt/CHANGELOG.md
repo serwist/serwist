@@ -1,5 +1,19 @@
 # @serwist/nuxt
 
+## 9.0.7
+
+### Patch Changes
+
+- [#192](https://github.com/serwist/serwist/pull/192) [`ceea5d1`](https://github.com/serwist/serwist/commit/ceea5d1d56dfec9b3aafba41bd0b0f2916a4ac17) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(build): remove extraneous Node.js API wrappers
+
+  - Doesn't seem that we really need `fs-extra`, `pathe`, `fast-json-stable-stringify`, or `upath`, so let's just remove them.
+  - This also adds tests for Windows to ensure that we don't mess up.
+
+- Updated dependencies [[`ceea5d1`](https://github.com/serwist/serwist/commit/ceea5d1d56dfec9b3aafba41bd0b0f2916a4ac17)]:
+  - @serwist/build@9.0.7
+  - @serwist/vite@9.0.7
+  - @serwist/window@9.0.7
+
 ## 9.0.6
 
 ### Patch Changes
