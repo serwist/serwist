@@ -10,6 +10,7 @@ jobs:
     uses: ./.github/workflows/build-reusable.yml
     with:
       afterBuild: pnpm typecheck
+      os: '["ubuntu-latest"]'
     secrets: inherit
   test-dev:
     name: ⚫️ Run Vitest (development mode) tests

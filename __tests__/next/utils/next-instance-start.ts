@@ -25,18 +25,23 @@ export class NextInstanceStart extends NextInstance {
         const msg = chunk.toString();
         this._cliOutput += msg;
         buildStdout += msg;
+        console.log(msg);
       });
       this._process.stderr.on("data", (chunk: Buffer) => {
         const msg = chunk.toString();
         this._cliOutput += msg;
         buildStderr += msg;
+        console.error(msg);
+      });
+      this._process.on("error", (err) => {
+        reject(err);
       });
       this._process.on("exit", (code, signal) => {
         this._process = undefined;
         if (code || signal) {
           reject(new Error(`next build failed with code/signal ${code || signal}`));
         } else {
-          console.log(`next build ran successfully with stdout: ${buildStdout || "none"} and stderr: ${buildStderr || "none"}`);
+          console.log("next build ran successfully.");
           resolve();
         }
       });

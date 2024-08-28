@@ -6,6 +6,10 @@ on:
         required: false
         description: "whether to skip pnpm install && pnpm build"
         type: string
+      os:
+        required: false
+        description: "operating systems to run build on"
+        type: string
       nodeVersion:
         required: false
         description: "version of Node.js to use"
@@ -28,8 +32,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node-version: ${{ fromJson(inputs.nodeVersion || '["18.x", "20.x", "22.x"]') }}
-        os: [ubuntu-latest, windows-latest]
+        node-version: ${{ fromJson(inputs.nodeVersion || '["18.x","20.x","22.x"]') }}
+        os: ${{ fromJson(inputs.os || '["ubuntu-latest","windows-latest"]') }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -47,4 +51,5 @@ jobs:
         run: pnpm build
         if: ${{ inputs.skipInstallBuild != 'yes' }}
       - name: Run after build
-        run: /bin/bash -c "${{ inputs.afterBuild }}"
+        shell: bash
+        run: ${{ inputs.afterBuild }}

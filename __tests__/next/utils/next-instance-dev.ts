@@ -32,6 +32,7 @@ export class NextInstanceDev extends NextInstance {
       this._process.stderr.on("data", (chunk: Buffer) => {
         const msg = chunk.toString();
         this._cliOutput += msg;
+        console.error(msg);
       });
       this._process.on("error", (err) => {
         reject(err);
