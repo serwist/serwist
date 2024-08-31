@@ -1,4 +1,4 @@
-<script lang="ts" context="module">
+<script lang="ts" module>
   import type { HTMLAttributes } from "svelte/elements";
 
   export interface CodeProps extends Omit<HTMLAttributes<HTMLElement>, "class" | "contenteditable"> {

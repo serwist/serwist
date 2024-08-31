@@ -1,0 +1,20 @@
+# additionalPrecacheEntries
+
+## First added
+
+Workbox
+
+## About
+
+A list of entries to be precached, in addition to any entries that are generated as part of the build configuration.
+
+## Usage
+
+```javascript
+await injectManifest({
+  swSrc: "app/sw.ts",
+  swDest: "dist/sw.js",
+  globDirectory: "dist/static",
+  additionalPrecacheEntries: ["foo.js"],
+});
+```

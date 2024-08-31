@@ -4,6 +4,7 @@
   import { TocObserver } from "$lib/TocObserver.svelte";
 
   const { children } = $props();
+
   const toc = $derived($page.data.toc);
 
   $effect(() => {
