@@ -8,40 +8,6 @@ export const load: PageServerLoad = ({ locals }) => ({
     title: "Broadcasting cache updates",
     desc: "serwist",
   }),
-  toc: [
-    {
-      title: "Broadcasting cache updates",
-      id: "broadcasting-updates",
-      children: [
-        {
-          title: "Introduction",
-          id: "introduction",
-        },
-        {
-          title: "How are updates determined?",
-          id: "how-are-updates-determined",
-        },
-        {
-          title: "Message format",
-          id: "message-format",
-        },
-        {
-          title: "Basic usage",
-          id: "basic-usage",
-          children: [
-            {
-              title: "Customizing the list of headers to check",
-              id: "customize-headers-to-check",
-            },
-          ],
-        },
-        {
-          title: "Advanced usage",
-          id: "advanced-usage",
-        },
-      ],
-    },
-  ],
   code: {
     messageFormat: highlightCode(
       locals.highlighter,

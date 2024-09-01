@@ -143,7 +143,7 @@ manifest.json
 }
 ```
 
-### Step 6: Add metadata to <head />
+### Step 6: Add metadata to `<head />`
 
 Add the following content to app/layout.tsx or pages/\_app.tsx:
 

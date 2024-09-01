@@ -1,6 +1,6 @@
 <script lang="ts" module>
   export { default as TwoslashHover } from "$components/TwoslashHover.svelte";
-  export { a, h1, h2, h3, h4, h5, h6, ul } from "./markdown/static";
+  export { a, code, h1, h2, h3, h4, h5, h6, ul } from "./markdown/static";
 </script>
 
 <script>

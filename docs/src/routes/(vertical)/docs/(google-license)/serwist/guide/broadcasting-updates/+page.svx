@@ -69,7 +69,7 @@ registerRoute(
 );
 ```
 
-In your web app, before the `[DOMContentLoaded](https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded%5Fevent)` event fires, you can listen for these events like so:
+In your web app, before the [`DOMContentLoaded`](https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded%5Fevent) event fires, you can listen for these events like so:
 
 message.ts 
 

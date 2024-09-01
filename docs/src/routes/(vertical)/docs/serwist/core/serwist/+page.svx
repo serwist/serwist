@@ -43,14 +43,14 @@ A class that helps bootstrap the service worker.
 
 Behind the scenes, the constructor calls the following:
 
-* `[self.importScripts](https://developer.mozilla.org/en-US/docs/Web/API/WorkerGlobalScope/importScripts)` (if `importScripts` is not `undefined`)
+* [`self.importScripts`](https://developer.mozilla.org/en-US/docs/Web/API/WorkerGlobalScope/importScripts) (if `importScripts` is not `undefined`)
 * `serwist.enableNavigationPreload` (if `navigationPreload` is set to `true`)
 * `serwist.setCacheNameDetails` (if `cacheId` is not `undefined`)
-* `[self.skipWaiting](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerGlobalScope/skipWaiting)` in the following situations:  
+* [`self.skipWaiting`](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerGlobalScope/skipWaiting) in the following situations:  
    * `skipWaiting` is set to `true`.  
    * Otherwise, when a message of type `"SKIP_WAITING"` is sent to the service worker.
 * `serwist.clientsClaim` (if `clientsClaim` is set to `true`)
-* `[serwist.PrecacheFallbackPlugin](/docs/serwist/runtime-caching/plugins/precache-fallback-plugin)` (if `runtimeCaching` and `fallbacks` are not `undefined`)
+* [`serwist.PrecacheFallbackPlugin`](/docs/serwist/runtime-caching/plugins/precache-fallback-plugin) (if `runtimeCaching` and `fallbacks` are not `undefined`)
 * `serwist.initializeGoogleAnalytics` (if `offlineAnalyticsConfig` is set)
 * [serwist.disableDevLogs](/docs/serwist/core/disable-dev-logs) (if `disableDevLogs` is set to `true`)
 

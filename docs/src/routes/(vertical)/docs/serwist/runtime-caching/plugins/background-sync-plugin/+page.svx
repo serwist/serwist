@@ -9,7 +9,7 @@ Workbox
 
 ## About
 
-A class implementing the `fetchDidFail` lifecycle callback. This makes it easier to add failed requests to a `[background sync queue](/docs/serwist/core/background-sync-queue)`.
+A class implementing the `fetchDidFail` lifecycle callback. This makes it easier to add failed requests to a [`background sync queue`](/docs/serwist/core/background-sync-queue).
 
 ## Parameters
 

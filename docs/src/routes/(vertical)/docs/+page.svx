@@ -9,14 +9,14 @@ Serwist is a collection of JavaScript libraries for [progressive web apps](https
 
 Take a look around:
 
-* `[serwist](/docs/serwist)`
-* `[@serwist/build](/docs/build)`
-* `[@serwist/cli](/docs/cli)`
-* `[@serwist/next](/docs/next)`
-* `[@serwist/nuxt](/docs/nuxt)`
-* `[@serwist/vite](/docs/vite)`
-* `[@serwist/webpack-plugin](/docs/webpack-plugin)`
-* `[@serwist/window](/docs/window)`
+* [`serwist`](/docs/serwist)
+* [`@serwist/build`](/docs/build)
+* [`@serwist/cli`](/docs/cli)
+* [`@serwist/next`](/docs/next)
+* [`@serwist/nuxt`](/docs/nuxt)
+* [`@serwist/vite`](/docs/vite)
+* [`@serwist/webpack-plugin`](/docs/webpack-plugin)
+* [`@serwist/window`](/docs/window)
 
 ## Alternatives
 

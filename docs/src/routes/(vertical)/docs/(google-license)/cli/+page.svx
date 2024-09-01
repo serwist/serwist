@@ -1,6 +1,10 @@
 ---
 layout: docs
 ---
+<script>
+    import CodeTab from "$components/CodeTab2.svelte";
+</script>
+
 # @serwist/cli
 
 [Original source (Apache 2.0 License). Adapted for Serwist's usage.](https://developer.chrome.com/docs/workbox/modules/workbox-cli) 
@@ -13,11 +17,41 @@ The Serwist command line interface consists of a Node.js program that can be run
 
 To install the CLI with Node.js, run the following command in your terminal:
 
-npm yarn pnpm bun 
-
-```
+{#snippet install()}
+{#snippet npm()}
+```bash
 npm i -D @serwist/cli
 ```
+{/snippet}
+{#snippet yarn()}
+```bash
+yarn add -D @serwist/cli
+```
+{/snippet}
+{#snippet pnpm()}
+```bash
+pnpm add -D @serwist/cli
+```
+{/snippet}
+{#snippet bun()}
+```bash
+bun add -D @serwist/cli
+```
+{/snippet}
+
+<CodeTab
+  id="install"
+  codes={[
+    ["npm", "npm", npm],
+    ["yarn", "yarn", yarn],
+    ["pnpm", "pnpm", pnpm],
+    ["bun", "bun", bun],
+  ]}
+  defaultTab="npm"
+/>
+{/snippet}
+
+{@render install()}
 
 ## Commands
 
@@ -34,13 +68,43 @@ Most developers will only need to run the wizard once, and you're free to manual
 
 To start the wizard run:
 
-npm yarn pnpm bun 
-
-```
+{#snippet wizard()}
+{#snippet npm()}
+```bash
 npx @serwist/cli wizard
 ```
+{/snippet}
+{#snippet yarn()}
+```bash
+yarn serwist wizard
+```
+{/snippet}
+{#snippet pnpm()}
+```bash
+pnpm serwist wizard
+```
+{/snippet}
+{#snippet bun()}
+```bash
+bun serwist wizard
+```
+{/snippet}
 
-![An example wizard run where the questions are listed alongside example answers](/@imagetools/e90e583e2fe71e97c7108f416010f32e106a5b57) 
+<CodeTab
+  id="command-wizard"
+  codes={[
+    ["npm", "npm", npm],
+    ["yarn", "yarn", yarn],
+    ["pnpm", "pnpm", pnpm],
+    ["bun", "bun", bun],
+  ]}
+  defaultTab="npm"
+/>
+{/snippet}
+
+{@render wizard()}
+
+![An example wizard run where the questions are listed alongside example answers]($images/serwist-wizard.png) 
 
 ### inject-manifest
 
@@ -48,11 +112,40 @@ When `inject-manifest` is run, it looks for a specific string, `self.__WB_MANIFE
 
 To run the command:
 
-npm yarn pnpm bun 
-
-```
+{#snippet injectManifest()}
+{#snippet npm()}
+```bash
 npx @serwist/cli inject-manifest
 ```
+{/snippet}
+{#snippet yarn()}
+```bash
+yarn serwist inject-manifest
+```
+{/snippet}
+{#snippet pnpm()}
+```bash
+pnpm serwist inject-manifest
+```
+{/snippet}
+{#snippet bun()}
+```bash
+bun serwist inject-manifest
+```
+{/snippet}    
+<CodeTab
+  id="command-inject"
+  codes={[
+    ["npm", "npm", npm],
+    ["yarn", "yarn", yarn],
+    ["pnpm", "pnpm", pnpm],
+    ["bun", "bun", bun],
+  ]}
+  defaultTab="npm"
+/>
+{/snippet}
+
+{@render injectManifest()}
 
 ## Configuration
 

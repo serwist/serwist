@@ -9,7 +9,7 @@ Workbox
 
 ## About
 
-An object mapping string prefixes to replacement string values. This can be used to, e.g., remove or add a path prefix from a manifest entry if your web hosting setup doesn't match your local filesystem setup. As an alternative with more flexibility, you can use the `[manifestTransforms](./manifest-transforms)` option and provide a function that modifies the entries in the manifest using whatever logic you provide.
+An object mapping string prefixes to replacement string values. This can be used to, e.g., remove or add a path prefix from a manifest entry if your web hosting setup doesn't match your local filesystem setup. As an alternative with more flexibility, you can use the [`manifestTransforms`](./manifest-transforms) option and provide a function that modifies the entries in the manifest using whatever logic you provide.
 
 ## Usage
 

@@ -9,7 +9,7 @@ Workbox
 
 ## About
 
-One or more functions which will be applied sequentially against the generated manifest. If `[modifyURLPrefix](./modify-url-prefix)` or `[dontCacheBustURLsMatching](./dont-cache-bust-urls-matching)` are also specified, their corresponding transformations will be applied first.
+One or more functions which will be applied sequentially against the generated manifest. If [`modifyURLPrefix`](./modify-url-prefix) or [`dontCacheBustURLsMatching`](./dont-cache-bust-urls-matching) are also specified, their corresponding transformations will be applied first.
 
 ## Usage
 

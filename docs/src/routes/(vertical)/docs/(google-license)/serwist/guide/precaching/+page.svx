@@ -63,12 +63,12 @@ By providing a `revision`, you let Serwist know when the file has changed and up
 
 Serwist provides build tools that help generate this list:
 
-* `[@serwist/build](/docs/build)`: A module that integrates into your build process, helping you generate a manifest of local files that should be precached.
-* `[@serwist/webpack-plugin](/docs/webpack-plugin)`: A plugin for your webpack build process, helping you generate a manifest of local files that should be precached.
-* `[@serwist/cli](/docs/cli)`: The command line interface of Serwist.
-* `[@serwist/vite](/docs/vite)`: A module that integrates Serwist into your Vite application.
-* `[@serwist/next](/docs/next)`: A module that integrates Serwist into your Next.js application.
-* `[@serwist/svelte](/docs/svelte)`: A module that complements SvelteKit's built-in service worker support.
+* [`@serwist/build`](/docs/build): A module that integrates into your build process, helping you generate a manifest of local files that should be precached.
+* [`@serwist/webpack-plugin`](/docs/webpack-plugin): A plugin for your webpack build process, helping you generate a manifest of local files that should be precached.
+* [`@serwist/cli`](/docs/cli): The command line interface of Serwist.
+* [`@serwist/vite`](/docs/vite): A module that integrates Serwist into your Vite application.
+* [`@serwist/next`](/docs/next): A module that integrates Serwist into your Next.js application.
+* [`@serwist/svelte`](/docs/svelte): A module that complements SvelteKit's built-in service worker support.
 
 It's strongly recommended that you use one of the mentioned tools to generate this manifest rather than hardcoding it yourself.
 

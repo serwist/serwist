@@ -6,7 +6,7 @@
   const { href, class: className, children, ...props }: HTMLAnchorAttributes = $props();
 </script>
 
-{#if !href || href.startsWith("/") || href.startsWith("#")}
+{#if !href || href.startsWith("/") || href.startsWith("#") || href.startsWith(".")}
   <a {href} class={clsx("link", className)} {...props}>
     {#if children}
       {@render children()}
