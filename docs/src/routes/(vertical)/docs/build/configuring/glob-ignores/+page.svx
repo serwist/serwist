@@ -1,0 +1,29 @@
+---
+layout: docs
+---
+# globIgnores
+
+## First added
+
+Workbox
+
+## Default
+
+`["**\/node_modules\/**\/*"]` 
+
+## About
+
+A set of patterns matching files to always exclude when generating the precache manifest. For more information, see the definition of `ignore` in [glob's documentation](https://github.com/isaacs/node-glob#options).
+
+## Usage
+
+build.js 
+
+```
+await injectManifest({
+  swSrc: "app/sw.ts",
+  swDest: "dist/sw.js",
+  globDirectory: "dist/static",
+  globIgnores: ["**\/node_modules\/**\/*"],
+});
+```

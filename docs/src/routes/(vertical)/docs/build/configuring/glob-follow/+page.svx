@@ -1,0 +1,29 @@
+---
+layout: docs
+---
+# globFollow
+
+## First added
+
+Workbox
+
+## Default
+
+`true` 
+
+## About
+
+Determines whether or not symlinks are followed when generating the precache manifest. For more information, see the definition of `follow` in [glob's documentation](https://github.com/isaacs/node-glob#options).
+
+## Usage
+
+build.js 
+
+```
+await injectManifest({
+  swSrc: "app/sw.ts",
+  swDest: "dist/sw.js",
+  globDirectory: "dist/static",
+  globFollow: false,
+});
+```

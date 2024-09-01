@@ -1,0 +1,54 @@
+---
+layout: docs
+---
+# serwist
+
+## Introduction
+
+`serwist` is the core of Serwist. It contains tools designed to help you write service workers with ease. Have a look around:
+
+* [Using the Serwist API](/docs/serwist/core)
+* [Background synchronizing](/docs/serwist/guide/background-syncing)
+* [Broadcasting cache updates](/docs/serwist/guide/broadcasting-updates)
+* [Expiring outdated responses](/docs/serwist/guide/expiring-outdated-responses)
+* [Preloading navigations](/docs/serwist/guide/navigation-preloading)
+* [Precaching assets](/docs/serwist/guide/precaching)
+* [Setting cacheability criteria](/docs/serwist/guide/setting-cacheability-criteria)
+
+## The Serwist API
+
+Here lists those which `serwist` offers:
+
+* Core functions  
+   * [BackgroundSyncQueue](/docs/serwist/core/background-sync-queue)  
+   * [BroadcastCacheUpdate](/docs/serwist/core/broadcast-cache-update)  
+   * [CacheExpiration](/docs/serwist/core/cache-expiration)  
+   * [CacheableResponse](/docs/serwist/core/cacheable-response)  
+   * [Constants](/docs/serwist/core/constants)  
+   * [copyResponse](/docs/serwist/core/copy-response)  
+   * [disableDevLogs](/docs/serwist/core/disable-dev-logs)  
+   * [disableNavigationPreload](/docs/serwist/core/disable-navigation-preload)  
+   * [enableNavigationPreload](/docs/serwist/core/enable-navigation-preload)  
+   * [isNavigationPreloadSupported](/docs/serwist/core/is-navigation-preload-supported)  
+   * [responsesAreSame](/docs/serwist/core/responses-are-same)  
+   * [Serwist](/docs/serwist/core/serwist)  
+   * [StorableRequest](/docs/serwist/core/storable-request)
+* Caching strategies  
+   * [CacheFirst](/docs/serwist/runtime-caching/caching-strategies/cache-first)  
+   * [CacheOnly](/docs/serwist/runtime-caching/caching-strategies/cache-only)  
+   * [NetworkFirst](/docs/serwist/runtime-caching/caching-strategies/network-first)  
+   * [NetworkOnly](/docs/serwist/runtime-caching/caching-strategies/network-only)  
+   * [StaleWhileRevalidate](/docs/serwist/runtime-caching/caching-strategies/stale-while-revalidate)  
+   * [Strategy](/docs/serwist/runtime-caching/caching-strategies/strategy)  
+   * [StrategyHandler](/docs/serwist/runtime-caching/caching-strategies/strategy-handler)
+* Routing  
+   * [NavigationRoute](/docs/serwist/runtime-caching/routing/navigation-route)  
+   * [PrecacheRoute](/docs/serwist/runtime-caching/routing/precache-route)  
+   * [RegExpRoute](/docs/serwist/runtime-caching/routing/reg-exp-route)  
+   * [Route](/docs/serwist/runtime-caching/routing/route)
+* Plugins for caching strategies  
+   * [BackgroundSyncPlugin](/docs/serwist/runtime-caching/plugins/background-sync-plugin)  
+   * [BroadcastUpdatePlugin](/docs/serwist/runtime-caching/plugins/broadcast-update-plugin)  
+   * [CacheableResponsePlugin](/docs/serwist/runtime-caching/plugins/cacheable-response-plugin)  
+   * [ExpirationPlugin](/docs/serwist/runtime-caching/plugins/expiration-plugin)  
+   * [PrecacheFallbackPlugin](/docs/serwist/runtime-caching/plugins/precache-fallback-plugin)

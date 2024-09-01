@@ -1,0 +1,317 @@
+---
+layout: docs
+---
+# Precaching assets
+
+[Original source (Apache 2.0 License). Adapted for Serwist's usage.](https://developer.chrome.com/docs/workbox/modules/workbox-precaching) 
+
+## Introduction
+
+One feature of service workers is the ability to save a set of files to the cache as they install. This is often referred to as precaching, since you are caching content ahead of the service worker being used.
+
+The main reason for doing this is that it gives developers control over the cache, meaning they can determine when and how long a file is cached as well as serve it to the browser without going to the network, allowing web apps to work offline.
+
+Serwist takes a lot of the heavy lifting out of precaching by simplifying the API and ensuring assets are downloaded efficiently.
+
+## How precaching works
+
+When a web app is loaded for the first time, Serwist looks at all the assets you want to download, removes any duplicates, and hooks up relevant service worker events to download and store the assets. URLs that already include versioning information (like a content hash) are used as cache keys without any further modification. URLs that don't include versioning information have an extra URL query parameter appended to their cache key representing their versions.
+
+Serwist does all of this during the service worker's `install` event.
+
+When a user later revisits your web app, and you have a new service worker with different precached assets, Serwist looks at the new list and determines which assets are completely new and which of existing ones need updating. Any new or updated assets are added to the cache during the new service worker's `install` event.
+
+This new service worker won't be used to respond to requests until its `activate` event has been triggered. It's during the `activate` event that Serwist checks for any cached assets that are no longer needed and remove them from the cache.
+
+Serwist performs these steps whenever your service worker is installed and activated, ensuring the user has the latest assets and only downloads files that have changed.
+
+## Explanation of the precache list
+
+Serwist expects an array of objects consisting of `url` and `revision`. This array is usually referred to as a precache manifest:
+
+sw.ts 
+
+```
+import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
+import { Serwist } from "serwist";
+
+declare global {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+  }
+}
+
+declare const self: ServiceWorkerGlobalScope;
+// ---cut-before---
+const serwist = new Serwist();
+
+serwist.addToPrecacheList([
+  { url: "/index.html", revision: "383676" },
+  { url: "/styles/app.0c9a31.css", revision: null },
+  { url: "/scripts/app.0d5770.js", revision: null },
+  // Other entries...
+]);
+```
+
+This list references a set of URLs, each with their own piece of revisioning information.
+
+For the second and third object in the example above, the `revision` property is set to null. This is because the revisioning information is in the URL itself, which is generally a best practice for static assets.
+
+The first object explicitly set a `revision` property, which is an auto-generated hash of the file's contents. This is because, unlike JavaScript and CSS resources, HTML files generally cannot include revisioning information in their URLs. Otherwise, links to these files on the web would break any time the content of the page changed.
+
+By providing a `revision`, you let Serwist know when the file has changed and update it accordingly.
+
+Serwist provides build tools that help generate this list:
+
+* `[@serwist/build](/docs/build)`: A module that integrates into your build process, helping you generate a manifest of local files that should be precached.
+* `[@serwist/webpack-plugin](/docs/webpack-plugin)`: A plugin for your webpack build process, helping you generate a manifest of local files that should be precached.
+* `[@serwist/cli](/docs/cli)`: The command line interface of Serwist.
+* `[@serwist/vite](/docs/vite)`: A module that integrates Serwist into your Vite application.
+* `[@serwist/next](/docs/next)`: A module that integrates Serwist into your Next.js application.
+* `[@serwist/svelte](/docs/svelte)`: A module that complements SvelteKit's built-in service worker support.
+
+It's strongly recommended that you use one of the mentioned tools to generate this manifest rather than hardcoding it yourself.
+
+## Incoming requests for precached files
+
+One thing that Serwist's precaching mechanism does out of the box is manipulating incoming network requests to try and match precached files. This accommodates for common practices on the web.
+
+For example, a request for "/" can usually be satisfied by the file at "/index.html".
+
+Below are the list of manipulations that Serwist performs by default and a guide on customizing the behaviour.
+
+### Ignoring URL parameters
+
+Requests with search parameters can be altered to remove specific values or all values.
+
+By default, search parameters that start with `utm_` or exactly match `fbclid` are removed, meaning that a request for "/about.html?utm\_campaign=abcd" will be fulfilled with the precached response for "/about.html".
+
+You can ignore a different set of search parameters using `ignoreURLParametersMatching`:
+
+sw.ts 
+
+```
+import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
+import { Serwist } from "serwist";
+
+declare global {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+  }
+}
+
+declare const self: ServiceWorkerGlobalScope;
+// ---cut-before---
+const serwist = new Serwist({
+  precacheEntries: self.__SW_MANIFEST,
+  precacheOptions: {
+    // Ignore all URL parameters.
+    ignoreURLParametersMatching: [/.*/],
+  },
+});
+```
+
+### Handling directory index
+
+Requests ending in a "/" will, by default, be matched against entries with "/index.html" appended. This means an incoming request for "/" can be handled by the precache entry for "/index.html".
+
+You can change this to something else or disable it completely by setting `directoryIndex`:
+
+sw.ts 
+
+```
+import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
+import { Serwist } from "serwist";
+
+declare global {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+  }
+}
+
+declare const self: ServiceWorkerGlobalScope;
+// ---cut-before---
+const serwist = new Serwist({
+  precacheEntries: self.__SW_MANIFEST,
+  precacheOptions: {
+    directoryIndex: null,
+  },
+});
+```
+
+### Supporting clean URLs
+
+If a request fails to match any precached response, we'll automatically add ".html" to the end to support clean URLs. For example, any request for "/about" is to be handled by the precache entry for "/about.html" if no entry exists for "/about".
+
+You can disable this behavior by setting `cleanURLs`:
+
+sw.ts 
+
+```
+import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
+import { Serwist } from "serwist";
+
+declare global {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+  }
+}
+
+declare const self: ServiceWorkerGlobalScope;
+// ---cut-before---
+const serwist = new Serwist({
+  precacheEntries: self.__SW_MANIFEST,
+  precacheOptions: {
+    cleanURLs: false,
+  },
+});
+```
+
+### Manipulating URLs
+
+If you want to define custom matches from incoming requests to precached assets, you can do so with the `urlManipulation` option. This should be a callback that returns an array of possible matches.
+
+sw.ts 
+
+```
+import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
+import { Serwist } from "serwist";
+
+declare global {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+  }
+}
+
+declare const self: ServiceWorkerGlobalScope;
+// ---cut-before---
+const serwist = new Serwist({
+  precacheEntries: self.__SW_MANIFEST,
+  precacheOptions: {
+    urlManipulation: ({ url }) => {
+      const alteredUrl = new URL(url);
+      // Your logic goes here...
+      return [alteredUrl];
+    },
+  },
+});
+```
+
+## Advanced usage
+
+### Reading precached assets
+
+There are times when you might need to read a precached asset directly, outside the context of the routing that Serwist can automatically perform. For instance, you might want to precache partial HTML templates that then need to be retrieved and used to construct a full response.
+
+In general, you can use the Cache Storage API to obtain the precached Response objects, but there is one wrinkle: the URL cache key that needs to be used when calling `cache.match()` might contain a versioning parameter that Serwist automatically creates and maintains.
+
+To get the correct cache key, you can call `getCacheKeyForURL()` and then use the result to perform a `cache.match()` on the appropriate cache.
+
+sw.ts 
+
+```
+import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
+import { Serwist } from "serwist";
+
+declare global {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+  }
+}
+
+declare const self: ServiceWorkerGlobalScope;
+// ---cut-before---
+const serwist = new Serwist({
+  precacheEntries: self.__SW_MANIFEST,
+});
+
+const cache = await caches.open(serwist.precacheStrategy.cacheName);
+
+self.addEventListener("fetch", (event) => {
+  const url = new URL(event.request.url);
+  if (url.origin === location.origin && url.pathname === "/test-precache") {
+    const cacheKey = serwist.getPrecacheKeyForUrl("/precached-file.html");
+    if (cacheKey) {
+      event.respondWith((async () => (await cache.match(cacheKey)) ?? Response.error())());
+    }
+  }
+});
+
+serwist.addEventListeners();
+```
+
+Alternatively, if all you need is the precached `Response` object, you can call the `matchPrecache()` method, which will automatically use the correct cache key and search in the according cache:
+
+sw.ts 
+
+```
+import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
+import { Serwist } from "serwist";
+
+declare global {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+  }
+}
+
+declare const self: ServiceWorkerGlobalScope;
+// ---cut-before---
+const serwist = new Serwist({
+  precacheEntries: self.__SW_MANIFEST,
+});
+
+self.addEventListener("fetch", (event) => {
+  const url = new URL(event.request.url);
+  if (url.origin === location.origin && url.pathname === "/test-precache") {
+    event.respondWith((async () => (await serwist.matchPrecache("/precached-file.html")) ?? Response.error())());
+  }
+});
+
+serwist.addEventListeners();
+```
+
+### Cleaning up old precaches
+
+Obsolete data shouldn't interfere with normal operations, but it does contribute towards your overall storage quota usage, and it can be friendlier to your users to explicitly delete it. You can do this by setting the `precacheOptions.cleanupOutdatedCaches` option to `true`.
+
+### Using subresource integrity
+
+Some developers might want the added guarantees offered by subresource integrity enforcement when retrieving precached URLs from the network.
+
+An optional property called `integrity` can be added to any entry of the precache manifest. If provided, it will be used as the `integrity` value when constructing the `Request` used to populate the cache. If there's a mismatch, the precaching process will fail.
+
+Determining which precache manifest entries should have integrity properties and figuring out the appropriate values to use are outside the scope of Serwist's build tools. Instead, developers who want to opt-in to this functionality should modify the precache manifest that Serwist generates to add in the appropriate info themselves. The `manifestTransform` option in Serwist's build tools configuration can help:
+
+sw.ts 
+
+```
+import type { ManifestTransform } from "@serwist/build";
+import { injectManifest } from "@serwist/build";
+import ssri from "ssri";
+
+const integrityManifestTransform: ManifestTransform = (originalManifest, compilation) => {
+  const warnings: string[] = [];
+  const manifest = originalManifest.map((entry) => {
+    // If some criteria match:
+    if (entry.url.startsWith("...")) {
+      const asset = (compilation as any).getAsset(entry.url);
+      entry.integrity = ssri.fromData(asset.source.source()).toString();
+
+      // Push a message to warnings if needed.
+    }
+    return entry;
+  });
+  return { warnings, manifest };
+};
+
+const { count, size, warnings } = await injectManifest({
+  swSrc: "app/sw.ts",
+  swDest: "dist/sw.js",
+  globDirectory: "dist/static",
+  manifestTransforms: [integrityManifestTransform],
+});
+if (warnings.length > 0) {
+  console.warn("[@serwist/build] Oopsie, there are warnings from Serwist:", warnings);
+}
+console.log(`[@serwist/build] Manifest injected: ${count} files, totaling ${size} bytes.`);
+```

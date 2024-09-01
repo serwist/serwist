@@ -1,0 +1,28 @@
+---
+layout: docs
+---
+# Constants
+
+## Exported values
+
+`serwist` exports a few constants that you can make use of for more convenience. This includes:
+
+* ### BROADCAST\_UPDATE\_DEFAULT\_HEADERS  
+What: the default list of headers to check.  
+How to use:  
+sw.ts  
+```  
+import { responsesAreSame, BROADCAST_UPDATE_DEFAULT_HEADERS } from "serwist";  
+declare const self: ServiceWorkerGlobalScope;  
+const cacheName = "api-cache";  
+const request = new Request("https://example.com/api");  
+const cache = await caches.open(cacheName);  
+const oldResponse = await cache.match(request);  
+const newResponse = await fetch(request);  
+if (oldResponse && !responsesAreSame(oldResponse, newResponse, BROADCAST_UPDATE_DEFAULT_HEADERS)) {  
+  const windows = await self.clients.matchAll({ type: "window" });  
+  for (const win of windows) {  
+    win.postMessage({ type: "CACHE_UPDATED", message: "Update now!" });  
+  }  
+}  
+```

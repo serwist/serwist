@@ -1,0 +1,28 @@
+---
+layout: docs
+---
+# excludeChunks
+
+## First added
+
+Workbox
+
+## About
+
+One or more chunk names whose corresponding output files should be excluded from the precache manifest.
+
+## Usage
+
+webpack.config.js 
+
+```
+new InjectManifest({
+  excludeChunks: ["chunk-1", "chunk-2"],
+});
+```
+
+## More resources
+
+Here is a list of resources you can read to learn more about `excludeChunks`:
+
+* [webpack's reference documentation on splitChunks.name](https://webpack.js.org/plugins/split-chunks-plugin/#splitchunksname)

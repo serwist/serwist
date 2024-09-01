@@ -1,0 +1,28 @@
+---
+layout: docs
+---
+# compileSrc
+
+## First added
+
+Workbox
+
+## About
+
+When `true` (the default), the `swSrc` file will be compiled by webpack.
+
+When `false`, compilation will not occur, and [webpackCompilationPlugins](./webpack-compilation-plugins) can't be used. Set to `false` if you want to inject the manifest into, e.g., a JSON file.
+
+## Default
+
+`true` 
+
+## Usage
+
+webpack.config.js 
+
+```
+new InjectManifest({
+  compileSrc: false,
+});
+```

@@ -1,0 +1,36 @@
+---
+layout: docs
+---
+# swUrl
+
+## First added
+
+8.2.0
+
+## About
+
+The URL to the service worker.
+
+## Why?
+
+Serwist, by providing the option `swDest`, made itself unable to determine the URL to the service worker. As a result, it assumes that this URL is "/sw.js". However, sometimes you might want something else, providing purpose for this option.
+
+## Usage
+
+vite.config.ts 
+
+```
+export default defineConfig({
+  plugins: [
+    // Other plugins...
+    serwist({
+      swUrl: "/weird-sw.js",
+      swSrc: "src/sw.ts",
+      swDest: "weird-sw.js",
+      globDirectory: "dist",
+      injectionPoint: "self.__SW_MANIFEST",
+      rollupFormat: "iife",
+    }),
+  ],
+});
+```

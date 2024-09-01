@@ -1,0 +1,36 @@
+---
+layout: docs
+---
+# mode
+
+## First added
+
+8.2.0
+
+## Default
+
+`process.env.NODE_ENV` 
+
+## About
+
+The mode in which your service worker should be built.
+
+## Usage
+
+vite.config.ts 
+
+```
+export default defineConfig({
+  plugins: [
+    // Other plugins...
+    serwist({
+      mode: "production",
+      swSrc: "src/sw.ts",
+      swDest: "sw.js",
+      globDirectory: "dist",
+      injectionPoint: "self.__SW_MANIFEST",
+      rollupFormat: "iife",
+    }),
+  ],
+});
+```

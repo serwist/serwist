@@ -1,0 +1,139 @@
+---
+layout: docs
+---
+# Background synchronizing
+
+[Original source (Apache 2.0 License). Adapted for Serwist's usage.](https://developer.chrome.com/docs/workbox/modules/workbox-background-sync) 
+
+## Introduction
+
+When you send data to a web server, sometimes the requests will fail. It may be because the user has lost connectivity, or it may be because the server is down; in either case you often want to try sending the requests again later.
+
+The [Background Synchronization API](https://developer.mozilla.org/en-US/docs/Web/API/Background%5FSynchronization%5FAPI) is an ideal solution to this problem. When a service worker detects that a network request has failed, it can register to receive a `sync` event, which gets delivered when the browser thinks connectivity has returned. Note that the `sync` event can be delivered even if the user has left the application, making it much more effective than the traditional method of retrying failed requests.
+
+Serwist provides plugins designed to make using the Background Synchronization API with it easier. It also implements a fallback strategy for browsers that haven't implemented this API yet. Browsers that have will automatically replay failed requests on your behalf at an interval managed by the browser, likely using exponential backoff between replay attempts. In browsers that don't natively support the API, this module will automatically attempt a replay whenever your service worker starts up.
+
+## Basic usage
+
+The easiest way to set up is to use the plugin, which automatically queues up failed requests and retry them when future [sync](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerGlobalScope/sync%5Fevent) events are fired.
+
+sw.ts 
+
+```
+import { BackgroundSyncPlugin, NetworkOnly } from "serwist";
+import { registerRoute } from "serwist/legacy";
+
+const backgroundSync = new BackgroundSyncPlugin("myQueueName", {
+  maxRetentionTime: 24 * 60, // Retry for a maximum of 24 Hours (specified in minutes)
+});
+
+registerRoute(
+  /\/api\/.*\/*.json/,
+  new NetworkOnly({
+    plugins: [backgroundSync],
+  }),
+  "POST",
+);
+```
+
+This plugin hooks into the `fetchDidFail` callback, which is only invoked if there's an exception thrown, most likely due to a network failure. This means that requests won't be retried if there's a response received with a 4xx or 5xx error status. If you would like to retry all requests that result in, e.g., a 5xx status, you can do so by hooking into the `fetchDidSucceed` callback:
+
+sw.ts sw.js 
+
+```
+import type { SerwistPlugin } from "serwist";
+import { BackgroundSyncPlugin, NetworkOnly } from "serwist";
+import { registerRoute } from "serwist/legacy";
+
+const statusPlugin = {
+  fetchDidSucceed({ response }) {
+    if (response.status >= 500) {
+      // Throwing anything here will trigger fetchDidFail.
+      throw new Error("Server error.");
+    }
+    // If it's not 5xx, use the response as-is.
+    return response;
+  },
+} satisfies SerwistPlugin;
+
+const backgroundSync = new BackgroundSyncPlugin("myQueueName", {
+  maxRetentionTime: 24 * 60, // Retry for a maximum of 24 Hours (specified in minutes)
+});
+
+registerRoute(
+  /\/api\/.*\/*.json/,
+  new NetworkOnly({
+    plugins: [statusPlugin, backgroundSync],
+  }),
+  "POST",
+);
+```
+
+## Advanced usage
+
+Serwist also provides `BackgroundSyncQueue`, which is a class you can instantiate and add failed requests to. The failed requests are stored in IndexedDB and retried when the browser thinks connectivity is restored (i.e. when it receives the `sync` event).
+
+### Creating a `BackgroundSyncQueue`
+
+To create a `BackgroundSyncQueue` you need to construct it with a queue name (which must be unique to your [origin](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin%5Fpolicy#definition%5Fof%5Fan%5Forigin)):
+
+sw.ts 
+
+```
+import { BackgroundSyncQueue } from "serwist";
+  
+const queue = new BackgroundSyncQueue("myQueueName");
+```
+
+The queue name is used as a part of the tag name that gets registered by the global `[SyncManager](https://developer.mozilla.org/en-US/docs/Web/API/SyncManager)`. It's also used as the Object Store name for the IndexedDB database.
+
+Note: It's not important that you know the details above, but they're the reason the queue name has to be unique to your origin.
+
+### Adding a request to the BackgroundSyncQueue
+
+Once you've created your `BackgroundSyncQueue` instance, you can add failed requests to it by invoking the `.pushRequest()` method. For example, the following code catches any requests that fail and adds them to the queue:
+
+sw.ts 
+
+```
+import { BackgroundSyncQueue } from "serwist";
+
+declare const self: ServiceWorkerGlobalScope;
+  
+const queue = new BackgroundSyncQueue("myQueueName");
+
+self.addEventListener("fetch", (event) => {
+  // Add in your own criteria here to return early if this
+  // isn't a request that should use background sync.
+  if (event.request.method !== "POST") {
+    return;
+  }
+
+  const backgroundSync = async () => {
+    try {
+      const response = await fetch(event.request.clone());
+      return response;
+    } catch (error) {
+      await queue.pushRequest({ request: event.request });
+      return Response.error();
+    }
+  };
+
+  event.respondWith(backgroundSync());
+});
+```
+
+Once added to the queue, the request is automatically retried when the service worker receives the `sync` event (which happens when the browser thinks connectivity is restored). Browsers that don't support the Background Synchronization API will retry the queue every time the service worker is started up. This requires the page controlling the service worker to be running, so it won't be quite as effective.
+
+## Testing
+
+Sadly, testing background synchronization is somewhat unintuitive and difficult for a number of reasons.
+
+The best approach to test your implementation is to do the following:
+
+* Load up a page and register your service worker.
+* Turn off your computer's network or turn off your web server. DO NOT USE CHROME DEVTOOLS OFFLINE. The offline checkbox in DevTools only affects requests from the page. Service Worker requests will continue to go through.
+* Make network requests that should be queued. You can check whether the requests have been queued by looking in Chrome DevTools > Application > IndexedDB > serwist-background-sync > requests
+* Now turn on your network or web server.
+* Force an early sync event by going to Chrome DevTools > Application > Service Workers, entering the tag name of serwist-background-sync:$YOUR\_QUEUE\_NAME where $YOUR\_QUEUE\_NAME should be the name of the queue you set, and then clicking the 'Sync' button. ![Example 'Sync' button](/@imagetools/f5838f3af6e114b5fb8929332835d20cbafb1c60)
+* You should see network requests go through for the failed requests and the IndexedDB data should now be empty since the requests have been successfully replayed.

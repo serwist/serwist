@@ -1,0 +1,115 @@
+---
+layout: docs
+---
+# Serwist
+
+## First added
+
+9.0.0
+
+## About
+
+A class that helps bootstrap the service worker.
+
+## Options
+
+* `precacheEntries` — A list of URLs that should be cached.
+* `precacheOptions` — Options to customize how Serwist precaches the URLs in the precache list.  
+   * `cacheName` — Cache name to store and retrieve requests. Defaults to Serwist's default cache names.  
+   * `plugins` — Plugins to use when precaching as well as responding to `fetch` events for precached assets.  
+   * `fetchOptions` — Options passed to [non-navigation](https://github.com/GoogleChrome/workbox/issues/1796) `fetch()` calls made by this strategy.  
+   * `matchOptions` — The [CacheQueryOptions](https://w3c.github.io/ServiceWorker/#dictdef-cachequeryoptions) passed to any `cache.match()` or `cache.put()` call made by this strategy.  
+   * `fallbackToNetwork` — Whether to attempt to get the response from the network if there's a precache miss.  
+   * `directoryIndex` — Tells Serwist to check the precache for an entry whose URL is the request URL appended with the specified value. Only applies if the request URL ends with "/".  
+   * `ignoreURLParametersMatching` — An array of `RegExp` objects matching search params that should be removed when looking for a precache match.  
+   * `cleanURLs` — Tells Serwist to check the precache for an entry whose URL is the request URL appended with ".html".  
+   * `urlManipulation` — A function that should take a URL and return an array of alternative URLs that should be checked for precache matches.  
+   * `cleanupOutdatedCaches` — Whether outdated caches should be removed.  
+   * `concurrency` — The number of precache requests that should be made concurrently.  
+   * `navigateFallback` — An URL that should point to a HTML file with which navigation requests for URLs that aren't precached will be fulfilled.  
+   * `navigateFallbackAllowlist` — URLs that should be allowed to use the \`navigateFallback\` handler.  
+   * `navigateFallbackDenylist` — URLs that should not be allowed to use the \`navigateFallback\` handler. This takes precedence over `navigateFallbackAllowlist`.
+* `skipWaiting` — Forces the waiting service worker to become the active one.
+* `importScripts` — Imports external scripts. They are executed in the order they are passed.
+* `navigationPreload` — Enables navigation preloading if it is supported.
+* `cacheId` — Modifies the prefix of the default cache names used by Serwist packages.
+* `clientsClaim` — Claims any currently available clients once the service worker becomes active. This is normally used in conjunction with `skipWaiting()`.
+* `runtimeCaching` — A list of caching strategies.
+* `offlineAnalyticsConfig` — Your configuration for `initializeGoogleAnalytics`. This plugin is only initialized when this option is not `undefined` or `false`.
+* `disableDevLogs` — Disables Serwist's logging in development mode.
+* `fallbacks` — Precaches routes so that they can be used as a fallback when a `Strategy` fails to generate a response.
+
+## Behind the constructor
+
+Behind the scenes, the constructor calls the following:
+
+* `[self.importScripts](https://developer.mozilla.org/en-US/docs/Web/API/WorkerGlobalScope/importScripts)` (if `importScripts` is not `undefined`)
+* `serwist.enableNavigationPreload` (if `navigationPreload` is set to `true`)
+* `serwist.setCacheNameDetails` (if `cacheId` is not `undefined`)
+* `[self.skipWaiting](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerGlobalScope/skipWaiting)` in the following situations:  
+   * `skipWaiting` is set to `true`.  
+   * Otherwise, when a message of type `"SKIP_WAITING"` is sent to the service worker.
+* `serwist.clientsClaim` (if `clientsClaim` is set to `true`)
+* `[serwist.PrecacheFallbackPlugin](/docs/serwist/runtime-caching/plugins/precache-fallback-plugin)` (if `runtimeCaching` and `fallbacks` are not `undefined`)
+* `serwist.initializeGoogleAnalytics` (if `offlineAnalyticsConfig` is set)
+* [serwist.disableDevLogs](/docs/serwist/core/disable-dev-logs) (if `disableDevLogs` is set to `true`)
+
+## Methods and fields
+
+* `precacheStrategy` — The strategy used to precache assets and respond to `fetch` events.
+* `routes` — A `Map` of HTTP methods (`'GET'`, etc.) to an array of all corresponding registered `Route` instances.
+* `addEventListeners()` — Adds Serwist's event listeners for you. Before calling it, add your own listeners should you need to.
+* `addToPrecacheList(entries)` — Adds items to the precache list, removing duplicates and ensuring the information is valid.
+* `handleInstall(event)` — Precaches new and updated assets. Call this method from the service worker's `install` event.
+* `handleActivate(event)` — Deletes assets that are no longer present in the current precache manifest. Call this method from the service worker's `activate` event.
+* `handleFetch(event)` — Gets a `Response` from an appropriate `Route`'s handler. Call this method from the service worker's `fetch` event.
+* `handleCache(event)` — Caches new URLs on demand. Call this method from the service worker's `message` event. To trigger the handler, send a message of type `"CACHE_URLS"` alongside a list of URLs that should be cached as `urlsToCache`.
+* `setDefaultHandler(handler, method)` — Define a default `handler` that's called when no routes explicitly match the incoming request.
+* `setCatchHandler(handler)` — If a `Route` throws an error while handling a request, this `handler` will be called and given a chance to provide a response.
+* `registerCapture(capture, handler?, method?)` — Registers a `RegExp`, string, or function with a caching strategy to the router.
+* `registerRoute(route)` — Registers a `Route` with the router.
+* `unregisterRoute(route)` — Unregisters a `Route` with the router.
+* `getUrlsToPrecacheKeys()` — Returns a mapping of a precached URL to the corresponding cache key, taking into account the revision information for the URL.
+* `getPrecachedUrls()` — Returns a list of all the URLs that have been precached by the current service worker.
+* `getPrecacheKeyForUrl(url)` — Returns the cache key used for storing a given URL. If that URL is unversioned, like "/index.html", then the cache key will be the original URL with a search parameter appended to it.
+* `getIntegrityForPrecacheKey(cacheKey)` — Retrieves the subresource integrity associated with the cache key, or undefined if it's not set.
+* `matchPrecache(request)` — This acts as a drop-in replacement for [cache.match()](https://developer.mozilla.org/en-US/docs/Web/API/Cache/match) with the following differences:  
+   * It knows what the name of the precache is, and only checks in that cache.  
+   * It allows you to pass in an "original" URL without versioning parameters, and it will automatically look up the correct cache key for the currently active revision of that URL.
+* `createHandlerBoundToUrl(url)` — Returns a function that looks up `url` in the precache (taking into account revision information), and returns the corresponding `Response`.
+* `handleRequest({ request, event })` — Applies the routing rules to a `FetchEvent` object to get a `Response` from an appropriate `Route`'s handler.
+* `findMatchingRoute({ url, sameOrigin, request, event })` — Checks a request and URL (and optionally an event) against the list of registered routes, and if there's a match, returns the corresponding route along with any params generated by the match.
+
+## Usage
+
+sw.ts 
+
+```
+import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
+import { Serwist } from "serwist";
+// This import depends on your framework. For example, if you use Next.js, it should
+// be @serwist/next/worker rather than @serwist/vite/worker.
+import { defaultCache } from "@serwist/vite/worker";
+
+declare global {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {
+    // Change this attribute's name to your `injectionPoint`.
+    // `injectionPoint` is an InjectManifest option.
+    // See https://serwist.pages.dev/docs/build/configuring
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+  }
+}
+
+declare const self: ServiceWorkerGlobalScope;
+
+const serwist = new Serwist({
+  precacheEntries: self.__SW_MANIFEST,
+  skipWaiting: true,
+  clientsClaim: true,
+  navigationPreload: true,
+  disableDevLogs: true,
+  runtimeCaching: defaultCache,
+});
+
+serwist.addEventListeners();
+```

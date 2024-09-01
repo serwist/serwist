@@ -1,0 +1,24 @@
+---
+layout: docs
+---
+# swSrc (InjectManifest only)
+
+## First added
+
+Workbox
+
+## About
+
+The path to the service worker file that will be read during the build process, relative to the current working directory.
+
+## Usage
+
+build.js 
+
+```
+await injectManifest({
+  swSrc: "app/sw.ts",
+  swDest: "dist/sw.js",
+  globDirectory: "dist/static",
+});
+```

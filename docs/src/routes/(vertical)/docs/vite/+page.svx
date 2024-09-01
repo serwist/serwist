@@ -1,0 +1,28 @@
+---
+layout: docs
+---
+# @serwist/vite
+
+## Introduction
+
+`@serwist/vite` is a module that integrates Serwist into your Vite application.
+
+## Getting started
+
+See [Getting started](./vite/getting-started). If you are initializing a new Vite + React project, you can also run the following command:
+
+npm yarn pnpm bun 
+
+```
+npx degit serwist/serwist/examples/vite-react-basic my-app
+```
+
+## Configuring
+
+See [Configuring](./vite/configuring).
+
+## Alternatives
+
+There are also some alternatives to `@serwist/vite`:
+
+* [Vite PWA](https://vite-pwa-org.netlify.app/) (`@serwist/vite` is actually a fork of this project!)

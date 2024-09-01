@@ -1,0 +1,123 @@
+---
+layout: docs
+---
+# Expiring outdated responses
+
+[Original source (Apache 2.0 License). Adapted for Serwist's usage.](https://developer.chrome.com/docs/workbox/modules/workbox-expiration) 
+
+## Introduction
+
+It's fairly common to want to put restrictions on a cache in terms of how long it should allow items to be stored or how many items it should keep. Such functionality can be implemented with Serwist through its expiration plugins.
+
+## Basic usage
+
+### Restrict the number of cache entries
+
+To restrict the number of entries stored in a cache, you can use the `maxEntries` option like so:
+
+sw.ts 
+
+```
+import { CacheFirst, ExpirationPlugin } from "serwist";
+import { registerRoute } from "serwist/legacy";
+
+registerRoute(
+  ({ request }) => request.destination === "image",
+  new CacheFirst({
+    cacheName: "image-cache",
+    plugins: [
+      new ExpirationPlugin({
+        maxEntries: 20,
+      }),
+    ],
+  }),
+);
+```
+
+After a cached response is used, or a new request is added to the cache, the plugin will look at the configured cache and ensure that the number of cached entries doesn't exceed the limit. If it does, the oldest entries will be removed.
+
+### Restrict the age of cached entries
+
+To restrict how long a request is cached for, you can use the `maxAgeSeconds` option like so:
+
+sw.ts 
+
+```
+import { CacheFirst, ExpirationPlugin } from "serwist";
+import { registerRoute } from "serwist/legacy";
+
+registerRoute(
+  ({ request }) => request.destination === "image",
+  new CacheFirst({
+    cacheName: "image-cache",
+    plugins: [
+      new ExpirationPlugin({
+        maxAgeSeconds: 24 * 60 * 60,
+      }),
+    ],
+  }),
+);
+```
+
+The plugin will check and remove entries after every request or cache update.
+
+## Advanced usage
+
+If you'd like to use the expiration logic separate from any other Serwist module, you can do so with the `CacheExpiration` class.
+
+To apply restrictions to a cache, you'd create an instance of `CacheExpiration` for the cache you want to control like so:
+
+sw.ts 
+
+```
+import { CacheExpiration } from "serwist";
+
+const cacheName = "my-cache";
+const expirationManager = new CacheExpiration(cacheName, {
+  maxAgeSeconds: 24 * 60 * 60,
+  maxEntries: 20,
+});
+```
+
+Whenever you update a cached entry, you need to call the `updateTimestamp()` method so that its age is updated.
+
+sw.ts 
+
+```
+// @filename: sw.ts
+import { CacheExpiration } from "serwist";
+
+declare const request: Request;
+declare const response: Response;
+
+const cacheName = "my-cache";
+const expirationManager = new CacheExpiration(cacheName, {
+  maxAgeSeconds: 24 * 60 * 60,
+  maxEntries: 20,
+});
+const openCache = await caches.open(cacheName);
+// ---cut-before---
+await openCache.put(request, response);
+
+await expirationManager.updateTimestamp(request.url);
+```
+
+Then, whenever you want to expire a set of entries, you can call the `expireEntries()` method, which will enforce the `maxAgeSeconds` and `maxEntries` configuration.
+
+sw.ts 
+
+```
+// @filename: sw.ts
+import { CacheExpiration } from "serwist";
+
+declare const request: Request;
+declare const response: Response;
+
+const cacheName = "my-cache";
+const expirationManager = new CacheExpiration(cacheName, {
+  maxAgeSeconds: 24 * 60 * 60,
+  maxEntries: 20,
+});
+// ---cut-before---
+await expirationManager.expireEntries();
+```

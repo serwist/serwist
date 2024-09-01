@@ -1,0 +1,32 @@
+---
+layout: docs
+---
+# BroadcastUpdatePlugin
+
+## First added
+
+Workbox
+
+## About
+
+A class implementing the `cacheDidUpdate` lifecycle callback. It will automatically broadcast a message whenever a cached response is updated.
+
+## Options
+
+See [BroadcastCacheUpdate's options](/docs/serwist/core/broadcast-cache-update#options).
+
+## Usage
+
+sw.ts message.ts 
+
+```
+import { BroadcastUpdatePlugin, StaleWhileRevalidate } from "serwist";
+import { registerRoute } from "serwist/legacy";
+
+registerRoute(
+  ({ url }) => url.pathname.startsWith("/api/"),
+  new StaleWhileRevalidate({
+    plugins: [new BroadcastUpdatePlugin()],
+  }),
+);
+```

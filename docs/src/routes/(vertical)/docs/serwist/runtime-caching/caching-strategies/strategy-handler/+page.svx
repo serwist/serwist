@@ -1,0 +1,75 @@
+---
+layout: docs
+---
+# StrategyHandler
+
+## First added
+
+Workbox
+
+## About
+
+A class created every time a [Strategy](./strategy) instance calls `Strategy.handle` or `Strategy.handleAll` that wraps all fetch and cache actions around plugin callbacks and keeps track of when the strategy is "done" (i.e. when all added `event.waitUntil()` promises have resolved).
+
+## Methods and fields
+
+* `event` — The event associated with this request.
+* `request` — The request the strategy is processing (passed to the strategy's `handle()` or `handleAll()` method).
+* `url` — A `URL` instance of `request.url` (if passed to the strategy's `handle()` or `handleAll()` method). Note: the `url` param will be present if the strategy is invoked from a `Route` object.
+* `params` — Some additional params (if passed to the strategy's `handle()` or `handleAll()` method). Note: the `params` param will be present if the strategy is invoked from a `Route` object and that route's matcher returned a truthy value (it will be that value).
+* `async fetch(requestInfo)` — Fetches a given request (and invokes any applicable plugin callback methods), taking the `fetchOptions` (for non-navigation requests) and `plugins` provided to the `Strategy` object into account.
+* `async fetchAndCachePut(requestInfo)` — Calls `this.fetch()` and (in the background) caches the generated response. The call to `this.cachePut()` automatically invokes `this.waitUntil()`, so you do not have to call `waitUntil()` yourself.
+* `async cacheMatch(key)` — Matches a request from the cache (and invokes any applicable plugin callback method) using the `cacheName`, `matchOptions`, and `plugins` provided to the `Strategy` object. The following lifecycle methods are invoked when using this method:  
+   * `cacheKeyWillBeUsed`  
+   * `cachedResponseWillBeUsed`
+* `async cachePut(key, response)` — Puts a request/response pair into the cache (and invokes any applicable plugin callback method) using the `cacheName` and `plugins` provided to the `Strategy` object. The following plugin lifecycle methods are invoked when using this method:  
+   * `cacheKeyWillBeUsed`  
+   * `cacheWillUpdate`  
+   * `cacheDidUpdate`
+* `async getCacheKey(request, mode)` — Checks the `plugins` provided to the `Strategy` object for `cacheKeyWillBeUsed` callbacks and executes found callbacks in sequence. The final `Request` object returned by the last plugin is treated as the cache key for cache reads and/or writes. If no `cacheKeyWillBeUsed` plugin callbacks have been registered, the passed request is returned unmodified.
+* `hasCallback(name)` — Returns `true` if the strategy has at least one plugin with the given callback.
+* `async runCallbacks(name, param)` — Runs all plugin callbacks matching the given name, in order, passing the given `param` object (merged with the plugin's current state) as the only argument.
+* `*iterateCallbacks(name)` — Accepts a callback name and returns an iterable of matching plugin callbacks.
+* `waitUntil(promise)` — Adds a promise to the [extend lifetime promises](https://w3c.github.io/ServiceWorker/#extendableevent-extend-lifetime-promises) of the event event associated with the request being handled (usually a `FetchEvent`).
+* `async doneWaiting()` — Returns a promise that resolves once all promises passed to `this.waitUntil()` have settled. Note: any work done after `doneWaiting()` settles should be manually passed to an event's `waitUntil()` method (not `this.waitUntil()`), otherwise the service worker thread may be killed prior to your work completing.
+* `destroy()` — Stops running the strategy and immediately resolves any pending `waitUntil()` promise.
+
+## Usage
+
+sw.ts 
+
+```
+import { Strategy, type StrategyHandler } from "serwist";
+
+class CacheNetworkRace extends Strategy {
+  _handle(request: Request, handler: StrategyHandler) {
+    const fetchAndCachePutDone = handler.fetchAndCachePut(request);
+    const cacheMatchDone = handler.cacheMatch(request);
+
+    return new Promise<Response>((resolve, reject) => {
+      fetchAndCachePutDone.then(resolve);
+      cacheMatchDone.then((response) => {
+        if (response) {
+          resolve(response);
+        }
+      });
+
+      // Reject if both network and cache error or find no response.
+      Promise.allSettled([fetchAndCachePutDone, cacheMatchDone]).then((results) => {
+        const [fetchAndCachePutResult, cacheMatchResult] = results;
+        if (fetchAndCachePutResult.status === "rejected" && (cacheMatchResult.status === "rejected" || !cacheMatchResult.value)) {
+          reject(fetchAndCachePutResult.reason);
+        }
+      });
+    });
+  }
+}
+```
+
+## More resources
+
+Here is a list of resources you can read to learn more about `StrategyHandler`:
+
+* [Runtime caching](/docs/serwist/runtime-caching)
+* [Using plugins](/docs/serwist/runtime-caching/plugins)
+* [Strategy's reference documentation](./strategy)

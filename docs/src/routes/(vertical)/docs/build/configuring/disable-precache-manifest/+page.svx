@@ -1,0 +1,30 @@
+---
+layout: docs
+---
+# disablePrecacheManifest
+
+## First added
+
+8.0.0
+
+## Default
+
+`false` 
+
+## About
+
+Whether the precache manifest should be set to `undefined`. Essentially whether `@serwist/build` should be disabled. Mostly useful when you want it to only check if the provided options are valid.
+
+## Usage
+
+build.js 
+
+```
+const isDev = process.env.NODE_ENV === "development";
+await injectManifest({
+  swSrc: "app/sw.ts",
+  swDest: "dist/sw.js",
+  globDirectory: "dist/static",
+  disablePrecacheManifest: isDev,
+});
+```

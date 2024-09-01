@@ -1,0 +1,42 @@
+---
+layout: docs
+---
+# rollupOptions
+
+## First added
+
+8.2.0
+
+## About
+
+Custom Rollup options used to build the service worker.
+
+This does not allow output and plugins. To add Rollup/Vite plugins, use [plugins](./plugins) instead.
+
+## Usage
+
+vite.config.ts 
+
+```
+export default defineConfig({
+  plugins: [
+    // Other plugins...
+    serwist({
+      swSrc: "src/sw.ts",
+      swDest: "sw.js",
+      globDirectory: "dist",
+      injectionPoint: "self.__SW_MANIFEST",
+      rollupFormat: "iife",
+      rollupOptions: {
+        logLevel: "silent",
+      },
+    }),
+  ],
+});
+```
+
+## More resources
+
+Here is a list of resources you can read to learn more about `rollupOptions`:
+
+* [Rollup's reference documentation on configuration options](https://rollupjs.org/configuration-options/)

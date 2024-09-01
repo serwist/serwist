@@ -1,0 +1,32 @@
+---
+layout: docs
+---
+# scope
+
+## First added
+
+`next-pwa` 
+
+## Default
+
+`nextConfig.basePath` 
+
+## About
+
+The service worker's URL scope. Set to `"/foo/"` so that paths under "/foo/" are under the service worker's control while others are not.
+
+Note: "/foo" does NOT belong to the aforementioned scope! Consider configuring how Next.js handles trailing slashes.
+
+## Usage
+
+Note: this option is not influenced by your basePath! If you don't have a trailing slash, the slash is automatically appended to the scope. Otherwise, it is passed to Serwist as-is.
+
+next.config.mjs 
+
+```
+withSerwistInit({
+  swSrc: "app/sw.ts",
+  swDest: "public/sw.js",
+  scope: "/foo/",
+});
+```

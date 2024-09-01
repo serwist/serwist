@@ -1,0 +1,43 @@
+---
+layout: docs
+---
+# rollupFormat
+
+## First added
+
+8.2.0
+
+## Default
+
+`"es"` 
+
+## About
+
+The format used to build the service worker. Usually used alongside [type](./type).
+
+## Usage
+
+vite.config.ts 
+
+```
+export default defineConfig({
+  plugins: [
+    // Other plugins...
+    serwist({
+      rollupFormat: "iife",
+      type: "classic",
+      swSrc: "src/sw.ts",
+      swDest: "sw.js",
+      globDirectory: "dist",
+      injectionPoint: "self.__SW_MANIFEST",
+    }),
+  ],
+});
+```
+
+## More resources
+
+Here is a list of resources you can read to learn more about `rollupFormat`:
+
+* [Browser compatibility data table for ES modules in service workers](https://caniuse.com/mdn-api%5Fserviceworker%5Fecmascript%5Fmodules)
+* [web.dev: ES modules in service workers](https://web.dev/articles/es-modules-in-sw)

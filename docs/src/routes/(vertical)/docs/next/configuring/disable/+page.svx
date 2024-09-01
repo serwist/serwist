@@ -1,0 +1,28 @@
+---
+layout: docs
+---
+# disable
+
+## First added
+
+`next-pwa` 
+
+## Default
+
+`false` 
+
+## About
+
+Whether Serwist should be disabled.
+
+## Usage
+
+next.config.mjs 
+
+```
+withSerwistInit({
+  swSrc: "app/sw.ts",
+  swDest: "public/sw.js",
+  disable: true,
+});
+```

@@ -1,0 +1,43 @@
+---
+layout: docs
+---
+# Preloading navigations
+
+[Original source (Apache 2.0 License). Adapted for Serwist's usage.](https://developer.chrome.com/docs/workbox/modules/workbox-navigation-preload) 
+
+## Introduction
+
+Serwist allows developers to enable navigation preloading in their service worker through the use of the [NavigationPreloadManager](https://developer.mozilla.org/en-US/docs/Web/API/NavigationPreloadManager) interface. This has to be manually enabled.
+
+If this functionality is enabled, Serwist will check whether navigation preloading is supported in the current browser, and if it is, an `activate` event handler will be automatically created to enable it.
+
+The shared code that handles making network requests across all of Serwist automatically takes advantage of a preload response if it's available.
+
+## Who should enable navigation preloading?
+
+Developers who are already handling navigations by responding with precached HTML do not need to enable navigation preload! This feature is intended to reduce navigation latency for developers who can't precache their HTML, but still want to use Serwist to handle caching of other assets on their sites.
+
+## Basic usage
+
+sw.ts 
+
+```
+import { enableNavigationPreload, NavigationRoute, NetworkFirst } from "serwist";
+import { registerRoute } from "serwist/legacy";
+
+enableNavigationPreload();
+
+// Swap in NetworkOnly, CacheFirst, or StaleWhileRevalidate as needed.
+const navigationStrategy = new NetworkFirst({
+  cacheName: "cached-navigations",
+});
+
+const navigationRoute = new NavigationRoute(navigationStrategy, {
+  // Optionally, provide a allow/denylist of RegExps to determine
+  // which paths will match this route.
+  // allowlist: [],
+  // denylist: [],
+});
+
+registerRoute(navigationRoute);
+```

@@ -1,0 +1,24 @@
+---
+layout: docs
+---
+# Configuring
+
+## Available options
+
+There are various options you can use to customize the behaviour of the plugin:
+
+* `[additionalPrecacheEntries](/docs/webpack-plugin/configuring/additional-precache-entries)`
+* `[chunks](/docs/webpack-plugin/configuring/chunks)`
+* `[compileSrc](/docs/webpack-plugin/configuring/compile-src)`
+* `[disablePrecacheManifest](/docs/webpack-plugin/configuring/disable-precache-manifest)`
+* `[dontCacheBustURLsMatching](/docs/webpack-plugin/configuring/dont-cache-bust-urls-matching)`
+* `[exclude](/docs/webpack-plugin/configuring/exclude)`
+* `[excludeChunks](/docs/webpack-plugin/configuring/exclude-chunks)`
+* `[include](/docs/webpack-plugin/configuring/include)`
+* `[injectionPoint](/docs/webpack-plugin/configuring/injection-point)`
+* `[manifestTransforms](/docs/webpack-plugin/configuring/manifest-transforms)`
+* `[maximumFileSizeToCacheInBytes](/docs/webpack-plugin/configuring/maximum-file-size-to-cache-in-bytes)`
+* `[modifyURLPrefix](/docs/webpack-plugin/configuring/modify-url-prefix)`
+* `[swDest](/docs/webpack-plugin/configuring/sw-dest)`
+* `[swSrc](/docs/webpack-plugin/configuring/sw-src)`
+* `[webpackCompilationPlugins](/docs/webpack-plugin/configuring/webpack-compilation-plugins)`

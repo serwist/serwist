@@ -1,0 +1,30 @@
+---
+layout: docs
+---
+# maximumFileSizeToCacheInBytes
+
+## First added
+
+Workbox
+
+## Default
+
+`2097152` 
+
+## About
+
+This value can be used to determine the maximum size of files that will be precached. This prevents you from inadvertently precaching very large files that might have accidentally matched one of your patterns.
+
+## Usage
+
+build.js 
+
+```
+await injectManifest({
+  swSrc: "app/sw.ts",
+  swDest: "dist/sw.js",
+  globDirectory: "dist/static",
+  // Bomb has been planted
+  maximumFileSizeToCacheInBytes: 7355608,
+});
+```

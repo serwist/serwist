@@ -1,0 +1,32 @@
+---
+layout: docs
+---
+# cacheOnNavigation
+
+## First added
+
+`next-pwa@5.2.1` 
+
+## Default
+
+`false` 
+
+## About
+
+Enables additional route caching when users navigate through pages with `next/link`. This improves the user experience in some cases but it also adds a bit of overhead due to additional network calls.
+
+## How it works
+
+It overrides `history.pushState` and `history.pushState`. When these functions are called, they call a function that posts a message containing the URL in their parameters to the `@serwist/next` worker, telling it to add this URL to the cache.
+
+## Usage
+
+next.config.mjs 
+
+```
+withSerwistInit({
+  swSrc: "app/sw.ts",
+  swDest: "public/sw.js",
+  cacheOnNavigation: true,
+});
+```

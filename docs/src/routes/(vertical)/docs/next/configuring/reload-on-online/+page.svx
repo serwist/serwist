@@ -1,0 +1,32 @@
+---
+layout: docs
+---
+# reloadOnOnline
+
+## First added
+
+`next-pwa` 
+
+## Default
+
+`true` 
+
+## About
+
+Whether Serwist should reload the app when it goes online.
+
+## How it works
+
+When this is set to `true`, the code injected into your app's entrypoints adds an event listener that runs `location.reload()` to window's "online" event.
+
+## Usage
+
+next.config.mjs 
+
+```
+withSerwistInit({
+  swSrc: "app/sw.ts",
+  swDest: "public/sw.js",
+  reloadOnOnline: true,
+});
+```

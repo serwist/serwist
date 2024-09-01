@@ -1,0 +1,42 @@
+---
+layout: docs
+---
+# type
+
+## First added
+
+8.2.0
+
+## Default
+
+`"classic"` 
+
+## About
+
+The module type with which the service worker should be registered. Usually used alongside [rollupFormat](./rollup-format).
+
+## Usage
+
+vite.config.ts 
+
+```
+export default defineConfig({
+  plugins: [
+    // Other plugins...
+    serwist({
+      type: "module",
+      rollupFormat: "es",
+      swSrc: "src/sw.ts",
+      swDest: "sw.js",
+      globDirectory: "dist",
+      injectionPoint: "self.__SW_MANIFEST",
+    }),
+  ],
+});
+```
+
+## More resources
+
+Here is a list of resources you can read to learn more about `type`:
+
+* [MDN's reference documentation on type](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerContainer/register#type)

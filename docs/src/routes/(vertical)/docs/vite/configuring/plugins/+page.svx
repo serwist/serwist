@@ -1,0 +1,46 @@
+---
+layout: docs
+---
+# plugins
+
+## First added
+
+8.2.0
+
+## About
+
+Rollup/Vite plugins used to build the service worker.
+
+## Usage
+
+vite.config.ts 
+
+```
+import replace from "@rollup/plugin-replace";
+
+export default defineConfig({
+  plugins: [
+    // Other plugins...
+    serwist({
+      swSrc: "src/sw.ts",
+      swDest: "sw.js",
+      globDirectory: "dist",
+      injectionPoint: "self.__SW_MANIFEST",
+      rollupFormat: "iife",
+      plugins: [
+        replace({
+          __BUILD_DATE__: () => JSON.stringify(new Date()),
+          __BUILD_VERSION__: 15,
+        }),
+      ],
+    }),
+  ],
+});
+```
+
+## More resources
+
+Here is a list of resources you can read to learn more about `plugins`:
+
+* [Vite: Using plugins](https://vitejs.dev/guide/using-plugins.html)
+* [Vite: Plugin API](https://vitejs.dev/guide/api-plugin.html)

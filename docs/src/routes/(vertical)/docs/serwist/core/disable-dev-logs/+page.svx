@@ -1,0 +1,26 @@
+---
+layout: docs
+---
+# disableDevLogs
+
+## First added
+
+8.0.0
+
+## About
+
+Disables Serwist's logging in development mode.
+
+## How it works
+
+It simply sets `self.__WB_DISABLE_DEV_LOGS` to `true`. This value is picked up by Serwist's logger.
+
+## Usage
+
+sw.ts 
+
+```
+import { disableDevLogs } from "serwist";
+
+disableDevLogs();
+```

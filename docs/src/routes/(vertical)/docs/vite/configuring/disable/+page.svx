@@ -1,0 +1,36 @@
+---
+layout: docs
+---
+# disable
+
+## First added
+
+8.2.0
+
+## Default
+
+`false` 
+
+## About
+
+Whether Serwist should be disabled.
+
+## Usage
+
+vite.config.ts 
+
+```
+export default defineConfig({
+  plugins: [
+    // Other plugins...
+    serwist({
+      disable: true,
+      swSrc: "src/sw.ts",
+      swDest: "sw.js",
+      globDirectory: "dist",
+      injectionPoint: "self.__SW_MANIFEST",
+      rollupFormat: "iife",
+    }),
+  ],
+});
+```

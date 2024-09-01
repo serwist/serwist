@@ -1,0 +1,33 @@
+---
+layout: docs
+---
+# manifestTransforms
+
+## First added
+
+Workbox
+
+## About
+
+One or more functions which will be applied sequentially against the generated manifest. If `[modifyURLPrefix](./modify-url-prefix)` or `[dontCacheBustURLsMatching](./dont-cache-bust-urls-matching)` are also specified, their corresponding transformations will be applied first.
+
+## Usage
+
+build.ts 
+
+```
+const manifestTransform: ManifestTransform = async (manifestEntries) => {
+  const manifest = manifestEntries.map((m) => {
+    if (m.url === "dQw4w9WgXcQ") m.url = "get-rick-rolled.mp4";
+    if (m.revision === null) m.revision = crypto.randomUUID();
+    return m;
+  });
+  return { manifest, warnings: [] };
+};
+await injectManifest({
+  swSrc: "app/sw.ts",
+  swDest: "dist/sw.js",
+  globDirectory: "dist/static",
+  manifestTransforms: [manifestTransform],
+});
+```

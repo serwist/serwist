@@ -1,0 +1,31 @@
+---
+layout: docs
+---
+# include
+
+## First added
+
+Workbox
+
+## About
+
+One or more specifiers used to include assets from the precache manifest. This is interpreted following the same rules as webpack's standard `include` option.
+
+## Usage
+
+webpack.config.js 
+
+```
+new InjectManifest({
+  include: [
+    /\.(js|css|json)$/, 
+    ({ asset }) => asset.name.startsWith("client/"),
+  ],
+});
+```
+
+## More resources
+
+Here is a list of resources you can read to learn more about `include`:
+
+* [webpack's reference documentation on Condition](https://webpack.js.org/configuration/module/#condition)

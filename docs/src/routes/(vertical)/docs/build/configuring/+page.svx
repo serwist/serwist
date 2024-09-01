@@ -1,0 +1,24 @@
+---
+layout: docs
+---
+# Configuring
+
+## Available options
+
+There are various options you can use to customize the behaviour of the plugin:
+
+* `[additionalPrecacheEntries](/docs/build/configuring/additional-precache-entries)`
+* `[disablePrecacheManifest](/docs/build/configuring/disable-precache-manifest)`
+* `[dontCacheBustURLsMatching](/docs/build/configuring/dont-cache-bust-urls-matching)`
+* `[globDirectory](/docs/build/configuring/glob-directory)`
+* `[globFollow](/docs/build/configuring/glob-follow)`
+* `[globIgnores](/docs/build/configuring/glob-ignores)`
+* `[globPatterns](/docs/build/configuring/glob-patterns)`
+* `[globStrict](/docs/build/configuring/glob-strict)`
+* `[injectionPoint](/docs/build/configuring/injection-point)`
+* `[manifestTransforms](/docs/build/configuring/manifest-transforms)`
+* `[maximumFileSizeToCacheInBytes](/docs/build/configuring/maximum-file-size-to-cache-in-bytes)`
+* `[modifyURLPrefix](/docs/build/configuring/modify-url-prefix)`
+* `[swDest](/docs/build/configuring/sw-dest)`
+* `[swSrc](/docs/build/configuring/sw-src)`
+* `[templatedURLs](/docs/build/configuring/templated-urls)`

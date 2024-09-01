@@ -1,0 +1,42 @@
+---
+layout: docs
+---
+# StorableRequest
+
+## First added
+
+Workbox
+
+## About
+
+A class to make it easier to serialize and de-serialize requests so they can be stored in IndexedDB.
+
+Most developers will not need to access this class directly; it is exposed for advanced use cases.
+
+## Parameters
+
+* `requestData` — An object of request data that includes the `url` plus any relevant property of [requestInit](https://fetch.spec.whatwg.org/#requestinit).
+
+## Methods and fields
+
+* `static async fromRequest(request)` — Converts a `Request` object to a plain object that can be structured cloned or stringified to JSON.
+* `toObject()` — Returns a deep clone of the instance's `requestData` object.
+* `toRequest()` — Converts this instance to a Request.
+* `clone()` — Creates and returns a deep clone of the instance.
+
+## Usage
+
+sw.ts 
+
+```
+declare const request: Request;
+// ---cut-before---
+import { StorableRequest } from "serwist";
+
+const storableRequest = await StorableRequest.fromRequest(request);
+
+// This object can be saved in IndexedDB.
+const objectRequest = storableRequest.toObject();
+
+const parsedRequest = new StorableRequest(objectRequest).toRequest();
+```

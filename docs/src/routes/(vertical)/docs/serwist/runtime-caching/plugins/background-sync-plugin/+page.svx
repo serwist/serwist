@@ -1,0 +1,37 @@
+---
+layout: docs
+---
+# BackgroundSyncPlugin
+
+## First added
+
+Workbox
+
+## About
+
+A class implementing the `fetchDidFail` lifecycle callback. This makes it easier to add failed requests to a `[background sync queue](/docs/serwist/core/background-sync-queue)`.
+
+## Parameters
+
+See [BackgroundSyncQueue's parameters](/docs/serwist/core/background-sync-queue#parameters).
+
+## Usage
+
+sw.ts 
+
+```
+import { BackgroundSyncPlugin, NetworkOnly } from "serwist";
+import { registerRoute } from "serwist/legacy";
+
+const backgroundSync = new BackgroundSyncPlugin("myQueueName", {
+  maxRetentionTime: 24 * 60, // Retry for a maximum of 24 Hours (specified in minutes)
+});
+
+registerRoute(
+  /\/api\/.*\/*.json/,
+  new NetworkOnly({
+    plugins: [backgroundSync],
+  }),
+  "POST",
+);
+```

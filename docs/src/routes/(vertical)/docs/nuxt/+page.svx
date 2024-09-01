@@ -1,0 +1,29 @@
+---
+layout: docs
+---
+# @serwist/nuxt
+
+## Introduction
+
+`@serwist/nuxt` is a module that integrates Serwist into your Nuxt application.
+
+## Getting started
+
+See [Getting started](./nuxt/getting-started). If you are initializing a new project, you can also run the following command:
+
+npm yarn pnpm bun 
+
+```
+npx degit serwist/serwist/examples/nuxt-basic my-app
+```
+
+## Configuring
+
+See [Configuring](./vite/configuring).
+
+## Alternatives
+
+There are also some alternatives to `@serwist/nuxt`:
+
+* [@serwist/vite](./vite)
+* [Vite PWA](https://vite-pwa-org.netlify.app/) (`@serwist/nuxt` is actually a fork of this project!)

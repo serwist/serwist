@@ -1,0 +1,30 @@
+---
+layout: docs
+---
+# dontCacheBustURLsMatching
+
+## First added
+
+Workbox
+
+## About
+
+Assets that match this will be assumed to be uniquely versioned via their URL, and exempted from the normal HTTP cache-busting that's done when populating the precache. While not required, it's recommended that if your existing build process already inserts a `[hash]` value into each filename, you provide a RegExp that will detect that, as it will reduce the bandwidth consumed when precaching.
+
+## Usage
+
+build.js 
+
+```
+await injectManifest({
+  swSrc: "app/sw.ts",
+  swDest: "dist/sw.js",
+  globDirectory: "dist/static",
+  // NOTE: THE SERWIST TEAM IS NOT THAT GOOD AT REGEXPS. JUST KNOW THAT.
+  dontCacheBustURLsMatching: /^dist\/static\/([a-zA-Z0-9]+)\.([a-z0-9]+)\.(css|js)$/,
+});
+```
+
+## Note about webpack
+
+For most cases, you do not need this option because `@serwist/webpack-plugin` does check whether an asset is immutable for you.

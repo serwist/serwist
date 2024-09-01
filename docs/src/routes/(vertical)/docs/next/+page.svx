@@ -1,0 +1,31 @@
+---
+layout: docs
+---
+# @serwist/next
+
+## Introduction
+
+`@serwist/next` is a module that integrates Serwist into your Next.js application.
+
+## Getting started
+
+See [Getting started](./next/getting-started). If you are initializing a new project, you can also run the following command:
+
+npm yarn pnpm bun 
+
+```
+npx degit serwist/serwist/examples/next-basic my-app
+```
+
+## Configuring
+
+See [Configuring](./next/configuring).
+
+## Alternatives
+
+There are also some alternatives to `@serwist/next`:
+
+* [@serwist/webpack-plugin](./webpack-plugin)
+* [workbox-webpack-plugin](https://developer.chrome.com/docs/workbox/modules/workbox-webpack-plugin)
+* [@ducanh2912/next-pwa](https://ducanh-next-pwa.vercel.app)
+* [next-pwa](https://github.com/shadowwalker/next-pwa)

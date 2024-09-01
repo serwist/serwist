@@ -1,0 +1,208 @@
+---
+layout: docs
+---
+# Getting started
+
+## Install
+
+Run the following command:
+
+npm yarn pnpm bun 
+
+```
+npm i @serwist/next && npm i -D serwist
+```
+
+## Implementation
+
+### Step 1: Wrap your Next.js config with withSerwist
+
+Update or create your Next.js configuration file with the following content:
+
+next.config.mjs next.config.mjs (light) next.config.js 
+
+```
+import withSerwistInit from "@serwist/next";
+
+const withSerwist = withSerwistInit({
+  // Note: This is only an example. If you use Pages Router,
+  // use something else that works, such as "service-worker/index.ts".
+  swSrc: "app/sw.ts",
+  swDest: "public/sw.js",
+});
+
+export default withSerwist({
+  // Your Next.js config
+});
+```
+
+### Step 2: Update tsconfig.json
+
+If you use TypeScript, add the following content to tsconfig.json in order to get the correct types:
+
+tsconfig.json 
+
+```
+{
+  // Other stuff...
+  "compilerOptions": {
+    // Other options...
+    "types": [
+      // Other types...
+      // This allows Serwist to type `window.serwist`.
+      "@serwist/next/typings"
+    ],
+    "lib": [
+      // Other libs...
+      // Add this! Doing so adds WebWorker and ServiceWorker types to the global.
+      "webworker"
+    ],
+  },
+  "exclude": ["public/sw.js"]
+}
+```
+
+Otherwise, safely skip this step.
+
+### Step 3: Update .gitignore
+
+If you use Git, update your .gitignore like so:
+
+.gitignore 
+
+```
+# Serwist
+public/sw*
+public/swe-worker*
+```
+
+Otherwise, safely skip this step.
+
+### Step 4: Create a service worker
+
+Basic service worker template to get Serwist up and running:
+
+sw.ts 
+
+```
+import { defaultCache } from "@serwist/next/worker";
+import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
+import { Serwist } from "serwist";
+
+// This declares the value of `injectionPoint` to TypeScript.
+// `injectionPoint` is the string that will be replaced by the
+// actual precache manifest. By default, this string is set to
+// `"self.__SW_MANIFEST"`.
+declare global {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+  }
+}
+
+declare const self: ServiceWorkerGlobalScope;
+
+const serwist = new Serwist({
+  precacheEntries: self.__SW_MANIFEST,
+  skipWaiting: true,
+  clientsClaim: true,
+  navigationPreload: true,
+  runtimeCaching: defaultCache,
+});
+
+serwist.addEventListeners();
+```
+
+### Step 5: Add a web application manifest
+
+Update app/manifest.json (App Router) or public/manifest.json (Pages Router) with the following content:
+
+manifest.json 
+
+```
+{
+  "name": "My Awesome PWA app",
+  "short_name": "PWA App",
+  "icons": [
+    {
+      "src": "/icons/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#FFFFFF",
+  "background_color": "#FFFFFF",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait"
+}
+```
+
+### Step 6: Add metadata to <head />
+
+Add the following content to app/layout.tsx or pages/\_app.tsx:
+
+app/layout.tsx pages/\_app.tsx 
+
+```
+import type { Metadata, Viewport } from "next";
+import type { ReactNode } from "react";
+
+const APP_NAME = "PWA App";
+const APP_DEFAULT_TITLE = "My Awesome PWA App";
+const APP_TITLE_TEMPLATE = "%s - PWA App";
+const APP_DESCRIPTION = "Best PWA app in the world!";
+
+export const metadata: Metadata = {
+  applicationName: APP_NAME,
+  title: {
+    default: APP_DEFAULT_TITLE,
+    template: APP_TITLE_TEMPLATE,
+  },
+  description: APP_DESCRIPTION,
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: APP_DEFAULT_TITLE,
+    // startUpImage: [],
+  },
+  formatDetection: {
+    telephone: false,
+  },
+  openGraph: {
+    type: "website",
+    siteName: APP_NAME,
+    title: {
+      default: APP_DEFAULT_TITLE,
+      template: APP_TITLE_TEMPLATE,
+    },
+    description: APP_DESCRIPTION,
+  },
+  twitter: {
+    card: "summary",
+    title: {
+      default: APP_DEFAULT_TITLE,
+      template: APP_TITLE_TEMPLATE,
+    },
+    description: APP_DESCRIPTION,
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#FFFFFF",
+};
+
+export default function RootLayout({ children }: { children: ReactNode }) {
+  return (
+    <html lang="en" dir="ltr">
+      <head />
+      <body>{children}</body>
+    </html>
+  );
+}
+```

@@ -1,0 +1,226 @@
+---
+layout: docs
+---
+# @serwist/window
+
+[Original source (Apache 2.0 License). Adapted for Serwist's usage.](https://developer.chrome.com/docs/workbox/modules/workbox-window) 
+
+## Introduction
+
+`@serwist/window` is a set of modules intended for the `window` context and meant to complement Serwist's service worker packages.
+
+## Install
+
+To install `@serwist/window`, run the following command in your terminal:
+
+npm yarn pnpm bun 
+
+```
+npm i -D @serwist/window
+```
+
+Then import `Serwist` into your application:
+
+index.ts 
+
+```
+import { Serwist } from "@serwist/window";
+
+if ("serviceWorker" in navigator) {
+  const serwist = new Serwist("/sw.js", { scope: "/", type: "classic" });
+
+  void serwist.register();
+}
+```
+
+This Serwist class is not to be confused with the serwist.Serwist class! One is meant for the window context, and the other is supposed to be run in a service worker.
+
+You can also dynamically import `@serwist/window`, helping reduce the size of your page's main bundle.
+
+## Examples
+
+Once you've imported the `Serwist` class, you can use it to register and interact with your service worker. Here are some examples of ways you might use the `Serwist` class in your application:
+
+### Notify the user if a service worker has installed but is stuck waiting to activate
+
+When a page controlled by an existing service worker registers a new service worker, by default that service worker will not activate until all clients controlled by the previous service worker have fully unloaded.
+
+This is a common source of confusion for developers, especially in cases where reloading the current page doesn't cause the new service worker to activate.
+
+To help minimize confusion and make it clear when this situation is happening, the `Serwist` class allows you to listen to the `waiting` event:
+
+index.ts 
+
+```
+import type { Serwist } from "@serwist/window";
+declare const serwist: Serwist;
+// ---cut-before---
+serwist.addEventListener("waiting", () => {
+  console.log("A new service worker has installed, but it can't activate until all tabs running the current version have fully unloaded.");
+});
+```
+
+### Notify the user of cache updates
+
+[BroadcastCacheUpdate](/docs/serwist/core/broadcast-cache-update) and [BroadcastUpdatePlugin](/docs/serwist/runtime-caching/plugins/broadcast-update-plugin) are great ways to inform the user of updates to cached content.
+
+Here is how you can listen to those updates from the window:
+
+index.ts 
+
+```
+import type { Serwist } from "@serwist/window";
+declare const serwist: Serwist;
+// ---cut-before---
+import type { BroadcastMessage } from "serwist";
+
+serwist.addEventListener("message", (event) => {
+  if (event.data.meta === "serwist-broadcast-update" && event.data.type === "CACHE_UPDATED") {
+    const { payload: { updatedURL } }: BroadcastMessage = event.data;
+    
+    console.log(`A newer version of ${updatedURL} is available!`);
+  }
+});
+```
+
+## Important service worker lifecycle moments
+
+Here is a breakdown of all the important service worker lifecycle moments:
+
+### The installed event
+
+This is when a new service worker has installed, and new assets may have just finished precaching.
+
+If this is not the very first service worker install (`event.isUpdate === true`), it means a newer version of the service worker has been found and installed (that is, a different version from the one currently controlling the page).
+
+Note: some developers use the installed event to inform users that a new version of their site is available. However, depending on whether you call skipWaiting() in the installing service worker, that installed service worker may or may not become active right away. If you do call skipWaiting() then it's best to inform users of the update once the new service worker has activated. Otherwise, it's better to inform them of the pending update in the waiting event.
+
+### The waiting event
+
+If the updated version of your service worker does not call `skipWaiting()`, it will not activate until all pages controlled by the currently active service worker have unloaded. Basically, the updated service worker is stuck in the waiting phase. You may want to inform the user that an update is available and will be applied the next time they visit.
+
+It's common for developers to prompt users to reload to get the update, but in many cases refreshing the page will not activate the installed worker. If the user refreshes the page and the service worker is still waiting, the waiting event will fire again and the event.wasWaitingBeforeRegister property will be true.
+
+Another option is to prompt the user and ask whether they want to get the update or continue waiting. If they choose to get the update, you can use `postMessage()` to tell the service worker to run `skipWaiting()`. To do this, in your service worker, add the following:
+
+sw.ts 
+
+```
+declare const self: ServiceWorkerGlobalScope;
+// ---cut-before---
+self.addEventListener("message", (event) => {
+  if (event.data && event.data.type === "SKIP_WAITING") {
+    self.skipWaiting();
+  }
+});
+```
+
+If you use the serwist.Serwist class and set skipWaiting to false, the above code is automatically executed for you.
+
+And in your application, add the following:
+
+index.ts 
+
+```
+import type { Serwist } from "@serwist/window";
+declare const serwist: Serwist;
+declare const confirmUpdate: () => boolean;
+// ---cut-before---
+serwist.addEventListener("waiting", () => {
+  serwist.addEventListener("controlling", location.reload);
+  // This code assumes your app has a `confirmUpdate()` method
+  // that returns `true` if the user wants to update.
+  if (confirmUpdate()) {
+    serwist.messageSkipWaiting();
+  }
+});
+```
+
+### The controlling event
+
+Once a new service worker is installed and starts controlling the page, all subsequent `fetch` events will go through that service worker.
+
+If this is not the very first service worker install, this event being fired means the version of your service worker currently controlling is different from the version that was in control when the page was loaded. In some cases that may be fine, but it can also mean that some assets referenced by the current page are either no longer in the cache and possibly also not on the server or updated in ways the current page can't predict. You may want to consider informing the user that some parts of the page may not work correctly.
+
+The controlling event will not fire if you don't call skipWaiting() in your service worker.
+
+### The activated event
+
+The very first time a service worker finishes activating it may (or may not) have started controlling the page.
+
+For this reason, you should not listen for the `activated` event as a way of knowing when the service worker is in control of the page. However, if you're running logic in the `activate` event (in the service worker), and you need to know when that logic is complete, the `activated` event will let you know that.
+
+## When an unexpected version of the service worker is found
+
+Sometimes users will keep your site open in a background tab for a very long time. They might even open a new tab and navigate to your site without realizing they already have your site open in a background tab. In such cases it's possible to have two versions of your site running at the same time, and that can present some interesting problems for you as the developer.
+
+Consider a scenario where you have tab A running v1 of your site and tab B running v2\. When tab B loads, it'll be controlled by the version of your service worker that shipped with v1, but the page returned by the server (if using a network-first caching strategy for your navigation requests) will contain all your v2 assets.
+
+This is generally not a problem for tab B though, since when you wrote your v2 code, you were aware of how your v1 code worked. However, it could be a problem for tab A, since your v1 code could not have possibly predicted what changes your v2 code might introduce.
+
+To help handle these situations, the `Serwist` class also dispatches lifecycle events when it detects an update from an external service worker, where external just means any version that is not the version the current `Serwist` instance registered.
+
+The dispatched events are the same as the events documented above, with the addition of the `isExternal` property being set to `true`. If your web application needs to implement some logic to handle an external service worker, you can check for that property in your event handlers.
+
+## Communication between the service worker and the window
+
+Most advanced service worker usage involves a lots of messaging between the service worker and the window. The `Serwist` class helps with this by providing the `messageSW()` method, which sends a message to the instance's registered service worker and waits for a response.
+
+While you can send data to the service worker in any format, the format used by Serwist is an object with three properties:
+
+* `type` — A unique string used to identify this message. Serwist's `type` follows the `SCREAMING_SNAKECASE` naming convention. If a `type` represents an action to be taken, it should be a command in present tense (e.g. `CACHE_URLS`), if `type` represents some information being reported, it should be in past tense (e.g. `URLS_CACHED`).
+* `meta` (optional) — In Serwist, this is always the name of the Serwist package sending the message with the prefixing at sign ("@") removed and all forward slashes ("/") replaced by hyphens ("-"). When sending a message yourself, you can either omit this property or set it to whatever you like.
+* `payload` (optional) — The data being sent. Usually this is an object, but it does not have to be.
+
+The `messageSW()` method use [MessageChannel](https://developer.mozilla.org/en-US/docs/Web/API/MessageChannel) so that the receiver can respond to them. To respond to a message sent by this method, you can call `event.ports[0].postMessage(response)` in your `message` event listener. The `messageSW()` method returns a promise that will resolve to whatever response you reply with.
+
+Here's an example of sending messages from the window to the service worker and getting a response back. The first code block is the `message` event listener in the service worker:
+
+sw.ts 
+
+```
+declare const self: ServiceWorkerGlobalScope;
+// ---cut-before---
+const SW_VERSION = "1.0.0";
+
+self.addEventListener("message", (event) => {
+  if (event.data && event.data.type === "GET_VERSION") {
+    event.ports[0]?.postMessage(SW_VERSION);
+  }
+});
+```
+
+And the second block uses the `Serwist` class to send the message and wait for the response:
+
+index.ts 
+
+```
+import type { Serwist } from "@serwist/window";
+declare const serwist: Serwist;
+// ---cut-before---
+const swVersion = await serwist.messageSW({ type: "GET_VERSION" });
+
+console.log("Service worker version:", swVersion);
+```
+
+### Managing version incompatibilities
+
+When you're sending messages back and forth between the window and the service worker, it's critical to be aware that your service worker might not be running the same version of your site that your page code is running, and the solution for dealing with this problem is different depending on whether your serving your pages network-first or cache-first.
+
+#### If you serve your pages network-first
+
+When serving your pages network-first, your users will get the latest version of your HTML from your server if they are not offline. When a user revisits your site for the first time after you've deployed an update, they will get the latest HTML, but the service worker running in their browser will be an outdated one.
+
+It's important to understand this because if the JavaScript loaded by the current version of your page sends a message to an older version of your service worker, that version may not know how to respond, or it may respond with an incompatible format.
+
+As a result, it is a good idea to version your service worker and check whether the service worker is compatible before doing any critical work.
+
+For example, in the code above, if the service worker version returned by that `messageSW()` call is older than the expected version, it would be wise to wait until an update is found (which should happen when you call `register()`). At that point you can either notify the user or an update, or you can manually skip the waiting phase to activate the new service worker right away.
+
+#### If you serve your pages cache-first
+
+As opposed to when you serve pages network-first, you know that initially, your page is always going to be the same version as your service worker because that is what served the HTML. As a result, it's safe to use `messageSW()` right away.
+
+However, if an updated version of your service worker is found and activated right away (for example, when you call `skipWaiting()`), it may no longer be safe to send messages to it.
+
+One strategy for managing this possibility is to use a versioning scheme that allows you to differentiate between breaking updates and non-breaking updates, and in the case of a breaking update you'd know it's not safe to message the service worker. Instead you'd want to warn the user that they're running an old version of the page and suggest they reload to get the update.

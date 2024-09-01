@@ -1,0 +1,25 @@
+---
+layout: docs
+---
+# Welcome to Serwist!
+
+## Introduction
+
+Serwist is a collection of JavaScript libraries for [progressive web apps](https://developer.mozilla.org/en-US/docs/Web/Progressive%5Fweb%5Fapps). It is a fork of Workbox that came to be due to the its development being stagnated. Most of the prior work was done by Google LLC's team and the community.
+
+Take a look around:
+
+* `[serwist](/docs/serwist)`
+* `[@serwist/build](/docs/build)`
+* `[@serwist/cli](/docs/cli)`
+* `[@serwist/next](/docs/next)`
+* `[@serwist/nuxt](/docs/nuxt)`
+* `[@serwist/vite](/docs/vite)`
+* `[@serwist/webpack-plugin](/docs/webpack-plugin)`
+* `[@serwist/window](/docs/window)`
+
+## Alternatives
+
+There are also some alternatives to Serwist:
+
+* [Workbox](https://developer.chrome.com/docs/workbox)
