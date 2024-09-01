@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { List } from "mdast";
+
   import ListItem from "./ListItem.svelte";
   import type { RendererProps } from "./types";
 

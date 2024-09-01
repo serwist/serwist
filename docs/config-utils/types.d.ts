@@ -1,8 +1,14 @@
 import type { RootContent, Heading, PhrasingContent, Root, List } from "mdast";
+import type { HighlighterCore, ShikiTransformer } from "shiki";
 import type { Test } from "unist-util-is";
 
 export type Rank = Heading["depth"];
 export type Node = Root | RootContent;
+
+declare global {
+  var __twoslash_server_singleton: ShikiTransformer | undefined;
+  var __shiki_server_singleton: HighlighterCore | undefined;
+}
 
 /**
  * Search configuration.

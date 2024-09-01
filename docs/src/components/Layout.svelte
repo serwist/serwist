@@ -1,6 +1,11 @@
-<script lang="ts">
+<script lang="ts" module>
+  export { a, ul } from "./markdown/static";
+</script>
+
+<script>
   import type { List } from "mdast";
   import type { Snippet } from "svelte";
+
   import Parser from "./markdown/Parser.svelte";
 
   interface LayoutProps {

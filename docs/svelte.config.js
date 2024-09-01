@@ -8,11 +8,31 @@ import { escapeSvelte, mdsvex } from "mdsvex";
 import { highlighter, twoslash } from "./config-utils/shiki.js";
 import { remarkToc, rehypeSlug } from "./config-utils/plugins.js";
 
-const dev = process.env.NODE_ENV !== "production";
+// const dev = process.env.NODE_ENV !== "production";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const packageJson = JSON.parse(readFileSync(path.join(__dirname, "../packages/core/package.json"), "utf-8"));
+
+/**
+ * @param {string} str
+ * @returns
+ */
+const parseMetaString = (str) => {
+  return Object.fromEntries(
+    str.split(" ").reduce(
+      (prev, curr) => {
+        const [key, value] = curr.split("=");
+        const isNormalKey = /^[A-Z0-9]+$/i.test(key);
+        if (isNormalKey) {
+          prev.push([key, value || true]);
+        }
+        return prev;
+      },
+      /** @type {[string, boolean | string][]} */ ([]),
+    ),
+  );
+};
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -25,10 +45,11 @@ const config = {
       remarkPlugins: [remarkToc],
       rehypePlugins: [rehypeSlug],
       layout: {
-        docs: path.join(__dirname, "./src/components/Layout.svelte")
+        docs: path.join(__dirname, "./src/components/Layout.svelte"),
       },
       highlight: {
-        async highlighter(code, lang) {
+        async highlighter(code, lang, meta) {
+          const metaObject = meta ? parseMetaString(meta) : {};
           return escapeSvelte(
             highlighter.codeToHtml(code, {
               themes: {
@@ -36,7 +57,21 @@ const config = {
                 dark: "github-dark",
               },
               lang: lang ?? "text",
-              transformers: [!dev ? twoslash : null].filter((value) => value !== null && value !== undefined),
+              transformers: [
+                twoslash,
+                {
+                  pre(hast) {
+                    if (hast.properties.twoslash) {
+                      hast.properties.twoslash = undefined;
+                    }
+                    hast.properties.tabindex = -1;
+                  },
+                },
+              ],
+              meta: {
+                ...metaObject,
+                __raw: meta ?? undefined,
+              },
             }),
           );
         },
