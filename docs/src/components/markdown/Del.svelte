@@ -1,10 +1,11 @@
 <script lang="ts">
+  import type { Delete } from "mdast";
   import Parser from "./Parser.svelte";
-  import type { RendererProps, Tokens } from "./types";
+  import type { RendererProps } from "./types";
 
-  const { tokens }: RendererProps<Tokens.Del> = $props();
+  const { children }: RendererProps<Delete> = $props();
 </script>
 
 <del>
-  <Parser {tokens} />
+  <Parser tokens={children} />
 </del>

@@ -6,7 +6,8 @@ import adapter from "@sveltejs/adapter-static";
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import { escapeSvelte, mdsvex } from "mdsvex";
 import { highlighter, twoslash } from "./config-utils/shiki.js";
-import { remarkToc, rehypeSlug } from "./config-utils/plugins.js";
+import { remarkToc } from "./config-utils/remark-toc.js";
+import { rehypeSlug } from "./config-utils/rehype-slug.js";
 
 // const dev = process.env.NODE_ENV !== "production";
 
@@ -42,7 +43,7 @@ const config = {
   preprocess: [
     vitePreprocess(),
     mdsvex({
-      remarkPlugins: [remarkToc],
+      remarkPlugins: [[remarkToc, { ordered: true }]],
       rehypePlugins: [rehypeSlug],
       layout: {
         docs: path.join(__dirname, "./src/components/Layout.svelte"),

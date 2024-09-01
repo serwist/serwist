@@ -1,16 +1,26 @@
 <script lang="ts">
   import type { RootContent } from "mdast";
-  import { renderers } from "./index.js";
-  import type { RendererKey } from "./types.js";
+  import { getRenderer, type RendererFor } from "./index.js";
+  import { getContext } from "svelte";
 
-  const { tokens }: { tokens: RootContent[] } = $props();
+  const { tokens }: { tokens: RootContent | RootContent[] } = $props();
+
+  const rendererFor = getContext<RendererFor | undefined>("rendererFor");
 </script>
 
-{#each tokens as token}
-  {#if token.type in renderers}
-    {@const Component = renderers[token.type as RendererKey]}
+{#snippet render(token: RootContent)}
+  {@const Component = getRenderer(token.type, rendererFor)}
+  {#if Component}
     <Component {...token as any} />
   {:else if "value" in token}
     {token.value}
   {/if}
-{/each}
+{/snippet}
+
+{#if Array.isArray(tokens)}
+  {#each tokens as token}
+    {@render render(token)}
+  {/each}
+{:else}
+  {@render render(tokens)}
+{/if}

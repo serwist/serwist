@@ -1,10 +1,11 @@
 <script lang="ts">
+  import type { Emphasis } from "mdast";
   import Parser from "./Parser.svelte";
-  import type { RendererProps, Tokens } from "./types";
+  import type { RendererProps } from "./types";
 
-  const { tokens }: RendererProps<Tokens.Em> = $props();
+  const { children }: RendererProps<Emphasis> = $props();
 </script>
 
 <em>
-  <Parser {tokens} />
+  <Parser tokens={children} />
 </em>

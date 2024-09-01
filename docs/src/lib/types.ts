@@ -43,3 +43,5 @@ export interface BlogEntry {
   date: `${string}-${string}-${string}`;
   keyPoints: { title: string; id: string }[];
 }
+
+export type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6 | 7;

@@ -94,3 +94,7 @@ export interface TocResult {
    */
   map: List | null;
 }
+
+declare module "unified" {
+  interface Settings extends Options {}
+}

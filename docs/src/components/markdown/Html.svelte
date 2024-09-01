@@ -1,7 +1,8 @@
 <script lang="ts">
-  import type { RendererProps, Tokens } from "./types";
+  import type { Html } from "mdast";
+  import type { RendererProps } from "./types";
 
-  const { text }: RendererProps<Tokens.HTML> = $props();
+  const { value }: RendererProps<Html> = $props();
 </script>
 
-{text}
+{value}

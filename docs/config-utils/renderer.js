@@ -234,7 +234,7 @@ export const renderer = () => {
         children: [
           {
             type: "element",
-            tagName: "data-lsp",
+            tagName: "Components.TwoslashHover",
             properties: {
               lsp: toHtml(result),
               tpid: `twoslash-tooltip-${crypto.randomBytes(4).toString("hex")}`,

@@ -1,11 +1,12 @@
 <script lang="ts">
+  import type { Heading } from "mdast";
   import { getContext } from "svelte";
   import { clsx } from "$lib/clsx";
   import type { HeadingLevel } from "$lib/types";
   import Parser from "./Parser.svelte";
-  import type { RendererProps, Tokens } from "./types";
+  import type { RendererProps } from "./types";
 
-  const { depth, tokens }: RendererProps<Tokens.Heading> = $props();
+  const { depth, children }: RendererProps<Heading> = $props();
 
   const startingHeading = getContext<HeadingLevel>("startingHeading");
 
@@ -35,10 +36,10 @@
 
 {#if headingLevel >= 1 && headingLevel <= 6}
   <svelte:element this={`h${headingLevel}`} class={clsx("mb-4 mt-6", headingClass)}>
-    <Parser {tokens} />
+    <Parser tokens={children} />
   </svelte:element>
 {:else}
   <p class={clsx("mb-4 mt-6", headingClass)}>
-    <Parser {tokens} />
+    <Parser tokens={children} />
   </p>
 {/if}
