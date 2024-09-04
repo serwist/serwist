@@ -2,8 +2,10 @@
 layout: docs
 ---
 <script>
+  import Image from "$components/Image.svelte";
   import Tabs from "$components/Tabs.svelte";
   import Tab from "$components/Tab.svelte";
+  import routingDiagram from "$images/routing-diagram.png?w=1823;911;455&enhanced";
 </script>
 
 # Routing
@@ -18,11 +20,11 @@ Routing is how Serwist allows different functions to handle different requests.
 
 When a network request is intercepted, Serwist attempts to respond to the request using the supplied routes and handlers.
 
-<enhanced:img
-  src=$images/routing-diagram.png
-  sizes="min(1823px,100vw)"
+<Image
+  src={routingDiagram}
+  sizes="min(1823px, 100vw)"
+  class="my-3 h-auto w-full"
   alt="Routing diagram"
-  class="my-3"
 />
 
 The main things to note from the above are:

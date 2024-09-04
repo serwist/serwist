@@ -2,7 +2,8 @@
 layout: docs
 ---
 <script>
-  import CodeTab from "$components/CodeTab2.svelte";
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
 </script>
 
 # additionalPrecacheEntries
@@ -17,7 +18,9 @@ A list of entries to be precached, in addition to any entries that are generated
 
 ## Usage
 
-{#snippet usage()}
+<Tabs id="usage" tabs={[["build.js", "build-js"]]}>
+  <Tab id="build-js">
+
 ```javascript
 await injectManifest({
   swSrc: "app/sw.ts",
@@ -26,10 +29,6 @@ await injectManifest({
   additionalPrecacheEntries: ["foo.js"],
 });
 ```
-{/snippet}
 
-<CodeTab
-  id="usage"
-  codes={[["build.js", "build-js", usage]]}
-  defaultTab="build.js"
-/>
+  </Tab>
+</Tabs>

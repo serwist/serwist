@@ -1,20 +1,25 @@
 <script lang="ts" module>
+  export { a, code, h1, h2, h3, h4, h5, h6, ul } from "../markdown/static";
   export { default as TwoslashHover } from "$components/TwoslashHover.svelte";
-  export { a, code, h1, h2, h3, h4, h5, h6, ul } from "./markdown/static";
 </script>
 
 <script>
   import type { List } from "mdast";
-  import { type Snippet, setContext } from "svelte";
-  import { TocObserver } from "$lib/TocObserver2.svelte";
-  import Toc from "./Toc2.svelte";
+  import { setContext, type Snippet } from "svelte";
+
+  import { TocObserver } from "$lib/TocObserver.svelte";
+
+  import Toc from "../Toc.svelte";
 
   interface LayoutProps {
+    id: string;
+    title: string;
+    date: string;
     headings: List;
     children: Snippet;
   }
 
-  const { headings, children }: LayoutProps = $props();
+  const { id, title, date, headings, children }: LayoutProps = $props();
 
   const tocObserver = setContext("tocObserver", new TocObserver());
 
@@ -31,6 +36,8 @@
     <Toc {headings} />
   </nav>
   <article class="prose flex w-full max-w-6xl flex-col p-6 md:px-12 md:pb-12 xl:pt-12">
+    <h1 {id}>{title}</h1>
+    <p class="text-comment">{date}</p>
     {@render children()}
   </article>
 </main>

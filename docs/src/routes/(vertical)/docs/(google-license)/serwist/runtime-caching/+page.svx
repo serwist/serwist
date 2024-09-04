@@ -2,8 +2,10 @@
 layout: docs
 ---
 <script>
+  import Image from "$components/Image.svelte";
   import Tabs from "$components/Tabs.svelte";
   import Tab from "$components/Tab.svelte";
+  import multipleCachesIllustration from "$images/using-strategies-multiple-caches.png?w=902;451;225&enhanced";
 </script>
 
 # Runtime caching
@@ -103,10 +105,10 @@ serwist.addEventListeners();
   </Tab>
 </Tabs>
 
-<enhanced:img
-  src=$images/using-strategies-multiple-caches.png
-  sizes="min(902px,100vw)"
-  class="h-auto w-full"
+<Image
+  src={multipleCachesIllustration}
+  sizes="min(902px, 100vw)"
+  class="my-3 h-auto w-full"
   alt="Example using multiple caches"
 />
 

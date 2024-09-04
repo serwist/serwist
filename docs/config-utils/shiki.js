@@ -1,10 +1,4 @@
 /** @import { JsxEmit, ModuleDetectionKind, ModuleKind, ModuleResolutionKind, ScriptTarget } from "typescript"; */
-/**
- * @typedef {{
- *  idPrefix: string;
- *  useTwoslash?: boolean;
- * }} HighlightCodeOptions
- */
 import { transformerTwoslash } from "@shikijs/twoslash";
 import { createHighlighterCore, createJavaScriptRegexEngine } from "shiki";
 import { renderer } from "./renderer.js";

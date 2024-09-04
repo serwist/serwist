@@ -1,9 +1,11 @@
 ---
 layout: docs
 ---
-
 <script>
-  import CodeTab from "$components/CodeTab2.svelte";
+  import Image from "$components/Image.svelte";
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+  import bgSyncIllustration from "$images/bg-sync-example-sync-button.png?w=804;402;201&enhanced";
 </script>
 
 # Background synchronizing
@@ -22,7 +24,9 @@ Serwist provides plugins designed to make using the Background Synchronization A
 
 The easiest way to set up is to use the plugin, which automatically queues up failed requests and retry them when future [`sync`](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerGlobalScope/sync%5Fevent) events are fired.
 
-{#snippet setup()}
+<Tabs id="basic-usage-setup" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
+
 ```ts twoslash
 import { BackgroundSyncPlugin, NetworkOnly } from "serwist";
 import { registerRoute } from "serwist/legacy";
@@ -39,18 +43,15 @@ registerRoute(
   "POST",
 );
 ```
-{/snippet}
 
-<CodeTab
-  id="basic-usage-setup"
-  codes={[["sw.ts", "sw-ts", setup]]}
-  defaultTab="sw.ts"
-/>
+  </Tab>
+</Tabs>
 
 This plugin hooks into the `fetchDidFail` callback, which is only invoked if there's an exception thrown, most likely due to a network failure. This means that requests won't be retried if there's a response received with a 4xx or 5xx error status. If you would like to retry all requests that result in, e.g., a 5xx status, you can do so by hooking into the `fetchDidSucceed` callback:
 
-{#snippet errorResponse()}
-{#snippet ts()}
+<Tabs id="basic-usage-error-response" tabs={[["sw.ts", "sw-ts"], ["sw.js", "sw-js"]]}>
+  <Tab id="sw-ts">
+
 ```ts twoslash
 import type { SerwistPlugin } from "serwist";
 import { BackgroundSyncPlugin, NetworkOnly } from "serwist";
@@ -79,8 +80,10 @@ registerRoute(
   "POST",
 );
 ```
-{/snippet}
-{#snippet js()}
+
+  </Tab>
+  <Tab id="sw-js">
+
 ```js twoslash
 import { BackgroundSyncPlugin, NetworkOnly } from "serwist";
 import { registerRoute } from "serwist/legacy";
@@ -109,38 +112,29 @@ registerRoute(
   "POST",
 );
 ```
-{/snippet}
 
-<CodeTab
-  id="basic-usage-error-response"
-  codes={[["sw.ts", "sw-ts", ts], ["sw.js", "sw-js", js]]}
-  defaultTab="sw.ts"
-/>
-{/snippet}
-
-{@render errorResponse()}
+  </Tab>
+</Tabs>
 
 ## Advanced usage
 
 Serwist also provides `BackgroundSyncQueue`, which is a class you can instantiate and add failed requests to. The failed requests are stored in IndexedDB and retried when the browser thinks connectivity is restored (i.e. when it receives the `sync` event).
 
-### Creating a `BackgroundSyncQueue`
+### Creating a BackgroundSyncQueue
 
 To create a `BackgroundSyncQueue` you need to construct it with a queue name (which must be unique to your [origin](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin%5Fpolicy#definition%5Fof%5Fan%5Forigin)):
 
-{#snippet advancedSetup()}
+<Tabs id="advanced-setup" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
+
 ```ts twoslash
 import { BackgroundSyncQueue } from "serwist";
   
 const queue = new BackgroundSyncQueue("myQueueName");
 ```
-{/snippet}
 
-<CodeTab
-  id="advanced-setup"
-  codes={[["sw.ts", "sw-ts", advancedSetup]]}
-  defaultTab="sw.ts"
-/>
+  </Tab>
+</Tabs>
 
 The queue name is used as a part of the tag name that gets registered by the global [`SyncManager`](https://developer.mozilla.org/en-US/docs/Web/API/SyncManager). It's also used as the Object Store name for the IndexedDB database.
 
@@ -150,7 +144,9 @@ Note: It's not important that you know the details above, but they're the reason
 
 Once you've created your `BackgroundSyncQueue` instance, you can add failed requests to it by invoking the `.pushRequest()` method. For example, the following code catches any requests that fail and adds them to the queue:
 
-{#snippet advancedAddingRequest()}
+<Tabs id="advanced-adding-request" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
+
 ```ts twoslash
 import { BackgroundSyncQueue } from "serwist";
 
@@ -178,13 +174,8 @@ self.addEventListener("fetch", (event) => {
   event.respondWith(backgroundSync());
 });
 ```
-{/snippet}
-
-<CodeTab
-  id="advanced-adding-request"
-  codes={[["sw.ts", "sw-ts", advancedAddingRequest]]}
-  defaultTab="sw.ts"
-/>
+  </Tab>
+</Tabs>
 
 Once added to the queue, the request is automatically retried when the service worker receives the `sync` event (which happens when the browser thinks connectivity is restored). Browsers that don't support the Background Synchronization API will retry the queue every time the service worker is started up. This requires the page controlling the service worker to be running, so it won't be quite as effective.
 
@@ -194,17 +185,17 @@ Sadly, testing background synchronization is somewhat unintuitive and difficult 
 
 The best approach to test your implementation is to do the following:
 
-* Load up a page and register your service worker.
-* Turn off your computer's network or turn off your web server. DO NOT USE CHROME DEVTOOLS OFFLINE. The offline checkbox in DevTools only affects requests from the page. Service Worker requests will continue to go through.
-* Make network requests that should be queued. You can check whether the requests have been queued by looking in Chrome DevTools > Application > IndexedDB > serwist-background-sync > requests
-* Now turn on your network or web server.
-* Force an early sync event by going to Chrome DevTools > Application > Service Workers, entering the tag name of serwist-background-sync:$YOUR\_QUEUE\_NAME where $YOUR\_QUEUE\_NAME should be the name of the queue you set, and then clicking the 'Sync' button.
+- Load up a page and register your service worker.
+- Turn off your computer's network or turn off your web server. DO NOT USE CHROME DEVTOOLS OFFLINE. The offline checkbox in DevTools only affects requests from the page. Service Worker requests will continue to go through.
+- Make network requests that should be queued. You can check whether the requests have been queued by looking in Chrome DevTools > Application > IndexedDB > serwist-background-sync > requests
+- Now turn on your network or web server.
+- Force an early sync event by going to Chrome DevTools > Application > Service Workers, entering the tag name of serwist-background-sync:$YOUR\_QUEUE\_NAME where $YOUR\_QUEUE\_NAME should be the name of the queue you set, and then clicking the 'Sync' button.
 
-<enhanced:img
-  src=$images/bg-sync-example-sync-button.png
-  sizes="min(804px,100vw)"
-  class="h-auto w-full"
+<Image
+  src={bgSyncIllustration}
+  sizes="min(804px, 100vw)"
+  class="my-3 h-auto w-full"
   alt="Example 'Sync' button"
 />
 
-* You should see network requests go through for the failed requests and the IndexedDB data should now be empty since the requests have been successfully replayed.
+- You should see network requests go through for the failed requests and the IndexedDB data should now be empty since the requests have been successfully replayed.

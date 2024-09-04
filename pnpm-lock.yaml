@@ -53,12 +53,6 @@ importers:
       fast-glob:
         specifier: 3.3.2
         version: 3.3.2
-      glob:
-        specifier: 10.4.5
-        version: 10.4.5
-      node-html-markdown:
-        specifier: 1.3.0
-        version: 1.3.0
       npm-check-updates:
         specifier: 17.1.0
         version: 17.1.0
@@ -5751,13 +5745,6 @@ packages:
   node-gyp-build@4.7.1:
     resolution: {integrity: sha512-wTSrZ+8lsRRa3I3H8Xr65dLWSgCvY2l4AOnaeKdPA9TB/WYMPaTcrzf3rXvFoVvjKNVnu0CcWSx54qq9GKRUYg==}
     hasBin: true
-
-  node-html-markdown@1.3.0:
-    resolution: {integrity: sha512-OeFi3QwC/cPjvVKZ114tzzu+YoR+v9UXW5RwSXGUqGb0qCl0DvP406tzdL7SFn8pZrMyzXoisfG2zcuF9+zw4g==}
-    engines: {node: '>=10.0.0'}
-
-  node-html-parser@6.1.13:
-    resolution: {integrity: sha512-qIsTMOY4C/dAa5Q5vsobRpOOvPfC4pB61UVW2uSwZNUp0QU/jCekTal1vMmbO0DgdHeLUJpv/ARmDqErVxA3Sg==}
 
   node-releases@2.0.14:
     resolution: {integrity: sha512-y10wOWt8yZpqXmOgRo77WaHEmhYQYGNA6y421PKsKYWEK8aW+cqAphborZDhqfyKrbZEN92CN1X2KbafY2s7Yw==}
@@ -13409,15 +13396,6 @@ snapshots:
   node-forge@1.3.1: {}
 
   node-gyp-build@4.7.1: {}
-
-  node-html-markdown@1.3.0:
-    dependencies:
-      node-html-parser: 6.1.13
-
-  node-html-parser@6.1.13:
-    dependencies:
-      css-select: 5.1.0
-      he: 1.2.0
 
   node-releases@2.0.14: {}
 

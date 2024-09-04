@@ -1,0 +1,545 @@
+---
+layout: blog
+id: serwist-v9
+title: Serwist 9.0.0
+date: "2024-03-10"
+---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
+Serwist 9.0.0 is a cleanup, dropping various Workbox relics no longer needed. As a result, it is packed with changes that require manual migration. This blog aims to list noticeable changes and help you upgrade in the process.
+
+## Misc changes
+
+### Dropped the CommonJS build
+
+This was done because our tooling around supporting CJS had always been crappy: it was slow, had no way of supporting emitting ".d.cts" files (we used to duplicate ".d.ts" files as ".d.cts" ones), was too error-prone (there were various occasions in which our builds don't work for CommonJS due to ESM-only packages slipping in through imports), and yielded gargantuan results (we had to manually list and bundle ESM-only packages).
+
+If you already use ESM, there's nothing to be done. Great! Otherwise, to migrate:
+
+{#snippet esmMigrate()}
+<Tabs id="dropped-the-commonjs-build" tabs={[["Old", "old"], ["New", "new"]]}>
+  <Tab id="old">
+
+```js
+// @ts-check
+const withSerwist = require("@serwist/next").default({
+  cacheOnFrontEndNav: true,
+  swSrc: "app/sw.ts",
+  swDest: "public/sw.js",
+});
+/** @type {import("next").NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+};
+module.exports = withSerwist(nextConfig);
+```
+
+  </Tab>
+  <Tab id="new">
+
+```js
+// @ts-check
+/** @type {import("next").NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+};
+
+module.exports = async () => {
+  const withSerwist = (await import("@serwist/next")).default({
+    cacheOnNavigation: true,
+    swSrc: "app/sw.ts",
+    swDest: "public/sw.js",
+  });
+  return withSerwist(nextConfig);
+};
+```
+
+  </Tab>
+</Tabs>
+{/snippet}
+
+- Migrate to ESM if possible.
+  - Add `"type": "module"` to "package.json" or change the extension of files that use Serwist's Node.js APIs to ".mjs" or ".mts".
+- If that is not possible, use dynamic imports. For example, to migrate to the new `@serwist/next`:
+  {@render esmMigrate()}
+- If all else fails, use `require(esm)`. See [the related Node.js commit](https://github.com/nodejs/node/commit/5f7fad26050cd574431e3018a557bc6eae5ff716) for more information. This may or may not be supported on your current Node.js version.
+
+### Bumped minimum supported TypeScript and Node.js versions
+
+From now on, Serwist only supports TypeScript and Node.js versions newer than 5.0.0 and 18.0.0 respectively.
+
+To migrate, simply update these tools.
+
+<Tabs id="bumped-minimum-supported-ts-node" tabs={[["bash", "bash"]]}>
+  <Tab id="bash">
+
+```bash
+# Change to your preferred way of updating Node.js
+nvm use --lts
+# Change to your package manager
+npm i -D typescript@latest
+```
+
+  </Tab>
+</Tabs>
+
+### Ship TypeScript source
+
+Serwist now ships TS source files and declaration maps alongside bundled code. This allows you to read the source code without the hassle of having to go to GitHub and navigate through the files.
+
+<video class="aspect-video rounded-xl" muted controls src="/2024-03-10-serwist-v9-ship-ts-source.mp4" crossorigin="anonymous"></video>
+
+## Core changes
+
+These are the changes done to the core `serwist` package.
+
+### Merged all service worker packages
+
+In 9.0.0, all service worker packages have been merged into one single unified package:
+
+- `@serwist/core`
+- `@serwist/background-sync`
+- `@serwist/broadcast-update`
+- `@serwist/cacheable-response`
+- `@serwist/expiration`
+- `@serwist/google-analytics`
+- `@serwist/navigation-preload`
+- `@serwist/precaching`
+- `@serwist/range-requests`
+- `@serwist/routing`
+- `@serwist/strategies`
+- `@serwist/sw`
+
+This new package is now available on npm:
+
+<Tabs id="install-serwist" tabs={[["npm", "npm"], ["yarn", "yarn"], ["pnpm", "pnpm"], ["bun", "bun"]]}>
+  <Tab id="npm">
+
+```bash
+npm i -D serwist
+```
+
+  </Tab>
+    <Tab id="yarn">
+
+```bash
+yarn add -D serwist
+```
+
+  </Tab>
+  <Tab id="pnpm">
+
+```bash
+pnpm add -D serwist
+```
+
+  </Tab>
+  <Tab id="bun">
+
+```bash
+bun add -D serwist
+```
+
+  </Tab>
+</Tabs>
+
+To migrate, simply run the above command and remove all the legacy packages. Then update the imports so that they point to `serwist`.
+
+The behaviour of some items may change when you update your imports. For example, passing a `Router` instance to `@serwist/google-analytics.initialize` is optional, but passing a `Serwist` instance to `serwist.initializeGoogleAnalytics()` is required. To help with your migration to `serwist`, functions whose behaviour have changed also have their legacy counterparts. These are exported from `serwist/legacy` alongside items that have been deprecated. However, they will be removed in v10.
+
+Serwist does not aim to be compatible across all of its major versions. Rather, it only gives you one single major version to migrate from its deprecated APIs, after which point, you may no longer upgrade Serwist until you have migrated. It is worth noting that some legacy APIs still received some breaking changes and new features as detailed later.
+
+The following are items you can import from `serwist/legacy`:
+
+- `@serwist/precaching.addPlugins` (deprecated)
+- `@serwist/precaching.addRoute` (deprecated)
+- `@serwist/precaching.createHandlerBoundToURL` (deprecated)
+- `@serwist/precaching.getCacheKeyForURL` (deprecated)
+- `@serwist/precaching.matchPrecache` (deprecated)
+- `@serwist/precaching.precache` (deprecated)
+- `@serwist/precaching.precacheAndRoute` (deprecated)
+- `@serwist/precaching.PrecacheController` (deprecated, replaced by `serwist.Serwist`)
+- `@serwist/precaching.PrecacheFallbackPlugin` (modern counterpart is `serwist.PrecacheFallbackPlugin`)
+- `@serwist/precaching.PrecacheRoute` (modern counterpart is `serwist.PrecacheRoute`)
+- `@serwist/sw.fallbacks` (deprecated, replaced by `serwist.Serwist`)
+- `@serwist/sw.handlePrecaching` (deprecated, replaced by `serwist.Serwist`)
+- `@serwist/sw.installSerwist` (deprecated, replaced by `serwist.Serwist`)
+- `@serwist/sw.registerRuntimeCaching` (deprecated, replaced by `serwist.Serwist`)
+- `@serwist/routing.registerRoute` (deprecated)
+- `@serwist/routing.Router` (deprecated, replaced by `serwist.Serwist`)
+- `@serwist/routing.setCatchHandler` (deprecated)
+- `@serwist/routing.setDefaultHandler` (deprecated)
+- `@serwist/google-analytics.initialize` as `serwist/legacy.initializeGoogleAnalytics` (modern counterpart is `serwist.initializeGoogleAnalytics`)
+
+The following items are now internal functions. You can still import them from `serwist/internal`:
+
+- `@serwist/precaching.cleanupOutdatedCaches`
+- `@serwist/core.clientsClaim`
+
+The rest are available in `serwist`. You can simply update the imports.
+
+### Added Serwist
+
+`installSerwist`, `PrecacheController`, and `Router` have been merged into one single class, `Serwist`, and deprecated.
+
+The new `Serwist` class does NOT have a singleton instance. As such, `serwist.initializeGoogleAnalytics()` and `@serwist/recipes`'s functions require you to pass in your own `Serwist` instance.
+
+To migrate, see [the reference documentation of Serwist](/docs/serwist/core/serwist).
+
+### Added support for concurrent precaching
+
+The `Serwist` class now accepts `precacheOptions.concurrency`, which should be the number of precache requests that should be made concurrently.
+
+With this change, Serwist now concurrently precache 10 files each by default, different from its old behaviour where it only ran this process sequentially.
+
+This feature was also added to the legacy PrecacheController class as concurrentPrecaching. However, this class still precaches files sequentially by default.
+
+### Renamed RuntimeCaching.urlPattern to RuntimeCaching.matcher
+
+This change was done to make our naming a bit more consistent.
+
+To migrate, simply replace `urlPattern` with `matcher`.
+
+### Removed RuntimeCaching's support for string handlers
+
+The `runtimeCaching` option of the `Serwist` class and its legacy counterpart `registerRuntimeCaching` no longer support string handlers, such as `"NetworkFirst"`, `"NetworkOnly"`, `"CacheFirst"`, etc. You should migrate to passing the strategies' instances yourself:
+
+<Tabs id="removed-string-handlers" tabs={[["Old", "old"], ["New", "new"]]}>
+  <Tab id="old">
+
+```ts
+import { defaultCache } from "@serwist/next/browser";
+import { installSerwist } from "@serwist/sw";
+
+installSerwist({
+  // Other options...
+  runtimeCaching: [
+    {
+      urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
+        request.headers.get("RSC") === "1" && request.headers.get("Next-Router-Prefetch") === "1" && sameOrigin && !pathname.startsWith("/api/"),
+      // OLD: a string handler alongside `options`.
+      handler: "NetworkFirst",
+      options: {
+        cacheName: "pages-rsc-prefetch",
+        expiration: {
+          maxEntries: 32,
+          maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+        },
+      },
+    },
+    {
+      urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
+        request.headers.get("RSC") === "1" && sameOrigin && !pathname.startsWith("/api/"),
+      // OLD: a string handler alongside `options`.
+      handler: "NetworkFirst",
+      options: {
+        cacheName: "pages-rsc",
+        expiration: {
+          maxEntries: 32,
+          maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+        },
+      },
+    },
+    {
+      urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
+        request.headers.get("Content-Type")?.includes("text/html") && sameOrigin && !pathname.startsWith("/api/"),
+      // OLD: a string handler alongside `options`.
+      handler: "NetworkFirst",
+      options: {
+        cacheName: "pages",
+        expiration: {
+          maxEntries: 32,
+          maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+        },
+      },
+    },
+    ...defaultCache,
+  ],
+});
+```
+
+  </Tab>
+  <Tab id="new">
+
+```ts
+import { defaultCache, PAGES_CACHE_NAME } from "@serwist/next/worker";
+import { Serwist } from "serwist";
+
+const serwist = new Serwist({
+  // Other options...
+  runtimeCaching: [
+    {
+      matcher: ({ request, url: { pathname }, sameOrigin }) =>
+        request.headers.get("RSC") === "1" && request.headers.get("Next-Router-Prefetch") === "1" && sameOrigin && !pathname.startsWith("/api/"),
+      // NEW: an initialized instance.
+      handler: new NetworkFirst({
+        cacheName: PAGES_CACHE_NAME.rscPrefetch,
+        plugins: [
+          new ExpirationPlugin({
+            maxEntries: 32,
+            maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+          }),
+        ],
+      }),
+    },
+    {
+      matcher: ({ request, url: { pathname }, sameOrigin }) => request.headers.get("RSC") === "1" && sameOrigin && !pathname.startsWith("/api/"),
+      // NEW: an initialized instance.
+      handler: new NetworkFirst({
+        cacheName: PAGES_CACHE_NAME.rsc,
+        plugins: [
+          new ExpirationPlugin({
+            maxEntries: 32,
+            maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+          }),
+        ],
+      }),
+    },
+    {
+      matcher: ({ request, url: { pathname }, sameOrigin }) =>
+        request.headers.get("Content-Type")?.includes("text/html") && sameOrigin && !pathname.startsWith("/api/"),
+      // NEW: an initialized instance.
+      handler: new NetworkFirst({
+        cacheName: PAGES_CACHE_NAME.html,
+        plugins: [
+          new ExpirationPlugin({
+            maxEntries: 32,
+            maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+          }),
+        ],
+      }),
+    },
+    ...defaultCache,
+  ],
+});
+
+serwist.addEventListeners();
+```
+
+  </Tab>
+</Tabs>
+
+### Use PrecacheFallbackPlugin for fallbacks
+
+The `fallbacks` option of the `Serwist` class and its legacy counterpart `installSerwist` now uses `PrecacheFallbackPlugin` to power its functionalities. With this change, `FallbackEntry.cacheMatchOptions` has been removed because it is no longer necesssary.
+
+With this change, the `Serwist` class no longer precaches the URLs for you, and you need to do so yourself. This can be done by using `additionalPrecacheEntries`. This breaking change, however, does not apply to `installSerwist`.
+
+### Added maxAgeFrom for ExpirationPlugin
+
+This option allows you to decide whether `maxAgeSeconds` should be calculated from when an entry was last fetched or when it was last used.
+
+For more information, see [the original Workbox issue](https://github.com/GoogleChrome/workbox/issues/2863).
+
+## Build packages' changes
+
+### @serwist/build
+
+#### Migrated to Zod
+
+Serwist now uses Zod instead of AJV.
+
+This allows us to further validate the values, thanks to Zod supporting validating functions, classes, and more.
+
+#### Moved framework-specific types out of @serwist/build
+
+Types such as `WebpackPartial`, `WebpackInjectManifestOptions`, and `ViteInjectManifestOptions`, and their according validators have been moved out of `@serwist/build`.
+
+To migrate, update the imports:
+
+- `@serwist/build.WebpackPartial` → `@serwist/webpack-plugin.WebpackPartial`
+- `@serwist/build.WebpackInjectManifestOptions` → `@serwist/webpack-plugin.InjectManifestOptions`
+- `@serwist/build.WebpackInjectManifestPartial` → `Omit<import("@serwist/webpack-plugin").InjectManifestOptions, keyof import("@serwist/build").BasePartial | keyof import("@serwist/build").InjectPartial | keyof import("@serwist/webpack-plugin").WebpackPartial | keyof import("@serwist/build").OptionalSwDestPartial>`
+- `@serwist/build.ViteInjectManifestOptions` → `@serwist/vite.PluginOptions`
+
+With this change, validators and schemas have also been made public.
+
+### @serwist/webpack-plugin
+
+#### Removed mode
+
+This option was already a no-op before that, so this simply removes it from the types.
+
+To migrate, just remove `mode` from your options.
+
+#### Allow webpack to be an optional peerDependency
+
+Since we support frameworks that ship a prebundled `webpack`, such as Next.js, it would be nice if we can take advantage of that as well.
+
+As such, `webpack` is now an optional `peerDependency` of `@serwist/webpack-plugin` and is no longer a `peerDependency` of `@serwist/next`.
+
+### @serwist/next
+
+#### Moved worker exports from "/browser" to "/worker"
+
+Since the values that `@serwist/next/browser` exports are actually for use in service workers, it makes sense to rename this export path to `@serwist/next/worker`.
+
+To migrate, simply change all imports of `@serwist/next/browser` to those of `@serwist/next/worker`:
+
+<Tabs id="renamed-next-browser-to-worker" tabs={[["Old", "old"], ["New", "new"]]}>
+  <Tab id="old">
+
+```js
+import { defaultCache } from "@serwist/next/browser";
+```
+
+  </Tab>
+  <Tab id="new">
+
+```js
+import { defaultCache } from "@serwist/next/worker";
+```
+
+  </Tab>
+</Tabs>
+
+With this change, `PAGES_CACHE_NAME` has been added. Due to the fact that App Router's pages use React Server Components, we define 3 `runtimeCaching` entries for pages in `defaultCache`, the `cacheName`s of which are `"pages-rsc-prefetch"`, `"pages-rsc"`, and `"pages"` respectively. This constant is simply an object containing those `cacheName`s. It is meant for when you want to extend `@serwist/next`'s default handling for pages.
+
+#### Renamed cacheOnFrontEndNav to cacheOnNavigation
+
+Generally, we avoid using abbreviations (except for acronyms) to name Serwist's APIs.
+
+To migrate, simply replace `cacheOnFrontEndNav` with `cacheOnNavigation`.
+
+<Tabs id="renamed-next-cofen-to-con" tabs={[["Old", "old"], ["New", "new"]]}>
+  <Tab id="old">
+
+```js
+const withSerwist = withSerwistInit({
+  // Other options...
+  cacheOnFrontEndNav: true,
+});
+```
+
+  </Tab>
+  <Tab id="new">
+
+```js
+const withSerwist = withSerwistInit({
+  // Other options...
+  cacheOnNavigation: true,
+});
+```
+
+  </Tab>
+</Tabs>
+
+#### Changed defaultCache's "next-data"'s handler to NetworkFirst
+
+Using `StaleWhileRevalidate` affects `getServerSideProps`'s freshness. See [the related issue](https://github.com/serwist/serwist/issues/74) for more details.
+
+### @serwist/svelte
+
+#### Moved Serwist's Svelte integration into a separate package
+
+With this change, `@serwist/svelte` no longer makes use of any of the Serwist build tools.
+
+This is because SvelteKit itself is capable of generating a list of precache manifest, and we'd like to leverage that capability. Essentially, Serwist, from now, only handles the service worker side for SvelteKit.
+
+If the old behaviour is preferred, [manual integration](/docs/vite/recipes/svelte) is required.
+
+To migrate, uninstall `@serwist/vite`, remove `@serwist/vite/integration/svelte.serwist` from your Vite config file, install `@serwist/svelte`, and then update your service worker:
+
+<Tabs id="moved-svelte-integration" tabs={[["Old", "old"], ["New", "new"]]}>
+  <Tab id="old">
+
+```ts
+/// <reference no-default-lib="true"/>
+/// <reference lib="esnext" />
+/// <reference lib="webworker" />
+/// <reference types="@sveltejs/kit" />
+import type { PrecacheEntry } from "@serwist/precaching";
+import { installSerwist } from "@serwist/sw";
+import { defaultCache } from "@serwist/vite/worker";
+
+declare global {
+  interface WorkerGlobalScope {
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+  }
+}
+
+declare const self: ServiceWorkerGlobalScope;
+
+installSerwist({
+  precacheEntries: self.__SW_MANIFEST,
+  skipWaiting: true,
+  clientsClaim: true,
+  navigationPreload: true,
+  disableDevLogs: true,
+  runtimeCaching: defaultCache,
+});
+```
+
+  </Tab>
+  <Tab id="new">
+
+```ts
+/// <reference no-default-lib="true"/>
+/// <reference lib="esnext" />
+/// <reference lib="webworker" />
+/// <reference types="@sveltejs/kit" />
+import type { StaticRevisions } from "@serwist/svelte/worker";
+import { defaultCache, defaultIgnoreUrlParameters, getPrecacheManifest } from "@serwist/svelte/worker";
+import type { SerwistGlobalConfig } from "serwist";
+import { Serwist } from "serwist";
+
+declare global {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {}
+}
+
+declare const self: ServiceWorkerGlobalScope;
+
+const serwist = new Serwist({
+  precacheEntries: getPrecacheManifest({
+    // precacheImmutable: false,
+    // precacheStatic: false,
+    // precachePrerendered: false,
+    staticRevisions: "static-assets-v1",
+  }),
+  precacheOptions: {
+    cleanupOutdatedCaches: true,
+    concurrency: 20,
+    ignoreURLParametersMatching: defaultIgnoreUrlParameters,
+  },
+  skipWaiting: true,
+  clientsClaim: true,
+  navigationPreload: true,
+  disableDevLogs: true,
+  runtimeCaching: defaultCache,
+});
+
+serwist.addEventListeners();
+```
+
+  </Tab>
+</Tabs>
+
+### @serwist/vite
+
+#### Moved getSerwist from @serwist/vite/browser to virtual:serwist
+
+`getSerwist` required `@serwist/vite` to provide it build time information through virtual modules. However, this seemed to cause bugs in development mode, and it is not a great pattern to use. As such, we are moving `getSerwist` from `@serwist/vite/browser` to `virtual:serwist`.
+
+To migrate, simply update the import.
+
+<Tabs id="vite-virtual" tabs={[["Old", "old"], ["New", "new"]]}>
+  <Tab id="old">
+
+```js
+import { getSerwist } from "@serwist/vite/browser";
+```
+
+  </Tab>
+  <Tab id="new">
+
+```js
+import { getSerwist } from "virtual:serwist";
+```
+
+  </Tab>
+</Tabs>
+
+If you use TypeScript, you may also want to add `@serwist/vite/typings` to `compilerOptions.types` so Serwist can properly type the virtual module for you.

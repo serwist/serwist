@@ -46,7 +46,8 @@ const config = {
       remarkPlugins: [[remarkToc, { ordered: true }]],
       rehypePlugins: [rehypeSlug],
       layout: {
-        docs: path.join(__dirname, "./src/components/Layout.svelte"),
+        docs: path.join(__dirname, "./src/components/layouts/Docs.svelte"),
+        blog: path.join(__dirname, "./src/components/layouts/Blog.svelte"),
       },
       highlight: {
         async highlighter(code, lang, meta) {

@@ -251,7 +251,7 @@ Update app/manifest.json (App Router) or public/manifest.json (Pages Router) wit
   </Tab>
 </Tabs>
 
-### Step 6: Add metadata to `<head />`
+### Step 6: Add metadata
 
 Add the following content to app/layout.tsx or pages/\_app.tsx:
 

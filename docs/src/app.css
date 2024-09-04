@@ -89,7 +89,8 @@
   .text-toc {
     @apply font-medium text-neutral-600 transition-colors duration-100 hover:text-black dark:text-neutral-400 dark:hover:text-white;
   }
-  .text-toc.active {
+  .text-toc.active,
+  .text-toc.active > * {
     @apply xl:text-accent-light xl:dark:text-accent-dark;
   }
   .text-comment {
