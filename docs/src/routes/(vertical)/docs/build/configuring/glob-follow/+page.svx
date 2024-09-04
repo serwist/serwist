@@ -1,6 +1,11 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # globFollow
 
 ## First added
@@ -9,7 +14,7 @@ Workbox
 
 ## Default
 
-`true` 
+`true`
 
 ## About
 
@@ -17,9 +22,10 @@ Determines whether or not symlinks are followed when generating the precache man
 
 ## Usage
 
-build.js 
+<Tabs id="usage-example" tabs={[["build.js", "build-js"]]}>
+  <Tab id="build-js">
 
-```
+```javascript
 await injectManifest({
   swSrc: "app/sw.ts",
   swDest: "dist/sw.js",
@@ -27,3 +33,6 @@ await injectManifest({
   globFollow: false,
 });
 ```
+
+  </Tab>
+</Tabs>

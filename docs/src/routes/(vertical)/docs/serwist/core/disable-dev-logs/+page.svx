@@ -1,6 +1,11 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # disableDevLogs
 
 ## First added
@@ -17,10 +22,14 @@ It simply sets `self.__WB_DISABLE_DEV_LOGS` to `true`. This value is picked up b
 
 ## Usage
 
-sw.ts 
+<Tabs id="usage-example" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
 
-```
+```typescript twoslash
 import { disableDevLogs } from "serwist";
 
 disableDevLogs();
 ```
+
+  </Tab>
+</Tabs>

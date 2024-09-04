@@ -1,6 +1,11 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # disablePrecacheManifest
 
 ## First added
@@ -9,7 +14,7 @@ layout: docs
 
 ## Default
 
-`false` 
+`false`
 
 ## About
 
@@ -17,9 +22,10 @@ Whether the precache manifest should be set to `undefined`. Essentially whether 
 
 ## Usage
 
-build.js 
+<Tabs id="usage-example" tabs={[["build.js", "build-js"]]}>
+  <Tab id="build-js">
 
-```
+```javascript
 const isDev = process.env.NODE_ENV === "development";
 await injectManifest({
   swSrc: "app/sw.ts",
@@ -28,3 +34,6 @@ await injectManifest({
   disablePrecacheManifest: isDev,
 });
 ```
+
+  </Tab>
+</Tabs>

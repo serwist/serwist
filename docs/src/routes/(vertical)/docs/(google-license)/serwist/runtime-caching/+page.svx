@@ -1,9 +1,14 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # Runtime caching
 
-[Original source (Apache 2.0 License). Adapted for Serwist's usage.](https://developer.chrome.com/docs/workbox/caching-resources-during-runtime) 
+[Original source (Apache 2.0 License). Adapted for Serwist's usage.](https://developer.chrome.com/docs/workbox/caching-resources-during-runtime)
 
 ## Introduction
 
@@ -13,28 +18,29 @@ Some assets in your web application may be infrequently used, very large, or var
 
 Serwist provides these strategies out of the box:
 
-* [StaleWhileRevalidate](./runtime-caching/caching-strategies/stale-while-revalidate) — Uses a cached response for a request if it's available and updates the cache in the background with a response from the network. Therefore, if the asset isn't cached, it will wait for the network response and use that. It's a fairly safe strategy, as it regularly updates cache entries that rely on it. The downside is that it always makes a network request in the background.
-* [NetworkFirst](./runtime-caching/caching-strategies/network-first) — Tries to get a response from the network first. If a response is received, it passes that response to the browser and saves it to a cache. If the network request fails, the last cached response will be used, enabling offline access to the asset.
-* [CacheFirst](./runtime-caching/caching-strategies/cache-first) — Checks the cache for a response first and uses it if available. If the request isn't in the cache, the network is used and any valid response is added to the cache before being passed to the browser.
-* [NetworkOnly](./runtime-caching/caching-strategies/network-only) — Forces the response to come from the network.
-* [CacheOnly](./runtime-caching/caching-strategies/cache-only) — Forces the response to come from the cache.
+- [StaleWhileRevalidate](./runtime-caching/caching-strategies/stale-while-revalidate) — Uses a cached response for a request if it's available and updates the cache in the background with a response from the network. Therefore, if the asset isn't cached, it will wait for the network response and use that. It's a fairly safe strategy, as it regularly updates cache entries that rely on it. The downside is that it always makes a network request in the background.
+- [NetworkFirst](./runtime-caching/caching-strategies/network-first) — Tries to get a response from the network first. If a response is received, it passes that response to the browser and saves it to a cache. If the network request fails, the last cached response will be used, enabling offline access to the asset.
+- [CacheFirst](./runtime-caching/caching-strategies/cache-first) — Checks the cache for a response first and uses it if available. If the request isn't in the cache, the network is used and any valid response is added to the cache before being passed to the browser.
+- [NetworkOnly](./runtime-caching/caching-strategies/network-only) — Forces the response to come from the network.
+- [CacheOnly](./runtime-caching/caching-strategies/cache-only) — Forces the response to come from the cache.
 
-You may also write your own strategy as detailed in [Caching strategies: Creating a new strategy](./runtime-caching/caching-strategies#custom-strategy).
+You may also write your own strategy as detailed in [Caching strategies: Creating a new strategy](./runtime-caching/caching-strategies#creating-a-new-strategy).
 
 ## Applying caching strategies with route matching
 
 [The Serwist class](./core/serwist) exposes the `registerCapture` method to allow you to match a pattern of routes to a caching strategy. `registerCapture` accepts two arguments:
 
-* A string, regular expression, or a match callback to specify route matching criteria.
-* A handler for the route — typically a built-in `Strategy`.
+- A string, regular expression, or a match callback to specify route matching criteria.
+- A handler for the route — typically a built-in `Strategy`.
 
 You may also use the runtimeCaching option of Serwist's constructor. It is essentially a syntactic sugar for registerCapture.
 
 When the service worker intercepts a network request, Serwist tries to match the URL of the request to one of the registered handlers, which will then be used to generate a response. In the following example, we register a route that matches incoming same-origin image requests, applying the `CacheFirst` strategy.
 
-sw.ts 
+<Tabs id="example-image" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
 
-```
+```typescript twoslash
 import { CacheFirst, Serwist } from "serwist";
 
 const serwist = new Serwist();
@@ -46,13 +52,17 @@ serwist.registerCapture(({ request, sameOrigin }) => {
 serwist.addEventListeners();
 ```
 
+  </Tab>
+</Tabs>
+
 ## Using multiple caches
 
 Serwist allows you to bucket cached responses into separate `Cache` instances using the `cacheName` option available in the built-in strategies. In the following example, images use the `StaleWhileRevalidate` strategy, whereas CSS and JavaScript assets use the `CacheFirst` strategy. The route for each asset places responses into separate caches, by adding the `cacheName` property.
 
-sw.ts 
+<Tabs id="example-multiple-caches" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
 
-```
+```typescript twoslash
 import { CacheFirst, StaleWhileRevalidate, Serwist } from "serwist";
 
 const serwist = new Serwist({
@@ -90,7 +100,15 @@ const serwist = new Serwist({
 serwist.addEventListeners();
 ```
 
-![Example using multiple caches](/@imagetools/eab82b72c8b1dd84ab66a6382069437f36c96918) 
+  </Tab>
+</Tabs>
+
+<enhanced:img
+  src=$images/using-strategies-multiple-caches.png
+  sizes="min(902px,100vw)"
+  class="h-auto w-full"
+  alt="Example using multiple caches"
+/>
 
 ## Cross-origin considerations
 
@@ -106,21 +124,29 @@ Opaque responses are a security measure intended to prevent the inspection of a 
 
 Even if you load cross-origin assets that do set permissive CORS headers that allow you read responses, the body of cross-origin response may still be opaque. For example, the following HTML will trigger `no-cors` requests that will lead to opaque responses regardless of what CORS headers are set:
 
-index.html 
+<Tabs id="reminder-cors-no-cors" tabs={[["index.html", "index-html"]]}>
+  <Tab id="index-html">
 
-```
+```html
 <link rel="stylesheet" href="https://example.com/path/to/style.css">
 <img src="https://example.com/path/to/image.png">
 ```
 
+  </Tab>
+</Tabs>
+
 To explicitly trigger a `cors` request that will yield a non-opaque response, you need to explicitly opt-in to CORS mode by adding the `crossorigin` attribute to your HTML:
 
-index.html 
+<Tabs id="reminder-cors-cors" tabs={[["index.html", "index-html"]]}>
+  <Tab id="index-html">
 
-```
+```html
 <link crossorigin="anonymous" rel="stylesheet" href="https://example.com/path/to/style.css">
 <img crossorigin="anonymous" src="https://example.com/path/to/image.png">
 ```
+
+  </Tab>
+</Tabs>
 
 This is important to remember when your service worker cache subresources loaded at runtime.
 

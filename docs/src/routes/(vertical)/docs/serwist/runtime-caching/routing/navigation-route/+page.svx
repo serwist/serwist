@@ -1,6 +1,11 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # NavigationRoute
 
 ## First added
@@ -21,16 +26,17 @@ The regular expressions in `allowlist` and `denylist` are matched against the co
 
 ## Parameters
 
-* `handler` — A callback function that returns a `Promise` resolving to a `Response`.
-* `options` — Options for `NavigationRoute`:  
-   * `allowlist` — A list of `RegExp` objects matching URLs that should match this route.  
-   * `denylist` — A list of `RegExp` objects matching URLs that should not match this route.
+- `handler` — A callback function that returns a `Promise` resolving to a `Response`.
+- `options` — Options for `NavigationRoute`:
+  - `allowlist` — A list of `RegExp` objects matching URLs that should match this route.
+  - `denylist` — A list of `RegExp` objects matching URLs that should not match this route.
 
 ## Usage
 
-sw.ts 
+<Tabs id="usage-example" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
 
-```
+```typescript twoslash
 import type { PrecacheEntry } from "serwist";
 declare global {
   interface WorkerGlobalScope {
@@ -53,8 +59,11 @@ serwist.registerRoute(new NavigationRoute(serwist.createHandlerBoundToUrl("/app-
 serwist.addEventListeners();
 ```
 
+  </Tab>
+</Tabs>
+
 ## More resources
 
 Here is a list of resources you can read to learn more about `NavigationRoute`:
 
-* [Routing: Matching all navigation requests](/docs/serwist/runtime-caching/routing#registering-navigation-route)
+- [Routing: Matching all navigation requests](/docs/serwist/runtime-caching/routing#matching-all-navigation-requests)

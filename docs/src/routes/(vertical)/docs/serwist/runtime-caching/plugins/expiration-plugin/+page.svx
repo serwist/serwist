@@ -1,6 +1,11 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # ExpirationPlugin
 
 ## First added
@@ -21,21 +26,22 @@ When using `maxEntries`, the least recently requested entry will be removed from
 
 ## Options
 
-* `maxEntries` — The maximum number of entries to cache. Entries used (if `maxAgeFrom` is `"last-used"`) or fetched from the network (if `maxAgeFrom` is `"last-fetched"`) least recently will be removed as the maximum is reached.
-* `maxAgeSeconds` — The maximum age of an entry before it's treated as stale and removed.
-* `maxAgeFrom` — Determines whether `maxAgeSeconds` should be calculated from when an entry was last fetched or when it was last used.
-* `matchOptions` — The [CacheQueryOptions](https://developer.mozilla.org/en-US/docs/Web/API/Cache/delete#Parameters) that will be used when calling `delete()` on the cache.
-* `purgeOnQuotaError` — Whether to opt this cache into automatic deletion if the available storage quota has been exceeded.
+- `maxEntries` — The maximum number of entries to cache. Entries used (if `maxAgeFrom` is `"last-used"`) or fetched from the network (if `maxAgeFrom` is `"last-fetched"`) least recently will be removed as the maximum is reached.
+- `maxAgeSeconds` — The maximum age of an entry before it's treated as stale and removed.
+- `maxAgeFrom` — Determines whether `maxAgeSeconds` should be calculated from when an entry was last fetched or when it was last used.
+- `matchOptions` — The [CacheQueryOptions](https://developer.mozilla.org/en-US/docs/Web/API/Cache/delete#Parameters) that will be used when calling `delete()` on the cache.
+- `purgeOnQuotaError` — Whether to opt this cache into automatic deletion if the available storage quota has been exceeded.
 
 ## Methods and fields
 
-* `async deleteCacheAndMetadata()` — Deletes the underlying `Cache` instance associated with this instance and the metadata from IndexedDB used to keep track of expiration details.
+- `async deleteCacheAndMetadata()` — Deletes the underlying `Cache` instance associated with this instance and the metadata from IndexedDB used to keep track of expiration details.
 
 ## Usage
 
-sw.ts 
+<Tabs id="usage" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
 
-```
+```typescript twoslash
 import { CacheFirst, ExpirationPlugin } from "serwist";
 import { registerRoute } from "serwist/legacy";
 
@@ -52,3 +58,6 @@ registerRoute(
   }),
 );
 ```
+
+  </Tab>
+</Tabs>

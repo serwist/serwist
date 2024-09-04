@@ -1,6 +1,11 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # disableNavigationPreload
 
 ## First added
@@ -13,9 +18,10 @@ If the browser supports navigation preloading, then this will disable it.
 
 ## Usage
 
-sw.ts 
+<Tabs id="usage-example" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
 
-```
+```typescript twoslash
 import {
   enableNavigationPreload,
   disableNavigationPreload,
@@ -58,3 +64,6 @@ const navigationRoute = new NavigationRoute(navigationStrategy, {
 
 registerRoute(navigationRoute);
 ```
+
+  </Tab>
+</Tabs>

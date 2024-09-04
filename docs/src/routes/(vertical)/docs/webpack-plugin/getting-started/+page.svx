@@ -1,20 +1,51 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # Getting started
 
-This guide uses React, but it applies to any project using webpack. For some frameworks, we also have packages tailored to them: 
-* [Next.js](/docs/next)
+This guide uses React, but it applies to any project using webpack. For some frameworks, we also have packages tailored to them:
+
+- [Next.js](/docs/next)
 
 ## Install
 
 Run the following command:
 
-npm yarn pnpm bun 
+<Tabs id="installing-serwist-webpack-plugin" tabs={[["npm", "npm"], ["yarn", "yarn"], ["pnpm", "pnpm"], ["bun", "bun"]]}>
+  <Tab id="npm">
 
-```
+```bash
 npm i -D @serwist/webpack-plugin @serwist/window serwist
 ```
+
+  </Tab>
+  <Tab id="yarn">
+
+```bash
+yarn add -D @serwist/webpack-plugin @serwist/window serwist
+```
+
+  </Tab>
+  <Tab id="pnpm">
+
+```bash
+pnpm add -D @serwist/webpack-plugin @serwist/window serwist
+```
+
+  </Tab>
+  <Tab id="bun">
+
+```bash
+bun add -D @serwist/webpack-plugin serwist
+```
+
+  </Tab>
+</Tabs>
 
 ## Implementation
 
@@ -22,9 +53,10 @@ npm i -D @serwist/webpack-plugin @serwist/window serwist
 
 Update or create your webpack configuration file with the following content:
 
-webpack.config.ts 
+<Tabs id="adding-plugin" tabs={[["webpack.config.ts", "webpack-config-ts"]]}>
+  <Tab id="webpack-config-ts">
 
-```
+```typescript
 import fs from "node:fs";
 import path from "node:path";
 
@@ -55,7 +87,7 @@ export default {
     assetModuleFilename: "static/media/[name].[hash][ext]",
   },
   plugins: [
-    // swDest is automatically resolved to "${output.path}/sw.js"
+    // swDest is automatically resolved to "$\{output.path}/sw.js"
     new InjectManifest({
       swSrc: path.resolve(srcDir, "sw.ts"),
       disablePrecacheManifest: dev,
@@ -66,13 +98,17 @@ export default {
 } satisfies Configuration;
 ```
 
+  </Tab>
+</Tabs>
+
 ### Step 2: Update tsconfig.json
 
 If you use TypeScript, you should add the following content to tsconfig.json in order to get the correct types:
 
-tsconfig.json 
+<Tabs id="updating-tsconfig" tabs={[["tsconfig.json", "tsconfig-json"]]}>
+  <Tab id="tsconfig-json">
 
-```
+```json
 {
   // Other stuff...
   "compilerOptions": {
@@ -86,19 +122,26 @@ tsconfig.json
 }
 ```
 
+  </Tab>
+</Tabs>
+
 Otherwise, safely skip this step.
 
 ### Step 3: Update .gitignore
 
 If you use Git, update your .gitignore like so:
 
-.gitignore 
+<Tabs id="updating-tsconfig" tabs={[[".gitignore", "-gitignore"]]}>
+  <Tab id="-gitignore">
 
-```
+```sh
 # Serwist
 public/sw*
 public/swe-worker*
 ```
+
+  </Tab>
+</Tabs>
 
 Otherwise, safely skip this step.
 
@@ -106,9 +149,10 @@ Otherwise, safely skip this step.
 
 Basic service worker template to get Serwist up and running:
 
-sw.ts 
+<Tabs id="writing-a-sw" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
 
-```
+```typescript twoslash
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
 import { Serwist } from "serwist";
 
@@ -136,13 +180,17 @@ const serwist = new Serwist({
 serwist.addEventListeners();
 ```
 
+  </Tab>
+</Tabs>
+
 ### Step 5: Add a web application manifest
 
 Update public/manifest.json with the following content:
 
-manifest.json 
+<Tabs id="writing-a-webmanifest" tabs={[["manifest.json", "manifest-json"]]}>
+  <Tab id="manifest-json">
 
-```
+```json
 {
   "name": "My Awesome PWA app",
   "short_name": "PWA App",
@@ -167,13 +215,17 @@ manifest.json
 }
 ```
 
+  </Tab>
+</Tabs>
+
 ### Step 6: Update your client entrypoint
 
 Next up, update src/App.tsx with the following content:
 
-src/App.tsx 
+<Tabs id="updating-entrypoint" tabs={[["src/App.tsx", "src/App-tsx"]]}>
+  <Tab id="src/App-tsx">
 
-```
+```tsx twoslash
 import { useEffect } from "react";
 
 export default function App() {
@@ -197,13 +249,17 @@ export default function App() {
 }
 ```
 
+  </Tab>
+</Tabs>
+
 ### Step 7: Add metadata to <head />
 
 Add the following content to your HTML file:
 
-index.html 
+<Tabs id="updating-html" tabs={[["index.html", "index-html"]]}>
+  <Tab id="index-html">
 
-```
+```html
 <head>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>My awesome PWA app</title>
@@ -236,3 +292,6 @@ index.html
   <link rel="apple-touch-startup-image" href="/images/apple_splash_640.png" sizes="640x1136">
 </head>
 ```
+
+  </Tab>
+</Tabs>

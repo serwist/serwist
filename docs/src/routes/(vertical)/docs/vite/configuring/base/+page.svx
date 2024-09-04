@@ -1,6 +1,11 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # base
 
 ## First added
@@ -9,7 +14,7 @@ layout: docs
 
 ## Default
 
-`viteOptions.base` 
+`viteOptions.base`
 
 ## About
 
@@ -17,9 +22,10 @@ The base from which Serwist resolves URLs.
 
 ## Usage
 
-vite.config.ts 
+<Tabs id="usage-example" tabs={[["vite.config.ts", "vite-config-ts"]]}>
+  <Tab id="vite-config-ts">
 
-```
+```javascript
 export default defineConfig({
   plugins: [
     // Other plugins...
@@ -35,8 +41,11 @@ export default defineConfig({
 });
 ```
 
+  </Tab>
+</Tabs>
+
 ## More resources
 
 Here is a list of resources you can read to learn more about `base`:
 
-* [Vite's reference documentation on base](https://vitejs.dev/config/shared-options.html#base)
+- [Vite's reference documentation on base](https://vitejs.dev/config/shared-options.html#base)

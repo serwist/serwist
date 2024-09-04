@@ -1,11 +1,16 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # swUrl
 
 ## First added
 
-`next-pwa` 
+`next-pwa`
 
 ## About
 
@@ -17,12 +22,16 @@ Serwist, by providing the option `swDest`, made itself unable to determine the U
 
 ## Usage
 
-next.config.mjs 
+<Tabs id="usage-example" tabs={[["next.config.mjs", "next-config-mjs"]]}>
+  <Tab id="next-config-mjs">
 
-```
+```javascript
 withSerwistInit({
   swSrc: "app/sw.ts",
   swDest: "public/weird-sw.js",
   swUrl: "/weird-sw.js",
 });
 ```
+
+  </Tab>
+</Tabs>

@@ -1,9 +1,14 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # Routing
 
-[Original source (Apache 2.0 License). Adapted for Serwist's usage.](https://developer.chrome.com/docs/workbox/modules/workbox-routing) 
+[Original source (Apache 2.0 License). Adapted for Serwist's usage.](https://developer.chrome.com/docs/workbox/modules/workbox-routing)
 
 ## Introduction
 
@@ -13,27 +18,33 @@ Routing is how Serwist allows different functions to handle different requests.
 
 When a network request is intercepted, Serwist attempts to respond to the request using the supplied routes and handlers.
 
-![Routing diagram](/@imagetools/0e8aa020a51c24c834517f575b30822875905428) 
+<enhanced:img
+  src=$images/routing-diagram.png
+  sizes="min(1823px,100vw)"
+  alt="Routing diagram"
+  class="my-3"
+/>
 
 The main things to note from the above are:
 
-* The method of a request is important. By default, routes are registered for `GET` requests. If you wish to intercept other types of requests, you'll need to specify the method.
-* The register order is important. If multiple registered routes can handle a request, the route that is registered first will be used to respond to the request.
+- The method of a request is important. By default, routes are registered for `GET` requests. If you wish to intercept other types of requests, you'll need to specify the method.
+- The register order is important. If multiple registered routes can handle a request, the route that is registered first will be used to respond to the request.
 
 ## Applying caching strategies with route matching
 
 [The Serwist class](/docs/serwist/core/serwist) exposes the `registerCapture` method to allow you to match a pattern of routes to a caching strategy. `registerCapture` accepts two arguments:
 
-* A string, regular expression, or a match callback to specify route matching criteria.
-* A handler for the route — typically a built-in `Strategy`.
+- A string, regular expression, or a match callback to specify route matching criteria.
+- A handler for the route — typically a built-in `Strategy`.
 
 You may also use the runtimeCaching option of Serwist's constructor. It is essentially a syntactic sugar for registerCapture.
 
 When the service worker intercepts a network request, Serwist tries to match the URL of the request to one of the registered handlers, which will then be used to generate a response. In the following example, we register a route that matches incoming same-origin image requests, applying the `CacheFirst` strategy.
 
-sw.ts 
+<Tabs id="example-image" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
 
-```
+```typescript twoslash
 import { CacheFirst, Serwist } from "serwist";
 
 const serwist = new Serwist();
@@ -45,13 +56,17 @@ serwist.registerCapture(({ request, sameOrigin }) => {
 serwist.addEventListeners();
 ```
 
+  </Tab>
+</Tabs>
+
 ## Matching all navigation requests
 
 `NavigationRoute` allows you to match all navigation requests. If your site is a single page application, you can use `NavigationRoute` to return a specific response for all navigation requests:
 
-sw.ts 
+<Tabs id="route-matching-navigation-route" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
 
-```
+```typescript twoslash
 import type { PrecacheEntry } from "serwist";
 declare global {
   interface WorkerGlobalScope {
@@ -74,11 +89,15 @@ serwist.registerRoute(new NavigationRoute(serwist.createHandlerBoundToUrl("/app-
 serwist.addEventListeners();
 ```
 
+  </Tab>
+</Tabs>
+
 Alternatively, you can use `precacheOptions.navigateFallback`:
 
-sw.ts 
+<Tabs id="route-matching-navigate-fallback" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
 
-```
+```typescript twoslash
 import type { PrecacheEntry } from "serwist";
 declare global {
   interface WorkerGlobalScope {
@@ -100,13 +119,17 @@ const serwist = new Serwist({
 serwist.addEventListeners();
 ```
 
+  </Tab>
+</Tabs>
+
 ## Setting a default handler
 
 If you want to supply a handler for requests that don't match any route at all, you can set a default handler.
 
-sw.ts 
+<Tabs id="route-matching-default-handler" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
 
-```
+```typescript twoslash
 import type { Serwist } from "serwist";
 declare const serwist: Serwist;
 // ---cut-before---
@@ -126,13 +149,17 @@ serwist.setDefaultHandler(({ event, request, url, params }) => {
 serwist.addEventListeners();
 ```
 
+  </Tab>
+</Tabs>
+
 ## Setting a catch handler
 
 In the case of any of your routes throwing an error, you can capture and degrade gracefully by setting a catch handler.
 
-sw.ts 
+<Tabs id="route-matching-catch-handler" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
 
-```
+```typescript twoslash
 import type { Serwist } from "serwist";
 declare const serwist: Serwist;
 // ---cut-before---
@@ -159,15 +186,19 @@ serwist.setCatchHandler(async ({ request }) => {
 });
 ```
 
+  </Tab>
+</Tabs>
+
 ## Defining a route for non-GET requests
 
 All routes by default are assumed to be for `GET` requests.
 
 If you would like to route requests of other HTTP methods, you need to specify the method when registering the route like so:
 
-sw.ts 
+<Tabs id="route-matching-non-get" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
 
-```
+```typescript twoslash
 import type { Serwist } from "serwist";
 declare const serwist: Serwist;
 // ---cut-before---
@@ -177,3 +208,6 @@ serwist.registerCapture(/^\/api\/.*/, new NetworkFirst(), "POST");
 
 serwist.addEventListeners();
 ```
+
+  </Tab>
+</Tabs>

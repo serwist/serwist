@@ -1,17 +1,47 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # Getting started
 
 ## Install
 
 Run the following command:
 
-npm yarn pnpm bun 
+<Tabs id="installing-serwist-nuxt" tabs={[["npm", "npm"], ["yarn", "yarn"], ["pnpm", "pnpm"], ["bun", "bun"]]}>
+  <Tab id="npm">
 
-```
+```bash
 npm i -D @serwist/nuxt @serwist/vite serwist
 ```
+
+  </Tab>
+  <Tab id="yarn">
+
+```bash
+yarn add -D @serwist/nuxt @serwist/vite serwist
+```
+
+  </Tab>
+  <Tab id="pnpm">
+
+```bash
+pnpm add -D @serwist/nuxt @serwist/vite serwist
+```
+
+  </Tab>
+  <Tab id="bun">
+
+```bash
+bun add -D @serwist/nuxt @serwist/vite serwist
+```
+
+  </Tab>
+</Tabs>
 
 ## Implementation
 
@@ -19,9 +49,10 @@ npm i -D @serwist/nuxt @serwist/vite serwist
 
 Update or create your Nuxt configuration file with the following content:
 
-nuxt.config.ts 
+<Tabs id="updating-nuxt-config" tabs={[["nuxt.config.ts", "nuxt-config-ts"]]}>
+  <Tab id="nuxt-config-ts">
 
-```
+```typescript
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   app: {
@@ -113,13 +144,17 @@ export default defineNuxtConfig({
 });
 ```
 
+  </Tab>
+</Tabs>
+
 ### Step 2: Update tsconfig.json
 
 If you use TypeScript, you should add the following content to tsconfig.json in order to get the correct types:
 
-tsconfig.json 
+<Tabs id="updating-tsconfig" tabs={[["tsconfig.json", "tsconfig-json"]]}>
+  <Tab id="tsconfig-json">
 
-```
+```json
 {
   // Other stuff...
   "compilerOptions": {
@@ -133,19 +168,26 @@ tsconfig.json
 }
 ```
 
+  </Tab>
+</Tabs>
+
 Otherwise, safely skip this step.
 
 ### Step 3: Update .gitignore
 
 If you use Git, update your .gitignore like so:
 
-.gitignore 
+<Tabs id="updating-tsconfig" tabs={[[".gitignore", "-gitignore"]]}>
+  <Tab id="-gitignore">
 
-```
+```sh
 # Serwist
 public/sw*
 public/swe-worker*
 ```
+
+  </Tab>
+</Tabs>
 
 Otherwise, safely skip this step.
 
@@ -153,9 +195,10 @@ Otherwise, safely skip this step.
 
 Basic service worker template to get Serwist up and running:
 
-sw.ts 
+<Tabs id="writing-a-sw" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
 
-```
+```typescript twoslash
 import { defaultCache } from "@serwist/vite/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
 import { Serwist } from "serwist";
@@ -183,13 +226,17 @@ const serwist = new Serwist({
 serwist.addEventListeners();
 ```
 
+  </Tab>
+</Tabs>
+
 ### Step 5: Add a web application manifest
 
 Update public/manifest.json with the following content:
 
-manifest.json 
+<Tabs id="writing-a-webmanifest" tabs={[["manifest.json", "manifest-json"]]}>
+  <Tab id="manifest-json">
 
-```
+```json
 {
   "name": "My Awesome PWA app",
   "short_name": "PWA App",
@@ -214,13 +261,17 @@ manifest.json
 }
 ```
 
+  </Tab>
+</Tabs>
+
 ### Step 6: Register the service worker
 
 Add the following content to app.vue:
 
-app.vue 
+<Tabs id="updating-layout" tabs={[["app.vue", "app-vue"]]}>
+  <Tab id="app-vue">
 
-```
+```vue
 <script setup lang="ts">
 // @ts-check
 const { $serwist } = useNuxtApp();
@@ -235,3 +286,6 @@ void $serwist?.register({ immediate: true });
   </div>
 </template>
 ```
+
+  </Tab>
+</Tabs>

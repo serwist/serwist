@@ -1,6 +1,11 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # BackgroundSyncQueue
 
 ## First added
@@ -13,29 +18,30 @@ A class to manage storing failed requests in IndexedDB and retrying them later. 
 
 ## Parameters
 
-* `name` — The unique name for this queue. This name must be unique as it's used to register sync events and store requests in IndexedDB specific to this instance. An error will be thrown if a duplicate name is detected.
-* `options` — Configuration for the queue.  
-   * `forceSyncFallback` — If `true`, instead of attempting to use background sync events, always attempt to replay queued request at service worker startup. Most folks will not need this, unless you explicitly target a runtime like Electron that exposes the interfaces for background sync, but does not have a working implementation.  
-   * `maxRetentionTime` — The amount of time (in minutes) a request may be retried. After this amount of time has passed, the request will be deleted from the queue.  
-   * `onSync` — A function that gets invoked whenever the `sync` event fires. The function is invoked with an object containing the `queue` property (referencing this instance), and you can use the callback to customize the replay behavior of the queue. When not set the `replayRequests()` method is called. Note: if the replay fails after a `sync` event, make sure you throw an error, so the browser knows to retry the sync event later.
+- `name` — The unique name for this queue. This name must be unique as it's used to register sync events and store requests in IndexedDB specific to this instance. An error will be thrown if a duplicate name is detected.
+- `options` — Configuration for the queue.
+  - `forceSyncFallback` — If `true`, instead of attempting to use background sync events, always attempt to replay queued request at service worker startup. Most folks will not need this, unless you explicitly target a runtime like Electron that exposes the interfaces for background sync, but does not have a working implementation.
+  - `maxRetentionTime` — The amount of time (in minutes) a request may be retried. After this amount of time has passed, the request will be deleted from the queue.
+  - `onSync` — A function that gets invoked whenever the `sync` event fires. The function is invoked with an object containing the `queue` property (referencing this instance), and you can use the callback to customize the replay behavior of the queue. When not set the `replayRequests()` method is called. Note: if the replay fails after a `sync` event, make sure you throw an error, so the browser knows to retry the sync event later.
 
 ## Methods and fields
 
-* `get name()` — The unique name for this queue.
-* `async pushRequest(entry)` — Stores the passed request in IndexedDB (with its timestamp and any metadata) at the end of the queue.
-* `async unshiftRequest(entry)` — Stores the passed request in IndexedDB (with its timestamp and any metadata) at the beginning of the queue.
-* `async popRequest()` — Removes and returns the last request in the queue (along with its timestamp and any metadata).
-* `async shiftRequest()` — Removes and returns the first request in the queue (along with its timestamp and any metadata).
-* `async getAll()` — Returns all the entries that have not expired (per `maxRetentionTime`). Any expired entries are removed from the queue.
-* `async size()` — Returns the number of entries present in the queue. Note that expired entries (per \`maxRetentionTime\`) are also included in this count.
-* `async replayRequests()` — Loops through each request in the queue and attempts to re-fetch it. If any request fails to re-fetch, it's put back in the same position in the queue (which registers a retry for the next sync event).
-* `async registerSync()` — Registers a sync event with a tag unique to this instance.
+- `get name()` — The unique name for this queue.
+- `async pushRequest(entry)` — Stores the passed request in IndexedDB (with its timestamp and any metadata) at the end of the queue.
+- `async unshiftRequest(entry)` — Stores the passed request in IndexedDB (with its timestamp and any metadata) at the beginning of the queue.
+- `async popRequest()` — Removes and returns the last request in the queue (along with its timestamp and any metadata).
+- `async shiftRequest()` — Removes and returns the first request in the queue (along with its timestamp and any metadata).
+- `async getAll()` — Returns all the entries that have not expired (per `maxRetentionTime`). Any expired entries are removed from the queue.
+- `async size()` — Returns the number of entries present in the queue. Note that expired entries (per `maxRetentionTime`) are also included in this count.
+- `async replayRequests()` — Loops through each request in the queue and attempts to re-fetch it. If any request fails to re-fetch, it's put back in the same position in the queue (which registers a retry for the next sync event).
+- `async registerSync()` — Registers a sync event with a tag unique to this instance.
 
 ## Usage
 
-sw.ts sw.js 
+<Tabs id="usage-example" tabs={[["sw.ts", "sw-ts"], ["sw.js", "sw-js"]]}>
+  <Tab id="sw-ts">
 
-```
+```typescript twoslash
 import { BackgroundSyncQueue } from "serwist";
 
 declare const self: ServiceWorkerGlobalScope;
@@ -62,3 +68,47 @@ self.addEventListener("fetch", (event) => {
   event.respondWith(backgroundSync());
 });
 ```
+
+  </Tab>
+  <Tab id="sw-js">
+
+```javascript twoslash
+// @filename: sw-decl.d.ts
+import type { SerwistGlobalConfig } from "serwist";
+
+declare global {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {};
+}
+
+// @filename: sw.js
+// @lib: esnext,webworker
+// @types: ./sw-decl.d.ts
+const self = /** @type {ServiceWorkerGlobalScope} */(/** @type {unknown} */(globalThis.self));
+// ---cut-before---
+import { BackgroundSyncQueue } from "serwist";
+
+const queue = new BackgroundSyncQueue("myQueueName");
+
+self.addEventListener("fetch", (event) => {
+  // Add in your own criteria here to return early if this
+  // isn't a request that should use background sync.
+  if (event.request.method !== "POST") {
+    return;
+  }
+
+  const backgroundSync = async () => {
+    try {
+      const response = await fetch(event.request.clone());
+      return response;
+    } catch (error) {
+      await queue.pushRequest({ request: event.request });
+      return Response.error();
+    }
+  };
+
+  event.respondWith(backgroundSync());
+});
+```
+
+  </Tab>
+</Tabs>

@@ -1,28 +1,10 @@
-import { highlightCode } from "$lib/highlightCode";
 import { encodeOpenGraphImage } from "$lib/og";
 import type { PageServerLoad } from "./$types";
 
-export const load: PageServerLoad = ({ locals }) => ({
+export const load: PageServerLoad = () => ({
   title: "globStrict - Configuring - @serwist/build",
   ogImage: encodeOpenGraphImage({
     title: "globStrict",
     desc: "Configuring - @serwist/build",
   }),
-  code: {
-    usage: highlightCode(
-      locals.highlighter,
-      {
-        "build.js": {
-          code: `await injectManifest({
-  swSrc: "app/sw.ts",
-  swDest: "dist/sw.js",
-  globDirectory: "dist/static",
-  globStrict: false,
-});`,
-          lang: "javascript",
-        },
-      },
-      { idPrefix: "usage-example", useTwoslash: false },
-    ),
-  },
 });

@@ -1,6 +1,11 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # NetworkOnly
 
 ## First added
@@ -17,15 +22,16 @@ If the network request fails, this will throw a `SerwistError` exception.
 
 ## Parameters
 
-* `plugins` — [Plugins](/docs/serwist/runtime-caching/plugins) to use in conjunction with this caching strategy.
-* `fetchOptions` — Options passed to [non-navigation](https://github.com/GoogleChrome/workbox/issues/1796) `fetch()` calls made by this strategy.
-* `networkTimeoutSeconds` — If set, any network requests that fail to respond within the timeout will fallback to the cache.
+- `plugins` — [Plugins](/docs/serwist/runtime-caching/plugins) to use in conjunction with this caching strategy.
+- `fetchOptions` — Options passed to [non-navigation](https://github.com/GoogleChrome/workbox/issues/1796) `fetch()` calls made by this strategy.
+- `networkTimeoutSeconds` — If set, any network requests that fail to respond within the timeout will fallback to the cache.
 
 ## Usage
 
-sw.ts 
+<Tabs id="usage-example" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
 
-```
+```typescript twoslash
 import { NetworkOnly, Serwist } from "serwist";
 
 const serwist = new Serwist({
@@ -38,9 +44,12 @@ const serwist = new Serwist({
 });
 ```
 
+  </Tab>
+</Tabs>
+
 ## More resources
 
 Here is a list of resources you can read to learn more about `NetworkOnly`:
 
-* [Runtime caching](/docs/serwist/runtime-caching)
-* [Using plugins](/docs/serwist/runtime-caching/plugins)
+- [Runtime caching](/docs/serwist/runtime-caching)
+- [Using plugins](/docs/serwist/runtime-caching/plugins)

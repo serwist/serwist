@@ -1,6 +1,11 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # CacheExpiration
 
 ## First added
@@ -13,22 +18,23 @@ Allows you to expires cached responses based on age or maximum number of entries
 
 ## Options
 
-* `maxEntries` — The maximum number of entries to cache. Entries used least recently will be removed as the maximum is reached.
-* `maxAgeSeconds` — The maximum age of an entry before it's treated as stale and removed.
-* `matchOptions` — The [CacheQueryOptions](https://developer.mozilla.org/en-US/docs/Web/API/Cache/delete#Parameters) that will be used when calling `delete()` on the cache.
+- `maxEntries` — The maximum number of entries to cache. Entries used least recently will be removed as the maximum is reached.
+- `maxAgeSeconds` — The maximum age of an entry before it's treated as stale and removed.
+- `matchOptions` — The [CacheQueryOptions](https://developer.mozilla.org/en-US/docs/Web/API/Cache/delete#Parameters) that will be used when calling `delete()` on the cache.
 
 ## Methods and fields
 
-* `async expireEntries()` — Expires entries for the given cache and given criteria.
-* `async updateTimestamp(url)` — Updates the timestamp for the given URL, allowing it to be correctly tracked by the class.
-* `async isURLExpired(url)` — Checks if a URL has expired or not before it's used.
-* `async delete()` — Removes the IndexedDB used to keep track of cache expiration metadata.
+- `async expireEntries()` — Expires entries for the given cache and given criteria.
+- `async updateTimestamp(url)` — Updates the timestamp for the given URL, allowing it to be correctly tracked by the class.
+- `async isURLExpired(url)` — Checks if a URL has expired or not before it's used.
+- `async delete()` — Removes the IndexedDB used to keep track of cache expiration metadata.
 
 ## Usage
 
-sw.ts 
+<Tabs id="usage" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
 
-```
+```typescript twoslash
 declare const request: Request;
 declare const response: Response;
 // ---cut-before---
@@ -50,3 +56,6 @@ await expirationManager.updateTimestamp(request.url);
 // Expire entries that have reached max age.
 await expirationManager.expireEntries();
 ```
+
+  </Tab>
+</Tabs>

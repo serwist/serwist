@@ -1,6 +1,11 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # PrecacheFallbackPlugin
 
 ## First added
@@ -17,14 +22,15 @@ Generally, you don't need to use this plugin directly. Ratherly, you'd use the f
 
 ## Options
 
-* `fallbackUrls` — Precached URLs to be used as the fallback if the associated strategy can't generate a response.
-* `serwist` — Your [Serwist](/docs/serwist/core/serwist) instance.
+- `fallbackUrls` — Precached URLs to be used as the fallback if the associated strategy can't generate a response.
+- `serwist` — Your [Serwist](/docs/serwist/core/serwist) instance.
 
 ## Usage
 
-sw.ts 
+<Tabs id="usage-example" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
 
-```
+```typescript twoslash
 import type { PrecacheEntry } from "serwist";
 declare global {
   interface WorkerGlobalScope {
@@ -54,3 +60,6 @@ serwist.registerCapture(
 
 serwist.addEventListeners();
 ```
+
+  </Tab>
+</Tabs>

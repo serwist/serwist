@@ -7,16 +7,4 @@ export const load: PageServerLoad = () => ({
     title: "Diving deeper",
     desc: "serwist",
   }),
-  toc: [
-    {
-      title: "Diving deeper",
-      id: "guide",
-      children: [
-        {
-          title: "Introduction",
-          id: "introduction",
-        },
-      ],
-    },
-  ],
 });

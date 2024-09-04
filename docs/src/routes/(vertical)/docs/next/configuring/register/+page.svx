@@ -1,15 +1,20 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # register
 
 ## First added
 
-`next-pwa` 
+`next-pwa`
 
 ## Default
 
-`true` 
+`true`
 
 ## About
 
@@ -21,11 +26,12 @@ When set to `true`, the code injected into your app's entrypoints runs `window.s
 
 ## Usage
 
-In your next.config.{mjs,js}:
+In your next.config.js:
 
-next.config.mjs 
+<Tabs id="usage-config-example" tabs={[["next.config.js", "next-config-js"]]}>
+  <Tab id="next-config-js">
 
-```
+```javascript
 withSerwistInit({
   swSrc: "app/sw.ts",
   swDest: "public/sw.js",
@@ -33,11 +39,15 @@ withSerwistInit({
 });
 ```
 
+  </Tab>
+</Tabs>
+
 In your app:
 
-app/register-pwa.jsx 
+<Tabs id="usage-app-example" tabs={[["app/register-pwa.jsx", "app/register-pwa-jsx"]]}>
+  <Tab id="app/register-pwa-jsx">
 
-```
+```jsx
 "use client";
 import { useEffect } from "react";
 
@@ -50,5 +60,8 @@ export default function RegisterPWA() {
   return <></>;
 }
 ```
+
+  </Tab>
+</Tabs>
 
 Note: if you use TypeScript and follow the above template, do add `@serwist/next/typings` to `compilerOptions.types` in your tsconfig.json! This allows `window.serwist` to be automatically typed.

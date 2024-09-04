@@ -1,6 +1,11 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # BroadcastCacheUpdate
 
 ## First added
@@ -15,19 +20,20 @@ For efficiency's sake, the underlying response bodies are not compared; only spe
 
 ## Options
 
-* `headersToCheck` — A list of headers that will be used to determine whether the responses differ.
-* `generatePayload(options)` — A function whose return value will be used as the `payload` field in any cache update messages sent to the window clients.
-* `notifyAllClients` — If `true` (the default) then all open clients will receive a message. If `false`, then only the client that make the original request will be notified of the update.
+- `headersToCheck` — A list of headers that will be used to determine whether the responses differ.
+- `generatePayload(options)` — A function whose return value will be used as the `payload` field in any cache update messages sent to the window clients.
+- `notifyAllClients` — If `true` (the default) then all open clients will receive a message. If `false`, then only the client that make the original request will be notified of the update.
 
 ## Methods and fields
 
-* `async notifyIfUpdated(options)` — Compares two responses and sends a message (via `postMessage()`) to all window clients if the responses differ. Neither of the responses can be opaque.
+- `async notifyIfUpdated(options)` — Compares two responses and sends a message (via `postMessage()`) to all window clients if the responses differ. Neither of the responses can be opaque.
 
 ## Usage
 
-sw.ts message.ts 
+<Tabs id="usage-example" tabs={[["sw.ts", "sw-ts"], ["message.ts", "message-ts"]]}>
+  <Tab id="sw-ts">
 
-```
+```typescript twoslash
 declare const event: FetchEvent;
 // ---cut-before---
 import { BroadcastCacheUpdate, BROADCAST_UPDATE_DEFAULT_HEADERS } from "serwist";
@@ -51,3 +57,29 @@ broadcastUpdate.notifyIfUpdated({
   event,
 });
 ```
+
+  </Tab>
+  <Tab id="message-ts">
+
+```typescript twoslash
+navigator.serviceWorker.addEventListener("message", async (event) => {
+  // Optional: ensure the message came from Serwist
+  if (event.data.meta === "serwist-broadcast-update" && event.data.type === "CACHE_UPDATED") {
+    const { cacheName, updatedURL } = event.data.payload;
+
+    // Do something with cacheName and updatedURL.
+    // For example, get the cached content and update
+    // the content on the page.
+    const cache = await caches.open(cacheName);
+    const updatedResponse = await cache.match(updatedURL);
+    if (!updatedResponse) {
+      return;
+    }
+
+    const updatedText = await updatedResponse.text();
+  }
+});
+```
+
+  </Tab>
+</Tabs>

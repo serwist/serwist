@@ -104,7 +104,7 @@ bun serwist wizard
 
 {@render wizard()}
 
-![An example wizard run where the questions are listed alongside example answers]($images/serwist-wizard.png) 
+
 
 ### inject-manifest
 

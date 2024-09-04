@@ -1,6 +1,11 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # disable
 
 ## First added
@@ -9,7 +14,7 @@ layout: docs
 
 ## Default
 
-`false` 
+`false`
 
 ## About
 
@@ -17,9 +22,10 @@ Whether Serwist should be disabled.
 
 ## Usage
 
-vite.config.ts 
+<Tabs id="usage-example" tabs={[["vite.config.ts", "vite-config-ts"]]}>
+  <Tab id="vite-config-ts">
 
-```
+```javascript
 export default defineConfig({
   plugins: [
     // Other plugins...
@@ -34,3 +40,6 @@ export default defineConfig({
   ],
 });
 ```
+
+  </Tab>
+</Tabs>

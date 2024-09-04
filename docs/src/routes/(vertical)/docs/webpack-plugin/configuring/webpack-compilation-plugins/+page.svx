@@ -1,6 +1,11 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # webpackCompilationPlugins
 
 ## First added
@@ -13,9 +18,10 @@ Optional webpack plugins that will be used when compiling the `swSrc` file. Only
 
 ## Usage
 
-webpack.config.js 
+<Tabs id="usage-example" tabs={[["webpack.config.js", "webpack-config-js"]]}>
+  <Tab id="webpack-config-js">
 
-```
+```javascript
 new InjectManifest({
   webpackCompilationPlugins: [
     webpack.DefinePlugin({
@@ -28,8 +34,11 @@ new InjectManifest({
 });
 ```
 
+  </Tab>
+</Tabs>
+
 ## More resources
 
 Here is a list of resources you can read to learn more about `webpackCompilationPlugins`:
 
-* [webpack: Plugins](https://webpack.js.org/plugins/)
+- [webpack: Plugins](https://webpack.js.org/plugins/)

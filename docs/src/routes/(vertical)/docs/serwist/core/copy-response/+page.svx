@@ -1,6 +1,11 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # copyResponse
 
 ## First added
@@ -17,14 +22,15 @@ This method is intentionally limited to same-origin responses, regardless of whe
 
 ## Parameters
 
-* `response` — The initial response.
-* `modifier(responseInit)` — The function used to modify the options of the `Response` object.
+- `response` — The initial response.
+- `modifier(responseInit)` — The function used to modify the options of the `Response` object.
 
 ## Usage
 
-sw.ts 
+<Tabs id="usage-example" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
 
-```
+```typescript twoslash
 declare const response: Response;
 // ---cut-before---
 import { copyResponse } from "serwist";
@@ -38,3 +44,6 @@ const newResponse = copyResponse(response, (init) => {
   return init;
 });
 ```
+
+  </Tab>
+</Tabs>

@@ -1,9 +1,14 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # Setting cacheability criteria
 
-[Original source (Apache 2.0 License). Adapted for Serwist's usage.](https://developer.chrome.com/docs/workbox/modules/workbox-cacheable-response) 
+[Original source (Apache 2.0 License). Adapted for Serwist's usage.](https://developer.chrome.com/docs/workbox/modules/workbox-cacheable-response)
 
 ## Introduction
 
@@ -15,8 +20,8 @@ Serwist provides plugins designed to help determine whether a response should be
 
 If you use one of Serwist's built-in strategies without explicitly configuring `CacheableResponsePlugin`, the following default criteria is used to determine whether a response received from the network should be cached:
 
-* `StaleWhileRevalidate` and `NetworkFirst`: Responses with a status of 0 (i.e. opaque responses) or 200 are considered cacheable.
-* `CacheFirst`: Responses with a status of 200 are considered cacheable.
+- `StaleWhileRevalidate` and `NetworkFirst`: Responses with a status of 0 (i.e. opaque responses) or 200 are considered cacheable.
+- `CacheFirst`: Responses with a status of 200 are considered cacheable.
 
 ### Why are there different defaults?
 
@@ -30,9 +35,10 @@ For strategies that involve caching the first response received and reusing that
 
 The easiest way to use this module is to use the plugin, which automatically determines whether a response can be cached.
 
-sw.ts 
+<Tabs id="basic-usage" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
 
-```
+```typescript twoslash
 import { CacheableResponsePlugin, StaleWhileRevalidate } from "serwist";
 import { registerRoute } from "serwist/legacy";
 
@@ -51,13 +57,17 @@ registerRoute(
 );
 ```
 
+  </Tab>
+</Tabs>
+
 ## Advanced usage
 
 If you want to use the same caching logic outside of a Serwist strategy, you can use the `CacheableResponse` class directly.
 
-sw.ts 
+<Tabs id="advanced-usage" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
 
-```
+```typescript twoslash
 import { CacheableResponse } from "serwist";
 
 const cacheable = new CacheableResponse({
@@ -76,3 +86,6 @@ if (cacheable.isResponseCacheable(response)) {
   // Do something when the response can't be cached.
 }
 ```
+
+  </Tab>
+</Tabs>

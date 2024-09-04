@@ -1,6 +1,11 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # plugins
 
 ## First added
@@ -13,9 +18,10 @@ Rollup/Vite plugins used to build the service worker.
 
 ## Usage
 
-vite.config.ts 
+<Tabs id="usage-example" tabs={[["vite.config.ts", "vite-config-ts"]]}>
+  <Tab id="vite-config-ts">
 
-```
+```javascript
 import replace from "@rollup/plugin-replace";
 
 export default defineConfig({
@@ -38,9 +44,12 @@ export default defineConfig({
 });
 ```
 
+  </Tab>
+</Tabs>
+
 ## More resources
 
 Here is a list of resources you can read to learn more about `plugins`:
 
-* [Vite: Using plugins](https://vitejs.dev/guide/using-plugins.html)
-* [Vite: Plugin API](https://vitejs.dev/guide/api-plugin.html)
+- [Vite: Using plugins](https://vitejs.dev/guide/using-plugins.html)
+- [Vite: Plugin API](https://vitejs.dev/guide/api-plugin.html)

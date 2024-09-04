@@ -1,6 +1,11 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # PrecacheRoute
 
 ## First added
@@ -13,18 +18,19 @@ A subclass of `Route` that takes a `Serwist` instance and uses it to match incom
 
 ## Parameters
 
-* `serwist` — A `Serwist` instance used to both match requests and respond to `fetch` events.
-* `options` — Options to control how requests are matched against the list of precached URLs:  
-   * `directoryIndex` — Tells Serwist to check the precache for an entry whose URL is the request URL appended with the specified value. Only applies if the request URL ends with "/".  
-   * `ignoreURLParametersMatching` — An array of `RegExp` objects matching search params that should be removed when looking \* for a precache match.  
-   * `cleanURLs` — Tells Serwist to check the precache for an entry whose URL is the request URL appended with ".html".  
-   * `urlManipulation` — A function that should take a URL and return an array of alternative URLs that should be checked for precache matches.
+- `serwist` — A `Serwist` instance used to both match requests and respond to `fetch` events.
+- `options` — Options to control how requests are matched against the list of precached URLs:
+  - `directoryIndex` — Tells Serwist to check the precache for an entry whose URL is the request URL appended with the specified value. Only applies if the request URL ends with "/".
+  - `ignoreURLParametersMatching` — An array of `RegExp` objects matching search params that should be removed when looking \* for a precache match.
+  - `cleanURLs` — Tells Serwist to check the precache for an entry whose URL is the request URL appended with ".html".
+  - `urlManipulation` — A function that should take a URL and return an array of alternative URLs that should be checked for precache matches.
 
 ## Usage
 
-sw.ts 
+<Tabs id="usage-example" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
 
-```
+```typescript twoslash
 import type { PrecacheEntry } from "serwist";
 declare global {
   interface WorkerGlobalScope {
@@ -43,8 +49,11 @@ const serwist = new Serwist({
 serwist.addEventListeners();
 ```
 
+  </Tab>
+</Tabs>
+
 ## More resources
 
 Here is a list of resources you can read to learn more about `PrecacheRoute`:
 
-* [Serwist's blog on precaching assets](/docs/serwist/guide/precaching)
+- [Serwist's blog on precaching assets](/docs/serwist/guide/precaching)

@@ -99,6 +99,7 @@ const config = {
     },
     prerender: {
       concurrency: 20,
+      handleMissingId: "warn",
     },
     serviceWorker: {
       register: false,

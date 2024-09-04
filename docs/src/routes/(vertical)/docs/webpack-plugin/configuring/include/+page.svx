@@ -1,6 +1,11 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # include
 
 ## First added
@@ -13,9 +18,10 @@ One or more specifiers used to include assets from the precache manifest. This i
 
 ## Usage
 
-webpack.config.js 
+<Tabs id="usage-example" tabs={[["webpack.config.js", "webpack-config-js"]]}>
+  <Tab id="webpack-config-js">
 
-```
+```javascript
 new InjectManifest({
   include: [
     /\.(js|css|json)$/, 
@@ -24,8 +30,11 @@ new InjectManifest({
 });
 ```
 
+  </Tab>
+</Tabs>
+
 ## More resources
 
 Here is a list of resources you can read to learn more about `include`:
 
-* [webpack's reference documentation on Condition](https://webpack.js.org/configuration/module/#condition)
+- [webpack's reference documentation on Condition](https://webpack.js.org/configuration/module/#condition)

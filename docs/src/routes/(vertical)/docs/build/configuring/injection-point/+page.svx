@@ -1,6 +1,11 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # injectionPoint (InjectManifest only)
 
 ## First added
@@ -13,9 +18,10 @@ The string to find inside of the `swSrc` file. Once found, it will be replaced b
 
 ## Usage
 
-build.js 
+<Tabs id="usage-example" tabs={[["build.js", "build-js"]]}>
+  <Tab id="build-js">
 
-```
+```javascript
 await injectManifest({
   swSrc: "app/sw.ts",
   swDest: "dist/sw.js",
@@ -23,3 +29,6 @@ await injectManifest({
   injectionPoint: "__HI_MOM",
 });
 ```
+
+  </Tab>
+</Tabs>

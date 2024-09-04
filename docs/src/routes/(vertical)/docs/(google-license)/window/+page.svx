@@ -1,9 +1,14 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # @serwist/window
 
-[Original source (Apache 2.0 License). Adapted for Serwist's usage.](https://developer.chrome.com/docs/workbox/modules/workbox-window) 
+[Original source (Apache 2.0 License). Adapted for Serwist's usage.](https://developer.chrome.com/docs/workbox/modules/workbox-window)
 
 ## Introduction
 
@@ -13,17 +18,43 @@ layout: docs
 
 To install `@serwist/window`, run the following command in your terminal:
 
-npm yarn pnpm bun 
+<Tabs id="install" tabs={[["npm", "npm"], ["yarn", "yarn"], ["pnpm", "pnpm"], ["bun", "bun"]]}>
+  <Tab id="npm">
 
-```
+```bash
 npm i -D @serwist/window
 ```
 
+  </Tab>
+  <Tab id="yarn">
+
+```bash
+yarn add -D @serwist/window
+```
+
+  </Tab>
+  <Tab id="pnpm">
+
+```bash
+pnpm add -D @serwist/window
+```
+
+  </Tab>
+  <Tab id="bun">
+
+```bash
+bun add -D @serwist/window
+```
+
+  </Tab>
+</Tabs>
+
 Then import `Serwist` into your application:
 
-index.ts 
+<Tabs id="install-import" tabs={[["index.ts", "index-ts"]]}>
+  <Tab id="index-ts">
 
-```
+```typescript twoslash
 import { Serwist } from "@serwist/window";
 
 if ("serviceWorker" in navigator) {
@@ -32,6 +63,9 @@ if ("serviceWorker" in navigator) {
   void serwist.register();
 }
 ```
+
+  </Tab>
+</Tabs>
 
 This Serwist class is not to be confused with the serwist.Serwist class! One is meant for the window context, and the other is supposed to be run in a service worker.
 
@@ -49,9 +83,10 @@ This is a common source of confusion for developers, especially in cases where r
 
 To help minimize confusion and make it clear when this situation is happening, the `Serwist` class allows you to listen to the `waiting` event:
 
-index.ts 
+<Tabs id="examples-waiting" tabs={[["index.ts", "index-ts"]]}>
+  <Tab id="index-ts">
 
-```
+```typescript twoslash
 import type { Serwist } from "@serwist/window";
 declare const serwist: Serwist;
 // ---cut-before---
@@ -60,15 +95,19 @@ serwist.addEventListener("waiting", () => {
 });
 ```
 
+  </Tab>
+</Tabs>
+
 ### Notify the user of cache updates
 
 [BroadcastCacheUpdate](/docs/serwist/core/broadcast-cache-update) and [BroadcastUpdatePlugin](/docs/serwist/runtime-caching/plugins/broadcast-update-plugin) are great ways to inform the user of updates to cached content.
 
 Here is how you can listen to those updates from the window:
 
-index.ts 
+<Tabs id="examples-broadcast-update" tabs={[["index.ts", "index-ts"]]}>
+  <Tab id="index-ts">
 
-```
+```typescript twoslash
 import type { Serwist } from "@serwist/window";
 declare const serwist: Serwist;
 // ---cut-before---
@@ -78,10 +117,13 @@ serwist.addEventListener("message", (event) => {
   if (event.data.meta === "serwist-broadcast-update" && event.data.type === "CACHE_UPDATED") {
     const { payload: { updatedURL } }: BroadcastMessage = event.data;
     
-    console.log(`A newer version of ${updatedURL} is available!`);
+    console.log(`A newer version of \${updatedURL} is available!`);
   }
 });
 ```
+
+  </Tab>
+</Tabs>
 
 ## Important service worker lifecycle moments
 
@@ -103,9 +145,34 @@ It's common for developers to prompt users to reload to get the update, but in m
 
 Another option is to prompt the user and ask whether they want to get the update or continue waiting. If they choose to get the update, you can use `postMessage()` to tell the service worker to run `skipWaiting()`. To do this, in your service worker, add the following:
 
-sw.ts 
+<Tabs id="examples-routing-cache" tabs={[["index.ts", "index-ts"]]}>
+  <Tab id="index-ts">
 
+```typescript twoslash
+import type { Serwist } from "@serwist/window";
+declare const serwist: Serwist;
+// ---cut-before---
+const urlsToCache = [
+  location.href,
+  ...performance.getEntriesByType("resource").map(r => r.name),
+];
+serwist.messageSW({
+  type: "CACHE_URLS",
+  payload: { urlsToCache },
+});
 ```
+
+  </Tab>
+</Tabs>
+
+If you use the serwist.Serwist class and set skipWaiting to false, the above code is automatically executed for you.
+
+And in your application, add the following:
+
+<Tabs id="examples-skip-waiting-manual-sw" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
+
+```typescript twoslash
 declare const self: ServiceWorkerGlobalScope;
 // ---cut-before---
 self.addEventListener("message", (event) => {
@@ -115,26 +182,8 @@ self.addEventListener("message", (event) => {
 });
 ```
 
-If you use the serwist.Serwist class and set skipWaiting to false, the above code is automatically executed for you.
-
-And in your application, add the following:
-
-index.ts 
-
-```
-import type { Serwist } from "@serwist/window";
-declare const serwist: Serwist;
-declare const confirmUpdate: () => boolean;
-// ---cut-before---
-serwist.addEventListener("waiting", () => {
-  serwist.addEventListener("controlling", location.reload);
-  // This code assumes your app has a `confirmUpdate()` method
-  // that returns `true` if the user wants to update.
-  if (confirmUpdate()) {
-    serwist.messageSkipWaiting();
-  }
-});
-```
+  </Tab>
+</Tabs>
 
 ### The controlling event
 
@@ -168,17 +217,41 @@ Most advanced service worker usage involves a lots of messaging between the serv
 
 While you can send data to the service worker in any format, the format used by Serwist is an object with three properties:
 
-* `type` — A unique string used to identify this message. Serwist's `type` follows the `SCREAMING_SNAKECASE` naming convention. If a `type` represents an action to be taken, it should be a command in present tense (e.g. `CACHE_URLS`), if `type` represents some information being reported, it should be in past tense (e.g. `URLS_CACHED`).
-* `meta` (optional) — In Serwist, this is always the name of the Serwist package sending the message with the prefixing at sign ("@") removed and all forward slashes ("/") replaced by hyphens ("-"). When sending a message yourself, you can either omit this property or set it to whatever you like.
-* `payload` (optional) — The data being sent. Usually this is an object, but it does not have to be.
+- `type` — A unique string used to identify this message. Serwist's `type` follows the `SCREAMING_SNAKECASE` naming convention. If a `type` represents an action to be taken, it should be a command in present tense (e.g. `CACHE_URLS`), if `type` represents some information being reported, it should be in past tense (e.g. `URLS_CACHED`).
+- `meta` (optional) — In Serwist, this is always the name of the Serwist package sending the message with the prefixing at sign ("@") removed and all forward slashes ("/") replaced by hyphens ("-"). When sending a message yourself, you can either omit this property or set it to whatever you like.
+- `payload` (optional) — The data being sent. Usually this is an object, but it does not have to be.
 
 The `messageSW()` method use [MessageChannel](https://developer.mozilla.org/en-US/docs/Web/API/MessageChannel) so that the receiver can respond to them. To respond to a message sent by this method, you can call `event.ports[0].postMessage(response)` in your `message` event listener. The `messageSW()` method returns a promise that will resolve to whatever response you reply with.
 
 Here's an example of sending messages from the window to the service worker and getting a response back. The first code block is the `message` event listener in the service worker:
 
-sw.ts 
+<Tabs id="examples-skip-waiting-manual-client" tabs={[["index.ts", "index-ts"]]}>
+  <Tab id="index-ts">
 
+```typescript twoslash
+import type { Serwist } from "@serwist/window";
+declare const serwist: Serwist;
+declare const confirmUpdate: () => boolean;
+// ---cut-before---
+serwist.addEventListener("waiting", () => {
+  serwist.addEventListener("controlling", location.reload);
+  // This code assumes your app has a `confirmUpdate()` method
+  // that returns `true` if the user wants to update.
+  if (confirmUpdate()) {
+    serwist.messageSkipWaiting();
+  }
+});
 ```
+
+  </Tab>
+</Tabs>
+
+And the second block uses the `Serwist` class to send the message and wait for the response:
+
+<Tabs id="examples-skip-waiting-manual-sw" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
+
+```typescript twoslash
 declare const self: ServiceWorkerGlobalScope;
 // ---cut-before---
 const SW_VERSION = "1.0.0";
@@ -190,18 +263,8 @@ self.addEventListener("message", (event) => {
 });
 ```
 
-And the second block uses the `Serwist` class to send the message and wait for the response:
-
-index.ts 
-
-```
-import type { Serwist } from "@serwist/window";
-declare const serwist: Serwist;
-// ---cut-before---
-const swVersion = await serwist.messageSW({ type: "GET_VERSION" });
-
-console.log("Service worker version:", swVersion);
-```
+  </Tab>
+</Tabs>
 
 ### Managing version incompatibilities
 

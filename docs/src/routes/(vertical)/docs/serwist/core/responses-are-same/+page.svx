@@ -1,6 +1,11 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # responsesAreSame
 
 ## First added
@@ -13,15 +18,16 @@ Given two responses, compares several header values to see if they are the same 
 
 ## Parameters
 
-* `firstResponse` — The first response.
-* `secondResponse` — The second response.
-* `headersToCheck` — A list of headers to check.
+- `firstResponse` — The first response.
+- `secondResponse` — The second response.
+- `headersToCheck` — A list of headers to check.
 
 ## Usage
 
-sw.ts 
+<Tabs id="usage-example" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
 
-```
+```typescript twoslash
 import { responsesAreSame, BROADCAST_UPDATE_DEFAULT_HEADERS } from "serwist";
 
 declare const self: ServiceWorkerGlobalScope;
@@ -40,3 +46,6 @@ if (oldResponse && !responsesAreSame(oldResponse, newResponse, BROADCAST_UPDATE_
   }
 }
 ```
+
+  </Tab>
+</Tabs>

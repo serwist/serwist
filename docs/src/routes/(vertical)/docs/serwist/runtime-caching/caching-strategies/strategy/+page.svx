@@ -1,6 +1,11 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # Strategy
 
 ## First added
@@ -15,20 +20,21 @@ Custom strategies should extend this class and leverage `StrategyHandler`, which
 
 ## Abstract methods
 
-* `_handle(request, handler)` — The main handling logic of the strategy. It is provided with two parameters:  
-   * `request` — The `Request` the strategy should return a response for.  
-   * `handler` — The [StrategyHandler](./strategy-handler) instance automatically created for the current strategy.
+- `_handle(request, handler)` — The main handling logic of the strategy. It is provided with two parameters:
+  - `request` — The `Request` the strategy should return a response for.
+  - `handler` — The [StrategyHandler](./strategy-handler) instance automatically created for the current strategy.
 
 ## Methods and fields
 
-* `handle(options)` — Performs a request strategy and returns a `Promise` that will resolve with a `Response`, invoking all relevant plugin callbacks. When a strategy instance is registered with a `Route`, this method is automatically called when the route matches. Alternatively, this method can be used in a standalone `FetchEvent` listener by passing it to `event.respondWith()`.
-* `handleAll(options)` — Similar to `handle()`, but instead of just returning a `Promise` that resolves to a `Response`, it will return an tuple of `[response, done]` promises, where `response` is equivalent to what `handle()` returns, and `done` is a `Promise` that will resolve once all promises added to `event.waitUntil()` as a part of performing the strategy have completed. You can await the `done` promise to ensure any extra work performed by the strategy (usually caching responses) completes successfully.
+- `handle(options)` — Performs a request strategy and returns a `Promise` that will resolve with a `Response`, invoking all relevant plugin callbacks. When a strategy instance is registered with a `Route`, this method is automatically called when the route matches. Alternatively, this method can be used in a standalone `FetchEvent` listener by passing it to `event.respondWith()`.
+- `handleAll(options)` — Similar to `handle()`, but instead of just returning a `Promise` that resolves to a `Response`, it will return an tuple of `[response, done]` promises, where `response` is equivalent to what `handle()` returns, and `done` is a `Promise` that will resolve once all promises added to `event.waitUntil()` as a part of performing the strategy have completed. You can await the `done` promise to ensure any extra work performed by the strategy (usually caching responses) completes successfully.
 
 ## Usage
 
-sw.ts 
+<Tabs id="usage-example" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
 
-```
+```typescript twoslash
 import { Strategy, type StrategyHandler } from "serwist";
 
 class NetworkOnly extends Strategy {
@@ -38,10 +44,13 @@ class NetworkOnly extends Strategy {
 }
 ```
 
+  </Tab>
+</Tabs>
+
 ## More resources
 
 Here is a list of resources you can read to learn more about `Strategy`:
 
-* [Runtime caching](/docs/serwist/runtime-caching)
-* [Using plugins](/docs/serwist/runtime-caching/plugins)
-* [StrategyHandler's reference documentation](./strategy-handler)
+- [Runtime caching](/docs/serwist/runtime-caching)
+- [Using plugins](/docs/serwist/runtime-caching/plugins)
+- [StrategyHandler's reference documentation](./strategy-handler)

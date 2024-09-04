@@ -1,9 +1,14 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # Broadcasting cache updates
 
-[Original source (Apache 2.0 License). Adapted for Serwist's usage.](https://developer.chrome.com/docs/workbox/modules/workbox-broadcast-update) 
+[Original source (Apache 2.0 License). Adapted for Serwist's usage.](https://developer.chrome.com/docs/workbox/modules/workbox-broadcast-update)
 
 ## Introduction
 
@@ -29,9 +34,10 @@ Because Serwist needs to be able to read the header values, [opaque responses](h
 
 When a message event listener is invoked in your web app, the `event.data` property will have the following format:
 
-event.data 
+<Tabs id="message-format" tabs={[["event.data", "event-data"]]}>
+  <Tab id="event-data">
 
-```
+```typescript twoslash
 import type { BroadcastMessage } from "serwist";
 
 const data = {
@@ -45,6 +51,9 @@ const data = {
 } satisfies BroadcastMessage;
 ```
 
+  </Tab>
+</Tabs>
+
 This is represented as the `BroadcastMessage` type, which you can import from this module.
 
 ## Basic usage
@@ -55,9 +64,10 @@ Note: BroadcastUpdatePlugin can't be used to broadcast information about Serwist
 
 To broadcast updates, you just need to add a `BroadcastUpdatePlugin` instance to your strategy's `plugins`.
 
-sw.ts 
+<Tabs id="basic-usage" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
 
-```
+```typescript twoslash
 import { BroadcastUpdatePlugin, StaleWhileRevalidate } from "serwist";
 import { registerRoute } from "serwist/legacy";
 
@@ -69,11 +79,15 @@ registerRoute(
 );
 ```
 
+  </Tab>
+</Tabs>
+
 In your web app, before the [`DOMContentLoaded`](https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded%5Fevent) event fires, you can listen for these events like so:
 
-message.ts 
+<Tabs id="basic-usage-event-listener" tabs={[["message.ts", "message-ts"]]}>
+  <Tab id="message-ts">
 
-```
+```typescript twoslash
 navigator.serviceWorker.addEventListener("message", async (event) => {
   // Optional: ensure the message came from Serwist
   if (event.data.meta === "serwist-broadcast-update" && event.data.type === "CACHE_UPDATED") {
@@ -92,15 +106,19 @@ navigator.serviceWorker.addEventListener("message", async (event) => {
 });
 ```
 
+  </Tab>
+</Tabs>
+
 Note: Make sure to add the message event listener before the DOMContentLoaded event, as browsers will queue messages received early in the page load (before your JavaScript code has had a chance to run) up until (but not after) the DOMContentLoaded event.
 
 ### Customizing the list of headers to check
 
 You can customize the list of headers to check by setting the headersToCheck property.
 
-sw.ts 
+<Tabs id="basic-usage-customize-headers" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
 
-```
+```typescript twoslash
 import { BroadcastUpdatePlugin, BROADCAST_UPDATE_DEFAULT_HEADERS, StaleWhileRevalidate } from "serwist";
 import { registerRoute } from "serwist/legacy";
 
@@ -116,13 +134,17 @@ registerRoute(
 );
 ```
 
+  </Tab>
+</Tabs>
+
 ## Advanced usage
 
 While most developers will use the module as a plugin of a particular strategy as shown above, it's possible to use the underlying logic in service worker code:
 
-sw.ts 
+<Tabs id="advanced-usage" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
 
-```
+```typescript twoslash
 import { BroadcastCacheUpdate, BROADCAST_UPDATE_DEFAULT_HEADERS } from "serwist";
 
 declare const self: ServiceWorkerGlobalScope;
@@ -162,3 +184,6 @@ self.addEventListener("fetch", (event) => {
   );
 });
 ```
+
+  </Tab>
+</Tabs>

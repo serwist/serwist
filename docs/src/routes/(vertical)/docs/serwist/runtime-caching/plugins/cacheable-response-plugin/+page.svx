@@ -1,6 +1,11 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # CacheableResponsePlugin
 
 ## First added
@@ -17,9 +22,10 @@ See [CacheableResponse's options](/docs/serwist/core/cacheable-response#options)
 
 ## Usage
 
-sw.ts 
+<Tabs id="usage" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
 
-```
+```typescript twoslash
 import { CacheableResponsePlugin, StaleWhileRevalidate } from "serwist";
 import { registerRoute } from "serwist/legacy";
 
@@ -37,3 +43,6 @@ registerRoute(
   }),
 );
 ```
+
+  </Tab>
+</Tabs>

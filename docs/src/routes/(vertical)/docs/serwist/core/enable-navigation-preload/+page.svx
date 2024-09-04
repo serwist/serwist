@@ -1,6 +1,11 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # enableNavigationPreload
 
 ## First added
@@ -13,13 +18,14 @@ If the browser supports navigation preloading, then this will enable it.
 
 ## Parameters
 
-* `headerValue` — Optional. Allows developers to override the value of the `Service-Worker-Navigation-Preload` header which will be sent to the server when making the navigation request.
+- `headerValue` — Optional. Allows developers to override the value of the `Service-Worker-Navigation-Preload` header which will be sent to the server when making the navigation request.
 
 ## Usage
 
-sw.ts 
+<Tabs id="usage-example" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
 
-```
+```typescript twoslash
 import { enableNavigationPreload, NavigationRoute, NetworkFirst } from "serwist";
 import { registerRoute } from "serwist/legacy";
 
@@ -39,3 +45,6 @@ const navigationRoute = new NavigationRoute(navigationStrategy, {
 
 registerRoute(navigationRoute);
 ```
+
+  </Tab>
+</Tabs>

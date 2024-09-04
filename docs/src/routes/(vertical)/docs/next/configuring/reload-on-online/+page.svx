@@ -1,15 +1,20 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # reloadOnOnline
 
 ## First added
 
-`next-pwa` 
+`next-pwa`
 
 ## Default
 
-`true` 
+`true`
 
 ## About
 
@@ -21,12 +26,16 @@ When this is set to `true`, the code injected into your app's entrypoints adds a
 
 ## Usage
 
-next.config.mjs 
+<Tabs id="usage-example" tabs={[["next.config.js", "next-config-js"]]}>
+  <Tab id="next-config-js">
 
-```
+```javascript
 withSerwistInit({
   swSrc: "app/sw.ts",
   swDest: "public/sw.js",
   reloadOnOnline: true,
 });
 ```
+
+  </Tab>
+</Tabs>

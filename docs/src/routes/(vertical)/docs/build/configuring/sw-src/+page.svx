@@ -1,6 +1,11 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # swSrc (InjectManifest only)
 
 ## First added
@@ -13,12 +18,16 @@ The path to the service worker file that will be read during the build process, 
 
 ## Usage
 
-build.js 
+<Tabs id="usage-example" tabs={[["build.js", "build-js"]]}>
+  <Tab id="build-js">
 
-```
+```javascript
 await injectManifest({
   swSrc: "app/sw.ts",
   swDest: "dist/sw.js",
   globDirectory: "dist/static",
 });
 ```
+
+  </Tab>
+</Tabs>

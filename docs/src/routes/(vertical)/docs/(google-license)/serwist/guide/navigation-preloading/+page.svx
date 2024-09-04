@@ -1,9 +1,14 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # Preloading navigations
 
-[Original source (Apache 2.0 License). Adapted for Serwist's usage.](https://developer.chrome.com/docs/workbox/modules/workbox-navigation-preload) 
+[Original source (Apache 2.0 License). Adapted for Serwist's usage.](https://developer.chrome.com/docs/workbox/modules/workbox-navigation-preload)
 
 ## Introduction
 
@@ -19,9 +24,10 @@ Developers who are already handling navigations by responding with precached HTM
 
 ## Basic usage
 
-sw.ts 
+<Tabs id="basic-usage" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
 
-```
+```typescript twoslash
 import { enableNavigationPreload, NavigationRoute, NetworkFirst } from "serwist";
 import { registerRoute } from "serwist/legacy";
 
@@ -41,3 +47,6 @@ const navigationRoute = new NavigationRoute(navigationStrategy, {
 
 registerRoute(navigationRoute);
 ```
+
+  </Tab>
+</Tabs>

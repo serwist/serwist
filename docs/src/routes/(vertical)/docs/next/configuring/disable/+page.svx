@@ -1,15 +1,20 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # disable
 
 ## First added
 
-`next-pwa` 
+`next-pwa`
 
 ## Default
 
-`false` 
+`false`
 
 ## About
 
@@ -17,12 +22,16 @@ Whether Serwist should be disabled.
 
 ## Usage
 
-next.config.mjs 
+<Tabs id="usage-example" tabs={[["next.config.mjs", "next-config-mjs"]]}>
+  <Tab id="next-config-mjs">
 
-```
+```javascript
 withSerwistInit({
   swSrc: "app/sw.ts",
   swDest: "public/sw.js",
   disable: true,
 });
 ```
+
+  </Tab>
+</Tabs>

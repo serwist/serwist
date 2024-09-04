@@ -1,6 +1,11 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # StorableRequest
 
 ## First added
@@ -15,20 +20,21 @@ Most developers will not need to access this class directly; it is exposed for a
 
 ## Parameters
 
-* `requestData` — An object of request data that includes the `url` plus any relevant property of [requestInit](https://fetch.spec.whatwg.org/#requestinit).
+- `requestData` — An object of request data that includes the `url` plus any relevant property of [requestInit](https://fetch.spec.whatwg.org/#requestinit).
 
 ## Methods and fields
 
-* `static async fromRequest(request)` — Converts a `Request` object to a plain object that can be structured cloned or stringified to JSON.
-* `toObject()` — Returns a deep clone of the instance's `requestData` object.
-* `toRequest()` — Converts this instance to a Request.
-* `clone()` — Creates and returns a deep clone of the instance.
+- `static async fromRequest(request)` — Converts a `Request` object to a plain object that can be structured cloned or stringified to JSON.
+- `toObject()` — Returns a deep clone of the instance's `requestData` object.
+- `toRequest()` — Converts this instance to a Request.
+- `clone()` — Creates and returns a deep clone of the instance.
 
 ## Usage
 
-sw.ts 
+<Tabs id="usage-example" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
 
-```
+```typescript twoslash
 declare const request: Request;
 // ---cut-before---
 import { StorableRequest } from "serwist";
@@ -40,3 +46,6 @@ const objectRequest = storableRequest.toObject();
 
 const parsedRequest = new StorableRequest(objectRequest).toRequest();
 ```
+
+  </Tab>
+</Tabs>

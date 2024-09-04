@@ -1,6 +1,11 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # Route
 
 ## First added
@@ -13,15 +18,16 @@ A `Route` consists of a pair of callback functions, `match` and `handler`. The `
 
 ## Parameters
 
-* `match` — A callback function that determines whether the route matches a given `fetch` event by returning a truthy value.
-* `handler` — A callback function that returns a `Promise` resolving to a `Response`.
-* `method` — The HTTP method to match the route against. Defaults to `GET`.
+- `match` — A callback function that determines whether the route matches a given `fetch` event by returning a truthy value.
+- `handler` — A callback function that returns a `Promise` resolving to a `Response`.
+- `method` — The HTTP method to match the route against. Defaults to `GET`.
 
 ## Usage
 
-sw.ts 
+<Tabs id="usage-example" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
 
-```
+```typescript twoslash
 import { CacheFirst, Route, Serwist } from "serwist";
 
 const serwist = new Serwist();
@@ -33,8 +39,11 @@ serwist.registerRoute(new Route(({ request, sameOrigin }) => {
 serwist.addEventListeners();
 ```
 
+  </Tab>
+</Tabs>
+
 ## More resources
 
 Here is a list of resources you can read to learn more about `Route`:
 
-* [Routing: Applying caching strategies with route matching](/docs/serwist/runtime-caching/routing#route-matching)
+- [Routing: Applying caching strategies with route matching](/docs/serwist/runtime-caching/routing#applying-caching-strategies-with-route-matching)

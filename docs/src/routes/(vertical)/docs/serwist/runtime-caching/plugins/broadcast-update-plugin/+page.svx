@@ -1,6 +1,11 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # BroadcastUpdatePlugin
 
 ## First added
@@ -17,9 +22,10 @@ See [BroadcastCacheUpdate's options](/docs/serwist/core/broadcast-cache-update#o
 
 ## Usage
 
-sw.ts message.ts 
+<Tabs id="usage-example" tabs={[["sw.ts", "sw-ts"], ["message.ts", "message-ts"]]}>
+  <Tab id="sw-ts">
 
-```
+```typescript twoslash
 import { BroadcastUpdatePlugin, StaleWhileRevalidate } from "serwist";
 import { registerRoute } from "serwist/legacy";
 
@@ -30,3 +36,29 @@ registerRoute(
   }),
 );
 ```
+
+  </Tab>
+  <Tab id="message-ts">
+
+```typescript twoslash
+navigator.serviceWorker.addEventListener("message", async (event) => {
+  // Optional: ensure the message came from Serwist
+  if (event.data.meta === "serwist-broadcast-update" && event.data.type === "CACHE_UPDATED") {
+    const { cacheName, updatedURL } = event.data.payload;
+
+    // Do something with cacheName and updatedURL.
+    // For example, get the cached content and update
+    // the content on the page.
+    const cache = await caches.open(cacheName);
+    const updatedResponse = await cache.match(updatedURL);
+    if (!updatedResponse) {
+      return;
+    }
+
+    const updatedText = await updatedResponse.text();
+  }
+});
+```
+
+  </Tab>
+</Tabs>

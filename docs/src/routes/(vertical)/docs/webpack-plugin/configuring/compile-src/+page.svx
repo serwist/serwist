@@ -1,6 +1,11 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # compileSrc
 
 ## First added
@@ -15,14 +20,18 @@ When `false`, compilation will not occur, and [webpackCompilationPlugins](./webp
 
 ## Default
 
-`true` 
+`true`
 
 ## Usage
 
-webpack.config.js 
+<Tabs id="usage-example" tabs={[["webpack.config.js", "webpack-config-js"]]}>
+  <Tab id="webpack-config-js">
 
-```
+```javascript
 new InjectManifest({
   compileSrc: false,
 });
 ```
+
+  </Tab>
+</Tabs>
