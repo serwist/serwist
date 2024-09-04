@@ -114,7 +114,7 @@ Otherwise, safely skip this step.
 
 If you use Git, update your .gitignore like so:
 
-<Tabs id="updating-tsconfig" tabs={[[".gitignore", "-gitignore"]]}>
+<Tabs id="updating-gitignore" tabs={[[".gitignore", "-gitignore"]]}>
   <Tab id="-gitignore">
 
 ```sh
@@ -205,8 +205,8 @@ Update public/manifest.json with the following content:
 
 Next up, update src/App.tsx with the following content:
 
-<Tabs id="updating-entrypoint" tabs={[["src/App.tsx", "src/App-tsx"]]}>
-  <Tab id="src/App-tsx">
+<Tabs id="updating-entrypoint" tabs={[["src/App.tsx", "src-app-tsx"]]}>
+  <Tab id="src-app-tsx">
 
 ```tsx twoslash
 // @types: @serwist/vite/typings

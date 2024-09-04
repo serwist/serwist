@@ -44,8 +44,8 @@ withSerwistInit({
 
 In your app:
 
-<Tabs id="usage-app-example" tabs={[["app/register-pwa.jsx", "app/register-pwa-jsx"]]}>
-  <Tab id="app/register-pwa-jsx">
+<Tabs id="usage-app-example" tabs={[["app/register-pwa.jsx", "app-register-pwa-jsx"]]}>
+  <Tab id="app-register-pwa-jsx">
 
 ```jsx
 "use client";

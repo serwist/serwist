@@ -1,6 +1,11 @@
 ---
 layout: docs
 ---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
 # SvelteKit
 
 ## Introduction
@@ -11,11 +16,36 @@ As a simple wrapper over SvelteKit's built-in service worker support, `@serwist/
 
 Run the following command:
 
-npm yarn pnpm bun 
+<Tabs id="installing-serwist-vite" tabs={[["npm", "npm"], ["yarn", "yarn"], ["pnpm", "pnpm"], ["bun", "bun"]]}>
+  <Tab id="npm">
 
-```
+```bash
 npm i -D @serwist/build @serwist/vite @serwist/window serwist
 ```
+
+  </Tab>
+  <Tab id="yarn">
+
+```bash
+yarn add -D @serwist/build @serwist/vite @serwist/window serwist
+```
+
+  </Tab>
+  <Tab id="pnpm">
+
+```bash
+pnpm add -D @serwist/build @serwist/vite @serwist/window serwist
+```
+
+  </Tab>
+  <Tab id="bun">
+
+```bash
+bun add -D @serwist/build @serwist/vite serwist
+```
+
+  </Tab>
+</Tabs>
 
 ## Implementation
 
@@ -23,9 +53,10 @@ npm i -D @serwist/build @serwist/vite @serwist/window serwist
 
 If you use TypeScript, you should add the following content to tsconfig.json in order to get the correct types:
 
-tsconfig.json 
+<Tabs id="updating-tsconfig" tabs={[["tsconfig.json", "tsconfig-json"]]}>
+  <Tab id="tsconfig-json">
 
-```
+```json
 {
   // Other stuff...
   "compilerOptions": {
@@ -39,19 +70,26 @@ tsconfig.json
 }
 ```
 
+  </Tab>
+</Tabs>
+
 Otherwise, safely skip this step.
 
 ### Step 2: Update .gitignore
 
 If you use Git, update your .gitignore like so:
 
-.gitignore 
+<Tabs id="updating-gitignore" tabs={[[".gitignore", "-gitignore"]]}>
+  <Tab id="-gitignore">
 
-```
+```sh
 # Serwist
 public/sw*
 public/swe-worker*
 ```
+
+  </Tab>
+</Tabs>
 
 Otherwise, safely skip this step.
 
@@ -59,9 +97,10 @@ Otherwise, safely skip this step.
 
 Then, configure SvelteKit so that it does not automatically register your service worker. This is, by default, done when it detects a service worker in your source tree.
 
-svelte.config.js 
+<Tabs id="configuring-svelte" tabs={[["svelte.config.js", "svelte-config-js"]]}>
+  <Tab id="svelte-config-js">
 
-```
+```js
 /** @type {import("@sveltejs/kit").Config} */
 const config = {
   // Other options...
@@ -75,13 +114,17 @@ const config = {
 export default config;
 ```
 
+  </Tab>
+</Tabs>
+
 ### Step 4: Configure Vite
 
 Next, write a small Vite plugin:
 
-vite.config.ts 
+<Tabs id="vite-config-svelte" tabs={[["vite.config.ts", "vite-config-ts"]]}>
+  <Tab id="vite-config-ts">
 
-```
+```ts
 import crypto from "node:crypto";
 import fs from "node:fs";
 import os from "node:os";
@@ -271,6 +314,9 @@ export default defineConfig({
 });
 ```
 
+  </Tab>
+</Tabs>
+
 The configuration in the code above aims to precache all static assets and prerendered pages, same as `@serwist/svelte`'s behaviour. However, each asset is versioned based on either its content or its URL rather than the whole app's version.
 
 For immutable assets, we tell Serwist that they are uniquely versioned via their URLs through the use of `dontCacheBustURLsMatching`. This causes the `revision` of these assets to be `null`.
@@ -279,9 +325,10 @@ For immutable assets, we tell Serwist that they are uniquely versioned via their
 
 As always, you need to write a service worker:
 
-src/service-worker.ts 
+<Tabs id="writing-a-sw" tabs={[["src/service-worker.ts", "src-service-worker-ts"]]}>
+  <Tab id="src-service-worker-ts">
 
-```
+```ts
 /// <reference no-default-lib="true"/>
 /// <reference lib="esnext" />
 /// <reference lib="webworker" />
@@ -320,13 +367,17 @@ const serwist = new Serwist({
 serwist.addEventListeners();
 ```
 
+  </Tab>
+</Tabs>
+
 ### Step 6: Add a web application manifest
 
 We are almost there! To turn your website into a PWA, write a web application manifest:
 
-static/manifest.json 
+<Tabs id="writing-webmanifest" tabs={[["static/manifest.json", "static-manifest-json"]]}>
+  <Tab id="static-manifest-json"> 
 
-```
+```json
 {
   "name": "My awesome PWA app",
   "short_name": "PWA App",
@@ -357,13 +408,17 @@ static/manifest.json
 }
 ```
 
+  </Tab>
+</Tabs>
+
 ### Step 7: Register the service worker and add metadata to <head />
 
 Finally, update the app's main layout:
 
-+layout.svelte 
+<Tabs id="updating-layout" tabs={[["+layout.svelte", "-layout-svelte"]]}>
+  <Tab id="-layout-svelte">
 
-```
+```svelte
 <script>
   import { getSerwist } from "virtual:serwist";
 
@@ -407,3 +462,6 @@ Finally, update the app's main layout:
 
 {@render children()}
 ```
+
+  </Tab>
+</Tabs>

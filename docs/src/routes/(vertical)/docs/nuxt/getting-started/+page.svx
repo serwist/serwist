@@ -177,7 +177,7 @@ Otherwise, safely skip this step.
 
 If you use Git, update your .gitignore like so:
 
-<Tabs id="updating-tsconfig" tabs={[[".gitignore", "-gitignore"]]}>
+<Tabs id="updating-gitignore" tabs={[[".gitignore", "-gitignore"]]}>
   <Tab id="-gitignore">
 
 ```sh

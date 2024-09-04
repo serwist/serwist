@@ -18,8 +18,8 @@ layout: docs
 
 `@serwist/next`'s recommended list of caching strategies.  
 
-<Tabs id="default-cache-usage-example" tabs={[["app/sw.ts", "app/sw-ts"], ["app/sw.js", "app/sw-js"]]}>
-  <Tab id="app/sw-ts">
+<Tabs id="default-cache-usage-example" tabs={[["app/sw.ts", "app-sw-ts"], ["app/sw.js", "app-sw-js"]]}>
+  <Tab id="app-sw-ts">
 
 ```typescript twoslash
 import { defaultCache } from "@serwist/next/worker";
@@ -49,7 +49,7 @@ serwist.addEventListeners();
 ```
 
   </Tab>
-  <Tab id="app/sw-js">
+  <Tab id="app-sw-js">
 
 ```typescript twoslash
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";

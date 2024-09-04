@@ -18,8 +18,8 @@ layout: docs
 
 `@serwist/vite`'s recommended list of caching strategies.  
 
-<Tabs id="default-cache-usage-example" tabs={[["app/sw.ts", "app/sw-ts"]]}>
-  <Tab id="app/sw-ts">
+<Tabs id="default-cache-usage-example" tabs={[["app/sw.ts", "app-sw-ts"]]}>
+  <Tab id="app-sw-ts">
 
 ```typescript twoslash
 import { defaultCache } from "@serwist/vite/worker";

@@ -164,7 +164,7 @@ Otherwise, safely skip this step.
 
 If you use Git, update your .gitignore like so:
 
-<Tabs id="updating-tsconfig" tabs={[[".gitignore", "-gitignore"]]}>
+<Tabs id="updating-gitignore" tabs={[[".gitignore", "-gitignore"]]}>
   <Tab id="-gitignore">
 
 ```sh
@@ -255,8 +255,8 @@ Update app/manifest.json (App Router) or public/manifest.json (Pages Router) wit
 
 Add the following content to app/layout.tsx or pages/\_app.tsx:
 
-<Tabs id="updating-layout" tabs={[["app/layout.tsx", "app/layout-tsx"], ["pages/_app.tsx", "pages/_app-tsx"]]}>
-  <Tab id="app/layout-tsx">
+<Tabs id="updating-layout" tabs={[["app/layout.tsx", "app-layout-tsx"], ["pages/_app.tsx", "pages-app-tsx"]]}>
+  <Tab id="app-layout-tsx">
 
 ```tsx
 import type { Metadata, Viewport } from "next";
@@ -317,7 +317,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 ```
 
   </Tab>
-  <Tab id="pages/_app-tsx">
+  <Tab id="pages-app-tsx">
 
 ```tsx
 import type { AppProps } from "next/app";
