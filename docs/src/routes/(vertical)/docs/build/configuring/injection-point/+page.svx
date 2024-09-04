@@ -1,0 +1,34 @@
+---
+layout: docs
+---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
+# injectionPoint (InjectManifest only)
+
+## First added
+
+Workbox
+
+## About
+
+The string to find inside of the `swSrc` file. Once found, it will be replaced by the generated precache manifest.
+
+## Usage
+
+<Tabs id="usage-example" tabs={[["build.js", "build-js"]]}>
+  <Tab id="build-js">
+
+```javascript
+await injectManifest({
+  swSrc: "app/sw.ts",
+  swDest: "dist/sw.js",
+  globDirectory: "dist/static",
+  injectionPoint: "__HI_MOM",
+});
+```
+
+  </Tab>
+</Tabs>

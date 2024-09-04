@@ -1,0 +1,37 @@
+---
+layout: docs
+---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
+# excludeChunks
+
+## First added
+
+Workbox
+
+## About
+
+One or more chunk names whose corresponding output files should be excluded from the precache manifest.
+
+## Usage
+
+<Tabs id="usage-example" tabs={[["webpack.config.js", "webpack-config-js"]]}>
+  <Tab id="webpack-config-js">
+
+```javascript
+new InjectManifest({
+  excludeChunks: ["chunk-1", "chunk-2"],
+});
+```
+
+  </Tab>
+</Tabs>
+
+## More resources
+
+Here is a list of resources you can read to learn more about `excludeChunks`:
+
+- [webpack's reference documentation on splitChunks.name](https://webpack.js.org/plugins/split-chunks-plugin/#splitchunksname)

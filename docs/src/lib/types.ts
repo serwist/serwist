@@ -2,12 +2,6 @@ import type { COLOR_SCHEMES } from "./constants";
 
 export type ColorScheme = (typeof COLOR_SCHEMES)[number];
 
-export interface TocEntry {
-  title: string;
-  id: string;
-  children?: TocEntry[];
-}
-
 export interface TwoslashProps {
   id: string | undefined;
   html: string | undefined;
@@ -43,3 +37,5 @@ export interface BlogEntry {
   date: `${string}-${string}-${string}`;
   keyPoints: { title: string; id: string }[];
 }
+
+export type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6 | 7;

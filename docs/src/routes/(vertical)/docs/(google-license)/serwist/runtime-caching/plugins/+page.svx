@@ -1,0 +1,43 @@
+---
+layout: docs
+---
+# Using plugins
+
+[Original source (Apache 2.0 License). Adapted for Serwist's usage.](https://developer.chrome.com/docs/workbox/using-plugins) 
+
+## Introduction
+
+When using Serwist, you might want to manipulate a request or a response as they are processed. To support this, Serwist allows you to configure its lifecycle through plugins.
+
+Serwist provides a number of plugins out of the box, and you can write your own plugins tailored to your use cases.
+
+## Built-in plugins
+
+Serwist provides these plugins out of the box:
+
+* [BackgroundSyncPlugin](./plugins/background-sync-plugin) — Allows you to add failed network requests to a background sync queue so that they can be requested again when the next `sync` event is triggered.
+* [BroadcastUpdatePlugin](./plugins/broadcast-update-plugin) — Allows you to dispatch a message on a Broadcast Channel or via `postMessage()` whenever a cache is updated.
+* [CacheableResponsePlugin](./plugins/cacheable-response-plugin) — Determines if requests can be cached based on some specific criteria.
+* [ExpirationPlugin](./plugins/expiration-plugin) — Manages the number and maximum age of items in a cache.
+* [PrecacheFallbackPlugin](./plugins/precache-fallback-plugin) — Allows you to specify offline fallbacks to be used when a given strategy is unable to generate a response.
+
+## Lifecycle methods
+
+A Serwist plugin needs to implement one or more lifecycle method(s). When you add a plugin to a `Strategy`, said plugin's callback functions are automatically run at the right time. The `Strategy` passes relevant information about the current request and/or response to those functions, giving your plugin the context it needs to take action. The following callback functions are supported:
+
+* `cacheWillUpdate` — Called before a `Response` object is added to a cache. In this method, you can modify said `Response`, or you can return `null` to avoid updating the cache entirely.
+* `cacheDidUpdate` — Called when a new entry is added to a cache or an existing entry is updated. This method may be useful when you want to perform an action after a cache update.
+* `cacheKeyWillBeUsed` — Called before a `Request` object is used as a cache key. This occurs for both cache lookups and cache writes. This method is handy if you need to override or normalize URLs prior to them being used to access caches.
+* `cachedResponseWillBeUsed` — Called just before a cached response is used, allowing you to examine said response. You can either modify the `Response` object or return a nullish value.
+* `requestWillFetch` — Called whenever a request is about to go to the network. Useful when you need to modify the request before it is fetched.
+* `fetchDidFail` — Called when a network request throws an error, most likely due to an absence of network connectivity.
+* `fetchDidSucceed` — Called whenever a network request succeeds, regardless of the HTTP response code.
+* `handlerWillStart` — Called before any logic of the `Strategy`'s `handle()` method starts running. Useful when you need to set the initial handler state. For example, if you want to know how long the handler takes to generate a response, you can make a note of the start time in this callback.
+* `handlerWillRespond` — Called before the `Strategy`'s `handle()` method returns a `Response`. Helpful when you need to modify said `Response`.
+* `handlerDidRespond` — Called after the `Strategy`'s `handle()` method returns a `Response`, allowing you to record any final response detail.
+* `handlerDidComplete` — Called after all [extend lifetime promises](https://w3c.github.io/ServiceWorker/#extendableevent-extend-lifetime-promises) of the event have settled. This is helpful if you need to record any data that needs to wait until the handler is done, such as cache hit status, cache latency, network latency, etc.
+* `handlerDidError` — Called when the handler can't provide a valid response from any other source, which is the best time to provide a fallback response.
+
+The `event` object available in the methods listed above is the original event that triggered the fetch or cache action. Sometimes, there is not an original event, so your code should check if it exists before referencing it.
+
+All methods are also passed a `state` object, which is unique to a particular plugin and the strategy it invokes. This means you can write plugins where one callback can conditionally perform a task based on what another callback in the same plugin did.

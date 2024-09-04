@@ -1,0 +1,63 @@
+---
+layout: docs
+---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
+# ExpirationPlugin
+
+## First added
+
+Workbox
+
+## About
+
+This plugin can be used in a [Strategy](/docs/serwist/runtime-caching/caching-strategies/strategy) to regularly enforce a limit on the age and/or the number of cached requests.
+
+It can only be used with `Strategy` instances that have a custom `cacheName` property set. In other words, it can't be used to expire entries in strategies that use the default runtime cache name.
+
+Whenever a cached response is used or updated, this plugin will look at the associated cache and remove any old or extra responses.
+
+When using `maxAgeSeconds`, responses may be used once after being expired because the expiration clean up does not occur until after the cached response has been used. If the response has a "Date" header, then a lightweight expiration check is performed, and the response will not be used immediately.
+
+When using `maxEntries`, the least recently requested entry will be removed from the cache.
+
+## Options
+
+- `maxEntries` — The maximum number of entries to cache. Entries used (if `maxAgeFrom` is `"last-used"`) or fetched from the network (if `maxAgeFrom` is `"last-fetched"`) least recently will be removed as the maximum is reached.
+- `maxAgeSeconds` — The maximum age of an entry before it's treated as stale and removed.
+- `maxAgeFrom` — Determines whether `maxAgeSeconds` should be calculated from when an entry was last fetched or when it was last used.
+- `matchOptions` — The [CacheQueryOptions](https://developer.mozilla.org/en-US/docs/Web/API/Cache/delete#Parameters) that will be used when calling `delete()` on the cache.
+- `purgeOnQuotaError` — Whether to opt this cache into automatic deletion if the available storage quota has been exceeded.
+
+## Methods and fields
+
+- `async deleteCacheAndMetadata()` — Deletes the underlying `Cache` instance associated with this instance and the metadata from IndexedDB used to keep track of expiration details.
+
+## Usage
+
+<Tabs id="usage" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
+
+```typescript twoslash
+import { CacheFirst, ExpirationPlugin } from "serwist";
+import { registerRoute } from "serwist/legacy";
+
+registerRoute(
+  ({ request }) => request.destination === "image",
+  new CacheFirst({
+    cacheName: "image-cache",
+    plugins: [
+      new ExpirationPlugin({
+        maxEntries: 20,
+        maxAgeSeconds: 24 * 60 * 60,
+      }),
+    ],
+  }),
+);
+```
+
+  </Tab>
+</Tabs>

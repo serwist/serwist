@@ -1,0 +1,155 @@
+---
+layout: docs
+---
+<script>
+  import Image from "$components/Image.svelte";
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+  import { clsx } from "$lib/clsx";
+  import wizardExample from "$images/serwist-wizard.png?w=1089;545;273&enhanced";
+</script>
+
+# @serwist/cli
+
+[Original source (Apache 2.0 License). Adapted for Serwist's usage.](https://developer.chrome.com/docs/workbox/modules/workbox-cli) 
+
+## Introduction
+
+The Serwist command line interface consists of a Node.js program that can be run from a command line environment. It provides an easy way of integrating Serwist into a command line build process.
+
+## Install
+
+To install the CLI with Node.js, run the following command in your terminal:
+
+<Tabs id="install" tabs={[["npm", "npm"], ["yarn", "yarn"], ["pnpm", "pnpm"], ["bun", "bun"]]}>
+  <Tab id="npm">
+
+```bash
+npm i -D @serwist/cli
+```
+
+  </Tab>
+  <Tab id="yarn">
+
+```bash
+yarn add -D @serwist/cli
+```
+
+  </Tab>
+  <Tab id="pnpm">
+
+```bash
+pnpm add -D @serwist/cli
+```
+
+  </Tab>
+  <Tab id="bun">
+
+```bash
+bun add -D @serwist/cli
+```
+
+  </Tab>
+</Tabs>
+
+## Commands
+
+The CLI provides two main commands:
+
+* `wizard` — Runs the configuration wizard, which will generate a config file based on answers to questions.
+* `inject-manifest` — Takes an existing service worker file and creates a copy of it with a precache manifest injected. The precache manifest is generated based on the options in the config file (defaults to "serwist.config.js"). If `--watch` is provided, the CLI will stay running and rebuild the service worker each time a file in the precache manifest changes.
+
+### wizard
+
+The Serwist wizard asks a series of questions, the answers to which are then used to generate a configuration file.
+
+Most developers will only need to run the wizard once, and you're free to manually customize the initial configuration file that's generated.
+
+To start the wizard run:
+
+<Tabs id="command-wizard" tabs={[["npm", "npm"], ["yarn", "yarn"], ["pnpm", "pnpm"], ["bun", "bun"]]}>
+  <Tab id="npm">
+
+```bash
+npx @serwist/cli wizard
+```
+
+  </Tab>
+  <Tab id="yarn">
+
+```bash
+yarn serwist wizard
+```
+
+  </Tab>
+  <Tab id="pnpm">
+
+```bash
+pnpm serwist wizard
+```
+
+  </Tab>
+  <Tab id="bun">
+
+```bash
+bun serwist wizard
+```
+
+  </Tab>
+</Tabs>
+
+<Image
+  src={wizardExample}
+  sizes="min(1089px, 100vw)"
+  class="my-3 h-auto w-full"
+  alt="An example wizard run where the questions are listed alongside example answers"
+/>
+
+### inject-manifest
+
+When `inject-manifest` is run, it looks for a specific string, `self.__WB_MANIFEST` by default, in your source service worker file, replaces it with a list of URLs to precache, and writes the service worker file to its destination location. The rest of the code in your source service worker is left untouched. You may want to use an additional tool to bundle the resulting service worker for you.
+
+To run the command:
+
+<Tabs id="command-inject" tabs={[["npm", "npm"], ["yarn", "yarn"], ["pnpm", "pnpm"], ["bun", "bun"]]}>
+  <Tab id="npm">
+
+```bash
+npx @serwist/cli inject-manifest
+```
+
+  </Tab>
+  <Tab id="yarn">
+
+```bash
+yarn serwist inject-manifest
+```
+
+  </Tab>
+  <Tab id="pnpm">
+
+```bash
+pnpm serwist inject-manifest
+```
+
+  </Tab>
+  <Tab id="bun">
+
+```bash
+bun serwist inject-manifest
+```
+
+  </Tab>
+</Tabs>
+
+## Configuration
+
+Edit your config file. The full set of configuration options can be found in [the reference documentation](/docs/build/configuring).
+
+## Is @serwist/cli the right choice for my build process?
+
+If you have an existing build process that is based entirely on npm scripts, then `@serwist/cli` is a good choice.
+
+If you are using webpack, Vite, Next.js, or SvelteKit, Serwist provides [@serwist/webpack-plugin](/docs/webpack-plugin), [@serwist/vite](/docs/vite), [@serwist/next](/docs/next), and [@serwist/svelte](/docs/svelte) respectively.
+
+If you're currently using Gulp, Grunt, or some other Node.js-based build tool, integrating [@serwist/build](/docs/build) into your build script should be preferred.

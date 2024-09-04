@@ -1,11 +1,11 @@
+import { browser } from "$app/environment";
 import { BREAKPOINTS } from "./constants";
-import type { TocEntry } from "./types";
 
 export class TocObserver {
-  observer: IntersectionObserver | null = null;
+  private observer: IntersectionObserver | null = null;
 
   constructor() {
-    if (!("IntersectionObserver" in globalThis)) return;
+    if (!(browser && "IntersectionObserver" in globalThis)) return;
 
     this.observer = new IntersectionObserver(
       (entries) => {
@@ -29,10 +29,11 @@ export class TocObserver {
       },
     );
   }
-  observe(toc: TocEntry[] | undefined) {
-    if (!toc || !this.observer) return;
-
-    document.querySelectorAll("h1,h2,h3,h4,h5,h6").forEach((elem) => this.observer?.observe(elem));
+  observe(element: Element) {
+    this.observer?.observe(element);
+  }
+  unobserve(element: Element) {
+    this.observer?.unobserve(element);
   }
   disconnect() {
     this.observer?.disconnect();

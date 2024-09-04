@@ -1,0 +1,283 @@
+---
+layout: docs
+---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
+# Getting started
+
+This guide uses React, but it applies to any project using Vite. For some frameworks, we also have recipes tailored to them:
+
+- [SvelteKit](./recipes/svelte)
+
+## Install
+
+Run the following command:
+
+<Tabs id="installing-serwist-vite" tabs={[["npm", "npm"], ["yarn", "yarn"], ["pnpm", "pnpm"], ["bun", "bun"]]}>
+  <Tab id="npm">
+
+```bash
+npm i -D @serwist/vite @serwist/window serwist
+```
+
+  </Tab>
+  <Tab id="yarn">
+
+```bash
+yarn add -D @serwist/vite @serwist/window serwist
+```
+
+  </Tab>
+  <Tab id="pnpm">
+
+```bash
+pnpm add -D @serwist/vite @serwist/window serwist
+```
+
+  </Tab>
+  <Tab id="bun">
+
+```bash
+bun add -D @serwist/vite @serwist/window serwist
+```
+
+  </Tab>
+</Tabs>
+
+## Implementation
+
+### Step 1: Add Serwist's Vite plugin
+
+Update or create your Vite configuration file with the following content:
+
+<Tabs id="adding-plugin" tabs={[["vite.config.ts", "vite-config-ts"]]}>
+  <Tab id="vite-config-ts">
+
+```javascript twoslash
+import { serwist } from "@serwist/vite";
+import react from "@vitejs/plugin-react-swc";
+import { defineConfig } from "vite";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    react(),
+    serwist({
+      swSrc: "src/sw.ts",
+      swDest: "sw.js",
+      globDirectory: "dist",
+      injectionPoint: "self.__SW_MANIFEST",
+      rollupFormat: "iife",
+    }),
+  ],
+});
+```
+
+  </Tab>
+</Tabs>
+
+### Step 2: Update tsconfig.json
+
+If you use TypeScript, you should add the following content to tsconfig.json in order to get the correct types:
+
+<Tabs id="updating-tsconfig" tabs={[["tsconfig.json", "tsconfig-json"]]}>
+  <Tab id="tsconfig-json">
+
+```json
+{
+  // Other stuff...
+  "compilerOptions": {
+    // Other options...
+    "types": [
+      // Other types...
+      // This allows Serwist to properly type "virtual:serwist".
+      "@serwist/vite/typings"
+    ],
+    "lib": [
+      // Other libs...
+      // Add this! Doing so adds WebWorker and ServiceWorker types to the global.
+      "webworker"
+    ],
+  },
+}
+```
+
+  </Tab>
+</Tabs>
+
+Otherwise, safely skip this step.
+
+### Step 3: Update .gitignore
+
+If you use Git, update your .gitignore like so:
+
+<Tabs id="updating-tsconfig" tabs={[[".gitignore", "-gitignore"]]}>
+  <Tab id="-gitignore">
+
+```sh
+# Serwist
+public/sw*
+public/swe-worker*
+```
+
+  </Tab>
+</Tabs>
+
+Otherwise, safely skip this step.
+
+### Step 4: Create a service worker
+
+Basic service worker template to get Serwist up and running:
+
+<Tabs id="writing-a-sw" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
+
+```typescript twoslash
+import { defaultCache } from "@serwist/vite/worker";
+import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
+import { Serwist } from "serwist";
+
+// This declares the value of `injectionPoint` to TypeScript.
+// `injectionPoint` is the string that will be replaced by the
+// actual precache manifest. By default, this string is set to
+// `"self.__SW_MANIFEST"`.
+declare global {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+  }
+}
+
+declare const self: ServiceWorkerGlobalScope;
+
+const serwist = new Serwist({
+  precacheEntries: self.__SW_MANIFEST,
+  skipWaiting: true,
+  clientsClaim: true,
+  navigationPreload: true,
+  runtimeCaching: defaultCache,
+});
+
+serwist.addEventListeners();
+```
+
+  </Tab>
+</Tabs>
+
+### Step 5: Add a web application manifest
+
+Update public/manifest.json with the following content:
+
+<Tabs id="writing-a-webmanifest" tabs={[["manifest.json", "manifest-json"]]}>
+  <Tab id="manifest-json">
+
+```json
+{
+  "name": "My Awesome PWA app",
+  "short_name": "PWA App",
+  "icons": [
+    {
+      "src": "/icons/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#FFFFFF",
+  "background_color": "#FFFFFF",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait"
+}
+```
+
+  </Tab>
+</Tabs>
+
+### Step 6: Update your client entrypoint
+
+Next up, update src/App.tsx with the following content:
+
+<Tabs id="updating-entrypoint" tabs={[["src/App.tsx", "src/App-tsx"]]}>
+  <Tab id="src/App-tsx">
+
+```tsx twoslash
+// @types: @serwist/vite/typings
+// ---cut-before---
+import { getSerwist } from "virtual:serwist";
+import { useEffect } from "react";
+
+export default function App() {
+  useEffect(() => {
+    const loadSerwist = async () => {
+      if ("serviceWorker" in navigator) {
+        const serwist = await getSerwist();
+
+        serwist?.addEventListener("installed", () => {
+          console.log("Serwist installed!");
+        });
+
+        void serwist?.register();
+      }
+    };
+
+    loadSerwist();
+  }, []);
+
+  return <></>;
+}
+```
+
+  </Tab>
+</Tabs>
+
+### Step 7: Add metadata
+
+Add the following content to your HTML file:
+
+<Tabs id="updating-html" tabs={[["index.html", "index-html"]]}>
+  <Tab id="index-html">
+
+```html
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>My awesome PWA app</title>
+  <meta name="description" content="Best PWA app in the world!">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="mask-icon" href="/icons/mask-icon.svg" color="#FFFFFF">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="apple-touch-icon" href="/icons/touch-icon-iphone.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/icons/touch-icon-ipad.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/touch-icon-iphone-retina.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="/icons/touch-icon-ipad-retina.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://yourdomain.com">
+  <meta name="twitter:title" content="My Awesome PWA app">
+  <meta name="twitter:description" content="Best PWA app in the world!">
+  <meta name="twitter:image" content="/icons/twitter.png">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="My Awesome PWA app">
+  <meta property="og:description" content="Best PWA app in the world!">
+  <meta property="og:site_name" content="My awesome PWA app">
+  <meta property="og:url" content="https://yourdomain.com">
+  <meta property="og:image" content="/icons/og.png">
+  <link rel="apple-touch-startup-image" href="/images/apple_splash_2048.png" sizes="2048x2732">
+  <link rel="apple-touch-startup-image" href="/images/apple_splash_1668.png" sizes="1668x2224">
+  <link rel="apple-touch-startup-image" href="/images/apple_splash_1536.png" sizes="1536x2048">
+  <link rel="apple-touch-startup-image" href="/images/apple_splash_1125.png" sizes="1125x2436">
+  <link rel="apple-touch-startup-image" href="/images/apple_splash_1242.png" sizes="1242x2208">
+  <link rel="apple-touch-startup-image" href="/images/apple_splash_750.png" sizes="750x1334">
+  <link rel="apple-touch-startup-image" href="/images/apple_splash_640.png" sizes="640x1136">
+</head>
+```
+
+  </Tab>
+</Tabs>

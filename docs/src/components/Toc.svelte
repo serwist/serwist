@@ -1,12 +1,13 @@
 <script lang="ts">
+  import type { List } from "mdast";
+
   import { page } from "$app/stores";
   import { BREAKPOINTS, GITHUB_REPO_URL } from "$lib/constants";
-  import type { TocEntry } from "$lib/types";
 
   import ChevronRight from "./icons/ChevronRight.svelte";
   import TocRenderer from "./TocRenderer.svelte";
 
-  const { toc }: { toc: TocEntry[] | undefined } = $props();
+  const { headings }: { headings: List } = $props();
   let tocDetails = $state<HTMLDetailsElement | null>(null);
 
   $effect(() => {
@@ -18,17 +19,13 @@
   });
 </script>
 
-<details bind:this={tocDetails} class="flex h-full flex-col overflow-y-auto hyphens-auto text-lg md:text-base xl:text-sm details-anim">
+<details bind:this={tocDetails} class="details-anim flex h-full flex-col overflow-y-auto hyphens-auto text-lg md:text-base xl:text-sm">
   <summary class="mb-4 flex items-center">
     <span class="font-semibold tracking-tight text-black dark:text-white">On This Page</span>
     <ChevronRight class="details-chevron ml-2 transition-transform duration-100" width={18} height={18} />
   </summary>
   <div class="pointer-events-none w-full self-stretch overflow-y-auto" aria-hidden="true"></div>
-  {#if toc}
-    <TocRenderer data={toc} />
-  {:else}
-    <p>Table of Contents is not available at the moment.</p>
-  {/if}
+  <TocRenderer {headings} />
   <div class="mt-8 hidden flex-col items-start gap-2 border-t border-neutral-300 pb-8 pt-8 xl:flex dark:border-neutral-800">
     <a href={`${GITHUB_REPO_URL}/issues/new/choose`} target="_blank" rel="noreferrer" class="text-toc">
       Question? Give us feedback →

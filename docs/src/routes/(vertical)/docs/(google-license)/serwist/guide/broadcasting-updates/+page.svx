@@ -1,0 +1,189 @@
+---
+layout: docs
+---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
+# Broadcasting cache updates
+
+[Original source (Apache 2.0 License). Adapted for Serwist's usage.](https://developer.chrome.com/docs/workbox/modules/workbox-broadcast-update)
+
+## Introduction
+
+When responding to requests with cached entries, while being fast, it comes with a tradeoff that users may end up seeing stale data.
+
+Serwist can notify Window Clients whenever a cached response is updated using the [Broadcast Channel API](https://developer.mozilla.org/en-US/docs/Web/API/Broadcast%5FChannel%5FAPI). This functionality is most commonly used along with the [StaleWhileRevalidate](/docs/serwist/runtime-caching/caching-strategies/stale-while-revalidate) strategy.
+
+Whenever the "revalidate" step of that strategy retrieves a response from the network that differs from what was previously cached, this module will send a message (via `postMessage()`) to all clients within scope of the current service worker.
+
+Clients can listen for updates and take appropriate action, like automatically displaying a message to the user letting them know that updates are available.
+
+## How are updates determined?
+
+Certain headers of the cached and new Response objects are compared, and if any of the headers have different values, it's considered an update.
+
+By default, the `Content-Length`, `ETag`, and `Last-Modified` headers are compared.
+
+Serwist uses header values instead of a byte-for-byte comparison of response bodies to be more efficient, in particular for potentially large responses.
+
+Because Serwist needs to be able to read the header values, [opaque responses](https://stackoverflow.com/questions/39109789/what-limitations-apply-to-opaque-responses), whose headers are not accessible, will never trigger update messages.
+
+## Message format
+
+When a message event listener is invoked in your web app, the `event.data` property will have the following format:
+
+<Tabs id="message-format" tabs={[["event.data", "event-data"]]}>
+  <Tab id="event-data">
+
+```typescript twoslash
+import type { BroadcastMessage } from "serwist";
+
+const data = {
+  type: "CACHE_UPDATED",
+  meta: "serwist-broadcast-update",
+  // The two payload values vary depending on the actual update:
+  payload: {
+    cacheName: "the-cache-name",
+    updatedURL: "https://example.com/",
+  },
+} satisfies BroadcastMessage;
+```
+
+  </Tab>
+</Tabs>
+
+This is represented as the `BroadcastMessage` type, which you can import from this module.
+
+## Basic usage
+
+The module is intended to be used along with the `StaleWhileRevalidate` strategy, since that strategy involves returning a cached response immediately but also provides a mechanism for updating the cache asynchronously.
+
+Note: BroadcastUpdatePlugin can't be used to broadcast information about Serwist's precache updates. It only detects when a previously cached URL has been overwritten with new contents, but Serwist's precaching mechanism creates cache entries with URLs that uniquely correspond to the contents, so it will never overwrite existing cache entries.
+
+To broadcast updates, you just need to add a `BroadcastUpdatePlugin` instance to your strategy's `plugins`.
+
+<Tabs id="basic-usage" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
+
+```typescript twoslash
+import { BroadcastUpdatePlugin, StaleWhileRevalidate } from "serwist";
+import { registerRoute } from "serwist/legacy";
+
+registerRoute(
+  ({ url }) => url.pathname.startsWith("/api/"),
+  new StaleWhileRevalidate({
+    plugins: [new BroadcastUpdatePlugin()],
+  }),
+);
+```
+
+  </Tab>
+</Tabs>
+
+In your web app, before the [`DOMContentLoaded`](https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded%5Fevent) event fires, you can listen for these events like so:
+
+<Tabs id="basic-usage-event-listener" tabs={[["message.ts", "message-ts"]]}>
+  <Tab id="message-ts">
+
+```typescript twoslash
+navigator.serviceWorker.addEventListener("message", async (event) => {
+  // Optional: ensure the message came from Serwist
+  if (event.data.meta === "serwist-broadcast-update" && event.data.type === "CACHE_UPDATED") {
+    const { cacheName, updatedURL } = event.data.payload;
+
+    // Do something with cacheName and updatedURL.
+    // For example, get the cached content and update
+    // the content on the page.
+    const cache = await caches.open(cacheName);
+    const updatedResponse = await cache.match(updatedURL);
+    if (updatedResponse) {
+      const updatedText = await updatedResponse.text();
+      // Do something with the updated content...
+    }
+  }
+});
+```
+
+  </Tab>
+</Tabs>
+
+Note: Make sure to add the message event listener before the DOMContentLoaded event, as browsers will queue messages received early in the page load (before your JavaScript code has had a chance to run) up until (but not after) the DOMContentLoaded event.
+
+### Customizing the list of headers to check
+
+You can customize the list of headers to check by setting the headersToCheck property.
+
+<Tabs id="basic-usage-customize-headers" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
+
+```typescript twoslash
+import { BroadcastUpdatePlugin, BROADCAST_UPDATE_DEFAULT_HEADERS, StaleWhileRevalidate } from "serwist";
+import { registerRoute } from "serwist/legacy";
+
+registerRoute(
+  ({ url }) => url.pathname.startsWith("/api/"),
+  new StaleWhileRevalidate({
+    plugins: [
+      new BroadcastUpdatePlugin({
+        headersToCheck: [...BROADCAST_UPDATE_DEFAULT_HEADERS, "X-My-Custom-Header"],
+      }),
+    ],
+  }),
+);
+```
+
+  </Tab>
+</Tabs>
+
+## Advanced usage
+
+While most developers will use the module as a plugin of a particular strategy as shown above, it's possible to use the underlying logic in service worker code:
+
+<Tabs id="advanced-usage" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
+
+```typescript twoslash
+import { BroadcastCacheUpdate, BROADCAST_UPDATE_DEFAULT_HEADERS } from "serwist";
+
+declare const self: ServiceWorkerGlobalScope;
+
+const broadcastUpdate = new BroadcastCacheUpdate({
+  headersToCheck: [...BROADCAST_UPDATE_DEFAULT_HEADERS, "X-My-Custom-Header"],
+});
+
+self.addEventListener("fetch", (event) => {
+  event.respondWith(
+    (async () => {
+      const cacheName = "api-cache";
+      const request = new Request("https://example.com/api");
+      
+      const cache = await caches.open(cacheName);
+      const oldResponse = await cache.match(request);
+
+      // Is the cached response stale?
+      const shouldRevalidate = true;
+
+      if (!shouldRevalidate && oldResponse) {
+        return oldResponse;
+      }
+
+      const newResponse = await fetch(request);
+
+      broadcastUpdate.notifyIfUpdated({
+        cacheName,
+        oldResponse,
+        newResponse,
+        request,
+        event,
+      });
+
+      return newResponse;
+    })(),
+  );
+});
+```
+
+  </Tab>
+</Tabs>

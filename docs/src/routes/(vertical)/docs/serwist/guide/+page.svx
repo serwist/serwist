@@ -1,0 +1,15 @@
+---
+layout: docs
+---
+# Diving deeper
+
+## Introduction
+
+To help you with using Serwist, we provide the following blogs:
+
+* [Background synchronizing](/docs/serwist/guide/background-syncing)
+* [Broadcasting cache updates](/docs/serwist/guide/broadcasting-updates)
+* [Expiring outdated responses](/docs/serwist/guide/expiring-outdated-responses)
+* [Preloading navigations](/docs/serwist/guide/navigation-preloading)
+* [Precaching assets](/docs/serwist/guide/precaching)
+* [Setting cacheability criteria](/docs/serwist/guide/setting-cacheability-criteria)

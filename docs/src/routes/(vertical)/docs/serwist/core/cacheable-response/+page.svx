@@ -1,0 +1,54 @@
+---
+layout: docs
+---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
+# CacheableResponse
+
+## First added
+
+Workbox
+
+## About
+
+Allows you to set up rules determining what status codes and/or headers need to be present in order for a [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response) to be considered cacheable.
+
+## Options
+
+- `statuses` — One or more status codes that a `Response` can have to be considered cacheable.
+- `headers` — A mapping of header names and expected values that a `Response` can have and be considered cacheable. If multiple headers are provided, only one needs to be present.
+
+## Methods and fields
+
+- `isResponseCacheable(response)` — Checks a response to see whether it's cacheable or not.
+
+## Usage
+
+<Tabs id="usage" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
+
+```typescript twoslash
+import { CacheableResponse } from "serwist";
+
+const cacheable = new CacheableResponse({
+  statuses: [0, 200],
+  headers: {
+    "X-Is-Cacheable": "true",
+  },
+});
+
+const response = await fetch("/path/to/api");
+
+if (cacheable.isResponseCacheable(response)) {
+  const cache = await caches.open("api-cache");
+  cache.put(response.url, response);
+} else {
+  // Do something when the response can't be cached.
+}
+```
+
+  </Tab>
+</Tabs>

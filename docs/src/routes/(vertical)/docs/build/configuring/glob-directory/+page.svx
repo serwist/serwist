@@ -1,0 +1,33 @@
+---
+layout: docs
+---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
+# globDirectory
+
+## First added
+
+Workbox
+
+## About
+
+The local directory you wish to match `globPatterns` against. The path is relative to the current directory.
+
+## Usage
+
+<Tabs id="usage-example" tabs={[["build.js", "build-js"]]}>
+  <Tab id="build-js">
+
+```javascript
+await injectManifest({
+  swSrc: "app/sw.ts",
+  swDest: "dist/sw.js",
+  globDirectory: "dist/static",
+});
+```
+
+  </Tab>
+</Tabs>

@@ -1,7 +1,8 @@
 <script lang="ts">
   import { tick } from "svelte";
-  // import { quintOut } from "svelte/easing";
-  // import { fade } from "svelte/transition";
+  import { quintOut } from "svelte/easing";
+  import { fade } from "svelte/transition";
+
   import { hotkeys } from "$lib/hotkeys.svelte";
   import { twoslash } from "$lib/stores/twoslash";
 
@@ -31,7 +32,6 @@
 </script>
 
 {#if html}
-  <!-- transition:fade={{ duration: 150, easing: quintOut }} temporarily disable (seems bugged rn) -->
   <div
     bind:this={tooltip}
     {id}
@@ -43,6 +43,7 @@
     style:max-width="{window.innerWidth - x}px"
     style:max-height="{maxHeight}px"
     style:--offset="{Math.min(-10, window.innerWidth - (x + width + 10))}px"
+    transition:fade={{ duration: 150, easing: quintOut }}
   >
     <p class="sr-only">Press Alt+Q to dismiss this tooltip.</p>
     <span class="twoslash-popup-code">

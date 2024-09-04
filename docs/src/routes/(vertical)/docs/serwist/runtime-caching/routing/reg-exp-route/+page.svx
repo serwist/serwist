@@ -1,0 +1,49 @@
+---
+layout: docs
+---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
+# RegExpRoute
+
+## First added
+
+Workbox
+
+## About
+
+`RegExpRoute` makes it easy to create a `Route` object with a regular expression.
+
+For same-origin requests the `RegExp` only needs to match part of the URL. For requests against third-party servers, you must define a `RegExp` that matches the start of the URL.
+
+## Parameters
+
+- `regExp` — The regular expression to match against URLs.
+- `handler` — A callback function that returns a `Promise` resolving to a `Response`.
+- `method` — The HTTP method to match the route against. Defaults to `GET`.
+
+## Usage
+
+<Tabs id="usage-example" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
+
+```typescript twoslash
+import { NetworkFirst, RegExpRoute, Serwist } from "serwist";
+
+const serwist = new Serwist();
+
+serwist.registerRoute(new RegExpRoute(/^\/api\/.*/, new NetworkFirst(), "POST"));
+
+serwist.addEventListeners();
+```
+
+  </Tab>
+</Tabs>
+
+## More resources
+
+Here is a list of resources you can read to learn more about `RegExpRoute`:
+
+- [Routing: Applying caching strategies with route matching](/docs/serwist/runtime-caching/routing#applying-caching-strategies-with-route-matching)

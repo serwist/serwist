@@ -1,0 +1,91 @@
+---
+layout: docs
+---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
+# Setting cacheability criteria
+
+[Original source (Apache 2.0 License). Adapted for Serwist's usage.](https://developer.chrome.com/docs/workbox/modules/workbox-cacheable-response)
+
+## Introduction
+
+When caching assets at runtime, there's no one-size-fits-all rule for whether a given response is "valid" and eligible for being saved and reused.
+
+Serwist provides plugins designed to help determine whether a response should be cached based on its numeric status code, the presence of a header with a specific value, or a combination of the two.
+
+## The defaults
+
+If you use one of Serwist's built-in strategies without explicitly configuring `CacheableResponsePlugin`, the following default criteria is used to determine whether a response received from the network should be cached:
+
+- `StaleWhileRevalidate` and `NetworkFirst`: Responses with a status of 0 (i.e. opaque responses) or 200 are considered cacheable.
+- `CacheFirst`: Responses with a status of 200 are considered cacheable.
+
+### Why are there different defaults?
+
+The defaults vary around whether responses with a status of 0 (i.e. opaque responses) will end up cached. Due to the "black box" nature of opaque responses, it's not possible for the service worker to know whether the response is valid, or whether it reflects an error response returned from the cross-origin server.
+
+For strategies that include some means of updating the cached response, like `StaleWhileRevalidate` and `NetworkFirst`, the risk of caching a transient error response is mitigated by the fact that the next time the cache is updated, a proper, successful response will hopefully be used.
+
+For strategies that involve caching the first response received and reusing that cached response indefinitely, the repercussions of a transient error getting cached and reused are more severe. To be on the safe side, CacheFirst refuses to save a response unless it has a status code of 200 by default.
+
+## Basic usage
+
+The easiest way to use this module is to use the plugin, which automatically determines whether a response can be cached.
+
+<Tabs id="basic-usage" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
+
+```typescript twoslash
+import { CacheableResponsePlugin, StaleWhileRevalidate } from "serwist";
+import { registerRoute } from "serwist/legacy";
+
+registerRoute(
+  ({ url }) => url.pathname.startsWith("/api/"),
+  new StaleWhileRevalidate({
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+        headers: {
+          "X-Is-Cacheable": "true",
+        },
+      }),
+    ],
+  }),
+);
+```
+
+  </Tab>
+</Tabs>
+
+## Advanced usage
+
+If you want to use the same caching logic outside of a Serwist strategy, you can use the `CacheableResponse` class directly.
+
+<Tabs id="advanced-usage" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
+
+```typescript twoslash
+import { CacheableResponse } from "serwist";
+
+const cacheable = new CacheableResponse({
+  statuses: [0, 200],
+  headers: {
+    "X-Is-Cacheable": "true",
+  },
+});
+
+const response = await fetch("/path/to/api");
+
+if (cacheable.isResponseCacheable(response)) {
+  const cache = await caches.open("api-cache");
+  cache.put(response.url, response);
+} else {
+  // Do something when the response can't be cached.
+}
+```
+
+  </Tab>
+</Tabs>

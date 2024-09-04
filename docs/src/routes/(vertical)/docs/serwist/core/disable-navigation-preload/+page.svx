@@ -1,0 +1,69 @@
+---
+layout: docs
+---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
+# disableNavigationPreload
+
+## First added
+
+Workbox
+
+## About
+
+If the browser supports navigation preloading, then this will disable it.
+
+## Usage
+
+<Tabs id="usage-example" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
+
+```typescript twoslash
+import {
+  enableNavigationPreload,
+  disableNavigationPreload,
+  isNavigationPreloadSupported,
+  NavigationRoute,
+  NetworkFirst,
+} from "serwist";
+import { registerRoute } from "serwist/legacy";
+
+declare const self: ServiceWorkerGlobalScope;
+
+self.addEventListener("message", (event) => {
+  if (event.data && event.data.type === "TOGGLE_NAV_PRELOAD") {
+    event.waitUntil(
+      (async () => {
+        if (isNavigationPreloadSupported()) {
+          const state = await self.registration.navigationPreload.getState();
+          if (state.enabled) {
+            disableNavigationPreload();
+          } else {
+            enableNavigationPreload();
+          }
+        }
+      })(),
+    );
+  }
+});
+
+// Swap in NetworkOnly, CacheFirst, or StaleWhileRevalidate as needed.
+const navigationStrategy = new NetworkFirst({
+  cacheName: "cached-navigations",
+});
+
+const navigationRoute = new NavigationRoute(navigationStrategy, {
+  // Optionally, provide a allow/denylist of RegExps to determine
+  // which paths will match this route.
+  // allowlist: [],
+  // denylist: [],
+});
+
+registerRoute(navigationRoute);
+```
+
+  </Tab>
+</Tabs>

@@ -1,0 +1,49 @@
+---
+layout: docs
+---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
+# copyResponse
+
+## First added
+
+Workbox
+
+## About
+
+Allows developers to copy a response and modify its `headers`, `status`, or `statusText` values (the [valid options](https://developer.mozilla.org/en-US/docs/Web/API/Response/Response#options) when constructing a `Response` object).
+
+To modify these values, pass a function as the second argument. That function will be invoked with the options of the initial `Response` object. The return value of this function will be used as the options for the new `Response` object. To change the values either modify the passed parameter(s) and return it or return a totally new object.
+
+This method is intentionally limited to same-origin responses, regardless of whether CORS was used or not.
+
+## Parameters
+
+- `response` — The initial response.
+- `modifier(responseInit)` — The function used to modify the options of the `Response` object.
+
+## Usage
+
+<Tabs id="usage-example" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
+
+```typescript twoslash
+declare const response: Response;
+// ---cut-before---
+import { copyResponse } from "serwist";
+
+const newResponse = copyResponse(response, (init) => {
+  if (init.status === 0) {
+    const headers = new Headers(init.headers);
+    headers.set("X-Is-Opaque", "true");
+    init.headers = headers;
+  }
+  return init;
+});
+```
+
+  </Tab>
+</Tabs>

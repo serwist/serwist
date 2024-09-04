@@ -1,22 +1,13 @@
 <script lang="ts">
-  import type { TocEntry } from "$lib/types";
+  import type { List } from "mdast";
+  import { setContext } from "svelte";
 
-  interface TableOfContentsProps {
-    data: TocEntry[];
-  }
+  import type { RendererFor } from "./markdown";
+  import Parser from "./markdown/Parser.svelte";
 
-  const { data }: TableOfContentsProps = $props();
+  const { headings }: { headings: List } = $props();
+
+  setContext<RendererFor>("rendererFor", "toc");
 </script>
 
-<ol class="list mt-2">
-  {#each data as { title, id, children }}
-    <li>
-      <a href={`#${id}`} class="text-toc">
-        {title}
-      </a>
-      {#if children}
-        <svelte:self data={children} />
-      {/if}
-    </li>
-  {/each}
-</ol>
+<Parser tokens={headings} />

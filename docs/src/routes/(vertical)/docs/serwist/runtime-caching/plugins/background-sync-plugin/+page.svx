@@ -1,0 +1,46 @@
+---
+layout: docs
+---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
+# BackgroundSyncPlugin
+
+## First added
+
+Workbox
+
+## About
+
+A class implementing the `fetchDidFail` lifecycle callback. This makes it easier to add failed requests to a [`background sync queue`](/docs/serwist/core/background-sync-queue).
+
+## Parameters
+
+See [BackgroundSyncQueue's parameters](/docs/serwist/core/background-sync-queue#parameters).
+
+## Usage
+
+<Tabs id="usage-example" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
+
+```typescript twoslash
+import { BackgroundSyncPlugin, NetworkOnly } from "serwist";
+import { registerRoute } from "serwist/legacy";
+
+const backgroundSync = new BackgroundSyncPlugin("myQueueName", {
+  maxRetentionTime: 24 * 60, // Retry for a maximum of 24 Hours (specified in minutes)
+});
+
+registerRoute(
+  /\/api\/.*\/*.json/,
+  new NetworkOnly({
+    plugins: [backgroundSync],
+  }),
+  "POST",
+);
+```
+
+  </Tab>
+</Tabs>

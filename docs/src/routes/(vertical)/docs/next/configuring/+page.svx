@@ -1,0 +1,29 @@
+---
+layout: docs
+---
+# Configuring
+
+## Available options
+
+There are various options you can use to customize the behaviour of the plugin:
+
+* [`additionalPrecacheEntries`](/docs/next/configuring/additional-precache-entries)
+* [`cacheOnNavigation`](/docs/next/configuring/cache-on-navigation)
+* [`chunks`](/docs/next/configuring/chunks)
+* [`compileSrc`](/docs/next/configuring/compile-src)
+* [`disable`](/docs/next/configuring/disable)
+* [`dontCacheBustURLsMatching`](/docs/next/configuring/dont-cache-bust-urls-matching)
+* [`exclude`](/docs/next/configuring/exclude)
+* [`excludeChunks`](/docs/next/configuring/exclude-chunks)
+* [`include`](/docs/next/configuring/include)
+* [`injectionPoint`](/docs/next/configuring/injection-point)
+* [`manifestTransforms`](/docs/next/configuring/manifest-transforms)
+* [`maximumFileSizeToCacheInBytes`](/docs/next/configuring/maximum-file-size-to-cache-in-bytes)
+* [`modifyURLPrefix`](/docs/next/configuring/modify-url-prefix)
+* [`register`](/docs/next/configuring/register)
+* [`reloadOnOnline`](/docs/next/configuring/reload-on-online)
+* [`scope`](/docs/next/configuring/scope)
+* [`swDest`](/docs/next/configuring/sw-dest)
+* [`swSrc`](/docs/next/configuring/sw-src)
+* [`swUrl`](/docs/next/configuring/sw-url)
+* [`webpackCompilationPlugins`](/docs/next/configuring/webpack-compilation-plugins)

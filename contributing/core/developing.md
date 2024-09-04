@@ -53,5 +53,6 @@ If you use Visual Studio Code, you may want to set .vscode/settings.json to this
   "[javascript]": {
     "editor.defaultFormatter": "biomejs.biome"
   },
+  "eslint.validate": ["javascript", "javascriptreact", "html", "typescriptreact", "svelte"]
 }
 ```

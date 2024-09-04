@@ -11,10 +11,6 @@ export const load: LayoutServerLoad = ({ url }) => {
         title: metadata.title.content,
         desc: "Blog",
       }),
-      metadata: {
-        title: metadata.title,
-        date: metadata.date,
-      },
     }),
   };
 };

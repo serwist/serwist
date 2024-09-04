@@ -1,0 +1,29 @@
+---
+layout: docs
+---
+# @serwist/webpack-plugin
+
+## Introduction
+
+`@serwist/webpack-plugin` is a plugin for your webpack build process, helping you generate a manifest of local files that should be precached.
+
+## Getting started
+
+See [Getting started](./webpack-plugin/getting-started).
+
+## Configuring
+
+See [Configuring](./webpack-plugin/configuring).
+
+## Supported webpack alternatives
+
+`@serwist/webpack-plugin` also supports the following webpack alternatives:
+
+* [Rspack](https://www.rspack.dev/)
+* [Rsbuild](https://rsbuild.dev/)
+
+## Alternatives
+
+There are also some alternatives to `@serwist/webpack-plugin`:
+
+* [workbox-webpack-plugin](https://developer.chrome.com/docs/workbox/modules/workbox-webpack-plugin)

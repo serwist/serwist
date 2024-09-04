@@ -1,15 +1,15 @@
-<svelte:options customElement="data-lsp" />
-
 <script lang="ts">
   // TODO: Allow customizing hover timeout to be compliant with Timing Adjustable.
   import { twoslash, twoslashPrimitive } from "$lib/stores/twoslash";
+  import type { Snippet } from "svelte";
 
   interface TooltipHoverProps {
     lsp: string;
     tpid: string;
+    children: Snippet;
   }
 
-  const { lsp, tpid }: TooltipHoverProps = $props();
+  const { lsp, tpid, children }: TooltipHoverProps = $props();
   let span = $state<HTMLSpanElement | null>(null);
   const isActive = $derived($twoslash.id === tpid);
 
@@ -56,5 +56,5 @@
 </script>
 
 <span bind:this={span} role="status" onmouseenter={mouseEnter} onmouseleave={mouseLeave} aria-describedby={isActive ? $twoslash.id : undefined}>
-  <slot />
+  {@render children()}
 </span>

@@ -1,0 +1,67 @@
+---
+layout: docs
+---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
+# register
+
+## First added
+
+`next-pwa`
+
+## Default
+
+`true`
+
+## About
+
+Whether `@serwist/next` should automatically register the service worker for you. If you want to register the service worker yourself, set this to `false` and run `window.serwist.register()` in `componentDidMount` or `useEffect`.
+
+## How it works
+
+When set to `true`, the code injected into your app's entrypoints runs `window.serwist.register()`, registering the service worker. This is rerun everytime those entrypoints are loaded.
+
+## Usage
+
+In your next.config.js:
+
+<Tabs id="usage-config-example" tabs={[["next.config.js", "next-config-js"]]}>
+  <Tab id="next-config-js">
+
+```javascript
+withSerwistInit({
+  swSrc: "app/sw.ts",
+  swDest: "public/sw.js",
+  register: false,
+});
+```
+
+  </Tab>
+</Tabs>
+
+In your app:
+
+<Tabs id="usage-app-example" tabs={[["app/register-pwa.jsx", "app/register-pwa-jsx"]]}>
+  <Tab id="app/register-pwa-jsx">
+
+```jsx
+"use client";
+import { useEffect } from "react";
+
+export default function RegisterPWA() {
+  useEffect(() => {
+    if ("serviceWorker" in navigator && window.serwist !== undefined) {
+      window.serwist.register();
+    }
+  }, []);
+  return <></>;
+}
+```
+
+  </Tab>
+</Tabs>
+
+Note: if you use TypeScript and follow the above template, do add `@serwist/next/typings` to `compilerOptions.types` in your tsconfig.json! This allows `window.serwist` to be automatically typed.

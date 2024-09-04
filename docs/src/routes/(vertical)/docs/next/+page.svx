@@ -1,0 +1,61 @@
+---
+layout: docs
+---
+<script>
+  import Tabs from "$components/Tabs.svelte";
+  import Tab from "$components/Tab.svelte";
+</script>
+
+# @serwist/next
+
+## Introduction
+
+`@serwist/next` is a module that integrates Serwist into your Next.js application.
+
+## Getting started
+
+See [Getting started](./next/getting-started). If you are initializing a new project, you can also run the following command:
+
+<Tabs id="degit" tabs={[["npm", "npm"], ["yarn", "yarn"], ["pnpm", "pnpm"], ["bun", "bun"]]}>
+  <Tab id="npm">
+
+```bash
+npx degit serwist/serwist/examples/next-basic my-app
+```
+
+  </Tab>
+  <Tab id="yarn">
+
+```bash
+yarn degit serwist/serwist/examples/next-basic my-app
+```
+
+  </Tab>
+  <Tab id="pnpm">
+
+```bash
+pnpx degit serwist/serwist/examples/next-basic my-app
+```
+
+  </Tab>
+  <Tab id="bun">
+
+```bash
+bunx degit serwist/serwist/examples/next-basic my-app
+```
+
+  </Tab>
+</Tabs>
+
+## Configuring
+
+See [Configuring](./next/configuring).
+
+## Alternatives
+
+There are also some alternatives to `@serwist/next`:
+
+- [@serwist/webpack-plugin](./webpack-plugin)
+- [workbox-webpack-plugin](https://developer.chrome.com/docs/workbox/modules/workbox-webpack-plugin)
+- [@ducanh2912/next-pwa](https://ducanh-next-pwa.vercel.app)
+- [next-pwa](https://github.com/shadowwalker/next-pwa)
