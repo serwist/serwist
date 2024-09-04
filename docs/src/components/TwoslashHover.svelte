@@ -1,7 +1,8 @@
 <script lang="ts">
   // TODO: Allow customizing hover timeout to be compliant with Timing Adjustable.
-  import { twoslash, twoslashPrimitive } from "$lib/stores/twoslash";
   import type { Snippet } from "svelte";
+
+  import { twoslash, twoslashPrimitive } from "$lib/stores/twoslash";
 
   interface TooltipHoverProps {
     lsp: string;

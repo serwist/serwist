@@ -3,7 +3,6 @@ layout: false
 ---
 <script>
   import Code from "$components/Code.svelte";
-  import CodeTab from "$components/CodeTab.svelte";
   import Tabs from "$components/Tabs.svelte";
   import Tab from "$components/Tab.svelte";
   import { clsx } from "$lib/clsx";
