@@ -48,7 +48,7 @@ export class StrategyHandler {
   /**
    * Some additional params (if passed to the strategy's
    * `handle()` or `handleAll()` method).
-   * 
+   *
    * Note: the `params` param will be present if the strategy is invoked
    * from a {@linkcode Route} object and that route's matcher returned a truthy
    * value (it will be that value).
@@ -496,19 +496,26 @@ export class StrategyHandler {
 
   /**
    * This method checks if the navigation preload `Response` is available.
-   * 
-   * @param request 
-   * @param event 
+   *
+   * @param request
+   * @param event
    * @returns
    */
   async getPreloadResponse(): Promise<Response | undefined> {
     if (this.event instanceof FetchEvent && this.event.request.mode === "navigate" && "preloadResponse" in this.event) {
-      const possiblePreloadResponse = (await this.event.preloadResponse) as Response | undefined;
-      if (possiblePreloadResponse) {
-        if (process.env.NODE_ENV !== "production") {
-          logger.log(`Using a preloaded navigation response for '${getFriendlyURL(this.event.request.url)}'`);
+      try {
+        const possiblePreloadResponse = (await this.event.preloadResponse) as Response | undefined;
+        if (possiblePreloadResponse) {
+          if (process.env.NODE_ENV !== "production") {
+            logger.log(`Using a preloaded navigation response for '${getFriendlyURL(this.event.request.url)}'`);
+          }
+          return possiblePreloadResponse;
         }
-        return possiblePreloadResponse;
+      } catch (error) {
+        if (process.env.NODE_ENV !== "production") {
+          logger.error(error);
+        }
+        return undefined;
       }
     }
     return undefined;
