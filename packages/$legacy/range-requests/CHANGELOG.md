@@ -1,5 +1,12 @@
 # @serwist/range-requests
 
+## 9.0.8
+
+### Patch Changes
+
+- Updated dependencies [[`ffb64c4`](https://github.com/serwist/serwist/commit/ffb64c4d26a7bd67525aa14b10c156fe04cadcd6)]:
+  - serwist@9.0.8
+
 ## 9.0.7
 
 ### Patch Changes

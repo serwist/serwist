@@ -1,5 +1,12 @@
 # @serwist/cli
 
+## 9.0.8
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/build@9.0.8
+
 ## 9.0.7
 
 ### Patch Changes

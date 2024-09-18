@@ -90,17 +90,18 @@ export const app = async (params: MeowResult<SupportedFlags>): Promise<void> => 
       // Determine whether we're in --watch mode, or one-off mode.
       if (params?.flags?.watch) {
         if (config.globPatterns) {
-          const filesToWatch = (
-            await glob(config.globPatterns, {
-              cwd: config.globDirectory,
-              follow: config.globFollow,
-              ignore: config.globIgnores,
-            })
-          ).map((file) => path.join(config.globDirectory, file));
           chokidar
-            .watch(filesToWatch, {
-              ignoreInitial: true,
-            })
+            .watch(
+              await glob(config.globPatterns, {
+                cwd: config.globDirectory,
+                follow: config.globFollow,
+                ignore: config.globIgnores,
+              }),
+              {
+                ignoreInitial: true,
+                cwd: config.globDirectory,
+              },
+            )
             .on("all", async () => {
               if (config === null) return;
               await runBuildCommand({

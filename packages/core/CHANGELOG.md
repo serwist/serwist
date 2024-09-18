@@ -1,5 +1,13 @@
 # @serwist/sw
 
+## 9.0.8
+
+### Patch Changes
+
+- [#199](https://github.com/serwist/serwist/pull/199) [`ffb64c4`](https://github.com/serwist/serwist/commit/ffb64c4d26a7bd67525aa14b10c156fe04cadcd6) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(core): catch navigation preload errors
+
+  - This change fixes cases where cache-first or precache strategies fail to return a cached response when the user is offline. This would happen due to `await event.preloadResponse` throwing an uncaught error.
+
 ## 9.0.7
 
 ## 9.0.6
