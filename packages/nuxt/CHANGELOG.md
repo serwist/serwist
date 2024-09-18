@@ -1,5 +1,14 @@
 # @serwist/nuxt
 
+## 9.0.8
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/vite@9.0.8
+  - @serwist/window@9.0.8
+  - @serwist/build@9.0.8
+
 ## 9.0.7
 
 ### Patch Changes
