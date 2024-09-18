@@ -8,8 +8,8 @@
 import assert from "node:assert";
 import path from "node:path";
 import { type InjectManifestOptions, injectManifest } from "@serwist/build";
-import type { WatchOptions } from "chokidar";
 import chokidar from "chokidar";
+import { glob } from "glob";
 import type { Result as MeowResult } from "meow";
 import prettyBytes from "pretty-bytes";
 
@@ -89,19 +89,18 @@ export const app = async (params: MeowResult<SupportedFlags>): Promise<void> => 
 
       // Determine whether we're in --watch mode, or one-off mode.
       if (params?.flags?.watch) {
-        const options: WatchOptions = {
-          ignoreInitial: true,
-        };
-        if (config.globIgnores) {
-          options.ignored = config.globIgnores;
-        }
-        if (config.globDirectory) {
-          options.cwd = config.globDirectory;
-        }
-
         if (config.globPatterns) {
+          const filesToWatch = (
+            await glob(config.globPatterns, {
+              cwd: config.globDirectory,
+              follow: config.globFollow,
+              ignore: config.globIgnores,
+            })
+          ).map((file) => path.join(config.globDirectory, file));
           chokidar
-            .watch(config.globPatterns, options)
+            .watch(filesToWatch, {
+              ignoreInitial: true,
+            })
             .on("all", async () => {
               if (config === null) return;
               await runBuildCommand({

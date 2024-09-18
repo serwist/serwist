@@ -118,7 +118,7 @@ The interaction of your service worker with cross-origin assets is considerably 
 
 ### Opaque responses
 
-When making a cross-origin request in no-cors mode, the response can be stored in a service worker cache and even be used directly by the browser. However, the response body itself can't be read via JavaScript. This is known as an opaque response.
+When making a cross-origin request in `no-cors` mode, the response can be stored in a service worker cache and even be used directly by the browser. However, the response body itself can't be read via JavaScript. This is known as an opaque response.
 
 Opaque responses are a security measure intended to prevent the inspection of a cross-origin asset. You can still make requests for cross-origin assets and even cache them, you just can't read the response body or even read its status code!
 

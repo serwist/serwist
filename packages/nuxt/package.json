@@ -62,23 +62,23 @@
     "dev:preview:generate": "nr dev:generate && serve playground/dist"
   },
   "dependencies": {
-    "@nuxt/kit": "3.12.4",
+    "@nuxt/kit": "3.13.2",
     "@serwist/build": "workspace:*",
     "@serwist/vite": "workspace:*",
     "@serwist/window": "workspace:*"
   },
   "devDependencies": {
-    "@nuxt/module-builder": "0.8.3",
-    "@nuxt/schema": "3.12.4",
+    "@nuxt/module-builder": "0.8.4",
+    "@nuxt/schema": "3.13.2",
     "@serwist/configs": "workspace:*",
-    "@types/node": "22.5.0",
+    "@types/node": "22.5.5",
     "eslint": "8.57.0",
-    "nuxt": "3.12.4",
+    "nuxt": "3.13.2",
     "rimraf": "5.0.9",
     "serve": "14.2.3",
-    "typescript": "5.5.4",
-    "vite": "5.4.2",
-    "vue-tsc": "2.0.29"
+    "typescript": "5.6.2",
+    "vite": "5.4.6",
+    "vue-tsc": "2.1.6"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0",

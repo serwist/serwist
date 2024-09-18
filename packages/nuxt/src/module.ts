@@ -11,7 +11,7 @@ import type { ClientOptions, ModuleOptions } from "./types.js";
 
 export * from "./types.js";
 
-export default defineNuxtModule<Require<ModuleOptions, "swUrl" | "swSrc" | "swDest" | "globDirectory" | "injectionPoint">>({
+export default defineNuxtModule<ModuleOptions>({
   meta: {
     name: "@serwist/nuxt",
     configKey: "serwist",
@@ -46,7 +46,7 @@ export default defineNuxtModule<Require<ModuleOptions, "swUrl" | "swSrc" | "swDe
     let ctx: SerwistViteContext | undefined;
     let api: SerwistViteApi | undefined;
 
-    const { client: _client, ...userOptions } = options;
+    const { client: _client, ...userOptions } = options as Require<ModuleOptions, "swUrl" | "swSrc" | "swDest" | "globDirectory" | "injectionPoint">;
 
     const client = { registerPlugin: true, ..._client } satisfies ClientOptions;
 
@@ -127,12 +127,3 @@ export default defineNuxtModule<Require<ModuleOptions, "swUrl" | "swSrc" | "swDe
     }
   },
 });
-
-declare module "@nuxt/schema" {
-  interface NuxtConfig {
-    serwist?: ModuleOptions;
-  }
-  interface NuxtOptions {
-    serwist?: ModuleOptions;
-  }
-}
