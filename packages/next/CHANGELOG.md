@@ -1,5 +1,15 @@
 # @serwist/next
 
+## 9.0.9
+
+### Patch Changes
+
+- Updated dependencies [[`c19cc79`](https://github.com/serwist/serwist/commit/c19cc79bda805d1ca3d3bfa62f5c712fde54ab7f)]:
+  - @serwist/build@9.0.9
+  - @serwist/webpack-plugin@9.0.9
+  - @serwist/window@9.0.9
+  - serwist@9.0.9
+
 ## 9.0.8
 
 ### Patch Changes
