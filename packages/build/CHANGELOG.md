@@ -1,5 +1,14 @@
 # @serwist/build
 
+## 9.0.9
+
+### Patch Changes
+
+- [`c19cc79`](https://github.com/serwist/serwist/commit/c19cc79bda805d1ca3d3bfa62f5c712fde54ab7f) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(build): updated `rollup`
+
+  - There was a [high severity vulnerability](https://github.com/advisories/GHSA-gcx4-mw62-g8wm) for `rollup`.
+  - `rollup` has also been moved to `devDependencies` for `@serwist/build`.
+
 ## 9.0.8
 
 ## 9.0.7

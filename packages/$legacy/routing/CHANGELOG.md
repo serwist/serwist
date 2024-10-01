@@ -1,5 +1,12 @@
 # @serwist/routing
 
+## 9.0.9
+
+### Patch Changes
+
+- Updated dependencies []:
+  - serwist@9.0.9
+
 ## 9.0.8
 
 ### Patch Changes
