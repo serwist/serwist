@@ -57,7 +57,6 @@
     "common-tags": "1.8.2",
     "glob": "10.4.5",
     "pretty-bytes": "6.1.1",
-    "rollup": "4.21.3",
     "source-map": "0.8.0-beta.0",
     "zod": "3.23.8"
   },
@@ -65,7 +64,8 @@
     "@serwist/configs": "workspace:*",
     "@serwist/utils": "workspace:*",
     "@types/common-tags": "1.8.4",
-    "@types/node": "22.5.5",
+    "@types/node": "22.7.4",
+    "rollup": "4.22.5",
     "type-fest": "4.26.1",
     "typescript": "5.6.2"
   },

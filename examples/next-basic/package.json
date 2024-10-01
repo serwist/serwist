@@ -12,14 +12,14 @@
   },
   "dependencies": {
     "@serwist/next": "latest",
-    "next": "14.2.12",
+    "next": "14.2.13",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "serwist": "latest"
   },
   "devDependencies": {
-    "@types/node": "22.5.5",
-    "@types/react": "18.3.7",
+    "@types/node": "22.7.4",
+    "@types/react": "18.3.10",
     "@types/react-dom": "18.3.0",
     "typescript": "5.6.2"
   }
