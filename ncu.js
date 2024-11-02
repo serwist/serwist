@@ -17,7 +17,7 @@ const packageJsonList = await fg("**/package.json", {
 const examplesPackageJsonList = await fg("examples/*/package.json", {
   ignore: ["**/node_modules/**"],
 });
-const excludePackages = ["eslint", "@biomejs/biome", "glob", "rimraf"];
+const excludePackages = ["glob", "rimraf"];
 
 /**
  * @type {Promise<any>[]}
@@ -33,9 +33,6 @@ for (const packageFile of packageJsonList) {
         return !excludePackages.includes(packageName);
       },
       target(dep) {
-        if (dep === "svelte" || dep === "@sveltejs/vite-plugin-svelte") {
-          return "@next";
-        }
         if (/^react(-dom)?$/.test(dep)) {
           return "@latest";
         }

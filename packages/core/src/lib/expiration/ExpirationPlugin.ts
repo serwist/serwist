@@ -145,7 +145,7 @@ export class ExpirationPlugin implements SerwistPlugin {
   }
 
   /**
-   * A lifecycle callback that will be triggered automatically when a 
+   * A lifecycle callback that will be triggered automatically when a
    * response is about to be returned from a [`Cache`](https://developer.mozilla.org/en-US/docs/Web/API/Cache).
    * It allows the response to be inspected for freshness and
    * prevents it from being used if the response's `Date` header value is

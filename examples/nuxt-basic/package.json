@@ -16,7 +16,7 @@
     "@serwist/vite": "latest",
     "nuxt": "3.13.2",
     "serwist": "latest",
-    "vue": "3.5.10",
+    "vue": "3.5.12",
     "vue-router": "4.4.5"
   }
 }

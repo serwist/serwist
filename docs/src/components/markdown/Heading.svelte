@@ -1,8 +1,10 @@
 <script lang="ts">
   import type { Heading } from "mdast";
   import { getContext } from "svelte";
+
   import { clsx } from "$lib/clsx";
   import type { HeadingLevel } from "$lib/types";
+
   import Parser from "./Parser.svelte";
   import type { RendererProps } from "./types";
 

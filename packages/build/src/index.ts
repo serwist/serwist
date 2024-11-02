@@ -20,7 +20,7 @@ import { validateGetManifestOptions, validateInjectManifestOptions } from "./lib
 // TODO: remove in v10.
 /**
  * Use `JSON.stringify` instead.
- * 
+ *
  * @deprecated
  */
 const stringify = JSON.stringify;

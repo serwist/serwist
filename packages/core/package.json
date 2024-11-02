@@ -3,20 +3,10 @@
   "version": "9.0.9",
   "type": "module",
   "description": "A Swiss Army knife for service workers.",
-  "files": [
-    "src",
-    "dist"
-  ],
-  "keywords": [
-    "serwist",
-    "serwistjs",
-    "service worker",
-    "sw"
-  ],
+  "files": ["src", "dist"],
+  "keywords": ["serwist", "serwistjs", "service worker", "sw"],
   "author": "Google's Web DevRel Team",
-  "contributors": [
-    "Serwist <ducanh2912.rusty@gmail.com> (https://serwist.pages.dev/)"
-  ],
+  "contributors": ["Serwist <ducanh2912.rusty@gmail.com> (https://serwist.pages.dev/)"],
   "license": "MIT",
   "repository": "https://github.com/serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",
@@ -25,12 +15,8 @@
   "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
-      "legacy": [
-        "./dist/index.legacy.d.ts"
-      ],
-      "internal": [
-        "./dist/index.internal.d.ts"
-      ]
+      "legacy": ["./dist/index.legacy.d.ts"],
+      "internal": ["./dist/index.internal.d.ts"]
     }
   },
   "exports": {
@@ -60,8 +46,8 @@
   "devDependencies": {
     "@serwist/configs": "workspace:*",
     "@serwist/utils": "workspace:*",
-    "rollup": "4.22.5",
-    "typescript": "5.6.2"
+    "rollup": "4.24.3",
+    "typescript": "5.6.3"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0"

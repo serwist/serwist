@@ -1,7 +1,8 @@
 <script lang="ts">
   import type { ListItem } from "mdast";
-  import type { RendererProps } from "./types";
+
   import Parser from "./Parser.svelte";
+  import type { RendererProps } from "./types";
 
   const { children }: RendererProps<ListItem> = $props();
 </script>

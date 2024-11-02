@@ -3,26 +3,13 @@
   "version": "9.0.9",
   "type": "module",
   "description": "The command line interface of Serwist.",
-  "files": [
-    "dist",
-    "cli.js"
-  ],
-  "keywords": [
-    "serwist",
-    "serwistjs",
-    "service worker",
-    "caching",
-    "fetch requests",
-    "offline",
-    "cli"
-  ],
+  "files": ["dist", "cli.js"],
+  "keywords": ["serwist", "serwistjs", "service worker", "caching", "fetch requests", "offline", "cli"],
   "engines": {
     "node": ">=18.0.0"
   },
   "author": "Google's Web DevRel Team",
-  "contributors": [
-    "Serwist <ducanh2912.rusty@gmail.com> (https://serwist.pages.dev/)"
-  ],
+  "contributors": ["Serwist <ducanh2912.rusty@gmail.com> (https://serwist.pages.dev/)"],
   "license": "MIT",
   "repository": "https://github.com/serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",
@@ -37,7 +24,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@inquirer/prompts": "6.0.1",
+    "@inquirer/prompts": "7.0.1",
     "@serwist/build": "workspace:*",
     "chalk": "5.3.0",
     "chokidar": "4.0.1",
@@ -55,7 +42,7 @@
     "@types/inquirer": "9.0.7",
     "@types/stringify-object": "4.0.5",
     "@types/update-notifier": "6.0.8",
-    "rollup": "4.22.5",
-    "typescript": "5.6.2"
+    "rollup": "4.24.3",
+    "typescript": "5.6.3"
   }
 }

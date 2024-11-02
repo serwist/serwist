@@ -3,10 +3,7 @@
   "version": "9.0.9",
   "type": "module",
   "description": "A module that complements SvelteKit's built-in service worker support.",
-  "files": [
-    "src",
-    "dist"
-  ],
+  "files": ["src", "dist"],
   "keywords": [
     "serwist",
     "serwistjs",
@@ -27,9 +24,7 @@
   "homepage": "https://serwist.pages.dev",
   "typesVersions": {
     "*": {
-      "worker": [
-        "./dist/index.worker.d.ts"
-      ]
+      "worker": ["./dist/index.worker.d.ts"]
     }
   },
   "exports": {
@@ -50,8 +45,8 @@
   },
   "devDependencies": {
     "@serwist/configs": "workspace:*",
-    "@sveltejs/kit": "2.6.1",
-    "rollup": "4.22.5"
+    "@sveltejs/kit": "2.7.4",
+    "rollup": "4.24.3"
   },
   "peerDependencies": {
     "@sveltejs/kit": ">=2.0.0",

@@ -20,4 +20,3 @@ export const remarkToc = (options = {}) => {
     /** @type {*} */ (vFile.data.fm).headings = result.map.length > 0 ? contents(result.map, options) : null;
   };
 };
-

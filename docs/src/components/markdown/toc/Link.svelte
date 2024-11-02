@@ -1,7 +1,8 @@
 <script lang="ts">
   import type { Link } from "mdast";
-  import type { RendererProps } from "../types";
+
   import Parser from "../Parser.svelte";
+  import type { RendererProps } from "../types";
 
   const { url, title, children }: RendererProps<Link> = $props();
 </script>

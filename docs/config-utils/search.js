@@ -19,7 +19,7 @@ const slugs = new Slugger();
 export const search = (root, expression, settings) => {
   const skip = settings.skip ? toExpression(settings.skip) : undefined;
   const parents = convert(settings.parents || ((d) => d === root));
-  const map = /** @type {SearchEntry[]} */([]);
+  const map = /** @type {SearchEntry[]} */ ([]);
   /** @type {number | undefined} */
   let index;
   /** @type {number | undefined} */
@@ -62,7 +62,7 @@ export const search = (root, expression, settings) => {
 
   return {
     index: index === undefined ? -1 : index,
-    endIndex: index === undefined ? -1 : endIndex || /** @type {*} */(root).children.length,
+    endIndex: index === undefined ? -1 : endIndex || /** @type {*} */ (root).children.length,
     map,
   };
 };

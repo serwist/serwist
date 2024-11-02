@@ -1,7 +1,8 @@
 <script lang="ts">
   import type { RootContent } from "mdast";
-  import { getRenderer, type RendererFor } from "./index.js";
   import { getContext } from "svelte";
+
+  import { getRenderer, type RendererFor } from "./index.js";
 
   const { tokens }: { tokens: RootContent | RootContent[] } = $props();
 

@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { TableCell } from "mdast";
+
   import Parser from "./Parser.svelte";
   import type { RendererProps } from "./types";
 

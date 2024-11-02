@@ -47,6 +47,9 @@ If you use Visual Studio Code, you may want to set .vscode/settings.json to this
   "[typescript]": {
     "editor.defaultFormatter": "biomejs.biome"
   },
+  "[json]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
   "[jsonc]": {
     "editor.defaultFormatter": "biomejs.biome"
   },

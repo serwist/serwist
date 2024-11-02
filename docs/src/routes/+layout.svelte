@@ -2,16 +2,15 @@
   import "$components/TwoslashHover.svelte";
   import "../app.css";
 
-  import { getSerwist } from "virtual:serwist";
-
   import { mount, unmount } from "svelte";
+  import { getSerwist } from "virtual:serwist";
 
   import { dev } from "$app/environment";
   import { page } from "$app/stores";
   import Twoslash from "$components/Twoslash.svelte";
+  import { CANONICAL_URL, REROUTE } from "$lib/constants";
   import { isColorScheme } from "$lib/isColorScheme";
   import { colorScheme } from "$lib/stores/colorScheme";
-  import { CANONICAL_URL, REROUTE } from "$lib/constants";
 
   const { data, children } = $props();
   const isDark = $derived($colorScheme === "dark");

@@ -3,23 +3,8 @@
   "version": "9.0.9",
   "type": "module",
   "description": "A Nuxt module that integrates Serwist into your application.",
-  "files": [
-    "dist"
-  ],
-  "keywords": [
-    "nuxt",
-    "pwa",
-    "vite",
-    "vite-plugin",
-    "serwist",
-    "serwistjs",
-    "pwa",
-    "sw",
-    "service worker",
-    "web",
-    "service-worker",
-    "nuxt-module"
-  ],
+  "files": ["dist"],
+  "keywords": ["nuxt", "pwa", "vite", "vite-plugin", "serwist", "serwistjs", "pwa", "sw", "service worker", "web", "service-worker", "nuxt-module"],
   "engines": {
     "node": ">=18.0.0"
   },
@@ -71,14 +56,14 @@
     "@nuxt/module-builder": "0.8.4",
     "@nuxt/schema": "3.13.2",
     "@serwist/configs": "workspace:*",
-    "@types/node": "22.7.4",
-    "eslint": "8.57.0",
+    "@types/node": "22.8.6",
+    "eslint": "9.14.0",
     "nuxt": "3.13.2",
     "rimraf": "5.0.9",
-    "serve": "14.2.3",
-    "typescript": "5.6.2",
-    "vite": "5.4.8",
-    "vue-tsc": "2.1.6"
+    "serve": "14.2.4",
+    "typescript": "5.6.3",
+    "vite": "5.4.10",
+    "vue-tsc": "2.1.10"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0",

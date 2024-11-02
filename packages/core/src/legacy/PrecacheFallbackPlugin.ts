@@ -35,7 +35,7 @@ export interface PrecacheFallbackPluginOptions {
    */
   fallbackUrls: (string | PrecacheFallbackEntry)[];
   /**
-   * An optional {@linkcode PrecacheController} instance. If not provided, 
+   * An optional {@linkcode PrecacheController} instance. If not provided,
    * the default {@linkcode PrecacheController} will be used.
    */
   precacheController?: PrecacheController;

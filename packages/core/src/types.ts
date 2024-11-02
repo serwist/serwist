@@ -27,13 +27,13 @@ export interface RouteMatchCallbackOptions {
 
 /**
  * The match callback is used to determine if a route should apply for a
- * particular URL and request. 
- * 
+ * particular URL and request.
+ *
  * When matching occurs in response to a `fetch` event from the client, the `event`
  * object is also supplied. However, since the match callback can be invoked outside
  * of a `fetch` event, matching logic should not assume the `event` object will always
  * be available.
- * 
+ *
  * If the match callback returns a truthy value, the matching route's
  * handler will be invoked immediately. If the value returned is a non-empty array
  * or object, that value will be the handler's `options.params` argument.
@@ -77,7 +77,7 @@ export interface ManualHandlerCallbackOptions {
 export type HandlerCallbackOptions = RouteHandlerCallbackOptions | ManualHandlerCallbackOptions;
 
 /**
- * The "handler" callback is invoked whenever a request is matched to a 
+ * The "handler" callback is invoked whenever a request is matched to a
  * {@linkcode Route} via its {@linkcode RouteMatchCallback} This handler
  * callback should return a promise that resolves to a response.
  *
@@ -87,7 +87,7 @@ export type HandlerCallbackOptions = RouteHandlerCallbackOptions | ManualHandler
 export type RouteHandlerCallback = (options: RouteHandlerCallbackOptions) => Promise<Response>;
 
 /**
- * The "handler" callback is invoked whenever a request is matched to a 
+ * The "handler" callback is invoked whenever a request is matched to a
  * {@linkcode Route} via its {@linkcode RouteMatchCallback} This handler
  * callback should return a promise that resolves to a response.
  *

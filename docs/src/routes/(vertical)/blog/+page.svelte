@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { BLOG_ENTRIES } from "$lib/constants";
 </script>
 

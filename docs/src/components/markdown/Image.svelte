@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Image } from "mdast";
+
   import type { RendererProps } from "./types";
 
   const { url, title }: RendererProps<Image> = $props();

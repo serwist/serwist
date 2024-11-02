@@ -3,14 +3,14 @@ import type { WebpackPlugin } from "./types.js";
 
 /**
  * Perform a child compilation.
- * 
+ *
  * @param compiler The parent webpack compiler.
  * @param compilation The webpack compilation.
  * @param name The name of the child compiler.
  * @param src The source file. Should be absolute.
  * @param dest The destination file. Should be relative to the compilation.
  * @param plugins Additional webpack plugins.
- * 
+ *
  * @private
  */
 export const performChildCompilation = async (

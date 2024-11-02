@@ -3,26 +3,13 @@
   "version": "9.0.9",
   "type": "module",
   "description": "A module that integrates into your build process, helping you generate a manifest of local files that should be precached.",
-  "files": [
-    "src",
-    "dist"
-  ],
-  "keywords": [
-    "serwist",
-    "serwistjs",
-    "service worker",
-    "caching",
-    "fetch requests",
-    "offline",
-    "file manifest"
-  ],
+  "files": ["src", "dist"],
+  "keywords": ["serwist", "serwistjs", "service worker", "caching", "fetch requests", "offline", "file manifest"],
   "engines": {
     "node": ">=18.0.0"
   },
   "author": "Google's Web DevRel Team",
-  "contributors": [
-    "Serwist <ducanh2912.rusty@gmail.com> (https://serwist.pages.dev/)"
-  ],
+  "contributors": ["Serwist <ducanh2912.rusty@gmail.com> (https://serwist.pages.dev/)"],
   "license": "MIT",
   "repository": "https://github.com/serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",
@@ -31,9 +18,7 @@
   "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
-      "schema": [
-        "./dist/index.schema.d.ts"
-      ]
+      "schema": ["./dist/index.schema.d.ts"]
     }
   },
   "exports": {
@@ -64,10 +49,10 @@
     "@serwist/configs": "workspace:*",
     "@serwist/utils": "workspace:*",
     "@types/common-tags": "1.8.4",
-    "@types/node": "22.7.4",
-    "rollup": "4.22.5",
+    "@types/node": "22.8.6",
+    "rollup": "4.24.3",
     "type-fest": "4.26.1",
-    "typescript": "5.6.2"
+    "typescript": "5.6.3"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0"
