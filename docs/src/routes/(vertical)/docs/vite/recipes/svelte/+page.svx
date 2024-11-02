@@ -411,7 +411,7 @@ We are almost there! To turn your website into a PWA, write a web application ma
   </Tab>
 </Tabs>
 
-### Step 7: Register the service worker and add metadata to <head />
+### Step 7: Register the service worker and add metadata
 
 Finally, update the app's main layout:
 

@@ -5,6 +5,8 @@
   import { clsx } from "$lib/clsx";
   import type { SidebarLink as SidebarLinkProps } from "$lib/types";
 
+  import SidebarLink from "./SidebarLink.svelte";
+
   const { title, href, children }: SidebarLinkProps = $props();
   const isActive = $derived(href === $page.url.pathname || href === `${$page.url.pathname}/`);
   let isOpen = $state(false);
@@ -43,7 +45,7 @@
           )}
         >
           {#each children as child}
-            <svelte:self {...child} />
+            <SidebarLink {...child} />
           {/each}
         </ul>
       </div>

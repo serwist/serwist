@@ -26,14 +26,17 @@ See [BackgroundSyncQueue's parameters](/docs/serwist/core/background-sync-queue#
   <Tab id="sw-ts">
 
 ```typescript twoslash
+import type { Serwist } from "serwist";
+
+declare const serwist: Serwist;
+// ---cut-before---
 import { BackgroundSyncPlugin, NetworkOnly } from "serwist";
-import { registerRoute } from "serwist/legacy";
 
 const backgroundSync = new BackgroundSyncPlugin("myQueueName", {
   maxRetentionTime: 24 * 60, // Retry for a maximum of 24 Hours (specified in minutes)
 });
 
-registerRoute(
+serwist.registerCapture(
   /\/api\/.*\/*.json/,
   new NetworkOnly({
     plugins: [backgroundSync],

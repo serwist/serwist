@@ -22,6 +22,10 @@ If the browser supports navigation preloading, then this will disable it.
   <Tab id="sw-ts">
 
 ```typescript twoslash
+import type { Serwist } from "serwist";
+
+declare const serwist: Serwist;
+// ---cut-before---
 import {
   enableNavigationPreload,
   disableNavigationPreload,
@@ -29,7 +33,6 @@ import {
   NavigationRoute,
   NetworkFirst,
 } from "serwist";
-import { registerRoute } from "serwist/legacy";
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -62,7 +65,7 @@ const navigationRoute = new NavigationRoute(navigationStrategy, {
   // denylist: [],
 });
 
-registerRoute(navigationRoute);
+serwist.registerRoute(navigationRoute);
 ```
 
   </Tab>

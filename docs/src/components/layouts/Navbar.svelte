@@ -1,6 +1,8 @@
 <script lang="ts">
   import { page } from "$app/stores";
   import GitHubLogo from "$components/icons/GitHubLogo.svelte";
+  import Image from "$components/Image.svelte";
+  import logo from "$images/logo-200x50-transparent.png?enhanced";
   import { clsx } from "$lib/clsx";
   import { GITHUB_REPO_URL } from "$lib/constants";
   import { isLinkActive } from "$lib/isLinkActive";
@@ -37,8 +39,7 @@
     <div class="relative flex items-center justify-between overflow-x-clip">
       <div class="flex items-center gap-2 md:block md:items-start md:py-2">
         <a href="/" aria-label="Go to home">
-          <enhanced:img src="$images/logo-200x50-transparent.png" alt="Serwist" class="h-auto min-w-[100px] max-w-[100px] invert dark:invert-0"
-          ></enhanced:img>
+          <Image src={logo} alt="Serwist" class="h-auto min-w-[100px] max-w-[100px] invert dark:invert-0" />
         </a>
       </div>
       <div class="flex flex-row-reverse items-center gap-[5px] md:flex-row">

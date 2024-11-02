@@ -42,10 +42,13 @@ When using `maxEntries`, the least recently requested entry will be removed from
   <Tab id="sw-ts">
 
 ```typescript twoslash
-import { CacheFirst, ExpirationPlugin } from "serwist";
-import { registerRoute } from "serwist/legacy";
+import type { Serwist } from "serwist";
 
-registerRoute(
+declare const serwist: Serwist;
+// ---cut-before---
+import { CacheFirst, ExpirationPlugin } from "serwist";
+
+serwist.registerCapture(
   ({ request }) => request.destination === "image",
   new CacheFirst({
     cacheName: "image-cache",

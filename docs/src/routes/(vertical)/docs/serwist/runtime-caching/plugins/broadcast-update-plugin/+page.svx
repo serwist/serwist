@@ -26,10 +26,13 @@ See [BroadcastCacheUpdate's options](/docs/serwist/core/broadcast-cache-update#o
   <Tab id="sw-ts">
 
 ```typescript twoslash
-import { BroadcastUpdatePlugin, StaleWhileRevalidate } from "serwist";
-import { registerRoute } from "serwist/legacy";
+import type { Serwist } from "serwist";
 
-registerRoute(
+declare const serwist: Serwist;
+// ---cut-before---
+import { BroadcastUpdatePlugin, StaleWhileRevalidate } from "serwist";
+
+serwist.registerCapture(
   ({ url }) => url.pathname.startsWith("/api/"),
   new StaleWhileRevalidate({
     plugins: [new BroadcastUpdatePlugin()],

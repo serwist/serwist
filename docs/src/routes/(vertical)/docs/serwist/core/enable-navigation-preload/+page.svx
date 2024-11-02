@@ -26,8 +26,11 @@ If the browser supports navigation preloading, then this will enable it.
   <Tab id="sw-ts">
 
 ```typescript twoslash
+import type { Serwist } from "serwist";
+
+declare const serwist: Serwist;
+// ---cut-before---
 import { enableNavigationPreload, NavigationRoute, NetworkFirst } from "serwist";
-import { registerRoute } from "serwist/legacy";
 
 enableNavigationPreload();
 
@@ -43,7 +46,7 @@ const navigationRoute = new NavigationRoute(navigationStrategy, {
   // denylist: [],
 });
 
-registerRoute(navigationRoute);
+serwist.registerRoute(navigationRoute);
 ```
 
   </Tab>

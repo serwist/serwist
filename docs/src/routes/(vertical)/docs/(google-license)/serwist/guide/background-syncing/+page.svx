@@ -28,14 +28,17 @@ The easiest way to set up is to use the plugin, which automatically queues up fa
   <Tab id="sw-ts">
 
 ```ts twoslash
+import type { Serwist } from "serwist";
+
+declare const serwist: Serwist;
+// ---cut-before---
 import { BackgroundSyncPlugin, NetworkOnly } from "serwist";
-import { registerRoute } from "serwist/legacy";
 
 const backgroundSync = new BackgroundSyncPlugin("myQueueName", {
   maxRetentionTime: 24 * 60, // Retry for a maximum of 24 Hours (specified in minutes)
 });
 
-registerRoute(
+serwist.registerCapture(
   /\/api\/.*\/*.json/,
   new NetworkOnly({
     plugins: [backgroundSync],
@@ -53,9 +56,12 @@ This plugin hooks into the `fetchDidFail` callback, which is only invoked if the
   <Tab id="sw-ts">
 
 ```ts twoslash
+import type { Serwist } from "serwist";
+
+declare const serwist: Serwist;
+// ---cut-before---
 import type { SerwistPlugin } from "serwist";
 import { BackgroundSyncPlugin, NetworkOnly } from "serwist";
-import { registerRoute } from "serwist/legacy";
 
 const statusPlugin = {
   fetchDidSucceed({ response }) {
@@ -72,7 +78,7 @@ const backgroundSync = new BackgroundSyncPlugin("myQueueName", {
   maxRetentionTime: 24 * 60, // Retry for a maximum of 24 Hours (specified in minutes)
 });
 
-registerRoute(
+serwist.registerCapture(
   /\/api\/.*\/*.json/,
   new NetworkOnly({
     plugins: [statusPlugin, backgroundSync],
@@ -85,8 +91,17 @@ registerRoute(
   <Tab id="sw-js">
 
 ```js twoslash
+// @filename: sw-decl.d.ts
+import type { Serwist } from "serwist";
+
+declare global {
+  var serwist: Serwist;
+}
+// @filename: sw.js
+// @lib: esnext,webworker
+// @types: ./sw-decl.d.ts
+// ---cut-before---
 import { BackgroundSyncPlugin, NetworkOnly } from "serwist";
-import { registerRoute } from "serwist/legacy";
 
 /** @type {import("serwist").SerwistPlugin} */
 const statusPlugin = {
@@ -104,7 +119,7 @@ const backgroundSync = new BackgroundSyncPlugin("myQueueName", {
   maxRetentionTime: 24 * 60, // Retry for a maximum of 24 Hours (specified in minutes)
 });
 
-registerRoute(
+serwist.registerCapture(
   /\/api\/.*\/*.json/,
   new NetworkOnly({
     plugins: [statusPlugin, backgroundSync],

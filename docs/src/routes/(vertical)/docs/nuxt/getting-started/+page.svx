@@ -45,7 +45,7 @@ bun add -D @serwist/nuxt @serwist/vite serwist
 
 ## Implementation
 
-### Step 1: Add Serwist's Nuxt module and add metadata to <head />
+### Step 1: Add Serwist's Nuxt module and metadata
 
 Update or create your Nuxt configuration file with the following content:
 

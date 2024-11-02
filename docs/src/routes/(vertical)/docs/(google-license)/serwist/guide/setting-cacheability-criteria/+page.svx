@@ -39,10 +39,13 @@ The easiest way to use this module is to use the plugin, which automatically det
   <Tab id="sw-ts">
 
 ```typescript twoslash
-import { CacheableResponsePlugin, StaleWhileRevalidate } from "serwist";
-import { registerRoute } from "serwist/legacy";
+import type { Serwist } from "serwist";
 
-registerRoute(
+declare const serwist: Serwist;
+// ---cut-before---
+import { CacheableResponsePlugin, StaleWhileRevalidate } from "serwist";
+
+serwist.registerCapture(
   ({ url }) => url.pathname.startsWith("/api/"),
   new StaleWhileRevalidate({
     plugins: [
