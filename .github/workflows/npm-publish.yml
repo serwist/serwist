@@ -1,7 +1,7 @@
 name: Publish packages to npm
 on:
   push:
-    paths: [packages/**]
+    paths: [packages/**, .changeset/*, __tests__/**]
     branches: [main]
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -25,7 +25,7 @@ jobs:
       pull-requests: write
     strategy:
       matrix:
-        node-version: ["20.x"]
+        node-version: ["22.x"]
     if: "${{ contains(github.event.head_commit.message, '[bump]') || contains(github.event.head_commit.message, 'chore(packages): publish packages') }}"
     steps:
       - name: Checkout repo

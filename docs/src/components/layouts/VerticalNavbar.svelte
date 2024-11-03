@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import GitHubLogo from "$components/icons/GitHubLogo.svelte";
+  import LogoGitHub from "$components/icons/LogoGitHub.svelte";
   import Image from "$components/Image.svelte";
   import logo from "$images/logo-200x50-transparent.png?enhanced";
   import { clsx } from "$lib/clsx";
@@ -79,7 +79,7 @@
           </div>
         </details>
         <a class="nav-button" href={GITHUB_REPO_URL} target="_blank" rel="noreferrer">
-          <GitHubLogo width={24} height={24} class="max-h-6 min-h-6 min-w-6 max-w-6" />
+          <LogoGitHub width={24} height={24} class="max-h-6 min-h-6 min-w-6 max-w-6" />
           <span class="sr-only">Our GitHub repo (opens in a new tab)</span>
         </a>
         <NavToggleScheme />
