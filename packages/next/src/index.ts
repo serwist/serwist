@@ -11,14 +11,14 @@ import { getContentHash, getFileHash, loadTSConfig, logger } from "./lib/index.j
 import type { InjectManifestOptions, InjectManifestOptionsComplete } from "./lib/types.js";
 import { validateInjectManifestOptions } from "./lib/validator.js";
 
-const __dirname = fileURLToPath(new URL(".", import.meta.url));
-
 /**
  * Integrates Serwist into your Next.js app.
  * @param userOptions
  * @returns
  */
 const withSerwistInit = (userOptions: InjectManifestOptions): ((nextConfig?: NextConfig) => NextConfig) => {
+  const __dirname = fileURLToPath(new URL(".", import.meta.url));
+  
   return (nextConfig = {}) => ({
     ...nextConfig,
     webpack(config: Configuration, options) {
