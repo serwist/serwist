@@ -11,13 +11,14 @@ import { getContentHash, getFileHash, loadTSConfig, logger } from "./lib/index.j
 import type { InjectManifestOptions, InjectManifestOptionsComplete } from "./lib/types.js";
 import { validateInjectManifestOptions } from "./lib/validator.js";
 
+const dirname = "__dirname" in globalThis ? __dirname : fileURLToPath(new URL(".", import.meta.url));
+
 /**
  * Integrates Serwist into your Next.js app.
  * @param userOptions
  * @returns
  */
 const withSerwistInit = (userOptions: InjectManifestOptions): ((nextConfig?: NextConfig) => NextConfig) => {
-  const __dirname = fileURLToPath(new URL(".", import.meta.url));
   
   return (nextConfig = {}) => ({
     ...nextConfig,
@@ -66,7 +67,7 @@ const withSerwistInit = (userOptions: InjectManifestOptions): ((nextConfig?: Nex
         } satisfies Record<`${SerwistNextOptionsKey}.${Exclude<keyof SerwistNextOptions, "swEntryWorker">}`, string | undefined>),
       );
 
-      const swEntryJs = path.join(__dirname, "sw-entry.js");
+      const swEntryJs = path.join(dirname, "sw-entry.js");
       const entry = config.entry as () => Promise<Record<string, string[] | string>>;
       config.entry = async () => {
         const entries = await entry();
@@ -142,7 +143,7 @@ const withSerwistInit = (userOptions: InjectManifestOptions): ((nextConfig?: Nex
         let swEntryWorkerDest: string | undefined = undefined;
 
         if (shouldBuildSWEntryWorker) {
-          const swEntryWorkerSrc = path.join(__dirname, "sw-entry-worker.js");
+          const swEntryWorkerSrc = path.join(dirname, "sw-entry-worker.js");
           const swEntryName = `swe-worker-${getContentHash(swEntryWorkerSrc, dev)}.js`;
           swEntryPublicPath = path.posix.join(basePath, swEntryName);
           swEntryWorkerDest = path.join(destDir, swEntryName);
