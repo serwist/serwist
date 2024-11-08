@@ -39,5 +39,7 @@
     "@serwist/webpack-plugin": "9.0.9",
     "@serwist/window": "9.0.9"
   },
-  "changesets": []
+  "changesets": [
+    "strange-waves-remember"
+  ]
 }

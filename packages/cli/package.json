@@ -1,15 +1,28 @@
 {
   "name": "@serwist/cli",
-  "version": "9.0.9",
+  "version": "9.0.10-preview.0",
   "type": "module",
   "description": "The command line interface of Serwist.",
-  "files": ["dist", "cli.js"],
-  "keywords": ["serwist", "serwistjs", "service worker", "caching", "fetch requests", "offline", "cli"],
+  "files": [
+    "dist",
+    "cli.js"
+  ],
+  "keywords": [
+    "serwist",
+    "serwistjs",
+    "service worker",
+    "caching",
+    "fetch requests",
+    "offline",
+    "cli"
+  ],
   "engines": {
     "node": ">=18.0.0"
   },
   "author": "Google's Web DevRel Team",
-  "contributors": ["Serwist <ducanh2912.rusty@gmail.com> (https://serwist.pages.dev/)"],
+  "contributors": [
+    "Serwist <ducanh2912.rusty@gmail.com> (https://serwist.pages.dev/)"
+  ],
   "license": "MIT",
   "repository": "https://github.com/serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",

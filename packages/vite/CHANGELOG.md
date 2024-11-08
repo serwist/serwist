@@ -1,5 +1,23 @@
 # @serwist/vite
 
+## 9.1.0-preview.0
+
+### Minor Changes
+
+- [#218](https://github.com/serwist/serwist/pull/218) [`97b00e9`](https://github.com/serwist/serwist/commit/97b00e9a1ae1d734a8bc896f989b06f49ad72c25) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(vite-plugin-serwist): renamed package, deprecated API, removed types
+
+  - Renamed `@serwist/vite` to `vite-plugin-serwist` to follow the Vite Plugin naming conventions. The old package will be deprecated.
+  - Deprecated `createApi` and `SerwistViteApi`. Instead of `api.generateSW()`, use `generateServiceWorker(ctx)`.
+  - Removed `ExtendManifestEntriesHook`.
+  - Fixed the issue where `envPrefix`, `envDir`, and other options are not respected.
+  - This update prepares for the introduction of `@serwist/remix`, `@serwist/astro`, etc. We may also update `@serwist/svelte` later.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/build@9.0.10-preview.0
+  - serwist@9.0.10-preview.0
+
 ## 9.0.9
 
 ### Patch Changes
