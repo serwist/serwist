@@ -1,12 +1,22 @@
 {
   "name": "@serwist/core",
-  "version": "9.0.9",
+  "version": "9.1.0-preview.0",
   "type": "module",
   "description": "This module was used by a number of the other Serwist modules to share common code.",
-  "files": ["src", "dist"],
-  "keywords": ["serwist", "serwistjs", "service worker", "sw"],
+  "files": [
+    "src",
+    "dist"
+  ],
+  "keywords": [
+    "serwist",
+    "serwistjs",
+    "service worker",
+    "sw"
+  ],
   "author": "Google's Web DevRel Team",
-  "contributors": ["Serwist <ducanh2912.rusty@gmail.com> (https://serwist.pages.dev/)"],
+  "contributors": [
+    "Serwist <ducanh2912.rusty@gmail.com> (https://serwist.pages.dev/)"
+  ],
   "license": "MIT",
   "repository": "https://github.com/serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",
@@ -15,7 +25,9 @@
   "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
-      "internal": ["./dist/index.internal.d.ts"]
+      "internal": [
+        "./dist/index.internal.d.ts"
+      ]
     }
   },
   "exports": {
