@@ -21,7 +21,4 @@ const serwist = new Serwist({
   runtimeCaching: defaultCache,
 });
 
-// @ts-ignore
-console.log(import.meta.env.PUBLIC_TEST);
-
 serwist.addEventListeners();
