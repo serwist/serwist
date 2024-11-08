@@ -1,3 +1,4 @@
+import type { Prettify } from "@serwist/utils";
 import type { HTTPMethod } from "./constants.js";
 import type { PrecacheStrategyOptions } from "./lib/strategies/PrecacheStrategy.js";
 import type { Route } from "./Route.js";
@@ -74,7 +75,7 @@ export interface ManualHandlerCallbackOptions {
   params?: never;
 }
 
-export type HandlerCallbackOptions = RouteHandlerCallbackOptions | ManualHandlerCallbackOptions;
+export type HandlerCallbackOptions = Prettify<RouteHandlerCallbackOptions | ManualHandlerCallbackOptions>;
 
 /**
  * The "handler" callback is invoked whenever a request is matched to a
@@ -110,7 +111,7 @@ export interface RouteHandlerObject {
  * Either a {@linkcode RouteHandlerCallback} or a {@linkcode RouteHandlerObject}.
  * Most APIs that accept route handlers take either.
  */
-export type RouteHandler = RouteHandlerCallback | RouteHandlerObject;
+export type RouteHandler = RouteHandlerCallback | Prettify<RouteHandlerObject>;
 
 export interface HandlerWillStartCallbackParam {
   request: Request;
@@ -256,7 +257,7 @@ export type HandlerDidCompleteCallback = (param: HandlerDidCompleteCallbackParam
  * An object with optional lifecycle callback properties for the fetch and
  * cache operations.
  */
-export declare interface SerwistPlugin {
+export interface SerwistPlugin {
   cacheDidUpdate?: CacheDidUpdateCallback;
   cachedResponseWillBeUsed?: CachedResponseWillBeUsedCallback;
   cacheKeyWillBeUsed?: CacheKeyWillBeUsedCallback;

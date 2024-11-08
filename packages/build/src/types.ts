@@ -1,4 +1,4 @@
-import type { Require } from "@serwist/utils";
+import type { Require, Prettify } from "@serwist/utils";
 import type { PackageJson } from "type-fest";
 import type { z } from "zod";
 import type { manifestEntry } from "./schema/manifestEntry.js";
@@ -68,7 +68,7 @@ export interface BasePartial {
   };
 }
 
-export type BaseResolved = Require<BasePartial, "disablePrecacheManifest" | "maximumFileSizeToCacheInBytes">;
+export type BaseResolved = Prettify<Require<BasePartial, "disablePrecacheManifest" | "maximumFileSizeToCacheInBytes">>;
 
 // This needs to be set when using GetManifest or InjectManifest. This is
 // enforced via runtime validation, and needs to be documented.
@@ -80,7 +80,7 @@ export interface RequiredGlobDirectoryPartial {
   globDirectory: string;
 }
 
-export type RequiredGlobDirectoryResolved = RequiredGlobDirectoryPartial;
+export type RequiredGlobDirectoryResolved = Prettify<RequiredGlobDirectoryPartial>;
 
 export interface OptionalGlobDirectoryPartial {
   /**
@@ -90,7 +90,7 @@ export interface OptionalGlobDirectoryPartial {
   globDirectory?: string;
 }
 
-export type OptionalGlobDirectoryResolved = OptionalGlobDirectoryPartial;
+export type OptionalGlobDirectoryResolved = Prettify<OptionalGlobDirectoryPartial>;
 
 export interface GlobPartial {
   /**
@@ -142,7 +142,7 @@ export interface GlobPartial {
   };
 }
 
-export type GlobResolved = Require<GlobPartial, "globFollow" | "globIgnores" | "globPatterns" | "globStrict">;
+export type GlobResolved = Prettify<Require<GlobPartial, "globFollow" | "globIgnores" | "globPatterns" | "globStrict">>;
 
 export interface InjectPartial {
   /**
@@ -158,7 +158,7 @@ export interface InjectPartial {
   swSrc: string;
 }
 
-export type InjectResolved = Require<InjectPartial, "injectionPoint">;
+export type InjectResolved = Prettify<Require<InjectPartial, "injectionPoint">>;
 
 export interface RequiredSwDestPartial {
   /**
@@ -168,7 +168,7 @@ export interface RequiredSwDestPartial {
   swDest: string;
 }
 
-export type RequiredSwDestResolved = RequiredSwDestPartial;
+export type RequiredSwDestResolved = Prettify<RequiredSwDestPartial>;
 
 export interface OptionalSwDestPartial {
   /**
@@ -179,15 +179,15 @@ export interface OptionalSwDestPartial {
   swDest?: string;
 }
 
-export type OptionalSwDestResolved = OptionalSwDestPartial;
+export type OptionalSwDestResolved = Prettify<OptionalSwDestPartial>;
 
-export type GetManifestOptions = BasePartial & GlobPartial & RequiredGlobDirectoryPartial;
+export type GetManifestOptions = Prettify<BasePartial & GlobPartial & RequiredGlobDirectoryPartial>;
 
-export type GetManifestOptionsComplete = BaseResolved & GlobResolved & RequiredGlobDirectoryResolved;
+export type GetManifestOptionsComplete = Prettify<BaseResolved & GlobResolved & RequiredGlobDirectoryResolved>;
 
-export type InjectManifestOptions = BasePartial & GlobPartial & InjectPartial & RequiredSwDestPartial & RequiredGlobDirectoryPartial;
+export type InjectManifestOptions = Prettify<BasePartial & GlobPartial & InjectPartial & RequiredSwDestPartial & RequiredGlobDirectoryPartial>;
 
-export type InjectManifestOptionsComplete = BaseResolved & GlobResolved & InjectResolved & RequiredSwDestResolved & RequiredGlobDirectoryResolved;
+export type InjectManifestOptionsComplete = Prettify<BaseResolved & GlobResolved & InjectResolved & RequiredSwDestResolved & RequiredGlobDirectoryResolved>;
 
 export interface GetManifestResult {
   count: number;
@@ -217,7 +217,7 @@ export type BuildType = "dev" | "prod";
 /**
  * @private
  */
-export type SerwistPackageJSON = PackageJson;
+export type SerwistPackageJSON = Prettify<PackageJson>;
 
 /**
  * @private

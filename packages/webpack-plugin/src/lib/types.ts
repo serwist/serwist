@@ -6,7 +6,7 @@ import type {
   OptionalSwDestPartial,
   OptionalSwDestResolved,
 } from "@serwist/build";
-import type { Require } from "@serwist/utils";
+import type { Prettify, Require } from "@serwist/utils";
 import type { WebpackPluginFunction, WebpackPluginInstance } from "webpack";
 
 export interface WebpackPartial {
@@ -40,7 +40,7 @@ export interface WebpackPartial {
   include?: (string | RegExp | ((arg0: any) => boolean))[];
 }
 
-export type WebpackResolved = Require<WebpackPartial, "exclude">;
+export type WebpackResolved = Prettify<Require<WebpackPartial, "exclude">>;
 
 export interface InjectPartial {
   /**
@@ -61,10 +61,10 @@ export interface InjectPartial {
   webpackCompilationPlugins?: WebpackPlugin[];
 }
 
-export type InjectResolved = Require<InjectPartial, "compileSrc">;
+export type InjectResolved = Prettify<Require<InjectPartial, "compileSrc">>;
 
-export interface InjectManifestOptions extends BasePartial, WebpackPartial, BaseInjectPartial, OptionalSwDestPartial, InjectPartial {}
+export type InjectManifestOptions = Prettify<BasePartial & WebpackPartial & BaseInjectPartial & OptionalSwDestPartial & InjectPartial>;
 
-export interface InjectManifestOptionsComplete extends BaseResolved, WebpackResolved, BaseInjectResolved, OptionalSwDestResolved, InjectResolved {}
+export type InjectManifestOptionsComplete = Prettify<BaseResolved & WebpackResolved & BaseInjectResolved & OptionalSwDestResolved & InjectResolved>;
 
 export type WebpackPlugin = WebpackPluginFunction | WebpackPluginInstance;

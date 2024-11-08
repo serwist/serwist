@@ -1,5 +1,5 @@
 import type { RequiredSwDestPartial, RequiredSwDestResolved } from "@serwist/build";
-import type { Require } from "@serwist/utils";
+import type { Prettify, Require } from "@serwist/utils";
 import type {
   InjectManifestOptions as WebpackInjectManifestOptions,
   InjectManifestOptionsComplete as WebpackInjectManifestOptionsComplete,
@@ -94,11 +94,12 @@ export interface InjectPartial {
   globPublicPatterns?: string[];
 }
 
-export type InjectResolved = Require<InjectPartial, "cacheOnNavigation" | "disable" | "register" | "reloadOnOnline" | "swUrl" | "globPublicPatterns">;
+export type InjectResolved = Prettify<
+  Require<InjectPartial, "cacheOnNavigation" | "disable" | "register" | "reloadOnOnline" | "swUrl" | "globPublicPatterns">
+>;
 
-export type InjectManifestOptions = Omit<WebpackInjectManifestOptions & RequiredSwDestPartial & InjectPartial, "disablePrecacheManifest">;
+export type InjectManifestOptions = Prettify<Omit<WebpackInjectManifestOptions & RequiredSwDestPartial & InjectPartial, "disablePrecacheManifest">>;
 
-export type InjectManifestOptionsComplete = Omit<
-  WebpackInjectManifestOptionsComplete & RequiredSwDestResolved & InjectResolved,
-  "disablePrecacheManifest"
+export type InjectManifestOptionsComplete = Prettify<
+  Omit<WebpackInjectManifestOptionsComplete & RequiredSwDestResolved & InjectResolved, "disablePrecacheManifest">
 >;

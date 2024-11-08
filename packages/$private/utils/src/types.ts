@@ -1,5 +1,5 @@
 /**
- * Make certain fields in a object type required
+ * Makes certain fields in a object type required
  *
  * @example
  *     interface A {
@@ -18,7 +18,7 @@
 export type Require<T, U extends keyof T> = T & Required<Pick<T, U>>;
 
 /**
- * Make certain fields in a object type optional
+ * Makes certain fields in a object type optional
  *
  * @example
  *     interface A {
@@ -31,3 +31,25 @@ export type Require<T, U extends keyof T> = T & Required<Pick<T, U>>;
  *     const b: B = {}; //invalid
  */
 export type Optional<T, U extends keyof T> = Omit<T, U> & Partial<Pick<T, U>>;
+
+/**
+ * Makes an object type's hover overlay more readable
+ *
+ * @example
+ *
+ * interface A {
+ *   b: string;
+ *   c: boolean;
+ * }
+ *
+ * interface B {
+ *   c: number;
+ * }
+ *
+ * type D = A | B; // Displayed as is written
+ * 
+ * type C = Prettify<A | B>; // { b: string; c: boolean; } | { c: number; }
+ */
+export type Prettify<T> = {
+  [K in keyof T]: T[K];
+} & {};
