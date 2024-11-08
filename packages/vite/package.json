@@ -1,9 +1,13 @@
 {
   "name": "vite-plugin-serwist",
-  "version": "9.0.9",
+  "version": "9.1.0-preview.0",
   "type": "module",
   "description": "A module that integrates Serwist into your Vite application.",
-  "files": ["src", "dist", "*.d.ts"],
+  "files": [
+    "src",
+    "dist",
+    "*.d.ts"
+  ],
   "keywords": [
     "react",
     "remix",
@@ -27,7 +31,9 @@
     "node": ">=18.0.0"
   },
   "author": "antfu <anthonyfu117@hotmail.com>",
-  "contributors": ["Serwist <ducanh2912.rusty@gmail.com> (https://serwist.pages.dev/)"],
+  "contributors": [
+    "Serwist <ducanh2912.rusty@gmail.com> (https://serwist.pages.dev/)"
+  ],
   "license": "MIT",
   "repository": "https://github.com/serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",
@@ -37,9 +43,15 @@
   "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
-      "worker": ["./dist/index.worker.d.ts"],
-      "schema": ["./dist/index.schema.d.ts"],
-      "typings": ["./typings.d.ts"]
+      "worker": [
+        "./dist/index.worker.d.ts"
+      ],
+      "schema": [
+        "./dist/index.schema.d.ts"
+      ],
+      "typings": [
+        "./typings.d.ts"
+      ]
     }
   },
   "exports": {

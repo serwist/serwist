@@ -1,5 +1,12 @@
 # @serwist/svelte
 
+## 9.1.0-preview.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - serwist@9.1.0-preview.0
+
 ## 9.0.9
 
 ### Patch Changes
