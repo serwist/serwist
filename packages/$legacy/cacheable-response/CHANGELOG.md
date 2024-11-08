@@ -1,5 +1,12 @@
 # @serwist/cacheable-response
 
+## 9.0.10
+
+### Patch Changes
+
+- Updated dependencies []:
+  - serwist@9.0.10
+
 ## 9.0.9
 
 ### Patch Changes
