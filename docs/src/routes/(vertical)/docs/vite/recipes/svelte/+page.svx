@@ -10,7 +10,7 @@ layout: docs
 
 ## Introduction
 
-As a simple wrapper over SvelteKit's built-in service worker support, `@serwist/svelte` does not do the versioning itself; rather, it relies on SvelteKit to give it a revision, which will be used to construct a valid precache manifest. However, this revision is shared across all assets, excluding static assets if `staticRevisions` is set, and each time your app is rebuilt, its value changes, causing your service worker to have to precache everything all over again. Sometimes you may want the precaching to be more efficient in that the revision of each asset is unique and stable, and that's where `@serwist/vite` comes in: it can generate a valid and efficient precache manifest for you. This page serves as a guide to help you integrate `@serwist/vite` into your SvelteKit application.
+As a simple wrapper over SvelteKit's built-in service worker support, `@serwist/svelte` does not do the versioning itself; rather, it relies on SvelteKit to give it a revision, which will be used to construct a valid precache manifest. However, this revision is shared across all assets, excluding static assets if `staticRevisions` is set, and each time your app is rebuilt, its value changes, causing your service worker to have to precache everything all over again. Sometimes you may want the precaching to be more efficient in that the revision of each asset is unique and stable, and that's where `vite-plugin-serwist` comes in: it can generate a valid and efficient precache manifest for you. This page serves as a guide to help you integrate `vite-plugin-serwist` into your SvelteKit application.
 
 ## Install
 
@@ -20,28 +20,28 @@ Run the following command:
   <Tab id="npm">
 
 ```bash
-npm i -D @serwist/build @serwist/vite @serwist/window serwist
+npm i -D @serwist/build vite-plugin-serwist @serwist/window serwist
 ```
 
   </Tab>
   <Tab id="yarn">
 
 ```bash
-yarn add -D @serwist/build @serwist/vite @serwist/window serwist
+yarn add -D @serwist/build vite-plugin-serwist @serwist/window serwist
 ```
 
   </Tab>
   <Tab id="pnpm">
 
 ```bash
-pnpm add -D @serwist/build @serwist/vite @serwist/window serwist
+pnpm add -D @serwist/build vite-plugin-serwist @serwist/window serwist
 ```
 
   </Tab>
   <Tab id="bun">
 
 ```bash
-bun add -D @serwist/build @serwist/vite serwist
+bun add -D @serwist/build vite-plugin-serwist serwist
 ```
 
   </Tab>
@@ -64,7 +64,7 @@ If you use TypeScript, you should add the following content to tsconfig.json in 
     "types": [
       // Other types...
       // This allows Serwist to correctly type "virtual:serwist".
-      "@serwist/vite/typings"
+      "vite-plugin-serwist/typings"
     ],
   },
 }
@@ -130,8 +130,8 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { errors } from "@serwist/build";
-import { createApi, createContext, dev as devPlugin, main as mainPlugin } from "@serwist/vite";
-import type { PluginOptions, SerwistViteApi, SerwistViteContext } from "@serwist/vite";
+import { createContext, generateServiceWorker, dev as devPlugin, main as mainPlugin } from "vite-plugin-serwist";
+import type { PluginOptions, SerwistViteContext } from "vite-plugin-serwist";
 import { sveltekit } from "@sveltejs/kit/vite";
 import type { Plugin } from "vite";
 import { defineConfig } from "vite";
@@ -169,7 +169,7 @@ const resolveEntry = (entry: string): string | null => {
   return null;
 };
 
-// We do not rely on `@serwist/vite`'s built-in `buildPlugin` because
+// We do not rely on `vite-plugin-serwist`'s built-in `buildPlugin` because
 // it runs during the client build, but SvelteKit builds the service worker
 // during the server build, which takes place after the client one.
 /**
@@ -178,17 +178,17 @@ const resolveEntry = (entry: string): string | null => {
  * @param api
  * @returns
  */
-const buildPlugin = (ctx: SerwistViteContext, api: SerwistViteApi) => {
+const buildPlugin = (ctx: SerwistViteContext) => {
   return <Plugin>{
-    name: "@serwist/vite:build",
+    name: "vite-plugin-serwist:build",
     apply: "build",
     enforce: "pre",
     closeBundle: {
       sequential: true,
       order: ctx.userOptions?.integration?.closeBundleOrder,
       async handler() {
-        if (api && !api.disabled && ctx.viteConfig.build.ssr) {
-          await api.generateSW();
+        if (!ctx.options.disable && ctx.viteConfig.build.ssr) {
+          await generateServiceWorker(ctx);
         }
       },
     },
@@ -198,7 +198,7 @@ const buildPlugin = (ctx: SerwistViteContext, api: SerwistViteApi) => {
   };
 };
 
-// Here is the main logic: it stores your Serwist configuration, creates `@serwist/vite`'s
+// Here is the main logic: it stores your Serwist configuration, creates `vite-plugin-serwist`'s
 // context and API, and constructs the necessary Vite plugins.
 const serwist = (): Plugin[] => {
   let buildAssetsDir = config.kit?.appDir ?? "_app/";
@@ -228,7 +228,7 @@ const serwist = (): Plugin[] => {
     injectionPoint: "self.__SW_MANIFEST",
     integration: {
       closeBundleOrder: "pre",
-      // These options depend on `viteConfig`, so we have to use `@serwist/vite`'s configuration hook.
+      // These options depend on `viteConfig`, so we have to use `vite-plugin-serwist`'s configuration hook.
       configureOptions(viteConfig, options) {
         const clientOutDir = path.resolve(viteConfig.root, viteConfig.build.outDir, "../client");
 
@@ -238,7 +238,7 @@ const serwist = (): Plugin[] => {
           options.swSrc = path.resolve(clientOutDir, "service-worker.js");
           options.swDest = path.resolve(clientOutDir, "service-worker.js");
         } else {
-          // In development, you may want `@serwist/vite` to bundle your service worker and make it available at `swUrl`.
+          // In development, you may want `vite-plugin-serwist` to bundle your service worker and make it available at `swUrl`.
           // Resolve `swSrc` the same way as SvelteKit's.
           const swSrc = resolveEntry(path.join(viteConfig.root, config.kit?.files?.serviceWorker ?? "src/service-worker"));
           if (swSrc) {
@@ -305,8 +305,7 @@ const serwist = (): Plugin[] => {
     dontCacheBustURLsMatching: new RegExp(`^client/${buildAssetsDir}immutable/`),
   };
   const ctx = createContext(options, undefined);
-  const api = createApi(ctx);
-  return [mainPlugin(ctx, api), devPlugin(ctx, api), buildPlugin(ctx, api)];
+  return [mainPlugin(ctx), devPlugin(ctx), buildPlugin(ctx)];
 };
 
 export default defineConfig({
@@ -333,7 +332,7 @@ As always, you need to write a service worker:
 /// <reference lib="esnext" />
 /// <reference lib="webworker" />
 /// <reference types="@sveltejs/kit" />
-import { defaultCache } from "@serwist/vite/worker";
+import { defaultCache } from "vite-plugin-serwist/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
 import { Serwist } from "serwist";
 

@@ -1,4 +1,4 @@
-import type { ResolvedConfig } from "vite";
+import type { ResolvedConfig, UserConfig } from "vite";
 
 import type { PluginOptions, PluginOptionsComplete } from "./types.js";
 
@@ -12,6 +12,12 @@ export interface SerwistViteContext {
    */
   viteConfig: ResolvedConfig;
   /**
+   * User's Vite config.
+   *
+   * Note: This value is set by our main plugin, located at plugins/main.ts.
+   */
+  userViteConfig: UserConfig;
+  /**
    * Provided options.
    */
   userOptions: PluginOptions;
@@ -22,7 +28,6 @@ export interface SerwistViteContext {
    * `userOptions` is the raw configuration that the user provides us.
    */
   options: PluginOptionsComplete;
-  useImportRegister: boolean;
   /**
    * Is the plugin running on dev?
    *
@@ -35,10 +40,10 @@ export interface SerwistViteContext {
 
 export const createContext = (userOptions: PluginOptions, framework: SerwistViteFrameworks | undefined): SerwistViteContext => {
   return {
+    viteConfig: undefined!,
+    userViteConfig: undefined!,
     userOptions,
     options: undefined!,
-    viteConfig: undefined!,
-    useImportRegister: false,
     devEnvironment: false,
     framework,
   };

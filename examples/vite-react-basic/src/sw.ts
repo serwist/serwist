@@ -1,4 +1,4 @@
-import { defaultCache } from "@serwist/vite/worker";
+import { defaultCache } from "vite-plugin-serwist/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
 import { Serwist } from "serwist";
 
@@ -20,5 +20,8 @@ const serwist = new Serwist({
   navigationPreload: true,
   runtimeCaching: defaultCache,
 });
+
+// @ts-ignore
+console.log(import.meta.env.PUBLIC_TEST);
 
 serwist.addEventListeners();

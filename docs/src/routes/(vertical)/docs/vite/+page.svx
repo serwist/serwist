@@ -6,11 +6,11 @@ layout: docs
   import Tab from "$components/Tab.svelte";
 </script>
 
-# @serwist/vite
+# vite-plugin-serwist
 
 ## Introduction
 
-`@serwist/vite` is a module that integrates Serwist into your Vite application.
+`vite-plugin-serwist` is a module that integrates Serwist into your Vite application.
 
 ## Getting started
 
@@ -53,6 +53,6 @@ See [Configuring](./vite/configuring).
 
 ## Alternatives
 
-There are also some alternatives to `@serwist/vite`:
+There are also some alternatives to `vite-plugin-serwist`:
 
-- [Vite PWA](https://vite-pwa-org.netlify.app/) (`@serwist/vite` is actually a fork of this project!)
+- [Vite PWA](https://vite-pwa-org.netlify.app/) (`vite-plugin-serwist` is actually a fork of this project!)

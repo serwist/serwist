@@ -1,4 +1,4 @@
-import type { PluginOptions } from "@serwist/vite";
+import type { PluginOptions } from "vite-plugin-serwist";
 import type { Optional } from "./utils.js";
 
 export interface ClientOptions {

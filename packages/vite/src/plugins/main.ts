@@ -5,20 +5,20 @@ import type { Plugin, UserConfig } from "vite";
 import { RESOLVED_SERWIST_VIRTUAL, SERWIST_VIRTUAL } from "../lib/constants.js";
 import type { SerwistViteContext } from "../lib/context.js";
 import { resolveOptions } from "../lib/options.js";
-import type { SerwistViteApi } from "../lib/types.js";
 
 /**
- * Internal plugin used by `@serwist/vite`.
+ * Internal plugin used by `vite-plugin-serwist`.
  * @internal
  * @param ctx
  * @param api
  * @returns
  */
-export const mainPlugin = (ctx: SerwistViteContext, api: SerwistViteApi) => {
+export const mainPlugin = (ctx: SerwistViteContext) => {
   return <Plugin>{
-    name: "@serwist/vite",
+    name: "vite-plugin-serwist",
     enforce: "pre",
-    config() {
+    config(config) {
+      ctx.userViteConfig = config;
       return <UserConfig>{
         ssr: {
           noExternal: [],
@@ -50,6 +50,5 @@ export const getSerwist = async () => {
       }
       return undefined;
     },
-    api,
   };
 };

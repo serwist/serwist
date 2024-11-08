@@ -25,7 +25,7 @@ body:
         - "@serwist/recipes"
         - "@serwist/streams"
         - "@serwist/svelte"
-        - "@serwist/vite"
+        - "vite-plugin-serwist"
         - "@serwist/webpack-plugin"
         - "@serwist/window"
   - type: input

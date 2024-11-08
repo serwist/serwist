@@ -16,28 +16,28 @@ Run the following command:
   <Tab id="npm">
 
 ```bash
-npm i -D @serwist/nuxt @serwist/vite serwist
+npm i -D @serwist/nuxt vite-plugin-serwist serwist
 ```
 
   </Tab>
   <Tab id="yarn">
 
 ```bash
-yarn add -D @serwist/nuxt @serwist/vite serwist
+yarn add -D @serwist/nuxt vite-plugin-serwist serwist
 ```
 
   </Tab>
   <Tab id="pnpm">
 
 ```bash
-pnpm add -D @serwist/nuxt @serwist/vite serwist
+pnpm add -D @serwist/nuxt vite-plugin-serwist serwist
 ```
 
   </Tab>
   <Tab id="bun">
 
 ```bash
-bun add -D @serwist/nuxt @serwist/vite serwist
+bun add -D @serwist/nuxt vite-plugin-serwist serwist
 ```
 
   </Tab>
@@ -199,7 +199,7 @@ Basic service worker template to get Serwist up and running:
   <Tab id="sw-ts">
 
 ```typescript twoslash
-import { defaultCache } from "@serwist/vite/worker";
+import { defaultCache } from "vite-plugin-serwist/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
 import { Serwist } from "serwist";
 

@@ -7,8 +7,8 @@ import { requiredSwDestPartial } from "./swDest.js";
 
 export const baseInjectPartial = z
   .object({
-    injectionPoint: z.string().default("self.__SW_MANIFEST"),
-    swSrc: z.string(),
+    injectionPoint: z.string().min(1, "`injectionPoint` must not be empty!").default("self.__SW_MANIFEST"),
+    swSrc: z.string().min(1, "`swSrc` must not be empty!"),
   })
   .strict("Do not pass invalid properties to InjectPartial!");
 

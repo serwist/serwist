@@ -5,6 +5,6 @@ layout: docs
 
 ## Introduction
 
-`@serwist/vite` does not support all the JavaScript frameworks out there out of the box, but we do have configuration recipes for some of them:
+`vite-plugin-serwist` does not support all the JavaScript frameworks out there out of the box, but we do have configuration recipes for some of them:
 
 * [SvelteKit](./recipes/svelte)
