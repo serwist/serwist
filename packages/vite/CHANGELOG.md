@@ -1,5 +1,13 @@
 # @serwist/vite
 
+## 9.0.10
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/build@9.0.10
+  - serwist@9.0.10
+
 ## 9.0.9
 
 ### Patch Changes

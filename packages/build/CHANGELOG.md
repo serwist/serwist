@@ -1,5 +1,7 @@
 # @serwist/build
 
+## 9.0.10
+
 ## 9.0.9
 
 ### Patch Changes

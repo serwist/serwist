@@ -1,12 +1,22 @@
 {
   "name": "@serwist/sw",
-  "version": "9.0.9",
+  "version": "9.0.10",
   "type": "module",
   "description": "A service worker helper module.",
-  "files": ["src", "dist"],
-  "keywords": ["serwist", "serwistjs", "service worker", "sw"],
+  "files": [
+    "src",
+    "dist"
+  ],
+  "keywords": [
+    "serwist",
+    "serwistjs",
+    "service worker",
+    "sw"
+  ],
   "author": "Google's Web DevRel Team",
-  "contributors": ["Serwist <ducanh2912.rusty@gmail.com> (https://serwist.pages.dev/)"],
+  "contributors": [
+    "Serwist <ducanh2912.rusty@gmail.com> (https://serwist.pages.dev/)"
+  ],
   "license": "MIT",
   "repository": "https://github.com/serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",
