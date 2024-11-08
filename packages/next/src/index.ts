@@ -19,7 +19,6 @@ const dirname = "__dirname" in globalThis ? __dirname : fileURLToPath(new URL(".
  * @returns
  */
 const withSerwistInit = (userOptions: InjectManifestOptions): ((nextConfig?: NextConfig) => NextConfig) => {
-  
   return (nextConfig = {}) => ({
     ...nextConfig,
     webpack(config: Configuration, options) {
