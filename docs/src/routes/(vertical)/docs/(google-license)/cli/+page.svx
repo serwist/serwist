@@ -150,6 +150,6 @@ Edit your config file. The full set of configuration options can be found in [th
 
 If you have an existing build process that is based entirely on npm scripts, then `@serwist/cli` is a good choice.
 
-If you are using webpack, Vite, Next.js, or SvelteKit, Serwist provides [@serwist/webpack-plugin](/docs/webpack-plugin), [@serwist/vite](/docs/vite), [@serwist/next](/docs/next), and [@serwist/svelte](/docs/svelte) respectively.
+If you are using webpack, Vite, Next.js, or SvelteKit, Serwist provides [@serwist/webpack-plugin](/docs/webpack-plugin), [vite-plugin-serwist](/docs/vite), [@serwist/next](/docs/next), and [@serwist/svelte](/docs/svelte) respectively.
 
 If you're currently using Gulp, Grunt, or some other Node.js-based build tool, integrating [@serwist/build](/docs/build) into your build script should be preferred.

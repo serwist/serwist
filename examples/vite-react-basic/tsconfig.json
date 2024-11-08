@@ -5,7 +5,7 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-    "types": ["@serwist/vite/typings"],
+    "types": ["vite-plugin-serwist/typings"],
 
     /* Bundler mode */
     "moduleResolution": "bundler",

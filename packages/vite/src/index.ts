@@ -2,7 +2,8 @@ import type { Plugin } from "vite";
 
 import { createApi } from "./lib/api.js";
 import { createContext } from "./lib/context.js";
-import type { DevOptions, ExtendManifestEntriesHook, Hooks, PluginOptions, PluginOptionsComplete, SerwistViteApi } from "./lib/types.js";
+import { generateServiceWorker } from "./lib/modules.js";
+import type { DevOptions, Hooks, PluginOptions, PluginOptionsComplete, SerwistViteApi } from "./lib/types.js";
 import { resolveEntry, toFs } from "./lib/utils.js";
 import { validateInjectManifestOptions } from "./lib/validator.js";
 import { buildPlugin } from "./plugins/build.js";
@@ -16,11 +17,20 @@ import { mainPlugin } from "./plugins/main.js";
  */
 export const serwist = (userOptions: PluginOptions): Plugin[] => {
   const ctx = createContext(userOptions, undefined);
-  const api = createApi(ctx);
-  return [mainPlugin(ctx, api), buildPlugin(ctx, api), devPlugin(ctx, api)];
+  return [mainPlugin(ctx), buildPlugin(ctx), devPlugin(ctx)];
 };
 
 // This allows for customization.
-export { buildPlugin as build, createApi, createContext, devPlugin as dev, mainPlugin as main, resolveEntry, toFs, validateInjectManifestOptions };
+export {
+  buildPlugin as build,
+  devPlugin as dev,
+  mainPlugin as main,
+  generateServiceWorker,
+  createApi,
+  createContext,
+  resolveEntry,
+  toFs,
+  validateInjectManifestOptions,
+};
 export type { SerwistViteContext } from "./lib/context.js";
-export type { PluginOptions, PluginOptionsComplete, Hooks, ExtendManifestEntriesHook, DevOptions, SerwistViteApi };
+export type { PluginOptions, PluginOptionsComplete, Hooks, DevOptions, SerwistViteApi };

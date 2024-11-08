@@ -10,19 +10,19 @@ layout: docs
 
 ## Introduction
 
-`@serwist/vite` exports a few things for the service worker to consume. These values are available at `@serwist/vite/worker`.
+`vite-plugin-serwist` exports a few things for the service worker to consume. These values are available at `vite-plugin-serwist/worker`.
 
 ## Exported values
 
 ### defaultCache
 
-`@serwist/vite`'s recommended list of caching strategies.  
+`vite-plugin-serwist`'s recommended list of caching strategies.  
 
 <Tabs id="default-cache-usage-example" tabs={[["app/sw.ts", "app-sw-ts"]]}>
   <Tab id="app-sw-ts">
 
 ```typescript twoslash
-import { defaultCache } from "@serwist/vite/worker";
+import { defaultCache } from "vite-plugin-serwist/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
 import { Serwist } from "serwist";
 

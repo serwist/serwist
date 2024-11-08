@@ -1,4 +1,4 @@
-import { serwist } from "@serwist/vite";
+import { serwist } from "vite-plugin-serwist";
 import react from "@vitejs/plugin-react-swc";
 import { defineConfig } from "vite";
 

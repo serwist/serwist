@@ -34,7 +34,7 @@
       <a href="/docs/vite">
         <LogoVite width={40} height={40} class="h-auto w-10 contrast-0" />
       </a>
-      <a href="/docs/webpack">
+      <a href="/docs/webpack-plugin">
         <LogoWebpack width={40} height={40} class="h-auto w-10 contrast-0" />
       </a>
       <a href="/docs/build">

@@ -1,6 +1,6 @@
 {
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
-    "types": ["@serwist/vite/typings"]
+    "types": ["vite-plugin-serwist/typings"]
   }
 }

@@ -18,7 +18,7 @@
     "@serwist/nuxt": "workspace:*",
     "@serwist/svelte": "workspace:*",
     "@serwist/utils": "workspace:*",
-    "@serwist/vite": "workspace:*",
+    "vite-plugin-serwist": "workspace:*",
     "@serwist/webpack-plugin": "workspace:*",
     "@serwist/window": "workspace:*",
     "@shikijs/twoslash": "1.22.2",

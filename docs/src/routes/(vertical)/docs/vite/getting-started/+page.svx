@@ -20,28 +20,28 @@ Run the following command:
   <Tab id="npm">
 
 ```bash
-npm i -D @serwist/vite @serwist/window serwist
+npm i -D vite-plugin-serwist @serwist/window serwist
 ```
 
   </Tab>
   <Tab id="yarn">
 
 ```bash
-yarn add -D @serwist/vite @serwist/window serwist
+yarn add -D vite-plugin-serwist @serwist/window serwist
 ```
 
   </Tab>
   <Tab id="pnpm">
 
 ```bash
-pnpm add -D @serwist/vite @serwist/window serwist
+pnpm add -D vite-plugin-serwist @serwist/window serwist
 ```
 
   </Tab>
   <Tab id="bun">
 
 ```bash
-bun add -D @serwist/vite @serwist/window serwist
+bun add -D vite-plugin-serwist @serwist/window serwist
 ```
 
   </Tab>
@@ -57,7 +57,7 @@ Update or create your Vite configuration file with the following content:
   <Tab id="vite-config-ts">
 
 ```javascript twoslash
-import { serwist } from "@serwist/vite";
+import { serwist } from "vite-plugin-serwist";
 import react from "@vitejs/plugin-react-swc";
 import { defineConfig } from "vite";
 
@@ -94,7 +94,7 @@ If you use TypeScript, you should add the following content to tsconfig.json in 
     "types": [
       // Other types...
       // This allows Serwist to properly type "virtual:serwist".
-      "@serwist/vite/typings"
+      "vite-plugin-serwist/typings"
     ],
     "lib": [
       // Other libs...
@@ -136,7 +136,7 @@ Basic service worker template to get Serwist up and running:
   <Tab id="sw-ts">
 
 ```typescript twoslash
-import { defaultCache } from "@serwist/vite/worker";
+import { defaultCache } from "vite-plugin-serwist/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
 import { Serwist } from "serwist";
 
@@ -209,7 +209,7 @@ Next up, update src/App.tsx with the following content:
   <Tab id="src-app-tsx">
 
 ```tsx twoslash
-// @types: @serwist/vite/typings
+// @types: vite-plugin-serwist/typings
 // ---cut-before---
 import { getSerwist } from "virtual:serwist";
 import { useEffect } from "react";

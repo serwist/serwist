@@ -19,7 +19,7 @@ Hooks of the build lifecycle.
 ## Options
 
 - `beforeBuildServiceWorker(options)` — Allows you to run some logic before the service worker is built.
-- `closeBundleOrder` — Adjusts the application order of `@serwist/vite`'s `closeBundle` hook.
+- `closeBundleOrder` — Adjusts the application order of `vite-plugin-serwist`'s `closeBundle` hook.
 - `configureOptions(viteOptions, options)` — Allows you to configure the options of Serwist and Vite. Useful when there is a dependency between the two.
 
 ## Usage

@@ -1,4 +1,4 @@
-import { defaultCache } from "@serwist/vite/worker";
+import { defaultCache } from "vite-plugin-serwist/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
 import { Serwist } from "serwist";
 

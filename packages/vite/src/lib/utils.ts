@@ -21,7 +21,7 @@ export const normalizePath = (path: string) => {
 // Source: https://github.com/sveltejs/kit/blob/6419d3eaa7bf1b0a756b28f06a73f71fe042de0a/packages/kit/src/utils/filesystem.js
 // License: MIT
 /**
- * Internal function used by `@serwist/vite`.
+ * Internal function used by `vite-plugin-serwist`.
  * Resolves a file path without extension. Also handles `/index` if the path
  * actually points to a directory.
  * @internal
@@ -55,7 +55,7 @@ export const resolveEntry = (entry: string): string | null => {
 // Source: https://github.com/sveltejs/kit/blob/6419d3eaa7bf1b0a756b28f06a73f71fe042de0a/packages/kit/src/utils/filesystem.js
 // License: MIT
 /**
- * Internal function used by `@serwist/vite`.
+ * Internal function used by `vite-plugin-serwist`.
  * Converts a filesystem path to a Vite `@fs` URL.
  * @internal
  * @param ctx

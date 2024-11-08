@@ -2,9 +2,9 @@ import { encodeOpenGraphImage } from "$lib/og";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = () => ({
-  title: "disable - Configuring - @serwist/vite",
+  title: "disable - Configuring - vite-plugin-serwist",
   ogImage: encodeOpenGraphImage({
     title: "disable",
-    desc: "Configuring - @serwist/vite",
+    desc: "Configuring - vite-plugin-serwist",
   }),
 });

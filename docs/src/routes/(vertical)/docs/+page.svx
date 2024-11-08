@@ -14,7 +14,7 @@ Take a look around:
 * [`@serwist/cli`](/docs/cli)
 * [`@serwist/next`](/docs/next)
 * [`@serwist/nuxt`](/docs/nuxt)
-* [`@serwist/vite`](/docs/vite)
+* [`vite-plugin-serwist`](/docs/vite)
 * [`@serwist/webpack-plugin`](/docs/webpack-plugin)
 * [`@serwist/window`](/docs/window)
 

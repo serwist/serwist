@@ -1,4 +1,4 @@
-import { defaultCache } from "@serwist/vite/worker";
+import { defaultCache } from "vite-plugin-serwist/worker";
 import { type PrecacheEntry, Serwist, CacheFirst, ExpirationPlugin, CacheableResponsePlugin, RangeRequestsPlugin } from "serwist";
 
 declare global {

@@ -2,9 +2,9 @@ import { encodeOpenGraphImage } from "$lib/og";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = () => ({
-  title: "SvelteKit - Recipes - @serwist/vite",
+  title: "SvelteKit - Recipes - vite-plugin-serwist",
   ogImage: encodeOpenGraphImage({
     title: "SvelteKit",
-    desc: "Recipes - @serwist/vite",
+    desc: "Recipes - vite-plugin-serwist",
   }),
 });

@@ -55,5 +55,5 @@ See [Configuring](./vite/configuring).
 
 There are also some alternatives to `@serwist/nuxt`:
 
-- [@serwist/vite](./vite)
+- [vite-plugin-serwist](./vite)
 - [Vite PWA](https://vite-pwa-org.netlify.app/) (`@serwist/nuxt` is actually a fork of this project!)

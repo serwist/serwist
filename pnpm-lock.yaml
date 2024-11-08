@@ -155,9 +155,6 @@ importers:
       '@serwist/utils':
         specifier: workspace:*
         version: link:../packages/$private/utils
-      '@serwist/vite':
-        specifier: workspace:*
-        version: link:../packages/vite
       '@serwist/webpack-plugin':
         specifier: workspace:*
         version: link:../packages/webpack-plugin
@@ -278,6 +275,9 @@ importers:
       vite:
         specifier: 5.4.10
         version: 5.4.10(@types/node@22.8.6)(terser@5.27.0)
+      vite-plugin-serwist:
+        specifier: workspace:*
+        version: link:../packages/vite
       webpack:
         specifier: 5.96.1
         version: 5.96.1(@swc/core@1.7.42(@swc/helpers@0.5.13))
@@ -413,15 +413,15 @@ importers:
       '@serwist/nuxt':
         specifier: latest
         version: link:../../packages/nuxt
-      '@serwist/vite':
-        specifier: latest
-        version: link:../../packages/vite
       nuxt:
         specifier: 3.13.2
         version: 3.13.2(@biomejs/biome@1.9.4)(@opentelemetry/api@1.9.0)(@parcel/watcher@2.4.1)(@types/node@22.8.6)(encoding@0.1.13)(eslint@9.14.0(jiti@1.21.6))(ioredis@5.4.1)(magicast@0.3.5)(optionator@0.9.3)(rollup@4.24.3)(terser@5.27.0)(typescript@5.6.3)(vite@5.4.10(@types/node@22.8.6)(terser@5.27.0))(vue-tsc@2.1.10(typescript@5.6.3))(webpack-sources@3.2.3)
       serwist:
         specifier: latest
         version: link:../../packages/core
+      vite-plugin-serwist:
+        specifier: latest
+        version: link:../../packages/vite
       vue:
         specifier: 3.5.12
         version: 3.5.12(typescript@5.6.3)
@@ -469,9 +469,6 @@ importers:
         specifier: 18.3.1
         version: 18.3.1(react@18.3.1)
     devDependencies:
-      '@serwist/vite':
-        specifier: latest
-        version: link:../../packages/vite
       '@types/react':
         specifier: 18.3.12
         version: 18.3.12
@@ -490,6 +487,9 @@ importers:
       vite:
         specifier: 5.4.10
         version: 5.4.10(@types/node@22.8.6)(terser@5.27.0)
+      vite-plugin-serwist:
+        specifier: latest
+        version: link:../../packages/vite
 
   packages/$legacy/background-sync:
     dependencies:
@@ -889,12 +889,12 @@ importers:
       '@serwist/build':
         specifier: workspace:*
         version: link:../build
-      '@serwist/vite':
-        specifier: workspace:*
-        version: link:../vite
       '@serwist/window':
         specifier: workspace:*
         version: link:../window
+      vite-plugin-serwist:
+        specifier: workspace:*
+        version: link:../vite
     devDependencies:
       '@nuxt/module-builder':
         specifier: 0.8.4

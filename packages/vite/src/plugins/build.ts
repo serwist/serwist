@@ -1,18 +1,18 @@
 import type { Plugin } from "vite";
 
 import type { SerwistViteContext } from "../lib/context.js";
-import type { SerwistViteApi } from "../lib/types.js";
+import { generateServiceWorker } from "../lib/modules.js";
 
 /**
- * Internal build plugin used by `@serwist/vite`.
+ * Internal build plugin used by `vite-plugin-serwist`.
  * @internal
  * @param ctx
  * @param api
  * @returns
  */
-export const buildPlugin = (ctx: SerwistViteContext, api: SerwistViteApi) => {
+export const buildPlugin = (ctx: SerwistViteContext) => {
   return <Plugin>{
-    name: "@serwist/vite:build",
+    name: "vite-plugin-serwist:build",
     enforce: "post",
     apply: "build",
     closeBundle: {
@@ -20,7 +20,7 @@ export const buildPlugin = (ctx: SerwistViteContext, api: SerwistViteApi) => {
       order: ctx.userOptions?.integration?.closeBundleOrder,
       async handler() {
         if (!ctx.viteConfig.build.ssr && !ctx.options.disable) {
-          await api.generateSW();
+          await generateServiceWorker(ctx);
         }
       },
     },

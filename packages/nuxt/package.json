@@ -30,7 +30,7 @@
       "vite",
       "@nuxt/kit",
       "@serwist/build",
-      "@serwist/vite",
+      "vite-plugin-serwist",
       "virtual:serwist-nuxt-configuration",
       "virtual:serwist"
     ]
@@ -49,7 +49,7 @@
   "dependencies": {
     "@nuxt/kit": "3.13.2",
     "@serwist/build": "workspace:*",
-    "@serwist/vite": "workspace:*",
+    "vite-plugin-serwist": "workspace:*",
     "@serwist/window": "workspace:*"
   },
   "devDependencies": {
