@@ -1,4 +1,3 @@
-import { defaultCache } from "@serwist/next/worker";
 import { Serwist } from "serwist";
 
 const self = /** @type {ServiceWorkerGlobalScope} */ (/** @type {unknown} */ (globalThis.self));
@@ -8,7 +7,6 @@ const serwist = new Serwist({
   skipWaiting: true,
   clientsClaim: true,
   navigationPreload: true,
-  runtimeCaching: defaultCache,
 });
 
 serwist.addEventListeners();

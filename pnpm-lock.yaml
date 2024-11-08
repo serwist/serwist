@@ -305,6 +305,9 @@ importers:
       serve:
         specifier: 14.2.4
         version: 14.2.4
+      serwist:
+        specifier: latest
+        version: link:../../packages/core
       typescript:
         specifier: 5.6.3
         version: 5.6.3

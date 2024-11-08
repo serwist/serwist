@@ -15,6 +15,7 @@
     "@types/node": "22.8.6",
     "esbuild": "0.24.0",
     "serve": "14.2.4",
+    "serwist": "latest",
     "typescript": "5.6.3"
   }
 }
