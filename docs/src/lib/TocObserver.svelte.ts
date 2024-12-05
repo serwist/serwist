@@ -9,16 +9,16 @@ export class TocObserver {
 
     this.observer = new IntersectionObserver(
       (entries) => {
-        let found = false;
+        // let found = false;
         entries.forEach((entry) => {
           const link = document.querySelector(`a[href="#${entry.target.id}"]`);
           if (link === null) return;
           if (entry.intersectionRatio > 0) {
             link.classList.add("active");
-            if (!found && window.innerWidth >= BREAKPOINTS.lg) {
-              link.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
-              found = true;
-            }
+            // if (!found && window.innerWidth >= BREAKPOINTS.lg) {
+            // link.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
+            // found = true;
+            // }
           } else {
             link.classList.remove("active");
           }

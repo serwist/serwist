@@ -12,9 +12,7 @@ declare global {
   }
   namespace App {
     // interface Error {}
-    interface Locals {
-      highlighter: Awaited<ReturnType<typeof getHighlighter>>;
-    }
+    // interface Locals {}
     interface PageData {
       title?: string;
       ogImage?: string;

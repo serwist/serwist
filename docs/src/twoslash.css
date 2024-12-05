@@ -47,7 +47,7 @@ html[data-theme="dark"] {
 }
 
 .twoslash-popup-container {
-  @apply absolute z-50 inline-flex select-none flex-col overflow-auto rounded-md border border-[--twoslash-border-color] bg-[--twoslash-popup-bg] text-left text-[--twoslash-popup-color] duration-100;
+  @apply absolute z-50 inline-flex select-none flex-col overflow-auto rounded-md border border-(--twoslash-border-color) bg-(--twoslash-popup-bg) text-left text-(--twoslash-popup-color) duration-100;
   box-shadow: var(--twoslash-popup-shadow);
   transform: translate(var(--offset), calc(2rem + var(--arrow-size)));
 }
@@ -57,7 +57,7 @@ html[data-theme="dark"] {
 }
 
 .twoslash-popup-arrow {
-  @apply pointer-events-none absolute left-4 top-[-4px] h-[6px] w-[6px] border-r border-t border-[--twoslash-border-color];
+  @apply pointer-events-none absolute left-4 top-[-4px] h-[6px] w-[6px] border-r border-t border-(--twoslash-border-color);
   background: var(--twoslash-popup-bg);
   transform: rotate(-45deg);
 }
@@ -78,14 +78,14 @@ html[data-theme="dark"] {
 
 .twoslash-popup-docs,
 .twoslash-popup-type {
-  @apply border-[--twoslash-border-color];
+  @apply border-(--twoslash-border-color);
 }
 .twoslash-popup-docs {
-  @apply font-sans text-[0.8em] text-[--twoslash-docs-color];
+  @apply font-sans text-[0.8em] text-(--twoslash-docs-color);
 }
 
 .twoslash-popup-error {
-  @apply bg-[--twoslash-error-bg] text-[0.8em] text-[--twoslash-error-color];
+  @apply bg-(--twoslash-error-bg) text-[0.8em] text-(--twoslash-error-color);
 }
 
 .twoslash-popup-docs-tags {

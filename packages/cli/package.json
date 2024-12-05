@@ -37,7 +37,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@inquirer/prompts": "7.0.1",
+    "@inquirer/prompts": "7.1.0",
     "@serwist/build": "workspace:*",
     "chalk": "5.3.0",
     "chokidar": "4.0.1",
@@ -55,7 +55,7 @@
     "@types/inquirer": "9.0.7",
     "@types/stringify-object": "4.0.5",
     "@types/update-notifier": "6.0.8",
-    "rollup": "4.24.3",
-    "typescript": "5.6.3"
+    "rollup": "4.28.0",
+    "typescript": "5.7.2"
   }
 }

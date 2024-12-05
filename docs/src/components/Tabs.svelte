@@ -48,12 +48,12 @@
         >
           {tab}
           {#if isActive}
-            <span class="dark:bg-neutral-925 pointer-events-none absolute bottom-0 left-0 z-[2] h-[1px] w-full bg-white" aria-hidden="true"></span>
+            <span class="dark:bg-neutral-925 pointer-events-none absolute bottom-0 left-0 z-2 h-[1px] w-full bg-white" aria-hidden="true"></span>
           {/if}
         </button>
       {/each}
     </div>
-    <div class="pointer-events-none absolute bottom-0 left-0 z-[1] h-[1px] w-full bg-neutral-300 dark:bg-neutral-800" aria-hidden="true"></div>
+    <div class="pointer-events-none absolute bottom-0 left-0 z-1 h-[1px] w-full bg-neutral-300 dark:bg-neutral-800" aria-hidden="true"></div>
   </div>
   <div class="margin-0 overflow-auto p-4">
     {@render children()}

@@ -6,7 +6,6 @@ import Link from "./Link.svelte";
 import Em from "./Em.svelte";
 import Del from "./Del.svelte";
 import Strong from "./Strong.svelte";
-import Table from "./Table.svelte";
 import List from "./List.svelte";
 import ListItem from "./ListItem.svelte";
 import Html from "./Html.svelte";
@@ -15,7 +14,6 @@ import Code from "./Code.svelte";
 import type { RootContentMap } from "mdast";
 import Br from "./Br.svelte";
 import InlineCode from "./InlineCode.svelte";
-import TableCell from "./TableCell.svelte";
 import { TocLink, TocParagraph } from "./toc";
 
 export type RendererFor = "content" | "toc";
@@ -51,12 +49,6 @@ export const getRenderer = (type: keyof RootContentMap, renderFor: RendererFor =
       return isForToc ? TocParagraph : Paragraph;
     case "strong":
       return Strong;
-    case "table":
-      return Table;
-    case "tableCell":
-      return TableCell;
-    case "tableRow":
-      return TableCell;
     case "text":
       return Text;
     default:

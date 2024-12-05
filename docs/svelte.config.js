@@ -4,6 +4,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import adapter from "@sveltejs/adapter-static";
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
+// @ts-expect-error weird typings
 import { escapeSvelte, mdsvex } from "mdsvex";
 import { highlighter, twoslash } from "./config-utils/shiki.js";
 import { remarkToc } from "./config-utils/remark-toc.js";
@@ -50,6 +51,7 @@ const config = {
         blog: path.join(__dirname, "./src/components/layouts/Blog.svelte"),
       },
       highlight: {
+        // @ts-expect-error weird typings
         async highlighter(code, lang, meta) {
           const metaObject = meta ? parseMetaString(meta) : {};
           return escapeSvelte(

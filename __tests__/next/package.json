@@ -10,8 +10,8 @@
     "@serwist/next": "workspace:*",
     "cheerio": "1.0.0",
     "glob": "10.4.5",
-    "next": "15.0.2",
+    "next": "15.0.3",
     "serwist": "workspace:*",
-    "vitest": "2.1.4"
+    "vitest": "2.1.8"
   }
 }

@@ -36,6 +36,9 @@ for (const packageFile of packageJsonList) {
         if (/^react(-dom)?$/.test(dep)) {
           return "@latest";
         }
+        if (dep === "tailwindcss" || dep === "@tailwindcss/vite") {
+          return "@next";
+        }
         return "latest";
       },
     }),

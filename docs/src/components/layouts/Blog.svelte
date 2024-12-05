@@ -1,9 +1,11 @@
 <script lang="ts" module>
-  export { a, code, h1, h2, h3, h4, h5, h6, ul } from "../markdown/static";
-  export { default as TwoslashHover } from "$components/TwoslashHover.svelte";
+  import TwoslashHover from "$components/TwoslashHover.svelte";
+  import { a, code, h1, h2, h3, h4, h5, h6, ul } from "../markdown/static";
+
+  export { a, code, h1, h2, h3, h4, h5, h6, ul, TwoslashHover };
 </script>
 
-<script>
+<script lang="ts">
   import type { List } from "mdast";
   import { setContext, type Snippet } from "svelte";
 

@@ -4,6 +4,7 @@ import { createApi, createContext, main as mainPlugin } from "@serwist/vite";
 import type { PluginOptions, SerwistViteApi, SerwistViteContext } from "@serwist/vite";
 import { enhancedImages } from "@sveltejs/enhanced-img";
 import { sveltekit } from "@sveltejs/kit/vite";
+import tailwindcss from "@tailwindcss/vite";
 import type { Plugin } from "vite";
 import { defineConfig } from "vite";
 import config from "./svelte.config";
@@ -166,5 +167,5 @@ const serwist = (): Plugin[] => {
 };
 
 export default defineConfig({
-  plugins: [enhancedImages(), sveltekit(), serwist()],
+  plugins: [tailwindcss(), enhancedImages(), sveltekit(), serwist()],
 });

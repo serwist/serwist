@@ -29,7 +29,7 @@
   });
 </script>
 
-<nav class="transition-colors-opacity z-[50] h-fit duration-100">
+<nav class="transition-colors-opacity z-50 h-fit duration-100">
   <div class="relative mx-auto flex flex-row justify-between overflow-x-clip md:flex-col">
     <div class="flex items-center gap-2 md:block md:items-start md:py-2">
       <a href="/" aria-label="Go to home">
@@ -55,7 +55,7 @@
           <summary
             class={clsx(
               "flex h-[2rem] w-[2rem] cursor-pointer flex-col justify-center gap-[0.5rem]",
-              "[&>span]:bg-black [&>span]:transition-all [&>span]:dark:bg-white",
+              "[&>span]:bg-black [&>span]:transition-all dark:[&>span]:bg-white",
               "[&>span]:h-[0.2rem] [&>span]:w-full [&>span]:rounded-md"
             )}
             aria-label="Toggle navbar menu"
