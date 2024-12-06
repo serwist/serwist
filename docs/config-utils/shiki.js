@@ -67,13 +67,3 @@ export const highlighter = globalThis.__shiki_server_singleton || (await getHigh
 if (!globalThis.__twoslash_server_singleton) globalThis.__twoslash_server_singleton = twoslash;
 
 if (!globalThis.__shiki_server_singleton) globalThis.__shiki_server_singleton = highlighter;
-
-
-
-
-
-
-
-
-
-

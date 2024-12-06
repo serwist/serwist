@@ -1,11 +1,9 @@
 import path from "node:path";
-
 import { addPlugin, createResolver, defineNuxtModule, extendWebpackConfig } from "@nuxt/kit";
 import type { SerwistViteApi, SerwistViteContext } from "@serwist/vite";
 import { createApi, createContext, dev as devPlugin, main as mainPlugin, resolveEntry } from "@serwist/vite";
-import type { Require } from "./utils.js";
-
 import { version } from "../package.json";
+import type { Require } from "./utils.js";
 import { configurePwaOptions } from "./config.js";
 import type { ClientOptions, ModuleOptions } from "./types.js";
 

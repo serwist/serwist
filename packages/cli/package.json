@@ -56,6 +56,6 @@
     "@types/stringify-object": "4.0.5",
     "@types/update-notifier": "6.0.8",
     "rollup": "4.28.0",
-    "typescript": "5.7.2"
+    "typescript": "5.6.3"
   }
 }

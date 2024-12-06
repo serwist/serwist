@@ -17,7 +17,7 @@ const packageJsonList = await fg("**/package.json", {
 const examplesPackageJsonList = await fg("examples/*/package.json", {
   ignore: ["**/node_modules/**"],
 });
-const excludePackages = ["glob", "rimraf"];
+const excludePackages = ["glob", "rimraf", "typescript"];
 
 /**
  * @type {Promise<any>[]}
