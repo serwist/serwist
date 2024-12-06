@@ -8,8 +8,10 @@
 @theme {
   --font-sans: "Geist", Arial, sans-serif;
 
+  /** These values are duplicated at src/lib/constants.ts#BREAKPOINTS. */
   --breakpoint-md: 768px;
   --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
 
   --color-accent-light: #1e40af;
   --color-accent-dark: #7dd3fc;

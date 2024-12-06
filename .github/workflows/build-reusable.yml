@@ -25,7 +25,7 @@ on:
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
-  TURBO_REMOTE_ONLY: true
+  TURBO_CACHE: remote:rw
 jobs:
   build:
     name: ⬣ Build on Node ${{ matrix.node-version }} and ${{ matrix.os }}

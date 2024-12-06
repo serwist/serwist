@@ -1,8 +1,9 @@
 <script lang="ts" module>
   import TwoslashHover from "$components/TwoslashHover.svelte";
+
   import { a, code, h1, h2, h3, h4, h5, h6, ul } from "../markdown/static";
 
-  export { a, code, h1, h2, h3, h4, h5, h6, ul, TwoslashHover };
+  export { a, code, h1, h2, h3, h4, h5, h6, TwoslashHover, ul };
 </script>
 
 <script lang="ts">
