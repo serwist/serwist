@@ -22,7 +22,7 @@ One or more functions which will be applied sequentially against the generated m
   <Tab id="build-ts">
 
 ```typescript
-const manifestTransform: ManifestTransform = async (manifestEntries) => {
+const manifestTransform: ManifestTransform = async (manifestEntries: ManifestEntry[]) => {
   const manifest = manifestEntries.map((m) => {
     if (m.url === "dQw4w9WgXcQ") m.url = "get-rick-rolled.mp4";
     if (m.revision === null) m.revision = crypto.randomUUID();
