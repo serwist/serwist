@@ -37,10 +37,10 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@inquirer/prompts": "7.1.0",
+    "@inquirer/prompts": "7.3.2",
     "@serwist/build": "workspace:*",
-    "chalk": "5.3.0",
-    "chokidar": "4.0.1",
+    "chalk": "5.4.1",
+    "chokidar": "4.0.3",
     "common-tags": "1.8.2",
     "glob": "10.4.5",
     "meow": "13.2.0",
@@ -55,7 +55,7 @@
     "@types/inquirer": "9.0.7",
     "@types/stringify-object": "4.0.5",
     "@types/update-notifier": "6.0.8",
-    "rollup": "4.28.0",
+    "rollup": "4.34.8",
     "typescript": "5.6.3"
   }
 }
