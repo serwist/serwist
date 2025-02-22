@@ -117,7 +117,7 @@ export const app = async (params: MeowResult<SupportedFlags>): Promise<void> => 
               });
             })
             .on("error", (err) => {
-              logger.error(err.toString());
+              logger.error(err instanceof Error ? err.toString() : "Unknown error");
             });
         }
       } else {
