@@ -1,9 +1,12 @@
 {
   "name": "@serwist/next",
-  "version": "9.1.0-preview.0",
+  "version": "10.0.0-preview.1",
   "type": "module",
   "description": "A module that integrates Serwist into your Next.js application.",
-  "files": ["src", "dist"],
+  "files": [
+    "src",
+    "dist"
+  ],
   "keywords": [
     "serwist",
     "serwistjs",
@@ -29,9 +32,15 @@
   "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
-      "worker": ["./dist/index.worker.d.ts"],
-      "typings": ["./dist/sw-entry.d.ts"],
-      "schema": ["./dist/index.schema.d.ts"]
+      "worker": [
+        "./dist/index.worker.d.ts"
+      ],
+      "typings": [
+        "./dist/sw-entry.d.ts"
+      ],
+      "schema": [
+        "./dist/index.schema.d.ts"
+      ]
     }
   },
   "exports": {
