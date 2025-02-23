@@ -1,6 +1,8 @@
+import { PrecacheStrategy } from "./controllers/PrecacheController/PrecacheStrategy.js";
+import { PrecacheRoute } from "./controllers/PrecacheController/PrecacheRoute.js";
+import { RuntimeCacheController } from "./controllers/RuntimeCacheController.js";
 import type { NavigationRouteMatchOptions } from "./NavigationRoute.js";
 import { NavigationRoute } from "./NavigationRoute.js";
-import { PrecacheRoute } from "./PrecacheRoute.js";
 import { RegExpRoute } from "./RegExpRoute.js";
 import { Route } from "./Route.js";
 import { Serwist, type SerwistOptions } from "./Serwist.js";
@@ -36,7 +38,6 @@ import type { NetworkFirstOptions } from "./lib/strategies/NetworkFirst.js";
 import { NetworkFirst } from "./lib/strategies/NetworkFirst.js";
 import type { NetworkOnlyOptions } from "./lib/strategies/NetworkOnly.js";
 import { NetworkOnly } from "./lib/strategies/NetworkOnly.js";
-import { PrecacheStrategy } from "./lib/strategies/PrecacheStrategy.js";
 import { StaleWhileRevalidate } from "./lib/strategies/StaleWhileRevalidate.js";
 import type { StrategyOptions } from "./lib/strategies/Strategy.js";
 import { Strategy } from "./lib/strategies/Strategy.js";
@@ -56,6 +57,8 @@ export {
   isNavigationPreloadSupported,
   registerQuotaErrorCallback,
   setCacheNameDetails,
+  // Controllers
+  RuntimeCacheController,
   // Caching strategies
   CacheFirst,
   CacheOnly,

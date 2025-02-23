@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { SerwistPlugin } from "../../types.js";
+import type { StrategyPlugin } from "../../types.js";
 import type { CacheableResponseOptions } from "./CacheableResponse.js";
 import { CacheableResponse } from "./CacheableResponse.js";
 
@@ -15,7 +15,7 @@ import { CacheableResponse } from "./CacheableResponse.js";
  * easier to add in cacheability checks to requests made via Serwist's built-in
  * strategies.
  */
-export class CacheableResponsePlugin implements SerwistPlugin {
+export class CacheableResponsePlugin implements StrategyPlugin {
   private readonly _cacheableResponse: CacheableResponse;
 
   /**
@@ -36,7 +36,7 @@ export class CacheableResponsePlugin implements SerwistPlugin {
    * @returns
    * @private
    */
-  cacheWillUpdate: SerwistPlugin["cacheWillUpdate"] = async ({ response }) => {
+  cacheWillUpdate: StrategyPlugin["cacheWillUpdate"] = async ({ response }) => {
     if (this._cacheableResponse.isResponseCacheable(response)) {
       return response;
     }

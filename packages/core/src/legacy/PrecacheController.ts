@@ -7,11 +7,11 @@
 */
 
 import { parallel } from "@serwist/utils";
-import { PrecacheStrategy } from "../lib/strategies/PrecacheStrategy.js";
+import { PrecacheStrategy } from "../controllers/PrecacheController/PrecacheStrategy.js";
+import { PrecacheInstallReportPlugin } from "../controllers/PrecacheController/PrecacheInstallReportPlugin.js";
 import type { Strategy } from "../lib/strategies/Strategy.js";
-import type { RouteHandlerCallback, SerwistPlugin } from "../types.js";
+import type { RouteHandlerCallback, StrategyPlugin } from "../types.js";
 import type { CleanupResult, InstallResult, PrecacheEntry } from "../types.js";
-import { PrecacheInstallReportPlugin } from "../utils/PrecacheInstallReportPlugin.js";
 import { SerwistError } from "../utils/SerwistError.js";
 import { assert } from "../utils/assert.js";
 import { cacheNames as privateCacheNames } from "../utils/cacheNames.js";
@@ -34,7 +34,7 @@ interface PrecacheControllerOptions {
    * Plugins to use when precaching as well as responding to fetch
    * events for precached assets.
    */
-  plugins?: SerwistPlugin[];
+  plugins?: StrategyPlugin[];
   /**
    * Whether to attempt to get the response from the network if there's
    * a precache miss.

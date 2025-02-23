@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { SerwistPlugin } from "../types.js";
+import type { StrategyPlugin } from "../types.js";
 import { getSingletonPrecacheController } from "./singletonPrecacheController.js";
 
 /**
@@ -15,7 +15,7 @@ import { getSingletonPrecacheController } from "./singletonPrecacheController.js
  * @param plugins
  * @deprecated
  */
-export const addPlugins = (plugins: SerwistPlugin[]): void => {
+export const addPlugins = (plugins: StrategyPlugin[]): void => {
   const precacheController = getSingletonPrecacheController();
   precacheController.strategy.plugins.push(...plugins);
 };

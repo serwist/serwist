@@ -5,9 +5,8 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-
-import type { Serwist } from "../Serwist.js";
-import type { SerwistPlugin, SerwistPluginCallbackParam } from "../types.js";
+import type { PrecacheController } from "./PrecacheController.js";
+import type { StrategyPlugin, StrategyPluginCallbackParam } from "../../types.js";
 
 /**
  * A plugin, designed to be used with PrecacheController, to translate URLs into
@@ -15,14 +14,14 @@ import type { SerwistPlugin, SerwistPluginCallbackParam } from "../types.js";
  *
  * @private
  */
-export class PrecacheCacheKeyPlugin implements SerwistPlugin {
-  private readonly _precacheController: Serwist;
+export class PrecacheCacheKeyPlugin implements StrategyPlugin {
+  private readonly _precacheController: PrecacheController;
 
-  constructor({ precacheController }: { precacheController: Serwist }) {
+  constructor({ precacheController }: { precacheController: PrecacheController }) {
     this._precacheController = precacheController;
   }
 
-  cacheKeyWillBeUsed: SerwistPlugin["cacheKeyWillBeUsed"] = async ({ request, params }: SerwistPluginCallbackParam["cacheKeyWillBeUsed"]) => {
+  cacheKeyWillBeUsed: StrategyPlugin["cacheKeyWillBeUsed"] = async ({ request, params }: StrategyPluginCallbackParam["cacheKeyWillBeUsed"]) => {
     // Params is type any, can't change right now.
     /* eslint-disable */
     const cacheKey = params?.cacheKey || this._precacheController.getPrecacheKeyForUrl(request.url);

@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { SerwistPlugin } from "../../types.js";
+import type { StrategyPlugin } from "../../types.js";
 import { createPartialResponse } from "./createPartialResponse.js";
 
 /**
@@ -15,7 +15,7 @@ import { createPartialResponse } from "./createPartialResponse.js";
  * It does this by intercepting the `cachedResponseWillBeUsed` plugin callback
  * and returning the appropriate subset of the cached response body.
  */
-export class RangeRequestsPlugin implements SerwistPlugin {
+export class RangeRequestsPlugin implements StrategyPlugin {
   /**
    * @param options
    * @returns If request contains a `Range` header, then a
@@ -23,7 +23,7 @@ export class RangeRequestsPlugin implements SerwistPlugin {
    * returned. Otherwise, `cachedResponse` is returned as-is.
    * @private
    */
-  cachedResponseWillBeUsed: SerwistPlugin["cachedResponseWillBeUsed"] = async ({ request, cachedResponse }) => {
+  cachedResponseWillBeUsed: StrategyPlugin["cachedResponseWillBeUsed"] = async ({ request, cachedResponse }) => {
     // Only return a sliced response if there's something valid in the cache,
     // and there's a Range: header in the request.
     if (cachedResponse && request.headers.has("range")) {

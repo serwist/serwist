@@ -7,7 +7,7 @@
 */
 
 import { registerQuotaErrorCallback } from "../../registerQuotaErrorCallback.js";
-import type { CacheDidUpdateCallbackParam, CachedResponseWillBeUsedCallbackParam, SerwistPlugin } from "../../types.js";
+import type { CacheDidUpdateCallbackParam, CachedResponseWillBeUsedCallbackParam, StrategyPlugin } from "../../types.js";
 import { SerwistError } from "../../utils/SerwistError.js";
 import { assert } from "../../utils/assert.js";
 import { cacheNames as privateCacheNames } from "../../utils/cacheNames.js";
@@ -66,7 +66,7 @@ export interface ExpirationPluginOptions {
  *
  * @see https://serwist.pages.dev/docs/serwist/runtime-caching/plugins/expiration-plugin
  */
-export class ExpirationPlugin implements SerwistPlugin {
+export class ExpirationPlugin implements StrategyPlugin {
   private readonly _config: ExpirationPluginOptions;
   private _cacheExpirations: Map<string, CacheExpiration>;
 

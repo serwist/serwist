@@ -6,13 +6,12 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { Route } from "./Route.js";
-import type { Serwist } from "./Serwist.js";
-import type { RouteMatchCallback, RouteMatchCallbackOptions } from "./types.js";
-import type { PrecacheRouteOptions } from "./types.js";
-import { generateURLVariations } from "./utils/generateURLVariations.js";
-import { getFriendlyURL } from "./utils/getFriendlyURL.js";
-import { logger } from "./utils/logger.js";
+import { Route } from "../../Route.js";
+import type { RouteMatchCallback, RouteMatchCallbackOptions } from "../../types.js";
+import { generateURLVariations } from "../../utils/generateURLVariations.js";
+import { getFriendlyURL } from "../../utils/getFriendlyURL.js";
+import { logger } from "../../utils/logger.js";
+import type { PrecacheController, PrecacheRouteOptions } from "./PrecacheController.js";
 
 /**
  * A subclass of {@linkcode Route} that takes a {@linkcode Serwist} instance and uses it to match
@@ -20,17 +19,17 @@ import { logger } from "./utils/logger.js";
  */
 export class PrecacheRoute extends Route {
   /**
-   * @param serwist A {@linkcode Serwist} instance.
+   * @param controller A {@linkcode PrecacheController} instance.
    * @param options Options to control how requests are matched
    * against the list of precached URLs.
    */
-  constructor(serwist: Serwist, options?: PrecacheRouteOptions) {
+  constructor(controller: PrecacheController, options?: PrecacheRouteOptions) {
     const match: RouteMatchCallback = ({ request }: RouteMatchCallbackOptions) => {
-      const urlsToCacheKeys = serwist.getUrlsToPrecacheKeys();
+      const urlsToCacheKeys = controller.getUrlsToPrecacheKeys();
       for (const possibleURL of generateURLVariations(request.url, options)) {
         const cacheKey = urlsToCacheKeys.get(possibleURL);
         if (cacheKey) {
-          const integrity = serwist.getIntegrityForPrecacheKey(cacheKey);
+          const integrity = controller.getIntegrityForPrecacheKey(cacheKey);
           return { cacheKey, integrity };
         }
       }
@@ -40,6 +39,6 @@ export class PrecacheRoute extends Route {
       return;
     };
 
-    super(match, serwist.precacheStrategy);
+    super(match, controller.strategy);
   }
 }

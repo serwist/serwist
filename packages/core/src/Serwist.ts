@@ -1,40 +1,32 @@
-import { parallel } from "@serwist/utils";
-import { NavigationRoute } from "./NavigationRoute.js";
-import { PrecacheRoute } from "./PrecacheRoute.js";
 import type { Route } from "./Route.js";
 import { type HTTPMethod, defaultMethod } from "./constants.js";
 import { disableDevLogs as disableDevLogsImpl } from "./disableDevLogs.js";
 import { type GoogleAnalyticsInitializeOptions, initializeGoogleAnalytics } from "./lib/googleAnalytics/initializeGoogleAnalytics.js";
-import { type PrecacheFallbackEntry, PrecacheFallbackPlugin } from "./lib/precaching/PrecacheFallbackPlugin.js";
-import { PrecacheStrategy } from "./lib/strategies/PrecacheStrategy.js";
-import { Strategy } from "./lib/strategies/Strategy.js";
+import type { PrecacheFallbackEntry } from "./lib/precaching/PrecacheFallbackPlugin.js";
+import type { Strategy } from "./lib/strategies/Strategy.js";
 import { enableNavigationPreload } from "./navigationPreload.js";
 import { setCacheNameDetails } from "./setCacheNameDetails.js";
 import type {
-  PrecacheOptions,
+  Controller,
+  PrecacheEntry,
   RouteHandler,
   RouteHandlerCallback,
   RouteHandlerCallbackOptions,
   RouteHandlerObject,
   RouteMatchCallback,
   RouteMatchCallbackOptions,
+  RuntimeCaching,
 } from "./types.js";
-import type { RuntimeCaching } from "./types.js";
-import type { CleanupResult, InstallResult, PrecacheEntry } from "./types.js";
-import { PrecacheInstallReportPlugin } from "./utils/PrecacheInstallReportPlugin.js";
 import { SerwistError } from "./utils/SerwistError.js";
 import { assert } from "./utils/assert.js";
-import { cleanupOutdatedCaches as cleanupOutdatedCachesImpl } from "./utils/cleanupOutdatedCaches.js";
 import { clientsClaim as clientsClaimImpl } from "./utils/clientsClaim.js";
-import { createCacheKey } from "./utils/createCacheKey.js";
 import { getFriendlyURL } from "./utils/getFriendlyURL.js";
 import { logger } from "./utils/logger.js";
 import { normalizeHandler } from "./utils/normalizeHandler.js";
 import { parseRoute } from "./utils/parseRoute.js";
-import { printCleanupDetails } from "./utils/printCleanupDetails.js";
-import { printInstallDetails } from "./utils/printInstallDetails.js";
 import { waitUntil } from "./utils/waitUntil.js";
-import { parsePrecacheOptions } from "./utils/parsePrecacheOptions.js";
+import { PrecacheController, type PrecacheOptions } from "./controllers/PrecacheController/PrecacheController.js";
+import { RuntimeCacheController } from "./controllers/RuntimeCacheController.js";
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -56,6 +48,10 @@ export interface SerwistOptions {
    * Options to customize how Serwist precaches the URLs in the precache list.
    */
   precacheOptions?: PrecacheOptions;
+  /**
+   * A list of controllers that run throughout Serwist's lifecycle.
+   */
+  controllers?: Controller[];
   /**
    * Forces the waiting service worker to become the active one.
    *
@@ -88,6 +84,8 @@ export interface SerwistOptions {
   clientsClaim?: boolean;
   /**
    * A list of caching strategies.
+   *
+   * @deprecated Use {@linkcode RuntimeCacheController} instead.
    */
   runtimeCaching?: RuntimeCaching[];
   /**
@@ -107,6 +105,8 @@ export interface SerwistOptions {
    *
    * Note: This option mutates `runtimeCaching`. It also expects the URLs
    * defined in `entries` to have been precached beforehand.
+   *
+   * @deprecated Use {@linkcode RuntimeCacheController} instead.
    */
   fallbacks?: FallbacksOptions;
 }
@@ -126,18 +126,16 @@ interface CacheURLsMessageData {
  * @see https://serwist.pages.dev/docs/serwist/core/serwist
  */
 export class Serwist {
-  private readonly _urlsToCacheKeys: Map<string, string> = new Map();
-  private readonly _urlsToCacheModes: Map<string, "reload" | "default" | "no-store" | "no-cache" | "force-cache" | "only-if-cached"> = new Map();
-  private readonly _cacheKeysToIntegrities: Map<string, string> = new Map();
-  private _concurrentPrecaching: number;
-  private readonly _precacheStrategy: Strategy;
   private readonly _routes: Map<HTTPMethod, Route[]>;
   private readonly _defaultHandlerMap: Map<HTTPMethod, RouteHandlerObject>;
+  private readonly _precacheController: PrecacheController;
+  private readonly _controllers: Controller[];
   private _catchHandler?: RouteHandlerObject;
 
   constructor({
     precacheEntries,
     precacheOptions,
+    controllers = [],
     skipWaiting = false,
     importScripts,
     navigationPreload = false,
@@ -148,12 +146,9 @@ export class Serwist {
     disableDevLogs = false,
     fallbacks,
   }: SerwistOptions = {}) {
-    const { precacheStrategyOptions, precacheRouteOptions, precacheMiscOptions } = parsePrecacheOptions(this, precacheOptions);
-
-    this._concurrentPrecaching = precacheMiscOptions.concurrency;
-    this._precacheStrategy = new PrecacheStrategy(precacheStrategyOptions);
     this._routes = new Map();
     this._defaultHandlerMap = new Map();
+    this._controllers = controllers;
 
     this.handleInstall = this.handleInstall.bind(this);
     this.handleActivate = this.handleActivate.bind(this);
@@ -182,24 +177,19 @@ export class Serwist {
 
     if (clientsClaim) clientsClaimImpl();
 
-    if (!!precacheEntries && precacheEntries.length > 0) {
-      this.addToPrecacheList(precacheEntries);
+    this._precacheController = new PrecacheController(precacheEntries ?? [], precacheOptions);
+
+    // TODO(ducanhgh): remove in v10.
+    // Fallback for legacy users who have not migrated from `runtimeCaching` to the Controller pattern.
+    if (runtimeCaching) {
+      if (!this._controllers?.some((controller) => controller instanceof RuntimeCacheController)) {
+        this._controllers.unshift(new RuntimeCacheController(runtimeCaching, { fallbacks }));
+      } else if (process.env.NODE_ENV !== "production") {
+        logger.warn("You have migrated to the Controller pattern, so setting `runtimeCaching` is a no-op.");
+      }
     }
 
-    if (precacheMiscOptions.cleanupOutdatedCaches) {
-      cleanupOutdatedCachesImpl(precacheStrategyOptions.cacheName);
-    }
-
-    this.registerRoute(new PrecacheRoute(this, precacheRouteOptions));
-
-    if (precacheMiscOptions.navigateFallback) {
-      this.registerRoute(
-        new NavigationRoute(this.createHandlerBoundToUrl(precacheMiscOptions.navigateFallback), {
-          allowlist: precacheMiscOptions.navigateFallbackAllowlist,
-          denylist: precacheMiscOptions.navigateFallbackDenylist,
-        }),
-      );
-    }
+    this._controllers.unshift(this._precacheController);
 
     if (offlineAnalyticsConfig !== undefined) {
       if (typeof offlineAnalyticsConfig === "boolean") {
@@ -212,37 +202,43 @@ export class Serwist {
       }
     }
 
-    if (runtimeCaching !== undefined) {
-      if (fallbacks !== undefined) {
-        const fallbackPlugin = new PrecacheFallbackPlugin({
-          fallbackUrls: fallbacks.entries,
-          serwist: this,
-        });
-
-        runtimeCaching.forEach((cacheEntry) => {
-          if (
-            cacheEntry.handler instanceof Strategy &&
-            // This also filters entries with `PrecacheFallbackPlugin` as it also has `handlerDidError`.
-            !cacheEntry.handler.plugins.some((plugin) => "handlerDidError" in plugin)
-          ) {
-            cacheEntry.handler.plugins.push(fallbackPlugin);
-          }
-        });
-      }
-      for (const entry of runtimeCaching) {
-        this.registerCapture(entry.matcher, entry.handler, entry.method);
-      }
+    for (const callback of this.iterateControllers("init")) {
+      callback(this);
     }
 
     if (disableDevLogs) disableDevLogsImpl();
   }
 
   /**
+   * Accepts a callback name and returns an iterable of matching plugin callbacks.
+   *
+   * @param name The name fo the callback to run
+   * @returns
+   */
+  *iterateControllers<C extends keyof Controller>(name: C): Generator<NonNullable<Controller[C]>> {
+    if (!this._controllers) return;
+
+    for (const controller of this._controllers) {
+      if (typeof controller[name] === "function") {
+        yield controller[name];
+      }
+    }
+  }
+
+  /**
+   * The `PrecacheController` used to handle precaching.
+   */
+  get precache(): PrecacheController {
+    return this._precacheController;
+  }
+
+  /**
    * The strategy used to precache assets and respond to `fetch` events.
    */
   get precacheStrategy(): Strategy {
-    return this._precacheStrategy;
+    return this._precacheController.strategy;
   }
+
   /**
    * A `Map` of HTTP method name (`'GET'`, etc.) to an array of all corresponding registered {@linkcode Route}
    * instances.
@@ -252,74 +248,13 @@ export class Serwist {
   }
 
   /**
-   * Adds Serwist's event listeners for you. Before calling it, add your own listeners should you need to.
+   * Adds Serwist's event listeners. Before calling it, add your own listeners should you need to.
    */
   addEventListeners() {
     self.addEventListener("install", this.handleInstall);
     self.addEventListener("activate", this.handleActivate);
     self.addEventListener("fetch", this.handleFetch);
     self.addEventListener("message", this.handleCache);
-  }
-
-  /**
-   * Adds items to the precache list, removing duplicates and ensuring the information is valid.
-   *
-   * @param entries Array of entries to precache.
-   */
-  addToPrecacheList(entries: (PrecacheEntry | string)[]): void {
-    if (process.env.NODE_ENV !== "production") {
-      assert!.isArray(entries, {
-        moduleName: "serwist",
-        className: "Serwist",
-        funcName: "addToCacheList",
-        paramName: "entries",
-      });
-    }
-
-    const urlsToWarnAbout: string[] = [];
-    for (const entry of entries) {
-      // See https://github.com/GoogleChrome/workbox/issues/2259
-      if (typeof entry === "string") {
-        urlsToWarnAbout.push(entry);
-      } else if (entry && !entry.integrity && entry.revision === undefined) {
-        urlsToWarnAbout.push(entry.url);
-      }
-
-      const { cacheKey, url } = createCacheKey(entry);
-      const cacheMode = typeof entry !== "string" && entry.revision ? "reload" : "default";
-
-      if (this._urlsToCacheKeys.has(url) && this._urlsToCacheKeys.get(url) !== cacheKey) {
-        throw new SerwistError("add-to-cache-list-conflicting-entries", {
-          firstEntry: this._urlsToCacheKeys.get(url),
-          secondEntry: cacheKey,
-        });
-      }
-
-      if (typeof entry !== "string" && entry.integrity) {
-        if (this._cacheKeysToIntegrities.has(cacheKey) && this._cacheKeysToIntegrities.get(cacheKey) !== entry.integrity) {
-          throw new SerwistError("add-to-cache-list-conflicting-integrities", {
-            url,
-          });
-        }
-        this._cacheKeysToIntegrities.set(cacheKey, entry.integrity);
-      }
-
-      this._urlsToCacheKeys.set(url, cacheKey);
-      this._urlsToCacheModes.set(url, cacheMode);
-
-      if (urlsToWarnAbout.length > 0) {
-        const warningMessage = `Serwist is precaching URLs without revision info: ${urlsToWarnAbout.join(
-          ", ",
-        )}\nThis is generally NOT safe. Learn more at https://bit.ly/wb-precache`;
-        if (process.env.NODE_ENV === "production") {
-          // Use console directly to display this warning without bloating
-          // bundle sizes by pulling in all of the logger codebase in prod.
-          console.warn(warningMessage);
-        } else {
-          logger.warn(warningMessage);
-        }
-      }
-    }
   }
 
   /**
@@ -332,38 +267,11 @@ export class Serwist {
    * @param event
    * @returns
    */
-  handleInstall(event: ExtendableEvent): Promise<InstallResult> {
-    return waitUntil<InstallResult>(event, async () => {
-      const installReportPlugin = new PrecacheInstallReportPlugin();
-      this.precacheStrategy.plugins.push(installReportPlugin);
-
-      await parallel(this._concurrentPrecaching, Array.from(this._urlsToCacheKeys.entries()), async ([url, cacheKey]): Promise<void> => {
-        const integrity = this._cacheKeysToIntegrities.get(cacheKey);
-        const cacheMode = this._urlsToCacheModes.get(url);
-
-        const request = new Request(url, {
-          integrity,
-          cache: cacheMode,
-          credentials: "same-origin",
-        });
-
-        await Promise.all(
-          this.precacheStrategy.handleAll({
-            event,
-            request,
-            url: new URL(request.url),
-            params: { cacheKey },
-          }),
-        );
-      });
-
-      const { updatedURLs, notUpdatedURLs } = installReportPlugin;
-
-      if (process.env.NODE_ENV !== "production") {
-        printInstallDetails(updatedURLs, notUpdatedURLs);
+  handleInstall(event: ExtendableEvent): Promise<void> {
+    return waitUntil(event, async () => {
+      for (const callback of this.iterateControllers("install")) {
+        await callback(event, this);
       }
-
-      return { updatedURLs, notUpdatedURLs };
     });
   }
 
@@ -377,26 +285,11 @@ export class Serwist {
    * @param event
    * @returns
    */
-  handleActivate(event: ExtendableEvent): Promise<CleanupResult> {
-    return waitUntil<CleanupResult>(event, async () => {
-      const cache = await self.caches.open(this.precacheStrategy.cacheName);
-      const currentlyCachedRequests = await cache.keys();
-      const expectedCacheKeys = new Set(this._urlsToCacheKeys.values());
-
-      const deletedCacheRequests: string[] = [];
-
-      for (const request of currentlyCachedRequests) {
-        if (!expectedCacheKeys.has(request.url)) {
-          await cache.delete(request);
-          deletedCacheRequests.push(request.url);
-        }
+  handleActivate(event: ExtendableEvent): Promise<void> {
+    return waitUntil(event, async () => {
+      for (const callback of this.iterateControllers("activate")) {
+        await callback(event, this);
       }
-
-      if (process.env.NODE_ENV !== "production") {
-        printCleanupDetails(deletedCacheRequests);
-      }
-
-      return { deletedCacheRequests };
     });
   }
 
@@ -566,97 +459,6 @@ export class Serwist {
     } else {
       throw new SerwistError("unregister-route-route-not-registered");
     }
-  }
-
-  /**
-   * Returns a mapping of a precached URL to the corresponding cache key, taking
-   * into account the revision information for the URL.
-   *
-   * @returns A URL to cache key mapping.
-   */
-  getUrlsToPrecacheKeys(): Map<string, string> {
-    return this._urlsToCacheKeys;
-  }
-
-  /**
-   * Returns a list of all the URLs that have been precached by the current
-   * service worker.
-   *
-   * @returns The precached URLs.
-   */
-  getPrecachedUrls(): string[] {
-    return [...this._urlsToCacheKeys.keys()];
-  }
-
-  /**
-   * Returns the cache key used for storing a given URL. If that URL is
-   * unversioned, like "/index.html", then the cache key will be the original
-   * URL with a search parameter appended to it.
-   *
-   * @param url A URL whose cache key you want to look up.
-   * @returns The versioned URL that corresponds to a cache key
-   * for the original URL, or undefined if that URL isn't precached.
-   */
-  getPrecacheKeyForUrl(url: string): string | undefined {
-    const urlObject = new URL(url, location.href);
-    return this._urlsToCacheKeys.get(urlObject.href);
-  }
-
-  /**
-   * @param url A cache key whose SRI you want to look up.
-   * @returns The subresource integrity associated with the cache key,
-   * or undefined if it's not set.
-   */
-  getIntegrityForPrecacheKey(cacheKey: string): string | undefined {
-    return this._cacheKeysToIntegrities.get(cacheKey);
-  }
-
-  /**
-   * This acts as a drop-in replacement for
-   * [`cache.match()`](https://developer.mozilla.org/en-US/docs/Web/API/Cache/match)
-   * with the following differences:
-   *
-   * - It knows what the name of the precache is, and only checks in that cache.
-   * - It allows you to pass in an "original" URL without versioning parameters,
-   * and it will automatically look up the correct cache key for the currently
-   * active revision of that URL.
-   *
-   * E.g., `matchPrecache('index.html')` will find the correct precached
-   * response for the currently active service worker, even if the actual cache
-   * key is `'/index.html?__WB_REVISION__=1234abcd'`.
-   *
-   * @param request The key (without revisioning parameters)
-   * to look up in the precache.
-   * @returns
-   */
-  async matchPrecache(request: string | Request): Promise<Response | undefined> {
-    const url = request instanceof Request ? request.url : request;
-    const cacheKey = this.getPrecacheKeyForUrl(url);
-    if (cacheKey) {
-      const cache = await self.caches.open(this.precacheStrategy.cacheName);
-      return cache.match(cacheKey);
-    }
-    return undefined;
-  }
-
-  /**
-   * Returns a function that looks up `url` in the precache (taking into
-   * account revision information), and returns the corresponding `Response`.
-   *
-   * @param url The precached URL which will be used to lookup the response.
-   * @return
-   */
-  createHandlerBoundToUrl(url: string): RouteHandlerCallback {
-    const cacheKey = this.getPrecacheKeyForUrl(url);
-    if (!cacheKey) {
-      throw new SerwistError("non-precached-url", { url });
-    }
-    return (options) => {
-      options.request = new Request(url);
-      options.params = { cacheKey, ...options.params };
-
-      return this.precacheStrategy.handle(options);
-    };
   }
 
   /**
@@ -863,5 +665,98 @@ export class Serwist {
     }
     // If no match was found above, return and empty object.
     return {};
+  }
+
+  // The following are deprecated methods:
+
+  /**
+   * Adds items to the precache list, removing duplicates and ensuring the information is valid.
+   *
+   * @deprecated Use `serwist.precache.addToPrecacheList` instead.
+   * @param entries Array of entries to precache.
+   */
+  addToPrecacheList(entries: (PrecacheEntry | string)[]): void {
+    this._precacheController.addToCacheList(entries);
+  }
+
+  /**
+   * Returns a mapping of a precached URL to the corresponding cache key, taking
+   * into account the revision information for the URL.
+   *
+   * @deprecated Use `serwist.precache.getUrlsToPrecacheKeys` instead.
+   * @returns A URL to cache key mapping.
+   */
+  getUrlsToPrecacheKeys(): Map<string, string> {
+    return this.precache.getUrlsToPrecacheKeys();
+  }
+
+  /**
+   * Returns a list of all the URLs that have been precached by the current
+   * service worker.
+   *
+   * @deprecated Use `serwist.precache.getPrecachedUrls` instead.
+   * @returns The precached URLs.
+   */
+  getPrecachedUrls(): string[] {
+    return this.precache.getPrecachedUrls();
+  }
+
+  /**
+   * Returns the cache key used for storing a given URL. If that URL is
+   * unversioned, like "/index.html", then the cache key will be the original
+   * URL with a search parameter appended to it.
+   *
+   * @deprecated Use `serwist.precache.getPrecacheKeyForUrl` instead.
+   * @param url A URL whose cache key you want to look up.
+   * @returns The versioned URL that corresponds to a cache key
+   * for the original URL, or undefined if that URL isn't precached.
+   */
+  getPrecacheKeyForUrl(url: string): string | undefined {
+    return this.precache.getPrecacheKeyForUrl(url);
+  }
+
+  /**
+   * @deprecated Use `serwist.precache.getIntegrityForPrecacheKey` instead.
+   * @param url A cache key whose SRI you want to look up.
+   * @returns The subresource integrity associated with the cache key,
+   * or undefined if it's not set.
+   */
+  getIntegrityForPrecacheKey(cacheKey: string): string | undefined {
+    return this.precache.getIntegrityForPrecacheKey(cacheKey);
+  }
+
+  /**
+   * This acts as a drop-in replacement for
+   * [`cache.match()`](https://developer.mozilla.org/en-US/docs/Web/API/Cache/match)
+   * with the following differences:
+   *
+   * - It knows what the name of the precache is, and only checks in that cache.
+   * - It allows you to pass in an "original" URL without versioning parameters,
+   * and it will automatically look up the correct cache key for the currently
+   * active revision of that URL.
+   *
+   * E.g., `matchPrecache('index.html')` will find the correct precached
+   * response for the currently active service worker, even if the actual cache
+   * key is `'/index.html?__WB_REVISION__=1234abcd'`.
+   *
+   * @deprecated Use `serwist.precache.matchPrecache` instead.
+   * @param request The key (without revisioning parameters)
+   * to look up in the precache.
+   * @returns
+   */
+  matchPrecache(request: string | Request): Promise<Response | undefined> {
+    return this.precache.matchPrecache(request);
+  }
+
+  /**
+   * Returns a function that looks up `url` in the precache (taking into
+   * account revision information), and returns the corresponding `Response`.
+   *
+   * @deprecated Use `serwist.precache.createHandlerBoundToUrl` instead.
+   * @param url The precached URL which will be used to lookup the response.
+   * @return
+   */
+  createHandlerBoundToUrl(url: string): RouteHandlerCallback {
+    return this.precache.createHandlerBoundToUrl(url);
   }
 }

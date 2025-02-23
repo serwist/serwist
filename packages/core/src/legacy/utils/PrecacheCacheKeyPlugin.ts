@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { SerwistPlugin, SerwistPluginCallbackParam } from "../../types.js";
+import type { StrategyPlugin, StrategyPluginCallbackParam } from "../../types.js";
 import type { PrecacheController } from "../PrecacheController.js";
 
 /**
@@ -15,14 +15,14 @@ import type { PrecacheController } from "../PrecacheController.js";
  *
  * @private
  */
-export class PrecacheCacheKeyPlugin implements SerwistPlugin {
+export class PrecacheCacheKeyPlugin implements StrategyPlugin {
   private readonly _precacheController: PrecacheController;
 
   constructor({ precacheController }: { precacheController: PrecacheController }) {
     this._precacheController = precacheController;
   }
 
-  cacheKeyWillBeUsed: SerwistPlugin["cacheKeyWillBeUsed"] = async ({ request, params }: SerwistPluginCallbackParam["cacheKeyWillBeUsed"]) => {
+  cacheKeyWillBeUsed: StrategyPlugin["cacheKeyWillBeUsed"] = async ({ request, params }: StrategyPluginCallbackParam["cacheKeyWillBeUsed"]) => {
     // Params is type any, can't change right now.
     /* eslint-disable */
     const cacheKey = params?.cacheKey || this._precacheController.getCacheKeyForURL(request.url);

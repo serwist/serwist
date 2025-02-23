@@ -7,15 +7,15 @@
 */
 
 import { copyResponse } from "../../copyResponse.js";
-import type { SerwistPlugin } from "../../types.js";
+import type { StrategyPlugin } from "../../types.js";
 import { SerwistError } from "../../utils/SerwistError.js";
 import { cacheNames as privateCacheNames } from "../../utils/cacheNames.js";
 import { getFriendlyURL } from "../../utils/getFriendlyURL.js";
 import { logger } from "../../utils/logger.js";
 import type { Serwist } from "../../Serwist.js";
-import type { StrategyOptions } from "./Strategy.js";
-import { Strategy } from "./Strategy.js";
-import type { StrategyHandler } from "./StrategyHandler.js";
+import type { StrategyOptions } from "../../lib/strategies/Strategy.js";
+import { Strategy } from "../../lib/strategies/Strategy.js";
+import type { StrategyHandler } from "../../lib/strategies/StrategyHandler.js";
 
 export interface PrecacheStrategyOptions extends StrategyOptions {
   /**
@@ -39,7 +39,7 @@ export interface PrecacheStrategyOptions extends StrategyOptions {
 export class PrecacheStrategy extends Strategy {
   private readonly _fallbackToNetwork: boolean;
 
-  static readonly defaultPrecacheCacheabilityPlugin: SerwistPlugin = {
+  static readonly defaultPrecacheCacheabilityPlugin: StrategyPlugin = {
     async cacheWillUpdate({ response }) {
       if (!response || response.status >= 400) {
         return null;
@@ -49,7 +49,7 @@ export class PrecacheStrategy extends Strategy {
     },
   };
 
-  static readonly copyRedirectedCacheableResponsesPlugin: SerwistPlugin = {
+  static readonly copyRedirectedCacheableResponsesPlugin: StrategyPlugin = {
     async cacheWillUpdate({ response }) {
       return response.redirected ? await copyResponse(response) : response;
     },
@@ -63,7 +63,7 @@ export class PrecacheStrategy extends Strategy {
 
     super(options);
 
-    this._fallbackToNetwork = options.fallbackToNetwork === false ? false : true;
+    this._fallbackToNetwork = options.fallbackToNetwork !== false;
 
     // Redirected responses cannot be used to satisfy a navigation request, so
     // any redirected response must be "copied" rather than cloned, so the new

@@ -6,10 +6,10 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { SerwistPlugin } from "../types.js";
+import type { StrategyPlugin } from "../types.js";
 
 export const pluginUtils = {
-  filter: (plugins: SerwistPlugin[], callbackName: string): SerwistPlugin[] => {
+  filter: (plugins: StrategyPlugin[], callbackName: string): StrategyPlugin[] => {
     return plugins.filter((plugin) => callbackName in plugin);
   },
 };

@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { CacheDidUpdateCallbackParam, SerwistPlugin } from "../../types.js";
+import type { CacheDidUpdateCallbackParam, StrategyPlugin } from "../../types.js";
 import { BroadcastCacheUpdate } from "./BroadcastCacheUpdate.js";
 import type { BroadcastCacheUpdateOptions } from "./types.js";
 
@@ -14,7 +14,7 @@ import type { BroadcastCacheUpdateOptions } from "./types.js";
  * A class implementing the `cacheDidUpdate` lifecycle callback. It will automatically
  * broadcast a message whenever a cached response is updated.
  */
-export class BroadcastUpdatePlugin implements SerwistPlugin {
+export class BroadcastUpdatePlugin implements StrategyPlugin {
   private readonly _broadcastUpdate: BroadcastCacheUpdate;
 
   /**

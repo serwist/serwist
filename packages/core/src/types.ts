@@ -1,8 +1,8 @@
 import type { Prettify } from "@serwist/utils";
 import type { HTTPMethod } from "./constants.js";
-import type { PrecacheStrategyOptions } from "./lib/strategies/PrecacheStrategy.js";
 import type { Route } from "./Route.js";
 import type { Serwist } from "./Serwist.js";
+import type { PrecacheEntry, PrecacheOptions, PrecacheRouteOptions } from "./controllers/PrecacheController/PrecacheController.js";
 
 export type PromiseOrNot<T> = T | Promise<T>;
 
@@ -15,6 +15,15 @@ export interface MapLikeObject {
  * in the future.
  */
 export type PluginState = MapLikeObject;
+
+/**
+ * An object with optional lifecycle callback properties for Serwist's operations.
+ */
+export interface Controller {
+  init?(serwist: Serwist): void;
+  install?(event: ExtendableEvent, serwist: Serwist): Promise<void>;
+  activate?(event: ExtendableEvent, serwist: Serwist): Promise<void>;
+}
 
 /**
  * Options passed to a {@linkcode RouteMatchCallback} function.
@@ -257,7 +266,7 @@ export type HandlerDidCompleteCallback = (param: HandlerDidCompleteCallbackParam
  * An object with optional lifecycle callback properties for the fetch and
  * cache operations.
  */
-export interface SerwistPlugin {
+export interface StrategyPlugin {
   cacheDidUpdate?: CacheDidUpdateCallback;
   cachedResponseWillBeUsed?: CachedResponseWillBeUsedCallback;
   cacheKeyWillBeUsed?: CacheKeyWillBeUsedCallback;
@@ -272,7 +281,7 @@ export interface SerwistPlugin {
   requestWillFetch?: RequestWillFetchCallback;
 }
 
-export interface SerwistPluginCallbackParam {
+export interface StrategyPluginCallbackParam {
   cacheDidUpdate: CacheDidUpdateCallbackParam;
   cachedResponseWillBeUsed: CachedResponseWillBeUsedCallbackParam;
   cacheKeyWillBeUsed: CacheKeyWillBeUsedCallbackParam;
@@ -332,66 +341,6 @@ export interface CleanupResult {
   deletedCacheRequests: string[];
 }
 
-export declare interface PrecacheEntry {
-  integrity?: string;
-  url: string;
-  revision?: string | null;
-}
-
-export interface PrecacheRouteOptions {
-  /**
-   * Tells Serwist to check the precache for an entry whose URL is the request URL appended
-   * with the specified value. Only applies if the request URL ends with "/".
-   *
-   * @default "index.html"
-   */
-  directoryIndex?: string | null;
-  /**
-   * An array of `RegExp` objects matching search params that should be removed when looking
-   * for a precache match.
-   */
-  ignoreURLParametersMatching?: RegExp[];
-  /**
-   * Tells Serwist to check the precache for an entry whose URL is the request URL appended
-   * with ".html".
-   *
-   * @default true
-   */
-  cleanURLs?: boolean;
-  /**
-   * A function that should take a URL and return an array of alternative URLs that should
-   * be checked for precache matches.
-   */
-  urlManipulation?: UrlManipulation;
-}
-
-export interface PrecacheOptions extends PrecacheStrategyOptions, PrecacheRouteOptions {
-  /**
-   * Whether outdated caches should be removed.
-   *
-   * @default false
-   */
-  cleanupOutdatedCaches?: boolean;
-  /**
-   * The number of precache requests that should be made concurrently.
-   *
-   * @default 10
-   */
-  concurrency?: number;
-  /**
-   * An URL that should point to a HTML file with which navigation requests for URLs that aren't
-   * precached will be fulfilled.
-   */
-  navigateFallback?: string;
-  /**
-   * URLs that should be allowed to use the `navigateFallback` handler.
-   */
-  navigateFallbackAllowlist?: RegExp[];
-  /**
-   * URLs that should not be allowed to use the `navigateFallback` handler. This takes precedence
-   * over `navigateFallbackAllowlist`.
-   */
-  navigateFallbackDenylist?: RegExp[];
-}
-
 export type UrlManipulation = ({ url }: { url: URL }) => URL[];
+
+export type { StrategyPlugin as SerwistPlugin, StrategyPluginCallbackParam as SerwistPluginCallbackParam, PrecacheEntry, PrecacheRouteOptions, PrecacheOptions };

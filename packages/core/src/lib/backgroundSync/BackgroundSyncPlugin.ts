@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { FetchDidFailCallbackParam, SerwistPlugin } from "../../types.js";
+import type { FetchDidFailCallbackParam, StrategyPlugin } from "../../types.js";
 import type { BackgroundSyncQueueOptions } from "./BackgroundSyncQueue.js";
 import { BackgroundSyncQueue } from "./BackgroundSyncQueue.js";
 
@@ -14,7 +14,7 @@ import { BackgroundSyncQueue } from "./BackgroundSyncQueue.js";
  * A class implementing the `fetchDidFail` lifecycle callback. This makes it
  * easier to add failed requests to a {@linkcode BackgroundSyncQueue}.
  */
-export class BackgroundSyncPlugin implements SerwistPlugin {
+export class BackgroundSyncPlugin implements StrategyPlugin {
   private readonly _queue: BackgroundSyncQueue;
 
   /**

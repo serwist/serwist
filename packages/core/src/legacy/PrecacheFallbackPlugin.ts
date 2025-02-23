@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { HandlerDidErrorCallbackParam, SerwistPlugin } from "../types.js";
+import type { HandlerDidErrorCallbackParam, StrategyPlugin } from "../types.js";
 import type { PrecacheController } from "./PrecacheController.js";
 import { getSingletonPrecacheController } from "./singletonPrecacheController.js";
 
@@ -54,7 +54,7 @@ export interface PrecacheFallbackPluginOptions {
  *
  * @deprecated
  */
-export class PrecacheFallbackPlugin implements SerwistPlugin {
+export class PrecacheFallbackPlugin implements StrategyPlugin {
   private readonly _fallbackUrls: (string | PrecacheFallbackEntry)[];
   private readonly _precacheController: PrecacheController;
 

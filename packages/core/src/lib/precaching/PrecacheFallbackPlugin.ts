@@ -6,8 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { Serwist } from "../../Serwist.js";
-import type { HandlerDidErrorCallbackParam, SerwistPlugin } from "../../types.js";
+import type { PrecacheController } from "../../controllers/PrecacheController/PrecacheController.js";
+import type { HandlerDidErrorCallbackParam, StrategyPlugin } from "../../types.js";
 
 export interface PrecacheFallbackEntry {
   /**
@@ -28,9 +28,9 @@ export interface PrecacheFallbackPluginOptions {
    */
   fallbackUrls: (string | PrecacheFallbackEntry)[];
   /**
-   * A {@linkcode Serwist} instance.
+   * A {@linkcode PrecacheController} instance.
    */
-  serwist: Serwist;
+  precacheController: PrecacheController;
 }
 
 /**
@@ -41,18 +41,18 @@ export interface PrecacheFallbackPluginOptions {
  * and returning a precached response, taking the expected revision parameter
  * into account automatically.
  */
-export class PrecacheFallbackPlugin implements SerwistPlugin {
+export class PrecacheFallbackPlugin implements StrategyPlugin {
   private readonly _fallbackUrls: (string | PrecacheFallbackEntry)[];
-  private readonly _serwist: Serwist;
+  private readonly _precacheController: PrecacheController;
 
   /**
    * Constructs a new instance with the associated `fallbackUrls`.
    *
    * @param config
    */
-  constructor({ fallbackUrls, serwist }: PrecacheFallbackPluginOptions) {
+  constructor({ fallbackUrls, precacheController }: PrecacheFallbackPluginOptions) {
     this._fallbackUrls = fallbackUrls;
-    this._serwist = serwist;
+    this._precacheController = precacheController;
   }
 
   /**
@@ -63,12 +63,12 @@ export class PrecacheFallbackPlugin implements SerwistPlugin {
   async handlerDidError(param: HandlerDidErrorCallbackParam) {
     for (const fallback of this._fallbackUrls) {
       if (typeof fallback === "string") {
-        const fallbackResponse = await this._serwist.matchPrecache(fallback);
+        const fallbackResponse = await this._precacheController.matchPrecache(fallback);
         if (fallbackResponse !== undefined) {
           return fallbackResponse;
         }
       } else if (fallback.matcher(param)) {
-        const fallbackResponse = await this._serwist.matchPrecache(fallback.url);
+        const fallbackResponse = await this._precacheController.matchPrecache(fallback.url);
         if (fallbackResponse !== undefined) {
           return fallbackResponse;
         }

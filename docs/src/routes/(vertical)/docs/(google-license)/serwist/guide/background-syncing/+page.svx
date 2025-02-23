@@ -60,7 +60,7 @@ import type { Serwist } from "serwist";
 
 declare const serwist: Serwist;
 // ---cut-before---
-import type { SerwistPlugin } from "serwist";
+import type { StrategyPlugin } from "serwist";
 import { BackgroundSyncPlugin, NetworkOnly } from "serwist";
 
 const statusPlugin = {
@@ -72,7 +72,7 @@ const statusPlugin = {
     // If it's not 5xx, use the response as-is.
     return response;
   },
-} satisfies SerwistPlugin;
+} satisfies StrategyPlugin;
 
 const backgroundSync = new BackgroundSyncPlugin("myQueueName", {
   maxRetentionTime: 24 * 60, // Retry for a maximum of 24 Hours (specified in minutes)
@@ -103,7 +103,7 @@ declare global {
 // ---cut-before---
 import { BackgroundSyncPlugin, NetworkOnly } from "serwist";
 
-/** @type {import("serwist").SerwistPlugin} */
+/** @type {import("serwist").StrategyPlugin} */
 const statusPlugin = {
   fetchDidSucceed({ response }) {
     if (response.status >= 500) {

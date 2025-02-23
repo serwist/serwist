@@ -6,9 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { SerwistPlugin } from "../../../types.js";
+import type { StrategyPlugin } from "../../../types.js";
 
-export const cacheOkAndOpaquePlugin: SerwistPlugin = {
+export const cacheOkAndOpaquePlugin: StrategyPlugin = {
   /**
    * Returns a valid response (to allow caching) if the status is 200 (OK) or
    * 0 (opaque).

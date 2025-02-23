@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { HandlerCallbackOptions, MapLikeObject, SerwistPlugin, SerwistPluginCallbackParam } from "../../types.js";
+import type { HandlerCallbackOptions, MapLikeObject, StrategyPlugin, StrategyPluginCallbackParam } from "../../types.js";
 import { Deferred } from "../../utils/Deferred.js";
 import { SerwistError } from "../../utils/SerwistError.js";
 import { assert } from "../../utils/assert.js";
@@ -59,8 +59,8 @@ export class StrategyHandler {
   private readonly _strategy: Strategy;
   private readonly _handlerDeferred: Deferred<any>;
   private readonly _extendLifetimePromises: Promise<any>[];
-  private readonly _plugins: SerwistPlugin[];
-  private readonly _pluginStateMap: Map<SerwistPlugin, MapLikeObject>;
+  private readonly _plugins: StrategyPlugin[];
+  private readonly _pluginStateMap: Map<StrategyPlugin, MapLikeObject>;
 
   /**
    * Creates a new instance associated with the passed strategy and event
@@ -405,7 +405,7 @@ export class StrategyHandler {
    * @param name The name of the callback to check for.
    * @returns
    */
-  hasCallback<C extends keyof SerwistPlugin>(name: C): boolean {
+  hasCallback<C extends keyof StrategyPlugin>(name: C): boolean {
     for (const plugin of this._strategy.plugins) {
       if (name in plugin) {
         return true;
@@ -426,10 +426,10 @@ export class StrategyHandler {
    * @param param The object to pass as the first (and only) param when executing each callback. This object will be merged with the
    * current plugin state prior to callback execution.
    */
-  async runCallbacks<C extends keyof NonNullable<SerwistPlugin>>(name: C, param: Omit<SerwistPluginCallbackParam[C], "state">): Promise<void> {
+  async runCallbacks<C extends keyof NonNullable<StrategyPlugin>>(name: C, param: Omit<StrategyPluginCallbackParam[C], "state">): Promise<void> {
     for (const callback of this.iterateCallbacks(name)) {
       // TODO(philipwalton): not sure why `any` is needed. It seems like
-      // this should work with `as SerwistPluginCallbackParam[C]`.
+      // this should work with `as StrategyPluginCallbackParam[C]`.
       await callback(param as any);
     }
   }
@@ -440,18 +440,18 @@ export class StrategyHandler {
    * @param name The name fo the callback to run
    * @returns
    */
-  *iterateCallbacks<C extends keyof SerwistPlugin>(name: C): Generator<NonNullable<SerwistPlugin[C]>> {
+  *iterateCallbacks<C extends keyof StrategyPlugin>(name: C): Generator<NonNullable<StrategyPlugin[C]>> {
     for (const plugin of this._strategy.plugins) {
       if (typeof plugin[name] === "function") {
         const state = this._pluginStateMap.get(plugin);
-        const statefulCallback = (param: Omit<SerwistPluginCallbackParam[C], "state">) => {
+        const statefulCallback = (param: Omit<StrategyPluginCallbackParam[C], "state">) => {
           const statefulParam = { ...param, state };
 
           // TODO(philipwalton): not sure why `any` is needed. It seems like
           // this should work with `as WorkboxPluginCallbackParam[C]`.
           return plugin[name]!(statefulParam as any);
         };
-        yield statefulCallback as NonNullable<SerwistPlugin[C]>;
+        yield statefulCallback as NonNullable<StrategyPlugin[C]>;
       }
     }
   }

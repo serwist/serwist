@@ -6,8 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { RouteMatchCallback, RouteMatchCallbackOptions, SerwistPlugin } from "serwist";
-import { CacheFirst, CacheableResponsePlugin, ExpirationPlugin, Serwist } from "serwist";
+import type { RouteMatchCallback, RouteMatchCallbackOptions, Serwist, StrategyPlugin } from "serwist";
+import { CacheFirst, CacheableResponsePlugin, ExpirationPlugin } from "serwist";
 import { warmStrategyCache } from "./warmStrategyCache.js";
 
 export interface ImageCacheOptions {
@@ -34,7 +34,7 @@ export interface ImageCacheOptions {
   /**
    * Additional plugins to use for this recipe.
    */
-  plugins?: SerwistPlugin[];
+  plugins?: StrategyPlugin[];
   /**
    * Paths to call to use to warm this cache.
    */

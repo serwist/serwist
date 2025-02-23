@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { HandlerCallbackOptions, RouteHandlerObject, SerwistPlugin } from "../../types.js";
+import type { HandlerCallbackOptions, RouteHandlerObject, StrategyPlugin } from "../../types.js";
 import { SerwistError } from "../../utils/SerwistError.js";
 import { cacheNames as privateCacheNames } from "../../utils/cacheNames.js";
 import { getFriendlyURL } from "../../utils/getFriendlyURL.js";
@@ -21,7 +21,7 @@ export interface StrategyOptions {
   /**
    * [Plugins](https://serwist.pages.dev/docs/serwist/runtime-caching/plugins) to use in conjunction with this caching strategy.
    */
-  plugins?: SerwistPlugin[];
+  plugins?: StrategyPlugin[];
   /**
    * Options passed to [non-navigation](https://github.com/GoogleChrome/workbox/issues/1796) `fetch()` calls made by
    * this strategy.
@@ -42,7 +42,7 @@ export interface StrategyOptions {
  */
 export abstract class Strategy implements RouteHandlerObject {
   cacheName: string;
-  plugins: SerwistPlugin[];
+  plugins: StrategyPlugin[];
   fetchOptions?: RequestInit;
   matchOptions?: CacheQueryOptions;
 

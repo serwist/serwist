@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { SerwistPlugin, SerwistPluginCallbackParam } from "../types.js";
+import type { StrategyPlugin, StrategyPluginCallbackParam } from "../../types.js";
 
 /**
  * A plugin designed to determine the number of assets that were updated (or not updated)
@@ -14,22 +14,22 @@ import type { SerwistPlugin, SerwistPluginCallbackParam } from "../types.js";
  *
  * @private
  */
-export class PrecacheInstallReportPlugin implements SerwistPlugin {
+export class PrecacheInstallReportPlugin implements StrategyPlugin {
   updatedURLs: string[] = [];
   notUpdatedURLs: string[] = [];
 
-  handlerWillStart: SerwistPlugin["handlerWillStart"] = async ({ request, state }: SerwistPluginCallbackParam["handlerWillStart"]) => {
+  handlerWillStart: StrategyPlugin["handlerWillStart"] = async ({ request, state }: StrategyPluginCallbackParam["handlerWillStart"]) => {
     // TODO: `state` should never be undefined...
     if (state) {
       state.originalRequest = request;
     }
   };
 
-  cachedResponseWillBeUsed: SerwistPlugin["cachedResponseWillBeUsed"] = async ({
+  cachedResponseWillBeUsed: StrategyPlugin["cachedResponseWillBeUsed"] = async ({
     event,
     state,
     cachedResponse,
-  }: SerwistPluginCallbackParam["cachedResponseWillBeUsed"]) => {
+  }: StrategyPluginCallbackParam["cachedResponseWillBeUsed"]) => {
     if (event.type === "install") {
       if (state?.originalRequest && state.originalRequest instanceof Request) {
         // TODO: `state` should never be undefined...
