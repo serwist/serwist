@@ -4,13 +4,7 @@
   "type": "module",
   "private": true,
   "description": "This module is used by a number of the other Serwist modules to share configs.",
-  "keywords": [
-    "serwist",
-    "serwistjs",
-    "service worker",
-    "sw",
-    "serwist-plugin"
-  ],
+  "keywords": ["serwist", "serwistjs", "service worker", "sw", "serwist-plugin"],
   "author": "Serwist <ducanh2912.rusty@gmail.com> (https://serwist.pages.dev/)",
   "license": "MIT",
   "repository": "https://github.com/serwist/serwist",

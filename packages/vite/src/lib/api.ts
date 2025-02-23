@@ -4,8 +4,8 @@ import type { SerwistViteApi } from "./types.js";
 
 /**
  * @deprecated
- * @param ctx 
- * @returns 
+ * @param ctx
+ * @returns
  */
 export const createApi = (ctx: SerwistViteContext): SerwistViteApi => {
   return {

@@ -47,7 +47,7 @@ export type Optional<T, U extends keyof T> = Omit<T, U> & Partial<Pick<T, U>>;
  * }
  *
  * type D = A | B; // Displayed as is written
- * 
+ *
  * type C = Prettify<A | B>; // { b: string; c: boolean; } | { c: number; }
  */
 export type Prettify<T> = {

@@ -2,7 +2,7 @@ import type { Prettify } from "@serwist/utils";
 import type { HTTPMethod } from "./constants.js";
 import type { Route } from "./Route.js";
 import type { Serwist } from "./Serwist.js";
-import type { PrecacheEntry, PrecacheOptions, PrecacheRouteOptions } from "./controllers/PrecacheController/PrecacheController.js";
+import type { PrecacheControllerOptions, PrecacheEntry, PrecacheOptions, PrecacheRouteOptions } from "./controllers/PrecacheController/PrecacheController.js";
 
 export type PromiseOrNot<T> = T | Promise<T>;
 
@@ -343,4 +343,11 @@ export interface CleanupResult {
 
 export type UrlManipulation = ({ url }: { url: URL }) => URL[];
 
-export type { StrategyPlugin as SerwistPlugin, StrategyPluginCallbackParam as SerwistPluginCallbackParam, PrecacheEntry, PrecacheRouteOptions, PrecacheOptions };
+export type {
+  StrategyPlugin as SerwistPlugin,
+  StrategyPluginCallbackParam as SerwistPluginCallbackParam,
+  PrecacheEntry,
+  PrecacheRouteOptions,
+  PrecacheControllerOptions,
+  PrecacheOptions,
+};

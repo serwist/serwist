@@ -187,7 +187,9 @@ export type GetManifestOptionsComplete = Prettify<BaseResolved & GlobResolved & 
 
 export type InjectManifestOptions = Prettify<BasePartial & GlobPartial & InjectPartial & RequiredSwDestPartial & RequiredGlobDirectoryPartial>;
 
-export type InjectManifestOptionsComplete = Prettify<BaseResolved & GlobResolved & InjectResolved & RequiredSwDestResolved & RequiredGlobDirectoryResolved>;
+export type InjectManifestOptionsComplete = Prettify<
+  BaseResolved & GlobResolved & InjectResolved & RequiredSwDestResolved & RequiredGlobDirectoryResolved
+>;
 
 export interface GetManifestResult {
   count: number;

@@ -9,8 +9,6 @@ import { SerwistError } from "../../utils/SerwistError.js";
 import { printInstallDetails } from "../../utils/printInstallDetails.js";
 import { printCleanupDetails } from "../../utils/printCleanupDetails.js";
 import { PrecacheStrategy } from "./PrecacheStrategy.js";
-import { privateCacheNames } from "../../index.internal.js";
-import { PrecacheCacheKeyPlugin } from "./PrecacheCacheKeyPlugin.js";
 import { PrecacheRoute } from "./PrecacheRoute.js";
 import type { Serwist } from "../../Serwist.js";
 import { NavigationRoute } from "../../NavigationRoute.js";
@@ -98,14 +96,7 @@ export class PrecacheController implements Controller {
    * @param options
    */
   constructor(entries: (PrecacheEntry | string)[], precacheOptions?: PrecacheOptions) {
-    const { strategyOptions, routeOptions, controllerOptions } = parsePrecacheOptions(precacheOptions);
-
-    if (!strategyOptions.plugins) strategyOptions.plugins = [];
-    strategyOptions.cacheName = privateCacheNames.getPrecacheName(strategyOptions.cacheName);
-    strategyOptions.plugins.push(new PrecacheCacheKeyPlugin({ precacheController: this }));
-
-    if (controllerOptions.concurrency === undefined) controllerOptions.concurrency = 10;
-
+    const { strategyOptions, routeOptions, controllerOptions } = parsePrecacheOptions(this, precacheOptions);
     this.addToCacheList(entries);
     this._strategy = new PrecacheStrategy(strategyOptions);
     this._options = controllerOptions;
