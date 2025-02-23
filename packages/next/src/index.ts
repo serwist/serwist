@@ -19,7 +19,13 @@ const dirname = "__dirname" in globalThis ? __dirname : fileURLToPath(new URL(".
  * @returns
  */
 const withSerwistInit = (userOptions: InjectManifestOptions): ((nextConfig?: NextConfig) => NextConfig) => {
-  
+  if (process.env.TURBOPACK && !process.env.SERWIST_SUPPRESS_TURBOPACK_WARNING) {
+    console.warn(
+      `[@serwist/next] WARNING: You are using '@serwist/next' with \`next dev --turbopack\`, but Serwist doesn't support Turbopack at the moment. It is recommended
+      that you set \`disable\` to \`process.env.NODE_ENV !== \"production\"\`. Follow this issue for progress on Serwist + Turbopack: https://github.com/serwist/serwist/issues/54.
+      You can also suppress this warning by setting SERWIST_SUPPRESS_TURBOPACK_WARNING=1.`,
+    );
+  }
   return (nextConfig = {}) => ({
     ...nextConfig,
     webpack(config: Configuration, options) {
@@ -196,7 +202,10 @@ const withSerwistInit = (userOptions: InjectManifestOptions): ((nextConfig?: Nex
                   // We don't need the service worker to be cached.
                   asset.name === swAsset?.name ||
                   asset.name.startsWith("server/") ||
-                  /^((app-|^)build-manifest\.json|react-loadable-manifest\.json)$/.test(asset.name) ||
+                  // This excludes all JSON files in the compilation directory by filtering
+                  // out paths that have slashes or don't end with `.json`. Only said files
+                  // match this criterion.
+                  /^[^\/]*\.json$/.test(asset.name) ||
                   (dev && !asset.name.startsWith("static/runtime/"))
                 );
               },

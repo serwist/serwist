@@ -121,7 +121,9 @@
 
 @utility list {
   & {
-    @apply list-inside list-disc break-words pl-4 marker:text-black dark:marker:text-white;
+    list-style-position: inside;
+    list-style-type: disc;
+    @apply break-words pl-4 marker:text-black dark:marker:text-white;
   }
   & > li {
     @apply mb-2;

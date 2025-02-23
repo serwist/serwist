@@ -1,6 +1,6 @@
 {
   "name": "@serwist/svelte",
-  "version": "9.0.11",
+  "version": "9.0.12",
   "type": "module",
   "description": "A module that complements SvelteKit's built-in service worker support.",
   "files": [
@@ -50,8 +50,8 @@
   },
   "devDependencies": {
     "@serwist/configs": "workspace:*",
-    "@sveltejs/kit": "2.9.0",
-    "rollup": "4.28.0"
+    "@sveltejs/kit": "2.17.2",
+    "rollup": "4.34.8"
   },
   "peerDependencies": {
     "@sveltejs/kit": ">=2.0.0",

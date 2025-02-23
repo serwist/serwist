@@ -1,6 +1,6 @@
 {
   "name": "serwist",
-  "version": "9.0.11",
+  "version": "9.0.12",
   "type": "module",
   "description": "A Swiss Army knife for service workers.",
   "files": [
@@ -55,12 +55,12 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "idb": "8.0.0"
+    "idb": "8.0.2"
   },
   "devDependencies": {
     "@serwist/configs": "workspace:*",
     "@serwist/utils": "workspace:*",
-    "rollup": "4.28.0",
+    "rollup": "4.34.8",
     "typescript": "5.6.3"
   },
   "peerDependencies": {

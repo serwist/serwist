@@ -1,6 +1,6 @@
 {
   "name": "@serwist/core",
-  "version": "9.0.11",
+  "version": "9.0.12",
   "type": "module",
   "description": "This module was used by a number of the other Serwist modules to share common code.",
   "files": [
@@ -51,7 +51,7 @@
   },
   "devDependencies": {
     "@serwist/configs": "workspace:*",
-    "rollup": "4.28.0",
+    "rollup": "4.34.8",
     "typescript": "5.6.3"
   },
   "peerDependencies": {
