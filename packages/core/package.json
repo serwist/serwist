@@ -15,7 +15,6 @@
   "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
-      "legacy": ["./dist/index.legacy.d.ts"],
       "internal": ["./dist/index.internal.d.ts"]
     }
   },
@@ -23,10 +22,6 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
-    },
-    "./legacy": {
-      "types": "./dist/index.legacy.d.ts",
-      "default": "./dist/index.legacy.js"
     },
     "./internal": {
       "types": "./dist/index.internal.d.ts",
