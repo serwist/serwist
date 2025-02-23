@@ -31,7 +31,7 @@
 
 <nav
   class={clsx(
-    "transition-colors-opacity sticky top-0 z-[50] h-fit max-h-dvh border-b duration-100",
+    "transition-colors-opacity sticky top-0 z-50 h-fit max-h-dvh border-b duration-100",
     "border-neutral-300 bg-white dark:border-neutral-800 dark:bg-black"
   )}
 >
@@ -47,7 +47,7 @@
           <summary
             class={clsx(
               "flex h-[2rem] w-[2rem] cursor-pointer flex-col justify-center gap-[0.5rem]",
-              "[&>span]:bg-black [&>span]:transition-all [&>span]:dark:bg-white",
+              "[&>span]:bg-black [&>span]:transition-all dark:[&>span]:bg-white",
               "[&>span]:h-[0.2rem] [&>span]:w-full [&>span]:rounded-md"
             )}
             aria-label="Toggle navbar menu"

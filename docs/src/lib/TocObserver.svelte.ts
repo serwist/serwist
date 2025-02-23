@@ -15,7 +15,7 @@ export class TocObserver {
           if (link === null) return;
           if (entry.intersectionRatio > 0) {
             link.classList.add("active");
-            if (!found && window.innerWidth >= BREAKPOINTS.lg) {
+            if (!found && window.innerWidth >= BREAKPOINTS.xl) {
               link.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
               found = true;
             }

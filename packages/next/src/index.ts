@@ -195,7 +195,10 @@ const withSerwistInit = (userOptions: InjectManifestOptions): ((nextConfig?: Nex
                   // We don't need the service worker to be cached.
                   asset.name === swAsset?.name ||
                   asset.name.startsWith("server/") ||
-                  /^((app-|^)build-manifest\.json|react-loadable-manifest\.json)$/.test(asset.name) ||
+                  // This excludes all JSON files in the compilation directory by filtering
+                  // out paths that have slashes or don't end with `.json`. Only said files
+                  // match this criterion.
+                  /^[^\/]*\.json$/.test(asset.name) ||
                   (dev && !asset.name.startsWith("static/runtime/"))
                 );
               },

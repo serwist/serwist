@@ -20,6 +20,7 @@
       "style": {
         "noNonNullAssertion": "off",
         "noParameterAssign": "off",
+        "noUselessElse": "off",
         "noVar": "off",
         "useConst": "off"
       },

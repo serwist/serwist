@@ -54,7 +54,7 @@
         for="sidebar-menu-toggle"
         class={clsx(
           "z-20 flex h-fit w-full cursor-pointer select-none flex-row items-center justify-start gap-2 px-3 py-2 text-base font-medium",
-          "text-black duration-100 md:mt-[5px] md:text-sm dark:text-white peer-checked:[&>svg]:rotate-90",
+          "text-black duration-100 md:mt-[5px] md:text-sm dark:text-white [&>svg]:peer-checked:rotate-90",
           "peer-focus-visible:ring-2 peer-focus-visible:ring-white peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-gray-800"
         )}
         aria-label="Toggle menu"

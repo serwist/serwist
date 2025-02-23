@@ -3,7 +3,7 @@ on: [workflow_call]
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
-  TURBO_REMOTE_ONLY: true
+  TURBO_CACHE: remote:rw
 jobs:
   build_typecheck:
     name: 🔎 Build and typecheck

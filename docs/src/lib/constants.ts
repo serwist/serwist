@@ -73,7 +73,8 @@ export const REROUTE: Record<string, string> = {
 
 export const BREAKPOINTS = {
   md: 768,
-  lg: 1280,
+  lg: 1024,
+  xl: 1280,
 };
 
 export const DOCS_CORE_FUNCTIONS = [

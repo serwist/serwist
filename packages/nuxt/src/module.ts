@@ -1,11 +1,10 @@
 import path from "node:path";
-
 import { addPlugin, createResolver, defineNuxtModule, extendWebpackConfig } from "@nuxt/kit";
 import type { SerwistViteContext } from "vite-plugin-serwist";
 import { createContext, dev as devPlugin, generateServiceWorker, main as mainPlugin, resolveEntry } from "vite-plugin-serwist";
-import type { Require } from "./utils.js";
 
-import { version } from "../package.json";
+import packageJson from "../package.json" with { type: "json" };
+import type { Require } from "./utils.js";
 import { configurePwaOptions } from "./config.js";
 import type { ClientOptions, ModuleOptions } from "./types.js";
 
@@ -19,7 +18,7 @@ export default defineNuxtModule<ModuleOptions>({
       nuxt: "^3.8.0",
       bridge: false,
     },
-    version,
+    version: packageJson.version,
   },
   defaults(nuxt) {
     const publicDir = nuxt.options.nitro?.output?.publicDir

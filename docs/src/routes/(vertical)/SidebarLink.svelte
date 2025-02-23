@@ -30,7 +30,7 @@
             "flex items-center px-2 text-black transition-all duration-100 dark:text-white",
             isActive
               ? "bg-neutral-250 rounded-e border-l border-black/40 dark:border-white/40 dark:bg-neutral-800"
-              : "hover:bg-neutral-250 rounded hover:dark:bg-neutral-800"
+              : "hover:bg-neutral-250 rounded-sm dark:hover:bg-neutral-800"
           )}
         >
           <ChevronRight width={16} height={16} class="transition-transform duration-100" />
