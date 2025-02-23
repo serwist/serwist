@@ -39,5 +39,9 @@
     "@serwist/webpack-plugin": "9.0.9",
     "@serwist/window": "9.0.9"
   },
-  "changesets": ["strange-waves-remember"]
+  "changesets": [
+    "icy-crews-find",
+    "red-symbols-decide",
+    "strange-waves-remember"
+  ]
 }
