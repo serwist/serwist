@@ -1,6 +1,6 @@
 {
   "name": "@serwist/google-analytics",
-  "version": "9.1.0-preview.0",
+  "version": "10.0.0-preview.1",
   "type": "module",
   "description": "Queues failed requests and uses the Background Sync API to replay them when the network is available.",
   "files": [

@@ -40,6 +40,7 @@
     "@serwist/window": "9.0.9"
   },
   "changesets": [
+    "icy-crews-find",
     "strange-waves-remember"
   ]
 }
