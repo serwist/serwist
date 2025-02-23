@@ -1,5 +1,5 @@
 import path from "node:path";
-import { escapeRegExp, replaceAndUpdateSourceMap, stringify } from "@serwist/build";
+import { escapeRegExp, replaceAndUpdateSourceMap } from "@serwist/build";
 import { toUnix } from "@serwist/utils";
 import prettyBytes from "pretty-bytes";
 import type { Compilation, Compiler, WebpackError, default as Webpack } from "webpack";
@@ -101,7 +101,7 @@ export class InjectManifest {
 
     const { size, sortedEntries } = await getManifestEntriesFromCompilation(compilation, config);
 
-    let manifestString = stringify(sortedEntries);
+    let manifestString = JSON.stringify(sortedEntries);
     if (
       this.config.compileSrc &&
       // See https://github.com/GoogleChrome/workbox/issues/2729
