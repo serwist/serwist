@@ -7,7 +7,14 @@ import type {
   OptionalSwDestResolved,
 } from "@serwist/build";
 import type { Require } from "@serwist/utils";
-import type { WebpackPluginFunction, WebpackPluginInstance } from "webpack";
+import type { WebpackPluginFunction, WebpackPluginInstance, Asset, Compilation } from "webpack";
+
+export interface ConditionCallbackOptions {
+  asset: Asset;
+  compilation: Compilation;
+};
+
+export type ConditionCallback = (options: ConditionCallbackOptions) => boolean;
 
 export interface WebpackPartial {
   /**
@@ -25,7 +32,7 @@ export interface WebpackPartial {
    * [/\.map$/, /^manifest.*\.js$/]
    * ```
    */
-  exclude?: (string | RegExp | ((arg0: any) => boolean))[];
+  exclude?: (string | RegExp | ConditionCallback)[];
   /**
    * One or more chunk names whose corresponding output files should be excluded
    * from the precache manifest.
@@ -37,7 +44,7 @@ export interface WebpackPartial {
    * [the same rules](https://webpack.js.org/configuration/module/#condition)
    * as webpack's standard `include` option.
    */
-  include?: (string | RegExp | ((arg0: any) => boolean))[];
+  include?: (string | RegExp | ConditionCallback)[];
 }
 
 export type WebpackResolved = Require<WebpackPartial, "exclude">;
