@@ -8,8 +8,8 @@
 
 import { Route } from "./Route.js";
 import type { RouteHandler, RouteMatchCallbackOptions } from "./types.js";
-import { assert } from "./utils/assert.js";
-import { logger } from "./utils/logger.js";
+import { assert } from "$utils/assert.js";
+import { logger } from "$utils/logger.js";
 
 export interface NavigationRouteMatchOptions {
   /**

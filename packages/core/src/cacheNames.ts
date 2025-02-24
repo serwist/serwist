@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { cacheNames as privateCacheNames } from "./utils/cacheNames.js";
+import { cacheNames as privateCacheNames } from "$utils/cacheNames.js";
 
 /**
  * Get the current cache names and prefix/suffix used by Serwist.

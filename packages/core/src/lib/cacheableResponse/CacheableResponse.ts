@@ -6,10 +6,10 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { SerwistError } from "../../utils/SerwistError.js";
-import { assert } from "../../utils/assert.js";
-import { getFriendlyURL } from "../../utils/getFriendlyURL.js";
-import { logger } from "../../utils/logger.js";
+import { SerwistError } from "$utils/SerwistError.js";
+import { assert } from "$utils/assert.js";
+import { getFriendlyURL } from "$utils/getFriendlyURL.js";
+import { logger } from "$utils/logger.js";
 
 export interface CacheableResponseOptions {
   /**

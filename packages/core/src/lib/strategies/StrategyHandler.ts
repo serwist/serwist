@@ -7,14 +7,14 @@
 */
 
 import type { HandlerCallbackOptions, MapLikeObject, StrategyPlugin, StrategyPluginCallbackParam } from "../../types.js";
-import { Deferred } from "../../utils/Deferred.js";
-import { SerwistError } from "../../utils/SerwistError.js";
-import { assert } from "../../utils/assert.js";
-import { cacheMatchIgnoreParams } from "../../utils/cacheMatchIgnoreParams.js";
-import { executeQuotaErrorCallbacks } from "../../utils/executeQuotaErrorCallbacks.js";
-import { getFriendlyURL } from "../../utils/getFriendlyURL.js";
-import { logger } from "../../utils/logger.js";
-import { timeout } from "../../utils/timeout.js";
+import { Deferred } from "$utils/Deferred.js";
+import { SerwistError } from "$utils/SerwistError.js";
+import { assert } from "$utils/assert.js";
+import { cacheMatchIgnoreParams } from "$utils/cacheMatchIgnoreParams.js";
+import { executeQuotaErrorCallbacks } from "$utils/executeQuotaErrorCallbacks.js";
+import { getFriendlyURL } from "$utils/getFriendlyURL.js";
+import { logger } from "$utils/logger.js";
+import { timeout } from "$utils/timeout.js";
 import type { Strategy } from "./Strategy.js";
 import type { Route } from "../../Route.js";
 

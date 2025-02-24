@@ -1,4 +1,4 @@
-import { logger } from "./utils/logger.js";
+import { logger } from "$utils/logger.js";
 
 declare const self: ServiceWorkerGlobalScope;
 

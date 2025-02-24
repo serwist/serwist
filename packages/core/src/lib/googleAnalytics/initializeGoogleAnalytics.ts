@@ -8,12 +8,12 @@
 
 import { Route } from "../../Route.js";
 import type { Serwist } from "../../Serwist.js";
-import { NetworkFirst } from "../../lib/strategies/NetworkFirst.js";
-import { NetworkOnly } from "../../lib/strategies/NetworkOnly.js";
+import { NetworkFirst } from "../strategies/NetworkFirst.js";
+import { NetworkOnly } from "../strategies/NetworkOnly.js";
 import type { RouteMatchCallbackOptions } from "../../types.js";
-import { cacheNames as privateCacheNames } from "../../utils/cacheNames.js";
-import { getFriendlyURL } from "../../utils/getFriendlyURL.js";
-import { logger } from "../../utils/logger.js";
+import { cacheNames as privateCacheNames } from "$utils/cacheNames.js";
+import { getFriendlyURL } from "$utils/getFriendlyURL.js";
+import { logger } from "$utils/logger.js";
 import { BackgroundSyncPlugin } from "../backgroundSync/BackgroundSyncPlugin.js";
 import type { BackgroundSyncQueue, BackgroundSyncQueueEntry } from "../backgroundSync/BackgroundSyncQueue.js";
 import {

@@ -7,10 +7,10 @@
 */
 
 import type { HandlerCallbackOptions, RouteHandlerObject, StrategyPlugin } from "../../types.js";
-import { SerwistError } from "../../utils/SerwistError.js";
-import { cacheNames as privateCacheNames } from "../../utils/cacheNames.js";
-import { getFriendlyURL } from "../../utils/getFriendlyURL.js";
-import { logger } from "../../utils/logger.js";
+import { SerwistError } from "$utils/SerwistError.js";
+import { cacheNames as privateCacheNames } from "$utils/cacheNames.js";
+import { getFriendlyURL } from "$utils/getFriendlyURL.js";
+import { logger } from "$utils/logger.js";
 import { StrategyHandler } from "./StrategyHandler.js";
 
 export interface StrategyOptions {

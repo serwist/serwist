@@ -7,7 +7,7 @@
 */
 
 import type { MapLikeObject } from "../../types.js";
-import { assert } from "../../utils/assert.js";
+import { assert } from "$utils/assert.js";
 
 type SerializableProperties = "method" | "referrer" | "referrerPolicy" | "mode" | "credentials" | "cache" | "redirect" | "integrity" | "keepalive";
 

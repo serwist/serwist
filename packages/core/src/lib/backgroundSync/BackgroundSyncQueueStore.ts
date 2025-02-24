@@ -5,7 +5,7 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-import { assert } from "../../utils/assert.js";
+import { assert } from "$utils/assert.js";
 import type { BackgroundSyncQueueStoreEntry, UnidentifiedQueueStoreEntry } from "./BackgroundSyncQueueDb.js";
 import { BackgroundSyncQueueDb } from "./BackgroundSyncQueueDb.js";
 

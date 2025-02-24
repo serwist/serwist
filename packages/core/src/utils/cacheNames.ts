@@ -5,7 +5,7 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-import type { initializeGoogleAnalytics } from "../lib/googleAnalytics/initializeGoogleAnalytics.js";
+import type { initializeGoogleAnalytics } from "$lib/googleAnalytics/initializeGoogleAnalytics.js";
 
 declare let registration: ServiceWorkerRegistration | undefined;
 

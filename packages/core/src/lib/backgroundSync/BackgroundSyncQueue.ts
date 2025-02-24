@@ -1,4 +1,3 @@
-import { SerwistError } from "../../utils/SerwistError.js";
 /*
   Copyright 2018 Google LLC
 
@@ -6,9 +5,10 @@ import { SerwistError } from "../../utils/SerwistError.js";
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-import { assert } from "../../utils/assert.js";
-import { getFriendlyURL } from "../../utils/getFriendlyURL.js";
-import { logger } from "../../utils/logger.js";
+import { SerwistError } from "$utils/SerwistError.js";
+import { assert } from "$utils/assert.js";
+import { getFriendlyURL } from "$utils/getFriendlyURL.js";
+import { logger } from "$utils/logger.js";
 import type { BackgroundSyncQueueStoreEntry, UnidentifiedQueueStoreEntry } from "./BackgroundSyncQueueDb.js";
 import { BackgroundSyncQueueStore } from "./BackgroundSyncQueueStore.js";
 import { StorableRequest } from "./StorableRequest.js";

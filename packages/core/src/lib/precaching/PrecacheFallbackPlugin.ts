@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { PrecacheController } from "../../controllers/PrecacheController/PrecacheController.js";
+import type { PrecacheController } from "$lib/controllers/PrecacheController/PrecacheController.js";
 import type { HandlerDidErrorCallbackParam, StrategyPlugin } from "../../types.js";
 
 export interface PrecacheFallbackEntry {

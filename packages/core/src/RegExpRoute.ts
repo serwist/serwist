@@ -9,8 +9,8 @@
 import { Route } from "./Route.js";
 import type { HTTPMethod } from "./constants.js";
 import type { RouteHandler, RouteMatchCallback, RouteMatchCallbackOptions } from "./types.js";
-import { assert } from "./utils/assert.js";
-import { logger } from "./utils/logger.js";
+import { assert } from "$utils/assert.js";
+import { logger } from "$utils/logger.js";
 
 /**
  * A class that makes it easy to create a {@linkcode Route} object with a regular expression.

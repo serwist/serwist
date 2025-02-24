@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 import type { PrecacheController } from "./PrecacheController.js";
-import type { StrategyPlugin, StrategyPluginCallbackParam } from "../../types.js";
+import type { StrategyPlugin, StrategyPluginCallbackParam } from "../../../types.js";
 
 /**
  * A plugin, designed to be used with PrecacheController, to translate URLs into

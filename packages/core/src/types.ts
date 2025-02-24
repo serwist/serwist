@@ -1,8 +1,8 @@
 import type { Prettify } from "@serwist/utils";
+import type { PrecacheControllerOptions, PrecacheEntry, PrecacheOptions, PrecacheRouteOptions } from "$lib/controllers/PrecacheController/PrecacheController.js";
 import type { HTTPMethod } from "./constants.js";
 import type { Route } from "./Route.js";
 import type { Serwist } from "./Serwist.js";
-import type { PrecacheControllerOptions, PrecacheEntry, PrecacheOptions, PrecacheRouteOptions } from "./controllers/PrecacheController/PrecacheController.js";
 
 export type PromiseOrNot<T> = T | Promise<T>;
 

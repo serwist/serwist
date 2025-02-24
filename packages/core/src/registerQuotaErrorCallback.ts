@@ -7,8 +7,8 @@
 */
 
 import { quotaErrorCallbacks } from "./models/quotaErrorCallbacks.js";
-import { assert } from "./utils/assert.js";
-import { logger } from "./utils/logger.js";
+import { assert } from "$utils/assert.js";
+import { logger } from "$utils/logger.js";
 
 /**
  * Adds a function to the set of quotaErrorCallbacks that will be executed if

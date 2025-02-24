@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { StrategyPlugin, StrategyPluginCallbackParam } from "../../types.js";
+import type { StrategyPlugin, StrategyPluginCallbackParam } from "../../../types.js";
 
 /**
  * A plugin designed to determine the number of assets that were updated (or not updated)

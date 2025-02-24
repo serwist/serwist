@@ -7,10 +7,10 @@
 */
 
 import type { CacheDidUpdateCallbackParam } from "../../types.js";
-import { assert } from "../../utils/assert.js";
-import { logger } from "../../utils/logger.js";
-import { resultingClientExists } from "../../utils/resultingClientExists.js";
-import { timeout } from "../../utils/timeout.js";
+import { assert } from "$utils/assert.js";
+import { logger } from "$utils/logger.js";
+import { resultingClientExists } from "$utils/resultingClientExists.js";
+import { timeout } from "$utils/timeout.js";
 import {
   BROADCAST_UPDATE_DEFAULT_HEADERS,
   BROADCAST_UPDATE_DEFAULT_NOTIFY,
