@@ -1,8 +1,8 @@
 import { parallel } from "@serwist/utils";
-import { PrecacheFallbackPlugin, type PrecacheFallbackEntry } from "../precaching/PrecacheFallbackPlugin.js";
-import { Strategy } from "../strategies/Strategy.js";
 import type { Serwist } from "../../Serwist.js";
 import type { Controller, RuntimeCaching } from "../../types.js";
+import { type PrecacheFallbackEntry, PrecacheFallbackPlugin } from "../precaching/PrecacheFallbackPlugin.js";
+import { Strategy } from "../strategies/Strategy.js";
 
 export interface WarmRuntimeCacheEntry {
   integrity?: string;

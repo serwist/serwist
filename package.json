@@ -31,7 +31,9 @@
     "lint": "FORCE_COLOR=1 turbo run lint --continue --concurrency=50% --filter='./packages/*' --filter='./packages/$private/*'",
     "lint:docs": "pnpm eslint docs --fix --ext .svelte && FORCE_COLOR=1 turbo run lint --filter=./docs -- --apply",
     "lint:all": "biome lint --max-diagnostics=100 --log-kind=compact .",
-    "lint:fix": "pnpm lint -- --apply",
+    "lint:fix": "pnpm lint -- --write",
+    "qcheck": "FORCE_COLOR=1 turbo run qcheck --continue --concurrency=50% --filter='./packages/*' --filter='./packages/$private/*'",
+    "qcheck:fix": "pnpm qcheck -- --write",
     "publish-packages": "pnpm build && pnpm typecheck && changeset publish",
     "test": "FORCE_COLOR=1 turbo run test",
     "typecheck": "FORCE_COLOR=1 turbo run typecheck"

@@ -8,7 +8,7 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "ignore": ["**/*.svelte", "**/*.md"]
+    "ignore": ["**/*.svelte", "**/*.md", "**/package.json"]
   },
   "organizeImports": {
     "enabled": true

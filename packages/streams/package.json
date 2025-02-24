@@ -36,6 +36,7 @@
     "build": "rimraf dist && NODE_ENV=production rollup --config rollup.config.js",
     "dev": "rollup --config rollup.config.js --watch",
     "lint": "biome lint ./src",
+    "qcheck": "biome check ./src",
     "typecheck": "tsc"
   },
   "dependencies": {

@@ -13,6 +13,9 @@
     "lint": {
       "outputs": []
     },
+    "qcheck": {
+      "outputs": []
+    },
     "test": {
       "dependsOn": ["^build"]
     },

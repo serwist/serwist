@@ -4,8 +4,8 @@ import path from "node:path";
 import { type Plugin, normalizePath } from "vite";
 
 import type { SerwistViteContext } from "../lib/context.js";
-import { toFs } from "../lib/utils.js";
 import { generateServiceWorker } from "../lib/modules.js";
+import { toFs } from "../lib/utils.js";
 
 // This plugin handles the service worker in two ways:
 // - If `devOptions.bundle` is enabled, hook a middleware that intercepts service worker requests

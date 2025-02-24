@@ -1,8 +1,8 @@
-import type { Require } from "@serwist/utils";
 import { privateCacheNames } from "$index.internal";
-import type { PrecacheStrategyOptions } from "./PrecacheStrategy.js";
-import type { PrecacheController, PrecacheControllerOptions, PrecacheOptions, PrecacheRouteOptions } from "./PrecacheController.js";
+import type { Require } from "@serwist/utils";
 import { PrecacheCacheKeyPlugin } from "./PrecacheCacheKeyPlugin.js";
+import type { PrecacheController, PrecacheControllerOptions, PrecacheOptions, PrecacheRouteOptions } from "./PrecacheController.js";
+import type { PrecacheStrategyOptions } from "./PrecacheStrategy.js";
 
 export const parsePrecacheOptions = (
   controller: PrecacheController,

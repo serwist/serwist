@@ -6,11 +6,11 @@
   https://opensource.org/licenses/MIT.
 */
 
+import { assert } from "$utils/assert.js";
+import { normalizeHandler } from "$utils/normalizeHandler.js";
 import type { HTTPMethod } from "./constants.js";
 import { defaultMethod, validMethods } from "./constants.js";
 import type { RouteHandler, RouteHandlerObject, RouteMatchCallback } from "./types.js";
-import { assert } from "$utils/assert.js";
-import { normalizeHandler } from "$utils/normalizeHandler.js";
 
 /**
  * A `Route` consists of a pair of callback functions, `match` and `handler`.

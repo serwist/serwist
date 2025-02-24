@@ -1,17 +1,17 @@
-import { parallel } from "@serwist/utils";
+import { SerwistError } from "$utils/SerwistError.js";
 import { assert } from "$utils/assert.js";
 import { createCacheKey } from "$utils/createCacheKey.js";
 import { logger } from "$utils/logger.js";
-import { SerwistError } from "$utils/SerwistError.js";
-import { printInstallDetails } from "$utils/printInstallDetails.js";
 import { printCleanupDetails } from "$utils/printCleanupDetails.js";
-import type { Strategy } from "../../strategies/Strategy.js";
-import type { Controller, RouteHandlerCallback, UrlManipulation } from "../../../types.js";
-import type { Serwist } from "../../../Serwist.js";
+import { printInstallDetails } from "$utils/printInstallDetails.js";
+import { parallel } from "@serwist/utils";
 import { NavigationRoute } from "../../../NavigationRoute.js";
+import type { Serwist } from "../../../Serwist.js";
+import type { Controller, RouteHandlerCallback, UrlManipulation } from "../../../types.js";
+import type { Strategy } from "../../strategies/Strategy.js";
 import { PrecacheInstallReportPlugin } from "./PrecacheInstallReportPlugin.js";
-import { PrecacheStrategy } from "./PrecacheStrategy.js";
 import { PrecacheRoute } from "./PrecacheRoute.js";
+import { PrecacheStrategy } from "./PrecacheStrategy.js";
 import type { PrecacheStrategyOptions } from "./PrecacheStrategy.js";
 import { parsePrecacheOptions } from "./parsePrecacheOptions.js";
 

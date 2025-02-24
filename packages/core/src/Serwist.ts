@@ -1,11 +1,19 @@
-import type { Route } from "./Route.js";
-import { type HTTPMethod, defaultMethod } from "./constants.js";
-import { disableDevLogs as disableDevLogsImpl } from "./disableDevLogs.js";
 import { PrecacheController, type PrecacheOptions } from "$lib/controllers/PrecacheController/PrecacheController.js";
 import { RuntimeCacheController } from "$lib/controllers/RuntimeCacheController.js";
 import { type GoogleAnalyticsInitializeOptions, initializeGoogleAnalytics } from "$lib/googleAnalytics/initializeGoogleAnalytics.js";
 import type { PrecacheFallbackEntry } from "$lib/precaching/PrecacheFallbackPlugin.js";
 import type { Strategy } from "$lib/strategies/Strategy.js";
+import { SerwistError } from "$utils/SerwistError.js";
+import { assert } from "$utils/assert.js";
+import { clientsClaim as clientsClaimImpl } from "$utils/clientsClaim.js";
+import { getFriendlyURL } from "$utils/getFriendlyURL.js";
+import { logger } from "$utils/logger.js";
+import { normalizeHandler } from "$utils/normalizeHandler.js";
+import { parseRoute } from "$utils/parseRoute.js";
+import { waitUntil } from "$utils/waitUntil.js";
+import type { Route } from "./Route.js";
+import { type HTTPMethod, defaultMethod } from "./constants.js";
+import { disableDevLogs as disableDevLogsImpl } from "./disableDevLogs.js";
 import { enableNavigationPreload } from "./navigationPreload.js";
 import { setCacheNameDetails } from "./setCacheNameDetails.js";
 import type {
@@ -19,14 +27,6 @@ import type {
   RouteMatchCallbackOptions,
   RuntimeCaching,
 } from "./types.js";
-import { SerwistError } from "$utils/SerwistError.js";
-import { assert } from "$utils/assert.js";
-import { clientsClaim as clientsClaimImpl } from "$utils/clientsClaim.js";
-import { getFriendlyURL } from "$utils/getFriendlyURL.js";
-import { logger } from "$utils/logger.js";
-import { normalizeHandler } from "$utils/normalizeHandler.js";
-import { parseRoute } from "$utils/parseRoute.js";
-import { waitUntil } from "$utils/waitUntil.js";
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -179,7 +179,7 @@ export class Serwist {
 
     this._precacheController = new PrecacheController(precacheEntries ?? [], precacheOptions);
 
-    // TODO(ducanhgh): remove in v10.
+    // TODO(ducanhgh): remove in v11.
     // Fallback for legacy users who have not migrated from `runtimeCaching` to the Controller pattern.
     if (runtimeCaching) {
       if (!this._controllers?.some((controller) => controller instanceof RuntimeCacheController)) {

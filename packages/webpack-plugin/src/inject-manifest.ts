@@ -2,13 +2,13 @@ import path from "node:path";
 import { escapeRegExp, replaceAndUpdateSourceMap } from "@serwist/build";
 import { toUnix } from "@serwist/utils";
 import prettyBytes from "pretty-bytes";
-import type { Compilation, Compiler, WebpackError, default as Webpack } from "webpack";
-import type { InjectManifestOptions, InjectManifestOptionsComplete } from "./lib/types.js";
-import { validateInjectManifestOptions } from "./lib/validator.js";
+import type { Compilation, Compiler, default as Webpack, WebpackError } from "webpack";
 import { getManifestEntriesFromCompilation } from "./lib/get-manifest-entries-from-compilation.js";
 import { getSourcemapAssetName } from "./lib/get-sourcemap-asset-name.js";
-import { relativeToOutputPath } from "./lib/relative-to-output-path.js";
 import { performChildCompilation } from "./lib/perform-child-compilation.js";
+import { relativeToOutputPath } from "./lib/relative-to-output-path.js";
+import type { InjectManifestOptions, InjectManifestOptionsComplete } from "./lib/types.js";
+import { validateInjectManifestOptions } from "./lib/validator.js";
 
 // Used to keep track of swDest files written by *any* instance of this plugin.
 // See https://github.com/GoogleChrome/workbox/issues/2181

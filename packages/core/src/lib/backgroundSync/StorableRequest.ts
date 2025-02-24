@@ -6,8 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { MapLikeObject } from "../../types.js";
 import { assert } from "$utils/assert.js";
+import type { MapLikeObject } from "../../types.js";
 
 type SerializableProperties = "method" | "referrer" | "referrerPolicy" | "mode" | "credentials" | "cache" | "redirect" | "integrity" | "keepalive";
 

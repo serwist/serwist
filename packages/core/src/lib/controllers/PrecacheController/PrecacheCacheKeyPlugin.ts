@@ -5,8 +5,8 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-import type { PrecacheController } from "./PrecacheController.js";
 import type { StrategyPlugin, StrategyPluginCallbackParam } from "../../../types.js";
+import type { PrecacheController } from "./PrecacheController.js";
 
 /**
  * A plugin, designed to be used with PrecacheController, to translate URLs into
