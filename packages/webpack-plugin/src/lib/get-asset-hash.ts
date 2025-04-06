@@ -23,5 +23,5 @@ export const getAssetHash = (asset: Asset): string | null => {
     return null;
   }
 
-  return crypto.createHash("md5").update(Buffer.from(asset.source.source())).digest("hex");
+  return crypto.createHash("md5").update(asset.source.source()).digest("hex");
 };

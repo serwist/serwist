@@ -212,6 +212,7 @@ const withSerwistInit = (userOptions: InjectManifestOptions): ((nextConfig?: Nex
               },
             ],
             manifestTransforms: [
+              // TODO(ducanhgh): move this spread to below our transform function?
               ...manifestTransforms,
               async (manifestEntries, compilation) => {
                 // This path always uses forward slashes, so it is safe to use it in the following string replace.
