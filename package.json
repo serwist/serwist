@@ -35,6 +35,7 @@
     "lint:all": "biome lint --max-diagnostics=100 --log-kind=compact .",
     "lint:fix": "pnpm lint -- --apply",
     "publish-packages": "pnpm build && pnpm typecheck && changeset publish",
+    "version-packages": "changeset version && pnpm format:write",
     "test": "FORCE_COLOR=1 turbo run test",
     "typecheck": "FORCE_COLOR=1 turbo run typecheck"
   },
