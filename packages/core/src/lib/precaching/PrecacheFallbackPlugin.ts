@@ -11,14 +11,14 @@ import type { HandlerDidErrorCallbackParam, SerwistPlugin } from "../../types.js
 
 export interface PrecacheFallbackEntry {
   /**
+   * A precached URL to be used as a fallback.
+   */
+  url: string;
+  /**
    * A function that checks whether the fallback entry can be used
    * for a request.
    */
   matcher: (param: HandlerDidErrorCallbackParam) => boolean;
-  /**
-   * A precached URL to be used as a fallback.
-   */
-  url: string;
 }
 
 export interface PrecacheFallbackPluginOptions {

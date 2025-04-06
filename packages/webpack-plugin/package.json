@@ -71,9 +71,9 @@
   "devDependencies": {
     "@serwist/configs": "workspace:*",
     "@serwist/utils": "workspace:*",
-    "@types/node": "22.13.5",
+    "@types/node": "22.14.0",
     "@types/webpack": "5.28.5",
-    "rollup": "4.34.8",
+    "rollup": "4.39.0",
     "typescript": "5.6.3",
     "webpack": "5.98.0"
   },
