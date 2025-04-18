@@ -1,25 +1,12 @@
 {
   "name": "@serwist/window",
-  "version": "9.0.13",
+  "version": "9.0.14",
   "type": "module",
   "description": "Simplifies communications with Serwist packages running in the service worker",
-  "files": [
-    "src",
-    "dist"
-  ],
-  "keywords": [
-    "serwist",
-    "serwistjs",
-    "service worker",
-    "sw",
-    "window",
-    "message",
-    "postMessage"
-  ],
+  "files": ["src", "dist"],
+  "keywords": ["serwist", "serwistjs", "service worker", "sw", "window", "message", "postMessage"],
   "author": "Google's Web DevRel Team",
-  "contributors": [
-    "Serwist <ducanh2912.rusty@gmail.com> (https://serwist.pages.dev/)"
-  ],
+  "contributors": ["Serwist <ducanh2912.rusty@gmail.com> (https://serwist.pages.dev/)"],
   "license": "MIT",
   "repository": "https://github.com/serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",
@@ -28,9 +15,7 @@
   "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
-      "internal": [
-        "./dist/index.internal.d.ts"
-      ]
+      "internal": ["./dist/index.internal.d.ts"]
     }
   },
   "exports": {

@@ -1,5 +1,15 @@
 # @serwist/vite
 
+## 9.0.14
+
+### Patch Changes
+
+- [`b67b551`](https://github.com/serwist/serwist/commit/b67b55116e9fc8d4ce02593c2095bd1555270488) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(vite): allow `vite@6` in `peerDependencies`
+
+- Updated dependencies []:
+  - @serwist/build@9.0.14
+  - serwist@9.0.14
+
 ## 9.0.11
 
 ### Patch Changes

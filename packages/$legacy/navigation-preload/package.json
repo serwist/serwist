@@ -1,23 +1,12 @@
 {
   "name": "@serwist/navigation-preload",
-  "version": "9.0.13",
+  "version": "9.0.14",
   "type": "module",
   "description": "A module that allows developers to enable navigation preloading in their service worker.",
-  "files": [
-    "src",
-    "dist"
-  ],
-  "keywords": [
-    "serwist",
-    "serwistjs",
-    "service worker",
-    "sw",
-    "navigation"
-  ],
+  "files": ["src", "dist"],
+  "keywords": ["serwist", "serwistjs", "service worker", "sw", "navigation"],
   "author": "Google's Web DevRel Team",
-  "contributors": [
-    "Serwist <ducanh2912.rusty@gmail.com> (https://serwist.pages.dev/)"
-  ],
+  "contributors": ["Serwist <ducanh2912.rusty@gmail.com> (https://serwist.pages.dev/)"],
   "license": "MIT",
   "repository": "https://github.com/serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",

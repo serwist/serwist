@@ -12,7 +12,7 @@ import type { WebpackPluginFunction, WebpackPluginInstance, Asset, Compilation }
 export interface ConditionCallbackOptions {
   asset: Asset;
   compilation: Compilation;
-};
+}
 
 export type ConditionCallback = (options: ConditionCallbackOptions) => boolean;
 

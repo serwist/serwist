@@ -1,31 +1,15 @@
 {
   "name": "@serwist/webpack-plugin",
-  "version": "9.0.13",
+  "version": "9.0.14",
   "type": "module",
   "description": "A plugin for your webpack build process, helping you generate a manifest of local files that should be precached.",
-  "files": [
-    "src",
-    "dist"
-  ],
-  "keywords": [
-    "serwist",
-    "serwistjs",
-    "webpack",
-    "rspack",
-    "rsbuild",
-    "service worker",
-    "caching",
-    "fetch requests",
-    "offline",
-    "file manifest"
-  ],
+  "files": ["src", "dist"],
+  "keywords": ["serwist", "serwistjs", "webpack", "rspack", "rsbuild", "service worker", "caching", "fetch requests", "offline", "file manifest"],
   "engines": {
     "node": ">=18.0.0"
   },
   "author": "Google's Web DevRel Team",
-  "contributors": [
-    "Serwist <ducanh2912.rusty@gmail.com> (https://serwist.pages.dev/)"
-  ],
+  "contributors": ["Serwist <ducanh2912.rusty@gmail.com> (https://serwist.pages.dev/)"],
   "license": "MIT",
   "repository": "https://github.com/serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",
@@ -34,12 +18,8 @@
   "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
-      "internal": [
-        "./dist/index.internal.d.ts"
-      ],
-      "schema": [
-        "./dist/index.schema.d.ts"
-      ]
+      "internal": ["./dist/index.internal.d.ts"],
+      "schema": ["./dist/index.schema.d.ts"]
     }
   },
   "exports": {
