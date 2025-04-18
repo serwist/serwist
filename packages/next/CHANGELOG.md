@@ -1,5 +1,17 @@
 # @serwist/next
 
+## 9.0.14
+
+### Patch Changes
+
+- [#255](https://github.com/serwist/serwist/pull/255) [`7827857`](https://github.com/serwist/serwist/commit/782785742632df065cfbc3cc6dd2e6ad61444e4e) Thanks [@adamfratino](https://github.com/adamfratino)! - fix(next): re-word Turbopack console warning to fix issue URL
+
+- Updated dependencies []:
+  - @serwist/build@9.0.14
+  - @serwist/webpack-plugin@9.0.14
+  - @serwist/window@9.0.14
+  - serwist@9.0.14
+
 ## 9.0.11
 
 ### Patch Changes

@@ -1,5 +1,7 @@
 # @serwist/configs
 
+## 9.0.14
+
 ## 9.0.11
 
 ### Patch Changes

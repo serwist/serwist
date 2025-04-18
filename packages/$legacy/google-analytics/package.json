@@ -1,25 +1,12 @@
 {
   "name": "@serwist/google-analytics",
-  "version": "9.0.13",
+  "version": "9.0.14",
   "type": "module",
   "description": "Queues failed requests and uses the Background Sync API to replay them when the network is available.",
-  "files": [
-    "src",
-    "dist"
-  ],
-  "keywords": [
-    "serwist",
-    "serwistjs",
-    "service worker",
-    "sw",
-    "offline",
-    "google",
-    "analytics"
-  ],
+  "files": ["src", "dist"],
+  "keywords": ["serwist", "serwistjs", "service worker", "sw", "offline", "google", "analytics"],
   "author": "Google's Web DevRel Team",
-  "contributors": [
-    "Serwist <ducanh2912.rusty@gmail.com> (https://serwist.pages.dev/)"
-  ],
+  "contributors": ["Serwist <ducanh2912.rusty@gmail.com> (https://serwist.pages.dev/)"],
   "license": "MIT",
   "repository": "https://github.com/serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",
@@ -28,9 +15,7 @@
   "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
-      "initialize": [
-        "./dist/index.d.ts"
-      ]
+      "initialize": ["./dist/index.d.ts"]
     }
   },
   "exports": {
