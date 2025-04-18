@@ -2,6 +2,7 @@
 layout: docs
 ---
 <script>
+  import Callout from "$components/Callout.svelte";
   import Tabs from "$components/Tabs.svelte";
   import Tab from "$components/Tab.svelte";
 </script>
@@ -67,7 +68,10 @@ if ("serviceWorker" in navigator) {
   </Tab>
 </Tabs>
 
-This Serwist class is not to be confused with the serwist.Serwist class! One is meant for the window context, and the other is supposed to be run in a service worker.
+<Callout type="warning">
+  This Serwist class is not to be confused with the serwist.Serwist class! One is meant for the window context, and the other is supposed to be run in
+  a service worker.
+</Callout>
 
 You can also dynamically import `@serwist/window`, helping reduce the size of your page's main bundle.
 
@@ -125,25 +129,16 @@ serwist.addEventListener("message", (event) => {
   </Tab>
 </Tabs>
 
-## Important service worker lifecycle moments
+### Send the service worker a list of URLs to cache
 
-Here is a breakdown of all the important service worker lifecycle moments:
+For some applications, it's possible to know all the assets that need to be precached at build time, but some applications serve completely different pages, based on what URL
+the user lands on first.
 
-### The installed event
+For apps in the latter category, it might make sense to only cache the assets the user needed for the particular page they visited. You can send Serwist a list of URLs to cache,
+and it will cache those URLs according to the registered routes.
 
-This is when a new service worker has installed, and new assets may have just finished precaching.
-
-If this is not the very first service worker install (`event.isUpdate === true`), it means a newer version of the service worker has been found and installed (that is, a different version from the one currently controlling the page).
-
-Note: some developers use the installed event to inform users that a new version of their site is available. However, depending on whether you call skipWaiting() in the installing service worker, that installed service worker may or may not become active right away. If you do call skipWaiting() then it's best to inform users of the update once the new service worker has activated. Otherwise, it's better to inform them of the pending update in the waiting event.
-
-### The waiting event
-
-If the updated version of your service worker does not call `skipWaiting()`, it will not activate until all pages controlled by the currently active service worker have unloaded. Basically, the updated service worker is stuck in the waiting phase. You may want to inform the user that an update is available and will be applied the next time they visit.
-
-It's common for developers to prompt users to reload to get the update, but in many cases refreshing the page will not activate the installed worker. If the user refreshes the page and the service worker is still waiting, the waiting event will fire again and the event.wasWaitingBeforeRegister property will be true.
-
-Another option is to prompt the user and ask whether they want to get the update or continue waiting. If they choose to get the update, you can use `postMessage()` to tell the service worker to run `skipWaiting()`. To do this, in your service worker, add the following:
+This example sends a list of URLs loaded by the page to Serwist any time a new service worker is activated. It's fine to send all URLs because only the URLs that match a defined
+route will be cached:
 
 <Tabs id="examples-routing-cache" tabs={[["index.ts", "index-ts"]]}>
   <Tab id="index-ts">
@@ -165,7 +160,9 @@ serwist.messageSW({
   </Tab>
 </Tabs>
 
-If you use the serwist.Serwist class and set skipWaiting to false, the above code is automatically executed for you.
+<Callout type="info">
+  If you use the serwist.Serwist class and set skipWaiting to false, the above code is automatically executed for you.
+</Callout>
 
 And in your application, add the following:
 
@@ -185,13 +182,88 @@ self.addEventListener("message", (event) => {
   </Tab>
 </Tabs>
 
+## Important service worker lifecycle moments
+
+Here is a breakdown of all the important service worker lifecycle moments:
+
+### The installed event
+
+This is when a new service worker has installed, and new assets may have just finished precaching.
+
+If this is not the very first service worker install (`event.isUpdate === true`), it means a newer version of the service worker has been found and installed (that is, a different version from the one currently controlling the page).
+
+<Callout type="info">
+  Note: some developers use the installed event to inform users that a new version of their site is available. However, depending on whether you call
+  skipWaiting() in the installing service worker, that installed service worker may or may not become active right away. If you do call skipWaiting()
+  then it's best to inform users of the update once the new service worker has activated. Otherwise, it's better to inform them of the pending update
+  in the waiting event.
+</Callout>
+
+### The waiting event
+
+If the updated version of your service worker does not call `skipWaiting()`, it will not activate until all pages controlled by the currently active service worker have unloaded. Basically, the updated service worker is stuck in the waiting phase. You may want to inform the user that an update is available and will be applied the next time they visit.
+
+<Callout type="warning">
+  It's common for developers to prompt users to reload to get the update, but in many cases refreshing the page will not activate the installed
+  worker. If the user refreshes the page and the service worker is still waiting, the waiting event will fire again and the
+  event.wasWaitingBeforeRegister property will be true.
+</Callout>
+
+Another option is to prompt the user and ask whether they want to get the update or continue waiting. If they choose to get the update, you can use `postMessage()` to tell the service worker to run `skipWaiting()`. To do this, in your service worker, add the following:
+
+<Tabs id="examples-manual-skip-waiting" tabs={[["index.ts", "index-ts"]]}>
+  <Tab id="index-ts">
+
+```typescript twoslash
+import type { Serwist } from "@serwist/window";
+
+declare const promptForUpdate: () => Promise<boolean>;
+declare const serwist: Serwist;
+// ---cut-before---
+const showSkipWaitingPrompt = async () => {
+  // Assuming the user accepted the update, set up a listener
+  // that will reload the page as soon as the previously waiting
+  // service worker has taken control.
+  serwist.addEventListener("controlling", () => {
+    // At this point, reloading will ensure that the current
+    // tab is loaded under the control of the new service worker.
+    // Depending on your web app, you may want to auto-save or
+    // persist transient state before triggering the reload.
+    window.location.reload();
+  });
+
+  // When `event.wasWaitingBeforeRegister` is true, a previously
+  // updated service worker is still waiting.
+  // You may want to customize the UI prompt accordingly.
+
+  // This code assumes your app has a promptForUpdate() method,
+  // which returns true if the user wants to update.
+  const updateAccepted = await promptForUpdate();
+
+  if (updateAccepted) {
+    serwist.messageSkipWaiting();
+  }
+};
+
+// Add an event listener to detect when the registered
+// service worker has installed but is waiting to activate.
+serwist.addEventListener("waiting", showSkipWaitingPrompt);
+
+void serwist.register();
+```
+
+  </Tab>
+</Tabs>
+
 ### The controlling event
 
 Once a new service worker is installed and starts controlling the page, all subsequent `fetch` events will go through that service worker.
 
 If this is not the very first service worker install, this event being fired means the version of your service worker currently controlling is different from the version that was in control when the page was loaded. In some cases that may be fine, but it can also mean that some assets referenced by the current page are either no longer in the cache and possibly also not on the server or updated in ways the current page can't predict. You may want to consider informing the user that some parts of the page may not work correctly.
 
-The controlling event will not fire if you don't call skipWaiting() in your service worker.
+<Callout type="info">
+  The controlling event will not fire if you don't call skipWaiting() in your service worker.
+</Callout>
 
 ### The activated event
 

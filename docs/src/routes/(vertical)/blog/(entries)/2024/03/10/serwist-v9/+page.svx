@@ -5,6 +5,7 @@ title: Serwist 9.0.0
 date: "2024-03-10"
 ---
 <script>
+  import Callout from "$components/Callout.svelte";
   import Tabs from "$components/Tabs.svelte";
   import Tab from "$components/Tab.svelte";
 </script>
@@ -150,7 +151,11 @@ To migrate, simply run the above command and remove all the legacy packages. The
 
 The behaviour of some items may change when you update your imports. For example, passing a `Router` instance to `@serwist/google-analytics.initialize` is optional, but passing a `Serwist` instance to `serwist.initializeGoogleAnalytics()` is required. To help with your migration to `serwist`, functions whose behaviour have changed also have their legacy counterparts. These are exported from `serwist/legacy` alongside items that have been deprecated. However, they will be removed in v10.
 
-Serwist does not aim to be compatible across all of its major versions. Rather, it only gives you one single major version to migrate from its deprecated APIs, after which point, you may no longer upgrade Serwist until you have migrated. It is worth noting that some legacy APIs still received some breaking changes and new features as detailed later.
+<Callout type="info">
+  Serwist does not aim to be compatible across all of its major versions. Rather, it only gives you one single major version to migrate from its
+  deprecated APIs, after which point, you may no longer upgrade Serwist until you have migrated. It is worth noting that some legacy APIs still
+  received some breaking changes and new features as detailed later.
+</Callout>
 
 The following are items you can import from `serwist/legacy`:
 
@@ -195,7 +200,10 @@ The `Serwist` class now accepts `precacheOptions.concurrency`, which should be t
 
 With this change, Serwist now concurrently precache 10 files each by default, different from its old behaviour where it only ran this process sequentially.
 
-This feature was also added to the legacy PrecacheController class as concurrentPrecaching. However, this class still precaches files sequentially by default.
+<Callout type="info">
+  This feature was also added to the legacy PrecacheController class as concurrentPrecaching. However, this class still precaches files sequentially
+  by default.
+</Callout>
 
 ### Renamed RuntimeCaching.urlPattern to RuntimeCaching.matcher
 

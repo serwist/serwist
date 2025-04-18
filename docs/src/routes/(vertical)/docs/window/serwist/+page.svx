@@ -37,7 +37,7 @@ A class to aid in handling service worker registration, updates, and reacting to
 <Tabs id="usage-example" tabs={[["index.ts", "index-ts"]]}>
   <Tab id="index-ts">
 
-```javascript
+```typescript twoslash
 declare const confirmUpdate: () => boolean;
 // ---cut-before---          
 import { Serwist } from "@serwist/window";

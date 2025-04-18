@@ -2,6 +2,7 @@
 layout: docs
 ---
 <script>
+  import Callout from "$components/Callout.svelte";
   import Tabs from "$components/Tabs.svelte";
   import Tab from "$components/Tab.svelte";
 </script>
@@ -28,7 +29,10 @@ By default, the `Content-Length`, `ETag`, and `Last-Modified` headers are compar
 
 Serwist uses header values instead of a byte-for-byte comparison of response bodies to be more efficient, in particular for potentially large responses.
 
-Because Serwist needs to be able to read the header values, [opaque responses](https://stackoverflow.com/questions/39109789/what-limitations-apply-to-opaque-responses), whose headers are not accessible, will never trigger update messages.
+<Callout type="warning">
+  Because Serwist needs to be able to read the header values, [opaque responses](https://stackoverflow.com/questions/39109789/what-limitations-apply-to-opaque-responses),
+  whose headers are not accessible, will never trigger update messages.
+</Callout>
 
 ## Message format
 
@@ -60,7 +64,11 @@ This is represented as the `BroadcastMessage` type, which you can import from th
 
 The module is intended to be used along with the `StaleWhileRevalidate` strategy, since that strategy involves returning a cached response immediately but also provides a mechanism for updating the cache asynchronously.
 
-Note: BroadcastUpdatePlugin can't be used to broadcast information about Serwist's precache updates. It only detects when a previously cached URL has been overwritten with new contents, but Serwist's precaching mechanism creates cache entries with URLs that uniquely correspond to the contents, so it will never overwrite existing cache entries.
+<Callout type="info">
+  Note: BroadcastUpdatePlugin can't be used to broadcast information about Serwist's precache updates. It only detects when a previously cached URL
+  has been overwritten with new contents, but Serwist's precaching mechanism creates cache entries with URLs that uniquely correspond to the contents,
+  so it will never overwrite existing cache entries.
+</Callout>
 
 To broadcast updates, you just need to add a `BroadcastUpdatePlugin` instance to your strategy's `plugins`.
 
@@ -112,7 +120,10 @@ navigator.serviceWorker.addEventListener("message", async (event) => {
   </Tab>
 </Tabs>
 
-Note: Make sure to add the message event listener before the DOMContentLoaded event, as browsers will queue messages received early in the page load (before your JavaScript code has had a chance to run) up until (but not after) the DOMContentLoaded event.
+<Callout type="info">
+  Note: Make sure to add the message event listener before the DOMContentLoaded event, as browsers will queue messages received early in the page load
+  (before your JavaScript code has had a chance to run) up until (but not after) the DOMContentLoaded event.
+</Callout>
 
 ### Customizing the list of headers to check
 

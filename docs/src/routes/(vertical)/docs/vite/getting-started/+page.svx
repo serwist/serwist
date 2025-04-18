@@ -2,15 +2,19 @@
 layout: docs
 ---
 <script>
+  import Callout from "$components/Callout.svelte";
   import Tabs from "$components/Tabs.svelte";
   import Tab from "$components/Tab.svelte";
 </script>
 
 # Getting started
 
-This guide uses React, but it applies to any project using Vite. For some frameworks, we also have recipes tailored to them:
+<Callout>
+  This guide uses React, but it applies to any project using Vite. For some frameworks, we also have recipes tailored to them:
 
-- [SvelteKit](./recipes/svelte)
+  - [SvelteKit](./recipes/svelte)
+
+</Callout>
 
 ## Install
 

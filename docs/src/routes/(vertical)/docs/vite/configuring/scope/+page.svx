@@ -2,6 +2,7 @@
 layout: docs
 ---
 <script>
+  import Callout from "$components/Callout.svelte";
   import Tabs from "$components/Tabs.svelte";
   import Tab from "$components/Tab.svelte";
 </script>
@@ -20,7 +21,9 @@ layout: docs
 
 The service worker's URL scope. Set to `"/foo/"` so that paths under "/foo/" are under the service worker's control while others are not.
 
-Note: "/foo" does NOT belong to the aforementioned scope! Consider configuring how trailing slashes are handled.
+<Callout type="warning">
+  Note: "/foo" does NOT belong to the aforementioned scope! Consider configuring how trailing slashes are handled.
+</Callout>
 
 ## Usage
 

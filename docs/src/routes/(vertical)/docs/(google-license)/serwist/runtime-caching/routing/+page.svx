@@ -2,6 +2,7 @@
 layout: docs
 ---
 <script>
+  import Callout from "$components/Callout.svelte";
   import Image from "$components/Image.svelte";
   import Tabs from "$components/Tabs.svelte";
   import Tab from "$components/Tab.svelte";
@@ -39,7 +40,9 @@ The main things to note from the above are:
 - A string, regular expression, or a match callback to specify route matching criteria.
 - A handler for the route — typically a built-in `Strategy`.
 
-You may also use the runtimeCaching option of Serwist's constructor. It is essentially a syntactic sugar for registerCapture.
+<Callout type="info">
+  You may also use the runtimeCaching option of Serwist's constructor. It is essentially a syntactic sugar for registerCapture.
+</Callout>
 
 When the service worker intercepts a network request, Serwist tries to match the URL of the request to one of the registered handlers, which will then be used to generate a response. In the following example, we register a route that matches incoming same-origin image requests, applying the `CacheFirst` strategy.
 

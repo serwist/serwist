@@ -478,19 +478,19 @@ export const BLOG_ENTRIES = [
       },
       {
         title: "Migrated to Zod",
-        id: "migrate-to-zod",
+        id: "migrated-to-zod",
       },
       {
         title: "Added support for concurrent precaching",
-        id: "concurrent-precaching",
+        id: "added-support-for-concurrent-precaching",
       },
       {
         title: "Removed RuntimeCaching's support for string handlers",
-        id: "removed-string-handlers",
+        id: "removed-runtimecachings-support-for-string-handlers",
       },
       {
         title: "Moved Serwist's Svelte integration into a separate package",
-        id: "moved-svelte-integration",
+        id: "moved-serwists-svelte-integration-into-a-separate-package",
       },
     ],
   },

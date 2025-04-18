@@ -2,4 +2,4 @@
 "@serwist/next": patch
 ---
 
-re-word turbopack console warning to fix issue URL
+fix(next): re-word Turbopack console warning to fix issue URL

@@ -42,22 +42,22 @@
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@changesets/changelog-github": "0.5.1",
-    "@changesets/cli": "2.28.1",
-    "@eslint/js": "9.24.0",
-    "@swc/core": "1.11.16",
+    "@changesets/cli": "2.29.2",
+    "@eslint/js": "9.25.0",
+    "@swc/core": "1.11.21",
     "@types/eslint-config-prettier": "6.11.3",
-    "@types/node": "22.14.0",
+    "@types/node": "22.14.1",
     "@types/shell-quote": "1.7.5",
-    "@typescript-eslint/eslint-plugin": "8.29.0",
-    "@typescript-eslint/parser": "8.29.0",
-    "eslint": "9.24.0",
-    "eslint-config-prettier": "10.1.1",
+    "@typescript-eslint/eslint-plugin": "8.30.1",
+    "@typescript-eslint/parser": "8.30.1",
+    "eslint": "9.25.0",
+    "eslint-config-prettier": "10.1.2",
     "eslint-plugin-simple-import-sort": "12.1.1",
     "eslint-plugin-svelte": "3.5.1",
     "eslint-plugin-turbo": "2.5.0",
     "fast-glob": "3.3.3",
     "globals": "16.0.0",
-    "npm-check-updates": "17.1.16",
+    "npm-check-updates": "17.1.18",
     "prettier-plugin-svelte": "3.3.3",
     "prettier-plugin-tailwindcss": "0.6.11",
     "rimraf": "5.0.9",
@@ -66,14 +66,15 @@
     "tslib": "2.8.1",
     "turbo": "2.5.0",
     "typescript": "5.6.3",
-    "typescript-eslint": "8.29.0"
+    "typescript-eslint": "8.30.1"
   },
-  "packageManager": "pnpm@10.7.1",
+  "packageManager": "pnpm@10.8.1",
   "pnpm": {
     "onlyBuiltDependencies": [
       "@swc/core",
       "core-js",
-      "esbuild"
+      "esbuild",
+      "sharp"
     ]
   }
 }
