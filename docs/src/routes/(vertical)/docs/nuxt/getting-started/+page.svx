@@ -2,6 +2,7 @@
 layout: docs
 ---
 <script>
+  import Callout from "$components/Callout.svelte";
   import Tabs from "$components/Tabs.svelte";
   import Tab from "$components/Tab.svelte";
 </script>
@@ -195,8 +196,8 @@ Otherwise, safely skip this step.
 
 Basic service worker template to get Serwist up and running:
 
-<Tabs id="writing-a-sw" tabs={[["sw.ts", "sw-ts"]]}>
-  <Tab id="sw-ts">
+<Tabs id="writing-a-sw" tabs={[["service-worker.ts", "service-worker-ts"]]}>
+  <Tab id="service-worker-ts">
 
 ```typescript twoslash
 import { defaultCache } from "@serwist/vite/worker";
@@ -228,6 +229,11 @@ serwist.addEventListeners();
 
   </Tab>
 </Tabs>
+
+<Callout type="warning">
+  If you want to use a different name for your service worker, you have to set swSrc such that it points to the file
+  with that name instead of service-worker.ts (the default).
+</Callout>
 
 ### Step 5: Add a web application manifest
 

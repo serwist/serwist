@@ -39,7 +39,7 @@ A class to aid in handling service worker registration, updates, and reacting to
 
 ```typescript twoslash
 declare const confirmUpdate: () => boolean;
-// ---cut-before---          
+// ---cut-before---
 import { Serwist } from "@serwist/window";
 
 if ("serviceWorker" in navigator) {

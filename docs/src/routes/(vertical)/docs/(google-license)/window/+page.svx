@@ -160,28 +160,6 @@ serwist.messageSW({
   </Tab>
 </Tabs>
 
-<Callout type="info">
-  If you use the serwist.Serwist class and set skipWaiting to false, the above code is automatically executed for you.
-</Callout>
-
-And in your application, add the following:
-
-<Tabs id="examples-skip-waiting-manual-sw" tabs={[["sw.ts", "sw-ts"]]}>
-  <Tab id="sw-ts">
-
-```typescript twoslash
-declare const self: ServiceWorkerGlobalScope;
-// ---cut-before---
-self.addEventListener("message", (event) => {
-  if (event.data && event.data.type === "SKIP_WAITING") {
-    self.skipWaiting();
-  }
-});
-```
-
-  </Tab>
-</Tabs>
-
 ## Important service worker lifecycle moments
 
 Here is a breakdown of all the important service worker lifecycle moments:
@@ -254,6 +232,28 @@ void serwist.register();
 
   </Tab>
 </Tabs>
+
+And in your service worker, add the following:
+
+<Tabs id="examples-manual-skip-waiting-sw" tabs={[["sw.ts", "sw-ts"]]}>
+  <Tab id="sw-ts">
+
+```typescript twoslash
+declare const self: ServiceWorkerGlobalScope;
+// ---cut-before---
+self.addEventListener("message", (event) => {
+  if (event.data && event.data.type === "SKIP_WAITING") {
+    self.skipWaiting();
+  }
+});
+```
+
+  </Tab>
+</Tabs>
+
+<Callout type="info">
+  If you use the serwist.Serwist class and set skipWaiting to false, the above code is automatically executed for you.
+</Callout>
 
 ### The controlling event
 
