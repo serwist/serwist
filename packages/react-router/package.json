@@ -28,10 +28,19 @@
   "homepage": "https://serwist.pages.dev",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "worker": {
+      "*": ["./dist/index.worker.d.ts"]
+    }
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
+    },
+    "./worker": {
+      "types": "./dist/index.worker.d.ts",
+      "default": "./dist/index.worker.js"
     },
     "./package.json": "./package.json"
   },
