@@ -41,5 +41,5 @@
     "@serwist-example/react-router-basic": "1.0.0",
     "@serwist/react-router": "10.0.0-preview.1"
   },
-  "changesets": ["icy-crews-find", "kind-beds-rush", "red-symbols-decide", "strange-waves-remember", "yummy-terms-film"]
+  "changesets": ["gentle-trams-boil", "icy-crews-find", "kind-beds-rush", "red-symbols-decide", "strange-waves-remember", "yummy-terms-film"]
 }

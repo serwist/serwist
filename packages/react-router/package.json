@@ -1,6 +1,6 @@
 {
   "name": "@serwist/react-router",
-  "version": "10.0.0-preview.2",
+  "version": "10.0.0-preview.3",
   "type": "module",
   "description": "A React Router preset that integrates Serwist into your application.",
   "files": [
@@ -30,7 +30,9 @@
   "types": "./dist/index.d.ts",
   "typesVersions": {
     "worker": {
-      "*": ["./dist/index.worker.d.ts"]
+      "*": [
+        "./dist/index.worker.d.ts"
+      ]
     }
   },
   "exports": {
