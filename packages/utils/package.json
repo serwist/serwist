@@ -4,7 +4,8 @@
   "type": "module",
   "description": "This module contains internal utilities used by Serwist packages.",
   "files": [
-    "src"
+    "src",
+    "dist"
   ],
   "keywords": [
     "serwist",
