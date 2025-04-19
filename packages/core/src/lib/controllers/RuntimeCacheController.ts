@@ -51,7 +51,7 @@ export class RuntimeCacheController implements Controller {
     this.install = this.install.bind(this);
   }
 
-  init(serwist: Serwist): void {
+  init({ serwist }: { serwist: Serwist }): void {
     if (this._options.fallbacks !== undefined) {
       const fallbackPlugin = new PrecacheFallbackPlugin({
         fallbackUrls: this._options.fallbacks.entries,
@@ -73,7 +73,7 @@ export class RuntimeCacheController implements Controller {
     }
   }
 
-  async install(event: ExtendableEvent, serwist: Serwist) {
+  async install({ event, serwist }: { event: ExtendableEvent; serwist: Serwist }) {
     const concurrency = this._options.warmOptions?.concurrency ?? 10;
     if (this._options.warmEntries) {
       await parallel(concurrency, this._options.warmEntries, async (entry) => {

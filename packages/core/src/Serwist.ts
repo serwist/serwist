@@ -18,6 +18,7 @@ import { enableNavigationPreload } from "./navigationPreload.js";
 import { setCacheNameDetails } from "./setCacheNameDetails.js";
 import type {
   Controller,
+  ControllerParam,
   PrecacheEntry,
   RouteHandler,
   RouteHandlerCallback,
@@ -203,7 +204,7 @@ export class Serwist {
     }
 
     for (const callback of this.iterateControllers("init")) {
-      callback(this);
+      callback({ serwist: this });
     }
 
     if (disableDevLogs) disableDevLogsImpl();
@@ -220,7 +221,10 @@ export class Serwist {
 
     for (const controller of this._controllers) {
       if (typeof controller[name] === "function") {
-        yield controller[name];
+        const callback = (param: ControllerParam[C]) => {
+          controller[name]!(param as any);
+        };
+        yield callback as NonNullable<Controller[C]>;
       }
     }
   }
@@ -270,7 +274,7 @@ export class Serwist {
   handleInstall(event: ExtendableEvent): Promise<void> {
     return waitUntil(event, async () => {
       for (const callback of this.iterateControllers("install")) {
-        await callback(event, this);
+        await callback({ event, serwist: this });
       }
     });
   }
@@ -288,7 +292,7 @@ export class Serwist {
   handleActivate(event: ExtendableEvent): Promise<void> {
     return waitUntil(event, async () => {
       for (const callback of this.iterateControllers("activate")) {
-        await callback(event, this);
+        await callback({ event, serwist: this });
       }
     });
   }

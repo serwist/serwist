@@ -9,6 +9,7 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import { useEffect } from "react";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -24,6 +25,16 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  useEffect(() => {
+    // `@serwist/react-router` doesn't support development mode.
+    if (import.meta.env.DEV) return;
+    const loadSerwist = async () => {
+      // Make sure to prefix `viteConfig.base`.
+      const serwist = new (await import("@serwist/window")).Serwist("/sw.js", { scope: "/" });
+      void serwist.register();
+    }
+    loadSerwist();
+  });
   return (
     <html lang="en">
       <head>

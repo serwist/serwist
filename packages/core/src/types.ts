@@ -21,13 +21,39 @@ export interface MapLikeObject {
  */
 export type PluginState = MapLikeObject;
 
+export interface InitCallbackParam {
+  serwist: Serwist;
+}
+
+export type InitCallback = (param: InitCallbackParam) => PromiseOrNot<void>;
+
+export interface InstallCallbackParam {
+  event: ExtendableEvent;
+  serwist: Serwist;
+}
+
+export type InstallCallback = (param: InstallCallbackParam) => PromiseOrNot<void>;
+
+export interface ActivateCallbackParam {
+  event: ExtendableEvent;
+  serwist: Serwist;
+}
+
+export type ActivateCallback = (param: ActivateCallbackParam) => PromiseOrNot<void>;
+
 /**
  * An object with optional lifecycle callback properties for Serwist's operations.
  */
 export interface Controller {
-  init?(serwist: Serwist): void;
-  install?(event: ExtendableEvent, serwist: Serwist): Promise<void>;
-  activate?(event: ExtendableEvent, serwist: Serwist): Promise<void>;
+  init?: InitCallback;
+  install?: InstallCallback;
+  activate?: ActivateCallback;
+}
+
+export interface ControllerParam {
+  init: InitCallbackParam;
+  install: InstallCallbackParam;
+  activate: ActivateCallbackParam;
 }
 
 /**

@@ -26,5 +26,26 @@ export const resolveDefaultOptions = (
     ...config,
     swSrc,
     swDest: config.swDest || path.join(buildDirectory, "client/sw.js"),
+    manifestTransforms: [
+      (manifestEntries) => {
+        const manifest = manifestEntries.map((e) => {
+          // If `basename` is set, "index.html" would be "base/index.html",
+          // so this case is skipped.
+          if (e.url === "index.html") {
+            e.url = "/";
+          } else if (e.url.endsWith("index.html")) {
+            // "base/abc/index.html" -> "/base/abc"
+            e.url = `/${e.url.slice(0, e.url.lastIndexOf("/"))}`;
+          } else {
+            // Prepend `viteConfig.base`.
+            // "/path.json" -> "/base/path.json"
+            e.url = path.posix.join(viteConfig.base, e.url);
+          }
+          return e;
+        });
+        return { manifest, warnings: [] };
+      },
+      ...(config.manifestTransforms ?? []),
+    ],
   } satisfies InjectManifestOptionsResolved;
 };

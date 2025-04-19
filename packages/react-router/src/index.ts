@@ -7,7 +7,7 @@ import { resolveDefaultOptions } from "./lib/options.js";
 const vite = import("vite");
 const serwistBuild = import("@serwist/build");
 
-export const serwist = (userOptions: InjectManifestOptions): Preset => {
+export const serwist = (userOptions: InjectManifestOptions = {}): Preset => {
   return {
     name: "@serwist/react-router/preset",
     reactRouterConfig() {
@@ -29,11 +29,8 @@ export const serwist = (userOptions: InjectManifestOptions): Preset => {
 
           const define: Record<string, any> = {
             ...viteConfig.define,
+            [options.injectionPoint]: manifestString,
           };
-
-          if (options.injectionPoint) {
-            define[options.injectionPoint] = manifestString;
-          }
 
           await (await vite).build({
             root: viteConfig.root,
@@ -47,6 +44,10 @@ export const serwist = (userOptions: InjectManifestOptions): Preset => {
             dev: viteConfig.dev,
             build: {
               ...viteConfig.build,
+              polyfillModulePreload: undefined,
+              modulePreload: {
+                polyfill: viteConfig.build.polyfillModulePreload,
+              },
               outDir: parsedSwDest.dir,
               rollupOptions: {
                 input: {

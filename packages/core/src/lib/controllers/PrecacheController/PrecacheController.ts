@@ -90,6 +90,7 @@ export class PrecacheController implements Controller {
   private readonly _strategy: Strategy;
   private _options: PrecacheControllerOptions;
   private _routeOptions: PrecacheRouteOptions;
+
   /**
    * Create a new PrecacheController.
    *
@@ -101,10 +102,8 @@ export class PrecacheController implements Controller {
     this._strategy = new PrecacheStrategy(strategyOptions);
     this._options = controllerOptions;
     this._routeOptions = routeOptions;
-    // Bind the install and activate methods to the instance.
-    this.install = this.install.bind(this);
-    this.activate = this.activate.bind(this);
   }
+
   /**
    * The strategy created by this controller and
    * used to cache assets and respond to `fetch` events.
@@ -112,6 +111,7 @@ export class PrecacheController implements Controller {
   get strategy(): Strategy {
     return this._strategy;
   }
+
   /**
    * Adds items to the cache list, removing duplicates and ensuring the information is valid.
    *
@@ -172,7 +172,8 @@ export class PrecacheController implements Controller {
       }
     }
   }
-  init(serwist: Serwist) {
+
+  init({ serwist }: { serwist: Serwist }): void {
     serwist.registerRoute(new PrecacheRoute(this, this._routeOptions));
 
     if (this._options.navigateFallback) {
@@ -184,7 +185,8 @@ export class PrecacheController implements Controller {
       );
     }
   }
-  async install(event: ExtendableEvent): Promise<void> {
+
+  async install({ event }: { event: ExtendableEvent }): Promise<void> {
     const installReportPlugin = new PrecacheInstallReportPlugin();
     this._strategy.plugins.push(installReportPlugin);
     await parallel(this._options.concurrency!, Array.from(this._urlsToCacheKeys.entries()), async ([url, cacheKey]): Promise<void> => {
@@ -213,6 +215,7 @@ export class PrecacheController implements Controller {
       printInstallDetails(updatedURLs, notUpdatedURLs);
     }
   }
+
   async activate(): Promise<void> {
     const cache = await self.caches.open(this._strategy.cacheName);
     const currentlyCachedRequests = await cache.keys();

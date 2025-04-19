@@ -455,9 +455,6 @@ importers:
       react-router:
         specifier: 7.5.1
         version: 7.5.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      serwist:
-        specifier: latest
-        version: link:../../packages/core
     devDependencies:
       '@react-router/dev':
         specifier: 7.5.1
@@ -465,6 +462,9 @@ importers:
       '@serwist/react-router':
         specifier: latest
         version: link:../../packages/react-router
+      '@serwist/window':
+        specifier: latest
+        version: link:../../packages/window
       '@tailwindcss/vite':
         specifier: 4.1.4
         version: 4.1.4(vite@6.3.2(@types/node@22.14.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(yaml@2.7.0))
@@ -480,6 +480,9 @@ importers:
       react-router-devtools:
         specifier: 1.1.10
         version: 1.1.10(@types/react-dom@19.1.2(@types/react@19.1.2))(@types/react@19.1.2)(react-dom@19.1.0(react@19.1.0))(react-router@7.5.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)(vite@6.3.2(@types/node@22.14.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(yaml@2.7.0))
+      serwist:
+        specifier: latest
+        version: link:../../packages/core
       tailwindcss:
         specifier: 4.1.4
         version: 4.1.4
