@@ -6,10 +6,10 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { SerwistError } from "$utils/SerwistError.js";
-import { cacheNames as privateCacheNames } from "$utils/cacheNames.js";
-import { getFriendlyURL } from "$utils/getFriendlyURL.js";
-import { logger } from "$utils/logger.js";
+import { SerwistError } from "#utils/SerwistError.js";
+import { cacheNames as privateCacheNames } from "#utils/cacheNames.js";
+import { getFriendlyURL } from "#utils/getFriendlyURL.js";
+import { logger } from "#utils/logger.js";
 import type { Serwist } from "../../../Serwist.js";
 import { copyResponse } from "../../../copyResponse.js";
 import type { StrategyPlugin } from "../../../types.js";

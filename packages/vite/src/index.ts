@@ -1,10 +1,11 @@
+import { resolveEntry } from "@serwist/utils/node";
 import type { Plugin } from "vite";
 
 import { createApi } from "./lib/api.js";
 import { createContext } from "./lib/context.js";
 import { generateServiceWorker } from "./lib/modules.js";
 import type { DevOptions, Hooks, PluginOptions, PluginOptionsComplete, SerwistViteApi } from "./lib/types.js";
-import { resolveEntry, toFs } from "./lib/utils.js";
+import { toFs } from "./lib/utils.js";
 import { validateInjectManifestOptions } from "./lib/validator.js";
 import { buildPlugin } from "./plugins/build.js";
 import { devPlugin } from "./plugins/dev.js";

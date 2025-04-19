@@ -18,7 +18,7 @@
     "pwa"
   ],
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   },
   "author": "Serwist <ducanh2912.rusty@gmail.com> (https://serwist.pages.dev/)",
   "license": "MIT",
@@ -65,7 +65,7 @@
     "@serwist/webpack-plugin": "workspace:*",
     "@serwist/window": "workspace:*",
     "chalk": "5.4.1",
-    "glob": "10.4.5",
+    "glob": "11.0.1",
     "serwist": "workspace:*",
     "zod": "3.24.3"
   },
@@ -77,7 +77,7 @@
     "react-dom": "19.1.0",
     "rollup": "4.40.0",
     "type-fest": "4.40.0",
-    "typescript": "5.7.3",
+    "typescript": "5.8.3",
     "webpack": "5.99.6"
   },
   "peerDependencies": {

@@ -6,7 +6,7 @@
   "files": ["dist", "cli.js"],
   "keywords": ["serwist", "serwistjs", "service worker", "caching", "fetch requests", "offline", "cli"],
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   },
   "author": "Google's Web DevRel Team",
   "contributors": ["Serwist <ducanh2912.rusty@gmail.com> (https://serwist.pages.dev/)"],
@@ -31,7 +31,7 @@
     "chalk": "5.4.1",
     "chokidar": "4.0.3",
     "common-tags": "1.8.2",
-    "glob": "10.4.5",
+    "glob": "11.0.1",
     "meow": "13.2.0",
     "pretty-bytes": "6.1.1",
     "stringify-object": "5.0.0",
@@ -44,6 +44,6 @@
     "@types/stringify-object": "4.0.5",
     "@types/update-notifier": "6.0.8",
     "rollup": "4.40.0",
-    "typescript": "5.7.3"
+    "typescript": "5.8.3"
   }
 }

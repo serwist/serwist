@@ -6,7 +6,7 @@
   "files": ["src", "dist"],
   "keywords": ["serwist", "serwistjs", "webpack", "rspack", "rsbuild", "service worker", "caching", "fetch requests", "offline", "file manifest"],
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   },
   "author": "Google's Web DevRel Team",
   "contributors": ["Serwist <ducanh2912.rusty@gmail.com> (https://serwist.pages.dev/)"],
@@ -55,7 +55,7 @@
     "@types/node": "22.14.1",
     "@types/webpack": "5.28.5",
     "rollup": "4.40.0",
-    "typescript": "5.7.3",
+    "typescript": "5.8.3",
     "webpack": "5.99.6"
   },
   "peerDependencies": {

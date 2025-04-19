@@ -52,7 +52,7 @@ declare const self: ServiceWorkerGlobalScope;
 // ---cut-before---
 const serwist = new Serwist();
 
-serwist.addToPrecacheList([
+serwist.precache.addToCacheList([
   { url: "/index.html", revision: "383676" },
   { url: "/styles/app.0c9a31.css", revision: null },
   { url: "/scripts/app.0d5770.js", revision: null },
@@ -213,7 +213,7 @@ declare const self: ServiceWorkerGlobalScope;
 const serwist = new Serwist({
   precacheEntries: self.__SW_MANIFEST,
   precacheOptions: {
-    urlManipulation: ({ url }) => {
+    urlManipulation({ url }) {
       const alteredUrl = new URL(url);
       // Your logic goes here...
       return [alteredUrl];

@@ -20,6 +20,28 @@
       ]
     }
   },
+  "imports": {
+    "#lib/*.js": {
+      "local": "./src/lib/*.ts",
+      "types": "./dist/lib/*.d.ts"
+    },
+    "#index": {
+      "local": "./src/index.ts",
+      "types": "./dist/index.d.ts"
+    },
+    "#index.internal": {
+      "local": "./src/index.internal.ts",
+      "types": "./dist/index.internal.d.ts"
+    },
+    "#models/*.js": {
+      "local": "./src/models/*.ts",
+      "types": "./dist/models/*.d.ts"
+    },
+    "#utils/*.js": {
+      "local": "./src/utils/*.ts",
+      "types": "./dist/utils/*.d.ts"
+    }
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -45,7 +67,7 @@
   "devDependencies": {
     "@serwist/configs": "workspace:*",
     "rollup": "4.40.0",
-    "typescript": "5.7.3"
+    "typescript": "5.8.3"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0"

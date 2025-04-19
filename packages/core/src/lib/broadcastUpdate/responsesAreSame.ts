@@ -6,8 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { SerwistError } from "$utils/SerwistError.js";
-import { logger } from "$utils/logger.js";
+import { SerwistError } from "#utils/SerwistError.js";
+import { logger } from "#utils/logger.js";
 
 /**
  * Given two responses, compares several header values to see if they are

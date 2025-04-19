@@ -16,6 +16,6 @@
     "esbuild": "0.25.2",
     "serve": "14.2.4",
     "serwist": "latest",
-    "typescript": "5.7.3"
+    "typescript": "5.8.3"
   }
 }

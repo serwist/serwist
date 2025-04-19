@@ -6,7 +6,7 @@
   import { getSerwist } from "virtual:serwist";
 
   import { dev } from "$app/environment";
-  import { page } from "$app/stores";
+  import { page } from "$app/state";
   import Twoslash from "$components/Twoslash.svelte";
   import { CANONICAL_URL, REROUTE } from "$lib/constants";
   import { isColorScheme } from "$lib/isColorScheme";
@@ -14,8 +14,8 @@
 
   const { data, children } = $props();
   const isDark = $derived($colorScheme === "dark");
-  const title = $derived($page.data.title ? `${$page.data.title} - Serwist` : "Serwist");
-  const ogImage = $derived($page.data.ogImage ?? data.fallbackOgImage);
+  const title = $derived(page.data.title ? `${page.data.title} - Serwist` : "Serwist");
+  const ogImage = $derived(page.data.ogImage ?? data.fallbackOgImage);
 
   $effect(() => {
     const twoslashElement = mount(Twoslash, {
@@ -50,7 +50,7 @@
 
 <svelte:head>
   <title>{title}</title>
-  <link rel="canonical" href={new URL($page.url.pathname in REROUTE ? REROUTE[$page.url.pathname] : $page.url.pathname, CANONICAL_URL).href} />
+  <link rel="canonical" href={new URL(page.url.pathname in REROUTE ? REROUTE[page.url.pathname] : page.url.pathname, CANONICAL_URL).href} />
   <link rel="manifest" href="/manifest.webmanifest" />
   <meta property="og:title" content={title} />
   <meta property="og:image" content={ogImage} />

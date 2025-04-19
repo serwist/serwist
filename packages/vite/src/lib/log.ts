@@ -1,25 +1,18 @@
 import type { BuildResult } from "@serwist/build";
-import { cyan, dim, green, yellow } from "kolorist";
-import type { ResolvedConfig } from "vite";
+import { dim, green, yellow } from "kolorist";
 
-import packageJson from "../../package.json" with { type: "json" };
+import type { SerwistViteContext } from "./context.js";
 
-export const logSerwistResult = (buildResult: Pick<BuildResult, "count" | "size" | "warnings">, viteOptions: ResolvedConfig) => {
-  const { logLevel = "info" } = viteOptions;
-
-  if (logLevel === "silent") return;
-
+export const logSerwistResult = (buildResult: Pick<BuildResult, "count" | "size" | "warnings">, ctx: SerwistViteContext) => {
   const { count, size, warnings } = buildResult;
 
-  if (logLevel === "info") {
-    console.info(
-      [
-        "",
-        `${cyan(`vite-plugin-serwist v${packageJson.version}`)} ${green("files generated.")}`,
-        `${green("✓")} ${count} precache entries ${dim(`(${(size / 1024).toFixed(2)} KiB)`)}`,
-        // log build warning
-        warnings && warnings.length > 0 ? yellow(["⚠ warnings", ...warnings.map((w) => `  ${w}`), ""].join("\n")) : "",
-      ].join("\n"),
-    );
-  }
+  ctx.logger.info(
+    [
+      `${green("files generated.")}`,
+      `${green("✓")} ${count} precache entries ${dim(`(${(size / 1024).toFixed(2)} KiB)`)}`,
+      // log build warning
+      warnings && warnings.length > 0 ? yellow(["⚠ warnings", ...warnings.map((w) => `  ${w}`), ""].join("\n")) : "",
+    ].join("\n"),
+    { skipLine: true },
+  );
 };

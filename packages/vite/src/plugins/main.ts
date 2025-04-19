@@ -1,5 +1,6 @@
 import path from "node:path";
 
+import { createLogger } from "@serwist/utils/node";
 import type { Plugin, UserConfig } from "vite";
 
 import { RESOLVED_SERWIST_VIRTUAL, SERWIST_VIRTUAL } from "../lib/constants.js";
@@ -29,6 +30,7 @@ export const mainPlugin = (ctx: SerwistViteContext) => {
       ctx.viteConfig = config;
       ctx.userOptions?.integration?.configureOptions?.(config, ctx.userOptions);
       ctx.options = await resolveOptions(ctx.userOptions, config);
+      ctx.logger = createLogger(config.logLevel, { prefix: "vite-plugin-serwist" });
     },
     resolveId(id) {
       if (id === SERWIST_VIRTUAL) {

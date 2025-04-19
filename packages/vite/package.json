@@ -24,7 +24,7 @@
     "service-worker"
   ],
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   },
   "author": "antfu <anthonyfu117@hotmail.com>",
   "contributors": ["Serwist <ducanh2912.rusty@gmail.com> (https://serwist.pages.dev/)"],
@@ -71,7 +71,7 @@
     "@serwist/build": "workspace:*",
     "@serwist/utils": "workspace:*",
     "serwist": "workspace:*",
-    "glob": "10.4.5",
+    "glob": "11.0.1",
     "kolorist": "1.8.0",
     "zod": "3.24.3"
   },
@@ -81,7 +81,7 @@
     "@types/node": "22.14.1",
     "serwist": "workspace:*",
     "rollup": "4.40.0",
-    "typescript": "5.7.3",
+    "typescript": "5.8.3",
     "vite": "6.3.2"
   },
   "peerDependencies": {

@@ -1,4 +1,4 @@
-import { privateCacheNames } from "$index.internal";
+import { privateCacheNames } from "#index.internal";
 import type { Require } from "@serwist/utils";
 import { PrecacheCacheKeyPlugin } from "./PrecacheCacheKeyPlugin.js";
 import type { PrecacheController, PrecacheControllerOptions, PrecacheOptions, PrecacheRouteOptions } from "./PrecacheController.js";

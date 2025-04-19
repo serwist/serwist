@@ -19,10 +19,19 @@
   "homepage": "https://serwist.pages.dev",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "node": {
+      "*": ["./dist/index.node.d.ts"]
+    }
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
+    },
+    "./node": {
+      "types": "./dist/index.node.d.ts",
+      "default": "./dist/index.node.js"
     },
     "./package.json": "./package.json"
   },
@@ -33,9 +42,12 @@
     "qcheck": "biome check ./src",
     "typecheck": "tsc"
   },
+  "dependencies": {
+    "kolorist": "1.8.0"
+  },
   "devDependencies": {
     "@serwist/configs": "workspace:*",
     "rollup": "4.40.0",
-    "typescript": "5.7.3"
+    "typescript": "5.8.3"
   }
 }

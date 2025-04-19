@@ -2,13 +2,7 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "module": "NodeNext",
-    "paths": {
-      "$lib/*": ["./src/lib/*"],
-      "$index": ["./src/index.js"],
-      "$index.internal": ["./src/index.internal.js"],
-      "$models/*": ["./src/models/*"],
-      "$utils/*": ["./src/utils/*"]
-    }
+    "customConditions": ["local"]
   },
   "include": ["**/*.ts", "rollup.config.js"],
   "exclude": ["dist", "node_modules"]

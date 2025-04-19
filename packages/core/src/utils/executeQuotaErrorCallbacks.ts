@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { quotaErrorCallbacks } from "$models/quotaErrorCallbacks.js";
+import { quotaErrorCallbacks } from "#models/quotaErrorCallbacks.js";
 import { logger } from "./logger.js";
 
 /**

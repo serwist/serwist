@@ -1,16 +1,16 @@
-import { PrecacheController, type PrecacheOptions } from "$lib/controllers/PrecacheController/PrecacheController.js";
-import { RuntimeCacheController } from "$lib/controllers/RuntimeCacheController.js";
-import { type GoogleAnalyticsInitializeOptions, initializeGoogleAnalytics } from "$lib/googleAnalytics/initializeGoogleAnalytics.js";
-import type { PrecacheFallbackEntry } from "$lib/precaching/PrecacheFallbackPlugin.js";
-import type { Strategy } from "$lib/strategies/Strategy.js";
-import { SerwistError } from "$utils/SerwistError.js";
-import { assert } from "$utils/assert.js";
-import { clientsClaim as clientsClaimImpl } from "$utils/clientsClaim.js";
-import { getFriendlyURL } from "$utils/getFriendlyURL.js";
-import { logger } from "$utils/logger.js";
-import { normalizeHandler } from "$utils/normalizeHandler.js";
-import { parseRoute } from "$utils/parseRoute.js";
-import { waitUntil } from "$utils/waitUntil.js";
+import { PrecacheController, type PrecacheOptions } from "#lib/controllers/PrecacheController/PrecacheController.js";
+import { RuntimeCacheController } from "#lib/controllers/RuntimeCacheController.js";
+import { type GoogleAnalyticsInitializeOptions, initializeGoogleAnalytics } from "#lib/googleAnalytics/initializeGoogleAnalytics.js";
+import type { PrecacheFallbackEntry } from "#lib/precaching/PrecacheFallbackPlugin.js";
+import type { Strategy } from "#lib/strategies/Strategy.js";
+import { SerwistError } from "#utils/SerwistError.js";
+import { assert } from "#utils/assert.js";
+import { clientsClaim as clientsClaimImpl } from "#utils/clientsClaim.js";
+import { getFriendlyURL } from "#utils/getFriendlyURL.js";
+import { logger } from "#utils/logger.js";
+import { normalizeHandler } from "#utils/normalizeHandler.js";
+import { parseRoute } from "#utils/parseRoute.js";
+import { waitUntil } from "#utils/waitUntil.js";
 import type { Route } from "./Route.js";
 import { type HTTPMethod, defaultMethod } from "./constants.js";
 import { disableDevLogs as disableDevLogsImpl } from "./disableDevLogs.js";
@@ -672,7 +672,7 @@ export class Serwist {
   /**
    * Adds items to the precache list, removing duplicates and ensuring the information is valid.
    *
-   * @deprecated Use `serwist.precache.addToPrecacheList` instead.
+   * @deprecated Use `serwist.precache.addToCacheList` instead.
    * @param entries Array of entries to precache.
    */
   addToPrecacheList(entries: (PrecacheEntry | string)[]): void {

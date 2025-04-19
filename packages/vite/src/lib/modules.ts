@@ -1,7 +1,6 @@
 import path from "node:path";
 
 import type { BuildResult, GetManifestResult } from "@serwist/build";
-import { yellow } from "kolorist";
 
 import type { SerwistViteContext } from "./context.js";
 import { logSerwistResult } from "./log.js";
@@ -74,9 +73,9 @@ export const generateServiceWorker = async (ctx: SerwistViteContext): Promise<Ge
   if (injectManifestResult) {
     if (ctx.viteConfig.isProduction) {
       // Log Serwist result
-      logSerwistResult(injectManifestResult, ctx.viteConfig);
+      logSerwistResult(injectManifestResult, ctx);
     } else if (injectManifestResult.warnings && injectManifestResult.warnings.length > 0) {
-      console.warn(yellow(["[vite-plugin-serwist] Warnings", ...injectManifestResult.warnings.map((w) => ` - ${w}`), ""].join("\n")));
+      ctx.logger.warn((["Warnings", ...injectManifestResult.warnings.map((w) => ` - ${w}`), ""].join("\n")));
     }
   }
 

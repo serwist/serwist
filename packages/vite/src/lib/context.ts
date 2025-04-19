@@ -1,6 +1,7 @@
 import type { ResolvedConfig, UserConfig } from "vite";
 
 import type { PluginOptions, PluginOptionsComplete } from "./types.js";
+import type { Logger } from "@serwist/utils/node";
 
 export type SerwistViteFrameworks = "nuxt";
 
@@ -34,8 +35,14 @@ export interface SerwistViteContext {
    * Note: This value is set by our dev plugin, located at plugins/dev.ts.
    */
   devEnvironment: boolean;
-  /** To tailor our APIs to these frameworks. */
+  /**
+   * To tailor our APIs to these frameworks.
+   */
   framework: SerwistViteFrameworks | undefined;
+  /**
+   * `@serwist/vite`'s logger.
+   */
+  logger: Logger;
 }
 
 export const createContext = (userOptions: PluginOptions, framework: SerwistViteFrameworks | undefined): SerwistViteContext => {
@@ -46,5 +53,6 @@ export const createContext = (userOptions: PluginOptions, framework: SerwistVite
     options: undefined!,
     devEnvironment: false,
     framework,
+    logger: undefined!,
   };
 };

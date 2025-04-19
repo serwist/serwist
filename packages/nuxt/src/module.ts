@@ -1,7 +1,8 @@
 import path from "node:path";
 import { addPlugin, createResolver, defineNuxtModule, extendWebpackConfig } from "@nuxt/kit";
+import { resolveEntry } from "@serwist/utils/node";
 import type { SerwistViteContext } from "vite-plugin-serwist";
-import { createContext, dev as devPlugin, generateServiceWorker, main as mainPlugin, resolveEntry } from "vite-plugin-serwist";
+import { createContext, dev as devPlugin, generateServiceWorker, main as mainPlugin } from "vite-plugin-serwist";
 
 import packageJson from "../package.json" with { type: "json" };
 import type { Require } from "./utils.js";

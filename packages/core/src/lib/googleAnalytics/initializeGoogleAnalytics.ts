@@ -6,9 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { cacheNames as privateCacheNames } from "$utils/cacheNames.js";
-import { getFriendlyURL } from "$utils/getFriendlyURL.js";
-import { logger } from "$utils/logger.js";
+import { cacheNames as privateCacheNames } from "#utils/cacheNames.js";
+import { getFriendlyURL } from "#utils/getFriendlyURL.js";
+import { logger } from "#utils/logger.js";
 import { Route } from "../../Route.js";
 import type { Serwist } from "../../Serwist.js";
 import type { RouteMatchCallbackOptions } from "../../types.js";

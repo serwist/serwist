@@ -3,7 +3,7 @@ import type {
   PrecacheEntry,
   PrecacheOptions,
   PrecacheRouteOptions,
-} from "$lib/controllers/PrecacheController/PrecacheController.js";
+} from "#lib/controllers/PrecacheController/PrecacheController.js";
 import type { Prettify } from "@serwist/utils";
 import type { Route } from "./Route.js";
 import type { Serwist } from "./Serwist.js";

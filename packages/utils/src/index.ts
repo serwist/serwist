@@ -1,7 +1,6 @@
 import { nonNullable } from "./nonNullable.js";
 import { parallel } from "./parallel.js";
-import { toUnix } from "./toUnix.js";
 
-export { nonNullable, parallel, toUnix };
-
+export { nonNullable, parallel };
+export { slash, toUnix, resolveBasePath, isAbsolute } from "./paths.js";
 export type * from "./types.js";

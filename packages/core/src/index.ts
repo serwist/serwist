@@ -19,7 +19,7 @@ export {
   StorableRequest,
   type BackgroundSyncQueueOptions,
   type BackgroundSyncQueueEntry,
-} from "$lib/backgroundSync/index.js";
+} from "#lib/backgroundSync/index.js";
 
 // Broadcasting updates
 export {
@@ -31,40 +31,40 @@ export {
   type BroadcastPayload,
   type BroadcastPayloadGenerator,
   type BroadcastMessage,
-} from "$lib/broadcastUpdate/index.js";
+} from "#lib/broadcastUpdate/index.js";
 
 // Setting cacheability criteria
 export {
   CacheableResponse,
   CacheableResponsePlugin,
   type CacheableResponseOptions,
-} from "$lib/cacheableResponse/index.js";
+} from "#lib/cacheableResponse/index.js";
 
 // Controllers
-export { PrecacheStrategy, PrecacheRoute, RuntimeCacheController } from "$lib/controllers/index.js";
+export { PrecacheStrategy, PrecacheRoute, RuntimeCacheController } from "#lib/controllers/index.js";
 
 // Expiring outdated responses
 export {
   CacheExpiration,
   ExpirationPlugin,
   type ExpirationPluginOptions,
-} from "$lib/expiration/index.js";
+} from "#lib/expiration/index.js";
 
 // Google Analytics
-export { initializeGoogleAnalytics, type GoogleAnalyticsInitializeOptions } from "$lib/googleAnalytics/index.js";
+export { initializeGoogleAnalytics, type GoogleAnalyticsInitializeOptions } from "#lib/googleAnalytics/index.js";
 
 // Precaching
 export {
   PrecacheFallbackPlugin,
   type PrecacheFallbackEntry,
   type PrecacheFallbackPluginOptions,
-} from "$lib/precaching/index.js";
+} from "#lib/precaching/index.js";
 
 // Handling range requests
 export {
   createPartialResponse,
   RangeRequestsPlugin,
-} from "$lib/rangeRequests/index.js";
+} from "#lib/rangeRequests/index.js";
 
 // Built-in caching strategies
 export {
@@ -78,7 +78,7 @@ export {
   type NetworkFirstOptions,
   type NetworkOnlyOptions,
   type StrategyOptions,
-} from "$lib/strategies/index.js";
+} from "#lib/strategies/index.js";
 
 // Core
 export {

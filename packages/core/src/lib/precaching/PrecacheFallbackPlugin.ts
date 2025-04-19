@@ -6,7 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { PrecacheController } from "$lib/controllers/PrecacheController/PrecacheController.js";
+import type { PrecacheController } from "#lib/controllers/PrecacheController/PrecacheController.js";
+import type { Serwist } from "../../Serwist.js";
 import type { HandlerDidErrorCallbackParam, StrategyPlugin } from "../../types.js";
 
 export interface PrecacheFallbackEntry {
@@ -31,6 +32,11 @@ export interface PrecacheFallbackPluginOptions {
    * A {@linkcode PrecacheController} instance.
    */
   precacheController: PrecacheController;
+  /**
+   * A {@linkcode Serwist} instance.
+   * @deprecated Use `precacheController` instead.
+   */
+  serwist?: Serwist;
 }
 
 /**
@@ -50,9 +56,14 @@ export class PrecacheFallbackPlugin implements StrategyPlugin {
    *
    * @param config
    */
-  constructor({ fallbackUrls, precacheController }: PrecacheFallbackPluginOptions) {
+  constructor({ fallbackUrls, precacheController, serwist }: PrecacheFallbackPluginOptions) {
     this._fallbackUrls = fallbackUrls;
-    this._precacheController = precacheController;
+    // TODO(ducanhgh): remove in v11.
+    if (!serwist) {
+      this._precacheController = precacheController;
+    } else {
+      this._precacheController = serwist.precache;
+    }
   }
 
   /**

@@ -6,8 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { messageGenerator } from "$models/messages/messageGenerator.js";
-import type { MessageKey } from "$models/messages/messages.js";
+import { messageGenerator } from "#models/messages/messageGenerator.js";
+import type { MessageKey } from "#models/messages/messages.js";
 import type { MapLikeObject } from "../types.js";
 
 /**

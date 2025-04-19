@@ -1,9 +1,9 @@
-import { SerwistError } from "$utils/SerwistError.js";
-import { assert } from "$utils/assert.js";
-import { createCacheKey } from "$utils/createCacheKey.js";
-import { logger } from "$utils/logger.js";
-import { printCleanupDetails } from "$utils/printCleanupDetails.js";
-import { printInstallDetails } from "$utils/printInstallDetails.js";
+import { SerwistError } from "#utils/SerwistError.js";
+import { assert } from "#utils/assert.js";
+import { createCacheKey } from "#utils/createCacheKey.js";
+import { logger } from "#utils/logger.js";
+import { printCleanupDetails } from "#utils/printCleanupDetails.js";
+import { printInstallDetails } from "#utils/printInstallDetails.js";
 import { parallel } from "@serwist/utils";
 import { NavigationRoute } from "../../../NavigationRoute.js";
 import type { Serwist } from "../../../Serwist.js";
