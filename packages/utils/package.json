@@ -1,6 +1,6 @@
 {
   "name": "@serwist/utils",
-  "version": "10.0.0-preview.1",
+  "version": "10.0.0-preview.2",
   "type": "module",
   "description": "This module contains internal utilities used by Serwist packages.",
   "files": [
@@ -21,7 +21,9 @@
   "types": "./dist/index.d.ts",
   "typesVersions": {
     "node": {
-      "*": ["./dist/index.node.d.ts"]
+      "*": [
+        "./dist/index.node.d.ts"
+      ]
     }
   },
   "exports": {

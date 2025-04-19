@@ -1,10 +1,25 @@
 {
   "name": "@serwist/nuxt",
-  "version": "10.0.0-preview.1",
+  "version": "10.0.0-preview.2",
   "type": "module",
   "description": "A Nuxt module that integrates Serwist into your application.",
-  "files": ["dist"],
-  "keywords": ["nuxt", "nuxt-module", "pwa", "vite", "vite-plugin", "serwist", "serwistjs", "pwa", "sw", "service worker", "web", "service-worker"],
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "nuxt",
+    "nuxt-module",
+    "pwa",
+    "vite",
+    "vite-plugin",
+    "serwist",
+    "serwistjs",
+    "pwa",
+    "sw",
+    "service worker",
+    "web",
+    "service-worker"
+  ],
   "engines": {
     "node": ">=20.0.0"
   },

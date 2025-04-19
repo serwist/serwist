@@ -37,7 +37,9 @@
     "@serwist/svelte": "9.0.9",
     "vite-plugin-serwist": "9.0.9",
     "@serwist/webpack-plugin": "9.0.9",
-    "@serwist/window": "9.0.9"
+    "@serwist/window": "9.0.9",
+    "@serwist-example/react-router-basic": "1.0.0",
+    "@serwist/react-router": "10.0.0-preview.1"
   },
-  "changesets": ["icy-crews-find", "red-symbols-decide", "strange-waves-remember"]
+  "changesets": ["icy-crews-find", "kind-beds-rush", "red-symbols-decide", "strange-waves-remember", "yummy-terms-film"]
 }

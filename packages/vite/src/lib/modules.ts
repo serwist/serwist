@@ -75,7 +75,7 @@ export const generateServiceWorker = async (ctx: SerwistViteContext): Promise<Ge
       // Log Serwist result
       logSerwistResult(injectManifestResult, ctx);
     } else if (injectManifestResult.warnings && injectManifestResult.warnings.length > 0) {
-      ctx.logger.warn((["Warnings", ...injectManifestResult.warnings.map((w) => ` - ${w}`), ""].join("\n")));
+      ctx.logger.warn(["Warnings", ...injectManifestResult.warnings.map((w) => ` - ${w}`), ""].join("\n"));
     }
   }
 

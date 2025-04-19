@@ -1,5 +1,7 @@
 # @serwist/configs
 
+## 10.0.0-preview.2
+
 ## 9.1.0-preview.0
 
 ## 9.0.9

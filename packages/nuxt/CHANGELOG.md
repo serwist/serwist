@@ -1,5 +1,24 @@
 # @serwist/nuxt
 
+## 10.0.0-preview.2
+### Major Changes
+
+
+
+- [`af82ab6`](https://github.com/serwist/serwist/commit/af82ab622e0ff6b4669fd49e9489e7497d232b29) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(all): bump Node.js requirement to 20.0.0 or newer
+  
+  - Node.js 18 goes EoL on April 30th, 2025, so Serwist now requires Node.js 20 or newer.
+  
+  - This also allows us to bump `glob` and `rimraf`.
+
+### Patch Changes
+
+- Updated dependencies [[`af82ab6`](https://github.com/serwist/serwist/commit/af82ab622e0ff6b4669fd49e9489e7497d232b29)]:
+  - @serwist/window@10.0.0-preview.2
+  - @serwist/build@10.0.0-preview.2
+  - @serwist/utils@10.0.0-preview.2
+  - vite-plugin-serwist@10.0.0-preview.2
+
 ## 9.1.0-preview.0
 
 ### Patch Changes
