@@ -1,5 +1,14 @@
 # @serwist/utils
 
+## 10.0.0-preview.3
+### Patch Changes
+
+
+
+- [`dd0f7d6`](https://github.com/serwist/serwist/commit/dd0f7d642940baadecafa210f7c2cdd68407bc1c) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(utils): include dist in `files`
+  
+  - Turns out we shipped `@serwist/utils` without dist...
+
 ## 10.0.0-preview.2
 ### Major Changes
 

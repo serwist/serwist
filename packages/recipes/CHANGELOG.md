@@ -1,5 +1,11 @@
 # @serwist/recipes
 
+## 10.0.0-preview.3
+### Patch Changes
+
+- Updated dependencies []:
+  - serwist@10.0.0-preview.3
+
 ## 10.0.0-preview.2
 ### Major Changes
 
