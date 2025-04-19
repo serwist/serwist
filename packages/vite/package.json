@@ -78,11 +78,11 @@
   "devDependencies": {
     "@serwist/configs": "workspace:*",
     "@serwist/window": "workspace:*",
-    "@types/node": "22.13.5",
+    "@types/node": "22.14.1",
     "serwist": "workspace:*",
-    "rollup": "4.34.8",
+    "rollup": "4.40.0",
     "typescript": "5.7.3",
-    "vite": "6.1.1"
+    "vite": "6.3.2"
   },
   "peerDependencies": {
     "@serwist/window": "workspace:*",

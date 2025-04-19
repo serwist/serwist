@@ -18,9 +18,9 @@
     "serwist": "latest"
   },
   "devDependencies": {
-    "@types/node": "22.13.5",
-    "@types/react": "19.0.10",
-    "@types/react-dom": "19.0.4",
+    "@types/node": "22.14.1",
+    "@types/react": "19.1.2",
+    "@types/react-dom": "19.1.2",
     "typescript": "5.7.3"
   }
 }

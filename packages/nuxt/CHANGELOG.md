@@ -9,6 +9,35 @@
   - @serwist/build@9.1.0-preview.0
   - @serwist/window@9.1.0-preview.0
 
+## 9.0.14
+
+### Patch Changes
+
+- Updated dependencies [[`b67b551`](https://github.com/serwist/serwist/commit/b67b55116e9fc8d4ce02593c2095bd1555270488)]:
+  - @serwist/vite@9.0.14
+  - @serwist/build@9.0.14
+  - @serwist/window@9.0.14
+
+## 9.0.11
+
+### Patch Changes
+
+- [`cdefdc3`](https://github.com/serwist/serwist/commit/cdefdc32247f45a553a7a7ce4ff549fdf04290ce) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): monthly dependencies maintenance
+
+- Updated dependencies [[`cdefdc3`](https://github.com/serwist/serwist/commit/cdefdc32247f45a553a7a7ce4ff549fdf04290ce)]:
+  - @serwist/window@9.0.11
+  - @serwist/build@9.0.11
+  - @serwist/vite@9.0.11
+
+## 9.0.10
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/build@9.0.10
+  - @serwist/vite@9.0.10
+  - @serwist/window@9.0.10
+
 ## 9.0.9
 
 ### Patch Changes

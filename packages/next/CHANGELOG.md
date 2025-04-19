@@ -10,6 +10,46 @@
   - @serwist/window@9.1.0-preview.0
   - serwist@9.1.0-preview.0
 
+## 9.0.14
+
+### Patch Changes
+
+- [#255](https://github.com/serwist/serwist/pull/255) [`7827857`](https://github.com/serwist/serwist/commit/782785742632df065cfbc3cc6dd2e6ad61444e4e) Thanks [@adamfratino](https://github.com/adamfratino)! - fix(next): re-word Turbopack console warning to fix issue URL
+
+- Updated dependencies []:
+  - @serwist/build@9.0.14
+  - @serwist/webpack-plugin@9.0.14
+  - @serwist/window@9.0.14
+  - serwist@9.0.14
+
+## 9.0.11
+
+### Patch Changes
+
+- [`cdefdc3`](https://github.com/serwist/serwist/commit/cdefdc32247f45a553a7a7ce4ff549fdf04290ce) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): monthly dependencies maintenance
+
+- Updated dependencies [[`cdefdc3`](https://github.com/serwist/serwist/commit/cdefdc32247f45a553a7a7ce4ff549fdf04290ce)]:
+  - @serwist/webpack-plugin@9.0.11
+  - @serwist/window@9.0.11
+  - @serwist/build@9.0.11
+  - serwist@9.0.11
+
+## 9.0.10
+
+### Patch Changes
+
+- [`7e99285`](https://github.com/serwist/serwist/commit/7e9928532254633fbf49e1e1b83fcf48bcccce60) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(next): fixed `__dirname` conflict in CommonJS
+
+  - Thanks @jthcast! Their message:
+
+  > If you use `storybook` and `serwist` together, they will conflict for `__dirname` variable. Because it is already created with a global scope, it cannot be used by branching from the business logic it uses. So I suggest moving to scope within the function.
+
+- Updated dependencies []:
+  - @serwist/build@9.0.10
+  - @serwist/webpack-plugin@9.0.10
+  - @serwist/window@9.0.10
+  - serwist@9.0.10
+
 ## 9.0.9
 
 ### Patch Changes

@@ -71,14 +71,14 @@
   },
   "devDependencies": {
     "@serwist/configs": "workspace:*",
-    "@types/node": "22.13.5",
-    "next": "15.1.7",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
-    "rollup": "4.34.8",
-    "type-fest": "4.35.0",
+    "@types/node": "22.14.1",
+    "next": "15.3.1",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "rollup": "4.40.0",
+    "type-fest": "4.40.0",
     "typescript": "5.7.3",
-    "webpack": "5.98.0"
+    "webpack": "5.99.6"
   },
   "peerDependencies": {
     "next": ">=14.0.0",
