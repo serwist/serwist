@@ -7,7 +7,6 @@
 */
 
 import { Deferred, logger } from "serwist/internal";
-import type { TrustedScriptURL } from "trusted-types/lib";
 
 import { messageSW } from "./messageSW.js";
 import type { SerwistLifecycleEventMap } from "./utils/SerwistEvent.js";

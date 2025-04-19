@@ -121,7 +121,7 @@ serwist.addEventListener("message", (event) => {
   if (event.data.meta === "serwist-broadcast-update" && event.data.type === "CACHE_UPDATED") {
     const { payload: { updatedURL } }: BroadcastMessage = event.data;
     
-    console.log(`A newer version of \${updatedURL} is available!`);
+    console.log(`A newer version of ${updatedURL} is available!`);
   }
 });
 ```
