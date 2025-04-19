@@ -28,7 +28,7 @@ A response can be sent by calling `event.ports[0].postMessage(...)` in the servi
 <Tabs id="usage-example" tabs={[["index.ts", "index-ts"]]}>
   <Tab id="index-ts">
 
-```javascript
+```typescript twoslash
 declare const sw: ServiceWorker;
 // ---cut-before---
 import { messageSW } from "@serwist/window";

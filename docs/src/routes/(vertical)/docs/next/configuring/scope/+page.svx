@@ -2,6 +2,7 @@
 layout: docs
 ---
 <script>
+  import Callout from "$components/Callout.svelte";
   import Tabs from "$components/Tabs.svelte";
   import Tab from "$components/Tab.svelte";
 </script>
@@ -20,11 +21,16 @@ layout: docs
 
 The service worker's URL scope. Set to `"/foo/"` so that paths under "/foo/" are under the service worker's control while others are not.
 
-Note: "/foo" does NOT belong to the aforementioned scope! Consider configuring how Next.js handles trailing slashes.
+<Callout type="warning">
+  Note: "/foo" does NOT belong to the aforementioned scope! Consider configuring how Next.js handles trailing slashes.
+</Callout>
 
 ## Usage
 
-Note: this option is not influenced by your basePath! If you don't have a trailing slash, the slash is automatically appended to the scope. Otherwise, it is passed to Serwist as-is.
+<Callout type="warning">
+  Note: this option is not influenced by your basePath! If you don't have a trailing slash, the slash is automatically appended to the scope.
+  Otherwise, it is passed to Serwist as-is.
+</Callout>
 
 <Tabs id="usage-example" tabs={[["next.config.mjs", "next-config-mjs"]]}>
   <Tab id="next-config-mjs">

@@ -12,16 +12,16 @@
   },
   "dependencies": {
     "@serwist/next": "latest",
-    "next": "15.1.7",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
+    "next": "15.3.1",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
     "serwist": "latest",
     "web-push": "3.6.7"
   },
   "devDependencies": {
-    "@types/node": "22.13.5",
-    "@types/react": "19.0.10",
-    "@types/react-dom": "19.0.4",
+    "@types/node": "22.14.1",
+    "@types/react": "19.1.2",
+    "@types/react-dom": "19.1.2",
     "@types/web-push": "3.6.4",
     "typescript": "5.7.3"
   }

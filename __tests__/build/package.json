@@ -9,6 +9,6 @@
   "devDependencies": {
     "@serwist/build": "workspace:*",
     "serwist": "workspace:*",
-    "vitest": "3.0.6"
+    "vitest": "3.1.1"
   }
 }

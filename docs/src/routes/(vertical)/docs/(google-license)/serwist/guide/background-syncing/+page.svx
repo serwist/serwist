@@ -2,6 +2,7 @@
 layout: docs
 ---
 <script>
+  import Callout from "$components/Callout.svelte";
   import Image from "$components/Image.svelte";
   import Tabs from "$components/Tabs.svelte";
   import Tab from "$components/Tab.svelte";
@@ -153,7 +154,9 @@ const queue = new BackgroundSyncQueue("myQueueName");
 
 The queue name is used as a part of the tag name that gets registered by the global [`SyncManager`](https://developer.mozilla.org/en-US/docs/Web/API/SyncManager). It's also used as the Object Store name for the IndexedDB database.
 
-Note: It's not important that you know the details above, but they're the reason the queue name has to be unique to your origin.
+<Callout type="info">
+  Note: It's not important that you know the details above, but they're the reason the queue name has to be unique to your origin.
+</Callout>
 
 ### Adding a request to the BackgroundSyncQueue
 

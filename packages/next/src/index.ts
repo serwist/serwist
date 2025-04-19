@@ -13,12 +13,20 @@ import { validateInjectManifestOptions } from "./lib/validator.js";
 
 const dirname = "__dirname" in globalThis ? __dirname : fileURLToPath(new URL(".", import.meta.url));
 
+let warnedTurbopack = false;
+
 /**
  * Integrates Serwist into your Next.js app.
  * @param userOptions
  * @returns
  */
 const withSerwistInit = (userOptions: InjectManifestOptions): ((nextConfig?: NextConfig) => NextConfig) => {
+  if (!warnedTurbopack && process.env.TURBOPACK && !userOptions.disable && !process.env.SERWIST_SUPPRESS_TURBOPACK_WARNING) {
+    warnedTurbopack = true;
+    console.warn(
+      `[@serwist/next] WARNING: You are using '@serwist/next' with \`next dev --turbopack\`, but Serwist doesn't support Turbopack at the moment. It is recommended that you set \`disable\` to \`process.env.NODE_ENV !== \"production\"\`. Follow https://github.com/serwist/serwist/issues/54 for progress on Serwist + Turbopack. You can also suppress this warning by setting SERWIST_SUPPRESS_TURBOPACK_WARNING=1.`,
+    );
+  }
   return (nextConfig = {}) => ({
     ...nextConfig,
     webpack(config: Configuration, options) {
@@ -204,6 +212,7 @@ const withSerwistInit = (userOptions: InjectManifestOptions): ((nextConfig?: Nex
               },
             ],
             manifestTransforms: [
+              // TODO(ducanhgh): move this spread to below our transform function?
               ...manifestTransforms,
               async (manifestEntries, compilation) => {
                 // This path always uses forward slashes, so it is safe to use it in the following string replace.
@@ -219,7 +228,7 @@ const withSerwistInit = (userOptions: InjectManifestOptions): ((nextConfig?: Nex
                   if (m.url.startsWith(publicFilesPrefix)) {
                     m.url = path.posix.join(basePath, m.url.replace(publicFilesPrefix, ""));
                   }
-                  m.url = m.url.replace(/\[/g, "%5B").replace(/\]/g, "%5D");
+                  m.url = m.url.replace(/\[/g, "%5B").replace(/\]/g, "%5D").replace(/@/g, "%40");
                   return m;
                 });
                 return { manifest, warnings: [] };

@@ -2,15 +2,19 @@
 layout: docs
 ---
 <script>
+  import Callout from "$components/Callout.svelte";
   import Tabs from "$components/Tabs.svelte";
   import Tab from "$components/Tab.svelte";
 </script>
 
 # Getting started
 
-This guide uses React, but it applies to any project using webpack. For some frameworks, we also have packages tailored to them:
+<Callout>
+  This guide uses React, but it applies to any project using webpack. For some frameworks, we also have packages tailored to them:
 
-- [Next.js](/docs/next)
+  - [Next.js](/docs/next)
+
+</Callout>
 
 ## Install
 
