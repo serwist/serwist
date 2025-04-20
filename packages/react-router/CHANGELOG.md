@@ -1,5 +1,19 @@
 # @serwist/react-router
 
+## 10.0.0-preview.5
+### Patch Changes
+
+
+
+- [`c0022af`](https://github.com/serwist/serwist/commit/c0022afad69df14fb6b89be3636afef1cafd4b70) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(react-router/preview): removed faulty React components
+  
+  - Turns out we can't just import virtual modules in our own modules as they get externalized for React Router's SSR build... It worked on my machine though, as React Router seems to bundle local packages as well.
+- Updated dependencies []:
+  - @serwist/build@10.0.0-preview.5
+  - @serwist/utils@10.0.0-preview.5
+  - @serwist/window@10.0.0-preview.5
+  - vite-plugin-serwist@10.0.0-preview.5
+
 ## 10.0.0-preview.4
 ### Minor Changes
 

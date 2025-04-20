@@ -1,6 +1,6 @@
 {
   "name": "serwist",
-  "version": "10.0.0-preview.4",
+  "version": "10.0.0-preview.5",
   "type": "module",
   "description": "A Swiss Army knife for service workers.",
   "files": [

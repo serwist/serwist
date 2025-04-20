@@ -1,5 +1,12 @@
 # @serwist/webpack-plugin
 
+## 10.0.0-preview.5
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/build@10.0.0-preview.5
+  - @serwist/utils@10.0.0-preview.5
+
 ## 10.0.0-preview.4
 ### Patch Changes
 

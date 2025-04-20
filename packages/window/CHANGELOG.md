@@ -1,5 +1,11 @@
 # @serwist/window
 
+## 10.0.0-preview.5
+### Patch Changes
+
+- Updated dependencies []:
+  - serwist@10.0.0-preview.5
+
 ## 10.0.0-preview.4
 ### Patch Changes
 

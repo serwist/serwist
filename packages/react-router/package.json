@@ -1,6 +1,6 @@
 {
   "name": "@serwist/react-router",
-  "version": "10.0.0-preview.4",
+  "version": "10.0.0-preview.5",
   "type": "module",
   "description": "A React Router preset that integrates Serwist into your application.",
   "files": [
