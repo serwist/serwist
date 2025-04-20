@@ -46,10 +46,12 @@
     "typecheck": "tsc"
   },
   "dependencies": {
+    "common-tags": "1.8.2",
     "kolorist": "1.8.0"
   },
   "devDependencies": {
     "@serwist/configs": "workspace:*",
+    "@types/common-tags": "1.8.4",
     "rollup": "4.40.0",
     "typescript": "5.8.3"
   }

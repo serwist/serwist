@@ -6,11 +6,10 @@
   https://opensource.org/licenses/MIT.
 */
 import path from "node:path";
+import type { FileDetails } from "@serwist/utils";
+import { errors, getFileHash, getFileSize } from "@serwist/utils/node";
 import { globSync } from "glob";
-import type { FileDetails, GlobPartial } from "../types.js";
-import { errors } from "./errors.js";
-import { getFileHash } from "./get-file-hash.js";
-import { getFileSize } from "./get-file-size.js";
+import type { GlobPartial } from "../types.js";
 
 export const getFileDetails = ({
   globDirectory,

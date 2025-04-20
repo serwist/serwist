@@ -9,6 +9,7 @@ export default getRollupOptions({
     {
       input: {
         index: "src/index.ts",
+        "index.react": "src/index.react.ts",
         "index.worker": "src/index.worker.ts",
       },
       output: {

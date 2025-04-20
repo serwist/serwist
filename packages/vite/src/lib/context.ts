@@ -3,7 +3,7 @@ import type { ResolvedConfig, UserConfig } from "vite";
 import type { PluginOptions, PluginOptionsComplete } from "./types.js";
 import type { Logger } from "@serwist/utils/node";
 
-export type SerwistViteFrameworks = "nuxt";
+export type SerwistViteFrameworks = "nuxt" | "react-router";
 
 export interface SerwistViteContext {
   /**

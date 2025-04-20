@@ -7,12 +7,11 @@
 */
 
 import assert from "node:assert";
+import type { FileDetails } from "@serwist/utils";
+import { errors, getCompositeDetails, getStringDetails } from "@serwist/utils/node";
 
-import type { FileDetails, GetManifestOptionsComplete, GetManifestResult } from "../types.js";
-import { errors } from "./errors.js";
-import { getCompositeDetails } from "./get-composite-details.js";
+import type { GetManifestOptionsComplete, GetManifestResult } from "../types.js";
 import { getFileDetails } from "./get-file-details.js";
-import { getStringDetails } from "./get-string-details.js";
 import { transformManifest } from "./transform-manifest.js";
 
 export const getFileManifestEntries = async ({

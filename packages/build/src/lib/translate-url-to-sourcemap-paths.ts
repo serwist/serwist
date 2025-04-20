@@ -8,7 +8,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { toUnix } from "@serwist/utils";
-import { errors } from "./errors.js";
+import { errors } from "@serwist/utils/node";
 
 export function translateURLToSourcemapPaths(
   url: string | null,

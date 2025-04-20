@@ -8,7 +8,6 @@
   ],
   "keywords": [
     "react-router",
-    "react-router-preset",
     "pwa",
     "vite",
     "vite-plugin",
@@ -33,6 +32,16 @@
       "*": [
         "./dist/index.worker.d.ts"
       ]
+    },
+    "react": {
+      "*": [
+        "./dist/index.react.d.ts"
+      ]
+    },
+    "typings": {
+      "*": [
+        "./dist/typings.d.ts"
+      ]
     }
   },
   "exports": {
@@ -44,6 +53,11 @@
       "types": "./dist/index.worker.d.ts",
       "default": "./dist/index.worker.js"
     },
+    "./react": {
+      "types": "./dist/index.react.d.ts",
+      "default": "./dist/index.react.js"
+    },
+    "./typings": "./dist/typings.d.ts",
     "./package.json": "./package.json"
   },
   "scripts": {
@@ -55,20 +69,26 @@
   },
   "dependencies": {
     "@serwist/build": "workspace:*",
-    "@serwist/utils": "workspace:*"
+    "@serwist/utils": "workspace:*",
+    "@serwist/window": "workspace:*",
+    "chokidar": "4.0.3",
+    "vite-plugin-serwist": "workspace:*"
   },
   "devDependencies": {
     "@react-router/dev": "7.5.1",
     "@serwist/configs": "workspace:*",
     "@types/node": "22.14.1",
-    "serwist": "workspace:*",
+    "@types/react": "19.1.2",
+    "react": "19.1.0",
     "react-router": "7.5.1",
     "rollup": "4.40.0",
+    "serwist": "workspace:*",
     "typescript": "5.8.3",
     "vite": "6.3.2"
   },
   "peerDependencies": {
     "@react-router/dev": ">=7.0.0",
+    "react": ">=18.0.0",
     "react-router": ">=7.0.0",
     "typescript": ">=5.0.0",
     "vite": "^5.0.0 || ^6.0.0"

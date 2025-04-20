@@ -2,8 +2,9 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "module": "NodeNext",
-    "types": ["node", "vite/client"]
+    "types": ["node", "vite/client"],
+    "jsx": "react-jsx"
   },
-  "include": ["**/*.ts", "rollup.config.js", "src/Serwist.js"],
+  "include": ["**/*.ts", "**/*.tsx", "rollup.config.js", "src/Serwist.js"],
   "exclude": ["dist", "node_modules"]
 }

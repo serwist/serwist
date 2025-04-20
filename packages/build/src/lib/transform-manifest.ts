@@ -5,10 +5,11 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
+import type { FileDetails } from "@serwist/utils";
+import { errors } from "@serwist/utils/node"; 
 
-import type { BaseResolved, FileDetails, ManifestEntry, ManifestTransform } from "../types.js";
+import type { BaseResolved, ManifestEntry, ManifestTransform } from "../types.js";
 import { additionalPrecacheEntriesTransform } from "./additional-precache-entries-transform.js";
-import { errors } from "./errors.js";
 import { maximumSizeTransform } from "./maximum-size-transform.js";
 import { modifyURLPrefixTransform } from "./modify-url-prefix-transform.js";
 import { noRevisionForURLsMatchingTransform } from "./no-revision-for-urls-matching-transform.js";

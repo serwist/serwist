@@ -8,3 +8,5 @@ packages:
   - "!examples/**/.next/**"
   - "!examples/**/.output"
   - "serwist-e2e-test"
+overrides:
+  "@serwist/react-router": "workspace:*"

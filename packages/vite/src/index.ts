@@ -4,6 +4,7 @@ import type { Plugin } from "vite";
 import { createApi } from "./lib/api.js";
 import { createContext } from "./lib/context.js";
 import { generateServiceWorker } from "./lib/modules.js";
+import { resolveOptions } from "./lib/options.js";
 import type { DevOptions, Hooks, PluginOptions, PluginOptionsComplete, SerwistViteApi } from "./lib/types.js";
 import { toFs } from "./lib/utils.js";
 import { validateInjectManifestOptions } from "./lib/validator.js";
@@ -26,6 +27,7 @@ export {
   buildPlugin as build,
   devPlugin as dev,
   mainPlugin as main,
+  resolveOptions,
   generateServiceWorker,
   createApi,
   createContext,

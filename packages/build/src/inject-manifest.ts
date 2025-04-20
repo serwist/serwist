@@ -9,8 +9,9 @@ import assert from "node:assert";
 import fsp from "node:fs/promises";
 import path from "node:path";
 import { toUnix } from "@serwist/utils";
+import { errors } from "@serwist/utils/node";
 import type { RawSourceMap } from "source-map";
-import { errors } from "./lib/errors.js";
+
 import { escapeRegExp } from "./lib/escape-regexp.js";
 import { getFileManifestEntries } from "./lib/get-file-manifest-entries.js";
 import { getSourceMapURL } from "./lib/get-source-map-url.js";

@@ -205,15 +205,6 @@ export type BuildResult = Omit<GetManifestResult, "manifestEntries"> & {
 /**
  * @private
  */
-export interface FileDetails {
-  file: string;
-  hash: string | null;
-  size: number;
-}
-
-/**
- * @private
- */
 export type BuildType = "dev" | "prod";
 
 /**

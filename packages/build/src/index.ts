@@ -4,10 +4,11 @@
   Use of this source code is governed by an MIT-style
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
-*/
+  */
+import { errors } from "@serwist/utils/node";
+
 import { getManifest } from "./get-manifest.js";
 import { injectManifest } from "./inject-manifest.js";
-import { errors } from "./lib/errors.js";
 import { escapeRegExp } from "./lib/escape-regexp.js";
 import { getFileManifestEntries } from "./lib/get-file-manifest-entries.js";
 import { getSourceMapURL } from "./lib/get-source-map-url.js";

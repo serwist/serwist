@@ -3,11 +3,12 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { InjectManifest } from "@serwist/webpack-plugin";
 import { ChildCompilationPlugin, relativeToOutputPath } from "@serwist/webpack-plugin/internal";
+import { getFileHash } from "@serwist/utils/node";
 import { globSync } from "glob";
 import type { NextConfig } from "next";
 import type { Compilation, Configuration, default as Webpack } from "webpack";
 import type { ExcludeParams, SerwistNextOptions, SerwistNextOptionsKey } from "./internal-types.js";
-import { getContentHash, getFileHash, loadTSConfig, logger } from "./lib/index.js";
+import { getContentHash, loadTSConfig, logger } from "./lib/index.js";
 import type { InjectManifestOptions, InjectManifestOptionsComplete } from "./lib/types.js";
 import { validateInjectManifestOptions } from "./lib/validator.js";
 

@@ -1,3 +1,4 @@
+import { SerwistProvider, useSerwist } from "@serwist/react-router/react";
 import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 
 import type { Route } from "./+types/root";
@@ -18,16 +19,6 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  useEffect(() => {
-    // `@serwist/react-router` doesn't support development mode.
-    if (import.meta.env.DEV) return;
-    const loadSerwist = async () => {
-      // Make sure to prefix `viteConfig.base`.
-      const serwist = new (await import("@serwist/window")).Serwist("/sw.js", { scope: "/" });
-      void serwist.register();
-    };
-    loadSerwist();
-  });
   return (
     <html lang="en">
       <head>
@@ -37,7 +28,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <SerwistProvider>{children}</SerwistProvider>
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -46,6 +37,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  const serwist = useSerwist();
+  useEffect(() => {
+    if (!serwist) return;
+    serwist.addEventListener("installed", () => {
+      console.log("Serwist installed!");
+    });
+    void serwist.register();
+  }, [serwist]);
   return <Outlet />;
 }
 

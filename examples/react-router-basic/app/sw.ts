@@ -21,4 +21,4 @@ const serwist = new Serwist({
   navigationPreload: true,
 });
 
-serwist.addEventListeners();
+serwist.addEventListeners(); 
