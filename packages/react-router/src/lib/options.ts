@@ -26,7 +26,7 @@ export const resolveDefaultOptions = (ctx: SerwistReactRouterContext, viteConfig
     ...ctx.userOptions,
     swSrc,
     // Since `vite-plugin-serwist` sees `outDir` as build/server, we
-    // have to set `swDest` such that it points to build/client instead. 
+    // have to set `swDest` such that it points to build/client instead.
     swDest: path.join("../client", ctx.userOptions.swDest || "sw.js"),
     manifestTransforms: [
       (manifestEntries) => {

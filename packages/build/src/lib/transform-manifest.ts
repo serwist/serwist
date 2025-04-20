@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 import type { FileDetails } from "@serwist/utils";
-import { errors } from "@serwist/utils/node"; 
+import { errors } from "@serwist/utils/node";
 
 import type { BaseResolved, ManifestEntry, ManifestTransform } from "../types.js";
 import { additionalPrecacheEntriesTransform } from "./additional-precache-entries-transform.js";
