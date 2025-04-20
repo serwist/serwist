@@ -1,5 +1,15 @@
 # @serwist/next
 
+## 10.0.0-preview.4
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/build@10.0.0-preview.4
+  - @serwist/utils@10.0.0-preview.4
+  - @serwist/webpack-plugin@10.0.0-preview.4
+  - @serwist/window@10.0.0-preview.4
+  - serwist@10.0.0-preview.4
+
 ## 10.0.0-preview.3
 ### Patch Changes
 

@@ -10,4 +10,4 @@ export interface ReactRouterPluginContext {
   entryServerFilePath: string;
   viteManifestEnabled: boolean;
   isSsrBuild: boolean;
-};
+}
