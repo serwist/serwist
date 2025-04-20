@@ -1,5 +1,11 @@
 # @serwist/build
 
+## 10.0.0-preview.6
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/utils@10.0.0-preview.6
+
 ## 10.0.0-preview.5
 ### Patch Changes
 

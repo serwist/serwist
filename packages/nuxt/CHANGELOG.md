@@ -1,5 +1,14 @@
 # @serwist/nuxt
 
+## 10.0.0-preview.6
+### Patch Changes
+
+- Updated dependencies [[`ae998db`](https://github.com/serwist/serwist/commit/ae998dbbd9287a536e332310cb37073f7717de3a)]:
+  - @serwist/window@10.0.0-preview.6
+  - vite-plugin-serwist@10.0.0-preview.6
+  - @serwist/build@10.0.0-preview.6
+  - @serwist/utils@10.0.0-preview.6
+
 ## 10.0.0-preview.5
 ### Patch Changes
 

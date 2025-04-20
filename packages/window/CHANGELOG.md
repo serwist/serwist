@@ -1,5 +1,16 @@
 # @serwist/window
 
+## 10.0.0-preview.6
+### Patch Changes
+
+
+
+- [`ae998db`](https://github.com/serwist/serwist/commit/ae998dbbd9287a536e332310cb37073f7717de3a) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(window/preview): add clear no side-effects indicator
+  
+  - React Router couldn't tree shake `@serwist/window` from its SSR build as it regarded the package as having side effects.
+- Updated dependencies []:
+  - serwist@10.0.0-preview.6
+
 ## 10.0.0-preview.5
 ### Patch Changes
 

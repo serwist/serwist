@@ -1,5 +1,7 @@
 # @serwist/utils
 
+## 10.0.0-preview.6
+
 ## 10.0.0-preview.5
 
 ## 10.0.0-preview.4
