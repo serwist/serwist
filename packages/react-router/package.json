@@ -4,7 +4,8 @@
   "type": "module",
   "description": "A React Router preset that integrates Serwist into your application.",
   "files": [
-    "dist"
+    "dist",
+    "*.d.ts"
   ],
   "keywords": [
     "react-router",
