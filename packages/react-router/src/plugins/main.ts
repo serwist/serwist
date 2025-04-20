@@ -42,9 +42,22 @@ export const mainPlugin = (ctx: SerwistReactRouterContext) => {
     load(id) {
       if (!ctx.viteContext) return undefined;
       if (id === RESOLVED_SERWIST_VIRTUAL) {
-        return `export const swUrl = "${path.posix.join(ctx.viteContext.options.base, ctx.viteContext.options.swUrl)}";
+        return `import { Serwist } from "@serwist/window";
+import { useEffect, useState } from "react";
+
+export const swUrl = "${path.posix.join(ctx.viteContext.options.base, ctx.viteContext.options.swUrl)}";
 export const swScope = "${ctx.viteContext.options.scope}";
-export const swType = "${ctx.viteContext.options.type}";`;
+export const swType = "${ctx.viteContext.options.type}";
+export const useSerwist = () => {
+  const [serwist] = useState(() => {
+    if (import.meta.env.SSR) return null;
+    if (!(window.serwist && window.serwist instanceof Serwist) && "serviceWorker" in navigator) {
+      window.serwist = new Serwist(swUrl, { scope: swScope, type: swType });
+    }
+    return window.serwist ?? null; 
+  });
+  return serwist;
+}`;
       }
       return undefined;
     },

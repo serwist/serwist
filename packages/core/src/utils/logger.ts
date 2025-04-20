@@ -24,7 +24,7 @@ declare global {
  * before using it.
  */
 export const logger =
-  process.env.NODE_ENV === "production"
+  process.env.NODE_ENV === "production" || typeof self === "undefined" || ((import.meta as any).env?.SSR) /** Check for SSR */
     ? null!
     : (() => {
         // Don't overwrite this value if it's already set.

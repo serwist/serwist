@@ -33,14 +33,9 @@
         "./dist/index.worker.d.ts"
       ]
     },
-    "react": {
-      "*": [
-        "./dist/index.react.d.ts"
-      ]
-    },
     "typings": {
       "*": [
-        "./dist/typings.d.ts"
+        "./typings.d.ts"
       ]
     }
   },
@@ -53,11 +48,7 @@
       "types": "./dist/index.worker.d.ts",
       "default": "./dist/index.worker.js"
     },
-    "./react": {
-      "types": "./dist/index.react.d.ts",
-      "default": "./dist/index.react.js"
-    },
-    "./typings": "./dist/typings.d.ts",
+    "./typings": "./typings.d.ts",
     "./package.json": "./package.json"
   },
   "scripts": {

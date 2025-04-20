@@ -5,6 +5,6 @@
     "types": ["node", "vite/client"],
     "jsx": "react-jsx"
   },
-  "include": ["**/*.ts", "**/*.tsx", "rollup.config.js", "src/Serwist.js"],
+  "include": ["**/*.ts", "**/*.tsx", "rollup.config.js"],
   "exclude": ["dist", "node_modules"]
 }

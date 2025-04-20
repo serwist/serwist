@@ -1,11 +1,10 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "rootDir": "src",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "types": ["node", "vite/client"]
   },
-  "include": ["src/**/*.ts", "src/**/*.js"],
+  "include": ["**/*.ts", "rollup.config.js"],
   "exclude": ["dist", "node_modules"]
 }
