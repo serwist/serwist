@@ -27,7 +27,8 @@ jobs:
     strategy:
       matrix:
         node-version: ["22.x"]
-    if: "${{ contains(github.event.head_commit.message, '[bump]') || contains(github.event.head_commit.message, 'chore(packages): publish packages') }}"
+    if: |
+      ${{ (contains(github.event.head_commit.message, '[bump]') || contains(github.event.head_commit.message, 'chore(packages): publish packages')) && !cancelled() && (success() || failure() || needs.test.result == 'skipped') }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
