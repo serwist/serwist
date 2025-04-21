@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import type { PluginOptions, SerwistViteContext } from "vite-plugin-serwist";
-import { createContext, frameworks as frameworksPlugin, generateServiceWorker, main as mainPlugin } from "vite-plugin-serwist";
+import { createContext, generateServiceWorker, main as mainPlugin } from "vite-plugin-serwist";
 import { enhancedImages } from "@sveltejs/enhanced-img";
 import { sveltekit } from "@sveltejs/kit/vite";
 import tailwindcss from "@tailwindcss/vite";
@@ -162,7 +162,7 @@ const serwist = (): Plugin[] => {
     dontCacheBustURLsMatching: new RegExp(`^client/${buildAssetsDir}immutable/`),
   };
   const ctx = createContext(options, undefined);
-  return [mainPlugin(ctx), frameworksPlugin(ctx), buildPlugin(ctx)];
+  return [mainPlugin(ctx), buildPlugin(ctx)];
 };
 
 export default defineConfig({

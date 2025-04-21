@@ -14,8 +14,7 @@ import { toFs } from "../lib/utils.js";
 // `precacheEntries` is always `undefined`, we still do this to check the user's `injectManifest` options
 // in dev mode.
 /**
- * Internal dev plugin used by `vite-plugin-serwist`.
- * @internal
+ * `vite-plugin-serwist`'s dev plugin.
  * @param ctx
  * @param api
  * @returns

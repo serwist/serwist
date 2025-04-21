@@ -1,5 +1,5 @@
 import type { AstroIntegration } from "astro";
-import { dev as devPlugin, frameworks as frameworksPlugin, generateServiceWorker } from "vite-plugin-serwist";
+import { dev as devPlugin, virtual as virtualPlugin, generateServiceWorker } from "vite-plugin-serwist";
 import type { PluginOptions } from "./types.js";
 import { createContext, type SerwistAstroContext } from "./lib/context.js";
 import { mainPlugin } from "./plugins/main.js";
@@ -15,7 +15,7 @@ export const serwist = (userOptions: PluginOptions = {}): AstroIntegration => {
         ctx = createContext();
         updateConfig({
           vite: {
-            plugins: [mainPlugin(ctx), frameworksPlugin(ctx), devPlugin(ctx)],
+            plugins: [mainPlugin(ctx), virtualPlugin(ctx), devPlugin(ctx)],
           },
         });
       },

@@ -8,7 +8,7 @@ export const swcConfig = {
   jsc: {
     parser: {
       syntax: "typescript",
-      tsx: true,
+      tsx: false,
       dynamicImport: true,
       decorators: false,
     },
@@ -17,11 +17,6 @@ export const swcConfig = {
     minify: {
       compress: false,
       mangle: false,
-    },
-    transform: {
-      react: {
-        runtime: "automatic",
-      },
     },
   },
   minify: false,

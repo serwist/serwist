@@ -4,8 +4,7 @@ import type { SerwistViteContext } from "../lib/context.js";
 import { generateServiceWorker } from "../lib/modules.js";
 
 /**
- * Internal build plugin used by `vite-plugin-serwist`.
- * @internal
+ * `vite-plugin-serwist`'s build plugin.
  * @param ctx
  * @param api
  * @returns

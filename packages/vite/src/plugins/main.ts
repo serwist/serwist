@@ -1,12 +1,11 @@
 import { createLogger } from "@serwist/utils/node";
 import type { Plugin, UserConfig } from "vite";
-
 import type { SerwistViteContext } from "../lib/context.js";
 import { resolveOptions } from "../lib/options.js";
+import { loadVirtual, resolveVirtualId } from "../lib/modules.js";
 
 /**
- * Internal plugin used by `vite-plugin-serwist`.
- * @internal
+ * `vite-plugin-serwist`'s main plugin.
  * @param ctx
  * @param api
  * @returns
@@ -28,6 +27,12 @@ export const mainPlugin = (ctx: SerwistViteContext) => {
       ctx.userOptions?.integration?.configureOptions?.(config, ctx.userOptions);
       ctx.options = await resolveOptions(ctx.userOptions, config);
       ctx.logger = createLogger(config.logLevel, { prefix: "vite-plugin-serwist" });
+    },
+    resolveId(id) {
+      return resolveVirtualId(id);
+    },
+    load(id) {
+      return loadVirtual(id, ctx);
     },
   };
 };

@@ -12,9 +12,10 @@ env:
   TURBO_CACHE: remote:rw
 jobs:
   test:
-    name: ⬣, 🔎, 🔨 Test before releasing
+    name: ⬣, 🔎, 🔨 Run tests
     uses: ./.github/workflows/build-and-test.yml
     secrets: inherit
+    if: "${{ !contains(github.event.head_commit.message, 'chore(packages): publish packages') }}"
   publish:
     name: 🚀 Release packages
     needs: [test]

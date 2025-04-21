@@ -2,7 +2,7 @@ import path from "node:path";
 import { addPlugin, createResolver, defineNuxtModule, extendWebpackConfig } from "@nuxt/kit";
 import { resolveEntry } from "@serwist/utils/node";
 import type { SerwistViteContext } from "vite-plugin-serwist";
-import { createContext, dev as devPlugin, frameworks as frameworksPlugin, generateServiceWorker, main as mainPlugin } from "vite-plugin-serwist";
+import { createContext, dev as devPlugin, virtual as virtualPlugin, generateServiceWorker, main as mainPlugin } from "vite-plugin-serwist";
 
 import packageJson from "../package.json" with { type: "json" };
 import type { Require } from "./utils.js";
@@ -105,7 +105,7 @@ export default defineNuxtModule<ModuleOptions>({
       }
 
       ctx = createContext(userOptions, "nuxt");
-      viteInlineConfig.plugins.push(mainPlugin(ctx), frameworksPlugin(ctx), devPlugin(ctx));
+      viteInlineConfig.plugins.push(mainPlugin(ctx), devPlugin(ctx));
     });
 
     extendWebpackConfig(() => {
