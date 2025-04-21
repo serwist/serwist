@@ -1,5 +1,66 @@
 # @serwist/vite
 
+## 10.0.0-preview.7
+### Minor Changes
+
+
+
+- [`f77e1b2`](https://github.com/serwist/serwist/commit/f77e1b2bdc53f8b46b2e231e0151b237da3446ec) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(vite): introduce framework-specific hooks
+  
+  - `useSerwist` is a new hook used for accessing the Serwist instance. It can be imported from `virtual:serwist/preact` for Preact (≥ 10.0.0), `virtual:serwist/react` for React (≥ 18.0.0), `virtual:serwist/solid` for Solid (≥ 1.0.0), `virtual:serwist.svelte` for Svelte (≥ 5.0.0), `virtual:serwist/vue` for Vue (≥ 3.0.0). For example:
+  
+    For React:
+  
+    ```tsx
+    import { useSerwist } from "virtual:serwist/react";
+  
+    const Component = () => {
+      const serwist = useSerwist();
+      useEffect(() => {
+        if (!serwist) return;
+        serwist.addEventListener("installed", () => {
+          console.log("Serwist installed!");
+        });
+        void serwist.register();
+      }, [serwist]);
+      return <p>Hello world!</p>;
+    }
+    ```
+  
+    or for Svelte:
+  
+    ```svelte
+    <script lang="ts">
+      // Must be in Runes mode!
+      import { useSerwist } from "virtual:serwist.svelte";
+  
+      const serwist = useSerwist();
+  
+      $effect(() => {
+        if (!serwist) return;
+        serwist.addEventListener("installed", () => {
+          console.log("Serwist installed!");
+        });
+        void serwist.register();
+      });
+    </script>
+  
+    <p>Hello world!</p>
+    ```
+
+### Patch Changes
+
+
+
+- [`580db86`](https://github.com/serwist/serwist/commit/580db86b7f5616ba05a89970e8ce83791f920340) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(all): mark all packages as side-effects-free
+  
+  - All packages don't have side-effects, so `"sideEffects": false` has been added to them to aid bundlers in tree-shaking them.
+- Updated dependencies [[`580db86`](https://github.com/serwist/serwist/commit/580db86b7f5616ba05a89970e8ce83791f920340), [`f77e1b2`](https://github.com/serwist/serwist/commit/f77e1b2bdc53f8b46b2e231e0151b237da3446ec)]:
+  - @serwist/window@10.0.0-preview.7
+  - @serwist/build@10.0.0-preview.7
+  - @serwist/utils@10.0.0-preview.7
+  - serwist@10.0.0-preview.7
+
 ## 10.0.0-preview.6
 ### Patch Changes
 

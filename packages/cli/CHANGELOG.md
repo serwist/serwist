@@ -1,5 +1,12 @@
 # @serwist/cli
 
+## 10.0.0-preview.7
+### Patch Changes
+
+- Updated dependencies [[`580db86`](https://github.com/serwist/serwist/commit/580db86b7f5616ba05a89970e8ce83791f920340), [`f77e1b2`](https://github.com/serwist/serwist/commit/f77e1b2bdc53f8b46b2e231e0151b237da3446ec)]:
+  - @serwist/build@10.0.0-preview.7
+  - @serwist/utils@10.0.0-preview.7
+
 ## 10.0.0-preview.6
 ### Patch Changes
 

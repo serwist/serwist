@@ -39,16 +39,23 @@
     "@serwist/webpack-plugin": "9.0.9",
     "@serwist/window": "9.0.9",
     "@serwist-example/react-router-basic": "1.0.0",
-    "@serwist/react-router": "10.0.0-preview.1"
+    "@serwist/react-router": "10.0.0-preview.1",
+    "@serwist-example/astro-basic": "1.0.0",
+    "@serwist-example/vite-solid-basic": "1.0.0",
+    "@serwist/astro": "10.0.0-preview.6"
   },
   "changesets": [
     "gentle-trams-boil",
+    "happy-papers-tan",
     "icy-crews-find",
     "kind-beds-rush",
+    "moody-candles-sleep",
+    "moody-women-sip",
     "red-symbols-decide",
     "smooth-states-tie",
     "some-rocks-drop",
     "strange-waves-remember",
+    "ten-steaks-judge",
     "yummy-terms-film"
   ]
 }
