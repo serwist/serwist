@@ -13,6 +13,7 @@ import type {
 import type { Require } from "@serwist/utils";
 import type { RollupOptions } from "rollup";
 import type { BuildOptions, PluginOption, ResolvedConfig } from "vite";
+import type { FRAMEWORKS, VIRTUAL_PREFIX, VIRTUAL_SERWIST } from "./constants.js";
 
 export interface InjectPartial {
   /**
@@ -156,3 +157,8 @@ export interface SerwistViteApi {
    */
   generateSW(): Promise<void>;
 }
+
+export type VirtualPrefix = typeof VIRTUAL_PREFIX;
+export type VirtualSerwist = typeof VIRTUAL_SERWIST;
+export type Frameworks = (typeof FRAMEWORKS)[number];
+export type VirtualFrameworks = `${VirtualPrefix}${VirtualSerwist}${Frameworks}`;

@@ -28,6 +28,7 @@
     "@rollup/plugin-swc": "0.4.0",
     "@rollup/plugin-typescript": "12.1.2",
     "@swc/core": "1.11.21",
-    "rollup": "4.40.0"
+    "rollup": "4.40.0",
+    "rollup-plugin-svelte": "7.2.2"
   }
 }

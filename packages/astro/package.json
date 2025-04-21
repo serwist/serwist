@@ -1,0 +1,87 @@
+{
+  "name": "@serwist/astro",
+  "version": "10.0.0-preview.6",
+  "type": "module",
+  "sideEffects": false,
+  "description": "An Astro integration that integrates Serwist into your application.",
+  "files": [
+    "dist",
+    "*.d.ts"
+  ],
+  "keywords": [
+    "astro",
+    "astrojs",
+    "astro-integration",
+    "pwa",
+    "serwist",
+    "serwistjs",
+    "pwa",
+    "sw",
+    "service worker",
+    "web",
+    "service-worker"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "repository": "https://github.com/serwist/serwist",
+  "bugs": "https://github.com/serwist/serwist/issues",
+  "homepage": "https://serwist.pages.dev",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "worker": {
+      "*": [
+        "./dist/index.worker.d.ts"
+      ]
+    },
+    "typings": {
+      "*": [
+        "./typings.d.ts"
+      ]
+    }
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./worker": {
+      "types": "./dist/index.worker.d.ts",
+      "default": "./dist/index.worker.js"
+    },
+    "./typings": "./typings.d.ts",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "rimraf dist && NODE_ENV=production rollup --config rollup.config.js",
+    "dev": "rollup --config rollup.config.js --watch",
+    "lint": "biome lint ./src",
+    "qcheck": "biome check ./src",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "@serwist/build": "workspace:*",
+    "@serwist/utils": "workspace:*",
+    "@serwist/window": "workspace:*",
+    "chokidar": "4.0.3",
+    "vite-plugin-serwist": "workspace:*"
+  },
+  "devDependencies": {
+    "@serwist/configs": "workspace:*",
+    "@types/node": "22.14.1",
+    "astro": "5.7.4",
+    "rollup": "4.40.0",
+    "typescript": "5.8.3",
+    "vite": "6.3.2"
+  },
+  "peerDependencies": {
+    "typescript": ">=5.0.0",
+    "vite": "^5.0.0 || ^6.0.0"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    }
+  }
+}

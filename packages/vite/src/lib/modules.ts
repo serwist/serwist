@@ -28,11 +28,11 @@ export const generateServiceWorker = async (ctx: SerwistViteContext): Promise<Ge
   } else {
     // Custom InjectManifest for Vite. This mode also bundles the service worker in addition
     // to injecting the precache manifest into it.
-    const { getFileManifestEntries, stringify } = await serwistBuild;
+    const { getFileManifestEntries } = await serwistBuild;
 
     injectManifestResult = await getFileManifestEntries(ctx.options.injectManifest);
 
-    const manifestString = injectManifestResult.manifestEntries === undefined ? "undefined" : stringify(injectManifestResult.manifestEntries);
+    const manifestString = injectManifestResult.manifestEntries === undefined ? "undefined" : JSON.stringify(injectManifestResult.manifestEntries);
 
     const define: Record<string, any> = {
       // Nuxt is weird: during the build, it manually defines browser APIs, such as `window`,

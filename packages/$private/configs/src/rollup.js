@@ -3,6 +3,7 @@ import json from "@rollup/plugin-json";
 import nodeResolve from "@rollup/plugin-node-resolve";
 import swc from "@rollup/plugin-swc";
 import typescript from "@rollup/plugin-typescript";
+import svelte from "rollup-plugin-svelte";
 import { defineConfig } from "rollup";
 
 import { swcConfig } from "./swc-config.js";
@@ -39,6 +40,9 @@ export const getRollupOptions = ({ packageJson, jsFiles }) => {
             outDir: "dist",
             declaration: true,
             declarationMap: true,
+          }),
+          svelte({
+            extensions: [".svelte", ".svelte.ts", ".svelte.js"],
           }),
           ...[plugins ?? []],
         ],

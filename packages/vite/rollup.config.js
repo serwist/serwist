@@ -11,6 +11,11 @@ export default getRollupOptions({
         index: "src/index.ts",
         "index.worker": "src/index.worker.ts",
         "index.schema": "src/index.schema.ts",
+        "client/preact": "src/client/preact.ts",
+        "client/react": "src/client/react.ts",
+        "client/solid": "src/client/solid.ts",
+        "client/index.svelte": "src/client/index.svelte.ts",
+        "client/vue": "src/client/vue.ts",
       },
       output: {
         dir: "dist",

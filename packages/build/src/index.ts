@@ -9,6 +9,7 @@ import { errors } from "@serwist/utils/node";
 
 import { getManifest } from "./get-manifest.js";
 import { injectManifest } from "./inject-manifest.js";
+import { DEFAULT_GLOB_PATTERNS } from "./lib/constants.js";
 import { escapeRegExp } from "./lib/escape-regexp.js";
 import { getFileManifestEntries } from "./lib/get-file-manifest-entries.js";
 import { getSourceMapURL } from "./lib/get-source-map-url.js";
@@ -18,16 +19,9 @@ import { transformManifest } from "./lib/transform-manifest.js";
 import { translateURLToSourcemapPaths } from "./lib/translate-url-to-sourcemap-paths.js";
 import { validateGetManifestOptions, validateInjectManifestOptions } from "./lib/validate-options.js";
 
-// TODO: remove in v10.
-/**
- * Use `JSON.stringify` instead.
- *
- * @deprecated
- */
-const stringify = JSON.stringify;
-
 export {
   errors,
+  DEFAULT_GLOB_PATTERNS,
   escapeRegExp,
   getFileManifestEntries,
   getManifest,
@@ -35,7 +29,6 @@ export {
   injectManifest,
   rebasePath,
   replaceAndUpdateSourceMap,
-  stringify,
   transformManifest,
   translateURLToSourcemapPaths,
   validateGetManifestOptions,

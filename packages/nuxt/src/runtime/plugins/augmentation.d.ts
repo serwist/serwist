@@ -2,18 +2,18 @@ import type { Serwist } from "@serwist/window";
 
 declare module "#app" {
   interface NuxtApp {
-    $serwist: Serwist | undefined;
+    $serwist: Serwist | null;
   }
 }
 
 declare module "vue" {
   interface ComponentCustomProperties {
-    $serwist: Serwist | undefined;
+    $serwist: Serwist | null;
   }
 }
 
 declare module "@vue/runtime-core" {
   interface ComponentCustomProperties {
-    $serwist: Serwist | undefined;
+    $serwist: Serwist | null;
   }
 }

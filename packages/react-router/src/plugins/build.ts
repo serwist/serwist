@@ -4,7 +4,7 @@ import { generateServiceWorker } from "vite-plugin-serwist";
 import type { SerwistReactRouterContext } from "../lib/context.js";
 
 /**
- * Internal build plugin used by `vite-plugin-serwist`.
+ * Internal build plugin used by `@serwist/react-router`.
  * @internal
  * @param ctx
  * @param api
@@ -12,7 +12,7 @@ import type { SerwistReactRouterContext } from "../lib/context.js";
  */
 export const buildPlugin = (ctx: SerwistReactRouterContext) => {
   return <Plugin>{
-    name: "vite-plugin-serwist:build",
+    name: "@serwist/react-router:build",
     enforce: "post",
     apply: "build",
     closeBundle: {
@@ -20,8 +20,8 @@ export const buildPlugin = (ctx: SerwistReactRouterContext) => {
       order: ctx.userOptions?.integration?.closeBundleOrder,
       async handler() {
         // Build during SSR build, as React Router prerenders routes in this build phase.
-        if (ctx.viteContext.viteConfig.build.ssr && !ctx.viteContext.options.disable) {
-          await generateServiceWorker(ctx.viteContext);
+        if (ctx.viteConfig.build.ssr && !ctx.options.disable) {
+          await generateServiceWorker(ctx);
         }
       },
     },

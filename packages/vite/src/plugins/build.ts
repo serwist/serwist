@@ -10,8 +10,8 @@ import { generateServiceWorker } from "../lib/modules.js";
  * @param api
  * @returns
  */
-export const buildPlugin = (ctx: SerwistViteContext) => {
-  return <Plugin>{
+export const buildPlugin = (ctx: SerwistViteContext): Plugin => {
+  return {
     name: "vite-plugin-serwist:build",
     enforce: "post",
     apply: "build",
@@ -27,5 +27,5 @@ export const buildPlugin = (ctx: SerwistViteContext) => {
     buildEnd(error) {
       if (error) throw error;
     },
-  };
+  } satisfies Plugin;
 };

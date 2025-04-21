@@ -14,7 +14,7 @@ Workbox
 
 ## Default
 
-`["**/*.{js,css,html}"]`
+`["**/*.{js,css,html,ico,apng,png,avif,jpg,jpeg,jfif,pjpeg,pjp,gif,svg,webp,json,webmanifest}"]`
 
 ## About
 

@@ -1,0 +1,24 @@
+{
+  "name": "@serwist-example/vite-solid-basic",
+  "version": "1.0.0",
+  "type": "module",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "devDependencies": {
+    "@serwist/window": "latest",
+    "typescript": "5.8.3",
+    "serwist": "latest",
+    "vite": "6.3.2",
+    "vite-plugin-serwist": "latest",
+    "vite-plugin-solid": "2.11.6"
+  },
+  "dependencies": {
+    "solid-js": "1.9.5"
+  }
+}

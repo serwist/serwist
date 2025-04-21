@@ -3,7 +3,7 @@
   import "../app.css";
 
   import { mount, unmount } from "svelte";
-  import { getSerwist } from "virtual:serwist";
+  import { useSerwist } from "virtual:serwist.svelte";
 
   import { dev } from "$app/environment";
   import { page } from "$app/state";
@@ -16,6 +16,7 @@
   const isDark = $derived($colorScheme === "dark");
   const title = $derived(page.data.title ? `${page.data.title} - Serwist` : "Serwist");
   const ogImage = $derived(page.data.ogImage ?? data.fallbackOgImage);
+  const { serwist } = useSerwist();
 
   $effect(() => {
     const twoslashElement = mount(Twoslash, {
@@ -26,16 +27,12 @@
   });
 
   $effect(() => {
-    const registerSerwist = async () => {
-      if (!dev && "serviceWorker" in navigator) {
-        const serwist = await getSerwist();
-        serwist?.addEventListener("installed", () => {
-          console.log("Serwist installed!");
-        });
-        void serwist?.register();
-      }
-    };
-    registerSerwist();
+    if (!dev && serwist) {
+      serwist.addEventListener("installed", () => {
+        console.log("Serwist installed!");
+      });
+      void serwist.register();
+    }
   });
 
   $effect(() => {
@@ -58,5 +55,5 @@
   <meta name="theme-color" content={isDark ? "#000000" : "#FFFFFF"} />
 </svelte:head>
 
-<a class="absolute -top-full z-100 text-black underline focus:top-0 dark:text-white" href="#main-content">Skip to main content</a>
+<a class="z-100 absolute -top-full text-black underline focus:top-0 dark:text-white" href="#main-content">Skip to main content</a>
 {@render children()}

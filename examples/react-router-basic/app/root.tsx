@@ -1,4 +1,4 @@
-import { useSerwist } from "virtual:serwist";
+import { useSerwist } from "virtual:serwist/react";
 import { useEffect } from "react";
 import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 

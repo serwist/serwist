@@ -3,7 +3,7 @@ import type { ResolvedConfig, UserConfig } from "vite";
 import type { PluginOptions, PluginOptionsComplete } from "./types.js";
 import type { Logger } from "@serwist/utils/node";
 
-export type SerwistViteFrameworks = "nuxt" | "react-router";
+export type SerwistViteFrameworks = "nuxt" | "react-router" | "astro";
 
 export interface SerwistViteContext {
   /**
@@ -47,12 +47,12 @@ export interface SerwistViteContext {
 
 export const createContext = (userOptions: PluginOptions, framework: SerwistViteFrameworks | undefined): SerwistViteContext => {
   return {
-    viteConfig: undefined!,
-    userViteConfig: undefined!,
+    viteConfig: null!,
+    userViteConfig: null!,
     userOptions,
-    options: undefined!,
+    options: null!,
     devEnvironment: false,
     framework,
-    logger: undefined!,
+    logger: null!,
   };
 };

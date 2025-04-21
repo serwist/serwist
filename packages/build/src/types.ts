@@ -116,7 +116,7 @@ export interface GlobPartial {
    * [`node-glob`'s Glob Primer](https://github.com/isaacs/node-glob#glob-primer).
    * @default
    * ```
-   * ["**\/*.{js,css,html}"]
+   * ["**\/*.{js,css,html,ico,apng,png,avif,jpg,jpeg,jfif,pjpeg,pjp,gif,svg,webp,json,webmanifest}"]
    * ```
    */
   globPatterns?: string[];

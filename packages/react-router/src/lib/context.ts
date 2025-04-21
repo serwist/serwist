@@ -1,22 +1,13 @@
 import type { Config as ReactRouterConfig } from "@react-router/dev/config";
-import type { UserConfig as UserViteConfig } from "vite";
 import type { SerwistViteContext } from "vite-plugin-serwist";
+import { createContext as createViteContext } from "vite-plugin-serwist";
 import type { ReactRouterPluginContext } from "./types.js";
-import type { PluginOptions } from "../index.js";
 
-export interface SerwistReactRouterContext {
+export interface SerwistReactRouterContext extends SerwistViteContext {
   /**
    * User's React Router config.
    */
   reactRouterConfig: ReactRouterConfig;
-  /**
-   * User options.
-   */
-  userOptions: PluginOptions;
-  /**
-   * User's Vite config.
-   */
-  userViteConfig: UserViteConfig;
   /**
    * Whether we're in React Router's development server.
    */
@@ -25,19 +16,14 @@ export interface SerwistReactRouterContext {
    * React Router's context.
    */
   reactRouterPluginContext: ReactRouterPluginContext;
-  /**
-   * `@serwist/vite` context.
-   */
-  viteContext: SerwistViteContext;
 }
 
 export const createContext = (): SerwistReactRouterContext => {
+  const ctx = createViteContext(null!, "react-router");
   return {
+    ...ctx,
     reactRouterConfig: null!,
-    userOptions: null!,
-    userViteConfig: null!,
     isReactRouterDevServer: false,
     reactRouterPluginContext: null!,
-    viteContext: null!,
   };
 };

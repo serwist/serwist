@@ -9,4 +9,8 @@ packages:
   - "!examples/**/.output"
   - "serwist-e2e-test"
 overrides:
+  "@serwist/astro": "workspace:*"
   "@serwist/react-router": "workspace:*"
+  "@serwist/window": "workspace:*"
+  "serwist": "workspace:*"
+  "vite-plugin-serwist": "workspace:*"
