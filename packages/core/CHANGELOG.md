@@ -1,5 +1,11 @@
 # serwist
 
+## 10.0.0-preview.8
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/utils@10.0.0-preview.8
+
 ## 10.0.0-preview.7
 ### Patch Changes
 

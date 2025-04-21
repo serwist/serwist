@@ -1,5 +1,14 @@
 # @serwist/astro
 
+## 10.0.0-preview.8
+### Patch Changes
+
+- Updated dependencies [[`6cec717`](https://github.com/serwist/serwist/commit/6cec7175feb06ea2594b571914466bb1c38bf5d3)]:
+  - vite-plugin-serwist@10.0.0-preview.8
+  - @serwist/build@10.0.0-preview.8
+  - @serwist/utils@10.0.0-preview.8
+  - @serwist/window@10.0.0-preview.8
+
 ## 10.0.0-preview.7
 ### Minor Changes
 

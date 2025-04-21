@@ -1,5 +1,19 @@
 # @serwist/vite
 
+## 10.0.0-preview.8
+### Patch Changes
+
+
+
+- [`6cec717`](https://github.com/serwist/serwist/commit/6cec7175feb06ea2594b571914466bb1c38bf5d3) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(vite/preview): renamed the `frameworks` plugin to `virtual`
+  
+  - Makes more sense semantically to me.
+- Updated dependencies []:
+  - @serwist/build@10.0.0-preview.8
+  - @serwist/utils@10.0.0-preview.8
+  - @serwist/window@10.0.0-preview.8
+  - serwist@10.0.0-preview.8
+
 ## 10.0.0-preview.7
 ### Minor Changes
 
