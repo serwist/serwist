@@ -1,5 +1,28 @@
 # @serwist/build
 
+## 10.0.0-preview.7
+### Major Changes
+
+
+
+- [`f77e1b2`](https://github.com/serwist/serwist/commit/f77e1b2bdc53f8b46b2e231e0151b237da3446ec) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(build/BREAKING_CHANGE): change default `globPatterns` to `["**/*.{js,css,html,ico,apng,png,avif,jpg,jpeg,jfif,pjpeg,pjp,gif,svg,webp,json,webmanifest}"]`
+  
+  - The new default adds various types of images and JSON and is exported from `@serwist/build` as `DEFAULT_GLOB_PATTERNS` to allow for extension.
+  
+  - To use the old default, set `globPatterns` to `["**/*.{js,css,html"]`.
+  
+  - For Webpack and Next.js users, no changes are needed due to `@serwist/webpack-plugin` and `@serwist/next` not leveraging `globPatterns`.
+
+### Patch Changes
+
+
+
+- [`580db86`](https://github.com/serwist/serwist/commit/580db86b7f5616ba05a89970e8ce83791f920340) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(all): mark all packages as side-effects-free
+  
+  - All packages don't have side-effects, so `"sideEffects": false` has been added to them to aid bundlers in tree-shaking them.
+- Updated dependencies [[`580db86`](https://github.com/serwist/serwist/commit/580db86b7f5616ba05a89970e8ce83791f920340)]:
+  - @serwist/utils@10.0.0-preview.7
+
 ## 10.0.0-preview.6
 ### Patch Changes
 

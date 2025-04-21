@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-serwist",
-  "version": "10.0.0-preview.6",
+  "version": "10.0.0-preview.7",
   "type": "module",
   "sideEffects": false,
   "description": "A module that integrates Serwist into your Vite application.",
