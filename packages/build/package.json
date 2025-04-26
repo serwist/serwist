@@ -57,14 +57,14 @@
   },
   "dependencies": {
     "@serwist/utils": "workspace:*",
-    "glob": "11.0.1",
+    "glob": "11.0.2",
     "pretty-bytes": "6.1.1",
     "source-map": "0.8.0-beta.0",
     "zod": "3.24.3"
   },
   "devDependencies": {
     "@serwist/configs": "workspace:*",
-    "@types/node": "22.14.1",
+    "@types/node": "22.15.2",
     "rollup": "4.40.0",
     "type-fest": "4.40.0",
     "typescript": "5.8.3"

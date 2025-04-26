@@ -69,11 +69,11 @@
   },
   "devDependencies": {
     "@serwist/configs": "workspace:*",
-    "@types/node": "22.14.1",
-    "astro": "5.7.4",
+    "@types/node": "22.15.2",
+    "astro": "5.7.5",
     "rollup": "4.40.0",
     "typescript": "5.8.3",
-    "vite": "6.3.2"
+    "vite": "6.3.3"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0",

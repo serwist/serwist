@@ -75,20 +75,20 @@
     "@serwist/webpack-plugin": "workspace:*",
     "@serwist/window": "workspace:*",
     "chalk": "5.4.1",
-    "glob": "11.0.1",
+    "glob": "11.0.2",
     "serwist": "workspace:*",
     "zod": "3.24.3"
   },
   "devDependencies": {
     "@serwist/configs": "workspace:*",
-    "@types/node": "22.14.1",
+    "@types/node": "22.15.2",
     "next": "15.3.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "rollup": "4.40.0",
     "type-fest": "4.40.0",
     "typescript": "5.8.3",
-    "webpack": "5.99.6"
+    "webpack": "5.99.7"
   },
   "peerDependencies": {
     "next": ">=14.0.0",

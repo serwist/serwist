@@ -72,14 +72,14 @@
     "@nuxt/module-builder": "1.0.1",
     "@nuxt/schema": "3.16.2",
     "@serwist/configs": "workspace:*",
-    "@types/node": "22.14.1",
-    "eslint": "9.25.0",
+    "@types/node": "22.15.2",
+    "eslint": "9.25.1",
     "nuxt": "3.16.2",
     "rimraf": "6.0.1",
     "serve": "14.2.4",
     "typescript": "5.8.3",
-    "vite": "6.3.2",
-    "vue-tsc": "2.2.8"
+    "vite": "6.3.3",
+    "vue-tsc": "2.2.10"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0",

@@ -38,13 +38,13 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@inquirer/prompts": "7.4.1",
+    "@inquirer/prompts": "7.5.0",
     "@serwist/build": "workspace:*",
     "@serwist/utils": "workspace:*",
     "chalk": "5.4.1",
     "chokidar": "4.0.3",
     "common-tags": "1.8.2",
-    "glob": "11.0.1",
+    "glob": "11.0.2",
     "meow": "13.2.0",
     "pretty-bytes": "6.1.1",
     "stringify-object": "5.0.0",

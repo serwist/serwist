@@ -84,22 +84,22 @@
     "@serwist/utils": "workspace:*",
     "chokidar": "4.0.3",
     "serwist": "workspace:*",
-    "glob": "11.0.1",
+    "glob": "11.0.2",
     "kolorist": "1.8.0",
     "zod": "3.24.3"
   },
   "devDependencies": {
     "@serwist/configs": "workspace:*",
     "@serwist/window": "workspace:*",
-    "@types/node": "22.14.1",
+    "@types/node": "22.15.2",
     "@types/react": "19.1.2",
     "preact": "10.26.5",
     "react": "19.1.0",
     "rollup": "4.40.0",
     "solid-js": "1.9.5",
-    "svelte": "5.28.1",
+    "svelte": "5.28.2",
     "typescript": "5.8.3",
-    "vite": "6.3.2",
+    "vite": "6.3.3",
     "vue": "3.5.13"
   },
   "peerDependencies": {
