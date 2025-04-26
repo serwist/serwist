@@ -5,7 +5,6 @@
     "@serwist-tests/base": "1.0.0",
     "@serwist-tests/build": "1.0.0",
     "@serwist-tests/next": "1.0.0",
-    "docs": "0.0.1",
     "@serwist-example/cli": "1.0.0",
     "@serwist-example/next-basic": "1.0.0",
     "@serwist-example/next-basic-cjs": "1.0.0",

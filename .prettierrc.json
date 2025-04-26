@@ -5,7 +5,5 @@
   "singleQuote": false,
   "semi": true,
   "trailingComma": "es5",
-  "endOfLine": "auto",
-  "plugins": ["prettier-plugin-svelte", "prettier-plugin-tailwindcss"],
-  "overrides": [{ "files": "*.svelte", "options": { "parser": "svelte" } }]
+  "endOfLine": "auto"
 }

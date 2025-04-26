@@ -1,4 +1,4 @@
-name: Publish packages to npm
+name: Publish packages
 on:
   push:
     paths: [packages/**, .changeset/*, __tests__/**]
@@ -13,11 +13,12 @@ env:
 jobs:
   test:
     name: ⬣, 🔎, 🔨 Run tests
-    uses: ./.github/workflows/build-and-test.yml
+    uses: ./.github/workflows/build-test-reusable.yml
+    with:
+      skipTest: "${{ contains(github.event.head_commit.message, 'chore(packages): publish packages') }}"
     secrets: inherit
-    if: "${{ !contains(github.event.head_commit.message, 'chore(packages): publish packages') }}"
   publish:
-    name: 🚀 Release packages
+    name: 🚀 Publish packages / Create PR for publishing packages
     needs: [test]
     runs-on: [ubuntu-latest]
     permissions:
@@ -26,9 +27,8 @@ jobs:
       pull-requests: write
     strategy:
       matrix:
-        node-version: ["22.x"]
-    if: |
-      ${{ (contains(github.event.head_commit.message, '[bump]') || contains(github.event.head_commit.message, 'chore(packages): publish packages')) && !cancelled() && (success() || failure() || needs.test.result == 'skipped') }}
+        node-version: [22.x]
+    if: "${{ contains(github.event.head_commit.message, '[publish]') || contains(github.event.head_commit.message, 'chore(packages): publish packages') }}"
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4

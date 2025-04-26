@@ -1,7 +1,6 @@
 packages:
   - "__tests__"
   - "__tests__/*"
-  - "docs"
   - "packages/*"
   - "packages/$private/*"
   - "examples/**"

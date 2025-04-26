@@ -34,5 +34,5 @@ jobs:
         run: npx changeset status --since=origin/main
   test:
     name: ⬣, 🔎, 🔨 Test PR
-    uses: ./.github/workflows/build-and-test.yml
+    uses: ./.github/workflows/build-test-reusable.yml
     secrets: inherit

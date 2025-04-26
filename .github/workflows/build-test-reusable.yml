@@ -1,5 +1,11 @@
-name: Build and test
-on: [workflow_call]
+name: Reusable build and test workflow
+on:
+  workflow_call:
+    inputs:
+      skipTest:
+        required: false
+        description: "whether to skip this workflow"
+        type: boolean
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
@@ -8,6 +14,7 @@ jobs:
   build_typecheck:
     name: 🔎 Build and typecheck
     uses: ./.github/workflows/build-reusable.yml
+    if: ${{ !inputs.skipTest }}
     with:
       afterBuild: pnpm typecheck
       os: '["ubuntu-latest"]'
@@ -15,12 +22,14 @@ jobs:
   test-dev:
     name: ⚫️ Run Vitest (development mode) tests
     uses: ./.github/workflows/build-reusable.yml
+    if: ${{ !inputs.skipTest }}
     with:
       afterBuild: TEST_MODE=dev pnpm test --filter='./__tests__/*'
     secrets: inherit
   test-prod:
     name: ⚫️ Run Vitest (production mode) tests
     uses: ./.github/workflows/build-reusable.yml
+    if: ${{ !inputs.skipTest }}
     with:
       afterBuild: TEST_MODE=start pnpm test --filter='./__tests__/*'
     secrets: inherit
