@@ -20,7 +20,10 @@ export function configurePwaOptions(options: ModuleOptions, nuxt: Nuxt, nitroCon
   // handle payload extraction
   if (nuxt.options.experimental.payloadExtraction) {
     const enableGlobPatterns =
-      nuxt.options.nitro.static || (nuxt.options as any)._generate /* TODO: remove in future */ || !!nitroConfig.prerender?.routes?.length || Object.values(nitroConfig.routeRules ?? {}).some((r: any) => r.prerender);
+      nuxt.options.nitro.static ||
+      (nuxt.options as any)._generate /* TODO: remove in future */ ||
+      !!nitroConfig.prerender?.routes?.length ||
+      Object.values(nitroConfig.routeRules ?? {}).some((r: any) => r.prerender);
     if (enableGlobPatterns) {
       options.globPatterns = options.globPatterns ?? [];
       options.globPatterns.push("**/_payload.json");
