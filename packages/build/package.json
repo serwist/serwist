@@ -41,7 +41,7 @@
   "dependencies": {
     "common-tags": "1.8.2",
     "glob": "10.4.5",
-    "pretty-bytes": "7.0.0",
+    "pretty-bytes": "6.1.1",
     "source-map": "0.8.0-beta.0",
     "zod": "3.25.63"
   },
@@ -52,7 +52,7 @@
     "@types/node": "24.0.1",
     "rollup": "4.43.0",
     "type-fest": "4.41.0",
-    "typescript": "5.6.3"
+    "typescript": "5.8.3"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0"

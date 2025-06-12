@@ -60,7 +60,7 @@
     "nuxt": "3.17.5",
     "rimraf": "5.0.9",
     "serve": "14.2.4",
-    "typescript": "5.6.3",
+    "typescript": "5.8.3",
     "vite": "6.3.5",
     "vue-tsc": "2.2.10"
   },

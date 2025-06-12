@@ -79,7 +79,7 @@
     "@serwist/window": "workspace:*",
     "@types/node": "24.0.1",
     "rollup": "4.43.0",
-    "typescript": "5.6.3",
+    "typescript": "5.8.3",
     "vite": "6.3.5"
   },
   "peerDependencies": {
