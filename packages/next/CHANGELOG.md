@@ -1,5 +1,25 @@
 # @serwist/next
 
+## 9.0.15
+
+### Patch Changes
+
+- [`de27be5`](https://github.com/serwist/serwist/commit/de27be5c8c48afc6122e046dc116696cedfc93e4) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix: Update cacheOnNavigation document page
+
+  - Thanks @zsh77! Here's the PR message:
+
+  replaced the duplicated `history.pushState` with `history.replaceState`
+
+- [`de27be5`](https://github.com/serwist/serwist/commit/de27be5c8c48afc6122e046dc116696cedfc93e4) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): monthly dependencies maintenance
+
+  - Just the regular stuff. Serwist 10 is still on the way!
+
+- Updated dependencies [[`de27be5`](https://github.com/serwist/serwist/commit/de27be5c8c48afc6122e046dc116696cedfc93e4)]:
+  - @serwist/webpack-plugin@9.0.15
+  - @serwist/window@9.0.15
+  - @serwist/build@9.0.15
+  - serwist@9.0.15
+
 ## 9.0.14
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@serwist/webpack-plugin",
-  "version": "9.0.14",
+  "version": "9.0.15",
   "type": "module",
   "description": "A plugin for your webpack build process, helping you generate a manifest of local files that should be precached.",
   "files": ["src", "dist"],

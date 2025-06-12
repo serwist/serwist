@@ -1,5 +1,13 @@
 # @serwist/build
 
+## 9.0.15
+
+### Patch Changes
+
+- [`de27be5`](https://github.com/serwist/serwist/commit/de27be5c8c48afc6122e046dc116696cedfc93e4) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): monthly dependencies maintenance
+
+  - Just the regular stuff. Serwist 10 is still on the way!
+
 ## 9.0.14
 
 ## 9.0.11
