@@ -181,6 +181,20 @@ export const defaultCache: RuntimeCaching[] =
           }),
         },
         {
+          // Exclude /api/auth/* to fix auth callback
+          // https://github.com/serwist/serwist/discussions/28
+          matcher: /\/api\/auth\/.*/,
+          handler: new NetworkOnly({
+            plugins: [
+              new ExpirationPlugin({
+                maxEntries: 16,
+                maxAgeSeconds: 24 * 60 * 60, // 24 hours
+              }),
+            ],
+            networkTimeoutSeconds: 10, // fallback to cache if API does not response within 10 seconds
+          }),
+        },
+        {
           matcher: ({ sameOrigin, url: { pathname } }) => {
             // Exclude /api/auth/callback/* to fix OAuth workflow in Safari without having
             // an impact on other environments
