@@ -30,7 +30,7 @@ export async function resultingClientExists(resultingClientId?: string): Promise
   let existingWindows = await self.clients.matchAll({ type: "window" });
   const existingWindowIds = new Set(existingWindows.map((w) => w.id));
 
-  let resultingWindow: Client | undefined ;
+  let resultingWindow: Client | undefined;
   const startTime = performance.now();
 
   // Only wait up to `MAX_RETRY_TIME` to find a matching client.

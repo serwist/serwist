@@ -8,7 +8,7 @@
 
 import { PrecacheController } from "./PrecacheController.js";
 
-let defaultPrecacheController: PrecacheController | undefined ;
+let defaultPrecacheController: PrecacheController | undefined;
 
 /**
  * Creates a new, singleton {@linkcode PrecacheController} if one does not exist. If one does

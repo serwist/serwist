@@ -190,8 +190,8 @@ export class NetworkFirst extends Strategy {
     timeoutId?: number;
     handler: StrategyHandler;
   }): Promise<Response | undefined> {
-    let error: Error | undefined ;
-    let response: Response | undefined ;
+    let error: Error | undefined;
+    let response: Response | undefined;
     try {
       response = await handler.fetchAndCachePut(request);
     } catch (fetchError) {

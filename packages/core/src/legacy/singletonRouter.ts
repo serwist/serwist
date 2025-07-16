@@ -8,7 +8,7 @@
 
 import { Router } from "./Router.js";
 
-let defaultRouter: Router | undefined ;
+let defaultRouter: Router | undefined;
 
 /**
  * Creates a new, singleton {@linkcode Router} if one does not exist. If one does

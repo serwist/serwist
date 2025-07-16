@@ -73,7 +73,7 @@ export class StaleWhileRevalidate extends Strategy {
 
     let response = await handler.cacheMatch(request);
 
-    let error: Error | undefined ;
+    let error: Error | undefined;
     if (response) {
       if (process.env.NODE_ENV !== "production") {
         logs.push(`Found a cached response in the '${this.cacheName}' cache. Will update with the network response in the background.`);

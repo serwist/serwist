@@ -39,7 +39,7 @@ export const generateServiceWorker = async (ctx: SerwistViteContext) => {
 
   const parsedSwDest = path.parse(ctx.options.injectManifest.swDest);
 
-  let injectManifestResult: BuildResult | undefined ;
+  let injectManifestResult: BuildResult | undefined;
 
   if (ctx.options.injectManifest.injectionPoint) {
     await ctx.options.integration?.beforeBuildServiceWorker?.(ctx.options);
