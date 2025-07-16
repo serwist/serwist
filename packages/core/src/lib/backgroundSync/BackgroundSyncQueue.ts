@@ -350,7 +350,7 @@ export class BackgroundSyncQueue {
    * the queue (which registers a retry for the next sync event).
    */
   async replayRequests(): Promise<void> {
-    let entry: BackgroundSyncQueueEntry | undefined ;
+    let entry: BackgroundSyncQueueEntry | undefined;
     while ((entry = await this.shiftRequest())) {
       try {
         await fetch(entry.request.clone());
@@ -409,7 +409,7 @@ export class BackgroundSyncQueue {
           const syncComplete = async () => {
             this._syncInProgress = true;
 
-            let syncError: Error | undefined ;
+            let syncError: Error | undefined;
             try {
               await this._onSync({ queue: this });
             } catch (error) {

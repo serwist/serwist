@@ -19,9 +19,9 @@ export function translateURLToSourcemapPaths(
   srcPath: string | undefined;
   warning: string | undefined;
 } {
-  let destPath: string | undefined ;
-  let srcPath: string | undefined ;
-  let warning: string | undefined ;
+  let destPath: string | undefined;
+  let srcPath: string | undefined;
+  let warning: string | undefined;
 
   if (url && !url.startsWith("data:")) {
     const possibleSrcPath = path.resolve(path.dirname(swSrc), url);

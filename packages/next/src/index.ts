@@ -146,8 +146,8 @@ const withSerwistInit = (userOptions: InjectManifestOptions): ((nextConfig?: Nex
         }
 
         const shouldBuildSWEntryWorker = cacheOnNavigation;
-        let swEntryPublicPath: string | undefined ;
-        let swEntryWorkerDest: string | undefined ;
+        let swEntryPublicPath: string | undefined;
+        let swEntryWorkerDest: string | undefined;
 
         if (shouldBuildSWEntryWorker) {
           const swEntryWorkerSrc = path.join(dirname, "sw-entry-worker.js");

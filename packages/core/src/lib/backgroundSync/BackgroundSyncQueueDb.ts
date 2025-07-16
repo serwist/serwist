@@ -81,7 +81,7 @@ export class BackgroundSyncQueueDb {
   async getAllEntriesByQueueName(queueName: string): Promise<BackgroundSyncQueueStoreEntry[]> {
     const db = await this.getDb();
     const results = await db.getAllFromIndex(REQUEST_OBJECT_STORE_NAME, QUEUE_NAME_INDEX, IDBKeyRange.only(queueName));
-    return results ? results : [] as BackgroundSyncQueueStoreEntry[];
+    return results ? results : ([] as BackgroundSyncQueueStoreEntry[]);
   }
 
   /**

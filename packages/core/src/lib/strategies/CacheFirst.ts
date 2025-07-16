@@ -45,7 +45,7 @@ export class CacheFirst extends Strategy {
 
     let response = await handler.cacheMatch(request);
 
-    let error: Error | undefined ;
+    let error: Error | undefined;
     if (!response) {
       if (process.env.NODE_ENV !== "production") {
         logs.push(`No response found in the '${this.cacheName}' cache. Will respond with a network request.`);

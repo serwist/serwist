@@ -1,5 +1,11 @@
 # @serwist/utils
 
+## 9.1.0
+
+### Patch Changes
+
+- [`852df26`](https://github.com/serwist/serwist/commit/852df2609f700d28de6433e0cb6669ade13c5b95) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): monthly dependencies maintenance
+
 ## 9.0.15
 
 ## 9.0.14
