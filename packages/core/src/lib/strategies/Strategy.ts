@@ -124,7 +124,7 @@ export abstract class Strategy implements RouteHandlerObject {
   async _getResponse(handler: StrategyHandler, request: Request, event: ExtendableEvent): Promise<Response> {
     await handler.runCallbacks("handlerWillStart", { event, request });
 
-    let response: Response | undefined = undefined;
+    let response: Response | undefined ;
     try {
       response = await this._handle(request, handler);
       // The "official" Strategy subclasses all throw this error automatically,
@@ -163,12 +163,12 @@ export abstract class Strategy implements RouteHandlerObject {
   }
 
   async _awaitComplete(responseDone: Promise<Response>, handler: StrategyHandler, request: Request, event: ExtendableEvent): Promise<void> {
-    let response: Response | undefined = undefined;
-    let error: Error | undefined = undefined;
+    let response: Response | undefined ;
+    let error: Error | undefined ;
 
     try {
       response = await responseDone;
-    } catch (error) {
+    } catch {
       // Ignore errors, as response errors should be caught via the `response`
       // promise above. The `done` promise will only throw for errors in
       // promises passed to `handler.waitUntil()`.

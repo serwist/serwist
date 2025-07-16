@@ -3,7 +3,10 @@
   "version": "9.0.15",
   "type": "module",
   "description": "A module that integrates Serwist into your Next.js application.",
-  "files": ["src", "dist"],
+  "files": [
+    "src",
+    "dist"
+  ],
   "keywords": [
     "serwist",
     "serwistjs",
@@ -29,9 +32,15 @@
   "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
-      "worker": ["./dist/index.worker.d.ts"],
-      "typings": ["./dist/sw-entry.d.ts"],
-      "schema": ["./dist/index.schema.d.ts"]
+      "worker": [
+        "./dist/index.worker.d.ts"
+      ],
+      "typings": [
+        "./dist/sw-entry.d.ts"
+      ],
+      "schema": [
+        "./dist/index.schema.d.ts"
+      ]
     }
   },
   "exports": {
@@ -65,19 +74,19 @@
     "chalk": "5.4.1",
     "glob": "10.4.5",
     "serwist": "workspace:*",
-    "zod": "3.25.63"
+    "zod": "4.0.5"
   },
   "devDependencies": {
     "@serwist/configs": "workspace:*",
     "@serwist/utils": "workspace:*",
-    "@types/node": "24.0.1",
-    "next": "15.3.3",
+    "@types/node": "24.0.14",
+    "next": "15.4.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "rollup": "4.43.0",
+    "rollup": "4.45.1",
     "type-fest": "4.41.0",
     "typescript": "5.8.3",
-    "webpack": "5.99.9"
+    "webpack": "5.100.2"
   },
   "peerDependencies": {
     "next": ">=14.0.0",

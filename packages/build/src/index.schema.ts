@@ -1,16 +1,18 @@
-import { type Assignable, type Equals, assertType } from "./schema/assertType.js";
+import { type Assignable, type Equals, assertType } from "./schema/assert-type.js";
 import { basePartial } from "./schema/base.js";
-import { getManifestOptions } from "./schema/getManifest.js";
+import { getManifestOptions } from "./schema/get-manifest.js";
 import { globPartial, optionalGlobDirectoryPartial, requiredGlobDirectoryPartial } from "./schema/glob.js";
-import { baseInjectPartial, injectManifestOptions } from "./schema/injectManifest.js";
-import { manifestEntry } from "./schema/manifestEntry.js";
-import { manifestTransform, manifestTransformResult } from "./schema/manifestTransform.js";
-import { SerwistConfigError } from "./schema/serwistConfigError.js";
-import { optionalSwDestPartial, requiredSwDestPartial } from "./schema/swDest.js";
-import { validationErrorMap } from "./schema/validationErrorMap.js";
+import { baseInjectPartial, injectManifestOptions } from "./schema/inject-manifest.js";
+import { manifestEntry } from "./schema/manifest-entry.js";
+import { manifestTransform, manifestTransformResult } from "./schema/manifest-transform.js";
+import { SerwistConfigError, validationErrorMap } from "./schema/error.js";
+import { optionalSwDestPartial, requiredSwDestPartial } from "./schema/sw-dest.js";
+import { fn, asyncFn } from "./schema/utils.js";
 
 export {
   assertType,
+  fn,
+  asyncFn,
   basePartial,
   globPartial,
   baseInjectPartial as injectPartial,

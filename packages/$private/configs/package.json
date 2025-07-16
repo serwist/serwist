@@ -4,7 +4,13 @@
   "type": "module",
   "private": true,
   "description": "This module is used by a number of the other Serwist modules to share configs.",
-  "keywords": ["serwist", "serwistjs", "service worker", "sw", "serwist-plugin"],
+  "keywords": [
+    "serwist",
+    "serwistjs",
+    "service worker",
+    "sw",
+    "serwist-plugin"
+  ],
   "author": "Serwist <ducanh2912.rusty@gmail.com> (https://serwist.pages.dev/)",
   "license": "MIT",
   "repository": "https://github.com/serwist/serwist",
@@ -20,8 +26,8 @@
     "@rollup/plugin-json": "6.1.0",
     "@rollup/plugin-node-resolve": "16.0.1",
     "@rollup/plugin-swc": "0.4.0",
-    "@rollup/plugin-typescript": "12.1.2",
-    "@swc/core": "1.12.0",
-    "rollup": "4.43.0"
+    "@rollup/plugin-typescript": "12.1.4",
+    "@swc/core": "1.12.14",
+    "rollup": "4.45.1"
   }
 }

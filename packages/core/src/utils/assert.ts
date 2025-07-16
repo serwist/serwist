@@ -30,7 +30,6 @@ const hasMethod = (object: MapLikeObject, expectedMethod: string, details: MapLi
 };
 
 const isType = (object: unknown, expectedType: string, details: MapLikeObject) => {
-  // biome-ignore lint/suspicious/useValidTypeof: Know to not make a mistake...
   if (typeof object !== expectedType) {
     details.expectedType = expectedType;
     throw new SerwistError("incorrect-type", details);

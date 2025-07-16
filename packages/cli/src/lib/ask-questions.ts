@@ -28,7 +28,7 @@ const askRootOfWebApp = async (): Promise<string> => {
         message: "What is the root of your web app (i.e. which directory do you deploy)?",
         choices: [...subdirectories.map((dir) => ({ value: dir })), new Separator(), { value: manualEntryChoice }],
       });
-      let manualDirectoryInput: string | undefined = undefined;
+      let manualDirectoryInput: string | undefined ;
       if (globDirectory === manualEntryChoice) {
         manualDirectoryInput = await input({ message: "Please enter the path to the root of your web app:" });
       }

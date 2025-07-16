@@ -7,7 +7,7 @@
 */
 
 import type { RouteMatchCallback, RouteMatchCallbackOptions, SerwistPlugin } from "serwist";
-import { CacheableResponsePlugin, Serwist, StaleWhileRevalidate } from "serwist";
+import { CacheableResponsePlugin, type Serwist, StaleWhileRevalidate } from "serwist";
 import { warmStrategyCache } from "./warmStrategyCache.js";
 
 export interface StaticResourceOptions {

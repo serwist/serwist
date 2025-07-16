@@ -146,8 +146,8 @@ const withSerwistInit = (userOptions: InjectManifestOptions): ((nextConfig?: Nex
         }
 
         const shouldBuildSWEntryWorker = cacheOnNavigation;
-        let swEntryPublicPath: string | undefined = undefined;
-        let swEntryWorkerDest: string | undefined = undefined;
+        let swEntryPublicPath: string | undefined ;
+        let swEntryWorkerDest: string | undefined ;
 
         if (shouldBuildSWEntryWorker) {
           const swEntryWorkerSrc = path.join(dirname, "sw-entry-worker.js");
@@ -206,7 +206,7 @@ const withSerwistInit = (userOptions: InjectManifestOptions): ((nextConfig?: Nex
                   // This excludes all JSON files in the compilation directory by filtering
                   // out paths that have slashes or don't end with `.json`. Only said files
                   // match this criterion.
-                  /^[^\/]*\.json$/.test(asset.name) ||
+                  /^[^/]*\.json$/.test(asset.name) ||
                   (dev && !asset.name.startsWith("static/runtime/"))
                 );
               },
