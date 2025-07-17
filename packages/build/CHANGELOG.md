@@ -9,8 +9,6 @@
 ## 10.0.0-preview.7
 ### Major Changes
 
-
-
 - [`f77e1b2`](https://github.com/serwist/serwist/commit/f77e1b2bdc53f8b46b2e231e0151b237da3446ec) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(build/BREAKING_CHANGE): change default `globPatterns` to `["**/*.{js,css,html,ico,apng,png,avif,jpg,jpeg,jfif,pjpeg,pjp,gif,svg,webp,json,webmanifest}"]`
   
   - The new default adds various types of images and JSON and is exported from `@serwist/build` as `DEFAULT_GLOB_PATTERNS` to allow for extension.
@@ -69,7 +67,46 @@
 - Updated dependencies [[`af82ab6`](https://github.com/serwist/serwist/commit/af82ab622e0ff6b4669fd49e9489e7497d232b29)]:
   - @serwist/utils@10.0.0-preview.2
 
-## 9.1.0-preview.0
+## 9.1.0
+
+### Minor Changes
+
+- [`852df26`](https://github.com/serwist/serwist/commit/852df2609f700d28de6433e0cb6669ade13c5b95) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(build): migrate to Zod 4
+
+  - This fixes issues with Zod validation.
+  - We've migrated to `z.prettifyError`, meaning you can expect to see this new format of errors:
+
+    ```
+    Error: Invalid @serwist/next configuration:
+    ✖ Received invalid type: expected boolean, received string.
+      → at cacheOnNavigation
+    ✖ Received invalid union:
+      → Received invalid type: expected string, received boolean.
+      → Received invalid type: expected object, received boolean.
+      → at additionalPrecacheEntries[1]
+    ✖ Received invalid union:
+      → Received invalid type: expected string, received boolean.
+      → Received invalid type: expected object, received boolean.
+      → at additionalPrecacheEntries[2]
+    ✖ Received invalid union:
+      → Received invalid type: expected string, received function.
+      → Received invalid type: expected object, received function.
+      → at additionalPrecacheEntries[3]
+        at validateInjectManifestOptions (../../packages/next/dist/index.js:92:15)
+        at Object.webpack (../../packages/next/dist/index.js:114:144)
+    ```
+
+### Patch Changes
+
+- [`852df26`](https://github.com/serwist/serwist/commit/852df2609f700d28de6433e0cb6669ade13c5b95) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): monthly dependencies maintenance
+
+## 9.0.15
+
+### Patch Changes
+
+- [`de27be5`](https://github.com/serwist/serwist/commit/de27be5c8c48afc6122e046dc116696cedfc93e4) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): monthly dependencies maintenance
+
+  - Just the regular stuff. Serwist 10 is still on the way!
 
 ## 9.0.14
 

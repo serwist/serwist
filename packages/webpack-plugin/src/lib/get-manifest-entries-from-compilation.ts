@@ -25,18 +25,15 @@ import type { InjectManifestOptions, InjectManifestOptionsComplete } from "./typ
  * @returns Whether or not at least one condition matches.
  * @private
  */
-const checkConditions = (
-  asset: Asset,
-  compilation: Compilation,
+const checkConditions = (asset: Asset, compilation: Compilation, conditions: Array<string | RegExp | ((arg0: any) => boolean)> = []): boolean => {
+  const matchPart = compilation.compiler.webpack.ModuleFilenameHelpers.matchPart;
 
-  conditions: Array<string | RegExp | ((arg0: any) => boolean)> = [],
-): boolean => {
   for (const condition of conditions) {
     if (typeof condition === "function") {
-      return condition({ asset, compilation });
-      //return compilation !== null;
-    }
-    if (compilation.compiler.webpack.ModuleFilenameHelpers.matchPart(asset.name, condition)) {
+      if (condition({ asset, compilation })) {
+        return true;
+      }
+    } else if (matchPart(asset.name, condition)) {
       return true;
     }
   }

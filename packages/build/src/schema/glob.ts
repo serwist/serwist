@@ -7,32 +7,26 @@ import type {
   RequiredGlobDirectoryPartial,
   RequiredGlobDirectoryResolved,
 } from "../types.js";
-import { type Equals, assertType } from "./assertType.js";
 import { DEFAULT_GLOB_PATTERNS } from "../lib/constants.js";
+import { type Equals, assertType } from "./assert-type.js";
 
-export const globPartial = z
-  .object({
-    globFollow: z.boolean().default(true),
-    globIgnores: z.array(z.string()).default(["**/node_modules/**/*"]),
-    globPatterns: z.array(z.string()).default(DEFAULT_GLOB_PATTERNS),
-    globStrict: z.boolean().default(true),
-    templatedURLs: z.record(z.string(), z.union([z.string(), z.array(z.string())])).optional(),
-  })
-  .strict("Do not pass invalid properties to GlobPartial!");
+export const globPartial = z.strictObject({
+  globFollow: z.boolean().default(true),
+  globIgnores: z.array(z.string()).default(["**/node_modules/**/*"]),
+  globPatterns: z.array(z.string()).default(DEFAULT_GLOB_PATTERNS),
+  globStrict: z.boolean().default(true),
+  templatedURLs: z.record(z.string(), z.union([z.string(), z.array(z.string())])).optional(),
+});
 
-export const optionalGlobDirectoryPartial = z
-  .object({
-    globDirectory: z.string().optional(),
-  })
-  .strict("Do not pass invalid properties to OptionalGlobDirectoryPartial!");
+export const optionalGlobDirectoryPartial = z.strictObject({
+  globDirectory: z.string().optional(),
+});
 
 // This needs to be set when using GetManifest or InjectManifest. This is
 // enforced via runtime validation, and needs to be documented.
-export const requiredGlobDirectoryPartial = z
-  .object({
-    globDirectory: z.string(),
-  })
-  .strict("Do not pass invalid properties to RequiredGlobDirectoryPartial!");
+export const requiredGlobDirectoryPartial = z.strictObject({
+  globDirectory: z.string(),
+});
 
 assertType<Equals<GlobPartial, z.input<typeof globPartial>>>();
 assertType<Equals<GlobResolved, z.output<typeof globPartial>>>();

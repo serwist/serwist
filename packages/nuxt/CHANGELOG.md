@@ -87,6 +87,70 @@
   - @serwist/build@9.1.0-preview.0
   - @serwist/window@9.1.0-preview.0
 
+## 9.1.0
+
+### Minor Changes
+
+- [`852df26`](https://github.com/serwist/serwist/commit/852df2609f700d28de6433e0cb6669ade13c5b95) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(build): migrate to Zod 4
+
+  - This fixes issues with Zod validation.
+  - We've migrated to `z.prettifyError`, meaning you can expect to see this new format of errors:
+
+    ```
+    Error: Invalid @serwist/next configuration:
+    ✖ Received invalid type: expected boolean, received string.
+      → at cacheOnNavigation
+    ✖ Received invalid union:
+      → Received invalid type: expected string, received boolean.
+      → Received invalid type: expected object, received boolean.
+      → at additionalPrecacheEntries[1]
+    ✖ Received invalid union:
+      → Received invalid type: expected string, received boolean.
+      → Received invalid type: expected object, received boolean.
+      → at additionalPrecacheEntries[2]
+    ✖ Received invalid union:
+      → Received invalid type: expected string, received function.
+      → Received invalid type: expected object, received function.
+      → at additionalPrecacheEntries[3]
+        at validateInjectManifestOptions (../../packages/next/dist/index.js:92:15)
+        at Object.webpack (../../packages/next/dist/index.js:114:144)
+    ```
+
+### Patch Changes
+
+- [`852df26`](https://github.com/serwist/serwist/commit/852df2609f700d28de6433e0cb6669ade13c5b95) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(nuxt): added Nuxt 4 compatibility
+
+  - `@serwist/nuxt` now supports Nuxt 4.
+  - If you're using Nuxt, you can expect to simply migrate to Nuxt 4 without Serwist causing troubles.
+
+- [`852df26`](https://github.com/serwist/serwist/commit/852df2609f700d28de6433e0cb6669ade13c5b95) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): monthly dependencies maintenance
+
+- Updated dependencies [[`852df26`](https://github.com/serwist/serwist/commit/852df2609f700d28de6433e0cb6669ade13c5b95), [`852df26`](https://github.com/serwist/serwist/commit/852df2609f700d28de6433e0cb6669ade13c5b95)]:
+  - @serwist/window@9.1.0
+  - @serwist/build@9.1.0
+  - @serwist/vite@9.1.0
+
+## 9.0.15
+
+### Patch Changes
+
+- [`de27be5`](https://github.com/serwist/serwist/commit/de27be5c8c48afc6122e046dc116696cedfc93e4) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): monthly dependencies maintenance
+
+  - Just the regular stuff. Serwist 10 is still on the way!
+
+- [`de27be5`](https://github.com/serwist/serwist/commit/de27be5c8c48afc6122e046dc116696cedfc93e4) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix: prefer `nitro.static` over `_generate`
+
+  - Thanks @danielroe! Here's the PR message:
+
+  Since nuxi v3.8, we've supported setting `nuxt.options.nitro.static` instead of `nuxt.options._generate` (which is an internal flag) - see https://github.com/nuxt/nuxt/pull/21860.
+
+  Now, in preparation for Nuxt v4, we've removed the types for `_generate` (see https://github.com/nuxt/nuxt/pull/32355). This PR adds support for new version in backwards compatible way (ignoring type issues) - I'd suggest you remove support in a future major.
+
+- Updated dependencies [[`de27be5`](https://github.com/serwist/serwist/commit/de27be5c8c48afc6122e046dc116696cedfc93e4)]:
+  - @serwist/window@9.0.15
+  - @serwist/build@9.0.15
+  - @serwist/vite@9.0.15
+
 ## 9.0.14
 
 ### Patch Changes

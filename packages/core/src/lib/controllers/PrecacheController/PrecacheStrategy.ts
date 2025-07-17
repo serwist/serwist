@@ -103,7 +103,7 @@ export class PrecacheStrategy extends Strategy {
   }
 
   async _handleFetch(request: Request, handler: StrategyHandler): Promise<Response> {
-    let response: Response | undefined = undefined;
+    let response: Response | undefined;
 
     const params = (handler.params || {}) as {
       cacheKey?: string;

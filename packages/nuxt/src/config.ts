@@ -20,7 +20,10 @@ export function configurePwaOptions(options: ModuleOptions, nuxt: Nuxt, nitroCon
   // handle payload extraction
   if (nuxt.options.experimental.payloadExtraction) {
     const enableGlobPatterns =
-      nuxt.options._generate || !!nitroConfig.prerender?.routes?.length || Object.values(nitroConfig.routeRules ?? {}).some((r: any) => r.prerender);
+      nuxt.options.nitro.static ||
+      (nuxt.options as any)._generate /* TODO(v10): remove in future */ ||
+      !!nitroConfig.prerender?.routes?.length ||
+      Object.values(nitroConfig.routeRules ?? {}).some((r: any) => r.prerender);
     if (enableGlobPatterns) {
       options.globPatterns = options.globPatterns ?? [];
       options.globPatterns.push("**/_payload.json");
@@ -55,8 +58,8 @@ function createManifestTransform(base: string, publicDir: string, appManifestFol
           e.url = base;
         } else {
           const parts = url.split("/");
-          parts[parts.length - 1] = parts[parts.length - 1].replace(/\.html$/, "");
-          e.url = parts.length > 1 ? parts.slice(0, parts.length - 1).join("/") : parts[0];
+          parts[parts.length - 1] = parts[parts.length - 1]!.replace(/\.html$/, "");
+          e.url = parts.length > 1 ? parts.slice(0, parts.length - 1).join("/") : parts[0]!;
         }
       });
 

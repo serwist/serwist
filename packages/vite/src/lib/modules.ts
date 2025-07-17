@@ -28,7 +28,7 @@ export const generateServiceWorker = async (ctx: SerwistViteContext): Promise<Ge
 
   await ctx.options.integration?.beforeBuildServiceWorker?.(ctx.options);
 
-  let injectManifestResult: GetManifestResult | BuildResult | undefined = undefined;
+  let injectManifestResult: GetManifestResult | BuildResult | undefined ;
 
   if (ctx.options.mode === "development" && !ctx.options.devOptions.bundle) {
     // Classic InjectManifest. This mode is only run in development when `devOptions.bundle` is `false`.

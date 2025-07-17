@@ -1,15 +1,15 @@
+import type { MaybePromise, Prettify } from "@serwist/utils";
 import type {
   PrecacheControllerOptions,
   PrecacheEntry,
   PrecacheOptions,
   PrecacheRouteOptions,
 } from "#lib/controllers/PrecacheController/PrecacheController.js";
-import type { Prettify } from "@serwist/utils";
 import type { Route } from "./Route.js";
 import type { Serwist } from "./Serwist.js";
 import type { HTTPMethod } from "./constants.js";
 
-export type PromiseOrNot<T> = T | Promise<T>;
+export type { MaybePromise as PromiseOrNot };
 
 export interface MapLikeObject {
   [key: string]: any;
@@ -25,21 +25,21 @@ export interface InitCallbackParam {
   serwist: Serwist;
 }
 
-export type InitCallback = (param: InitCallbackParam) => PromiseOrNot<void>;
+export type InitCallback = (param: InitCallbackParam) => MaybePromise<void>;
 
 export interface InstallCallbackParam {
   event: ExtendableEvent;
   serwist: Serwist;
 }
 
-export type InstallCallback = (param: InstallCallbackParam) => PromiseOrNot<void>;
+export type InstallCallback = (param: InstallCallbackParam) => MaybePromise<void>;
 
 export interface ActivateCallbackParam {
   event: ExtendableEvent;
   serwist: Serwist;
 }
 
-export type ActivateCallback = (param: ActivateCallbackParam) => PromiseOrNot<void>;
+export type ActivateCallback = (param: ActivateCallbackParam) => MaybePromise<void>;
 
 /**
  * An object with optional lifecycle callback properties for Serwist's operations.
@@ -186,7 +186,7 @@ export interface CacheDidUpdateCallbackParam {
   state?: PluginState;
 }
 
-export type CacheDidUpdateCallback = (param: CacheDidUpdateCallbackParam) => PromiseOrNot<any>;
+export type CacheDidUpdateCallback = (param: CacheDidUpdateCallbackParam) => MaybePromise<any>;
 
 export interface CacheKeyWillBeUsedCallbackParam {
   mode: string;
@@ -196,7 +196,7 @@ export interface CacheKeyWillBeUsedCallbackParam {
   state?: PluginState;
 }
 
-export type CacheKeyWillBeUsedCallback = (param: CacheKeyWillBeUsedCallbackParam) => PromiseOrNot<Request | string>;
+export type CacheKeyWillBeUsedCallback = (param: CacheKeyWillBeUsedCallbackParam) => MaybePromise<Request | string>;
 
 export interface CacheWillUpdateCallbackParam {
   request: Request;
@@ -205,7 +205,7 @@ export interface CacheWillUpdateCallbackParam {
   state?: PluginState;
 }
 
-export type CacheWillUpdateCallback = (param: CacheWillUpdateCallbackParam) => PromiseOrNot<any>;
+export type CacheWillUpdateCallback = (param: CacheWillUpdateCallbackParam) => MaybePromise<any>;
 
 export interface CachedResponseWillBeUsedCallbackParam {
   /**
@@ -227,7 +227,7 @@ export interface CachedResponseWillBeUsedCallbackParam {
   state?: PluginState;
 }
 
-export type CachedResponseWillBeUsedCallback = (param: CachedResponseWillBeUsedCallbackParam) => PromiseOrNot<any>;
+export type CachedResponseWillBeUsedCallback = (param: CachedResponseWillBeUsedCallbackParam) => MaybePromise<any>;
 
 export interface FetchDidFailCallbackParam {
   error: Error;
@@ -237,7 +237,7 @@ export interface FetchDidFailCallbackParam {
   state?: PluginState;
 }
 
-export type FetchDidFailCallback = (param: FetchDidFailCallbackParam) => PromiseOrNot<any>;
+export type FetchDidFailCallback = (param: FetchDidFailCallbackParam) => MaybePromise<any>;
 
 export interface FetchDidSucceedCallbackParam {
   request: Request;
@@ -246,7 +246,7 @@ export interface FetchDidSucceedCallbackParam {
   state?: PluginState;
 }
 
-export type FetchDidSucceedCallback = (param: FetchDidSucceedCallbackParam) => PromiseOrNot<Response>;
+export type FetchDidSucceedCallback = (param: FetchDidSucceedCallbackParam) => MaybePromise<Response>;
 
 export interface RequestWillFetchCallbackParam {
   request: Request;
@@ -254,7 +254,7 @@ export interface RequestWillFetchCallbackParam {
   state?: PluginState;
 }
 
-export type RequestWillFetchCallback = (param: RequestWillFetchCallbackParam) => PromiseOrNot<Request>;
+export type RequestWillFetchCallback = (param: RequestWillFetchCallbackParam) => MaybePromise<Request>;
 
 export interface HandlerWillRespondCallbackParam {
   request: Request;
@@ -263,7 +263,7 @@ export interface HandlerWillRespondCallbackParam {
   state?: PluginState;
 }
 
-export type HandlerWillRespondCallback = (param: HandlerWillRespondCallbackParam) => PromiseOrNot<Response>;
+export type HandlerWillRespondCallback = (param: HandlerWillRespondCallbackParam) => MaybePromise<Response>;
 
 export interface HandlerDidErrorCallbackParam {
   request: Request;
@@ -272,7 +272,7 @@ export interface HandlerDidErrorCallbackParam {
   state?: PluginState;
 }
 
-export type HandlerDidErrorCallback = (param: HandlerDidErrorCallbackParam) => PromiseOrNot<Response | undefined>;
+export type HandlerDidErrorCallback = (param: HandlerDidErrorCallbackParam) => MaybePromise<Response | undefined>;
 
 export interface HandlerDidRespondCallbackParam {
   request: Request;
@@ -281,7 +281,7 @@ export interface HandlerDidRespondCallbackParam {
   state?: PluginState;
 }
 
-export type HandlerDidRespondCallback = (param: HandlerDidRespondCallbackParam) => PromiseOrNot<any>;
+export type HandlerDidRespondCallback = (param: HandlerDidRespondCallbackParam) => MaybePromise<any>;
 
 export interface HandlerDidCompleteCallbackParam {
   request: Request;
@@ -291,7 +291,7 @@ export interface HandlerDidCompleteCallbackParam {
   state?: PluginState;
 }
 
-export type HandlerDidCompleteCallback = (param: HandlerDidCompleteCallbackParam) => PromiseOrNot<any>;
+export type HandlerDidCompleteCallback = (param: HandlerDidCompleteCallbackParam) => MaybePromise<any>;
 
 /**
  * An object with optional lifecycle callback properties for the fetch and

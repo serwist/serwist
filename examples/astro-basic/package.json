@@ -13,7 +13,7 @@
   "devDependencies": {
     "@serwist/astro": "latest",
     "@serwist/window": "latest",
-    "astro": "5.7.5",
+    "astro": "5.11.2",
     "serwist": "latest"
   }
 }

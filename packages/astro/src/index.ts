@@ -15,6 +15,8 @@ export const serwist = (userOptions: PluginOptions = {}): AstroIntegration => {
         ctx = createContext();
         updateConfig({
           vite: {
+            // Astro lists Vite 6 as its dependency for some reasons...
+            // @ts-expect-error Vite 7 and Vite 6 incompatibility
             plugins: [mainPlugin(ctx), virtualPlugin(ctx), devPlugin(ctx)],
           },
         });

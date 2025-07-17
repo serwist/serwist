@@ -59,3 +59,5 @@ export interface FileDetails {
   hash: string | null;
   size: number;
 }
+
+export type MaybePromise<T> = T | Promise<T>;

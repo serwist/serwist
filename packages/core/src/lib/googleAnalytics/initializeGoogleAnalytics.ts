@@ -60,7 +60,7 @@ export interface GoogleAnalyticsInitializeOptions {
  */
 const createOnSyncCallback = (config: Pick<GoogleAnalyticsInitializeOptions, "parameterOverrides" | "hitFilter">) => {
   return async ({ queue }: { queue: BackgroundSyncQueue }) => {
-    let entry: BackgroundSyncQueueEntry | undefined = undefined;
+    let entry: BackgroundSyncQueueEntry | undefined;
     while ((entry = await queue.shiftRequest())) {
       const { request, timestamp } = entry;
       const url = new URL(request.url);

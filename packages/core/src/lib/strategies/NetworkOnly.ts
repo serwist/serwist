@@ -58,7 +58,7 @@ export class NetworkOnly extends Strategy {
       });
     }
 
-    let error: Error | undefined = undefined;
+    let error: Error | undefined;
     let response: Response | undefined;
 
     try {

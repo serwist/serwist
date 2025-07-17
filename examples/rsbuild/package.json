@@ -14,12 +14,12 @@
     "react-dom": "19.1.0"
   },
   "devDependencies": {
-    "@rsbuild/core": "1.3.12",
-    "@rsbuild/plugin-react": "1.3.0",
+    "@rsbuild/core": "1.4.7",
+    "@rsbuild/plugin-react": "1.3.4",
     "@serwist/webpack-plugin": "latest",
     "@serwist/window": "workspace:*",
-    "@types/react": "19.1.2",
-    "@types/react-dom": "19.1.2",
+    "@types/react": "19.1.8",
+    "@types/react-dom": "19.1.6",
     "serwist": "latest"
   }
 }

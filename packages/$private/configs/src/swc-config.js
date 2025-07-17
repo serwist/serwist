@@ -8,9 +8,14 @@ export const swcConfig = {
   jsc: {
     parser: {
       syntax: "typescript",
-      tsx: false,
+      tsx: true,
       dynamicImport: true,
       decorators: false,
+    },
+    transform: {
+      react: {
+        runtime: "automatic",
+      },
     },
     target: "esnext",
     loose: false,

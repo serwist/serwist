@@ -73,11 +73,11 @@
   },
   "dependencies": {
     "@serwist/utils": "workspace:*",
-    "idb": "8.0.2"
+    "idb": "8.0.3"
   },
   "devDependencies": {
     "@serwist/configs": "workspace:*",
-    "rollup": "4.40.0",
+    "rollup": "4.45.1",
     "typescript": "5.8.3"
   },
   "peerDependencies": {

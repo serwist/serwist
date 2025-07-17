@@ -182,7 +182,7 @@ export class ExpirationPlugin implements StrategyPlugin {
     })();
     try {
       event.waitUntil(done);
-    } catch (error) {
+    } catch {
       if (process.env.NODE_ENV !== "production") {
         if (event instanceof FetchEvent) {
           logger.warn(`Unable to ensure service worker stays alive when updating cache entry for '${getFriendlyURL(event.request.url)}'.`);

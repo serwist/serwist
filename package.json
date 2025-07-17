@@ -18,7 +18,7 @@
     "build": "FORCE_COLOR=1 turbo run build --filter='./packages/*' --filter='./packages/$private/*'",
     "build:docs": "FORCE_COLOR=1 turbo run build --filter='./docs'",
     "code-check": "biome check --max-diagnostics=150 --log-kind=compact .",
-    "code-check:apply": "pnpm code-check --apply",
+    "code-check:apply": "pnpm code-check --write",
     "deps": "node ncu.js",
     "dev": "FORCE_COLOR=1 turbo run dev --concurrency=24 --filter='./packages/*' --filter='./packages/$private/*'",
     "dev:no-server": "FORCE_COLOR=1 turbo run dev --concurrency=24 --filter='./packages/*' --filter='./packages/$private/*' --filter='!./packages/nuxt'",
@@ -37,20 +37,29 @@
     "typecheck": "FORCE_COLOR=1 turbo run typecheck"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
+    "@biomejs/biome": "2.1.1",
     "@changesets/changelog-github": "0.5.1",
-    "@changesets/cli": "2.29.2",
-    "@swc/core": "1.11.22",
-    "@types/node": "22.15.2",
+    "@changesets/cli": "2.29.5",
+    "@swc/core": "1.12.14",
+    "@types/node": "24.0.14",
     "@types/shell-quote": "1.7.5",
     "fast-glob": "3.3.3",
     "npm-check-updates": "18.0.1",
     "rimraf": "6.0.1",
-    "shell-quote": "1.8.2",
+    "shell-quote": "1.8.3",
     "ts-node": "10.9.2",
     "tslib": "2.8.1",
-    "turbo": "2.5.2",
+    "turbo": "2.5.5",
     "typescript": "5.8.3"
   },
-  "packageManager": "pnpm@10.9.0"
+  "packageManager": "pnpm@10.13.1",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@swc/core",
+      "@tailwindcss/oxide",
+      "core-js",
+      "esbuild",
+      "sharp"
+    ]
+  }
 }
