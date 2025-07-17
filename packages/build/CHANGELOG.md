@@ -1,5 +1,38 @@
 # @serwist/build
 
+## 9.1.0
+
+### Minor Changes
+
+- [`852df26`](https://github.com/serwist/serwist/commit/852df2609f700d28de6433e0cb6669ade13c5b95) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(build): migrate to Zod 4
+
+  - This fixes issues with Zod validation.
+  - We've migrated to `z.prettifyError`, meaning you can expect to see this new format of errors:
+
+    ```
+    Error: Invalid @serwist/next configuration:
+    ✖ Received invalid type: expected boolean, received string.
+      → at cacheOnNavigation
+    ✖ Received invalid union:
+      → Received invalid type: expected string, received boolean.
+      → Received invalid type: expected object, received boolean.
+      → at additionalPrecacheEntries[1]
+    ✖ Received invalid union:
+      → Received invalid type: expected string, received boolean.
+      → Received invalid type: expected object, received boolean.
+      → at additionalPrecacheEntries[2]
+    ✖ Received invalid union:
+      → Received invalid type: expected string, received function.
+      → Received invalid type: expected object, received function.
+      → at additionalPrecacheEntries[3]
+        at validateInjectManifestOptions (../../packages/next/dist/index.js:92:15)
+        at Object.webpack (../../packages/next/dist/index.js:114:144)
+    ```
+
+### Patch Changes
+
+- [`852df26`](https://github.com/serwist/serwist/commit/852df2609f700d28de6433e0cb6669ade13c5b95) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): monthly dependencies maintenance
+
 ## 9.0.15
 
 ### Patch Changes

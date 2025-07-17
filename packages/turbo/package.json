@@ -1,0 +1,104 @@
+{
+  "name": "@serwist/turbopack",
+  "version": "9.1.0",
+  "type": "module",
+  "private": true,
+  "sideEffects": false,
+  "description": "A module that integrates Serwist into your Next.js / Turbopack application.",
+  "files": [
+    "src",
+    "dist"
+  ],
+  "keywords": [
+    "serwist",
+    "serwistjs",
+    "sw",
+    "service worker",
+    "progressive web apps",
+    "web",
+    "service-worker",
+    "progressive-web-apps",
+    "next",
+    "next.js",
+    "turbo",
+    "turbopack",
+    "pwa"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": "Serwist <ducanh2912.rusty@gmail.com> (https://serwist.pages.dev/)",
+  "license": "MIT",
+  "repository": "https://github.com/serwist/serwist",
+  "bugs": "https://github.com/serwist/serwist/issues",
+  "homepage": "https://serwist.pages.dev",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "worker": [
+        "./dist/index.worker.d.ts"
+      ],
+      "schema": [
+        "./dist/index.schema.d.ts"
+      ]
+    }
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./react": {
+      "types": "./dist/index.react.d.ts",
+      "default": "./dist/index.react.js"
+    },
+    "./worker": {
+      "types": "./dist/index.worker.d.ts",
+      "default": "./dist/index.worker.js"
+    },
+    "./schema": {
+      "types": "./dist/index.schema.d.ts",
+      "default": "./dist/index.schema.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "rimraf dist && NODE_ENV=production rollup --config rollup.config.js",
+    "dev": "rollup --config rollup.config.js --watch",
+    "lint": "biome lint ./src",
+    "qcheck": "biome check ./src",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "@serwist/build": "workspace:*",
+    "@serwist/window": "workspace:*",
+    "@swc/core": "1.12.14",
+    "esbuild": "0.25.6",
+    "kolorist": "1.8.0",
+    "serwist": "workspace:*",
+    "zod": "4.0.5"
+  },
+  "devDependencies": {
+    "@serwist/configs": "workspace:*",
+    "@serwist/utils": "workspace:*",
+    "@types/node": "24.0.14",
+    "@types/react": "19.1.8",
+    "next": "15.4.1",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "rollup": "4.45.1",
+    "type-fest": "4.41.0",
+    "typescript": "5.8.3"
+  },
+  "peerDependencies": {
+    "next": ">=14.0.0",
+    "react": ">=18.0.0",
+    "typescript": ">=5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    }
+  }
+}

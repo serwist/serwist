@@ -1,0 +1,27 @@
+{
+  "name": "@serwist-example/next-turbo-basic",
+  "version": "1.0.0",
+  "type": "module",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build --turbopack",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@serwist/turbopack": "latest",
+    "next": "15.4.1",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "serwist": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "24.0.14",
+    "@types/react": "19.1.8",
+    "@types/react-dom": "19.1.6",
+    "esbuild": "0.25.6",
+    "typescript": "5.8.3"
+  }
+}

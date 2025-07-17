@@ -21,6 +21,6 @@
     "@vitejs/plugin-react-swc": "3.10.2",
     "serwist": "latest",
     "typescript": "5.8.3",
-    "vite": "6.3.5"
+    "vite": "7.0.4"
   }
 }

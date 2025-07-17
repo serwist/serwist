@@ -1,9 +1,13 @@
 {
   "name": "@serwist/vite",
-  "version": "9.0.15",
+  "version": "9.1.0",
   "type": "module",
   "description": "A module that integrates Serwist into your Vite application.",
-  "files": ["src", "dist", "*.d.ts"],
+  "files": [
+    "src",
+    "dist",
+    "*.d.ts"
+  ],
   "keywords": [
     "react",
     "remix",
@@ -26,7 +30,9 @@
     "node": ">=18.0.0"
   },
   "author": "antfu <anthonyfu117@hotmail.com>",
-  "contributors": ["Serwist <ducanh2912.rusty@gmail.com> (https://serwist.pages.dev/)"],
+  "contributors": [
+    "Serwist <ducanh2912.rusty@gmail.com> (https://serwist.pages.dev/)"
+  ],
   "license": "MIT",
   "repository": "https://github.com/serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",
@@ -36,9 +42,15 @@
   "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
-      "worker": ["./dist/index.worker.d.ts"],
-      "schema": ["./dist/index.schema.d.ts"],
-      "typings": ["./typings.d.ts"]
+      "worker": [
+        "./dist/index.worker.d.ts"
+      ],
+      "schema": [
+        "./dist/index.schema.d.ts"
+      ],
+      "typings": [
+        "./typings.d.ts"
+      ]
     }
   },
   "exports": {
@@ -70,17 +82,17 @@
     "serwist": "workspace:*",
     "glob": "10.4.5",
     "kolorist": "1.8.0",
-    "zod": "3.25.63"
+    "zod": "4.0.5"
   },
   "devDependencies": {
     "@serwist/configs": "workspace:*",
     "serwist": "workspace:*",
     "@serwist/utils": "workspace:*",
     "@serwist/window": "workspace:*",
-    "@types/node": "24.0.1",
-    "rollup": "4.43.0",
+    "@types/node": "24.0.14",
+    "rollup": "4.45.1",
     "typescript": "5.8.3",
-    "vite": "6.3.5"
+    "vite": "7.0.4"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0",

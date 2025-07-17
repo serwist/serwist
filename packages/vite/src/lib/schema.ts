@@ -1,10 +1,32 @@
-import { basePartial, globPartial, injectPartial, requiredGlobDirectoryPartial, requiredSwDestPartial } from "@serwist/build/schema";
+import { fn, basePartial, globPartial, injectPartial, requiredGlobDirectoryPartial, requiredSwDestPartial, asyncFn } from "@serwist/build/schema";
 import { z } from "zod";
 
 export const hooks = z.object({
-  beforeBuildServiceWorker: z.function(z.tuple([z.any()]), z.union([z.promise(z.void()), z.void()])).optional(),
+  beforeBuildServiceWorker: z
+    .union([
+      fn({
+        input: [z.any()],
+        output: z.void(),
+      }),
+      asyncFn({
+        input: [z.any()],
+        output: z.void(),
+      }),
+    ])
+    .optional(),
   closeBundleOrder: z.union([z.literal("pre"), z.literal("post"), z.null()]).optional(),
-  configureOptions: z.function(z.tuple([z.any(), z.any()]), z.union([z.promise(z.void()), z.void()])).optional(),
+  configureOptions: z
+    .union([
+      fn({
+        input: [z.any(), z.any()],
+        output: z.void(),
+      }),
+      asyncFn({
+        input: [z.any(), z.any()],
+        output: z.void(),
+      }),
+    ])
+    .optional(),
 });
 
 export const devOptions = z.object({
@@ -23,13 +45,14 @@ export const injectManifestPartial = z.object({
   plugins: z.array(z.any()).default([]),
   rollupFormat: z.union([z.literal("es"), z.literal("iife")]).default("es"),
   rollupOptions: z.record(z.string(), z.any()).default({}),
-  devOptions: devOptions.default({}),
+  devOptions: devOptions.prefault({}),
 });
 
-export const injectManifestOptions = basePartial
-  .merge(globPartial)
-  .merge(injectPartial)
-  .merge(requiredSwDestPartial)
-  .merge(requiredGlobDirectoryPartial)
-  .merge(injectManifestPartial)
-  .strict("Do not pass invalid properties to InjectManifestOptions!");
+export const injectManifestOptions = z.strictObject({
+  ...basePartial.shape,
+  ...globPartial.shape,
+  ...injectPartial.shape,
+  ...requiredSwDestPartial.shape,
+  ...requiredGlobDirectoryPartial.shape,
+  ...injectManifestPartial.shape,
+});

@@ -52,7 +52,6 @@ export class BackgroundSyncQueueStore {
       });
     }
 
-    // biome-ignore lint/performance/noDelete: Don't specify an ID since one is automatically generated.
     delete entry.id;
     entry.queueName = this._queueName;
 
@@ -86,7 +85,6 @@ export class BackgroundSyncQueueStore {
       // Pick an ID one less than the lowest ID in the object store.
       entry.id = firstId - 1;
     } else {
-      // biome-ignore lint/performance/noDelete: Let the auto-incrementor assign the ID.
       delete entry.id;
     }
     entry.queueName = this._queueName;

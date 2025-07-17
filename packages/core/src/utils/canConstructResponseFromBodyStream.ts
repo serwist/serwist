@@ -24,7 +24,7 @@ function canConstructResponseFromBodyStream(): boolean {
       try {
         new Response(testResponse.body);
         supportStatus = true;
-      } catch (error) {
+      } catch {
         supportStatus = false;
       }
     }

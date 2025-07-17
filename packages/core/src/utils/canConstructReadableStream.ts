@@ -23,7 +23,7 @@ function canConstructReadableStream(): boolean {
     try {
       new ReadableStream({ start() {} });
       supportStatus = true;
-    } catch (error) {
+    } catch {
       supportStatus = false;
     }
   }

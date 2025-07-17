@@ -63,7 +63,7 @@ export class PrecacheStrategy extends Strategy {
 
     super(options);
 
-    this._fallbackToNetwork = options.fallbackToNetwork === false ? false : true;
+    this._fallbackToNetwork = options.fallbackToNetwork !== false;
 
     // Redirected responses cannot be used to satisfy a navigation request, so
     // any redirected response must be "copied" rather than cloned, so the new
@@ -103,7 +103,7 @@ export class PrecacheStrategy extends Strategy {
   }
 
   async _handleFetch(request: Request, handler: StrategyHandler): Promise<Response> {
-    let response: Response | undefined = undefined;
+    let response: Response | undefined;
 
     const params = (handler.params || {}) as {
       cacheKey?: string;

@@ -1,10 +1,25 @@
 {
   "name": "@serwist/nuxt",
-  "version": "9.0.15",
+  "version": "9.1.0",
   "type": "module",
   "description": "A Nuxt module that integrates Serwist into your application.",
-  "files": ["dist"],
-  "keywords": ["nuxt", "pwa", "vite", "vite-plugin", "serwist", "serwistjs", "pwa", "sw", "service worker", "web", "service-worker", "nuxt-module"],
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "nuxt",
+    "pwa",
+    "vite",
+    "vite-plugin",
+    "serwist",
+    "serwistjs",
+    "pwa",
+    "sw",
+    "service worker",
+    "web",
+    "service-worker",
+    "nuxt-module"
+  ],
   "engines": {
     "node": ">=18.0.0"
   },
@@ -46,23 +61,23 @@
     "dev:preview:generate": "nr dev:generate && serve playground/dist"
   },
   "dependencies": {
-    "@nuxt/kit": "3.17.5",
+    "@nuxt/kit": "4.0.0",
     "@serwist/build": "workspace:*",
     "@serwist/vite": "workspace:*",
     "@serwist/window": "workspace:*"
   },
   "devDependencies": {
     "@nuxt/module-builder": "1.0.1",
-    "@nuxt/schema": "3.17.5",
+    "@nuxt/schema": "4.0.0",
     "@serwist/configs": "workspace:*",
-    "@types/node": "24.0.1",
-    "eslint": "9.28.0",
-    "nuxt": "3.17.5",
+    "@types/node": "24.0.14",
+    "eslint": "9.31.0",
+    "nuxt": "4.0.0",
     "rimraf": "5.0.9",
     "serve": "14.2.4",
     "typescript": "5.8.3",
-    "vite": "6.3.5",
-    "vue-tsc": "2.2.10"
+    "vite": "7.0.4",
+    "vue-tsc": "3.0.1"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0",

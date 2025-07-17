@@ -1,14 +1,20 @@
-import type { Require } from "@serwist/utils";
+import type { MaybePromise, Require } from "@serwist/utils";
 import type { PackageJson } from "type-fest";
 import type { z } from "zod";
-import type { manifestEntry } from "./schema/manifestEntry.js";
-import type { manifestTransform, manifestTransformResult } from "./schema/manifestTransform.js";
+import type { manifestEntry } from "./schema/manifest-entry.js";
+import type { manifestTransformResult } from "./schema/manifest-transform.js";
 
 export type ManifestEntry = z.input<typeof manifestEntry>;
 
 export type ManifestTransformResult = z.input<typeof manifestTransformResult>;
 
-export type ManifestTransform = z.input<typeof manifestTransform>;
+export type ManifestTransform = (
+  entries: (ManifestEntry & { size: number })[],
+  params?: unknown,
+) => MaybePromise<{
+  manifest: (ManifestEntry & { size: number })[];
+  warnings?: string[] | undefined;
+}>;
 
 export interface BasePartial {
   /**

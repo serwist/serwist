@@ -15,7 +15,7 @@ import type { RouteMatchCallbackOptions } from "../types.js";
 import { cacheNames as privateCacheNames } from "../utils/cacheNames.js";
 import { getFriendlyURL } from "../utils/getFriendlyURL.js";
 import { logger } from "../utils/logger.js";
-import { Router } from "./Router.js";
+import type { Router } from "./Router.js";
 import {
   ANALYTICS_JS_PATH,
   COLLECT_PATHS_REGEX,
@@ -68,7 +68,7 @@ export interface GoogleAnalyticsInitializeOptions {
  */
 const createOnSyncCallback = (config: Pick<GoogleAnalyticsInitializeOptions, "parameterOverrides" | "hitFilter">) => {
   return async ({ queue }: { queue: BackgroundSyncQueue }) => {
-    let entry: BackgroundSyncQueueEntry | undefined = undefined;
+    let entry: BackgroundSyncQueueEntry | undefined;
     while ((entry = await queue.shiftRequest())) {
       const { request, timestamp } = entry;
       const url = new URL(request.url);

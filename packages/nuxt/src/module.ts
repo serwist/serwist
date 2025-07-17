@@ -14,15 +14,12 @@ export default defineNuxtModule<ModuleOptions>({
     name: "@serwist/nuxt",
     configKey: "serwist",
     compatibility: {
-      nuxt: "^3.8.0",
-      bridge: false,
+      nuxt: "^3.8.0 || ^4.0.0",
     },
     version,
   },
   defaults(nuxt) {
-    const publicDir = nuxt.options.nitro?.output?.publicDir
-      ? path.resolve(nuxt.options.nitro.output.publicDir)
-      : path.resolve(nuxt.options.buildDir, "../.output/public");
+    const publicDir = path.resolve(nuxt.options.rootDir, ".output/public");
     return {
       base: nuxt.options.app.baseURL,
       scope: nuxt.options.app.baseURL,

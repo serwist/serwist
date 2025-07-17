@@ -31,3 +31,5 @@ export type Require<T, U extends keyof T> = T & Required<Pick<T, U>>;
  *     const b: B = {}; //invalid
  */
 export type Optional<T, U extends keyof T> = Omit<T, U> & Partial<Pick<T, U>>;
+
+export type MaybePromise<T> = T | Promise<T>;

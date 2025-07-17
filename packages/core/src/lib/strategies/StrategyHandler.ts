@@ -480,7 +480,7 @@ export class StrategyHandler {
    * the service worker thread may be killed prior to your work completing.
    */
   async doneWaiting(): Promise<void> {
-    let promise: Promise<any> | undefined = undefined;
+    let promise: Promise<any> | undefined;
     while ((promise = this._extendLifetimePromises.shift())) {
       await promise;
     }
