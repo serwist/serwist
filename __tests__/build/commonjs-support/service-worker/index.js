@@ -1,13 +1,14 @@
 // @ts-check
-import { Serwist } from "serwist";
+import { addEventListeners, createSerwist } from "serwist";
 
-const serwist = new Serwist({
-  precacheEntries: self.__SW_MANIFEST,
+const serwist = createSerwist({
+  precache: {
+    entries: self.__SW_MANIFEST,
+  },
   skipWaiting: true,
   clientsClaim: true,
   navigationPreload: true,
   disableDevLogs: true,
-  runtimeCaching: [],
 });
 
-serwist.addEventListeners();
+addEventListeners(serwist);

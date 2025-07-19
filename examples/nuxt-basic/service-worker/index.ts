@@ -1,9 +1,9 @@
 /// <reference no-default-lib="true"/>
 /// <reference lib="esnext" />
 /// <reference lib="webworker" />
-import { defaultCache } from "vite-plugin-serwist/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
-import { Serwist } from "serwist";
+import { addEventListeners, createSerwist, RuntimeCache } from "serwist";
+import { defaultCache } from "vite-plugin-serwist/worker";
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
@@ -16,13 +16,14 @@ declare global {
 
 declare const self: ServiceWorkerGlobalScope;
 
-const serwist = new Serwist({
-  precacheEntries: self.__SW_MANIFEST,
+const serwist = createSerwist({
+  precache: {
+    entries: self.__SW_MANIFEST,
+  },
   skipWaiting: true,
   clientsClaim: true,
   navigationPreload: true,
-  disableDevLogs: true,
-  runtimeCaching: defaultCache,
+  extensions: [new RuntimeCache(defaultCache)],
 });
 
-serwist.addEventListeners();
+addEventListeners(serwist);

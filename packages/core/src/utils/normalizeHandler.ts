@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { RouteHandler, RouteHandlerObject } from "../types.js";
+import type { RouteHandler, RouteHandlerObject } from "#lib/types.js";
 import { assert } from "./assert.js";
 
 /**

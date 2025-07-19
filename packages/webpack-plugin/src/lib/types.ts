@@ -7,7 +7,7 @@ import type {
   OptionalSwDestResolved,
 } from "@serwist/build";
 import type { Prettify, Require } from "@serwist/utils";
-import type { WebpackPluginFunction, WebpackPluginInstance, Asset, Compilation } from "webpack";
+import type { Asset, Compilation, WebpackPluginFunction, WebpackPluginInstance } from "webpack";
 
 export interface ConditionCallbackOptions {
   asset: Asset;

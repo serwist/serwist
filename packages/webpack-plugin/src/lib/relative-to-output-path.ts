@@ -5,8 +5,9 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-import { toUnix } from "@serwist/utils";
+
 import path from "node:path";
+import { toUnix } from "@serwist/utils";
 import type { Compilation } from "webpack";
 
 /**

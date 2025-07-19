@@ -1,4 +1,4 @@
-import type { Logger, LogOptions, LoggerOptions, LogLevel, LogType } from "@serwist/utils/node";
+import type { Logger, LoggerOptions, LogLevel, LogOptions, LogType } from "@serwist/utils/node";
 import { LogLevels } from "@serwist/utils/node";
 import type { AstroIntegrationLogger } from "astro";
 

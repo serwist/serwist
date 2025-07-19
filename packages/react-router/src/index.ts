@@ -1,9 +1,9 @@
 import { virtual as virtualPlugin } from "vite-plugin-serwist";
-import type { PluginOptions } from "./types.js";
 import { createContext } from "./lib/context.js";
+import { buildPlugin } from "./plugins/build.js";
 import { devPlugin } from "./plugins/dev.js";
 import { mainPlugin } from "./plugins/main.js";
-import { buildPlugin } from "./plugins/build.js";
+import type { PluginOptions } from "./types.js";
 
 export const serwist = (userOptions: PluginOptions = {}) => {
   const ctx = createContext();

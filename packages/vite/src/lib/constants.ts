@@ -1,4 +1,4 @@
-import type { VirtualFrameworks, Frameworks } from "./types.js";
+import type { Frameworks, VirtualFrameworks } from "./types.js";
 export const FRAMEWORKS = ["/preact", "/react", "/solid", ".svelte", "/vue"] as const;
 export const VIRTUAL_PREFIX = "\0";
 export const VIRTUAL_SERWIST = "virtual:serwist";

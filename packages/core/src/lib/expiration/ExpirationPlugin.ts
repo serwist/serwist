@@ -5,14 +5,13 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-
-import { SerwistError } from "#utils/SerwistError.js";
+import type { CacheDidUpdateCallbackParam, CachedResponseWillBeUsedCallbackParam, StrategyPlugin } from "#lib/types.js";
+import { registerQuotaErrorCallback } from "#lib/utils.js";
 import { assert } from "#utils/assert.js";
 import { cacheNames as privateCacheNames } from "#utils/cacheNames.js";
 import { getFriendlyURL } from "#utils/getFriendlyURL.js";
 import { logger } from "#utils/logger.js";
-import { registerQuotaErrorCallback } from "../../registerQuotaErrorCallback.js";
-import type { CacheDidUpdateCallbackParam, CachedResponseWillBeUsedCallbackParam, StrategyPlugin } from "../../types.js";
+import { SerwistError } from "#utils/SerwistError.js";
 import type { Strategy } from "../strategies/Strategy.js";
 import { CacheExpiration } from "./CacheExpiration.js";
 

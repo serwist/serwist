@@ -1,9 +1,9 @@
 import path from "node:path";
-import { getFileManifestEntries, type BuildResult, type InjectManifestOptions, rebasePath, type InjectManifestOptionsComplete } from "@serwist/build";
-import { basePartial, injectPartial, globPartial, requiredGlobDirectoryPartial, SerwistConfigError, validationErrorMap } from "@serwist/build/schema";
-import { z } from "zod";
-import { NextResponse } from "next/server.js";
+import { type BuildResult, getFileManifestEntries, type InjectManifestOptions, type InjectManifestOptionsComplete, rebasePath } from "@serwist/build";
+import { basePartial, globPartial, injectPartial, requiredGlobDirectoryPartial, SerwistConfigError, validationErrorMap } from "@serwist/build/schema";
 import { cyan, dim, yellow } from "kolorist";
+import { NextResponse } from "next/server.js";
+import { z } from "zod";
 import { logger } from "./lib/index.js";
 
 // TODO: doesn't load when in Turbopack production

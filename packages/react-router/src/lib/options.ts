@@ -2,8 +2,8 @@ import path from "node:path";
 import { resolveEntry } from "@serwist/utils/node";
 import type { ResolvedConfig } from "vite";
 import type { PluginOptions as VitePluginOptions } from "vite-plugin-serwist";
-import type { SerwistReactRouterContext } from "./context.js";
 import type { PluginOptions } from "../types.js";
+import type { SerwistReactRouterContext } from "./context.js";
 
 export const resolveDefaultOptions = (
   ctx: SerwistReactRouterContext,

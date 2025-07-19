@@ -1,4 +1,4 @@
-import type { Prettify, MaybePromise, Require } from "@serwist/utils";
+import type { MaybePromise, Prettify, Require } from "@serwist/utils";
 import type { PackageJson } from "type-fest";
 import type { z } from "zod";
 import type { manifestEntry } from "./schema/manifest-entry.js";

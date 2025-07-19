@@ -1,12 +1,11 @@
-import path from "node:path";
 import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
+import path from "node:path";
 
 import type { BuildResult, GetManifestResult } from "@serwist/build";
-
+import { VIRTUAL_FRAMEWORKS_MAP, VIRTUAL_PREFIX, VIRTUAL_SERWIST, VIRTUAL_SERWIST_RESOLVED } from "./constants.js";
 import type { SerwistViteContext } from "./context.js";
 import { logSerwistResult } from "./log.js";
-import { VIRTUAL_FRAMEWORKS_MAP, VIRTUAL_PREFIX, VIRTUAL_SERWIST, VIRTUAL_SERWIST_RESOLVED } from "./constants.js";
 
 const require = createRequire(import.meta.url);
 
@@ -28,7 +27,7 @@ export const generateServiceWorker = async (ctx: SerwistViteContext): Promise<Ge
 
   await ctx.options.integration?.beforeBuildServiceWorker?.(ctx.options);
 
-  let injectManifestResult: GetManifestResult | BuildResult | undefined ;
+  let injectManifestResult: GetManifestResult | BuildResult | undefined;
 
   if (ctx.options.mode === "development" && !ctx.options.devOptions.bundle) {
     // Classic InjectManifest. This mode is only run in development when `devOptions.bundle` is `false`.

@@ -1,9 +1,9 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { getFileHash } from "@serwist/utils/node";
 import { InjectManifest } from "@serwist/webpack-plugin";
 import { ChildCompilationPlugin, relativeToOutputPath } from "@serwist/webpack-plugin/internal";
-import { getFileHash } from "@serwist/utils/node";
 import { globSync } from "glob";
 import type { NextConfig } from "next";
 import type { Compilation, Configuration, default as Webpack } from "webpack";

@@ -6,9 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
+import type { PrecacheEntry } from "#lib/types.js";
 import { SerwistError } from "./SerwistError.js";
-
-import type { PrecacheEntry } from "../types.js";
 
 interface CacheKey {
   cacheKey: string;

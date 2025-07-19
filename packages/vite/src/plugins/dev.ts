@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { watch } from "chokidar";
-import { type Plugin, normalizePath } from "vite";
+import { normalizePath, type Plugin } from "vite";
 
 import type { SerwistViteContext } from "../lib/context.js";
 import { generateServiceWorker } from "../lib/modules.js";

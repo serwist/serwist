@@ -6,9 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { SerwistError } from "#utils/SerwistError.js";
 import { assert } from "#utils/assert.js";
 import { logger } from "#utils/logger.js";
+import { SerwistError } from "#utils/SerwistError.js";
 import { timeout } from "#utils/timeout.js";
 import type { StrategyOptions } from "./Strategy.js";
 import { Strategy } from "./Strategy.js";

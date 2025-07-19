@@ -1,5 +1,14 @@
 import type { PrecacheEntry, RuntimeCaching, SerwistGlobalConfig } from "serwist";
-import { CacheFirst, ExpirationPlugin, NetworkFirst, NetworkOnly, Serwist, StaleWhileRevalidate } from "serwist";
+import {
+  addEventListeners,
+  CacheFirst,
+  createSerwist,
+  ExpirationPlugin,
+  NetworkFirst,
+  NetworkOnly,
+  RuntimeCache,
+  StaleWhileRevalidate,
+} from "serwist";
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
@@ -122,20 +131,25 @@ const runtimeCaching = [
   },
 ] satisfies RuntimeCaching[];
 
-const serwist = new Serwist({
-  precacheEntries: self.__SW_MANIFEST,
+const serwist = createSerwist({
+  precache: {
+    entries: self.__SW_MANIFEST,
+  },
   skipWaiting: true,
   clientsClaim: true,
   navigationPreload: true,
-  runtimeCaching:
-    process.env.NODE_ENV !== "production"
-      ? [
-          {
-            matcher: /.*/i,
-            handler: new NetworkOnly(),
-          },
-        ]
-      : runtimeCaching,
+  extensions: [
+    new RuntimeCache(
+      process.env.NODE_ENV !== "production"
+        ? [
+            {
+              matcher: /.*/i,
+              handler: new NetworkOnly(),
+            },
+          ]
+        : runtimeCaching,
+    ),
+  ],
 });
 
-serwist.addEventListeners();
+addEventListeners(serwist);

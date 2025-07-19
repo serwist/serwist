@@ -5,9 +5,10 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-import type { FileDetails } from "@serwist/utils";
+
 import type { ManifestEntry } from "@serwist/build";
 import { transformManifest } from "@serwist/build";
+import type { FileDetails } from "@serwist/utils";
 import type { Asset, Chunk, Compilation, WebpackError } from "webpack";
 
 import { getAssetHash } from "./get-asset-hash.js";

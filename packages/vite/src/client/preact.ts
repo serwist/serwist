@@ -1,4 +1,4 @@
-import { swUrl, swScope, swType } from "virtual:serwist";
+import { swScope, swType, swUrl } from "virtual:serwist";
 import { Serwist } from "@serwist/window";
 import { useState } from "preact/hooks";
 

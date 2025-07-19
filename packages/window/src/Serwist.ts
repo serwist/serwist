@@ -9,10 +9,10 @@
 import { Deferred, logger } from "serwist/internal";
 
 import { messageSW } from "./messageSW.js";
+import { isCurrentPageOutOfScope } from "./utils/isCurrentPageOutOfScope.js";
 import type { SerwistLifecycleEventMap } from "./utils/SerwistEvent.js";
 import { SerwistEvent } from "./utils/SerwistEvent.js";
 import { SerwistEventTarget } from "./utils/SerwistEventTarget.js";
-import { isCurrentPageOutOfScope } from "./utils/isCurrentPageOutOfScope.js";
 import { urlsMatch } from "./utils/urlsMatch.js";
 
 // The time a SW must be in the waiting phase before we can conclude

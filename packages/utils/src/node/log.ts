@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
-import { cyan, yellow, red } from "kolorist";
+import { cyan, red, yellow } from "kolorist";
 
 export type LogType = "error" | "warn" | "info";
 export type LogLevel = LogType | "silent";

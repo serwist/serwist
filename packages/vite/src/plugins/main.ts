@@ -1,8 +1,8 @@
 import { createLogger } from "@serwist/utils/node";
 import type { Plugin, UserConfig } from "vite";
 import type { SerwistViteContext } from "../lib/context.js";
-import { resolveOptions } from "../lib/options.js";
 import { loadVirtual, resolveVirtualId } from "../lib/modules.js";
+import { resolveOptions } from "../lib/options.js";
 
 /**
  * `vite-plugin-serwist`'s main plugin.

@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { MapLikeObject } from "../types.js";
+import type { MapLikeObject } from "#lib/types.js";
 import { SerwistError } from "./SerwistError.js";
 
 /*

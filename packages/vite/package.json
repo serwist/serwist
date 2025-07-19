@@ -94,7 +94,7 @@
     "@types/node": "24.0.14",
     "@types/react": "19.1.8",
     "preact": "10.26.9",
-    "react": "19.1.0",    
+    "react": "19.1.0",
     "rollup": "4.45.1",
     "solid-js": "1.9.7",
     "svelte": "5.36.5",

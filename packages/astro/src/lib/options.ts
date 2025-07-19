@@ -1,9 +1,9 @@
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { resolveEntry } from "@serwist/utils/node";
 import type { AstroConfig } from "astro";
 import type { PluginOptions as VitePluginOptions } from "vite-plugin-serwist";
 import type { PluginOptions } from "../types.js";
-import { fileURLToPath } from "node:url";
 
 export const resolveDefaultOptions = (astroConfig: AstroConfig, options: PluginOptions): VitePluginOptions => {
   const srcDir = fileURLToPath(astroConfig.srcDir);

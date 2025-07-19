@@ -1,7 +1,6 @@
-import type { ResolvedConfig, UserConfig } from "vite";
-
-import type { PluginOptions, PluginOptionsComplete } from "./types.js";
 import type { Logger } from "@serwist/utils/node";
+import type { ResolvedConfig, UserConfig } from "vite";
+import type { PluginOptions, PluginOptionsComplete } from "./types.js";
 
 export type SerwistViteFrameworks = "nuxt" | "react-router" | "astro";
 

@@ -1,6 +1,6 @@
 import { defaultCache } from "@serwist/react-router/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
-import { RuntimeCacheController, Serwist } from "serwist";
+import { addEventListeners, createSerwist, RuntimeCache } from "serwist";
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
@@ -13,16 +13,16 @@ declare global {
 
 declare const self: ServiceWorkerGlobalScope;
 
-const serwist = new Serwist({
-  precacheEntries: self.__SW_MANIFEST,
-  precacheOptions: {
+const serwist = createSerwist({
+  precache: {
+    entries: self.__SW_MANIFEST,
     cleanupOutdatedCaches: true,
     concurrency: 10,
   },
-  controllers: [new RuntimeCacheController(defaultCache)],
   skipWaiting: true,
   clientsClaim: true,
   navigationPreload: true,
+  extensions: [new RuntimeCache(defaultCache)],
 });
 
-serwist.addEventListeners();
+addEventListeners(serwist);

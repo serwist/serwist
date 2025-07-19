@@ -1,47 +1,41 @@
-import type { NavigationRouteMatchOptions } from "./NavigationRoute.js";
-import { NavigationRoute } from "./NavigationRoute.js";
-import { RegExpRoute } from "./RegExpRoute.js";
-import { Route } from "./Route.js";
-import { Serwist, type SerwistOptions } from "./Serwist.js";
-import { cacheNames } from "./cacheNames.js";
-import type { HTTPMethod } from "./constants.js";
-import { copyResponse } from "./copyResponse.js";
-import { disableDevLogs } from "./disableDevLogs.js";
-import { disableNavigationPreload, enableNavigationPreload, isNavigationPreloadSupported } from "./navigationPreload.js";
-import { registerQuotaErrorCallback } from "./registerQuotaErrorCallback.js";
-import { setCacheNameDetails } from "./setCacheNameDetails.js";
+import { cacheNames } from "#lib/cache-name.js";
+import type { HTTPMethod } from "#lib/constants.js";
+import { disableNavigationPreload, enableNavigationPreload, isNavigationPreloadSupported } from "#lib/navigation-preload.js";
+import type { NavigationRouteMatchOptions } from "#lib/route.js";
+import { NavigationRoute, RegExpRoute, Route } from "#lib/route.js";
+import { Serwist, type SerwistOptions } from "#lib/serwist.js";
+import { copyResponse, disableDevLogs, registerQuotaErrorCallback, setCacheNameDetails } from "#lib/utils.js";
 
 // Background synchronizing
 export {
   BackgroundSyncPlugin,
   BackgroundSyncQueue,
+  type BackgroundSyncQueueEntry,
+  type BackgroundSyncQueueOptions,
   BackgroundSyncQueueStore,
   StorableRequest,
-  type BackgroundSyncQueueOptions,
-  type BackgroundSyncQueueEntry,
-} from "#lib/backgroundSync/index.js";
+} from "#lib/background-sync/index.js";
 
 // Broadcasting updates
 export {
-  BroadcastCacheUpdate,
-  BroadcastUpdatePlugin,
   BROADCAST_UPDATE_DEFAULT_HEADERS,
-  responsesAreSame,
+  BroadcastCacheUpdate,
   type BroadcastCacheUpdateOptions,
+  type BroadcastMessage,
   type BroadcastPayload,
   type BroadcastPayloadGenerator,
-  type BroadcastMessage,
-} from "#lib/broadcastUpdate/index.js";
+  BroadcastUpdatePlugin,
+  responsesAreSame,
+} from "#lib/broadcast-update/index.js";
 
 // Setting cacheability criteria
 export {
   CacheableResponse,
-  CacheableResponsePlugin,
   type CacheableResponseOptions,
-} from "#lib/cacheableResponse/index.js";
+  CacheableResponsePlugin,
+} from "#lib/cacheable-response/index.js";
 
 // Controllers
-export { PrecacheStrategy, PrecacheRoute, RuntimeCacheController } from "#lib/controllers/index.js";
 
 // Expiring outdated responses
 export {
@@ -50,33 +44,38 @@ export {
   type ExpirationPluginOptions,
 } from "#lib/expiration/index.js";
 
-// Google Analytics
-export { initializeGoogleAnalytics, type GoogleAnalyticsInitializeOptions } from "#lib/googleAnalytics/index.js";
-
-// Precaching
+// Extensions
 export {
-  PrecacheFallbackPlugin,
+  GoogleAnalytics,
+  type GoogleAnalyticsInitializeOptions,
+  type GoogleAnalyticsOptions,
+  initializeGoogleAnalytics,
   type PrecacheFallbackEntry,
+  PrecacheFallbackPlugin,
   type PrecacheFallbackPluginOptions,
-} from "#lib/precaching/index.js";
+  PrecacheRoute,
+  PrecacheStrategy,
+  RuntimeCache,
+  type RuntimeCacheOptions,
+} from "#lib/extensions/index.js";
 
 // Handling range requests
 export {
   createPartialResponse,
   RangeRequestsPlugin,
-} from "#lib/rangeRequests/index.js";
+} from "#lib/range-requests/index.js";
 
 // Built-in caching strategies
 export {
   CacheFirst,
   CacheOnly,
   NetworkFirst,
+  type NetworkFirstOptions,
   NetworkOnly,
+  type NetworkOnlyOptions,
   StaleWhileRevalidate,
   Strategy,
   StrategyHandler,
-  type NetworkFirstOptions,
-  type NetworkOnlyOptions,
   type StrategyOptions,
 } from "#lib/strategies/index.js";
 
@@ -96,5 +95,24 @@ export {
   RegExpRoute,
   Route,
 };
+
+// Core (modern)
+// TODO(v11): rename once we remove legacy `Serwist` and `SerwistOptions`
+export type { Serwist as SerwistState, SerwistOptions as CreateSerwistOptions } from "#lib/core.js";
+export { createSerwist } from "#lib/core.js";
+// Extension
+export type * from "#lib/extension.js";
+export {
+  addEventListeners,
+  createActivateHandler,
+  createCacheHandler,
+  createFetchHandler,
+  createInstallHandler,
+  iterateExtensions,
+  setCatchHandler,
+  setDefaultHandler,
+} from "#lib/functions/handlers.js";
+export { findMatchingRoute, handleRequest, registerCapture, registerRoute, unregisterRoute } from "#lib/functions/router.js";
+
 export type { HTTPMethod, SerwistOptions, NavigationRouteMatchOptions };
-export type * from "./types.js";
+export type * from "#lib/types.js";

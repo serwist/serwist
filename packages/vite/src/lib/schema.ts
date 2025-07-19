@@ -1,4 +1,4 @@
-import { fn, basePartial, globPartial, injectPartial, requiredGlobDirectoryPartial, requiredSwDestPartial, asyncFn } from "@serwist/build/schema";
+import { asyncFn, basePartial, fn, globPartial, injectPartial, requiredGlobDirectoryPartial, requiredSwDestPartial } from "@serwist/build/schema";
 import { z } from "zod";
 
 export const hooks = z.object({

@@ -1,8 +1,8 @@
 import crypto from "node:crypto";
 import fs from "node:fs";
-import { getStringHash } from "./hash.js";
-import { errors } from "./errors.js";
 import type { FileDetails } from "../types.js";
+import { errors } from "./errors.js";
+import { getStringHash } from "./hash.js";
 
 export const getFileHash = (file: fs.PathOrFileDescriptor) => {
   try {

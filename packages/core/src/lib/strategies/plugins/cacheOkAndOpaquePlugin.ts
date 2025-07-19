@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { StrategyPlugin } from "../../../types.js";
+import type { StrategyPlugin } from "#lib/types.js";
 
 export const cacheOkAndOpaquePlugin: StrategyPlugin = {
   /**

@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { SerwistConfigError } from "../schema/error.js";
 /*
   Copyright 2021 Google LLC
 
@@ -7,7 +6,7 @@ import { SerwistConfigError } from "../schema/error.js";
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-import { validationErrorMap } from "../schema/error.js";
+import { SerwistConfigError, validationErrorMap } from "../schema/error.js";
 import type { GetManifestOptionsComplete, InjectManifestOptionsComplete } from "../types.js";
 
 export const validateGetManifestOptions = async (input: unknown): Promise<GetManifestOptionsComplete> => {
