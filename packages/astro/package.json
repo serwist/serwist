@@ -1,6 +1,6 @@
 {
   "name": "@serwist/astro",
-  "version": "10.0.0-preview.8",
+  "version": "10.0.0-preview.9",
   "type": "module",
   "sideEffects": false,
   "description": "An Astro integration that integrates Serwist into your application.",
