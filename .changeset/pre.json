@@ -41,7 +41,9 @@
     "@serwist/react-router": "10.0.0-preview.1",
     "@serwist-example/astro-basic": "1.0.0",
     "@serwist-example/vite-solid-basic": "1.0.0",
-    "@serwist/astro": "10.0.0-preview.6"
+    "@serwist/astro": "10.0.0-preview.6",
+    "@serwist-example/next-turbo-basic": "1.0.0",
+    "@serwist/turbopack": "10.0.0-preview.8"
   },
   "changesets": [
     "gentle-trams-boil",
@@ -50,6 +52,7 @@
     "moody-candles-sleep",
     "moody-women-sip",
     "red-symbols-decide",
+    "some-mammals-jam",
     "strange-waves-remember",
     "ten-steaks-judge",
     "yummy-terms-film"

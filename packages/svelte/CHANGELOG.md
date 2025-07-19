@@ -1,5 +1,11 @@
 # @serwist/svelte
 
+## 10.0.0-preview.9
+### Patch Changes
+
+- Updated dependencies [[`3a59648`](https://github.com/serwist/serwist/commit/3a596489ba94b5ea01df9606d6e1bc8b9a3d5afe)]:
+  - serwist@10.0.0-preview.9
+
 ## 10.0.0-preview.8
 ### Patch Changes
 

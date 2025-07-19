@@ -14,8 +14,7 @@ jobs:
   test:
     name: ⬣, 🔎, 🔨 Run tests
     uses: ./.github/workflows/build-test-reusable.yml
-    with:
-      skipTest: "${{ contains(github.event.head_commit.message, 'chore(packages): publish packages') }}"
+    if: "${{ !contains(github.event.head_commit.message, 'chore(packages): publish packages') }}"
     secrets: inherit
   publish:
     name: 🚀 Publish packages / Create PR for publishing packages
@@ -28,7 +27,8 @@ jobs:
     strategy:
       matrix:
         node-version: [22.x]
-    if: "${{ contains(github.event.head_commit.message, '[publish]') || contains(github.event.head_commit.message, 'chore(packages): publish packages') }}"
+    if: |
+      ${{ (contains(github.event.head_commit.message, '[bump]') || contains(github.event.head_commit.message, 'chore(packages): publish packages')) && !cancelled() && (success() || failure() || needs.test.result == 'skipped') }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4

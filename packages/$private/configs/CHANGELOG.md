@@ -1,5 +1,7 @@
 # @serwist/configs
 
+## 10.0.0-preview.9
+
 ## 9.1.0
 
 ### Patch Changes
