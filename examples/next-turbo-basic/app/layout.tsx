@@ -49,7 +49,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </head>
       <body>
         {/** TODO: out of scope? */}
-        <SerwistProvider swUrl="/serwist/sw.js">{children}</SerwistProvider>
+        <SerwistProvider swUrl="/serwist/sw.js" options={{ scope: "/" }}>
+          {children}
+        </SerwistProvider>
       </body>
     </html>
   );

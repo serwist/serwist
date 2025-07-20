@@ -19,21 +19,25 @@ const esbuild = import("esbuild");
 const logSerwistResult = (buildResult: Pick<BuildResult, "count" | "size" | "warnings">) => {
   const { count, size, warnings } = buildResult;
   const hasWarnings = warnings && warnings.length > 0;
-  logger[hasWarnings ? "warn" : "info"](
-    `${cyan(count)} precache entries ${dim(`(${(size / 1024).toFixed(2)} KiB)`)}${
-      hasWarnings ? `\n${yellow(["⚠ warnings", ...warnings.map((w) => `  ${w}`), ""].join("\n"))}` : ""
-    }`,
-  );
+  if (count > 0 || hasWarnings) {
+    logger[hasWarnings ? "warn" : "info"](
+      `${cyan(count)} precache entries ${dim(`(${(size / 1024).toFixed(2)} KiB)`)}${
+        hasWarnings ? `\n${yellow(["⚠ warnings", ...warnings.map((w) => `  ${w}`), ""].join("\n"))}` : ""
+      }`,
+    );
+  }
 };
 
-const injectManifestOptions = z.strictObject({
-  ...basePartial.shape,
-  ...globPartial.shape,
-  ...injectPartial.shape,
-  ...requiredGlobDirectoryPartial.shape,
-});
+const injectManifestOptions = z
+  .strictObject({
+    ...basePartial.shape,
+    ...globPartial.shape,
+    ...injectPartial.shape,
+    ...requiredGlobDirectoryPartial.shape,
+  })
+  .omit({ disablePrecacheManifest: true });
 
-const validateGetManifestOptions = async (input: unknown): Promise<Omit<InjectManifestOptionsComplete, "swDest">> => {
+const validateGetManifestOptions = async (input: unknown): Promise<Omit<InjectManifestOptionsComplete, "swDest" | "disablePrecacheManifest">> => {
   const result = await injectManifestOptions.spa(input, {
     error: validationErrorMap,
   });
@@ -69,7 +73,10 @@ export const createSerwistRoute = (options: ServiceWorkerOptions) => {
   };
   const loadMap = async () => {
     const config = await validation;
-    const { count, size, manifestEntries, warnings } = await getFileManifestEntries(config);
+    const { count, size, manifestEntries, warnings } = await getFileManifestEntries({
+      ...config,
+      disablePrecacheManifest: process.env.NODE_ENV === "development",
+    });
     // See https://github.com/GoogleChrome/workbox/issues/2230
     const injectionPoint = options.injectionPoint ? options.injectionPoint : "";
     const manifestString = manifestEntries === undefined ? "undefined" : JSON.stringify(manifestEntries);

@@ -1,5 +1,5 @@
 import { defaultCache } from "@serwist/turbopack/worker";
-import { PrecacheEntry, Serwist, SerwistGlobalConfig } from "serwist";
+import { type PrecacheEntry, Serwist, type SerwistGlobalConfig } from "serwist";
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
@@ -33,3 +33,5 @@ const serwist = new Serwist({
     ],
   },
 });
+
+serwist.addEventListeners();

@@ -185,12 +185,6 @@ export const defaultCache: RuntimeCaching[] =
           // https://github.com/serwist/serwist/discussions/28
           matcher: /\/api\/auth\/.*/,
           handler: new NetworkOnly({
-            plugins: [
-              new ExpirationPlugin({
-                maxEntries: 16,
-                maxAgeSeconds: 24 * 60 * 60, // 24 hours
-              }),
-            ],
             networkTimeoutSeconds: 10, // fallback to cache if API does not response within 10 seconds
           }),
         },
@@ -271,5 +265,10 @@ export const defaultCache: RuntimeCaching[] =
             ],
             networkTimeoutSeconds: 10,
           }),
+        },
+        {
+          matcher: /.*/i,
+          method: "GET",
+          handler: new NetworkOnly(),
         },
       ];
