@@ -1,5 +1,7 @@
 # @serwist/build
 
+## 9.1.1
+
 ## 9.1.0
 
 ### Minor Changes

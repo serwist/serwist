@@ -1,5 +1,21 @@
 # @serwist/next
 
+## 9.1.1
+
+### Patch Changes
+
+- [#277](https://github.com/serwist/serwist/pull/277) [`b97c89e`](https://github.com/serwist/serwist/commit/b97c89e93e23830172c456b22e64ed279cc55ad0) Thanks [@Debbl](https://github.com/Debbl)! - add NetworkOnly strategy for `/api/auth`
+
+- [`f163a02`](https://github.com/serwist/serwist/commit/f163a024965bd2ecd6176b82530257a58f8c8da1) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(next, turbo): added network-only catch-all route for GET requests
+
+  - This is only so that preloaded responses are properly.
+
+- Updated dependencies []:
+  - @serwist/build@9.1.1
+  - @serwist/webpack-plugin@9.1.1
+  - @serwist/window@9.1.1
+  - serwist@9.1.1
+
 ## 9.1.0
 
 ### Minor Changes
