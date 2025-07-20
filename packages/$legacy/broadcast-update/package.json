@@ -1,6 +1,6 @@
 {
   "name": "@serwist/broadcast-update",
-  "version": "9.1.0",
+  "version": "9.1.1",
   "type": "module",
   "description": "A module that uses the Broadcast Channel API to announce when a cached response has updated.",
   "files": [
