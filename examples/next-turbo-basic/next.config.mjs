@@ -2,7 +2,7 @@
 /** @type {import("next").NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  serverExternalPackages: ["esbuild", "@esbuild/linux-x64"],
+  serverExternalPackages: ["esbuild-wasm"],
 };
 
 export default nextConfig;

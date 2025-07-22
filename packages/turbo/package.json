@@ -2,7 +2,6 @@
   "name": "@serwist/turbopack",
   "version": "10.0.0-preview.9",
   "type": "module",
-  "private": true,
   "sideEffects": false,
   "description": "A module that integrates Serwist into your Next.js / Turbopack application.",
   "files": [
@@ -74,7 +73,7 @@
     "@serwist/build": "workspace:*",
     "@serwist/window": "workspace:*",
     "@swc/core": "1.12.14",
-    "esbuild": "0.25.6",
+    "esbuild-wasm": "0.25.8",
     "kolorist": "1.8.0",
     "serwist": "workspace:*",
     "zod": "4.0.5"

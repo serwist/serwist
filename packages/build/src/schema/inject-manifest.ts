@@ -6,7 +6,7 @@ import { globPartial, requiredGlobDirectoryPartial } from "./glob.js";
 import { requiredSwDestPartial } from "./sw-dest.js";
 
 export const baseInjectPartial = z.strictObject({
-  injectionPoint: z.string().default("self.__SW_MANIFEST"),
+  injectionPoint: z.string().prefault("self.__SW_MANIFEST"),
   swSrc: z.string(),
 });
 

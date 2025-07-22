@@ -21,7 +21,7 @@ export function SerwistProvider({ swUrl, register = true, reloadOnOnline = true,
   const [serwist] = useState(() => {
     if (typeof window === "undefined") return null;
     if (!(window.serwist && window.serwist instanceof Serwist) && "serviceWorker" in navigator) {
-      window.serwist = new Serwist(swUrl, options);
+      window.serwist = new Serwist(swUrl, { ...options, scope: options?.scope || "/" });
     }
     return window.serwist ?? null;
   });

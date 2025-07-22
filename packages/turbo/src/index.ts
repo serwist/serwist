@@ -1,39 +1,31 @@
 import path from "node:path";
-import { type BuildResult, getFileManifestEntries, type InjectManifestOptions, type InjectManifestOptionsComplete, rebasePath } from "@serwist/build";
-import { basePartial, globPartial, injectPartial, requiredGlobDirectoryPartial, SerwistConfigError, validationErrorMap } from "@serwist/build/schema";
+import { type BuildResult, getFileManifestEntries, rebasePath } from "@serwist/build";
+import { SerwistConfigError, validationErrorMap } from "@serwist/build/schema";
 import { cyan, dim, yellow } from "kolorist";
 import { NextResponse } from "next/server.js";
 import { z } from "zod";
+import { injectManifestOptions } from "./index.schema.js";
 import { logger } from "./lib/index.js";
+import type { InjectManifestOptions, InjectManifestOptionsComplete } from "./types.js";
 
-// TODO: doesn't load when in Turbopack production
-const esbuild = import("esbuild");
-// const esbuild = Promise.resolve({
-// 	build: (opts: any) => ({
-// 		errors: [],
-// 		warnings: [],
-// 		outputFiles: [{ path: "", contents: "", hash: "", text: "" }],
-// 	}),
-// });
+// TODO(workarond): `esbuild` doesn't load when in Turbopack production
+const esbuild = import("esbuild-wasm");
 
-const logSerwistResult = (buildResult: Pick<BuildResult, "count" | "size" | "warnings">) => {
+const logSerwistResult = (filePath: string, buildResult: Pick<BuildResult, "count" | "size" | "warnings">) => {
   const { count, size, warnings } = buildResult;
   const hasWarnings = warnings && warnings.length > 0;
-  logger[hasWarnings ? "warn" : "info"](
-    `${cyan(count)} precache entries ${dim(`(${(size / 1024).toFixed(2)} KiB)`)}${
-      hasWarnings ? `\n${yellow(["⚠ warnings", ...warnings.map((w) => `  ${w}`), ""].join("\n"))}` : ""
-    }`,
-  );
+  // The route is reinitiated for each `path` param, so we only log results
+  // if we're prerendering for sw.js.
+  if (filePath === "sw.js") {
+    logger[hasWarnings ? "warn" : "event"](
+      `${cyan(count)} precache entries ${dim(`(${(size / 1024).toFixed(2)} KiB)`)}${
+        hasWarnings ? `\n${yellow(["⚠ warnings", ...warnings.map((w) => `  ${w}`), ""].join("\n"))}` : ""
+      }`,
+    );
+  }
 };
 
-const injectManifestOptions = z.strictObject({
-  ...basePartial.shape,
-  ...globPartial.shape,
-  ...injectPartial.shape,
-  ...requiredGlobDirectoryPartial.shape,
-});
-
-const validateGetManifestOptions = async (input: unknown): Promise<Omit<InjectManifestOptionsComplete, "swDest">> => {
+const validateGetManifestOptions = async (input: unknown): Promise<InjectManifestOptionsComplete> => {
   const result = await injectManifestOptions.spa(input, {
     error: validationErrorMap,
   });
@@ -46,13 +38,21 @@ const validateGetManifestOptions = async (input: unknown): Promise<Omit<InjectMa
   return result.data;
 };
 
-export type ServiceWorkerOptions = Omit<InjectManifestOptions, "swDest">;
+const isDev = process.env.NODE_ENV === "development";
+
+const contentTypeMap: Record<string, string> = {
+  ".js": "application/javascript",
+  ".map": "application/json; charset=UTF-8",
+};
 
 /**
  * Creates a Route Handler that returns the precache manifest.
  * @param options Options for {@linkcode getFileManifestEntries}.
  */
-export const createSerwistRoute = (options: ServiceWorkerOptions) => {
+export const createSerwistRoute = (options: InjectManifestOptions) => {
+  const dynamic = "force-static",
+    dynamicParams = false,
+    revalidate = false;
   const validation = validateGetManifestOptions(options).then((config) => {
     // Make sure we leave swSrc out of the precache manifest.
     config.globIgnores.push(
@@ -61,24 +61,39 @@ export const createSerwistRoute = (options: ServiceWorkerOptions) => {
         baseDirectory: config.globDirectory,
       }),
     );
+    if (!config.manifestTransforms) {
+      config.manifestTransforms = [];
+    }
+    config.manifestTransforms.push((manifestEntries) => {
+      const manifest = manifestEntries.map((m) => {
+        // Replace all references to .next/ with "/_next/".
+        if (m.url.startsWith(".next/")) m.url = `/_next/${m.url.slice(6)}`;
+        // Replace all references to public/ with "$(basePath)/".
+        if (m.url.startsWith("public/")) m.url = path.posix.join(config.basePath, m.url.slice(7));
+        return m;
+      });
+      return { manifest, warnings: [] };
+    });
     return config;
   });
-  let map: Map<string, string> | null = null;
   const generateStaticParams = () => {
     return [{ path: "sw.js" }, { path: "sw.js.map" }];
   };
-  const loadMap = async () => {
+  let map: Map<string, string> | null = null;
+  const loadMap = async (filePath: string) => {
     const config = await validation;
     const { count, size, manifestEntries, warnings } = await getFileManifestEntries(config);
     // See https://github.com/GoogleChrome/workbox/issues/2230
-    const injectionPoint = options.injectionPoint ? options.injectionPoint : "";
-    const manifestString = manifestEntries === undefined ? "undefined" : JSON.stringify(manifestEntries);
-    logSerwistResult({ count, size, warnings });
+    const injectionPoint = config.injectionPoint ? config.injectionPoint : "";
+    const manifestString = manifestEntries === undefined ? "undefined" : JSON.stringify(manifestEntries, null, 2);
+    logSerwistResult(filePath, { count, size, warnings });
     const result = await (await esbuild).build({
-      entryPoints: [options.swSrc],
+      entryPoints: [{ in: config.swSrc, out: "sw" }],
+      format: "esm",
       sourcemap: true,
       bundle: true,
       write: false,
+      minify: !isDev,
       define: injectionPoint
         ? {
             [injectionPoint]: manifestString,
@@ -98,13 +113,14 @@ export const createSerwistRoute = (options: ServiceWorkerOptions) => {
   };
   const GET = async (_: Request, { params }: { params: Promise<{ path: string }> }) => {
     // TODO: obviously, files get stale in development when we pull this off.
-    if (!map) map = await loadMap();
     const { path: filePath } = await params;
+    if (!map) map = await loadMap(filePath);
     return new NextResponse(map.get(path.join(process.cwd(), filePath)), {
       headers: {
-        "Content-Type": "application/javascript",
+        "Content-Type": contentTypeMap[path.extname(filePath)] || "text/plain",
+        "Service-Worker-Allowed": "/",
       },
     });
   };
-  return { generateStaticParams, GET };
+  return { dynamic, dynamicParams, revalidate, generateStaticParams, GET };
 };

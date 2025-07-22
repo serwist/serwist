@@ -7,7 +7,6 @@
 */
 import type { Serwist } from "#lib/core.js";
 import { handleRequest } from "#lib/functions/router.js";
-import { Serwist as LegacySerwist } from "#lib/serwist.js";
 import type { HandlerDidErrorCallbackParam, StrategyPlugin } from "#lib/types.js";
 
 export interface PrecacheFallbackEntry {
@@ -31,7 +30,7 @@ export interface PrecacheFallbackPluginOptions {
   /**
    * A {@linkcode Serwist} instance.
    */
-  serwist: LegacySerwist | Serwist;
+  serwist: Serwist;
 }
 
 /**
@@ -54,7 +53,7 @@ export class PrecacheFallbackPlugin implements StrategyPlugin {
   constructor({ fallbackUrls, serwist }: PrecacheFallbackPluginOptions) {
     this._fallbackUrls = fallbackUrls;
     // TODO(ducanhgh): remove in v11.
-    this._serwist = serwist instanceof LegacySerwist ? serwist.state : serwist;
+    this._serwist = serwist;
   }
 
   /**

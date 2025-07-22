@@ -1,6 +1,6 @@
-import { SerwistProvider } from "$lib/client";
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
+import { SerwistProvider } from "$lib/client";
 
 const APP_NAME = "NJS App";
 const APP_DESCRIPTION = "Next.js + Serwist PWA";
@@ -48,7 +48,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             `}</style>
       </head>
       <body>
-        {/** TODO: out of scope? */}
         <SerwistProvider swUrl="/serwist/sw.js">{children}</SerwistProvider>
       </body>
     </html>

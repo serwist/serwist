@@ -69,7 +69,7 @@ export class Precache implements Extension {
   private _routeOptions: PrecacheRouteOptions;
 
   /**
-   * Create a new PrecacheController.
+   * Create a new {@linkcode Precache} instance.
    *
    * @param options
    */
