@@ -1,5 +1,11 @@
 # @serwist/streams
 
+## 10.0.0-preview.10
+### Patch Changes
+
+- Updated dependencies []:
+  - serwist@10.0.0-preview.10
+
 ## 10.0.0-preview.9
 ### Patch Changes
 
