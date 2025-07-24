@@ -46,13 +46,13 @@ const contentTypeMap: Record<string, string> = {
 };
 
 /**
- * Creates a Route Handler that returns the precache manifest.
+ * Creates a Route Handler for Serwist files.
  * @param options Options for {@linkcode getFileManifestEntries}.
  */
 export const createSerwistRoute = (options: InjectManifestOptions) => {
-  const dynamic = "force-static",
-    dynamicParams = false,
-    revalidate = false;
+  const dynamic = "force-static" as const,
+    dynamicParams = false as const,
+    revalidate = false as const;
   const validation = validateGetManifestOptions(options).then((config) => {
     // Make sure we leave swSrc out of the precache manifest.
     config.globIgnores.push(
