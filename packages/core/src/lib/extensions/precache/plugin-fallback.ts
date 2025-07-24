@@ -52,7 +52,6 @@ export class PrecacheFallbackPlugin implements StrategyPlugin {
    */
   constructor({ fallbackUrls, serwist }: PrecacheFallbackPluginOptions) {
     this._fallbackUrls = fallbackUrls;
-    // TODO(ducanhgh): remove in v11.
     this._serwist = serwist;
   }
 

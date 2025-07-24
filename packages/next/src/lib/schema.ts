@@ -1,6 +1,7 @@
-import { requiredSwDestPartial } from "@serwist/build/schema";
+import { assertType, type Equals, requiredSwDestPartial } from "@serwist/build/schema";
 import { injectManifestOptions as webpackInjectManifestOptions } from "@serwist/webpack-plugin/schema";
 import { z } from "zod";
+import type { InjectManifestOptions, InjectManifestOptionsComplete, InjectPartial, InjectResolved } from "./types.js";
 
 export const injectPartial = z.strictObject({
   cacheOnNavigation: z.boolean().default(false),
@@ -19,3 +20,8 @@ export const injectManifestOptions = z
     ...injectPartial.shape,
   })
   .omit({ disablePrecacheManifest: true });
+
+assertType<Equals<InjectPartial, z.input<typeof injectPartial>>>();
+assertType<Equals<InjectResolved, z.output<typeof injectPartial>>>();
+assertType<Equals<InjectManifestOptions, z.input<typeof injectManifestOptions>>>();
+assertType<Equals<InjectManifestOptionsComplete, z.output<typeof injectManifestOptions>>>();

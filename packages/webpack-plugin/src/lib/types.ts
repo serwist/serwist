@@ -4,7 +4,6 @@ import type {
   BasePartial,
   BaseResolved,
   OptionalSwDestPartial,
-  OptionalSwDestResolved,
 } from "@serwist/build";
 import type { Prettify, Require } from "@serwist/utils";
 import type { Asset, Compilation, WebpackPluginFunction, WebpackPluginInstance } from "webpack";
@@ -49,7 +48,7 @@ export interface WebpackPartial {
 
 export type WebpackResolved = Prettify<Require<WebpackPartial, "exclude">>;
 
-export interface InjectPartial {
+export interface InjectPartial extends OptionalSwDestPartial {
   /**
    * When `true` (the default), the `swSrc` file will be compiled by webpack.
    * When `false`, compilation will not occur (and `webpackCompilationPlugins`
@@ -70,8 +69,8 @@ export interface InjectPartial {
 
 export type InjectResolved = Prettify<Require<InjectPartial, "compileSrc">>;
 
-export type InjectManifestOptions = Prettify<BasePartial & WebpackPartial & BaseInjectPartial & OptionalSwDestPartial & InjectPartial>;
+export type InjectManifestOptions = Prettify<BasePartial & WebpackPartial & BaseInjectPartial & InjectPartial>;
 
-export type InjectManifestOptionsComplete = Prettify<BaseResolved & WebpackResolved & BaseInjectResolved & OptionalSwDestResolved & InjectResolved>;
+export type InjectManifestOptionsComplete = Prettify<BaseResolved & WebpackResolved & BaseInjectResolved & InjectResolved>;
 
 export type WebpackPlugin = WebpackPluginFunction | WebpackPluginInstance;

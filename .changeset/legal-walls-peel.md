@@ -114,10 +114,13 @@ feat(turbo): added rudimentary Turbopack support
   - Register your service worker!
 
   ```tsx
+  // app/lib/client.ts
+  "use client";
+  export { SerwistProvider } from "@serwist/turbopack/react";
   // app/layout.tsx
   import type { Metadata, Viewport } from "next";
   import type { ReactNode } from "react";
-  import { SerwistProvider } from "$lib/client";
+  import { SerwistProvider } from "./lib/client";
 
   const APP_NAME = "NJS App";
   const APP_DESCRIPTION = "Next.js + Serwist PWA";
@@ -166,3 +169,5 @@ feat(turbo): added rudimentary Turbopack support
   - Sourcemap is always enabled.
 
   - Relies on `esbuild-wasm`, which unfortunately has to be externally installed.
+
+  - `SerwistProvider` has to be manually re-exported from `@serwist/turbopack/react` with the `"use client"` directive, as we can't use `"use client"` in Rollup (which is what we use to bundle our packages) yet.

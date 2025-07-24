@@ -1,17 +1,14 @@
 import { z } from "zod";
-import { manifestEntry } from "./manifest-entry.js";
-import { asyncFn } from "./utils.js";
-
-const sizeObject = z.object({ size: z.number() });
-
-const manifestEntryWithSize = z.object({ ...manifestEntry.shape, ...sizeObject.shape });
+import type { ManifestEntryWithSize, ManifestTransformResult } from "../types.js";
+import { manifestEntryWithSize } from "./manifest-entry.js";
+import { asyncFn, reference } from "./utils.js";
 
 export const manifestTransformResult = z.strictObject({
-  manifest: z.array(manifestEntryWithSize),
+  manifest: z.array(reference<ManifestEntryWithSize>(manifestEntryWithSize)),
   warnings: z.array(z.string()).optional(),
 });
 
 export const manifestTransform = asyncFn({
-  input: [z.array(manifestEntryWithSize), z.unknown().optional()],
-  output: manifestTransformResult,
+  input: [z.array(reference<ManifestEntryWithSize>(manifestEntryWithSize)), z.unknown().optional()],
+  output: reference<ManifestTransformResult>(manifestTransformResult),
 });

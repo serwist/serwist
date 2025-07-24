@@ -18,7 +18,7 @@ import type { GetManifestOptions, GetManifestResult } from "./types.js";
  * ```
  * // The following lists some common options; see the rest of the documentation
  * // for the full set of options and defaults.
- * const {count, manifestEntries, size, warnings} = await getManifest({
+ * const { count, manifestEntries, size, warnings } = await getManifest({
  *   dontCacheBustURLsMatching: [new RegExp('...')],
  *   globDirectory: '...',
  *   globPatterns: ['...', '...'],

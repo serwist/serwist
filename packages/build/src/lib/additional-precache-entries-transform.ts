@@ -6,15 +6,15 @@
   https://opensource.org/licenses/MIT.
 */
 import { errors } from "@serwist/utils/node";
-import type { ManifestEntry } from "../types.js";
+import type { ManifestEntry, ManifestEntryWithSize } from "../types.js";
 
-type AdditionalManifestEntriesTransform = (manifest: (ManifestEntry & { size: number })[]) => {
-  manifest: (ManifestEntry & { size: number })[];
+type AdditionalManifestEntriesTransform = (manifest: ManifestEntryWithSize[]) => {
+  manifest: ManifestEntryWithSize[];
   warnings: string[];
 };
 
 export const additionalPrecacheEntriesTransform = (additionalPrecacheEntries: (ManifestEntry | string)[]): AdditionalManifestEntriesTransform => {
-  return (manifest: (ManifestEntry & { size: number })[]) => {
+  return (manifest: ManifestEntryWithSize[]) => {
     const warnings: string[] = [];
     const stringEntries = new Set<string>();
 

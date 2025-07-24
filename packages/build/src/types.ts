@@ -1,20 +1,15 @@
-import type { MaybePromise, Prettify, Require } from "@serwist/utils";
-import type { PackageJson } from "type-fest";
+import type { Prettify, Require } from "@serwist/utils";
 import type { z } from "zod";
-import type { manifestEntry } from "./schema/manifest-entry.js";
-import type { manifestTransformResult } from "./schema/manifest-transform.js";
+import type { manifestEntry, manifestEntryWithSize } from "./schema/manifest-entry.js";
+import type { manifestTransform, manifestTransformResult } from "./schema/manifest-transform.js";
 
-export type ManifestEntry = z.input<typeof manifestEntry>;
+export interface ManifestTransformResult extends z.infer<typeof manifestTransformResult> {}
 
-export type ManifestTransformResult = z.input<typeof manifestTransformResult>;
+export interface ManifestEntry extends z.infer<typeof manifestEntry> {}
 
-export type ManifestTransform = (
-  entries: (ManifestEntry & { size: number })[],
-  params?: unknown,
-) => MaybePromise<{
-  manifest: (ManifestEntry & { size: number })[];
-  warnings?: string[] | undefined;
-}>;
+export interface ManifestEntryWithSize extends z.infer<typeof manifestEntryWithSize> {}
+
+export interface ManifestTransform extends z.infer<typeof manifestTransform> {}
 
 export interface BasePartial {
   /**
@@ -207,18 +202,3 @@ export interface GetManifestResult {
 export type BuildResult = Omit<GetManifestResult, "manifestEntries"> & {
   filePaths: string[];
 };
-
-/**
- * @private
- */
-export type BuildType = "dev" | "prod";
-
-/**
- * @private
- */
-export type SerwistPackageJSON = Prettify<PackageJson>;
-
-/**
- * @private
- */
-export type MethodNames = "GetManifest" | "InjectManifest" | "WebpackInjectManifest" | "ViteInjectManifest";
