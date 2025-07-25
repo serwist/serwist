@@ -1,5 +1,19 @@
 # @serwist/vite
 
+## 10.0.0-preview.11
+### Patch Changes
+
+
+
+- [`a5ccd30`](https://github.com/serwist/serwist/commit/a5ccd302908a30e701831796bd18aad283b51cc5) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(vite/preview): rename `virtual:serwist.svelte` to `virtual:serwist/svelte`
+  
+  - Turns out that actually causes Svelte to think it's a `.svelte` file, not a `.svelte.js` one...
+- Updated dependencies []:
+  - @serwist/build@10.0.0-preview.11
+  - @serwist/utils@10.0.0-preview.11
+  - @serwist/window@10.0.0-preview.11
+  - serwist@10.0.0-preview.11
+
 ## 10.0.0-preview.10
 ### Patch Changes
 

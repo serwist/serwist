@@ -1,5 +1,14 @@
 # @serwist/react-router
 
+## 10.0.0-preview.11
+### Patch Changes
+
+- Updated dependencies [[`a5ccd30`](https://github.com/serwist/serwist/commit/a5ccd302908a30e701831796bd18aad283b51cc5)]:
+  - vite-plugin-serwist@10.0.0-preview.11
+  - @serwist/build@10.0.0-preview.11
+  - @serwist/utils@10.0.0-preview.11
+  - @serwist/window@10.0.0-preview.11
+
 ## 10.0.0-preview.10
 ### Patch Changes
 
