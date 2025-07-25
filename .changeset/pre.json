@@ -46,6 +46,7 @@
     "@serwist/turbopack": "10.0.0-preview.8"
   },
   "changesets": [
+    "brave-experts-serve",
     "gentle-trams-boil",
     "happy-papers-tan",
     "kind-beds-rush",
