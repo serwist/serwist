@@ -1,5 +1,13 @@
 # @serwist/turbopack
 
+## 10.0.0-preview.11
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/build@10.0.0-preview.11
+  - @serwist/window@10.0.0-preview.11
+  - serwist@10.0.0-preview.11
+
 ## 10.0.0-preview.10
 ### Minor Changes
 
