@@ -161,4 +161,4 @@ export interface SerwistViteApi {
 export type VirtualPrefix = typeof VIRTUAL_PREFIX;
 export type VirtualSerwist = typeof VIRTUAL_SERWIST;
 export type Frameworks = (typeof FRAMEWORKS)[number];
-export type VirtualFrameworks = `${VirtualPrefix}${VirtualSerwist}${Frameworks}`;
+export type VirtualFrameworks = `${VirtualPrefix}${VirtualSerwist}/${Frameworks}`;

@@ -113,10 +113,7 @@ export const getSerwist = () => {
   }
   if (Object.hasOwn(VIRTUAL_FRAMEWORKS_MAP, id)) {
     const framework = VIRTUAL_FRAMEWORKS_MAP[id as VirtualFrameworks];
-    const content = readFileSync(
-      path.resolve(require.resolve("vite-plugin-serwist"), "../client", framework.startsWith(".") ? `./index${framework}.js` : `.${framework}.js`),
-      "utf-8",
-    );
+    const content = readFileSync(path.resolve(require.resolve("vite-plugin-serwist"), `../client/index.${framework}.js`), "utf-8");
     return content;
   }
   return undefined;

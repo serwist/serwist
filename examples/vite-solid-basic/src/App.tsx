@@ -1,8 +1,7 @@
 import { useSerwist } from "virtual:serwist/solid";
 import { createEffect, type Component } from "solid-js";
-
-import logo from "./logo.svg";
 import styles from "./App.module.css";
+import logo from "./logo.svg";
 
 const App: Component = () => {
   const serwist = useSerwist();

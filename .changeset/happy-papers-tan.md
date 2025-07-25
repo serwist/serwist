@@ -4,7 +4,7 @@
 
 feat(vite): introduce framework-specific hooks
 
-- `useSerwist` is a new hook used for accessing the Serwist instance. It can be imported from `virtual:serwist/preact` for Preact (≥ 10.0.0), `virtual:serwist/react` for React (≥ 18.0.0), `virtual:serwist/solid` for Solid (≥ 1.0.0), `virtual:serwist.svelte` for Svelte (≥ 5.0.0), `virtual:serwist/vue` for Vue (≥ 3.0.0). For example:
+- `useSerwist` is a new hook used for accessing the Serwist instance. It can be imported from `virtual:serwist/preact` for Preact (≥ 10.0.0), `virtual:serwist/react` for React (≥ 18.0.0), `virtual:serwist/solid` for Solid (≥ 1.0.0), `virtual:serwist/svelte` for Svelte (≥ 5.0.0), `virtual:serwist/vue` for Vue (≥ 3.0.0). For example:
 
   For React:
 
@@ -29,7 +29,7 @@ feat(vite): introduce framework-specific hooks
   ```svelte
   <script lang="ts">
     // Must be in Runes mode!
-    import { useSerwist } from "virtual:serwist.svelte";
+    import { useSerwist } from "virtual:serwist/svelte";
 
     const serwist = useSerwist();
 
