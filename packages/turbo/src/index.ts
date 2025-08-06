@@ -1,3 +1,6 @@
+// Workaround for Next.js + Turbopack, while plugins are still
+// not supported. This relies on Next.js Route Handlers and file
+// name determinism.
 import path from "node:path";
 import { type BuildResult, getFileManifestEntries, rebasePath } from "@serwist/build";
 import { SerwistConfigError, validationErrorMap } from "@serwist/build/schema";
@@ -16,7 +19,7 @@ const logSerwistResult = (filePath: string, buildResult: Pick<BuildResult, "coun
   const hasWarnings = warnings && warnings.length > 0;
   // The route is reinitiated for each `path` param, so we only log results
   // if we're prerendering for sw.js.
-  if (filePath === "sw.js") {
+  if (filePath === "sw.js" && (hasWarnings || count > 0)) {
     logger[hasWarnings ? "warn" : "event"](
       `${cyan(count)} precache entries ${dim(`(${(size / 1024).toFixed(2)} KiB)`)}${
         hasWarnings ? `\n${yellow(["⚠ warnings", ...warnings.map((w) => `  ${w}`), ""].join("\n"))}` : ""
@@ -54,32 +57,37 @@ export const createSerwistRoute = (options: InjectManifestOptions) => {
     dynamicParams = false as const,
     revalidate = false as const;
   const validation = validateGetManifestOptions(options).then((config) => {
-    // Make sure we leave swSrc out of the precache manifest.
-    config.globIgnores.push(
-      rebasePath({
-        file: config.swSrc,
-        baseDirectory: config.globDirectory,
-      }),
-    );
-    if (!config.manifestTransforms) {
-      config.manifestTransforms = [];
-    }
-    config.manifestTransforms.push((manifestEntries) => {
-      const manifest = manifestEntries.map((m) => {
-        // Replace all references to .next/ with "/_next/".
-        if (m.url.startsWith(".next/")) m.url = `/_next/${m.url.slice(6)}`;
-        // Replace all references to public/ with "$(basePath)/".
-        if (m.url.startsWith("public/")) m.url = path.posix.join(config.basePath, m.url.slice(7));
-        return m;
-      });
-      return { manifest, warnings: [] };
-    });
-    return config;
+    return {
+      ...config,
+      disablePrecacheManifest: isDev,
+      additionalPrecacheEntries: isDev ? [] : config.additionalPrecacheEntries,
+      globIgnores: [
+        ...config.globIgnores,
+        // Make sure we leave swSrc out of the precache manifest.
+        rebasePath({
+          file: config.swSrc,
+          baseDirectory: config.globDirectory,
+        }),
+      ],
+      manifestTransforms: [
+        ...(config.manifestTransforms ?? []),
+        (manifestEntries) => {
+          const manifest = manifestEntries.map((m) => {
+            // Replace all references to .next/ with "/_next/".
+            if (m.url.startsWith(".next/")) m.url = `/_next/${m.url.slice(6)}`;
+            // Replace all references to public/ with "$(basePath)/".
+            if (m.url.startsWith("public/")) m.url = path.posix.join(config.basePath, m.url.slice(7));
+            return m;
+          });
+          return { manifest, warnings: [] };
+        },
+      ],
+    };
   });
-  const generateStaticParams = () => {
-    return [{ path: "sw.js" }, { path: "sw.js.map" }];
-  };
   let map: Map<string, string> | null = null;
+  // NOTE: ALL FILES MUST HAVE DETERMINISTIC NAMES. THIS IS BECAUSE
+  // THE FOLLOWING MAP IS LOADED SEPARATELY FOR `generateStaticParams`
+  // AND EVERY `GET` REQUEST TO EACH OF THE FILES.
   const loadMap = async (filePath: string) => {
     const config = await validation;
     const { count, size, manifestEntries, warnings } = await getFileManifestEntries({
@@ -91,19 +99,27 @@ export const createSerwistRoute = (options: InjectManifestOptions) => {
     const manifestString = manifestEntries === undefined ? "undefined" : JSON.stringify(manifestEntries, null, 2);
     logSerwistResult(filePath, { count, size, warnings });
     const result = await (await esbuild).build({
-      entryPoints: [{ in: config.swSrc, out: "sw" }],
-      format: "esm",
       sourcemap: true,
-      bundle: true,
-      write: false,
+      format: "esm",
+      target: ["chrome64", "edge79", "firefox67", "opera51", "safari12"],
+      treeShaking: true,
       minify: !isDev,
-      define: injectionPoint
-        ? {
-            [injectionPoint]: manifestString,
-          }
-        : undefined,
-      outdir: process.cwd(),
+      bundle: true,
+      ...config.esbuildOptions,
+      platform: "browser",
+      define: {
+        ...config.esbuildOptions.define,
+        ...(injectionPoint ? { [injectionPoint]: manifestString } : {}),
+      },
+      outdir: config.cwd,
+      write: false,
       entryNames: "[name]",
+      // Asset and chunk names must be at the top, as our path is `/serwist/[path]`,
+      // not `/serwist/[...path]`, meaning that we can't resolve paths deeper
+      // than one level.
+      assetNames: "[name]-[hash]",
+      chunkNames: "[name]-[hash]",
+      entryPoints: [{ in: config.swSrc, out: "sw" }],
     });
     if (result.errors.length) {
       console.error("Failed to build the service worker.", result.errors);
@@ -114,11 +130,17 @@ export const createSerwistRoute = (options: InjectManifestOptions) => {
     }
     return new Map(result.outputFiles.map((e) => [e.path, e.text]));
   };
+  const generateStaticParams = async () => {
+    const config = await validation;
+    if (!map) map = await loadMap("root");
+    return [...map.keys().map((e) => ({ path: path.relative(config.cwd, e) }))];
+  };
   const GET = async (_: Request, { params }: { params: Promise<{ path: string }> }) => {
     // TODO: obviously, files get stale in development when we pull this off.
     const { path: filePath } = await params;
+    const config = await validation;
     if (!map) map = await loadMap(filePath);
-    return new NextResponse(map.get(path.join(process.cwd(), filePath)), {
+    return new NextResponse(map.get(path.join(config.cwd, filePath)), {
       headers: {
         "Content-Type": contentTypeMap[path.extname(filePath)] || "text/plain",
         "Service-Worker-Allowed": "/",
