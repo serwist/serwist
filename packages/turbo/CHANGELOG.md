@@ -1,5 +1,47 @@
 # @serwist/turbopack
 
+## 10.0.0-preview.12
+### Minor Changes
+
+
+
+- [`e3dbb24`](https://github.com/serwist/serwist/commit/e3dbb24b6c70205058eb8f6eb777146c86e7ae43) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(turbo/preview): allow configuring `esbuild` instance
+  
+  - You can now configure `@serwist/turbopack`'s `esbuild` instance. For example, to output the service worker in the `iife` format and disable sourcemaps:
+  
+  ```tsx
+  // app/serwist/[path]/route.ts
+  export const { dynamic, dynamicParams, revalidate, generateStaticParams, GET } = createSerwistRoute({
+    swSrc: "app/sw.ts",
+    basePath: "/",
+    esbuildOptions: {
+      sourcemaps: false,
+      format: "iife",
+      define: {
+        "import.meta": "{}",
+      },
+    },
+  });
+  
+  // app/layout.tsx
+  export default function RootLayout({ children }: { children: ReactNode }) {
+    return (
+      <html lang="en" dir="ltr">
+        <body>
+          <SerwistProvider swUrl="/serwist/sw.js" options={{ type: "classic" }}>{children}</SerwistProvider>
+        </body>
+      </html>
+    );
+  }
+  ```
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/build@10.0.0-preview.12
+  - @serwist/window@10.0.0-preview.12
+  - serwist@10.0.0-preview.12
+
 ## 10.0.0-preview.11
 ### Patch Changes
 
