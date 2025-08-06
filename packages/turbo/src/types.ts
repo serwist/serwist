@@ -8,10 +8,13 @@ import type {
   OptionalGlobDirectoryPartial,
   RequiredGlobDirectoryResolved,
 } from "@serwist/build";
-import { assertType, type Equals } from "@serwist/build/schema";
-import type { Prettify } from "@serwist/utils";
-import type z from "zod";
-import type { injectManifestOptions } from "./index.schema.js";
+import type { Prettify, Require } from "@serwist/utils";
+import type { BuildOptions } from "esbuild-wasm";
+import type { SUPPORTED_ESBUILD_OPTIONS } from "./lib/constants.js";
+
+export type EsbuildSupportedOptions = (typeof SUPPORTED_ESBUILD_OPTIONS)[number];
+
+export type EsbuildOptions = Pick<BuildOptions, EsbuildSupportedOptions>;
 
 export interface TurboPartial {
   /**
@@ -25,13 +28,15 @@ export interface TurboPartial {
    * is not configured, set to `/`.
    */
   basePath: string;
+  esbuildOptions?: EsbuildOptions;
 }
 
-export type TurboResolved = Required<TurboPartial>;
+export type TurboResolved = Require<TurboPartial, "cwd" | "esbuildOptions">;
 
-export type InjectManifestOptions = Prettify<BasePartial & GlobPartial & InjectPartial & OptionalGlobDirectoryPartial & TurboPartial>;
+export type InjectManifestOptions = Prettify<
+  Omit<BasePartial & GlobPartial & InjectPartial & OptionalGlobDirectoryPartial & TurboPartial, "disablePrecacheManifest">
+>;
 
-export type InjectManifestOptionsComplete = Prettify<BaseResolved & GlobResolved & InjectResolved & RequiredGlobDirectoryResolved & TurboResolved>;
-
-assertType<Equals<InjectManifestOptions, z.input<typeof injectManifestOptions>>>();
-assertType<Equals<InjectManifestOptionsComplete, z.output<typeof injectManifestOptions>>>();
+export type InjectManifestOptionsComplete = Prettify<
+  Omit<BaseResolved & GlobResolved & InjectResolved & RequiredGlobDirectoryResolved & TurboResolved, "disablePrecacheManifest">
+>;
