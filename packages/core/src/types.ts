@@ -400,7 +400,7 @@ export type UrlManipulation = ({ url }: { url: URL }) => URL[];
  * Represents the condition object that defines which resources should match a rule.
  * Based on the MDN documentation for InstallEvent.addRoutes() method.
  */
-export interface RequestRouteCondition {
+export type RequestRouteCondition = {
   /**
    * A condition object defining conditions that must explicitly NOT be met to match the rule.
    * Conditions defined inside a `not` condition are mutually exclusive with other conditions.
@@ -459,7 +459,7 @@ export type RouterSource =
  * Represents a single router rule configuration.
  * Each rule contains a condition (optional) and a source (required).
  */
-export interface RequestRouteRule {
+export type RequestRouteRule = {
   /**
    * An object defining one or more conditions that specify which resources should match this rule.
    * If multiple properties are used, a resource must meet all specified conditions to match the rule.
