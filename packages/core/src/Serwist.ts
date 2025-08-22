@@ -37,7 +37,6 @@ import { printCleanupDetails } from "./utils/printCleanupDetails.js";
 import { printInstallDetails } from "./utils/printInstallDetails.js";
 import { waitUntil } from "./utils/waitUntil.js";
 import { parsePrecacheOptions } from "./utils/parsePrecacheOptions.js";
-import * as process from "node:process";
 
 declare const self: ServiceWorkerGlobalScope;
 
