@@ -345,7 +345,7 @@ export class Serwist {
    * @param event
    * @returns
    */
-  async handleInstall(event: InstallEvent): Promise<InstallResult> {
+   handleInstall(event: InstallEvent): Promise<InstallResult> {
     void this.registerRequestRoutes(event);
 
     return waitUntil<InstallResult>(event, async () => {
@@ -390,15 +390,15 @@ export class Serwist {
    * @throws {Error} When the route rules are invalid
    */
   async registerRequestRoutes(event: InstallEvent): Promise<void> {
+    if (!this._requestRouteRules) {
+      return;
+    }
+
     // Check if both the API and route rules are available
     if (!event?.addRoutes) {
       if (process.env.NODE_ENV !== "production") {
         logger.warn("Static Routing API (InstallEvent.addRoutes) is not supported in this browser");
       }
-      return;
-    }
-
-    if (!this._requestRouteRules) {
       return;
     }
 
