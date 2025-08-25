@@ -1,5 +1,18 @@
 # @serwist/turbopack
 
+## 10.0.0-preview.13
+### Patch Changes
+
+
+
+- [`86fd2ff`](https://github.com/serwist/serwist/commit/86fd2ff9f05dbfa69d9e65ab57da784336b5fe5a) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(turbo/preview): removed `esbuild-wasm` from `dependencies`
+  
+  - This caused problems with adding newer `esbuild-wasm` versions to `serverExternalPackages`.
+- Updated dependencies []:
+  - @serwist/build@10.0.0-preview.13
+  - @serwist/window@10.0.0-preview.13
+  - serwist@10.0.0-preview.13
+
 ## 10.0.0-preview.12
 ### Minor Changes
 

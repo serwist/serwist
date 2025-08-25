@@ -1,5 +1,12 @@
 # @serwist/cli
 
+## 10.0.0-preview.13
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/build@10.0.0-preview.13
+  - @serwist/utils@10.0.0-preview.13
+
 ## 10.0.0-preview.12
 ### Patch Changes
 
