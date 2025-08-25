@@ -72,8 +72,7 @@
   "dependencies": {
     "@serwist/build": "workspace:*",
     "@serwist/window": "workspace:*",
-    "@swc/core": "1.12.14",
-    "esbuild-wasm": "0.25.8",
+    "@swc/core": "1.13.5",
     "kolorist": "1.8.0",
     "serwist": "workspace:*",
     "zod": "4.2.1"
@@ -93,7 +92,8 @@
   "peerDependencies": {
     "next": ">=14.0.0",
     "react": ">=18.0.0",
-    "typescript": ">=5.0.0"
+    "typescript": ">=5.0.0",
+    "esbuild-wasm": "^0.25.0"
   },
   "peerDependenciesMeta": {
     "typescript": {
