@@ -53,7 +53,7 @@
   "devDependencies": {
     "@serwist/configs": "workspace:*",
     "@types/common-tags": "1.8.4",
-    "rollup": "4.45.1",
-    "typescript": "5.8.3"
+    "rollup": "4.48.1",
+    "typescript": "5.9.2"
   }
 }

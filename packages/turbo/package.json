@@ -72,28 +72,28 @@
   "dependencies": {
     "@serwist/build": "workspace:*",
     "@serwist/window": "workspace:*",
-    "@swc/core": "1.12.14",
-    "esbuild-wasm": "0.25.8",
+    "@swc/core": "1.13.5",
     "kolorist": "1.8.0",
     "serwist": "workspace:*",
-    "zod": "4.0.5"
+    "zod": "4.1.1"
   },
   "devDependencies": {
     "@serwist/configs": "workspace:*",
     "@serwist/utils": "workspace:*",
-    "@types/node": "24.0.14",
-    "@types/react": "19.1.8",
-    "next": "15.4.1",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "rollup": "4.45.1",
+    "@types/node": "24.3.0",
+    "@types/react": "19.1.11",
+    "next": "15.5.0",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "rollup": "4.48.1",
     "type-fest": "4.41.0",
-    "typescript": "5.8.3"
+    "typescript": "5.9.2"
   },
   "peerDependencies": {
     "next": ">=14.0.0",
     "react": ">=18.0.0",
-    "typescript": ">=5.0.0"
+    "typescript": ">=5.0.0",
+    "esbuild-wasm": "^0.25.0"
   },
   "peerDependenciesMeta": {
     "typescript": {
