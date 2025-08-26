@@ -834,9 +834,6 @@ importers:
       '@swc/core':
         specifier: 1.13.5
         version: 1.13.5(@swc/helpers@0.5.17)
-      esbuild-wasm:
-        specifier: ^0.25.0
-        version: 0.25.8
       kolorist:
         specifier: 1.8.0
         version: 1.8.0
@@ -859,6 +856,9 @@ importers:
       '@types/react':
         specifier: 19.1.11
         version: 19.1.11
+      esbuild-wasm:
+        specifier: 0.25.9
+        version: 0.25.9
       next:
         specifier: 15.5.0
         version: 15.5.0(@opentelemetry/api@1.9.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -5236,11 +5236,6 @@ packages:
   es-object-atoms@1.1.1:
     resolution: {integrity: sha512-FGgH2h8zKNim9ljj7dankFPcICIK9Cp5bm+c2gQSYePhpaG5+esrLODihIorn+Pe6FGJzWhXQotPv73jTaldXA==}
     engines: {node: '>= 0.4'}
-
-  esbuild-wasm@0.25.8:
-    resolution: {integrity: sha512-VFUDMoZdf/NsyCepv5heZqvNLYj9HL+xEKG5tktsFbx+shR8Dt9MchKBEdu/5the2RfTzgxkO6B/nUfzmsWN9Q==}
-    engines: {node: '>=18'}
-    hasBin: true
 
   esbuild-wasm@0.25.9:
     resolution: {integrity: sha512-Jpv5tCSwQg18aCqCRD3oHIX/prBhXMDapIoG//A+6+dV0e7KQMGFg85ihJ5T1EeMjbZjON3TqFy0VrGAnIHLDA==}
@@ -13677,8 +13672,6 @@ snapshots:
   es-object-atoms@1.1.1:
     dependencies:
       es-errors: 1.3.0
-
-  esbuild-wasm@0.25.8: {}
 
   esbuild-wasm@0.25.9: {}
 
