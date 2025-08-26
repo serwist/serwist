@@ -80,14 +80,15 @@
   "devDependencies": {
     "@serwist/configs": "workspace:*",
     "@serwist/utils": "workspace:*",
-    "@types/node": "25.0.3",
-    "@types/react": "19.2.7",
-    "next": "16.1.0",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
-    "rollup": "4.54.0",
-    "type-fest": "5.3.1",
-    "typescript": "5.9.3"
+    "@types/node": "24.3.0",
+    "@types/react": "19.1.11",
+    "esbuild-wasm": "0.25.9",
+    "next": "15.5.0",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "rollup": "4.48.1",
+    "type-fest": "4.41.0",
+    "typescript": "5.9.2"
   },
   "peerDependencies": {
     "next": ">=14.0.0",
