@@ -400,19 +400,19 @@ export type UrlManipulation = ({ url }: { url: URL }) => URL[];
  * Represents the condition object that defines which resources should match a rule.
  * Based on the MDN documentation for InstallEvent.addRoutes() method.
  */
-export type RequestRouteCondition = {
+export type RequestRuleCondition = {
   /**
    * A condition object defining conditions that must explicitly NOT be met to match the rule.
    * Conditions defined inside a `not` condition are mutually exclusive with other conditions.
    */
-  not?: RequestRouteCondition;
+  not?: RequestRuleCondition;
   
   /**
    * An array of condition objects. One set of these defined conditions must be met to match the rule.
    * Conditions defined inside an `or` condition are mutually exclusive with other conditions.
    * Cannot be combined with other condition types.
    */
-  or?: RequestRouteCondition[];
+  or?: RequestRuleCondition[];
   
   /**
    * A string representing the HTTP method a request should be sent by for it to match the rule.
@@ -448,7 +448,7 @@ export type RequestRouteCondition = {
  * Represents the source from which matching resources will be loaded.
  * Can be an enumerated value or an object specifying a named cache.
  */
-export type RouterSource = 
+export type RequestRuleSource =
   | 'cache'
   | 'fetch-event' 
   | 'network' 
@@ -459,17 +459,17 @@ export type RouterSource =
  * Represents a single router rule configuration.
  * Each rule contains a condition (optional) and a source (required).
  */
-export type RequestRouteRule = {
+export type RequestRule = {
   /**
    * An object defining one or more conditions that specify which resources should match this rule.
    * If multiple properties are used, a resource must meet all specified conditions to match the rule.
    */
-  condition?: RequestRouteCondition;
+  condition?: RequestRuleCondition;
   
   /**
    * An enumerated value or an object specifying the source from which matching resources will be loaded.
    */
-  source: RouterSource;
+  source: RequestRuleSource;
 }
 
 /**
@@ -489,12 +489,12 @@ export interface InstallEvent extends ExtendableEvent {
   /**
    * Specifies one or more static routes for fetching resources.
    * 
-   * @param routerRules - A single object, or an array of one or more objects, representing rules 
+   * @param requestRules - A single object, or an array of one or more objects, representing rules
    *                     for how certain resources should be fetched.
    * @returns A Promise that fulfills with undefined.
    * @throws TypeError - Thrown if one or more of the rules objects is invalid, or has a source 
    *                    value of "fetch-event" when the associated service worker does not have 
    *                    a fetch event handler. Also thrown if you try to combine `or` with another condition type.
    */
-  addRoutes?(routerRules: RequestRouteRule | RequestRouteRule[]): Promise<void>;
+  addRoutes?(requestRules: RequestRule | RequestRule[]): Promise<void>;
 }
