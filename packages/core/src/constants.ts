@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-export type HTTPMethod = "DELETE" | "GET" | "HEAD" | "PATCH" | "POST" | "PUT";
+export type HTTPMethod = "DELETE" | "GET" | "HEAD" | "PATCH" | "POST" | "PUT" | "OPTIONS";
 
 /**
  * The default HTTP method, 'GET', used when there's no specific method

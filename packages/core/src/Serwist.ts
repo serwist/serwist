@@ -19,7 +19,7 @@ import type {
   RouteHandlerObject,
   RouteMatchCallback,
   RouteMatchCallbackOptions,
-  InstallEvent
+  InstallEvent,
 } from "./types.js";
 import type { RuntimeCaching } from "./types.js";
 import type { CleanupResult, InstallResult, PrecacheEntry } from "./types.js";
@@ -93,6 +93,13 @@ export interface SerwistOptions {
    */
   runtimeCaching?: RuntimeCaching[];
   /**
+   * Request rules that define how certain resources should be fetched
+   * before the service worker starts up.
+   *
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/InstallEvent/addRoutes
+   */
+  requestRules?: RequestRule | RequestRule[];
+  /**
    * Your configuration for {@linkcode initializeGoogleAnalytics}. This plugin is
    * only initialized when this option is not `undefined` or `false`.
    */
@@ -103,13 +110,6 @@ export interface SerwistOptions {
    * @default false
    */
   disableDevLogs?: boolean;
-  /**
-   * Request rules that define how certain resources should be fetched
-   * even before the service worker starts up.
-   *
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/InstallEvent/addRoutes
-   */
-  requestRules?: RequestRule | RequestRule[];
   /**
    * Precaches routes so that they can be used as a fallback when
    * a {@linkcode Strategy} fails to generate a response.
@@ -344,7 +344,7 @@ export class Serwist {
    * @param event
    * @returns
    */
-   handleInstall(event: InstallEvent): Promise<InstallResult> {
+  handleInstall(event: InstallEvent): Promise<InstallResult> {
     void this.registerRequestRules(event);
 
     return waitUntil<InstallResult>(event, async () => {
@@ -382,10 +382,10 @@ export class Serwist {
   }
 
   /**
-   * Registers static route rules using the experimental InstallEvent.addRoutes() API.
+   * Registers request rules using the experimental `InstallEvent.addRoutes()` API.
    * These rules allow bypassing the service worker for specific requests to improve performance.
    *
-   * @param event - The install event from the service worker lifecycle
+   * @param event The event object of an `install` event handler.
    * @throws {Error} When the route rules are invalid
    */
   async registerRequestRules(event: InstallEvent): Promise<void> {
@@ -396,26 +396,32 @@ export class Serwist {
     // Check if both the API and route rules are available
     if (!event?.addRoutes) {
       if (process.env.NODE_ENV !== "production") {
-        logger.warn("Request rules ignored as Static Routing API (InstallEvent.addRoutes) is not supported in this browser.");
+        logger.warn(
+          "Request rules ignored as the Static Routing API is not supported in this browser. " +
+            "See https://caniuse.com/mdn-api_installevent_addroutes for more information.",
+        );
       }
       return;
     }
 
     try {
-      await event.addRoutes(this._requestRules);
-
       if (process.env.NODE_ENV !== "production") {
         logger.warn(
-          "Request rules as Static Routing API is experimental and may not be supported in all browsers. " +
-          "This feature allows bypassing the service worker for specific requests to improve performance. " +
-          "See: https://developer.mozilla.org/en-US/docs/Web/API/InstallEvent/addRoutes"
+          "Request rules may not be supported in all browsers as the Static Routing API is experimental. " +
+            "This feature allows bypassing the service worker for specific requests to improve performance. " +
+            "See https://developer.mozilla.org/en-US/docs/Web/API/InstallEvent/addRoutes for more information.",
         );
       }
+
+      await event.addRoutes(this._requestRules);
+
+      // Free up the rules object.
+      this._requestRules = undefined;
     } catch (error) {
       if (process.env.NODE_ENV !== "production") {
         logger.error(
           `Failed to register request rules: ${error instanceof Error ? error.message : String(error)}. ` +
-          "This may occur if the browser doesn't support the Static Routing API or if the request rules are invalid."
+            "This may occur if the browser doesn't support the Static Routing API or if the request rules are invalid.",
         );
       }
 

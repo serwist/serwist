@@ -398,48 +398,51 @@ export type UrlManipulation = ({ url }: { url: URL }) => URL[];
 
 /**
  * Represents the condition object that defines which resources should match a rule.
- * Based on the MDN documentation for InstallEvent.addRoutes() method.
+ * Based on the MDN documentation for `InstallEvent.addRoutes()`.
  */
-export type RequestRuleCondition = {
+export interface RequestRuleCondition {
   /**
    * A condition object defining conditions that must explicitly NOT be met to match the rule.
    * Conditions defined inside a `not` condition are mutually exclusive with other conditions.
    */
   not?: RequestRuleCondition;
-  
+
   /**
    * An array of condition objects. One set of these defined conditions must be met to match the rule.
    * Conditions defined inside an `or` condition are mutually exclusive with other conditions.
    * Cannot be combined with other condition types.
    */
   or?: RequestRuleCondition[];
-  
+
   /**
    * A string representing the HTTP method a request should be sent by for it to match the rule.
-   * Examples: "GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS", "PATCH"
+   *
+   * @example "GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS", "PATCH"
    */
-  requestMethod?: string;
-  
+  requestMethod?: HTTPMethod;
+
   /**
    * A string representing the mode a request should have for it to match the rule.
-   * Examples: "same-origin", "no-cors", "cors"
+   *
+   * @example "same-origin", "no-cors", "cors"
    */
   requestMode?: RequestMode;
-  
+
   /**
    * A string representing the destination of a request, i.e., what content type should be requested.
-   * Examples: "audio", "document", "script", "worker"
+   *
+   * @example "audio", "document", "script", "worker"
    */
   requestDestination?: RequestDestination;
-  
+
   /**
    * An enumerated value representing the required running status of the service worker for a request to match the rule.
    */
-  runningStatus?: 'running' | 'not-running';
-  
+  runningStatus?: "running" | "not-running";
+
   /**
    * A URLPattern instance, or a URLPattern constructor input pattern representing the URLs that match the rule.
-   * Regular expression capturing groups are not allowed, so URLPattern.hasRegExpGroups must be false.
+   * Regular expression capturing groups are not allowed, so `URLPattern.hasRegExpGroups` must be `false`.
    */
   urlPattern?: URLPattern | URLPatternInit;
 }
@@ -448,53 +451,48 @@ export type RequestRuleCondition = {
  * Represents the source from which matching resources will be loaded.
  * Can be an enumerated value or an object specifying a named cache.
  */
-export type RequestRuleSource =
-  | 'cache'
-  | 'fetch-event' 
-  | 'network' 
-  | 'race-network-and-fetch-handler'
-  | { cacheName: string };
+export type RequestRuleSource = "cache" | "fetch-event" | "network" | "race-network-and-fetch-handler" | { cacheName: string };
 
 /**
  * Represents a single router rule configuration.
  * Each rule contains a condition (optional) and a source (required).
  */
-export type RequestRule = {
+export interface RequestRule {
   /**
    * An object defining one or more conditions that specify which resources should match this rule.
    * If multiple properties are used, a resource must meet all specified conditions to match the rule.
    */
   condition?: RequestRuleCondition;
-  
+
   /**
    * An enumerated value or an object specifying the source from which matching resources will be loaded.
    */
   source: RequestRuleSource;
-}
+};
 
 /**
  * Types based on MDN documentation
  * https://developer.mozilla.org/en-US/docs/Web/API/InstallEvent/addRoutes
  *
- * Extends the standard ExtendableEvent interface to include the addRoutes method
- * for configuring static routes in service worker installation.
- * 
- * The addRoutes() method specifies one or more static routes, which define rules 
+ * Extends the standard `ExtendableEvent` interface to include the `addRoutes` method
+ * for configuring static routes during the service worker's installation.
+ *
+ * The `addRoutes()` method specifies one or more static routes, which define rules
  * for fetching specified resources that will be used even before service worker startup.
- * This allows bypassing a service worker in cases where you always want to fetch 
- * a resource from the network or a browser Cache, avoiding the performance overhead 
+ * This allows bypassing a service worker in cases where you always want to fetch
+ * a resource from the network or a browser cache, avoiding the performance overhead
  * of unnecessary service worker cycles.
  */
 export interface InstallEvent extends ExtendableEvent {
   /**
    * Specifies one or more static routes for fetching resources.
-   * 
-   * @param requestRules - A single object, or an array of one or more objects, representing rules
-   *                     for how certain resources should be fetched.
-   * @returns A Promise that fulfills with undefined.
-   * @throws TypeError - Thrown if one or more of the rules objects is invalid, or has a source 
-   *                    value of "fetch-event" when the associated service worker does not have 
-   *                    a fetch event handler. Also thrown if you try to combine `or` with another condition type.
+   *
+   * @param requestRules A single object, or an array of one or more objects, representing rules
+   * for how certain resources should be fetched.
+   * @returns A Promise that fulfills with `undefined`.
+   * @throws {TypeError} Thrown if one or more of the rules objects is invalid, or has a source
+   * value of `"fetch-event"` when the associated service worker does not have
+   * a `fetch` event handler. Also thrown if you try to combine `or` with another condition type.
    */
   addRoutes?(requestRules: RequestRule | RequestRule[]): Promise<void>;
 }
