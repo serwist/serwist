@@ -468,7 +468,7 @@ export interface RequestRule {
    * An enumerated value or an object specifying the source from which matching resources will be loaded.
    */
   source: RequestRuleSource;
-};
+}
 
 /**
  * Types based on MDN documentation

@@ -1,6 +1,6 @@
 {
   "name": "@serwist/cli",
-  "version": "9.1.1",
+  "version": "9.2.0",
   "type": "module",
   "description": "The command line interface of Serwist.",
   "files": [
