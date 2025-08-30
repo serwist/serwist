@@ -12,12 +12,14 @@ import { enableNavigationPreload } from "./navigationPreload.js";
 import { setCacheNameDetails } from "./setCacheNameDetails.js";
 import type {
   PrecacheOptions,
+  RequestRule,
   RouteHandler,
   RouteHandlerCallback,
   RouteHandlerCallbackOptions,
   RouteHandlerObject,
   RouteMatchCallback,
   RouteMatchCallbackOptions,
+  InstallEvent,
 } from "./types.js";
 import type { RuntimeCaching } from "./types.js";
 import type { CleanupResult, InstallResult, PrecacheEntry } from "./types.js";
@@ -91,6 +93,14 @@ export interface SerwistOptions {
    */
   runtimeCaching?: RuntimeCaching[];
   /**
+   * Request rules that define how certain resources should be fetched
+   * before the service worker starts up.
+   *
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/InstallEvent/addRoutes
+   * @experimental
+   */
+  requestRules?: RequestRule | RequestRule[];
+  /**
    * Your configuration for {@linkcode initializeGoogleAnalytics}. This plugin is
    * only initialized when this option is not `undefined` or `false`.
    */
@@ -134,6 +144,7 @@ export class Serwist {
   private readonly _routes: Map<HTTPMethod, Route[]>;
   private readonly _defaultHandlerMap: Map<HTTPMethod, RouteHandlerObject>;
   private _catchHandler?: RouteHandlerObject;
+  private _requestRules?: RequestRule | RequestRule[];
 
   constructor({
     precacheEntries,
@@ -147,6 +158,7 @@ export class Serwist {
     offlineAnalyticsConfig,
     disableDevLogs = false,
     fallbacks,
+    requestRules,
   }: SerwistOptions = {}) {
     const { precacheStrategyOptions, precacheRouteOptions, precacheMiscOptions } = parsePrecacheOptions(this, precacheOptions);
 
@@ -154,6 +166,7 @@ export class Serwist {
     this._precacheStrategy = new PrecacheStrategy(precacheStrategyOptions);
     this._routes = new Map();
     this._defaultHandlerMap = new Map();
+    this._requestRules = requestRules;
 
     this.handleInstall = this.handleInstall.bind(this);
     this.handleActivate = this.handleActivate.bind(this);
@@ -332,7 +345,9 @@ export class Serwist {
    * @param event
    * @returns
    */
-  handleInstall(event: ExtendableEvent): Promise<InstallResult> {
+  handleInstall(event: InstallEvent): Promise<InstallResult> {
+    void this.registerRequestRules(event);
+
     return waitUntil<InstallResult>(event, async () => {
       const installReportPlugin = new PrecacheInstallReportPlugin();
       this.precacheStrategy.plugins.push(installReportPlugin);
@@ -365,6 +380,54 @@ export class Serwist {
 
       return { updatedURLs, notUpdatedURLs };
     });
+  }
+
+  /**
+   * Registers request rules using the experimental `InstallEvent.addRoutes()` API.
+   * These rules allow bypassing the service worker for specific requests to improve performance.
+   *
+   * @param event The event object of an `install` event handler.
+   * @throws {Error} When the route rules are invalid
+   */
+  async registerRequestRules(event: InstallEvent): Promise<void> {
+    if (!this._requestRules) {
+      return;
+    }
+
+    // Check if both the API and route rules are available
+    if (!event?.addRoutes) {
+      if (process.env.NODE_ENV !== "production") {
+        logger.warn(
+          "Request rules ignored as the Static Routing API is not supported in this browser. " +
+            "See https://caniuse.com/mdn-api_installevent_addroutes for more information.",
+        );
+      }
+      return;
+    }
+
+    try {
+      if (process.env.NODE_ENV !== "production") {
+        logger.warn(
+          "Request rules may not be supported in all browsers as the Static Routing API is experimental. " +
+            "This feature allows bypassing the service worker for specific requests to improve performance. " +
+            "See https://developer.mozilla.org/en-US/docs/Web/API/InstallEvent/addRoutes for more information.",
+        );
+      }
+
+      await event.addRoutes(this._requestRules);
+
+      // Free up the rules object.
+      this._requestRules = undefined;
+    } catch (error) {
+      if (process.env.NODE_ENV !== "production") {
+        logger.error(
+          `Failed to register request rules: ${error instanceof Error ? error.message : String(error)}. ` +
+            "This may occur if the browser doesn't support the Static Routing API or if the request rules are invalid.",
+        );
+      }
+
+      throw error;
+    }
   }
 
   /**
