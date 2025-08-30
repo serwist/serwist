@@ -1,6 +1,6 @@
 {
   "name": "@serwist/turbopack",
-  "version": "9.1.1",
+  "version": "9.2.0",
   "type": "module",
   "private": true,
   "sideEffects": false,
