@@ -70,11 +70,11 @@ export const app = async (params: MeowResult<SupportedFlags>): Promise<void> => 
 
     case "inject-manifest": {
       const configPath = path.resolve(process.cwd(), option || constants.defaultConfigFile);
-      const configURL = pathToFileURL(configPath).href;
+      const configUrl = pathToFileURL(configPath).href;
 
       let config: InjectManifestOptions | null;
       try {
-        config = await readConfig(configURL);
+        config = await readConfig(configUrl);
       } catch (error) {
         config = null;
         if (error instanceof Error) {
