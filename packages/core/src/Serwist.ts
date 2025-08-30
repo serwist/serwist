@@ -97,6 +97,7 @@ export interface SerwistOptions {
    * before the service worker starts up.
    *
    * @see https://developer.mozilla.org/en-US/docs/Web/API/InstallEvent/addRoutes
+   * @experimental
    */
   requestRules?: RequestRule | RequestRule[];
   /**
