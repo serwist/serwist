@@ -42,9 +42,9 @@
   },
   "devDependencies": {
     "@serwist/configs": "workspace:*",
-    "cross-env": "7.0.3",
-    "rollup": "4.45.1",
-    "typescript": "5.8.3"
+    "cross-env": "10.0.0",
+    "rollup": "4.49.0",
+    "typescript": "5.9.2"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0"
