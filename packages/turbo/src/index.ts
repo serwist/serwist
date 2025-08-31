@@ -90,7 +90,10 @@ export const createSerwistRoute = (options: InjectManifestOptions) => {
   // AND EVERY `GET` REQUEST TO EACH OF THE FILES.
   const loadMap = async (filePath: string) => {
     const config = await validation;
-    const { count, size, manifestEntries, warnings } = await getFileManifestEntries(config);
+    const { count, size, manifestEntries, warnings } = await getFileManifestEntries({
+      ...config,
+      disablePrecacheManifest: process.env.NODE_ENV === "development",
+    });
     // See https://github.com/GoogleChrome/workbox/issues/2230
     const injectionPoint = config.injectionPoint ? config.injectionPoint : "";
     const manifestString = manifestEntries === undefined ? "undefined" : JSON.stringify(manifestEntries, null, 2);

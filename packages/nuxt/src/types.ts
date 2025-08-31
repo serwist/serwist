@@ -1,5 +1,5 @@
+import type { Optional, Require } from "@serwist/utils";
 import type { PluginOptions } from "vite-plugin-serwist";
-import type { Optional } from "./utils.js";
 
 export interface ClientOptions {
   /**
@@ -14,3 +14,9 @@ export interface ModuleOptions extends Optional<PluginOptions, "swSrc" | "swDest
    */
   client?: ClientOptions;
 }
+
+export type DefaultModuleKeys = "base" | "scope" | "client" | "swSrc" | "swDest" | "swUrl" | "globDirectory" | "injectionPoint";
+
+export type DefaultModuleOptions = Required<Pick<ModuleOptions, DefaultModuleKeys>>;
+
+export type ResolvedModuleOptions = Require<ModuleOptions, DefaultModuleKeys>;

@@ -7,6 +7,7 @@
 */
 import assert from "node:assert";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 import { type InjectManifestOptions, injectManifest } from "@serwist/build";
 import chokidar from "chokidar";
 import { glob } from "glob";
@@ -69,10 +70,11 @@ export const app = async (params: MeowResult<SupportedFlags>): Promise<void> => 
 
     case "inject-manifest": {
       const configPath = path.resolve(process.cwd(), option || constants.defaultConfigFile);
+      const configUrl = pathToFileURL(configPath).href;
 
       let config: InjectManifestOptions | null;
       try {
-        config = await readConfig(configPath);
+        config = await readConfig(configUrl);
       } catch (error) {
         config = null;
         if (error instanceof Error) {

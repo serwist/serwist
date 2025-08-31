@@ -144,6 +144,34 @@
 
 ## 9.1.0-preview.0
 
+## 9.2.1
+
+## 9.2.0
+
+### Minor Changes
+
+- [#287](https://github.com/serwist/serwist/pull/287) [`4dc5f7c`](https://github.com/serwist/serwist/commit/4dc5f7c409fdab014533889e20c45ee863807c41) Thanks [@oskvortsov](https://github.com/oskvortsov)! - feat(core): added `requestRules`
+
+  - This uses the Service Worker Static Routing API. From https://developer.chrome.com/blog/service-worker-static-routing: "This API lets you declaratively state how certain resource paths should be fetched, meaning that the browser does not need to run a service worker only to fetch responses from a cache, or directly from the network."
+  - Usage example:
+
+  ```ts
+  const serwist = new Serwist({
+    // Other options...
+    // See https://developer.mozilla.org/en-US/docs/Web/API/InstallEvent/addRoutes#examples for more information.
+    requestRules: {
+      condition: {
+        or: [{ urlPattern: "*.png" }, { urlPattern: "*.jpg" }],
+      },
+      source: {
+        cacheName: "pictures",
+      },
+    },
+  });
+  ```
+
+## 9.1.1
+
 ## 9.1.0
 
 ### Patch Changes

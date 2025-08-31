@@ -4,10 +4,11 @@ import fsp from "node:fs/promises";
 import path from "node:path";
 import type { Nuxt } from "@nuxt/schema";
 import type { ManifestTransform } from "@serwist/build";
+import { DEFAULT_GLOB_PATTERNS } from "@serwist/build";
 import type { NitroConfig } from "nitropack";
-import type { ModuleOptions } from "./types.js";
+import type { PluginOptions } from "vite-plugin-serwist";
 
-export function configurePwaOptions(options: ModuleOptions, nuxt: Nuxt, nitroConfig: NitroConfig) {
+export const configureSerwistOptions = (options: PluginOptions, nuxt: Nuxt, nitroConfig: NitroConfig) => {
   let buildAssetsDir = nuxt.options.app.buildAssetsDir ?? "_nuxt/";
   if (buildAssetsDir[0] === "/") buildAssetsDir = buildAssetsDir.slice(1);
   if (buildAssetsDir[buildAssetsDir.length - 1] !== "/") buildAssetsDir += "/";
@@ -17,36 +18,43 @@ export function configurePwaOptions(options: ModuleOptions, nuxt: Nuxt, nitroCon
     options.dontCacheBustURLsMatching = new RegExp(buildAssetsDir);
   }
 
-  // handle payload extraction
-  if (nuxt.options.experimental.payloadExtraction) {
-    const enableGlobPatterns =
-      nuxt.options.nitro.static ||
+  options.globPatterns = options.globPatterns ?? DEFAULT_GLOB_PATTERNS;
+
+  // Handle `payloadExtraction`.
+  if (
+    nuxt.options.experimental.payloadExtraction &&
+    // Has prerendered routes
+    (nuxt.options.nitro.static ||
       (nuxt.options as any)._generate /* TODO(v10): remove in future */ ||
       !!nitroConfig.prerender?.routes?.length ||
-      Object.values(nitroConfig.routeRules ?? {}).some((r: any) => r.prerender);
-    if (enableGlobPatterns) {
-      options.globPatterns = options.globPatterns ?? [];
-      options.globPatterns.push("**/_payload.json");
-    }
+      Object.values(nitroConfig.routeRules ?? {}).some((r: any) => r.prerender))
+  ) {
+    options.globPatterns.push("**/_payload.json");
   }
 
-  // handle Nuxt App Manifest
+  // Handle Nuxt's App Manifest
   let appManifestFolder: string | undefined;
   if (nuxt.options.experimental.appManifest) {
-    options.globPatterns = options.globPatterns ?? [];
     appManifestFolder = `${buildAssetsDir}builds/`;
     options.globPatterns.push(`${appManifestFolder}**/*.json`);
   }
 
-  const _public: string | undefined = nitroConfig.output?.publicDir ?? nuxt.options.nitro?.output?.publicDir;
+  const _public = nitroConfig.output?.publicDir ?? nuxt.options.nitro?.output?.publicDir;
 
-  const publicDir = _public ? path.resolve(_public) : path.resolve(nuxt.options.buildDir, "../.output/public");
+  const publicDir = _public ? path.resolve(_public) : path.resolve(nuxt.options.rootDir, ".output/public");
+
+  options.swDest = options.swDest
+    ? path.isAbsolute(options.swDest)
+      ? options.swDest
+      : path.resolve(publicDir, options.swDest)
+    : path.resolve(publicDir, "sw.js");
+  options.globDirectory = options.globDirectory || publicDir;
 
   // allow override manifestTransforms
   if (!nuxt.options.dev && !options.manifestTransforms) {
     options.manifestTransforms = [createManifestTransform(nuxt.options.app.baseURL ?? "/", publicDir, appManifestFolder)];
   }
-}
+};
 
 function createManifestTransform(base: string, publicDir: string, appManifestFolder?: string): ManifestTransform {
   return async (entries) => {

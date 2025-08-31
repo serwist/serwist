@@ -45,6 +45,7 @@
       "vite",
       "@nuxt/kit",
       "@serwist/build",
+      "@serwist/utils",
       "vite-plugin-serwist",
       "virtual:serwist-nuxt-configuration",
       "virtual:serwist"

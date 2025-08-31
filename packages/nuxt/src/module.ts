@@ -1,16 +1,14 @@
 import path from "node:path";
-import { addPlugin, addTypeTemplate, createResolver, defineNuxtModule, extendWebpackConfig } from "@nuxt/kit";
-import { resolveEntry } from "@serwist/utils/node";
+import { addPlugin, createResolver, defineNuxtModule, extendWebpackConfig } from "@nuxt/kit";
 import type { SerwistViteContext } from "vite-plugin-serwist";
-import { createContext, dev as devPlugin, generateServiceWorker, main as mainPlugin } from "vite-plugin-serwist";
+import { createContext, dev as devPlugin, generateServiceWorker, main as mainPlugin, resolveEntry } from "vite-plugin-serwist";
 import packageJson from "../package.json" with { type: "json" };
-import { configurePwaOptions } from "./config.js";
-import type { Require } from "./utils.js";
-import type { ClientOptions, ModuleOptions } from "./types.js";
+import { configureSerwistOptions } from "./config.js";
+import type { ClientOptions, DefaultModuleOptions, ModuleOptions } from "./types.js";
 
 export * from "./types.js";
 
-export default defineNuxtModule<ModuleOptions>({
+export default defineNuxtModule<ModuleOptions>().with<DefaultModuleOptions>({
   meta: {
     name: "@serwist/nuxt",
     configKey: "serwist",
@@ -20,7 +18,6 @@ export default defineNuxtModule<ModuleOptions>({
     version: packageJson.version,
   },
   defaults(nuxt) {
-    const publicDir = path.resolve(nuxt.options.rootDir, ".output/public");
     return {
       base: nuxt.options.app.baseURL,
       scope: nuxt.options.app.baseURL,
@@ -30,18 +27,20 @@ export default defineNuxtModule<ModuleOptions>({
       // Try to find `service-worker.{ts,js}` or `service-worker/index.{ts,js}`. If not found,
       // force the user to provide a `swSrc` themself.
       swSrc: resolveEntry(path.resolve(nuxt.options.rootDir, "service-worker")) || undefined!,
-      swDest: path.resolve(publicDir, "sw.js"),
+      // If `swDest` is not set by `configureSerwistOptions`, something is wrong.
+      swDest: "",
       swUrl: "/sw.js",
-      globDirectory: publicDir,
+      // If `globDirectory` is not set by `configureSerwistOptions`, something is wrong.
+      globDirectory: "",
       injectionPoint: "self.__SW_MANIFEST",
     };
   },
-  async setup(options, nuxt) {
+  async setup(_options, nuxt) {
     const resolver = createResolver(import.meta.url);
 
     let ctx: SerwistViteContext | undefined;
 
-    const { client: _client, ...userOptions } = options as Require<ModuleOptions, "swUrl" | "swSrc" | "swDest" | "globDirectory" | "injectionPoint">;
+    const { client: _client, ...options } = _options;
 
     const client = { registerPlugin: true, ..._client } satisfies ClientOptions;
 
@@ -61,7 +60,7 @@ export default defineNuxtModule<ModuleOptions>({
     });
 
     nuxt.hook("nitro:init", (nitro) => {
-      configurePwaOptions(options, nuxt, nitro.options);
+      configureSerwistOptions(options, nuxt, nitro.options);
     });
 
     nuxt.hook("vite:extend", ({ config }) => {
@@ -100,7 +99,7 @@ export default defineNuxtModule<ModuleOptions>({
         });
       }
 
-      ctx = createContext(userOptions, "nuxt");
+      ctx = createContext(options, "nuxt");
       viteInlineConfig.plugins.push(mainPlugin(ctx), devPlugin(ctx));
     });
 

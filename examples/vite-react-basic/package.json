@@ -17,8 +17,8 @@
   "devDependencies": {
     "vite-plugin-serwist": "latest",
     "@serwist/window": "latest",
-    "@types/react": "19.1.11",
-    "@types/react-dom": "19.1.7",
+    "@types/react": "19.1.12",
+    "@types/react-dom": "19.1.9",
     "@vitejs/plugin-react-swc": "4.0.1",
     "serwist": "latest",
     "typescript": "5.9.2",
