@@ -1,5 +1,24 @@
 # @serwist/nuxt
 
+## 9.2.1
+
+### Patch Changes
+
+- [`66075d2`](https://github.com/serwist/serwist/commit/66075d22c0ff64193c73c09ecddf98731cc6b39c) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(nuxt): fixed `swDest` not working as expected when not set to an absolute path
+
+  - `swDest` should now be resolved relative to .output/public when it is not absolute path.
+  - Previously, setting a relative path would cause the service worker to not be included in the output, as it would be bundled to an unspecified location.
+
+- [`66075d2`](https://github.com/serwist/serwist/commit/66075d22c0ff64193c73c09ecddf98731cc6b39c) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(nuxt): fixed `globPatterns` not using default glob patterns when `undefined`
+
+  - When `globPatterns` is `undefined`, `@serwist/nuxt` should now set it to Serwist's default glob patterns.
+  - This bug was previously caused by `@serwist/nuxt` having its own `globPatterns`, leading to the default glob patterns not being added via `@serwist/build`'s Zod schema.
+
+- Updated dependencies []:
+  - @serwist/build@9.2.1
+  - @serwist/vite@9.2.1
+  - @serwist/window@9.2.1
+
 ## 9.2.0
 
 ### Patch Changes

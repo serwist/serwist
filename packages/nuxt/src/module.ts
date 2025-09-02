@@ -65,13 +65,9 @@ export default defineNuxtModule<ModuleOptions>().with<DefaultModuleOptions>({
     });
 
     nuxt.hook("vite:extend", ({ config }) => {
-      const plugin = config.plugins?.find(
-        (p) => p && typeof p === "object" && "name" in p && p.name === "@serwist/vite",
-      );
+      const plugin = config.plugins?.find((p) => p && typeof p === "object" && "name" in p && p.name === "@serwist/vite");
       if (plugin) {
-        throw new Error(
-          "Remove '@serwist/vite' from your Vite configuration! Do not use it alongside '@serwist/nuxt'.",
-        );
+        throw new Error("Remove '@serwist/vite' from your Vite configuration! Do not use it alongside '@serwist/nuxt'.");
       }
     });
 
@@ -79,13 +75,9 @@ export default defineNuxtModule<ModuleOptions>().with<DefaultModuleOptions>({
       if (!viteInlineConfig.plugins) {
         viteInlineConfig.plugins = [];
       }
-      const plugin = viteInlineConfig.plugins.find(
-        (p) => p && typeof p === "object" && "name" in p && p.name === "@serwist/vite",
-      );
+      const plugin = viteInlineConfig.plugins.find((p) => p && typeof p === "object" && "name" in p && p.name === "@serwist/vite");
       if (plugin) {
-        throw new Error(
-          "Remove '@serwist/vite' from your Vite configuration! Do not use it alongside '@serwist/nuxt'.",
-        );
+        throw new Error("Remove '@serwist/vite' from your Vite configuration! Do not use it alongside '@serwist/nuxt'.");
       }
 
       if (isClient) {
