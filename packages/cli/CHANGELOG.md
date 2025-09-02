@@ -1,5 +1,14 @@
 # @serwist/cli
 
+## 9.2.1
+
+### Patch Changes
+
+- [#286](https://github.com/serwist/serwist/pull/286) [`3fb91a7`](https://github.com/serwist/serwist/commit/3fb91a793c914c4c14faae36de3108b307077f9b) Thanks [@afshinkoohsari](https://github.com/afshinkoohsari)! - fix(cli): convert Windows absolute paths to file URLs for ESM import
+
+- Updated dependencies []:
+  - @serwist/build@9.2.1
+
 ## 9.2.0
 
 ### Patch Changes
