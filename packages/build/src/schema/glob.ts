@@ -8,11 +8,12 @@ import type {
   RequiredGlobDirectoryResolved,
 } from "../types.js";
 import { type Equals, assertType } from "./assert-type.js";
+import { DEFAULT_GLOB_PATTERNS } from "../lib/constants.js";
 
 export const globPartial = z.strictObject({
   globFollow: z.boolean().default(true),
   globIgnores: z.array(z.string()).default(["**/node_modules/**/*"]),
-  globPatterns: z.array(z.string()).default(["**/*.{js,css,html}"]),
+  globPatterns: z.array(z.string()).default(DEFAULT_GLOB_PATTERNS),
   globStrict: z.boolean().default(true),
   templatedURLs: z.record(z.string(), z.union([z.string(), z.array(z.string())])).optional(),
 });

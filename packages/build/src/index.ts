@@ -7,6 +7,7 @@
 */
 import { getManifest } from "./get-manifest.js";
 import { injectManifest } from "./inject-manifest.js";
+import { DEFAULT_GLOB_PATTERNS } from "./lib/constants.js";
 import { errors } from "./lib/errors.js";
 import { escapeRegExp } from "./lib/escape-regexp.js";
 import { getFileManifestEntries } from "./lib/get-file-manifest-entries.js";
@@ -27,6 +28,7 @@ const stringify = JSON.stringify;
 
 export {
   errors,
+  DEFAULT_GLOB_PATTERNS,
   escapeRegExp,
   getFileManifestEntries,
   getManifest,

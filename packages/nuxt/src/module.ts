@@ -3,13 +3,12 @@ import { addPlugin, createResolver, defineNuxtModule, extendWebpackConfig } from
 import type { SerwistViteApi, SerwistViteContext } from "@serwist/vite";
 import { createApi, createContext, dev as devPlugin, main as mainPlugin, resolveEntry } from "@serwist/vite";
 import { version } from "../package.json";
-import type { Require } from "./utils.js";
-import { configurePwaOptions } from "./config.js";
-import type { ClientOptions, ModuleOptions } from "./types.js";
+import { configureSerwistOptions } from "./config.js";
+import type { ClientOptions, DefaultModuleOptions, ModuleOptions } from "./types.js";
 
 export * from "./types.js";
 
-export default defineNuxtModule<ModuleOptions>({
+export default defineNuxtModule<ModuleOptions>().with<DefaultModuleOptions>({
   meta: {
     name: "@serwist/nuxt",
     configKey: "serwist",
@@ -19,7 +18,6 @@ export default defineNuxtModule<ModuleOptions>({
     version,
   },
   defaults(nuxt) {
-    const publicDir = path.resolve(nuxt.options.rootDir, ".output/public");
     return {
       base: nuxt.options.app.baseURL,
       scope: nuxt.options.app.baseURL,
@@ -29,19 +27,21 @@ export default defineNuxtModule<ModuleOptions>({
       // Try to find `service-worker.{ts,js}` or `service-worker/index.{ts,js}`. If not found,
       // force the user to provide a `swSrc` themself.
       swSrc: resolveEntry(path.resolve(nuxt.options.rootDir, "service-worker")) || undefined!,
-      swDest: path.resolve(publicDir, "sw.js"),
+      // If `swDest` is not set by `configureSerwistOptions`, something is wrong.
+      swDest: "",
       swUrl: "/sw.js",
-      globDirectory: publicDir,
+      // If `globDirectory` is not set by `configureSerwistOptions`, something is wrong.
+      globDirectory: "",
       injectionPoint: "self.__SW_MANIFEST",
     };
   },
-  async setup(options, nuxt) {
+  async setup(_options, nuxt) {
     const resolver = createResolver(import.meta.url);
 
     let ctx: SerwistViteContext | undefined;
     let api: SerwistViteApi | undefined;
 
-    const { client: _client, ...userOptions } = options as Require<ModuleOptions, "swUrl" | "swSrc" | "swDest" | "globDirectory" | "injectionPoint">;
+    const { client: _client, ...options } = _options;
 
     const client = { registerPlugin: true, ..._client } satisfies ClientOptions;
 
@@ -61,13 +61,17 @@ export default defineNuxtModule<ModuleOptions>({
     });
 
     nuxt.hook("nitro:init", (nitro) => {
-      configurePwaOptions(options, nuxt, nitro.options);
+      configureSerwistOptions(options, nuxt, nitro.options);
     });
 
     nuxt.hook("vite:extend", ({ config }) => {
-      const plugin = config.plugins?.find((p) => p && typeof p === "object" && "name" in p && p.name === "@serwist/vite");
+      const plugin = config.plugins?.find(
+        (p) => p && typeof p === "object" && "name" in p && p.name === "@serwist/vite",
+      );
       if (plugin) {
-        throw new Error("Remove '@serwist/vite' from your Vite configuration! Do not use it alongside '@serwist/nuxt'.");
+        throw new Error(
+          "Remove '@serwist/vite' from your Vite configuration! Do not use it alongside '@serwist/nuxt'.",
+        );
       }
     });
 
@@ -75,9 +79,13 @@ export default defineNuxtModule<ModuleOptions>({
       if (!viteInlineConfig.plugins) {
         viteInlineConfig.plugins = [];
       }
-      const plugin = viteInlineConfig.plugins.find((p) => p && typeof p === "object" && "name" in p && p.name === "@serwist/vite");
+      const plugin = viteInlineConfig.plugins.find(
+        (p) => p && typeof p === "object" && "name" in p && p.name === "@serwist/vite",
+      );
       if (plugin) {
-        throw new Error("Remove '@serwist/vite' from your Vite configuration! Do not use it alongside '@serwist/nuxt'.");
+        throw new Error(
+          "Remove '@serwist/vite' from your Vite configuration! Do not use it alongside '@serwist/nuxt'.",
+        );
       }
 
       if (isClient) {
@@ -102,7 +110,7 @@ export default defineNuxtModule<ModuleOptions>({
         });
       }
 
-      ctx = createContext(userOptions, "nuxt");
+      ctx = createContext(options, "nuxt");
       api = createApi(ctx);
       const plugins = [mainPlugin(ctx, api), devPlugin(ctx, api)];
       viteInlineConfig.plugins.push(plugins);

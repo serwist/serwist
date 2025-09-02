@@ -939,6 +939,9 @@ importers:
       '@serwist/configs':
         specifier: workspace:*
         version: link:../$private/configs
+      '@serwist/utils':
+        specifier: workspace:*
+        version: link:../$private/utils
       '@types/node':
         specifier: 24.3.0
         version: 24.3.0
