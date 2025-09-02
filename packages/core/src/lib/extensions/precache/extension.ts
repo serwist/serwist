@@ -3,6 +3,7 @@ import type { Serwist } from "#lib/core.js";
 import type { Extension } from "#lib/extension.js";
 import { registerRoute } from "#lib/functions/router.js";
 import { assert } from "#utils/assert.js";
+import { deleteOutdatedPrecaches } from "#utils/cleanupOutdatedCaches.js";
 import { createCacheKey } from "#utils/createCacheKey.js";
 import { logger } from "#utils/logger.js";
 import { printCleanupDetails } from "#utils/printCleanupDetails.js";
@@ -74,10 +75,10 @@ export class Precache implements Extension {
    * @param options
    */
   constructor(precacheOptions: PrecacheOptions) {
-    const { entries, strategyOptions, routeOptions, extensionOptions: controllerOptions } = parsePrecacheOptions(this, precacheOptions);
+    const { entries, strategyOptions, routeOptions, extensionOptions } = parsePrecacheOptions(this, precacheOptions);
     this.addToCacheList(entries);
     this._strategy = new PrecacheStrategy(strategyOptions);
-    this._options = controllerOptions;
+    this._options = extensionOptions;
     this._routeOptions = routeOptions;
   }
 
@@ -210,6 +211,13 @@ export class Precache implements Extension {
 
     if (process.env.NODE_ENV !== "production") {
       printCleanupDetails(deletedCacheRequests);
+    }
+
+    // This deletes caches whose keys contain `-precache-` but
+    // are different from `this._strategy.cacheName`. Functionally
+    // equivalent to `cleanupOutdatedCaches`.
+    if (this._options.cleanupOutdatedCaches) {
+      await deleteOutdatedPrecaches(this._strategy.cacheName);
     }
   }
 
