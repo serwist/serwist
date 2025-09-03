@@ -1,7 +1,7 @@
 ---
 "@serwist/turbopack": minor
 ---
-
+<!-- Delete on release -->
 feat(turbo/preview): allow configuring `esbuild` instance
 
 - You can now configure `@serwist/turbopack`'s `esbuild` instance. For example, to output the service worker in the `iife` format and disable sourcemaps:
