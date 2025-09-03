@@ -1,6 +1,6 @@
 {
   "name": "@serwist/configs",
-  "version": "10.0.0-preview.13",
+  "version": "10.0.0-preview.14",
   "type": "module",
   "private": true,
   "description": "This module is used by a number of the other Serwist modules to share configs.",
