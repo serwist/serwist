@@ -1,12 +1,17 @@
 import path from "node:path";
 import { assertType, type Equals, basePartial, globPartial, injectPartial } from "@serwist/build/schema";
 import z from "zod";
-import { DEFAULT_GLOB_PATTERNS, SUPPORTED_ESBUILD_OPTIONS } from "./lib/constants.js";
+import { SUPPORTED_ESBUILD_OPTIONS } from "./lib/constants.js";
+import { generateGlobPatterns } from "./lib/utils.js";
 import type { InjectManifestOptions, InjectManifestOptionsComplete, TurboPartial, TurboResolved } from "./types.js";
 
 export const turboPartial = z.strictObject({
   cwd: z.string().prefault(process.cwd()),
-  basePath: z.string(),
+  nextConfig: z.strictObject({
+    assetPrefix: z.string().optional(),
+    basePath: z.string().prefault("/"),
+    distDir: z.string().prefault(".next"),
+  }),
   esbuildOptions: z.partialRecord(z.literal(SUPPORTED_ESBUILD_OPTIONS), z.any()).prefault({}),
 });
 
@@ -16,15 +21,24 @@ export const injectManifestOptions = z
     ...globPartial.shape,
     ...injectPartial.shape,
     ...turboPartial.shape,
-    globPatterns: z.array(z.string()).prefault(DEFAULT_GLOB_PATTERNS),
+    globPatterns: z.array(z.string()).optional(),
     globDirectory: z.string().optional(),
   })
   .omit({ disablePrecacheManifest: true })
   .transform((input) => {
+    let distDir = input.nextConfig.distDir;
+    if (distDir[0] === "/") distDir = distDir.slice(1);
+    if (distDir[distDir.length - 1] !== "/") distDir += "/";
     return {
       ...input,
       swSrc: path.isAbsolute(input.swSrc) ? input.swSrc : path.join(input.cwd, input.swSrc),
+      globPatterns: input.globPatterns ?? generateGlobPatterns(distDir),
       globDirectory: input.globDirectory ?? input.cwd,
+      dontCacheBustURLsMatching: input.dontCacheBustURLsMatching ?? new RegExp(`^${distDir}static/`),
+      nextConfig: {
+        ...input.nextConfig,
+        distDir,
+      },
     };
   });
 

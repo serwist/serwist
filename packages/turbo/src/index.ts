@@ -73,10 +73,14 @@ export const createSerwistRoute = (options: InjectManifestOptions) => {
         ...(config.manifestTransforms ?? []),
         (manifestEntries) => {
           const manifest = manifestEntries.map((m) => {
-            // Replace all references to .next/ with "/_next/".
-            if (m.url.startsWith(".next/")) m.url = `/_next/${m.url.slice(6)}`;
+            // Replace all references to "$(distDir)" with "$(assetPrefix)/_next/".
+            if (m.url.startsWith(config.nextConfig.distDir)) {
+              m.url = `${config.nextConfig.assetPrefix ?? ""}/_next/${m.url.slice(config.nextConfig.distDir.length)}`;
+            }
             // Replace all references to public/ with "$(basePath)/".
-            if (m.url.startsWith("public/")) m.url = path.posix.join(config.basePath, m.url.slice(7));
+            if (m.url.startsWith("public/")) {
+              m.url = path.posix.join(config.nextConfig.basePath, m.url.slice(7));
+            }
             return m;
           });
           return { manifest, warnings: [] };
@@ -90,12 +94,9 @@ export const createSerwistRoute = (options: InjectManifestOptions) => {
   // AND EVERY `GET` REQUEST TO EACH OF THE FILES.
   const loadMap = async (filePath: string) => {
     const config = await validation;
-    const { count, size, manifestEntries, warnings } = await getFileManifestEntries({
-      ...config,
-      disablePrecacheManifest: process.env.NODE_ENV === "development",
-    });
+    const { count, size, manifestEntries, warnings } = await getFileManifestEntries(config);
     // See https://github.com/GoogleChrome/workbox/issues/2230
-    const injectionPoint = config.injectionPoint ? config.injectionPoint : "";
+    const injectionPoint = config.injectionPoint || "";
     const manifestString = manifestEntries === undefined ? "undefined" : JSON.stringify(manifestEntries, null, 2);
     logSerwistResult(filePath, { count, size, warnings });
     const result = await (await esbuild).build({
