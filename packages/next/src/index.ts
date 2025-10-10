@@ -136,6 +136,7 @@ const withSerwistInit = (userOptions: InjectManifestOptions): ((nextConfig?: Nex
         const cleanUpList = globSync(["swe-worker-*.js", "swe-worker-*.js.map", destBase, `${destBase}.map`], {
           absolute: true,
           nodir: true,
+          follow: true,
           cwd: destDir,
         });
 
@@ -175,6 +176,7 @@ const withSerwistInit = (userOptions: InjectManifestOptions): ((nextConfig?: Nex
         if (!resolvedManifestEntries) {
           const publicScan = globSync(globPublicPatterns, {
             nodir: true,
+            follow: true,
             cwd: publicDir,
             ignore: ["swe-worker-*.js", destBase, `${destBase}.map`],
           });
