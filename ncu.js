@@ -17,7 +17,7 @@ const packageJsonList = await fg("**/package.json", {
 const examplesPackageJsonList = await fg("examples/*/package.json", {
   ignore: ["**/node_modules/**"],
 });
-const excludePackages = ["glob", "rimraf", "cheerio", "pretty-bytes"];
+const excludePackages = ["pretty-bytes"];
 
 /**
  * @type {Promise<any>[]}
@@ -33,6 +33,12 @@ for (const packageFile of packageJsonList) {
         return !excludePackages.includes(packageName);
       },
       target(dep) {
+        if (dep === "glob") {
+          return "@legacy-v10";
+        }
+        if (dep === "rimraf") {
+          return "@v5-legacy";
+        }
         if (/^react(-dom)?$/.test(dep)) {
           return "@latest";
         }

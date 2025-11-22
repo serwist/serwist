@@ -80,7 +80,7 @@
   "dependencies": {
     "@serwist/build": "workspace:*",
     "serwist": "workspace:*",
-    "glob": "10.4.5",
+    "glob": "10.5.0",
     "kolorist": "1.8.0",
     "zod": "4.1.12"
   },
