@@ -1,5 +1,16 @@
 # @serwist/routing
 
+## 9.2.3
+
+### Patch Changes
+
+- [`01f4b27`](https://github.com/serwist/serwist/commit/01f4b27152fd6fc4a9f5a39cc5636047a06346d0) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): dependencies maintenance
+
+  - This patch updates all dependencies and bumps `glob` to fix a vulnerability.
+
+- Updated dependencies [[`01f4b27`](https://github.com/serwist/serwist/commit/01f4b27152fd6fc4a9f5a39cc5636047a06346d0)]:
+  - serwist@9.2.3
+
 ## 9.2.2
 
 ### Patch Changes
