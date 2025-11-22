@@ -12,9 +12,9 @@
     "@serwist/build": "latest",
     "@serwist/cli": "latest",
     "@serwist/window": "latest",
-    "@types/node": "24.3.0",
-    "esbuild": "0.25.9",
-    "serve": "14.2.4",
-    "typescript": "5.9.2"
+    "@types/node": "24.10.1",
+    "esbuild": "0.27.0",
+    "serve": "14.2.5",
+    "typescript": "5.9.3"
   }
 }
