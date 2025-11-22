@@ -20,7 +20,7 @@ export class NextInstanceStart extends NextInstance {
     await new Promise<void>((resolve, reject) => {
       let buildStdout = "";
       let buildStderr = "";
-      this._process = spawn("pnpm", ["next", "build", this._appTestDir], spawnOpts);
+      this._process = spawn("pnpm", ["next", "build", "--webpack", this._appTestDir], spawnOpts);
       this._process.stdout.on("data", (chunk: Buffer) => {
         const msg = chunk.toString();
         this._cliOutput += msg;

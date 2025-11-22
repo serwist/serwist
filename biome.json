@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.1.1/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.3.7/schema.json",
   "vcs": {
     "enabled": true,
     "clientKind": "git",
@@ -8,7 +8,7 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "includes": ["**", "!**/*.svelte", "!**/*.md"]
+    "includes": ["**", "!**/*.svelte", "!**/*.md", "!**/*.css"]
   },
   "assist": { "actions": { "source": { "organizeImports": "on" } } },
   "linter": {

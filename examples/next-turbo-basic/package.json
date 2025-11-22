@@ -12,16 +12,16 @@
   },
   "dependencies": {
     "@serwist/turbopack": "latest",
-    "next": "15.5.2",
-    "react": "19.1.1",
-    "react-dom": "19.1.1",
+    "next": "16.0.3",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
     "serwist": "latest"
   },
   "devDependencies": {
-    "@types/node": "24.3.0",
-    "@types/react": "19.1.12",
-    "@types/react-dom": "19.1.9",
-    "esbuild-wasm": "0.25.9",
-    "typescript": "5.9.2"
+    "@types/node": "24.10.1",
+    "@types/react": "19.2.6",
+    "@types/react-dom": "19.2.3",
+    "esbuild-wasm": "0.27.0",
+    "typescript": "5.9.3"
   }
 }

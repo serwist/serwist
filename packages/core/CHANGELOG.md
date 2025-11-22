@@ -150,6 +150,14 @@
 
 ## 9.1.0-preview.0
 
+## 9.2.2
+
+### Patch Changes
+
+- [#296](https://github.com/serwist/serwist/pull/296) [`30bec4c`](https://github.com/serwist/serwist/commit/30bec4c3ca9a4a253ea8c7b93cbe0bca72d9b1bd) Thanks [@FredTreg](https://github.com/FredTreg)! - fix(log): log incorrect URLs outside of loop
+
+  - A loop is used to accumulate URLs without revision info. The goal was probably to display the list as a warning once outside of the loop. Unfortunately the current code is displaying the warning inside the loop, meaning you could get the same warning a hundred times for a single URL without revision info. This PR fixes this.
+
 ## 9.2.1
 
 ## 9.2.0

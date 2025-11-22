@@ -57,18 +57,18 @@
   },
   "dependencies": {
     "@serwist/utils": "workspace:*",
-    "glob": "11.0.3",
-    "pretty-bytes": "7.0.1",
+    "glob": "13.0.0",
+    "pretty-bytes": "7.1.0",
     "source-map": "0.8.0-beta.0",
-    "zod": "4.1.5"
+    "zod": "4.1.12"
   },
   "devDependencies": {
     "@serwist/configs": "workspace:*",
     "@serwist/utils": "workspace:*",
     "@types/common-tags": "1.8.4",
-    "@types/node": "24.3.0",
-    "rollup": "4.49.0",
-    "typescript": "5.9.2"
+    "@types/node": "24.10.1",
+    "rollup": "4.53.3",
+    "typescript": "5.9.3"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0"
