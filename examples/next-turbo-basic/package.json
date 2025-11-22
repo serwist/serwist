@@ -11,17 +11,17 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@serwist/turbopack": "latest",
+    "@serwist/turbopack": "preview",
     "next": "16.0.3",
     "react": "19.2.0",
     "react-dom": "19.2.0",
-    "serwist": "latest"
+    "serwist": "preview"
   },
   "devDependencies": {
     "@types/node": "24.10.1",
     "@types/react": "19.2.6",
     "@types/react-dom": "19.2.3",
-    "esbuild": "0.27.0",
+    "esbuild-wasm": "0.27.0",
     "typescript": "5.9.3"
   }
 }
