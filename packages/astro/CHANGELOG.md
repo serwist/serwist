@@ -1,5 +1,14 @@
 # @serwist/astro
 
+## 10.0.0-preview.15
+### Patch Changes
+
+- Updated dependencies []:
+  - vite-plugin-serwist@10.0.0-preview.15
+  - @serwist/window@10.0.0-preview.15
+  - @serwist/build@10.0.0-preview.15
+  - @serwist/utils@10.0.0-preview.15
+
 ## 10.0.0-preview.14
 ### Patch Changes
 
