@@ -1,6 +1,6 @@
 {
   "name": "@serwist/recipes",
-  "version": "9.2.1",
+  "version": "9.2.2",
   "type": "module",
   "description": "A service worker helper library to manage common request and caching patterns",
   "files": [
