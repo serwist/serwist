@@ -8,10 +8,10 @@
   },
   "devDependencies": {
     "@serwist/next": "workspace:*",
-    "cheerio": "1.1.2",
-    "glob": "11.0.3",
-    "next": "15.5.2",
+    "cheerio": "1.0.0",
+    "glob": "10.4.5",
+    "next": "16.0.3",
     "serwist": "workspace:*",
-    "vitest": "3.2.4"
+    "vitest": "4.0.13"
   }
 }
