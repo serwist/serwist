@@ -1,5 +1,12 @@
 # @serwist/routing
 
+## 9.2.2
+
+### Patch Changes
+
+- Updated dependencies [[`30bec4c`](https://github.com/serwist/serwist/commit/30bec4c3ca9a4a253ea8c7b93cbe0bca72d9b1bd)]:
+  - serwist@9.2.2
+
 ## 9.2.1
 
 ### Patch Changes
