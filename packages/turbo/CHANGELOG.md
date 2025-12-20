@@ -5,14 +5,12 @@
 
 
 
-- [`1e58a05`](https://github.com/serwist/serwist/commit/1e58a059abdd1ed1e77716dc81681d1b63867b93) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - <!-- Delete on release -->
-  fix(turbo/preview): handle `assetPrefix`, `distDir`, `dontCacheBustURLsMatching`
+- [`1e58a05`](https://github.com/serwist/serwist/commit/1e58a059abdd1ed1e77716dc81681d1b63867b93) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(turbo/preview): handle `assetPrefix`, `distDir`, `dontCacheBustURLsMatching`
   
   - `@serwist/turbopack` now sets `dontCacheBustURLsMatching` to `/_next/static` by default.
   
   - `assetPrefix` and `distDir` are now properly handled.
   
-  - BREAKING CHANGE (Preview): `basePath` has now been moved to `nextConfig.basePath` and is no longer required.
 - Updated dependencies []:
   - @serwist/build@10.0.0-preview.14
   - @serwist/window@10.0.0-preview.14
