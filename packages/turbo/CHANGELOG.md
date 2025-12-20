@@ -1,45 +1,53 @@
 # @serwist/turbopack
 
-## 10.0.0-preview.14
+## 9.3.0
+
+### Minor Changes
+
+- [`b92e30e`](https://github.com/serwist/serwist/commit/b92e30e3556456409b2dc62eec77ac1fbf59e64c) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(turbo): backport from Serwist 10
+  - `@serwist/turbopack` has been backported from Serwist 10.
+
 ### Patch Changes
 
+- Updated dependencies []:
+  - @serwist/build@9.3.0
+  - @serwist/window@9.3.0
+  - serwist@9.3.0
 
+## 10.0.0-preview.14
+
+### Patch Changes
 
 - [`1e58a05`](https://github.com/serwist/serwist/commit/1e58a059abdd1ed1e77716dc81681d1b63867b93) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - <!-- Delete on release -->
   fix(turbo/preview): handle `assetPrefix`, `distDir`, `dontCacheBustURLsMatching`
-  
   - `@serwist/turbopack` now sets `dontCacheBustURLsMatching` to `/_next/static` by default.
-  
   - `assetPrefix` and `distDir` are now properly handled.
-  
   - BREAKING CHANGE (Preview): `basePath` has now been moved to `nextConfig.basePath` and is no longer required.
+
 - Updated dependencies []:
   - @serwist/build@10.0.0-preview.14
   - @serwist/window@10.0.0-preview.14
   - serwist@10.0.0-preview.14
 
 ## 10.0.0-preview.13
+
 ### Patch Changes
 
-
-
 - [`86fd2ff`](https://github.com/serwist/serwist/commit/86fd2ff9f05dbfa69d9e65ab57da784336b5fe5a) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(turbo/preview): removed `esbuild-wasm` from `dependencies`
-  
   - This caused problems with adding newer `esbuild-wasm` versions to `serverExternalPackages`.
+
 - Updated dependencies []:
   - @serwist/build@10.0.0-preview.13
   - @serwist/window@10.0.0-preview.13
   - serwist@10.0.0-preview.13
 
 ## 10.0.0-preview.12
+
 ### Minor Changes
 
-
-
 - [`e3dbb24`](https://github.com/serwist/serwist/commit/e3dbb24b6c70205058eb8f6eb777146c86e7ae43) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(turbo/preview): allow configuring `esbuild` instance
-  
   - You can now configure `@serwist/turbopack`'s `esbuild` instance. For example, to output the service worker in the `iife` format and disable sourcemaps:
-  
+
   ```tsx
   // app/serwist/[path]/route.ts
   export const { dynamic, dynamicParams, revalidate, generateStaticParams, GET } = createSerwistRoute({
@@ -53,13 +61,15 @@
       },
     },
   });
-  
+
   // app/layout.tsx
   export default function RootLayout({ children }: { children: ReactNode }) {
     return (
       <html lang="en" dir="ltr">
         <body>
-          <SerwistProvider swUrl="/serwist/sw.js" options={{ type: "classic" }}>{children}</SerwistProvider>
+          <SerwistProvider swUrl="/serwist/sw.js" options={{ type: "classic" }}>
+            {children}
+          </SerwistProvider>
         </body>
       </html>
     );
@@ -74,6 +84,7 @@
   - serwist@10.0.0-preview.12
 
 ## 10.0.0-preview.11
+
 ### Patch Changes
 
 - Updated dependencies []:
@@ -82,51 +93,48 @@
   - serwist@10.0.0-preview.11
 
 ## 10.0.0-preview.10
+
 ### Minor Changes
 
-
-
 - [`935c16f`](https://github.com/serwist/serwist/commit/935c16f28ac9344bdf9e7b34fbcbcef90f160cda) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(turbo): added rudimentary Turbopack support
-  
   - `@serwist/turbopack` helps developers integrate Serwist into Next.js + Turbopack applications. To get started:
-  
     - Install required packages:
-  
+
     ```bash
     npm i -D @serwist/turbopack esbuild-wasm serwist
     ```
-  
+
     - Add `esbuild-wasm` to `serverExternalPackages`:
-  
+
     ```ts
     /** @type {import("next").NextConfig} */
     const nextConfig = {
       serverExternalPackages: ["esbuild-wasm"],
     };
-  
+
     export default nextConfig;
     ```
-  
+
     - Use `@serwist/turbopack`:
-  
+
     ```ts
     // app/serwist/[path]/route.ts
     import { createSerwistRoute } from "@serwist/turbopack";
-  
+
     export const { dynamic, dynamicParams, revalidate, generateStaticParams, GET } = createSerwistRoute({
       swSrc: "app/sw.ts",
       basePath: "/",
     });
     ```
-  
+
     - Write a service worker!
-  
+
     ```ts
     // app/sw.ts
     import { defaultCache } from "@serwist/turbopack/worker";
     import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
     import { addEventListeners, createSerwist, RuntimeCache } from "serwist";
-  
+
     declare global {
       interface WorkerGlobalScope extends SerwistGlobalConfig {
         // Change this attribute's name to your `injectionPoint`.
@@ -135,9 +143,9 @@
         __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
       }
     }
-  
+
     declare const self: ServiceWorkerGlobalScope;
-  
+
     const serwist = createSerwist({
       precache: {
         entries: self.__SW_MANIFEST,
@@ -163,12 +171,12 @@
         }),
       ],
     });
-  
+
     addEventListeners(serwist);
     ```
-  
+
     - Add a web application manifest:
-  
+
     ```jsonc
     // app/manifest.json
     {
@@ -179,33 +187,33 @@
           "src": "/icons/android-chrome-192x192.png",
           "sizes": "192x192",
           "type": "image/png",
-          "purpose": "maskable"
+          "purpose": "maskable",
         },
         {
           "src": "/icons/icon-512x512.png",
           "sizes": "512x512",
-          "type": "image/png"
-        }
+          "type": "image/png",
+        },
       ],
       "theme_color": "#FFFFFF",
       "background_color": "#FFFFFF",
       "start_url": "/",
       "display": "standalone",
-      "orientation": "portrait"
+      "orientation": "portrait",
     }
     ```
-  
+
     - Register your service worker!
-  
+
     ```tsx
     // app/layout.tsx
     import type { Metadata, Viewport } from "next";
     import type { ReactNode } from "react";
     import { SerwistProvider } from "$lib/client";
-  
+
     const APP_NAME = "NJS App";
     const APP_DESCRIPTION = "Next.js + Serwist PWA";
-  
+
     export const metadata: Metadata = {
       applicationName: APP_NAME,
       title: {
@@ -227,11 +235,11 @@
         apple: [{ url: "/icons/apple-touch-icon.png", sizes: "180x180" }],
       },
     };
-  
+
     export const viewport: Viewport = {
       themeColor: "#FFFFFF",
     };
-  
+
     export default function RootLayout({ children }: { children: ReactNode }) {
       return (
         <html lang="en" dir="ltr">
@@ -242,13 +250,10 @@
       );
     }
     ```
-  
+
   - Quirks:
-  
     - sw.js is completely static in development mode, meaning that you have to restart the dev server to see your edits to the file.
-  
     - Sourcemap is always enabled.
-  
     - Relies on `esbuild-wasm`, which unfortunately has to be externally installed.
 
 ### Patch Changes
@@ -259,6 +264,7 @@
   - serwist@10.0.0-preview.10
 
 ## 10.0.0-preview.9
+
 ### Patch Changes
 
 - Updated dependencies [[`3a59648`](https://github.com/serwist/serwist/commit/3a596489ba94b5ea01df9606d6e1bc8b9a3d5afe)]:
@@ -271,7 +277,6 @@
 ### Patch Changes
 
 - [`01f4b27`](https://github.com/serwist/serwist/commit/01f4b27152fd6fc4a9f5a39cc5636047a06346d0) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): dependencies maintenance
-
   - This patch updates all dependencies and bumps `glob` to fix a vulnerability.
 
 - Updated dependencies [[`01f4b27`](https://github.com/serwist/serwist/commit/01f4b27152fd6fc4a9f5a39cc5636047a06346d0)]:
@@ -311,7 +316,6 @@
 ### Patch Changes
 
 - [`f163a02`](https://github.com/serwist/serwist/commit/f163a024965bd2ecd6176b82530257a58f8c8da1) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(next, turbo): added network-only catch-all route for GET requests
-
   - This is only so that preloaded responses are properly.
 
 - Updated dependencies []:
