@@ -1,11 +1,18 @@
 # @serwist/vite
 
+## 9.3.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/build@9.3.0
+  - serwist@9.3.0
+
 ## 9.2.3
 
 ### Patch Changes
 
 - [`01f4b27`](https://github.com/serwist/serwist/commit/01f4b27152fd6fc4a9f5a39cc5636047a06346d0) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): dependencies maintenance
-
   - This patch updates all dependencies and bumps `glob` to fix a vulnerability.
 
 - Updated dependencies [[`01f4b27`](https://github.com/serwist/serwist/commit/01f4b27152fd6fc4a9f5a39cc5636047a06346d0)]:
@@ -49,7 +56,6 @@
 ### Minor Changes
 
 - [`852df26`](https://github.com/serwist/serwist/commit/852df2609f700d28de6433e0cb6669ade13c5b95) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(build): migrate to Zod 4
-
   - This fixes issues with Zod validation.
   - We've migrated to `z.prettifyError`, meaning you can expect to see this new format of errors:
 
@@ -86,7 +92,6 @@
 ### Patch Changes
 
 - [`de27be5`](https://github.com/serwist/serwist/commit/de27be5c8c48afc6122e046dc116696cedfc93e4) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): monthly dependencies maintenance
-
   - Just the regular stuff. Serwist 10 is still on the way!
 
 - Updated dependencies [[`de27be5`](https://github.com/serwist/serwist/commit/de27be5c8c48afc6122e046dc116696cedfc93e4)]:
@@ -158,7 +163,6 @@
 ### Patch Changes
 
 - [#168](https://github.com/serwist/serwist/pull/168) [`c7bed2b`](https://github.com/serwist/serwist/commit/c7bed2b3a16be9b60cbb485500a3e893615f321d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(dependencies): reverted `glob` to v10 and `rimraf` to v5
-
   - Turns out `glob` v11 and `rimraf` v6 drops support for Node.js 18, so we are back to v10 and v5 for now.
   - This also adds test for Node.js 18 and 22.
 
@@ -181,11 +185,9 @@
 ### Patch Changes
 
 - [`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): updated all dependencies
-
   - We have updated all dependencies to latest, as usual.
 
 - [`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(frameworks): use `NetworkOnly` for `defaultCache` in dev
-
   - If we set `runtimeCaching` to an empty array, all preload responses are discarded, causing certain browsers to log a certain error message. This change fixes that error for developers using `defaultCache` in development mode.
 
 - Updated dependencies [[`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed), [`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed), [`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed)]:
@@ -197,7 +199,6 @@
 ### Patch Changes
 
 - [`693679a`](https://github.com/serwist/serwist/commit/693679a2b9fc066d4636974039131fd48bfb9b28) Thanks [@userquin](https://github.com/userquin)! - fix(vite): add missing types for typings subpackage export
-
   - `typings.d.ts` was not included in the final tgz before.
 
 - Updated dependencies []:
@@ -219,11 +220,9 @@
 ### Major Changes
 
 - [#123](https://github.com/serwist/serwist/pull/123) [`add4fdd`](https://github.com/serwist/serwist/commit/add4fdd390555053d023faebfe1dca41510b2e2f) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(build): moved framework-specific types out of `@serwist/build`
-
   - Types the likes of `WebpackPartial`, `WebpackInjectManifestOptions`, `ViteInjectManifestOptions`, along with their according validators have been moved out of `@serwist/build`.
   - This design, a relic of Workbox, never made any sense in the first place. As such, we are getting rid of it and migrating to a design where types and validators are co-located with their related packages.
   - To migrate, update the imports:
-
     - `@serwist/build.WebpackPartial` -> `@serwist/webpack-plugin.WebpackPartial`
     - `@serwist/build.WebpackInjectManifestOptions` -> `@serwist/webpack-plugin.InjectManifestOptions`
     - `@serwist/build.WebpackInjectManifestPartial` -> `Omit<import("@serwist/webpack-plugin").InjectManifestOptions, keyof import("@serwist/build").BasePartial | keyof import("@serwist/build").InjectPartial | keyof import("@serwist/webpack-plugin").WebpackPartial | keyof import("@serwist/build").OptionalSwDestPartial>`
@@ -232,10 +231,8 @@
   - With this change, validators and schemas have also been made public. Validators can be imported from "/" files, whereas schemas can be imported from "/schema" ones.
 
 - [#123](https://github.com/serwist/serwist/pull/123) [`691ef0d`](https://github.com/serwist/serwist/commit/691ef0d706a47bacd8c45b8e569669af76535766) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(vite): moved getSerwist from `@serwist/vite/browser` to `virtual:serwist`
-
   - `@serwist/vite/browser.getSerwist` required `@serwist/vite` to provide it build time information through virtual modules. However, this seems to cause bugs in development mode, and it is not a great pattern to use. As such, we are moving `getSerwist` from `@serwist/vite/browser` to `virtual:serwist`.
   - To migrate, simply update the import.
-
     - Old:
 
     ```ts
@@ -251,15 +248,12 @@
   - If you use TypeScript, you may also want to add `@serwist/vite/typings` to `compilerOptions.types` so Serwist can properly type the virtual module for you.
 
 - [#123](https://github.com/serwist/serwist/pull/123) [`db9f327`](https://github.com/serwist/serwist/commit/db9f3275cd2f78287516668b50a62cff7c1a4d1d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(svelte): moved Svelte integration into a separate package
-
   - IMPORTANT NOTE: with this change, `@serwist/svelte` no longer makes use of any of the Serwist build tools.
-
     - This is because SvelteKit itself is capable of generating a list of precache manifest, and we'd like to leverage
       that capability. Essentially, Serwist, from now, only handles the service worker side for SvelteKit.
     - If the old behaviour is preferred, [manual integration](https://serwist.pages.dev/docs/vite/recipes/svelte) is required.
 
   - To migrate, uninstall `@serwist/vite`, remove `@serwist/vite/integration/svelte.serwist` from vite.config.(js|ts), install `@serwist/svelte`, and then update your service-worker.ts:
-
     - Old:
 
     ```ts
@@ -334,7 +328,6 @@
     ```
 
 - [#123](https://github.com/serwist/serwist/pull/123) [`4a5d51a`](https://github.com/serwist/serwist/commit/4a5d51ac8e9ed97b97754d8164990a08be65846d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(peerDeps): bump minimum supported TypeScript and Node.js version
-
   - From now, we only support TypeScript versions later than 5.0.0 and Node.js ones later than 18.0.0.
   - To migrate, simply update these tools.
 
@@ -346,14 +339,11 @@
   ```
 
 - [#123](https://github.com/serwist/serwist/pull/123) [`7b55ac5`](https://github.com/serwist/serwist/commit/7b55ac526a73826cb2d179a863d7eb29182616ee) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(js): dropped the CommonJS build
-
   - Serwist is now an ESM-only project.
   - This was done because our tooling around supporting CJS had always been crappy: it was slow, had no way of supporting emitting `.d.cts` (we used to copy `.d.ts` to `.d.cts`), and was too error-prone (there were various issues of our builds crashing due to an ESM-only package slipping in).
   - If you already use ESM, there's nothing to be done. Great! Otherwise, to migrate:
-
     - Migrate to ESM if possible.
     - Otherwise, use dynamic imports. For example, to migrate to the new `@serwist/next`:
-
       - Old:
 
       ```js
@@ -395,7 +385,6 @@
 ### Patch Changes
 
 - [#123](https://github.com/serwist/serwist/pull/123) [`db7776e`](https://github.com/serwist/serwist/commit/db7776e6f55f4d1cf62ea8975c8460cb92c28138) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(svelte,next,vite): force `defaultCache` to only use `NetworkOnly` in development mode
-
   - This is to prevent files from being accidentally cached during development mode, which isn't the behaviour you would expect to see anyway.
   - URLs that are matched by these entries in production are now handled by `NetworkOnly` in development. No option to override this behaviour is provided, for it would provide little to no value. If you do need runtime caching to work during development, you have to copy `defaultCache` into your code.
   - As a reminder for those who extend `defaultCache`, it should be placed below any custom entry, since such an entry wouldn't ever be matched otherwise.
@@ -478,7 +467,6 @@
 ### Patch Changes
 
 - 6d294f9: refactor: migrate to GitLab
-
   - Serwist and `@ducanh2912/next-pwa` have migrated to GitLab.
   - This was the result of GitHub flagging my account, organizations, and repositories as spam. Sorry for the inconvenience.
 
@@ -512,7 +500,6 @@
 ### Patch Changes
 
 - [`db7776e`](https://github.com/serwist/serwist/commit/db7776e6f55f4d1cf62ea8975c8460cb92c28138) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(svelte,next,vite): force `defaultCache` to only use NetworkOnly in development mode
-
   - This is to prevent files from being accidentally cached during development mode, which isn't the behaviour you would expect to see anyway.
   - URLs that are matched by these entries in production are now handled by NetworkOnly in development. No option to override this behaviour is provided, for it would provide little to no value. If you do need runtime caching to work during development, you have to copy `defaultCache` into your code.
   - As a reminder for those who extend `defaultCache`, it should be placed below any custom entry, since such an entry wouldn't ever be matched otherwise.
@@ -551,11 +538,9 @@
 ### Major Changes
 
 - [`add4fdd`](https://github.com/serwist/serwist/commit/add4fdd390555053d023faebfe1dca41510b2e2f) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(build): moved framework-specific types out of `@serwist/build`
-
   - Types the likes of `WebpackPartial`, `WebpackInjectManifestOptions`, `ViteInjectManifestOptions`, along with their according validators have been moved out of `@serwist/build`.
   - This design, a relic of Workbox, never made any sense in the first place. As such, we are getting rid of it and migrating to a design where types and validators are co-located with their related packages.
   - To migrate, update the imports:
-
     - `@serwist/build.WebpackPartial` -> `@serwist/webpack-plugin.WebpackPartial`
     - `@serwist/build.WebpackInjectManifestOptions` -> `@serwist/webpack-plugin.InjectManifestOptions`
     - `@serwist/build.WebpackInjectManifestPartial` -> `Omit<import("@serwist/webpack-plugin").InjectManifestOptions, keyof import("@serwist/build").BasePartial | keyof import("@serwist/build").InjectPartial | keyof import("@serwist/webpack-plugin").WebpackPartial | keyof import("@serwist/build").OptionalSwDestPartial>`
@@ -588,7 +573,6 @@
 ### Major Changes
 
 - [`ea0944c`](https://github.com/serwist/serwist/commit/ea0944c5b7b9d39cecda423e1e60b7bd11723063) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor: use iterables
-
   - Serwist now uses iterables in its code. For instance, `Headers.prototype.entries()` can be noticed at parts of `@serwist/cacheable-response`.
   - This is partly thanks to our Node.js requirement being bumped to 18.0.0. Iterables have been supported in all major browsers for ages, so they wouldn't be a problem (hell, all browsers that support service workers have support for iterables).
   - Still, since this requires us to enforce the use of Node.js 18.0.0 or later, it is marked a breaking change.
@@ -640,9 +624,7 @@
 ### Major Changes
 
 - [`db9f327`](https://github.com/serwist/serwist/commit/db9f3275cd2f78287516668b50a62cff7c1a4d1d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(svelte): moved Svelte integration into a separate package
-
   - IMPORTANT NOTE: with this change, `@serwist/svelte` no longer makes use of any of the Serwist build tools.
-
     - This is because SvelteKit itself is capable of generating a list of precache manifest, and we'd like to leverage
       that capability. Essentially, Serwist, from now, only handles the service worker side for SvelteKit.
 
@@ -650,7 +632,6 @@
       to see how this should be implemented. A guide will be added to the docs soon.
 
   - To migrate, uninstall `@serwist/vite`, remove `@serwist/vite/integration/svelte.serwist` from vite.config.(js|ts), install `@serwist/svelte`, and then update your service-worker.ts:
-
     - Old:
 
     ```ts
@@ -808,7 +789,6 @@
 ### Major Changes
 
 - [`30e4c25`](https://github.com/serwist/serwist/commit/30e4c25ac9fc319902c75682b16a5ba31bfbae58) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(peerDeps): bump minimum supported TypeScript and Node.js version
-
   - From now, we only support TypeScript versions later than 5.0.0 and Node.js ones later than 18.0.0.
   - To migrate, simply update these tools.
 
@@ -820,14 +800,11 @@
   ```
 
 - [`defdd5a`](https://github.com/serwist/serwist/commit/defdd5a50f80e6c58e00dff8c608466c02fdc459) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(js): migrate to ESM-only
-
   - Serwist is now an ESM-only project.
   - This was done because our tooling around supporting CJS had always been crappy: it was slow, had no way of supporting emitting `.d.cts` (we used to copy `.d.ts` to `.d.cts`), and was too error-prone (there were various issues of our builds crashing due to an ESM-only package slipping in).
   - If you already use ESM, there's nothing to be done. Great! Otherwise, to migrate:
-
     - Migrate to ESM if possible.
     - Otherwise, use dynamic imports. For example, to migrate to the new `@serwist/next`:
-
       - Old:
 
       ```js
@@ -910,14 +887,12 @@
 ### Minor Changes
 
 - [#32](https://github.com/serwist/serwist/pull/32) [`87fea3c`](https://github.com/serwist/serwist/commit/87fea3c8ce51eab78404e64887b3840b9f633d9d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(vite): disintegrate `@serwist/vite` from `@serwist/build`
-
   - What this means is that we don't use `@serwist/build.injectManifest` anymore. Using `define` just works™️
   - The benefit of owning the entire codebase... :D
 
 ### Patch Changes
 
 - [#32](https://github.com/serwist/serwist/pull/32) [`87fea3c`](https://github.com/serwist/serwist/commit/87fea3c8ce51eab78404e64887b3840b9f633d9d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(docs): changed docs's URL
-
   - Currently we deploy at Cloudflare Pages.
 
 - Updated dependencies [[`87fea3c`](https://github.com/serwist/serwist/commit/87fea3c8ce51eab78404e64887b3840b9f633d9d)]:
@@ -929,7 +904,6 @@
 ### Minor Changes
 
 - [`d368225`](https://github.com/serwist/serwist/commit/d368225e7b0aea842b6f7b8ea71ebe93b2516179) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(vite): support development mode
-
   - This is a bit different to how `vite-plugin-pwa` does it. In dev, the plugin handles the service worker in two ways:
     - If `devOptions.bundle` is enabled, hook a middleware that bundles the service worker through `api.generateSW()` and returns the result into Vite's dev server.
     - Otherwise, run `injectManifest` and return the service worker through `async load(id)`. Although `precacheEntries` is always `undefined`, we still do this to check the user's `injectManifest` options in dev mode.
@@ -937,7 +911,6 @@
 ### Patch Changes
 
 - [`bd75087`](https://github.com/serwist/serwist/commit/bd7508722a50bc2191d24a1e6e55a835060ba350) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(cjs): fixed CommonJS builds crashing
-
   - Turns out we also need `chunkFileNames`, otherwise Rollup would always use ".js" for all the chunks. What in the world.
 
 - Updated dependencies [[`0bb9635`](https://github.com/serwist/serwist/commit/0bb96358f7574b80fac060b0d8208528f8d92ff8)]:
@@ -949,14 +922,12 @@
 ### Minor Changes
 
 - [`b80b988`](https://github.com/serwist/serwist/commit/b80b988ca0b248131776b3e4b0e313715961c444) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(vite): added `@serwist/vite`
-
   - This is a fork of `vite-plugin-pwa`, but it has undergone a major refactor so as to meet our use case. One can notice the obvious lack of features in comparison to `vite-plugin-pwa`.
   - At the moment, only base Vite and SvelteKit are supported. Some other frameworks, such as Astro, Nuxt, and Solid.js, will be added soon.
   - Currently, `@serwist/vite` and its SvelteKit integration do not support development mode. This is because of two reasons:
     - `vite-plugin-pwa`'s way of support dev was... seemingly unnecessarily bloated in my opinion. I hold the belief that having a separate "dev-sw.js" is not the way to go. Rather, I want to directly bundle `swSrc`. It's just that I've not figured out a way to do so. If that's not possible, perhaps we can consider their way of doing it again.
     - [Many browsers still do not support using ESM in service workers](https://caniuse.com/mdn-api_serviceworker_ecmascript_modules), causing them to fail to parse SvelteKit's dev "service-worker.ts".
   - To get started:
-
     - Normal Vite:
 
     ```ts

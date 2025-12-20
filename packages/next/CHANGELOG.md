@@ -1,11 +1,20 @@
 # @serwist/next
 
+## 9.3.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/build@9.3.0
+  - @serwist/webpack-plugin@9.3.0
+  - @serwist/window@9.3.0
+  - serwist@9.3.0
+
 ## 9.2.3
 
 ### Patch Changes
 
 - [`01f4b27`](https://github.com/serwist/serwist/commit/01f4b27152fd6fc4a9f5a39cc5636047a06346d0) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): dependencies maintenance
-
   - This patch updates all dependencies and bumps `glob` to fix a vulnerability.
 
 - [`3349a66`](https://github.com/serwist/serwist/commit/3349a664592f331f47751e0f6336e75990842e23) Thanks [@pcboy](https://github.com/pcboy)! - Fix handling of symlinks pointing to folders
@@ -53,7 +62,6 @@
 - [#277](https://github.com/serwist/serwist/pull/277) [`b97c89e`](https://github.com/serwist/serwist/commit/b97c89e93e23830172c456b22e64ed279cc55ad0) Thanks [@Debbl](https://github.com/Debbl)! - add NetworkOnly strategy for `/api/auth`
 
 - [`f163a02`](https://github.com/serwist/serwist/commit/f163a024965bd2ecd6176b82530257a58f8c8da1) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(next, turbo): added network-only catch-all route for GET requests
-
   - This is only so that preloaded responses are properly.
 
 - Updated dependencies []:
@@ -67,7 +75,6 @@
 ### Minor Changes
 
 - [`852df26`](https://github.com/serwist/serwist/commit/852df2609f700d28de6433e0cb6669ade13c5b95) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(build): migrate to Zod 4
-
   - This fixes issues with Zod validation.
   - We've migrated to `z.prettifyError`, meaning you can expect to see this new format of errors:
 
@@ -106,13 +113,11 @@
 ### Patch Changes
 
 - [`de27be5`](https://github.com/serwist/serwist/commit/de27be5c8c48afc6122e046dc116696cedfc93e4) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix: Update cacheOnNavigation document page
-
   - Thanks @zsh77! Here's the PR message:
 
   replaced the duplicated `history.pushState` with `history.replaceState`
 
 - [`de27be5`](https://github.com/serwist/serwist/commit/de27be5c8c48afc6122e046dc116696cedfc93e4) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): monthly dependencies maintenance
-
   - Just the regular stuff. Serwist 10 is still on the way!
 
 - Updated dependencies [[`de27be5`](https://github.com/serwist/serwist/commit/de27be5c8c48afc6122e046dc116696cedfc93e4)]:
@@ -150,7 +155,6 @@
 ### Patch Changes
 
 - [`7e99285`](https://github.com/serwist/serwist/commit/7e9928532254633fbf49e1e1b83fcf48bcccce60) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(next): fixed `__dirname` conflict in CommonJS
-
   - Thanks @jthcast! Their message:
 
   > If you use `storybook` and `serwist` together, they will conflict for `__dirname` variable. Because it is already created with a global scope, it cannot be used by branching from the business logic it uses. So I suggest moving to scope within the function.
@@ -186,7 +190,6 @@
 ### Patch Changes
 
 - [#192](https://github.com/serwist/serwist/pull/192) [`ceea5d1`](https://github.com/serwist/serwist/commit/ceea5d1d56dfec9b3aafba41bd0b0f2916a4ac17) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(build): remove extraneous Node.js API wrappers
-
   - Doesn't seem that we really need `fs-extra`, `pathe`, `fast-json-stable-stringify`, or `upath`, so let's just remove them.
   - This also adds tests for Windows to ensure that we don't mess up.
 
@@ -211,7 +214,6 @@
 ### Patch Changes
 
 - [#168](https://github.com/serwist/serwist/pull/168) [`c7bed2b`](https://github.com/serwist/serwist/commit/c7bed2b3a16be9b60cbb485500a3e893615f321d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(dependencies): reverted `glob` to v10 and `rimraf` to v5
-
   - Turns out `glob` v11 and `rimraf` v6 drops support for Node.js 18, so we are back to v10 and v5 for now.
   - This also adds test for Node.js 18 and 22.
 
@@ -238,11 +240,9 @@
 ### Patch Changes
 
 - [`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): updated all dependencies
-
   - We have updated all dependencies to latest, as usual.
 
 - [`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(frameworks): use `NetworkOnly` for `defaultCache` in dev
-
   - If we set `runtimeCaching` to an empty array, all preload responses are discarded, causing certain browsers to log a certain error message. This change fixes that error for developers using `defaultCache` in development mode.
 
 - Updated dependencies [[`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed), [`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed), [`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed)]:
@@ -266,7 +266,6 @@
 ### Patch Changes
 
 - [#128](https://github.com/serwist/serwist/pull/128) [`ee8fa90`](https://github.com/serwist/serwist/commit/ee8fa9026ada9d708cf828c0b1ef0e37bb1e1020) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(next): check if the current page is in the service worker's scope before registering
-
   - Before, if `InjectPartial.scope` was set to some value, and you visited a page out of that scope, you would see the warning "The current page is not in scope for the registered service worker. Was this a mistake?" logged. This simply fixes that by checking if the page is in the scope before calling `window.serwist.register()`.
   - Wondering if we should have removed /sw-entry.ts before the 9.0.0 release...
 
@@ -281,11 +280,9 @@
 ### Major Changes
 
 - [#123](https://github.com/serwist/serwist/pull/123) [`add4fdd`](https://github.com/serwist/serwist/commit/add4fdd390555053d023faebfe1dca41510b2e2f) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(build): moved framework-specific types out of `@serwist/build`
-
   - Types the likes of `WebpackPartial`, `WebpackInjectManifestOptions`, `ViteInjectManifestOptions`, along with their according validators have been moved out of `@serwist/build`.
   - This design, a relic of Workbox, never made any sense in the first place. As such, we are getting rid of it and migrating to a design where types and validators are co-located with their related packages.
   - To migrate, update the imports:
-
     - `@serwist/build.WebpackPartial` -> `@serwist/webpack-plugin.WebpackPartial`
     - `@serwist/build.WebpackInjectManifestOptions` -> `@serwist/webpack-plugin.InjectManifestOptions`
     - `@serwist/build.WebpackInjectManifestPartial` -> `Omit<import("@serwist/webpack-plugin").InjectManifestOptions, keyof import("@serwist/build").BasePartial | keyof import("@serwist/build").InjectPartial | keyof import("@serwist/webpack-plugin").WebpackPartial | keyof import("@serwist/build").OptionalSwDestPartial>`
@@ -294,10 +291,8 @@
   - With this change, validators and schemas have also been made public. Validators can be imported from "/" files, whereas schemas can be imported from "/schema" ones.
 
 - [#123](https://github.com/serwist/serwist/pull/123) [`4a5d51a`](https://github.com/serwist/serwist/commit/4a5d51ac8e9ed97b97754d8164990a08be65846d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(next): renamed "/browser" to "/worker"
-
   - This new name makes more sense than the old one, for these exports are actually for use in service workers.
   - To migrate, simply change all imports of `@serwist/next/browser` to those of `@serwist/next/worker`:
-
     - Old:
 
     ```ts
@@ -325,7 +320,6 @@
     ```
 
 - [#123](https://github.com/serwist/serwist/pull/123) [`4a5d51a`](https://github.com/serwist/serwist/commit/4a5d51ac8e9ed97b97754d8164990a08be65846d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(peerDeps): bump minimum supported TypeScript and Node.js version
-
   - From now, we only support TypeScript versions later than 5.0.0 and Node.js ones later than 18.0.0.
   - To migrate, simply update these tools.
 
@@ -337,14 +331,11 @@
   ```
 
 - [#123](https://github.com/serwist/serwist/pull/123) [`7b55ac5`](https://github.com/serwist/serwist/commit/7b55ac526a73826cb2d179a863d7eb29182616ee) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(js): dropped the CommonJS build
-
   - Serwist is now an ESM-only project.
   - This was done because our tooling around supporting CJS had always been crappy: it was slow, had no way of supporting emitting `.d.cts` (we used to copy `.d.ts` to `.d.cts`), and was too error-prone (there were various issues of our builds crashing due to an ESM-only package slipping in).
   - If you already use ESM, there's nothing to be done. Great! Otherwise, to migrate:
-
     - Migrate to ESM if possible.
     - Otherwise, use dynamic imports. For example, to migrate to the new `@serwist/next`:
-
       - Old:
 
       ```js
@@ -384,15 +375,12 @@
     - If all else fails, use `require(esm)`. This may or may not be supported on your current Node.js version.
 
 - [#123](https://github.com/serwist/serwist/pull/123) [`7524712`](https://github.com/serwist/serwist/commit/75247128031de3067676b08b21833b5d2e1d1f14) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(next): changed `defaultCache`'s `"next-data"`'s handler to `NetworkFirst`
-
   - Using `StaleWhileRevalidate` affects `getServerSideProps`'s freshness. See https://github.com/serwist/serwist/issues/74 for more details.
   - There's nothing to be done on your side.
 
 - [#123](https://github.com/serwist/serwist/pull/123) [`837cd0d`](https://github.com/serwist/serwist/commit/837cd0d7caaa03e0d3334bbf707ac9147a844285) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(next): renamed `cacheOnFrontEndNav` to `cacheOnNavigation`
-
   - Generally, we avoid using abbreviations (except for acronyms) to name Serwist's APIs.
   - To migrate, simply replace `cacheOnFrontEndNav` with `cacheOnNavigation`:
-
     - Old:
 
     ```js
@@ -422,15 +410,12 @@
 ### Minor Changes
 
 - [#123](https://github.com/serwist/serwist/pull/123) [`51a686f`](https://github.com/serwist/serwist/commit/51a686f10980ff45a0f8c10a2745ba5035d2e34d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(webpack,next): allow webpack to be an optional `peerDependency`
-
   - Since we support frameworks that ship a prebundled webpack, such as Next.js, it would be nice if we can take advantage of that as well.
   - As a result, webpack is now an optional `peerDependency` for `@serwist/webpack-plugin` and is no longer a `peerDependency` for `@serwist/next`. Thanks to the fact that we currently don't use any webpack plugin, it is also not indirectly installed.
 
 - [#123](https://github.com/serwist/serwist/pull/123) [`4a5d51a`](https://github.com/serwist/serwist/commit/4a5d51ac8e9ed97b97754d8164990a08be65846d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(next): added `@serwist/next/worker.PAGES_CACHE_NAME`
-
   - Due to the fact that App Router pages use RSC, we define 3 `runtimeCaching` entries in `defaultCache`, which are `"pages-rsc-prefetch"`, `"pages-rsc"`, and `"pages"`. This simply re-exports these `cacheName`'s for the users so that they can use them in their own extensions of our `defaultCache`.
   - If you previously copied these values from the source code, it is recommended that you migrate to this constant:
-
     - Old:
 
     ```ts
@@ -538,7 +523,6 @@
 ### Patch Changes
 
 - [#123](https://github.com/serwist/serwist/pull/123) [`db7776e`](https://github.com/serwist/serwist/commit/db7776e6f55f4d1cf62ea8975c8460cb92c28138) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(svelte,next,vite): force `defaultCache` to only use `NetworkOnly` in development mode
-
   - This is to prevent files from being accidentally cached during development mode, which isn't the behaviour you would expect to see anyway.
   - URLs that are matched by these entries in production are now handled by `NetworkOnly` in development. No option to override this behaviour is provided, for it would provide little to no value. If you do need runtime caching to work during development, you have to copy `defaultCache` into your code.
   - As a reminder for those who extend `defaultCache`, it should be placed below any custom entry, since such an entry wouldn't ever be matched otherwise.
@@ -633,7 +617,6 @@
 ### Patch Changes
 
 - 6d294f9: refactor: migrate to GitLab
-
   - Serwist and `@ducanh2912/next-pwa` have migrated to GitLab.
   - This was the result of GitHub flagging my account, organizations, and repositories as spam. Sorry for the inconvenience.
 
@@ -674,7 +657,6 @@
 ### Patch Changes
 
 - [`db7776e`](https://github.com/serwist/serwist/commit/db7776e6f55f4d1cf62ea8975c8460cb92c28138) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(svelte,next,vite): force `defaultCache` to only use NetworkOnly in development mode
-
   - This is to prevent files from being accidentally cached during development mode, which isn't the behaviour you would expect to see anyway.
   - URLs that are matched by these entries in production are now handled by NetworkOnly in development. No option to override this behaviour is provided, for it would provide little to no value. If you do need runtime caching to work during development, you have to copy `defaultCache` into your code.
   - As a reminder for those who extend `defaultCache`, it should be placed below any custom entry, since such an entry wouldn't ever be matched otherwise.
@@ -722,11 +704,9 @@
 ### Major Changes
 
 - [`add4fdd`](https://github.com/serwist/serwist/commit/add4fdd390555053d023faebfe1dca41510b2e2f) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(build): moved framework-specific types out of `@serwist/build`
-
   - Types the likes of `WebpackPartial`, `WebpackInjectManifestOptions`, `ViteInjectManifestOptions`, along with their according validators have been moved out of `@serwist/build`.
   - This design, a relic of Workbox, never made any sense in the first place. As such, we are getting rid of it and migrating to a design where types and validators are co-located with their related packages.
   - To migrate, update the imports:
-
     - `@serwist/build.WebpackPartial` -> `@serwist/webpack-plugin.WebpackPartial`
     - `@serwist/build.WebpackInjectManifestOptions` -> `@serwist/webpack-plugin.InjectManifestOptions`
     - `@serwist/build.WebpackInjectManifestPartial` -> `Omit<import("@serwist/webpack-plugin").InjectManifestOptions, keyof import("@serwist/build").BasePartial | keyof import("@serwist/build").InjectPartial | keyof import("@serwist/webpack-plugin").WebpackPartial | keyof import("@serwist/build").OptionalSwDestPartial>`
@@ -765,7 +745,6 @@
 ### Major Changes
 
 - [`ea0944c`](https://github.com/serwist/serwist/commit/ea0944c5b7b9d39cecda423e1e60b7bd11723063) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor: use iterables
-
   - Serwist now uses iterables in its code. For instance, `Headers.prototype.entries()` can be noticed at parts of `@serwist/cacheable-response`.
   - This is partly thanks to our Node.js requirement being bumped to 18.0.0. Iterables have been supported in all major browsers for ages, so they wouldn't be a problem (hell, all browsers that support service workers have support for iterables).
   - Still, since this requires us to enforce the use of Node.js 18.0.0 or later, it is marked a breaking change.
@@ -773,7 +752,6 @@
 ### Minor Changes
 
 - [`4de5675`](https://github.com/serwist/serwist/commit/4de56759940875a217a1840261d45d5d46aeed77) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(webpack,next): allow webpack to be an optional `peerDependency`
-
   - Since we support frameworks that ship a prebundled webpack, such as Next.js, it would be nice if we can take advantage of that as well.
 
   - As a result, webpack is now an optional `peerDependency` for `@serwist/webpack-plugin` and is no longer a `peerDependency` for `@serwist/next`. Thanks to the fact that we currently don't use any webpack plugin, it is also not indirectly installed.
@@ -881,7 +859,6 @@
 ### Major Changes
 
 - [`7524712`](https://github.com/serwist/serwist/commit/75247128031de3067676b08b21833b5d2e1d1f14) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(next): changed `defaultCache`'s `"next-data"`'s handler to NetworkFirst
-
   - Using `StaleWhileRevalidate` seems to affect `getServerSideProps`. See https://github.com/serwist/serwist/issues/74 for more details.
 
   - There's nothing to be done on your side.
@@ -928,10 +905,8 @@
 ### Major Changes
 
 - [`837cd0d`](https://github.com/serwist/serwist/commit/837cd0d7caaa03e0d3334bbf707ac9147a844285) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(next): renamed `cacheOnFrontEndNav` to `cacheOnNavigation`
-
   - I intended to make this breaking change in 8.0.0, but forgot. To clarify, generally, we avoids abbreviations (except for acronyms) when naming our APIs.
   - To migrate, simply replace `cacheOnFrontEndNav` with `cacheOnNavigation`:
-
     - Old:
 
     ```js
@@ -972,10 +947,8 @@
 ### Major Changes
 
 - [`30e4c25`](https://github.com/serwist/serwist/commit/30e4c25ac9fc319902c75682b16a5ba31bfbae58) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(next): renamed /browser to /worker
-
   - This new name makes more sense than the old one, for these exports are actually for use in service workers.
   - To migrate, simply change all imports of `@serwist/next/browser` to those of `@serwist/next/worker`:
-
     - Old:
 
     ```ts
@@ -999,7 +972,6 @@
     ```
 
 - [`30e4c25`](https://github.com/serwist/serwist/commit/30e4c25ac9fc319902c75682b16a5ba31bfbae58) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(peerDeps): bump minimum supported TypeScript and Node.js version
-
   - From now, we only support TypeScript versions later than 5.0.0 and Node.js ones later than 18.0.0.
   - To migrate, simply update these tools.
 
@@ -1011,14 +983,11 @@
   ```
 
 - [`defdd5a`](https://github.com/serwist/serwist/commit/defdd5a50f80e6c58e00dff8c608466c02fdc459) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(js): migrate to ESM-only
-
   - Serwist is now an ESM-only project.
   - This was done because our tooling around supporting CJS had always been crappy: it was slow, had no way of supporting emitting `.d.cts` (we used to copy `.d.ts` to `.d.cts`), and was too error-prone (there were various issues of our builds crashing due to an ESM-only package slipping in).
   - If you already use ESM, there's nothing to be done. Great! Otherwise, to migrate:
-
     - Migrate to ESM if possible.
     - Otherwise, use dynamic imports. For example, to migrate to the new `@serwist/next`:
-
       - Old:
 
       ```js
@@ -1060,7 +1029,6 @@
 ### Minor Changes
 
 - [`30e4c25`](https://github.com/serwist/serwist/commit/30e4c25ac9fc319902c75682b16a5ba31bfbae58) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(next): added `@serwist/next/worker.definePageRuntimeCaching`
-
   - Due to the fact that App Router pages use RSC, we define 3 `runtimeCaching` entries in `defaultCache`, which are `"pages-rsc-prefetch"`, `"pages-rsc"`, and `"pages"`. However, if an user were to extend this `runtimeCaching` array with their own pages entries, they would have to copy this from `defaultCache`, requiring them to inspect the source code. This method was added so that the user can conveniently do the same without the hassle.
 
 ### Patch Changes
@@ -1077,7 +1045,6 @@
 ### Patch Changes
 
 - [#56](https://github.com/serwist/serwist/pull/56) [`905e827`](https://github.com/serwist/serwist/commit/905e8278af5c8340df8dcf8018e143ad37442477) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(next): fixed invalid precache manifest being generated when `basePath` is set
-
   - This is caused by "/\_next/../public" in `modifyURLPrefix` not being matched when `basePath` is set, since the URL is actually "${basePath}/\_next/../public/\*\*/\*".
   - We now use `manifestTransforms` instead of `modifyURLPrefix`.
 
@@ -1100,7 +1067,6 @@
 ### Patch Changes
 
 - [`e454e63`](https://github.com/serwist/serwist/commit/e454e63d66967b3b02355666796596dfe5a5f785) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(next): fixed `additionalPrecacheEntries` not having a default
-
   - This is an age-old bug of `@ducanh2912/next-pwa` caused by an extra `?? []`, which results in the nullish check following the declaration to always be `false`.
 
 - Updated dependencies []:
@@ -1122,7 +1088,6 @@
 ### Patch Changes
 
 - [#32](https://github.com/serwist/serwist/pull/32) [`87fea3c`](https://github.com/serwist/serwist/commit/87fea3c8ce51eab78404e64887b3840b9f633d9d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(docs): changed docs's URL
-
   - Currently we deploy at Cloudflare Pages.
 
 - Updated dependencies [[`87fea3c`](https://github.com/serwist/serwist/commit/87fea3c8ce51eab78404e64887b3840b9f633d9d)]:
@@ -1135,7 +1100,6 @@
 ### Patch Changes
 
 - [`bd75087`](https://github.com/serwist/serwist/commit/bd7508722a50bc2191d24a1e6e55a835060ba350) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(cjs): fixed CommonJS builds crashing
-
   - Turns out we also need `chunkFileNames`, otherwise Rollup would always use ".js" for all the chunks. What in the world.
 
 - Updated dependencies [[`0bb9635`](https://github.com/serwist/serwist/commit/0bb96358f7574b80fac060b0d8208528f8d92ff8), [`bd75087`](https://github.com/serwist/serwist/commit/bd7508722a50bc2191d24a1e6e55a835060ba350)]:
@@ -1184,7 +1148,6 @@
 ### Patch Changes
 
 - [#10](https://github.com/serwist/serwist/pull/10) [`52edfe2`](https://github.com/serwist/serwist/commit/52edfe2f9e4ff2007747dd038023dbc94af52698) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(node-16-cjs): added type support for NodeNext with CommonJS
-
   - The "fix" is really simple - we copy `.d.ts` to `.old.d.cts` 💀
   - This also fixes the issue where using `@serwist/build`, `@serwist/webpack-plugin`, and their dependents with CommonJS crashes due to us using `pretty-bytes`, which is an ESM package.
 
@@ -1228,7 +1191,6 @@
 ### Major Changes
 
 - [`e0313f0`](https://github.com/serwist/serwist/commit/e0313f02f661a07ccbe9edc64e44e1af6136c73e) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore: initial release
-
   - Reimagined `@serwist/next`.
     - Removed various options.
       - Removed `aggressiveFrontEndNavCaching` to reassess its usefulness.
