@@ -1,6 +1,6 @@
 import { Serwist } from "@serwist/window";
 import { isCurrentPageOutOfScope } from "@serwist/window/internal";
-import { useEffect, useState, type ReactNode } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 import { SerwistContext } from "./lib/context.js";
 
 export interface SerwistProviderProps {

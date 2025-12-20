@@ -1,2 +1,2 @@
-export { CacheExpiration, ExpirationPlugin } from "serwist";
 export type { ExpirationPluginOptions } from "serwist";
+export { CacheExpiration, ExpirationPlugin } from "serwist";

@@ -6,13 +6,13 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { SerwistError } from "../../utils/SerwistError.js";
 import { assert } from "../../utils/assert.js";
 import { logger } from "../../utils/logger.js";
+import { SerwistError } from "../../utils/SerwistError.js";
+import { cacheOkAndOpaquePlugin } from "./plugins/cacheOkAndOpaquePlugin.js";
 import type { StrategyOptions } from "./Strategy.js";
 import { Strategy } from "./Strategy.js";
 import type { StrategyHandler } from "./StrategyHandler.js";
-import { cacheOkAndOpaquePlugin } from "./plugins/cacheOkAndOpaquePlugin.js";
 import { messages } from "./utils/messages.js";
 
 /**

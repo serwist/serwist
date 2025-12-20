@@ -1,16 +1,20 @@
 import { parallel } from "@serwist/utils";
-import { NavigationRoute } from "./NavigationRoute.js";
-import { PrecacheRoute } from "./PrecacheRoute.js";
-import type { Route } from "./Route.js";
-import { type HTTPMethod, defaultMethod } from "./constants.js";
+import { defaultMethod, type HTTPMethod } from "./constants.js";
 import { disableDevLogs as disableDevLogsImpl } from "./disableDevLogs.js";
 import { type GoogleAnalyticsInitializeOptions, initializeGoogleAnalytics } from "./lib/googleAnalytics/initializeGoogleAnalytics.js";
 import { type PrecacheFallbackEntry, PrecacheFallbackPlugin } from "./lib/precaching/PrecacheFallbackPlugin.js";
 import { PrecacheStrategy } from "./lib/strategies/PrecacheStrategy.js";
 import { Strategy } from "./lib/strategies/Strategy.js";
+import { NavigationRoute } from "./NavigationRoute.js";
 import { enableNavigationPreload } from "./navigationPreload.js";
+import { PrecacheRoute } from "./PrecacheRoute.js";
+import type { Route } from "./Route.js";
 import { setCacheNameDetails } from "./setCacheNameDetails.js";
 import type {
+  CleanupResult,
+  InstallEvent,
+  InstallResult,
+  PrecacheEntry,
   PrecacheOptions,
   RequestRule,
   RouteHandler,
@@ -19,12 +23,8 @@ import type {
   RouteHandlerObject,
   RouteMatchCallback,
   RouteMatchCallbackOptions,
-  InstallEvent,
+  RuntimeCaching,
 } from "./types.js";
-import type { RuntimeCaching } from "./types.js";
-import type { CleanupResult, InstallResult, PrecacheEntry } from "./types.js";
-import { PrecacheInstallReportPlugin } from "./utils/PrecacheInstallReportPlugin.js";
-import { SerwistError } from "./utils/SerwistError.js";
 import { assert } from "./utils/assert.js";
 import { cleanupOutdatedCaches as cleanupOutdatedCachesImpl } from "./utils/cleanupOutdatedCaches.js";
 import { clientsClaim as clientsClaimImpl } from "./utils/clientsClaim.js";
@@ -32,11 +32,13 @@ import { createCacheKey } from "./utils/createCacheKey.js";
 import { getFriendlyURL } from "./utils/getFriendlyURL.js";
 import { logger } from "./utils/logger.js";
 import { normalizeHandler } from "./utils/normalizeHandler.js";
+import { PrecacheInstallReportPlugin } from "./utils/PrecacheInstallReportPlugin.js";
+import { parsePrecacheOptions } from "./utils/parsePrecacheOptions.js";
 import { parseRoute } from "./utils/parseRoute.js";
 import { printCleanupDetails } from "./utils/printCleanupDetails.js";
 import { printInstallDetails } from "./utils/printInstallDetails.js";
+import { SerwistError } from "./utils/SerwistError.js";
 import { waitUntil } from "./utils/waitUntil.js";
-import { parsePrecacheOptions } from "./utils/parsePrecacheOptions.js";
 
 declare const self: ServiceWorkerGlobalScope;
 

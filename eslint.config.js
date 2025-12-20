@@ -1,12 +1,12 @@
-import { fileURLToPath } from "node:url";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import js from "@eslint/js";
-import ts from "typescript-eslint";
-import svelte from "eslint-plugin-svelte";
 import prettier from "eslint-config-prettier";
 import sort from "eslint-plugin-simple-import-sort";
+import svelte from "eslint-plugin-svelte";
 import turbo from "eslint-plugin-turbo";
 import globals from "globals";
+import ts from "typescript-eslint";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

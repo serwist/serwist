@@ -1,8 +1,3 @@
-import { PrecacheController } from "./legacy/PrecacheController.js";
-import { PrecacheFallbackPlugin } from "./legacy/PrecacheFallbackPlugin.js";
-import type { PrecacheFallbackEntry, PrecacheFallbackPluginOptions } from "./legacy/PrecacheFallbackPlugin.js";
-import { PrecacheRoute } from "./legacy/PrecacheRoute.js";
-import { Router } from "./legacy/Router.js";
 import { addPlugins } from "./legacy/addPlugins.js";
 import { addRoute } from "./legacy/addRoute.js";
 import { createHandlerBoundToURL } from "./legacy/createHandlerBoundToURL.js";
@@ -14,8 +9,13 @@ import type { GoogleAnalyticsInitializeOptions } from "./legacy/initializeGoogle
 import { initializeGoogleAnalytics } from "./legacy/initializeGoogleAnalytics.js";
 import { type InstallSerwistOptions, installSerwist } from "./legacy/installSerwist.js";
 import { matchPrecache } from "./legacy/matchPrecache.js";
+import { PrecacheController } from "./legacy/PrecacheController.js";
+import type { PrecacheFallbackEntry, PrecacheFallbackPluginOptions } from "./legacy/PrecacheFallbackPlugin.js";
+import { PrecacheFallbackPlugin } from "./legacy/PrecacheFallbackPlugin.js";
+import { PrecacheRoute } from "./legacy/PrecacheRoute.js";
 import { precache } from "./legacy/precache.js";
 import { precacheAndRoute } from "./legacy/precacheAndRoute.js";
+import { Router } from "./legacy/Router.js";
 import { registerRoute } from "./legacy/registerRoute.js";
 import { registerRuntimeCaching } from "./legacy/registerRuntimeCaching.js";
 import { setCatchHandler } from "./legacy/setCatchHandler.js";

@@ -24,6 +24,7 @@
       "suspicious": {
         "noExplicitAny": "off",
         "noAssignInExpressions": "off",
+        "noArrayIndexKey": "off",
         "noVar": "off"
       },
       "complexity": {

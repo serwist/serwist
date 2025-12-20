@@ -1,13 +1,13 @@
 import type {
-  BasePartial,
-  BaseResolved,
   InjectPartial as BaseInjectPartial,
   InjectResolved as BaseInjectResolved,
+  BasePartial,
+  BaseResolved,
   OptionalSwDestPartial,
   OptionalSwDestResolved,
 } from "@serwist/build";
 import type { Require } from "@serwist/utils";
-import type { WebpackPluginFunction, WebpackPluginInstance, Asset, Compilation } from "webpack";
+import type { Asset, Compilation, WebpackPluginFunction, WebpackPluginInstance } from "webpack";
 
 export interface ConditionCallbackOptions {
   asset: Asset;

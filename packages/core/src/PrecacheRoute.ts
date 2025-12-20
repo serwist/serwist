@@ -8,8 +8,7 @@
 
 import { Route } from "./Route.js";
 import type { Serwist } from "./Serwist.js";
-import type { RouteMatchCallback, RouteMatchCallbackOptions } from "./types.js";
-import type { PrecacheRouteOptions } from "./types.js";
+import type { PrecacheRouteOptions, RouteMatchCallback, RouteMatchCallbackOptions } from "./types.js";
 import { generateURLVariations } from "./utils/generateURLVariations.js";
 import { getFriendlyURL } from "./utils/getFriendlyURL.js";
 import { logger } from "./utils/logger.js";

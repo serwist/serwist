@@ -1,4 +1,4 @@
-import { fn, basePartial, injectPartial as baseInjectPartial, optionalSwDestPartial } from "@serwist/build/schema";
+import { injectPartial as baseInjectPartial, basePartial, fn, optionalSwDestPartial } from "@serwist/build/schema";
 import { z } from "zod";
 
 const webpackConditionCallback = fn({

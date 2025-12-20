@@ -1,6 +1,6 @@
 import { defaultCache } from "@serwist/next/worker";
-import { Serwist } from "serwist";
 import type { PrecacheEntry } from "serwist";
+import { Serwist } from "serwist";
 
 declare global {
   interface WorkerGlobalScope {

@@ -1,9 +1,9 @@
-import { dev } from "$app/environment";
 import { Resvg } from "@resvg/resvg-js";
-import { type ReactElement, createElement } from "react";
+import { createElement, type ReactElement } from "react";
 import type { Font } from "satori";
 import satori, { init as initSatori } from "satori/wasm";
 import initYoga, { type Yoga } from "yoga-wasm-web";
+import { dev } from "$app/environment";
 import { encodeBase64 } from "./base64";
 import type { OpenGraphImage } from "./types";
 

@@ -1,0 +1,32 @@
+import tailwindcss from "@tailwindcss/vite";
+import { devtools } from "@tanstack/devtools-vite";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import viteReact from "@vitejs/plugin-react";
+import { nitro } from "nitro/vite";
+import { serwist } from "@serwist/vite";
+import { defineConfig } from "vite";
+import viteTsConfigPaths from "vite-tsconfig-paths";
+
+const config = defineConfig({
+  plugins: [
+    devtools(),
+    nitro(),
+    // this is the plugin that enables path aliases
+    viteTsConfigPaths({
+      projects: ["./tsconfig.json"],
+    }),
+    serwist({
+      swSrc: "src/sw.ts",
+      swDest: "../.output/public/sw.js",
+      globDirectory: ".output/public",
+      globPatterns: ["**/*.{ico,js,html,css,png,json,txt}"],
+      injectionPoint: "self.__SW_MANIFEST",
+      rollupFormat: "iife",
+    }),
+    tailwindcss(),
+    tanstackStart(),
+    viteReact(),
+  ],
+});
+
+export default config;

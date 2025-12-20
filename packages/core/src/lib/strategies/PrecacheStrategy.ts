@@ -7,12 +7,12 @@
 */
 
 import { copyResponse } from "../../copyResponse.js";
+import type { Serwist } from "../../Serwist.js";
 import type { SerwistPlugin } from "../../types.js";
-import { SerwistError } from "../../utils/SerwistError.js";
 import { cacheNames as privateCacheNames } from "../../utils/cacheNames.js";
 import { getFriendlyURL } from "../../utils/getFriendlyURL.js";
 import { logger } from "../../utils/logger.js";
-import type { Serwist } from "../../Serwist.js";
+import { SerwistError } from "../../utils/SerwistError.js";
 import type { StrategyOptions } from "./Strategy.js";
 import { Strategy } from "./Strategy.js";
 import type { StrategyHandler } from "./StrategyHandler.js";

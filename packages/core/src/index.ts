@@ -1,9 +1,3 @@
-import type { NavigationRouteMatchOptions } from "./NavigationRoute.js";
-import { NavigationRoute } from "./NavigationRoute.js";
-import { PrecacheRoute } from "./PrecacheRoute.js";
-import { RegExpRoute } from "./RegExpRoute.js";
-import { Route } from "./Route.js";
-import { Serwist, type SerwistOptions } from "./Serwist.js";
 import { cacheNames } from "./cacheNames.js";
 import type { HTTPMethod } from "./constants.js";
 import { copyResponse } from "./copyResponse.js";
@@ -18,18 +12,18 @@ import { BroadcastUpdatePlugin } from "./lib/broadcastUpdate/BroadcastUpdatePlug
 import { BROADCAST_UPDATE_DEFAULT_HEADERS } from "./lib/broadcastUpdate/constants.js";
 import { responsesAreSame } from "./lib/broadcastUpdate/responsesAreSame.js";
 import type { BroadcastCacheUpdateOptions, BroadcastMessage, BroadcastPayload, BroadcastPayloadGenerator } from "./lib/broadcastUpdate/types.js";
-import { CacheableResponse } from "./lib/cacheableResponse/CacheableResponse.js";
 import type { CacheableResponseOptions } from "./lib/cacheableResponse/CacheableResponse.js";
+import { CacheableResponse } from "./lib/cacheableResponse/CacheableResponse.js";
 import { CacheableResponsePlugin } from "./lib/cacheableResponse/CacheableResponsePlugin.js";
 import { CacheExpiration } from "./lib/expiration/CacheExpiration.js";
 import type { ExpirationPluginOptions } from "./lib/expiration/ExpirationPlugin.js";
 import { ExpirationPlugin } from "./lib/expiration/ExpirationPlugin.js";
-import { initializeGoogleAnalytics } from "./lib/googleAnalytics/initializeGoogleAnalytics.js";
 import type { GoogleAnalyticsInitializeOptions } from "./lib/googleAnalytics/initializeGoogleAnalytics.js";
+import { initializeGoogleAnalytics } from "./lib/googleAnalytics/initializeGoogleAnalytics.js";
 import type { PrecacheFallbackEntry, PrecacheFallbackPluginOptions } from "./lib/precaching/PrecacheFallbackPlugin.js";
 import { PrecacheFallbackPlugin } from "./lib/precaching/PrecacheFallbackPlugin.js";
-import { RangeRequestsPlugin } from "./lib/rangeRequests/RangeRequestsPlugin.js";
 import { createPartialResponse } from "./lib/rangeRequests/createPartialResponse.js";
+import { RangeRequestsPlugin } from "./lib/rangeRequests/RangeRequestsPlugin.js";
 import { CacheFirst } from "./lib/strategies/CacheFirst.js";
 import { CacheOnly } from "./lib/strategies/CacheOnly.js";
 import type { NetworkFirstOptions } from "./lib/strategies/NetworkFirst.js";
@@ -41,8 +35,14 @@ import { StaleWhileRevalidate } from "./lib/strategies/StaleWhileRevalidate.js";
 import type { StrategyOptions } from "./lib/strategies/Strategy.js";
 import { Strategy } from "./lib/strategies/Strategy.js";
 import { StrategyHandler } from "./lib/strategies/StrategyHandler.js";
+import type { NavigationRouteMatchOptions } from "./NavigationRoute.js";
+import { NavigationRoute } from "./NavigationRoute.js";
 import { disableNavigationPreload, enableNavigationPreload, isNavigationPreloadSupported } from "./navigationPreload.js";
+import { PrecacheRoute } from "./PrecacheRoute.js";
+import { RegExpRoute } from "./RegExpRoute.js";
+import { Route } from "./Route.js";
 import { registerQuotaErrorCallback } from "./registerQuotaErrorCallback.js";
+import { Serwist, type SerwistOptions } from "./Serwist.js";
 import { setCacheNameDetails } from "./setCacheNameDetails.js";
 
 export {

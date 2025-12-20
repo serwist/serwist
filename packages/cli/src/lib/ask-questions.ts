@@ -1,7 +1,7 @@
 import assert from "node:assert";
 import { statSync } from "node:fs";
 import path from "node:path";
-import { checkbox, input, select, Separator } from "@inquirer/prompts";
+import { checkbox, input, Separator, select } from "@inquirer/prompts";
 import type { InjectManifestOptions } from "@serwist/build";
 import { toUnix } from "@serwist/utils";
 import { glob } from "glob";

@@ -6,17 +6,17 @@
   https://opensource.org/licenses/MIT.
 */
 
+import type { Route } from "../../Route.js";
 import type { HandlerCallbackOptions, MapLikeObject, SerwistPlugin, SerwistPluginCallbackParam } from "../../types.js";
-import { Deferred } from "../../utils/Deferred.js";
-import { SerwistError } from "../../utils/SerwistError.js";
 import { assert } from "../../utils/assert.js";
 import { cacheMatchIgnoreParams } from "../../utils/cacheMatchIgnoreParams.js";
+import { Deferred } from "../../utils/Deferred.js";
 import { executeQuotaErrorCallbacks } from "../../utils/executeQuotaErrorCallbacks.js";
 import { getFriendlyURL } from "../../utils/getFriendlyURL.js";
 import { logger } from "../../utils/logger.js";
+import { SerwistError } from "../../utils/SerwistError.js";
 import { timeout } from "../../utils/timeout.js";
 import type { Strategy } from "./Strategy.js";
-import type { Route } from "../../Route.js";
 
 function toRequest(input: RequestInfo) {
   return typeof input === "string" ? new Request(input) : input;

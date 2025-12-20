@@ -6,9 +6,9 @@ import adapter from "@sveltejs/adapter-static";
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 // @ts-expect-error weird typings
 import { escapeSvelte, mdsvex } from "mdsvex";
-import { highlighter, twoslash } from "./config-utils/shiki.js";
-import { remarkToc } from "./config-utils/remark-toc.js";
 import { rehypeSlug } from "./config-utils/rehype-slug.js";
+import { remarkToc } from "./config-utils/remark-toc.js";
+import { highlighter, twoslash } from "./config-utils/shiki.js";
 
 // const dev = process.env.NODE_ENV !== "production";
 

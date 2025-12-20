@@ -1,8 +1,8 @@
 import { Strategy } from "../lib/strategies/Strategy.js";
 import type { PrecacheRouteOptions, RuntimeCaching } from "../types.js";
 import type { PrecacheController } from "./PrecacheController.js";
-import { PrecacheFallbackPlugin } from "./PrecacheFallbackPlugin.js";
 import type { PrecacheFallbackEntry } from "./PrecacheFallbackPlugin.js";
+import { PrecacheFallbackPlugin } from "./PrecacheFallbackPlugin.js";
 import { PrecacheRoute } from "./PrecacheRoute.js";
 import type { Router } from "./Router.js";
 import { getSingletonPrecacheController } from "./singletonPrecacheController.js";
@@ -86,8 +86,6 @@ export const fallbacks = ({
     ) {
       cacheEntry.handler.plugins.push(fallbackPlugin);
     }
-
-    return cacheEntry;
   });
 
   return runtimeCaching;

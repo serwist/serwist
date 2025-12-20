@@ -6,10 +6,10 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { SerwistError } from "./utils/SerwistError.js";
 import { assert } from "./utils/assert.js";
 import type { PartialCacheNameDetails } from "./utils/cacheNames.js";
 import { cacheNames } from "./utils/cacheNames.js";
+import { SerwistError } from "./utils/SerwistError.js";
 
 /**
  * Modifies the default cache names used by Serwist packages.

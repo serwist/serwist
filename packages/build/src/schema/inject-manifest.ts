@@ -1,6 +1,6 @@
 import { z } from "zod";
 import type { InjectManifestOptions, InjectManifestOptionsComplete, InjectPartial, InjectResolved } from "../types.js";
-import { type Equals, assertType } from "./assert-type.js";
+import { assertType, type Equals } from "./assert-type.js";
 import { basePartial } from "./base.js";
 import { globPartial, requiredGlobDirectoryPartial } from "./glob.js";
 import { requiredSwDestPartial } from "./sw-dest.js";

@@ -1,5 +1,5 @@
-import { encodeOpenGraphImage } from "$lib/og";
 import { BLOG_ENTRIES } from "$lib/constants";
+import { encodeOpenGraphImage } from "$lib/og";
 import type { LayoutServerLoad } from "./$types";
 
 export const load: LayoutServerLoad = ({ url }) => {

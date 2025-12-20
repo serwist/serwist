@@ -1,10 +1,10 @@
 import { NavigationRoute } from "../NavigationRoute.js";
 import type { PrecacheEntry, PrecacheRouteOptions } from "../types.js";
 import { cleanupOutdatedCaches as cleanupOutdatedCachesImpl } from "../utils/cleanupOutdatedCaches.js";
+import { createHandlerBoundToURL } from "./createHandlerBoundToURL.js";
 import type { PrecacheController } from "./PrecacheController.js";
 import { PrecacheRoute } from "./PrecacheRoute.js";
 import type { Router } from "./Router.js";
-import { createHandlerBoundToURL } from "./createHandlerBoundToURL.js";
 import { getSingletonPrecacheController } from "./singletonPrecacheController.js";
 import { getSingletonRouter } from "./singletonRouter.js";
 

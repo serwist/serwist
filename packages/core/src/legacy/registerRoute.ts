@@ -5,12 +5,13 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-import type { Router } from "./Router.js";
-import type { Route } from "../Route.js";
+
 import type { HTTPMethod } from "../constants.js";
+import type { Route } from "../Route.js";
 import type { RouteHandler, RouteMatchCallback } from "../types.js";
-import type { unregisterRoute } from "./unregisterRoute.js";
+import type { Router } from "./Router.js";
 import { getSingletonRouter } from "./singletonRouter.js";
+import type { unregisterRoute } from "./unregisterRoute.js";
 
 /**
  * Registers a `RegExp`, string, or function with a caching

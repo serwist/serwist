@@ -7,9 +7,9 @@
 */
 
 import type { PrecacheEntry } from "../types.js";
-import { getSingletonPrecacheController } from "./singletonPrecacheController.js";
 import type { addRoute } from "./addRoute.js";
 import type { precacheAndRoute } from "./precacheAndRoute.js";
+import { getSingletonPrecacheController } from "./singletonPrecacheController.js";
 
 /**
  * Adds items to the precache list, removing any duplicates and

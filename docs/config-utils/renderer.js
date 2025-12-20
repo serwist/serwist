@@ -24,7 +24,7 @@ const getErrorLevelClass = (error) => {
   }
 };
 
-const regexType = /^[A-Z][a-zA-Z0-9_]*(\<[^\>]*\>)?:/;
+const regexType = /^[A-Z][a-zA-Z0-9_]*(<[^>]*>)?:/;
 const regexFunction = /^[a-zA-Z0-9_]*\(/;
 
 /**

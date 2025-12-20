@@ -6,10 +6,10 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { Route } from "../../Route.js";
-import type { Serwist } from "../../Serwist.js";
 import { NetworkFirst } from "../../lib/strategies/NetworkFirst.js";
 import { NetworkOnly } from "../../lib/strategies/NetworkOnly.js";
+import { Route } from "../../Route.js";
+import type { Serwist } from "../../Serwist.js";
 import type { RouteMatchCallbackOptions } from "../../types.js";
 import { cacheNames as privateCacheNames } from "../../utils/cacheNames.js";
 import { getFriendlyURL } from "../../utils/getFriendlyURL.js";

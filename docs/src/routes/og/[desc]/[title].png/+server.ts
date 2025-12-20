@@ -1,5 +1,5 @@
 import { decodeBase64 } from "$lib/base64";
-import { ImageResponse, getOpenGraphTemplate } from "$lib/og";
+import { getOpenGraphTemplate, ImageResponse } from "$lib/og";
 
 import type { RequestEvent } from "./$types";
 

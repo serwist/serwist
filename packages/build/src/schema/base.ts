@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 import type { BasePartial, BaseResolved } from "../types.js";
-import { type Equals, assertType } from "./assert-type.js";
+import { assertType, type Equals } from "./assert-type.js";
 import { manifestEntry } from "./manifest-entry.js";
 import { manifestTransform } from "./manifest-transform.js";
 

@@ -22,7 +22,7 @@ if (isValidTestMode(envTestMode)) {
 }
 
 const createNext = async (opts: NextTestOpts) => {
-  let nextInstance: NextInstance | undefined = undefined;
+  let nextInstance: NextInstance | undefined;
   switch (testMode) {
     case "dev":
       nextInstance = new NextInstanceDev(opts);

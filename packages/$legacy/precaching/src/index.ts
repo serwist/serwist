@@ -1,16 +1,16 @@
+export type { CleanupResult, InstallResult, PrecacheEntry, PrecacheRouteOptions, UrlManipulation as urlManipulation } from "serwist";
 export { PrecacheStrategy } from "serwist";
+export { cleanupOutdatedCaches } from "serwist/internal";
+export type { PrecacheFallbackEntry, PrecacheFallbackPluginOptions } from "serwist/legacy";
 export {
   addPlugins,
   addRoute,
   createHandlerBoundToURL,
   getCacheKeyForURL,
   matchPrecache,
-  precache,
-  precacheAndRoute,
   PrecacheController,
   PrecacheFallbackPlugin,
   PrecacheRoute,
+  precache,
+  precacheAndRoute,
 } from "serwist/legacy";
-export { cleanupOutdatedCaches } from "serwist/internal";
-export type { CleanupResult, InstallResult, PrecacheEntry, PrecacheRouteOptions, UrlManipulation as urlManipulation } from "serwist";
-export type { PrecacheFallbackEntry, PrecacheFallbackPluginOptions } from "serwist/legacy";

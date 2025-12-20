@@ -1,6 +1,5 @@
-import { registerRoute } from "./registerRoute.js";
-
 import type { RuntimeCaching } from "../types.js";
+import { registerRoute } from "./registerRoute.js";
 
 /**
  * Registers caching strategies to a singleton Router instance. It is a simple

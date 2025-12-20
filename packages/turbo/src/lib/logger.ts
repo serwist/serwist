@@ -1,4 +1,4 @@
-import { white, red, yellow, green, bold } from "kolorist";
+import { bold, green, red, white, yellow } from "kolorist";
 
 const LOGGING_METHOD = ["wait", "error", "warn", "info", "event"] as const;
 

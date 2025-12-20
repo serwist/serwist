@@ -1,3 +1,3 @@
 #!/usr/bin/env node
-// @ts-ignore
+// @ts-expect-error
 import "./dist/bin.js";

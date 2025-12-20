@@ -6,10 +6,10 @@
   https://opensource.org/licenses/MIT.
 */
 
+export type { BroadcastCacheUpdateOptions, BroadcastMessage, BroadcastPayload, BroadcastPayloadGenerator } from "serwist";
 export {
+  BROADCAST_UPDATE_DEFAULT_HEADERS as defaultHeadersToCheck,
   BroadcastCacheUpdate,
   BroadcastUpdatePlugin,
   responsesAreSame,
-  BROADCAST_UPDATE_DEFAULT_HEADERS as defaultHeadersToCheck,
 } from "serwist";
-export type { BroadcastCacheUpdateOptions, BroadcastPayload, BroadcastPayloadGenerator, BroadcastMessage } from "serwist";

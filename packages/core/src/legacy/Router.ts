@@ -6,16 +6,16 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { Route } from "../Route.js";
 import type { HTTPMethod } from "../constants.js";
 import { defaultMethod } from "../constants.js";
+import type { Route } from "../Route.js";
 import type { RouteHandler, RouteHandlerCallbackOptions, RouteHandlerObject, RouteMatchCallback, RouteMatchCallbackOptions } from "../types.js";
-import { SerwistError } from "../utils/SerwistError.js";
 import { assert } from "../utils/assert.js";
 import { getFriendlyURL } from "../utils/getFriendlyURL.js";
 import { logger } from "../utils/logger.js";
 import { normalizeHandler } from "../utils/normalizeHandler.js";
 import { parseRoute } from "../utils/parseRoute.js";
+import { SerwistError } from "../utils/SerwistError.js";
 
 declare const self: ServiceWorkerGlobalScope;
 

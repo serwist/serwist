@@ -1,6 +1,6 @@
 import { z } from "zod";
 import type { OptionalSwDestPartial, OptionalSwDestResolved, RequiredSwDestPartial, RequiredSwDestResolved } from "../types.js";
-import { type Equals, assertType } from "./assert-type.js";
+import { assertType, type Equals } from "./assert-type.js";
 
 export const optionalSwDestPartial = z.strictObject({
   swDest: z.string().optional(),

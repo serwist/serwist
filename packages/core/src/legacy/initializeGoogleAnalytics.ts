@@ -6,16 +6,15 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { Route } from "../Route.js";
 import { BackgroundSyncPlugin } from "../lib/backgroundSync/BackgroundSyncPlugin.js";
 import type { BackgroundSyncQueue, BackgroundSyncQueueEntry } from "../lib/backgroundSync/BackgroundSyncQueue.js";
 import { NetworkFirst } from "../lib/strategies/NetworkFirst.js";
 import { NetworkOnly } from "../lib/strategies/NetworkOnly.js";
+import { Route } from "../Route.js";
 import type { RouteMatchCallbackOptions } from "../types.js";
 import { cacheNames as privateCacheNames } from "../utils/cacheNames.js";
 import { getFriendlyURL } from "../utils/getFriendlyURL.js";
 import { logger } from "../utils/logger.js";
-import type { Router } from "./Router.js";
 import {
   ANALYTICS_JS_PATH,
   COLLECT_PATHS_REGEX,
@@ -26,6 +25,7 @@ import {
   MAX_RETENTION_TIME,
   QUEUE_NAME,
 } from "./constants.js";
+import type { Router } from "./Router.js";
 import { getSingletonRouter } from "./singletonRouter.js";
 
 /**

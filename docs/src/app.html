@@ -15,6 +15,7 @@
     %sveltekit.head%
     <!-- prettier-ignore -->
     <script>
+      // biome-ignore lint/complexity/noCommaOperator: minified code
       window.DFIC||(window.DFIC=!0,document.documentElement.dataset.theme=(()=>{const e=localStorage.getItem("theme");if(e&&["dark","light"].includes(e))return e;return window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"})());
     </script>
   </head>

@@ -1,7 +1,6 @@
 import type { Compiler, WebpackError, WebpackPluginInstance } from "webpack";
-
-import { relativeToOutputPath } from "./relative-to-output-path.js";
 import { performChildCompilation } from "./perform-child-compilation.js";
+import { relativeToOutputPath } from "./relative-to-output-path.js";
 
 export interface ChildCompilationPluginOptions {
   src: string;

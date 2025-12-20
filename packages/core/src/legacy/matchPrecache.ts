@@ -6,8 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { getSingletonPrecacheController } from "./singletonPrecacheController.js";
 import type { PrecacheController } from "./PrecacheController.js";
+import { getSingletonPrecacheController } from "./singletonPrecacheController.js";
 
 /**
  * Helper function that calls {@linkcode PrecacheController.matchPrecache}

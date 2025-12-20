@@ -6,8 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { SerwistError } from "./utils/SerwistError.js";
 import { canConstructResponseFromBodyStream } from "./utils/canConstructResponseFromBodyStream.js";
+import { SerwistError } from "./utils/SerwistError.js";
 
 /**
  * Allows developers to copy a response and modify its `headers`, `status`,

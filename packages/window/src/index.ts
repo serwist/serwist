@@ -6,8 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { Serwist } from "./Serwist.js";
 import { messageSW } from "./messageSW.js";
+import { Serwist } from "./Serwist.js";
 
 export { messageSW, Serwist };
 

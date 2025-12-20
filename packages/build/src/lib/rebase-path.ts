@@ -6,8 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { toUnix } from "@serwist/utils";
 import path from "node:path";
+import { toUnix } from "@serwist/utils";
 
 export function rebasePath({ baseDirectory, file }: { baseDirectory: string; file: string }): string {
   // The initial path is relative to the current directory, so make it absolute.

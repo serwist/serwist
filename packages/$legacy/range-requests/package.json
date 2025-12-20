@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@serwist/configs": "workspace:*",
-    "rollup": "4.53.3",
+    "rollup": "4.54.0",
     "typescript": "5.9.3"
   },
   "peerDependencies": {

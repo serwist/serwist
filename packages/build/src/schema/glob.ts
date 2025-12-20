@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { DEFAULT_GLOB_PATTERNS } from "../lib/constants.js";
 import type {
   GlobPartial,
   GlobResolved,
@@ -7,8 +8,7 @@ import type {
   RequiredGlobDirectoryPartial,
   RequiredGlobDirectoryResolved,
 } from "../types.js";
-import { type Equals, assertType } from "./assert-type.js";
-import { DEFAULT_GLOB_PATTERNS } from "../lib/constants.js";
+import { assertType, type Equals } from "./assert-type.js";
 
 export const globPartial = z.strictObject({
   globFollow: z.boolean().default(true),
