@@ -71,8 +71,9 @@
     "@serwist/build": "workspace:*",
     "@serwist/webpack-plugin": "workspace:*",
     "@serwist/window": "workspace:*",
-    "chalk": "5.6.2",
     "glob": "10.5.0",
+    "kolorist": "1.8.0",
+    "semver": "7.7.3",
     "serwist": "workspace:*",
     "zod": "4.2.1"
   },
@@ -80,6 +81,7 @@
     "@serwist/configs": "workspace:*",
     "@serwist/utils": "workspace:*",
     "@types/node": "25.0.3",
+    "@types/semver": "7.7.1",
     "next": "16.1.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",

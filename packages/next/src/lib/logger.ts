@@ -1,6 +1,10 @@
-import chalk from "chalk";
+import { bold, green, red, white, yellow } from "kolorist";
+import nextPackageJson from "next/package.json" with { type: "json" };
+import semver from "semver";
 
 const LOGGING_METHOD = ["wait", "error", "warn", "info", "event"] as const;
+
+const LOGGING_SPACE_PREFIX = semver.gte(nextPackageJson.version, "16.0.0") ? "" : " ";
 
 type LoggingMethods = (typeof LOGGING_METHOD)[number];
 
@@ -13,11 +17,11 @@ const mapLoggingMethodToConsole: Record<LoggingMethods, "log" | "error" | "warn"
 };
 
 const prefixes = {
-  wait: `${chalk.white(chalk.bold("○"))} (serwist)`,
-  error: `${chalk.red(chalk.bold("X"))} (serwist)`,
-  warn: `${chalk.yellow(chalk.bold("⚠"))} (serwist)`,
-  info: `${chalk.white(chalk.bold("○"))} (serwist)`,
-  event: `${chalk.green(chalk.bold("✓"))} (serwist)`,
+  wait: `${white(bold("○"))} (serwist)`,
+  error: `${red(bold("X"))} (serwist)`,
+  warn: `${yellow(bold("⚠"))} (serwist)`,
+  info: `${white(bold("○"))} (serwist)`,
+  event: `${green(bold("✓"))} (serwist)`,
 };
 
 const prefixedLog = (prefixType: LoggingMethods, ...message: any[]) => {
@@ -32,7 +36,7 @@ const prefixedLog = (prefixType: LoggingMethods, ...message: any[]) => {
   if (message.length === 0) {
     console[consoleMethod]("");
   } else {
-    console[consoleMethod](` ${prefix}`, ...message);
+    console[consoleMethod](`${LOGGING_SPACE_PREFIX}${prefix}`, ...message);
   }
 };
 

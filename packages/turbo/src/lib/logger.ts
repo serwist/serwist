@@ -1,6 +1,10 @@
 import { bold, green, red, white, yellow } from "kolorist";
+import nextPackageJson from "next/package.json" with { type: "json" };
+import semver from "semver";
 
 const LOGGING_METHOD = ["wait", "error", "warn", "info", "event"] as const;
+
+const LOGGING_SPACE_PREFIX = semver.gte(nextPackageJson.version, "16.0.0") ? "" : " ";
 
 type LoggingMethods = (typeof LOGGING_METHOD)[number];
 
@@ -32,7 +36,7 @@ const prefixedLog = (prefixType: LoggingMethods, ...message: any[]) => {
   if (message.length === 0) {
     console[consoleMethod]("");
   } else {
-    console[consoleMethod](` ${prefix}`, ...message);
+    console[consoleMethod](`${LOGGING_SPACE_PREFIX}${prefix}`, ...message);
   }
 };
 
