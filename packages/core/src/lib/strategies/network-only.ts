@@ -1,18 +1,10 @@
-/*
-  Copyright 2018 Google LLC
-
-  Use of this source code is governed by an MIT-style
-  license that can be found in the LICENSE file or at
-  https://opensource.org/licenses/MIT.
-*/
-
 import { assert } from "#utils/assert.js";
 import { logger } from "#utils/logger.js";
 import { SerwistError } from "#utils/SerwistError.js";
 import { timeout } from "#utils/timeout.js";
-import type { StrategyOptions } from "./Strategy.js";
-import { Strategy } from "./Strategy.js";
-import type { StrategyHandler } from "./StrategyHandler.js";
+import type { StrategyOptions } from "./core.js";
+import { createStrategy } from "./core.js";
+import { fetch } from "./handler.js";
 import { messages } from "./utils/messages.js";
 
 export interface NetworkOnlyOptions extends Omit<StrategyOptions, "cacheName" | "matchOptions"> {
@@ -30,29 +22,14 @@ export interface NetworkOnlyOptions extends Omit<StrategyOptions, "cacheName" | 
  *
  * If the network request fails, this will throw a {@linkcode SerwistError} exception.
  */
-export class NetworkOnly extends Strategy {
-  private readonly _networkTimeoutSeconds: number;
+export const networkOnly = (options: NetworkOnlyOptions = {}) => {
+  const networkTimeoutSeconds = options.networkTimeoutSeconds || 0;
 
-  /**
-   * @param options
-   */
-  constructor(options: NetworkOnlyOptions = {}) {
-    super(options);
-
-    this._networkTimeoutSeconds = options.networkTimeoutSeconds || 0;
-  }
-
-  /**
-   * @private
-   * @param request A request to run this strategy for.
-   * @param handler The event that triggered the request.
-   * @returns
-   */
-  async _handle(request: Request, handler: StrategyHandler): Promise<Response> {
+  return createStrategy(options, async (request, handler) => {
     if (process.env.NODE_ENV !== "production") {
       assert!.isInstance(request, Request, {
         moduleName: "serwist",
-        className: this.constructor.name,
+        className: "NetworkOnly",
         funcName: "_handle",
         paramName: "request",
       });
@@ -62,16 +39,16 @@ export class NetworkOnly extends Strategy {
     let response: Response | undefined;
 
     try {
-      const promises: Promise<Response | undefined>[] = [handler.fetch(request)];
+      const promises: Promise<Response | undefined>[] = [fetch(handler, request)];
 
-      if (this._networkTimeoutSeconds) {
-        const timeoutPromise = timeout(this._networkTimeoutSeconds * 1000) as Promise<undefined>;
+      if (networkTimeoutSeconds) {
+        const timeoutPromise = timeout(networkTimeoutSeconds * 1000) as Promise<undefined>;
         promises.push(timeoutPromise);
       }
 
       response = await Promise.race(promises);
       if (!response) {
-        throw new Error(`Timed out the network response after ${this._networkTimeoutSeconds} seconds.`);
+        throw new Error(`Timed out the network response after ${networkTimeoutSeconds} seconds.`);
       }
     } catch (err) {
       if (err instanceof Error) {
@@ -80,7 +57,7 @@ export class NetworkOnly extends Strategy {
     }
 
     if (process.env.NODE_ENV !== "production") {
-      logger.groupCollapsed(messages.strategyStart(this.constructor.name, request));
+      logger.groupCollapsed(messages.strategyStart("NetworkOnly", request));
       if (response) {
         logger.log("Got response from network.");
       } else {
@@ -94,5 +71,5 @@ export class NetworkOnly extends Strategy {
       throw new SerwistError("no-response", { url: request.url, error });
     }
     return response;
-  }
-}
+  });
+};

@@ -1,5 +1,5 @@
 import type { RuntimeCaching } from "serwist";
-import { CacheFirst, ExpirationPlugin, NetworkFirst, NetworkOnly, RangeRequestsPlugin, StaleWhileRevalidate } from "serwist";
+import { cacheFirst, expiration, networkFirst, networkOnly, RangeRequestsPlugin, staleWhileRevalidate } from "serwist";
 
 export const PAGES_CACHE_NAME = {
   rscPrefetch: "pages-rsc-prefetch",
@@ -18,16 +18,16 @@ export const defaultCache: RuntimeCaching[] =
     ? [
         {
           matcher: /.*/i,
-          handler: new NetworkOnly(),
+          handler: networkOnly(),
         },
       ]
     : [
         {
           matcher: /^https:\/\/fonts\.(?:gstatic)\.com\/.*/i,
-          handler: new CacheFirst({
+          handler: cacheFirst({
             cacheName: "google-fonts-webfonts",
             plugins: [
-              new ExpirationPlugin({
+              expiration({
                 maxEntries: 4,
                 maxAgeSeconds: 365 * 24 * 60 * 60, // 365 days
                 maxAgeFrom: "last-used",
@@ -37,10 +37,10 @@ export const defaultCache: RuntimeCaching[] =
         },
         {
           matcher: /^https:\/\/fonts\.(?:googleapis)\.com\/.*/i,
-          handler: new StaleWhileRevalidate({
+          handler: staleWhileRevalidate({
             cacheName: "google-fonts-stylesheets",
             plugins: [
-              new ExpirationPlugin({
+              expiration({
                 maxEntries: 4,
                 maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
                 maxAgeFrom: "last-used",
@@ -50,10 +50,10 @@ export const defaultCache: RuntimeCaching[] =
         },
         {
           matcher: /\.(?:eot|otf|ttc|ttf|woff|woff2|font.css)$/i,
-          handler: new StaleWhileRevalidate({
+          handler: staleWhileRevalidate({
             cacheName: "static-font-assets",
             plugins: [
-              new ExpirationPlugin({
+              expiration({
                 maxEntries: 4,
                 maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
                 maxAgeFrom: "last-used",
@@ -63,10 +63,10 @@ export const defaultCache: RuntimeCaching[] =
         },
         {
           matcher: /\.(?:jpg|jpeg|gif|png|svg|ico|webp)$/i,
-          handler: new StaleWhileRevalidate({
+          handler: staleWhileRevalidate({
             cacheName: "static-image-assets",
             plugins: [
-              new ExpirationPlugin({
+              expiration({
                 maxEntries: 64,
                 maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
                 maxAgeFrom: "last-used",
@@ -76,10 +76,10 @@ export const defaultCache: RuntimeCaching[] =
         },
         {
           matcher: /\/_next\/static.+\.js$/i,
-          handler: new CacheFirst({
+          handler: cacheFirst({
             cacheName: "next-static-js-assets",
             plugins: [
-              new ExpirationPlugin({
+              expiration({
                 maxEntries: 64,
                 maxAgeSeconds: 24 * 60 * 60, // 24 hours
                 maxAgeFrom: "last-used",
@@ -89,10 +89,10 @@ export const defaultCache: RuntimeCaching[] =
         },
         {
           matcher: /\/_next\/image\?url=.+$/i,
-          handler: new StaleWhileRevalidate({
+          handler: staleWhileRevalidate({
             cacheName: "next-image",
             plugins: [
-              new ExpirationPlugin({
+              expiration({
                 maxEntries: 64,
                 maxAgeSeconds: 24 * 60 * 60, // 24 hours
                 maxAgeFrom: "last-used",
@@ -102,10 +102,10 @@ export const defaultCache: RuntimeCaching[] =
         },
         {
           matcher: /\.(?:mp3|wav|ogg)$/i,
-          handler: new CacheFirst({
+          handler: cacheFirst({
             cacheName: "static-audio-assets",
             plugins: [
-              new ExpirationPlugin({
+              expiration({
                 maxEntries: 32,
                 maxAgeSeconds: 24 * 60 * 60, // 24 hours
                 maxAgeFrom: "last-used",
@@ -116,10 +116,10 @@ export const defaultCache: RuntimeCaching[] =
         },
         {
           matcher: /\.(?:mp4|webm)$/i,
-          handler: new CacheFirst({
+          handler: cacheFirst({
             cacheName: "static-video-assets",
             plugins: [
-              new ExpirationPlugin({
+              expiration({
                 maxEntries: 32,
                 maxAgeSeconds: 24 * 60 * 60, // 24 hours
                 maxAgeFrom: "last-used",
@@ -130,10 +130,10 @@ export const defaultCache: RuntimeCaching[] =
         },
         {
           matcher: /\.(?:js)$/i,
-          handler: new StaleWhileRevalidate({
+          handler: staleWhileRevalidate({
             cacheName: "static-js-assets",
             plugins: [
-              new ExpirationPlugin({
+              expiration({
                 maxEntries: 48,
                 maxAgeSeconds: 24 * 60 * 60, // 24 hours
                 maxAgeFrom: "last-used",
@@ -143,10 +143,10 @@ export const defaultCache: RuntimeCaching[] =
         },
         {
           matcher: /\.(?:css|less)$/i,
-          handler: new StaleWhileRevalidate({
+          handler: staleWhileRevalidate({
             cacheName: "static-style-assets",
             plugins: [
-              new ExpirationPlugin({
+              expiration({
                 maxEntries: 32,
                 maxAgeSeconds: 24 * 60 * 60, // 24 hours
                 maxAgeFrom: "last-used",
@@ -156,10 +156,10 @@ export const defaultCache: RuntimeCaching[] =
         },
         {
           matcher: /\/_next\/data\/.+\/.+\.json$/i,
-          handler: new NetworkFirst({
+          handler: networkFirst({
             cacheName: "next-data",
             plugins: [
-              new ExpirationPlugin({
+              expiration({
                 maxEntries: 32,
                 maxAgeSeconds: 24 * 60 * 60, // 24 hours
                 maxAgeFrom: "last-used",
@@ -169,10 +169,10 @@ export const defaultCache: RuntimeCaching[] =
         },
         {
           matcher: /\.(?:json|xml|csv)$/i,
-          handler: new NetworkFirst({
+          handler: networkFirst({
             cacheName: "static-data-assets",
             plugins: [
-              new ExpirationPlugin({
+              expiration({
                 maxEntries: 32,
                 maxAgeSeconds: 24 * 60 * 60, // 24 hours
                 maxAgeFrom: "last-used",
@@ -184,17 +184,17 @@ export const defaultCache: RuntimeCaching[] =
           // Exclude /api/auth/* to fix auth callback
           // https://github.com/serwist/serwist/discussions/28
           matcher: /\/api\/auth\/.*/,
-          handler: new NetworkOnly({
+          handler: networkOnly({
             networkTimeoutSeconds: 10, // fallback to cache if API does not response within 10 seconds
           }),
         },
         {
           matcher: ({ sameOrigin, url: { pathname } }) => sameOrigin && pathname.startsWith("/api/"),
           method: "GET",
-          handler: new NetworkFirst({
+          handler: networkFirst({
             cacheName: "apis",
             plugins: [
-              new ExpirationPlugin({
+              expiration({
                 maxEntries: 16,
                 maxAgeSeconds: 24 * 60 * 60, // 24 hours
                 maxAgeFrom: "last-used",
@@ -206,10 +206,10 @@ export const defaultCache: RuntimeCaching[] =
         {
           matcher: ({ request, url: { pathname }, sameOrigin }) =>
             request.headers.get("RSC") === "1" && request.headers.get("Next-Router-Prefetch") === "1" && sameOrigin && !pathname.startsWith("/api/"),
-          handler: new NetworkFirst({
+          handler: networkFirst({
             cacheName: PAGES_CACHE_NAME.rscPrefetch,
             plugins: [
-              new ExpirationPlugin({
+              expiration({
                 maxEntries: 32,
                 maxAgeSeconds: 24 * 60 * 60, // 24 hours
               }),
@@ -218,10 +218,10 @@ export const defaultCache: RuntimeCaching[] =
         },
         {
           matcher: ({ request, url: { pathname }, sameOrigin }) => request.headers.get("RSC") === "1" && sameOrigin && !pathname.startsWith("/api/"),
-          handler: new NetworkFirst({
+          handler: networkFirst({
             cacheName: PAGES_CACHE_NAME.rsc,
             plugins: [
-              new ExpirationPlugin({
+              expiration({
                 maxEntries: 32,
                 maxAgeSeconds: 24 * 60 * 60, // 24 hours
               }),
@@ -231,10 +231,10 @@ export const defaultCache: RuntimeCaching[] =
         {
           matcher: ({ request, url: { pathname }, sameOrigin }) =>
             request.headers.get("Content-Type")?.includes("text/html") && sameOrigin && !pathname.startsWith("/api/"),
-          handler: new NetworkFirst({
+          handler: networkFirst({
             cacheName: PAGES_CACHE_NAME.html,
             plugins: [
-              new ExpirationPlugin({
+              expiration({
                 maxEntries: 32,
                 maxAgeSeconds: 24 * 60 * 60, // 24 hours
               }),
@@ -243,10 +243,10 @@ export const defaultCache: RuntimeCaching[] =
         },
         {
           matcher: ({ url: { pathname }, sameOrigin }) => sameOrigin && !pathname.startsWith("/api/"),
-          handler: new NetworkFirst({
+          handler: networkFirst({
             cacheName: "others",
             plugins: [
-              new ExpirationPlugin({
+              expiration({
                 maxEntries: 32,
                 maxAgeSeconds: 24 * 60 * 60, // 24 hours
               }),
@@ -255,10 +255,10 @@ export const defaultCache: RuntimeCaching[] =
         },
         {
           matcher: ({ sameOrigin }) => !sameOrigin,
-          handler: new NetworkFirst({
+          handler: networkFirst({
             cacheName: "cross-origin",
             plugins: [
-              new ExpirationPlugin({
+              expiration({
                 maxEntries: 32,
                 maxAgeSeconds: 60 * 60, // 1 hour
               }),
@@ -269,6 +269,6 @@ export const defaultCache: RuntimeCaching[] =
         {
           matcher: /.*/i,
           method: "GET",
-          handler: new NetworkOnly(),
+          handler: networkOnly(),
         },
       ];

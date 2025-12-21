@@ -42,6 +42,7 @@ export {
   CacheExpiration,
   ExpirationPlugin,
   type ExpirationPluginOptions,
+  expiration,
 } from "#lib/expiration/index.js";
 
 // Extensions
@@ -69,14 +70,33 @@ export {
 export {
   CacheFirst,
   CacheOnly,
+  cacheFirst,
+  cacheMatch,
+  cacheOnly,
+  cachePut,
+  createHandler,
+  createStrategy,
+  destroyHandler,
+  doneWaiting,
+  fetch,
+  fetchAndCachePut,
+  getCacheKey,
+  getPreloadResponse,
+  hasCallback,
+  iterateCallbacks,
   NetworkFirst,
   type NetworkFirstOptions,
   NetworkOnly,
   type NetworkOnlyOptions,
+  networkFirst,
+  networkOnly,
+  runCallbacks,
   StaleWhileRevalidate,
   Strategy,
   StrategyHandler,
   type StrategyOptions,
+  staleWhileRevalidate,
+  waitUntil,
 } from "#lib/strategies/index.js";
 
 // Core

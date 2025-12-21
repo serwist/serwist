@@ -1,6 +1,6 @@
-import { defaultCache } from "vite-plugin-serwist/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
 import { addEventListeners, createSerwist, RuntimeCache } from "serwist";
+import { defaultCache } from "vite-plugin-serwist/worker";
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {

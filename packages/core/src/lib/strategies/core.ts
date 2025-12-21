@@ -1,17 +1,6 @@
-/*
-  Copyright 2020 Google LLC
-
-  Use of this source code is governed by an MIT-style
-  license that can be found in the LICENSE file or at
-  https://opensource.org/licenses/MIT.
-*/
-
+import { getFriendlyURL, logger, privateCacheNames, SerwistError } from "#index.internal";
 import type { HandlerCallbackOptions, RouteHandlerObject, StrategyPlugin } from "#lib/types.js";
-import { cacheNames as privateCacheNames } from "#utils/cacheNames.js";
-import { getFriendlyURL } from "#utils/getFriendlyURL.js";
-import { logger } from "#utils/logger.js";
-import { SerwistError } from "#utils/SerwistError.js";
-import { StrategyHandler } from "./StrategyHandler.js";
+import { createHandler, destroyHandler, doneWaiting, iterateCallbacks, runCallbacks, type StrategyHandler } from "./handler.js";
 
 export interface StrategyOptions {
   /**
@@ -34,37 +23,11 @@ export interface StrategyOptions {
   matchOptions?: CacheQueryOptions;
 }
 
-/**
- * Abstract class for implementing runtime caching strategies.
- *
- * Custom strategies should extend this class and leverage `StrategyHandler`, which will ensure all relevant cache options,
- * fetch options, and plugins are used (per the current strategy instance), to perform all fetching and caching logic.
- */
-export abstract class Strategy implements RouteHandlerObject {
+export interface Strategy extends RouteHandlerObject {
   cacheName: string;
   plugins: StrategyPlugin[];
   fetchOptions?: RequestInit;
   matchOptions?: CacheQueryOptions;
-
-  protected abstract _handle(request: Request, handler: StrategyHandler): Promise<Response | undefined>;
-
-  /**
-   * Creates a new instance of the strategy and sets all documented option
-   * properties as public instance properties.
-   *
-   * Note: if a custom strategy class extends the base Strategy class and does
-   * not need more than these properties, it does not need to define its own
-   * constructor.
-   *
-   * @param options
-   */
-  constructor(options: StrategyOptions = {}) {
-    this.cacheName = privateCacheNames.getRuntimeName(options.cacheName);
-    this.plugins = options.plugins || [];
-    this.fetchOptions = options.fetchOptions;
-    this.matchOptions = options.matchOptions;
-  }
-
   /**
    * Performs a request strategy and returns a promise that will resolve to
    * a response, invoking all relevant plugin callbacks.
@@ -81,11 +44,7 @@ export abstract class Strategy implements RouteHandlerObject {
    * @param options.url
    * @param options.params
    */
-  handle(options: FetchEvent | HandlerCallbackOptions): Promise<Response> {
-    const [responseDone] = this.handleAll(options);
-    return responseDone;
-  }
-
+  handle(options: FetchEvent | HandlerCallbackOptions): Promise<Response>;
   /**
    * Similar to `handle()`, but instead of just returning a promise that
    * resolves to a response, it will return an tuple of `[response, done]` promises,
@@ -100,33 +59,25 @@ export abstract class Strategy implements RouteHandlerObject {
    * @returns A tuple of [response, done] promises that can be used to determine when the response resolves as
    * well as when the handler has completed all its work.
    */
-  handleAll(options: FetchEvent | HandlerCallbackOptions): [Promise<Response>, Promise<void>] {
-    // Allow for flexible options to be passed.
-    if (options instanceof FetchEvent) {
-      options = {
-        event: options,
-        request: options.request,
-      };
-    }
+  handleAll(options: FetchEvent | HandlerCallbackOptions): [Promise<Response>, Promise<void>];
+}
 
-    const event = options.event;
-    const request = typeof options.request === "string" ? new Request(options.request) : options.request;
-
-    const handler = new StrategyHandler(this, options.url ? { event, request, url: options.url, params: options.params } : { event, request });
-
-    const responseDone = this._getResponse(handler, request, event);
-    const handlerDone = this._awaitComplete(responseDone, handler, request, event);
-
-    // Return an array of promises, suitable for use with Promise.all().
-    return [responseDone, handlerDone];
-  }
-
-  async _getResponse(handler: StrategyHandler, request: Request, event: ExtendableEvent): Promise<Response> {
-    await handler.runCallbacks("handlerWillStart", { event, request });
+/**
+ * Abstract class for implementing runtime caching strategies.
+ *
+ * Custom strategies should extend this class and leverage `StrategyHandler`, which will ensure all relevant cache options,
+ * fetch options, and plugins are used (per the current strategy instance), to perform all fetching and caching logic.
+ */
+export const createStrategy = (
+  options: StrategyOptions,
+  handle: (request: Request, handler: StrategyHandler) => Promise<Response | undefined>,
+): Strategy => {
+  const getResponse = async (handler: StrategyHandler, request: Request, event: ExtendableEvent): Promise<Response> => {
+    await runCallbacks(handler, "handlerWillStart", { event, request });
 
     let response: Response | undefined;
     try {
-      response = await this._handle(request, handler);
+      response = await handle(request, handler);
       // The "official" Strategy subclasses all throw this error automatically,
       // but in case a third-party Strategy doesn't, ensure that we have a
       // consistent failure when there's no response or an error response.
@@ -135,7 +86,7 @@ export abstract class Strategy implements RouteHandlerObject {
       }
     } catch (error) {
       if (error instanceof Error) {
-        for (const callback of handler.iterateCallbacks("handlerDidError")) {
+        for (const callback of iterateCallbacks(handler, "handlerDidError")) {
           response = await callback({ error, event, request });
           if (response !== undefined) {
             break;
@@ -155,14 +106,19 @@ export abstract class Strategy implements RouteHandlerObject {
       }
     }
 
-    for (const callback of handler.iterateCallbacks("handlerWillRespond")) {
+    for (const callback of iterateCallbacks(handler, "handlerWillRespond")) {
       response = (await callback({ event, request, response })) as Response;
     }
 
     return response;
-  }
+  };
 
-  async _awaitComplete(responseDone: Promise<Response>, handler: StrategyHandler, request: Request, event: ExtendableEvent): Promise<void> {
+  const awaitComplete = async (
+    responseDone: Promise<Response>,
+    handler: StrategyHandler,
+    request: Request,
+    event: ExtendableEvent,
+  ): Promise<void> => {
     let response: Response | undefined;
     let error: Error | undefined;
 
@@ -175,28 +131,59 @@ export abstract class Strategy implements RouteHandlerObject {
     }
 
     try {
-      await handler.runCallbacks("handlerDidRespond", {
+      await runCallbacks(handler, "handlerDidRespond", {
         event,
         request,
         response,
       });
-      await handler.doneWaiting();
+      await doneWaiting(handler);
     } catch (waitUntilError) {
       if (waitUntilError instanceof Error) {
         error = waitUntilError;
       }
     }
 
-    await handler.runCallbacks("handlerDidComplete", {
+    await runCallbacks(handler, "handlerDidComplete", {
       event,
       request,
       response,
       error,
     });
-    handler.destroy();
+
+    destroyHandler(handler);
 
     if (error) {
       throw error;
     }
-  }
-}
+  };
+  return {
+    cacheName: privateCacheNames.getRuntimeName(options.cacheName),
+    plugins: options.plugins || [],
+    fetchOptions: options.fetchOptions,
+    matchOptions: options.matchOptions,
+    handle(options: FetchEvent | HandlerCallbackOptions) {
+      const [responseDone] = this.handleAll(options);
+      return responseDone;
+    },
+    handleAll(options) {
+      // Allow for flexible options to be passed.
+      if (options instanceof FetchEvent) {
+        options = {
+          event: options,
+          request: options.request,
+        };
+      }
+
+      const event = options.event;
+      const request = typeof options.request === "string" ? new Request(options.request) : options.request;
+
+      const handler = createHandler(this, options.url ? { event, request, url: options.url, params: options.params } : { event, request });
+
+      const responseDone = getResponse(handler, request, event);
+      const handlerDone = awaitComplete(responseDone, handler, request, event);
+
+      // Return an array of promises, suitable for use with Promise.all().
+      return [responseDone, handlerDone];
+    },
+  };
+};

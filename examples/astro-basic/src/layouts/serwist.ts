@@ -1,4 +1,4 @@
-import { swUrl, swScope, swType } from "virtual:serwist";
+import { swScope, swType, swUrl } from "virtual:serwist";
 import { Serwist } from "@serwist/window";
 
 const serwist = new Serwist(swUrl, { scope: swScope, type: swType });

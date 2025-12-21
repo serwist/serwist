@@ -1,57 +1,81 @@
-import { getFriendlyURL, logger, privateCacheNames, SerwistError } from "#index.internal";
-import { createStrategy, type StrategyOptions } from "#lib/strategies/core.js";
-import { cacheMatch, cachePut, fetch, getCacheKey, getPreloadResponse, type StrategyHandler } from "#lib/strategies/handler.js";
+/*
+  Copyright 2020 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+import type { Serwist } from "#lib/core.js";
 import type { StrategyPlugin } from "#lib/types.js";
 import { copyResponse } from "#lib/utils.js";
+import { cacheNames as privateCacheNames } from "#utils/cacheNames.js";
+import { getFriendlyURL } from "#utils/getFriendlyURL.js";
+import { logger } from "#utils/logger.js";
+import { SerwistError } from "#utils/SerwistError.js";
+import { Strategy } from "../../strategies/legacy/Strategy.js";
+import type { StrategyHandler } from "../../strategies/legacy/StrategyHandler.js";
+import type { PrecacheStrategyOptions } from "./strategy.js";
 
-export const defaultPrecacheCacheabilityPlugin: StrategyPlugin = {
-  async cacheWillUpdate({ response }) {
-    if (!response || response.status >= 400) {
-      return null;
-    }
-
-    return response;
-  },
-};
-
-export const copyRedirectedCacheableResponsesPlugin: StrategyPlugin = {
-  async cacheWillUpdate({ response }) {
-    return response.redirected ? await copyResponse(response) : response;
-  },
-};
-
-export interface PrecacheStrategyOptions extends StrategyOptions {
-  /**
-   * Plugins to use when precaching as well as responding to `fetch` events for precached assets.
-   */
-  plugins?: StrategyOptions["plugins"];
-  /**
-   * Whether to attempt to get the response from the network
-   * if there's a precache miss.
-   */
-  fallbackToNetwork?: boolean;
-}
+export type { PrecacheStrategyOptions };
 
 /**
- * A {@linkcode createStrategy} implementation specifically designed to both cache
+ * A {@linkcode Strategy} implementation specifically designed to both cache
  * and fetch precached assets.
  *
  * Note: an instance of this class is created automatically when creating a
  * {@linkcode Serwist} instance; it's generally not necessary to create this yourself.
  */
-export const precacheStrategy = (options: PrecacheStrategyOptions = {}) => {
-  options.cacheName = privateCacheNames.getPrecacheName(options.cacheName);
+export class PrecacheStrategy extends Strategy {
+  private readonly _fallbackToNetwork: boolean;
 
-  const fallbackToNetwork = options.fallbackToNetwork !== false;
+  static readonly defaultPrecacheCacheabilityPlugin: StrategyPlugin = {
+    async cacheWillUpdate({ response }) {
+      if (!response || response.status >= 400) {
+        return null;
+      }
 
-  const strategy = createStrategy(options, async (request, handler) => {
-    const preloadResponse = await getPreloadResponse(handler);
+      return response;
+    },
+  };
+
+  static readonly copyRedirectedCacheableResponsesPlugin: StrategyPlugin = {
+    async cacheWillUpdate({ response }) {
+      return response.redirected ? await copyResponse(response) : response;
+    },
+  };
+
+  /**
+   * @param options
+   */
+  constructor(options: PrecacheStrategyOptions = {}) {
+    options.cacheName = privateCacheNames.getPrecacheName(options.cacheName);
+
+    super(options);
+
+    this._fallbackToNetwork = options.fallbackToNetwork !== false;
+
+    // Redirected responses cannot be used to satisfy a navigation request, so
+    // any redirected response must be "copied" rather than cloned, so the new
+    // response doesn't contain the `redirected` flag. See:
+    // https://bugs.chromium.org/p/chromium/issues/detail?id=669363&desc=2#c1
+    this.plugins.push(PrecacheStrategy.copyRedirectedCacheableResponsesPlugin);
+  }
+
+  /**
+   * @private
+   * @param request A request to run this strategy for.
+   * @param handler The event that triggered the request.
+   * @returns
+   */
+  async _handle(request: Request, handler: StrategyHandler): Promise<Response> {
+    const preloadResponse = await handler.getPreloadResponse();
 
     if (preloadResponse) {
       return preloadResponse;
     }
 
-    const response = await cacheMatch(handler, request);
+    const response = await handler.cacheMatch(request);
 
     if (response) {
       return response;
@@ -60,36 +84,15 @@ export const precacheStrategy = (options: PrecacheStrategyOptions = {}) => {
     // If this is an `install` event for an entry that isn't already cached,
     // then populate the cache.
     if (handler.event && handler.event.type === "install") {
-      return await handleInstall(request, handler);
+      return await this._handleInstall(request, handler);
     }
 
     // Getting here means something went wrong. An entry that should have been
     // precached wasn't found in the cache.
-    return await handleFetch(request, handler);
-  });
+    return await this._handleFetch(request, handler);
+  }
 
-  const handleInstall = async (request: Request, handler: StrategyHandler) => {
-    useDefaultCacheabilityPluginIfNeeded();
-
-    const response = await fetch(handler, request);
-
-    // Make sure we defer cachePut() until after we know the response
-    // should be cached; see https://github.com/GoogleChrome/workbox/issues/2737
-    const wasCached = await cachePut(handler, request, response.clone());
-
-    if (!wasCached) {
-      // Throwing here will lead to the `install` handler failing, which
-      // we want to do if *any* of the responses aren't safe to cache.
-      throw new SerwistError("bad-precaching-response", {
-        url: request.url,
-        status: response.status,
-      });
-    }
-
-    return response;
-  };
-
-  const handleFetch = async (request: Request, handler: StrategyHandler): Promise<Response> => {
+  async _handleFetch(request: Request, handler: StrategyHandler): Promise<Response> {
     let response: Response | undefined;
 
     const params = (handler.params || {}) as {
@@ -98,11 +101,9 @@ export const precacheStrategy = (options: PrecacheStrategyOptions = {}) => {
     };
 
     // Fallback to the network if we're configured to do so.
-    if (fallbackToNetwork) {
+    if (this._fallbackToNetwork) {
       if (process.env.NODE_ENV !== "production") {
-        logger.warn(
-          `The precached response for ${getFriendlyURL(request.url)} in ${handler.strategy.cacheName} was not found. Falling back to the network.`,
-        );
+        logger.warn(`The precached response for ${getFriendlyURL(request.url)} in ${this.cacheName} was not found. Falling back to the network.`);
       }
 
       const integrityInManifest = params.integrity;
@@ -111,8 +112,7 @@ export const precacheStrategy = (options: PrecacheStrategyOptions = {}) => {
 
       // Do not add integrity if the original request is no-cors
       // See https://github.com/GoogleChrome/workbox/issues/3096
-      response = await fetch(
-        handler,
+      response = await handler.fetch(
         new Request(request, {
           integrity: request.mode !== "no-cors" ? integrityInRequest || integrityInManifest : undefined,
         }),
@@ -126,8 +126,8 @@ export const precacheStrategy = (options: PrecacheStrategyOptions = {}) => {
       // Also if the original request users no-cors we don't use integrity.
       // See https://github.com/GoogleChrome/workbox/issues/3096
       if (integrityInManifest && noIntegrityConflict && request.mode !== "no-cors") {
-        useDefaultCacheabilityPluginIfNeeded();
-        const wasCached = await cachePut(handler, request, response.clone());
+        this._useDefaultCacheabilityPluginIfNeeded();
+        const wasCached = await handler.cachePut(request, response.clone());
         if (process.env.NODE_ENV !== "production") {
           if (wasCached) {
             logger.log(`A response for ${getFriendlyURL(request.url)} was used to "repair" the precache.`);
@@ -138,13 +138,13 @@ export const precacheStrategy = (options: PrecacheStrategyOptions = {}) => {
       // This shouldn't normally happen, but there are edge cases:
       // https://github.com/GoogleChrome/workbox/issues/1441
       throw new SerwistError("missing-precache-entry", {
-        cacheName: handler.strategy.cacheName,
+        cacheName: this.cacheName,
         url: request.url,
       });
     }
 
     if (process.env.NODE_ENV !== "production") {
-      const cacheKey = params.cacheKey || (await getCacheKey(handler, request, "read"));
+      const cacheKey = params.cacheKey || (await handler.getCacheKey(request, "read"));
 
       // Serwist is going to handle the route.
       // print the routing details to the console.
@@ -163,7 +163,28 @@ export const precacheStrategy = (options: PrecacheStrategyOptions = {}) => {
     }
 
     return response;
-  };
+  }
+
+  async _handleInstall(request: Request, handler: StrategyHandler): Promise<Response> {
+    this._useDefaultCacheabilityPluginIfNeeded();
+
+    const response = await handler.fetch(request);
+
+    // Make sure we defer cachePut() until after we know the response
+    // should be cached; see https://github.com/GoogleChrome/workbox/issues/2737
+    const wasCached = await handler.cachePut(request, response.clone());
+
+    if (!wasCached) {
+      // Throwing here will lead to the `install` handler failing, which
+      // we want to do if *any* of the responses aren't safe to cache.
+      throw new SerwistError("bad-precaching-response", {
+        url: request.url,
+        status: response.status,
+      });
+    }
+
+    return response;
+  }
 
   /**
    * This method is complex, as there a number of things to account for:
@@ -192,18 +213,18 @@ export const precacheStrategy = (options: PrecacheStrategyOptions = {}) => {
    *
    * @private
    */
-  const useDefaultCacheabilityPluginIfNeeded = (): void => {
+  _useDefaultCacheabilityPluginIfNeeded(): void {
     let defaultPluginIndex: number | null = null;
     let cacheWillUpdatePluginCount = 0;
 
-    for (const [index, plugin] of strategy.plugins.entries()) {
+    for (const [index, plugin] of this.plugins.entries()) {
       // Ignore the copy redirected plugin when determining what to do.
-      if (plugin === copyRedirectedCacheableResponsesPlugin) {
+      if (plugin === PrecacheStrategy.copyRedirectedCacheableResponsesPlugin) {
         continue;
       }
 
       // Save the default plugin's index, in case it needs to be removed.
-      if (plugin === defaultPrecacheCacheabilityPlugin) {
+      if (plugin === PrecacheStrategy.defaultPrecacheCacheabilityPlugin) {
         defaultPluginIndex = index;
       }
 
@@ -213,19 +234,11 @@ export const precacheStrategy = (options: PrecacheStrategyOptions = {}) => {
     }
 
     if (cacheWillUpdatePluginCount === 0) {
-      strategy.plugins.push(defaultPrecacheCacheabilityPlugin);
+      this.plugins.push(PrecacheStrategy.defaultPrecacheCacheabilityPlugin);
     } else if (cacheWillUpdatePluginCount > 1 && defaultPluginIndex !== null) {
       // Only remove the default plugin; multiple custom plugins are allowed.
-      strategy.plugins.splice(defaultPluginIndex, 1);
+      this.plugins.splice(defaultPluginIndex, 1);
     }
     // Nothing needs to be done if cacheWillUpdatePluginCount is 1
-  };
-
-  // Redirected responses cannot be used to satisfy a navigation request, so
-  // any redirected response must be "copied" rather than cloned, so the new
-  // response doesn't contain the `redirected` flag. See:
-  // https://bugs.chromium.org/p/chromium/issues/detail?id=669363&desc=2#c1
-  strategy.plugins.push(copyRedirectedCacheableResponsesPlugin);
-
-  return strategy;
-};
+  }
+}

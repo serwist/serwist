@@ -9,9 +9,9 @@
 import { assert } from "#utils/assert.js";
 import { logger } from "#utils/logger.js";
 import { SerwistError } from "#utils/SerwistError.js";
+import { messages } from "../utils/messages.js";
 import { Strategy } from "./Strategy.js";
 import type { StrategyHandler } from "./StrategyHandler.js";
-import { messages } from "./utils/messages.js";
 
 /**
  * An implementation of the [cache only](https://developer.chrome.com/docs/workbox/caching-strategies-overview/#cache_only)

@@ -3,8 +3,8 @@ import json from "@rollup/plugin-json";
 import nodeResolve from "@rollup/plugin-node-resolve";
 import swc from "@rollup/plugin-swc";
 import typescript from "@rollup/plugin-typescript";
-import svelte from "rollup-plugin-svelte";
 import { defineConfig } from "rollup";
+import svelte from "rollup-plugin-svelte";
 
 import { swcConfig } from "./swc-config.js";
 

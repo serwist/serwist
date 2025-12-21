@@ -1,16 +1,8 @@
-/*
-  Copyright 2018 Google LLC
-
-  Use of this source code is governed by an MIT-style
-  license that can be found in the LICENSE file or at
-  https://opensource.org/licenses/MIT.
-*/
-
 import { assert } from "#utils/assert.js";
 import { logger } from "#utils/logger.js";
 import { SerwistError } from "#utils/SerwistError.js";
-import { Strategy } from "./Strategy.js";
-import type { StrategyHandler } from "./StrategyHandler.js";
+import { createStrategy, type StrategyOptions } from "./core.js";
+import { cacheMatch, fetchAndCachePut } from "./handler.js";
 import { messages } from "./utils/messages.js";
 
 /**
@@ -24,34 +16,28 @@ import { messages } from "./utils/messages.js";
  * If the network request fails, and there is no cache match, this will throw
  * a {@linkcode SerwistError} exception.
  */
-export class CacheFirst extends Strategy {
-  /**
-   * @private
-   * @param request A request to run this strategy for.
-   * @param handler The event that triggered the request.
-   * @returns
-   */
-  async _handle(request: Request, handler: StrategyHandler): Promise<Response> {
+export const cacheFirst = (options: StrategyOptions = {}) =>
+  createStrategy(options, async (request, handler) => {
     const logs = [];
 
     if (process.env.NODE_ENV !== "production") {
       assert!.isInstance(request, Request, {
         moduleName: "serwist",
-        className: this.constructor.name,
+        className: "CacheFirst",
         funcName: "makeRequest",
         paramName: "request",
       });
     }
 
-    let response = await handler.cacheMatch(request);
+    let response = await cacheMatch(handler, request);
 
     let error: Error | undefined;
     if (!response) {
       if (process.env.NODE_ENV !== "production") {
-        logs.push(`No response found in the '${this.cacheName}' cache. Will respond with a network request.`);
+        logs.push(`No response found in the '${handler.strategy.cacheName}' cache. Will respond with a network request.`);
       }
       try {
-        response = await handler.fetchAndCachePut(request);
+        response = await fetchAndCachePut(handler, request);
       } catch (err) {
         if (err instanceof Error) {
           error = err;
@@ -67,12 +53,12 @@ export class CacheFirst extends Strategy {
       }
     } else {
       if (process.env.NODE_ENV !== "production") {
-        logs.push(`Found a cached response in the '${this.cacheName}' cache.`);
+        logs.push(`Found a cached response in the '${handler.strategy.cacheName}' cache.`);
       }
     }
 
     if (process.env.NODE_ENV !== "production") {
-      logger.groupCollapsed(messages.strategyStart(this.constructor.name, request));
+      logger.groupCollapsed(messages.strategyStart("CacheFirst", request));
       for (const log of logs) {
         logger.log(log);
       }
@@ -84,5 +70,4 @@ export class CacheFirst extends Strategy {
       throw new SerwistError("no-response", { url: request.url, error });
     }
     return response;
-  }
-}
+  });

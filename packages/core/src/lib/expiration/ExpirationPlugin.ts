@@ -6,43 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 import type { CacheDidUpdateCallbackParam, CachedResponseWillBeUsedCallbackParam, StrategyPlugin } from "#lib/types.js";
-import { registerQuotaErrorCallback } from "#lib/utils.js";
-import { assert } from "#utils/assert.js";
-import { cacheNames as privateCacheNames } from "#utils/cacheNames.js";
-import { getFriendlyURL } from "#utils/getFriendlyURL.js";
-import { logger } from "#utils/logger.js";
-import { SerwistError } from "#utils/SerwistError.js";
-import type { Strategy } from "../strategies/Strategy.js";
-import { CacheExpiration } from "./CacheExpiration.js";
-
-export interface ExpirationPluginOptions {
-  /**
-   * The maximum number of entries to cache. Entries used (if `maxAgeFrom` is
-   * `"last-used"`) or fetched from the network (if `maxAgeFrom` is `"last-fetched"`)
-   * least recently will be removed as the maximum is reached.
-   */
-  maxEntries?: number;
-  /**
-   * The maximum number of seconds before an entry is treated as stale and removed.
-   */
-  maxAgeSeconds?: number;
-  /**
-   * Determines whether `maxAgeSeconds` should be calculated from when an
-   * entry was last fetched or when it was last used.
-   *
-   * @default "last-fetched"
-   */
-  maxAgeFrom?: "last-fetched" | "last-used";
-  /**
-   * The [`CacheQueryOptions`](https://developer.mozilla.org/en-US/docs/Web/API/Cache/delete#Parameters)
-   * that will be used when calling `delete()` on the cache.
-   */
-  matchOptions?: CacheQueryOptions;
-  /**
-   * Whether to opt this cache into automatic deletion if the available storage quota has been exceeded.
-   */
-  purgeOnQuotaError?: boolean;
-}
+import type { Strategy } from "../strategies/legacy/Strategy.js";
+import { type ExpirationPluginOptions, type ExpirationPlugin as ExpirationPluginStruct, expiration } from "./plugin.js";
 
 /**
  * This plugin can be used in a {@linkcode Strategy} to regularly enforce a
@@ -66,81 +31,13 @@ export interface ExpirationPluginOptions {
  * @see https://serwist.pages.dev/docs/serwist/runtime-caching/plugins/expiration-plugin
  */
 export class ExpirationPlugin implements StrategyPlugin {
-  private readonly _config: ExpirationPluginOptions;
-  private _cacheExpirations: Map<string, CacheExpiration>;
+  private readonly instance: ExpirationPluginStruct;
 
   /**
    * @param config
    */
   constructor(config: ExpirationPluginOptions = {}) {
-    if (process.env.NODE_ENV !== "production") {
-      if (!(config.maxEntries || config.maxAgeSeconds)) {
-        throw new SerwistError("max-entries-or-age-required", {
-          moduleName: "serwist",
-          className: "ExpirationPlugin",
-          funcName: "constructor",
-        });
-      }
-
-      if (config.maxEntries) {
-        assert!.isType(config.maxEntries, "number", {
-          moduleName: "serwist",
-          className: "ExpirationPlugin",
-          funcName: "constructor",
-          paramName: "config.maxEntries",
-        });
-      }
-
-      if (config.maxAgeSeconds) {
-        assert!.isType(config.maxAgeSeconds, "number", {
-          moduleName: "serwist",
-          className: "ExpirationPlugin",
-          funcName: "constructor",
-          paramName: "config.maxAgeSeconds",
-        });
-      }
-
-      if (config.maxAgeFrom) {
-        assert!.isType(config.maxAgeFrom, "string", {
-          moduleName: "serwist",
-          className: "ExpirationPlugin",
-          funcName: "constructor",
-          paramName: "config.maxAgeFrom",
-        });
-      }
-    }
-
-    this._config = config;
-    this._cacheExpirations = new Map();
-
-    if (!this._config.maxAgeFrom) {
-      this._config.maxAgeFrom = "last-fetched";
-    }
-
-    if (this._config.purgeOnQuotaError) {
-      registerQuotaErrorCallback(() => this.deleteCacheAndMetadata());
-    }
-  }
-
-  /**
-   * A simple helper method to return a CacheExpiration instance for a given
-   * cache name.
-   *
-   * @param cacheName
-   * @returns
-   * @private
-   */
-  private _getCacheExpiration(cacheName: string): CacheExpiration {
-    if (cacheName === privateCacheNames.getRuntimeName()) {
-      throw new SerwistError("expire-custom-caches-only");
-    }
-
-    let cacheExpiration = this._cacheExpirations.get(cacheName);
-    if (!cacheExpiration) {
-      cacheExpiration = new CacheExpiration(cacheName, this._config);
-      this._cacheExpirations.set(cacheName, cacheExpiration);
-    }
-    return cacheExpiration;
+    this.instance = expiration(config);
   }
 
   /**
@@ -155,95 +52,8 @@ export class ExpirationPlugin implements StrategyPlugin {
    * not available.
    * @private
    */
-  cachedResponseWillBeUsed({ event, cacheName, request, cachedResponse }: CachedResponseWillBeUsedCallbackParam) {
-    if (!cachedResponse) {
-      return null;
-    }
-
-    const isFresh = this._isResponseDateFresh(cachedResponse);
-
-    // Expire entries to ensure that even if the expiration date has
-    // expired, it'll only be used once.
-    const cacheExpiration = this._getCacheExpiration(cacheName);
-
-    const isMaxAgeFromLastUsed = this._config.maxAgeFrom === "last-used";
-
-    const done = (async () => {
-      // Update the metadata for the request URL to the current timestamp.
-      // Only applies if `maxAgeFrom` is `"last-used"`, since the current
-      // lifecycle callback is `cachedResponseWillBeUsed`.
-      // This needs to be called before `expireEntries()` so as to avoid
-      // this URL being marked as expired.
-      if (isMaxAgeFromLastUsed) {
-        await cacheExpiration.updateTimestamp(request.url);
-      }
-      await cacheExpiration.expireEntries();
-    })();
-    try {
-      event.waitUntil(done);
-    } catch {
-      if (process.env.NODE_ENV !== "production") {
-        if (event instanceof FetchEvent) {
-          logger.warn(`Unable to ensure service worker stays alive when updating cache entry for '${getFriendlyURL(event.request.url)}'.`);
-        }
-      }
-    }
-
-    return isFresh ? cachedResponse : null;
-  }
-
-  /**
-   * @param cachedResponse
-   * @returns
-   * @private
-   */
-  private _isResponseDateFresh(cachedResponse: Response): boolean {
-    const isMaxAgeFromLastUsed = this._config.maxAgeFrom === "last-used";
-    // If `maxAgeFrom` is `"last-used"`, the `Date` header doesn't really
-    // matter since it is about when the response was created.
-    if (isMaxAgeFromLastUsed) {
-      return true;
-    }
-    const now = Date.now();
-    if (!this._config.maxAgeSeconds) {
-      return true;
-    }
-    // Check if the `Date` header will suffice a quick expiration check.
-    // See https://github.com/GoogleChromeLabs/sw-toolbox/issues/164 for
-    // discussion.
-    const dateHeaderTimestamp = this._getDateHeaderTimestamp(cachedResponse);
-    if (dateHeaderTimestamp === null) {
-      // Unable to parse date, so assume it's fresh.
-      return true;
-    }
-    // If we have a valid headerTime, then our response is fresh if the
-    // headerTime plus maxAgeSeconds is greater than the current time.
-    return dateHeaderTimestamp >= now - this._config.maxAgeSeconds * 1000;
-  }
-
-  /**
-   * Extracts the `Date` header and parse it into an useful value.
-   *
-   * @param cachedResponse
-   * @returns
-   * @private
-   */
-  private _getDateHeaderTimestamp(cachedResponse: Response): number | null {
-    if (!cachedResponse.headers.has("date")) {
-      return null;
-    }
-
-    const dateHeader = cachedResponse.headers.get("date")!;
-    const parsedDate = new Date(dateHeader);
-    const headerTime = parsedDate.getTime();
-
-    // If the `Date` header is invalid for some reason, `parsedDate.getTime()`
-    // will return NaN.
-    if (Number.isNaN(headerTime)) {
-      return null;
-    }
-
-    return headerTime;
+  cachedResponseWillBeUsed(param: CachedResponseWillBeUsedCallbackParam) {
+    return this.instance.cachedResponseWillBeUsed?.(param);
   }
 
   /**
@@ -253,25 +63,8 @@ export class ExpirationPlugin implements StrategyPlugin {
    * @param options
    * @private
    */
-  async cacheDidUpdate({ cacheName, request }: CacheDidUpdateCallbackParam) {
-    if (process.env.NODE_ENV !== "production") {
-      assert!.isType(cacheName, "string", {
-        moduleName: "serwist",
-        className: "Plugin",
-        funcName: "cacheDidUpdate",
-        paramName: "cacheName",
-      });
-      assert!.isInstance(request, Request, {
-        moduleName: "serwist",
-        className: "Plugin",
-        funcName: "cacheDidUpdate",
-        paramName: "request",
-      });
-    }
-
-    const cacheExpiration = this._getCacheExpiration(cacheName);
-    await cacheExpiration.updateTimestamp(request.url);
-    await cacheExpiration.expireEntries();
+  cacheDidUpdate(param: CacheDidUpdateCallbackParam) {
+    return this.instance.cacheDidUpdate?.(param);
   }
 
   /**
@@ -286,15 +79,7 @@ export class ExpirationPlugin implements StrategyPlugin {
    * `caches.delete()` and passing in the cache's name should be sufficient.
    * There is no Serwist-specific method needed for cleanup in that case.
    */
-  async deleteCacheAndMetadata(): Promise<void> {
-    // Do this one at a time instead of all at once via `Promise.all()` to
-    // reduce the chance of inconsistency if a promise rejects.
-    for (const [cacheName, cacheExpiration] of this._cacheExpirations) {
-      await self.caches.delete(cacheName);
-      await cacheExpiration.delete();
-    }
-
-    // Reset this._cacheExpirations to its initial state.
-    this._cacheExpirations = new Map();
+  deleteCacheAndMetadata(): Promise<void> {
+    return this.instance.deleteCacheAndMetadata();
   }
 }

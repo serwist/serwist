@@ -10,7 +10,7 @@ import {
   setDefaultHandler,
 } from "#lib/functions/handlers.js";
 import { findMatchingRoute, handleRequest, registerCapture, registerRoute, unregisterRoute } from "#lib/functions/router.js";
-import type { Strategy } from "#lib/strategies/Strategy.js";
+import type { Strategy } from "#lib/strategies/core.js";
 import type { HTTPMethod } from "./constants.js";
 import type { Extension } from "./extension.js";
 import type { Route } from "./route.js";

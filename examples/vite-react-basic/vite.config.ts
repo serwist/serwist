@@ -1,6 +1,6 @@
-import { serwist } from "vite-plugin-serwist";
 import react from "@vitejs/plugin-react-swc";
 import { defineConfig } from "vite";
+import { serwist } from "vite-plugin-serwist";
 
 // https://vitejs.dev/config/
 export default defineConfig({

@@ -4,10 +4,11 @@ export type { GoogleAnalyticsInitializeOptions } from "./google-analytics/initia
 export { initializeGoogleAnalytics } from "./google-analytics/initialize.js";
 export type { PrecacheEntry, PrecacheExtensionOptions, PrecacheOptions } from "./precache/extension.js";
 export { Precache } from "./precache/extension.js";
+export { PrecacheStrategy } from "./precache/legacy-strategy.js";
 export type { PrecacheFallbackEntry, PrecacheFallbackPluginOptions } from "./precache/plugin-fallback.js";
 export { PrecacheFallbackPlugin } from "./precache/plugin-fallback.js";
 export type { PrecacheRouteOptions } from "./precache/route.js";
 export { PrecacheRoute } from "./precache/route.js";
 export type { PrecacheStrategyOptions } from "./precache/strategy.js";
-export { PrecacheStrategy } from "./precache/strategy.js";
+export { precacheStrategy } from "./precache/strategy.js";
 export { RuntimeCache, type RuntimeCacheOptions } from "./runtime-cache.js";

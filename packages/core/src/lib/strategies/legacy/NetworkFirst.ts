@@ -9,18 +9,11 @@
 import { assert } from "#utils/assert.js";
 import { logger } from "#utils/logger.js";
 import { SerwistError } from "#utils/SerwistError.js";
-import { cacheOkAndOpaquePlugin } from "./plugins/cacheOkAndOpaquePlugin.js";
-import type { StrategyOptions } from "./Strategy.js";
+import type { NetworkFirstOptions } from "../network-first.js";
+import { cacheOkAndOpaquePlugin } from "../plugins/cacheOkAndOpaquePlugin.js";
+import { messages } from "../utils/messages.js";
 import { Strategy } from "./Strategy.js";
 import type { StrategyHandler } from "./StrategyHandler.js";
-import { messages } from "./utils/messages.js";
-
-export interface NetworkFirstOptions extends StrategyOptions {
-  /**
-   * If set, any network requests that fail to respond within the timeout will fallback to the cache.
-   */
-  networkTimeoutSeconds?: number;
-}
 
 /**
  * An implementation of the [network first](https://developer.chrome.com/docs/workbox/caching-strategies-overview/#network_first_falling_back_to_cache)

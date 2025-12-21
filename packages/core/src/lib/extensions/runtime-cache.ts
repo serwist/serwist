@@ -2,7 +2,7 @@ import { parallel } from "@serwist/utils";
 import type { Serwist } from "#lib/core.js";
 import type { Extension } from "#lib/extension.js";
 import { handleRequest, registerCapture } from "#lib/functions/router.js";
-import { Strategy } from "../strategies/Strategy.js";
+import type { Strategy } from "../strategies/core.js";
 import type { RuntimeCaching } from "../types.js";
 import { type PrecacheFallbackEntry, PrecacheFallbackPlugin } from "./precache/plugin-fallback.js";
 
@@ -62,7 +62,8 @@ export class RuntimeCache implements Extension {
 
       this._entries.forEach((cacheEntry) => {
         if (
-          cacheEntry.handler instanceof Strategy &&
+          "plugins" in cacheEntry.handler &&
+          Array.isArray(cacheEntry.handler.plugins) &&
           // This also filters entries with `PrecacheFallbackPlugin` as it also has `handlerDidError`.
           !cacheEntry.handler.plugins.some((plugin) => "handlerDidError" in plugin)
         ) {

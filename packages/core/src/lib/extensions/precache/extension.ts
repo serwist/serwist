@@ -10,13 +10,13 @@ import { printCleanupDetails } from "#utils/printCleanupDetails.js";
 import { printInstallDetails } from "#utils/printInstallDetails.js";
 import { SerwistError } from "#utils/SerwistError.js";
 import { NavigationRoute } from "../../route.js";
-import type { Strategy } from "../../strategies/Strategy.js";
+import type { Strategy } from "../../strategies/core.js";
 import type { RouteHandlerCallback } from "../../types.js";
 import { parsePrecacheOptions } from "./options.js";
 import { PrecacheInstallReportPlugin } from "./plugin-install-report.js";
 import { PrecacheRoute, type PrecacheRouteOptions } from "./route.js";
 import type { PrecacheStrategyOptions } from "./strategy.js";
-import { PrecacheStrategy } from "./strategy.js";
+import { precacheStrategy } from "./strategy.js";
 
 export interface PrecacheEntry {
   integrity?: string;
@@ -77,7 +77,7 @@ export class Precache implements Extension {
   constructor(precacheOptions: PrecacheOptions) {
     const { entries, strategyOptions, routeOptions, extensionOptions } = parsePrecacheOptions(this, precacheOptions);
     this.addToCacheList(entries);
-    this._strategy = new PrecacheStrategy(strategyOptions);
+    this._strategy = precacheStrategy(strategyOptions);
     this._options = extensionOptions;
     this._routeOptions = routeOptions;
   }

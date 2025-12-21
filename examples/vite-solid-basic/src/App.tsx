@@ -1,5 +1,5 @@
 import { useSerwist } from "virtual:serwist/solid";
-import { createEffect, type Component } from "solid-js";
+import { type Component, createEffect } from "solid-js";
 import styles from "./App.module.css";
 import logo from "./logo.svg";
 

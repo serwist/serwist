@@ -25,9 +25,9 @@ export const mainPlugin = (ctx: SerwistReactRouterContext, userOptions: PluginOp
       };
     },
     async configResolved(config) {
-      // @ts-ignore Accessing React Router internals
+      // @ts-expect-error Accessing React Router internals
       ctx.isReactRouterDevServer = config.__reactRouterPluginContext !== undefined;
-      // @ts-ignore Accessing React Router internals
+      // @ts-expect-error Accessing React Router internals
       ctx.reactRouterPluginContext = config.__reactRouterPluginContext ?? undefined;
       const resolvedOptions = resolveDefaultOptions(ctx, userOptions, config);
       if (!resolvedOptions) {

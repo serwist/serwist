@@ -2,7 +2,7 @@
 /// <reference lib="esnext" />
 /// <reference lib="webworker" />
 import { defaultCache } from "@serwist/astro/worker";
-import { RuntimeCache, Serwist, addEventListeners, createSerwist, type PrecacheEntry } from "serwist";
+import { addEventListeners, createSerwist, type PrecacheEntry, RuntimeCache, Serwist } from "serwist";
 
 declare global {
   interface WorkerGlobalScope {
