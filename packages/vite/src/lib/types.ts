@@ -11,7 +11,7 @@ import type {
   RequiredSwDestResolved,
 } from "@serwist/build";
 import type { Require } from "@serwist/utils";
-import type { RollupOptions } from "rollup";
+import type { OutputOptions, RollupOptions } from "rollup";
 import type { BuildOptions, PluginOption, ResolvedConfig } from "vite";
 import type { FRAMEWORKS, VIRTUAL_PREFIX, VIRTUAL_SERWIST } from "./constants.js";
 
@@ -76,7 +76,9 @@ export interface InjectPartial {
   /**
    * Custom Rollup options used to build the service worker.
    */
-  rollupOptions?: Omit<RollupOptions, "input" | "output">;
+  rollupOptions?: Omit<RollupOptions, "input" | "output"> & {
+    output?: Omit<OutputOptions, "entryFileNames">;
+  };
   /**
    * Development-specific options.
    */

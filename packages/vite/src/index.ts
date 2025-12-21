@@ -20,7 +20,7 @@ import { virtualPlugin } from "./plugins/virtual.js";
  */
 export const serwist = (userOptions: PluginOptions): Plugin[] => {
   const ctx = createContext(userOptions, undefined);
-  return [mainPlugin(ctx), buildPlugin(ctx), devPlugin(ctx)];
+  return [mainPlugin(ctx)];
 };
 
 // This allows for customization.

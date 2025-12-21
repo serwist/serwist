@@ -64,8 +64,9 @@ export const generateServiceWorker = async (ctx: SerwistViteContext): Promise<Ge
             [parsedSwDest.name]: ctx.options.injectManifest.swSrc,
           },
           output: {
-            entryFileNames: parsedSwDest.base,
             format: ctx.options.rollupFormat,
+            ...ctx.options.rollupOptions?.output,
+            entryFileNames: parsedSwDest.base,
           },
         },
         outDir: parsedSwDest.dir,
