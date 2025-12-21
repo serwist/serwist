@@ -1,7 +1,7 @@
 import "./App.css";
 
-import { useEffect } from "react";
 import { getSerwist } from "virtual:serwist";
+import { useEffect } from "react";
 
 import viteLogo from "/vite.svg";
 

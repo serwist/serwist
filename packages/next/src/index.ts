@@ -25,7 +25,7 @@ const withSerwistInit = (userOptions: InjectManifestOptions): ((nextConfig?: Nex
   if (!warnedTurbopack && process.env.TURBOPACK && !userOptions.disable && !process.env.SERWIST_SUPPRESS_TURBOPACK_WARNING) {
     warnedTurbopack = true;
     console.warn(
-      `[@serwist/next] WARNING: You are using '@serwist/next' with \`next dev --turbopack\`, but Serwist doesn't support Turbopack at the moment. It is recommended that you set \`disable\` to \`process.env.NODE_ENV !== \"production\"\`. Follow https://github.com/serwist/serwist/issues/54 for progress on Serwist + Turbopack. You can also suppress this warning by setting SERWIST_SUPPRESS_TURBOPACK_WARNING=1.`,
+      `[@serwist/next] WARNING: You are using '@serwist/next' with \`next dev --turbopack\`, but Serwist doesn't support Turbopack at the moment. It is recommended that you set \`disable\` to \`process.env.NODE_ENV !== "production"\`. Follow https://github.com/serwist/serwist/issues/54 for progress on Serwist + Turbopack. You can also suppress this warning by setting SERWIST_SUPPRESS_TURBOPACK_WARNING=1.`,
     );
   }
   return (nextConfig = {}) => ({
@@ -137,6 +137,7 @@ const withSerwistInit = (userOptions: InjectManifestOptions): ((nextConfig?: Nex
         const cleanUpList = globSync(["swe-worker-*.js", "swe-worker-*.js.map", destBase, `${destBase}.map`], {
           absolute: true,
           nodir: true,
+          follow: true,
           cwd: destDir,
         });
 
@@ -176,6 +177,7 @@ const withSerwistInit = (userOptions: InjectManifestOptions): ((nextConfig?: Nex
         if (!resolvedManifestEntries) {
           const publicScan = globSync(globPublicPatterns, {
             nodir: true,
+            follow: true,
             cwd: publicDir,
             ignore: ["swe-worker-*.js", destBase, `${destBase}.map`],
           });

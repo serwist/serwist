@@ -64,16 +64,16 @@
     "@serwist/build": "workspace:*",
     "@serwist/utils": "workspace:*",
     "@serwist/window": "workspace:*",
-    "chokidar": "4.0.3",
+    "chokidar": "5.0.0",
     "vite-plugin-serwist": "workspace:*"
   },
   "devDependencies": {
     "@serwist/configs": "workspace:*",
-    "@types/node": "24.10.1",
-    "astro": "5.16.0",
-    "rollup": "4.53.3",
+    "@types/node": "25.0.3",
+    "astro": "5.16.6",
+    "rollup": "4.54.0",
     "typescript": "5.9.3",
-    "vite": "7.2.4"
+    "vite": "7.3.0"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0",

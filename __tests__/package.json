@@ -8,7 +8,7 @@
   "license": "MIT",
   "homepage": "https://serwist.pages.dev",
   "devDependencies": {
-    "type-fest": "5.2.0",
-    "vitest": "4.0.13"
+    "type-fest": "5.3.1",
+    "vitest": "4.0.16"
   }
 }

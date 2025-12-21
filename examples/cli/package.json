@@ -12,8 +12,8 @@
     "@serwist/build": "latest",
     "@serwist/cli": "latest",
     "@serwist/window": "latest",
-    "@types/node": "24.10.1",
-    "esbuild": "0.27.0",
+    "@types/node": "25.0.3",
+    "esbuild": "0.27.2",
     "serve": "14.2.5",
     "serwist": "latest",
     "typescript": "5.9.3"

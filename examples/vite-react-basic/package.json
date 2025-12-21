@@ -11,17 +11,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "react": "19.2.0",
-    "react-dom": "19.2.0"
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
   },
   "devDependencies": {
     "vite-plugin-serwist": "latest",
     "@serwist/window": "latest",
-    "@types/react": "19.2.6",
+    "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react-swc": "4.2.2",
     "serwist": "latest",
     "typescript": "5.9.3",
-    "vite": "7.2.4"
+    "vite": "7.3.0"
   }
 }

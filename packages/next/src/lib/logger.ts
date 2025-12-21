@@ -1,28 +1,39 @@
-import chalk from "chalk";
+import { createRequire } from "node:module";
+import { bold, green, red, white, yellow } from "kolorist";
+import semver from "semver";
 
-const LOGGING_METHOD = ["wait", "error", "warn", "info", "event"] as const;
+const require = createRequire(import.meta.url);
 
-type LoggingMethods = (typeof LOGGING_METHOD)[number];
+const LOGGING_SPACE_PREFIX = semver.gte(require("next/package.json").version, "16.0.0") ? "" : " ";
 
-const mapLoggingMethodToConsole: Record<LoggingMethods, "log" | "error" | "warn" | "log"> = {
-  wait: "log",
-  error: "error",
-  warn: "warn",
-  info: "log",
-  event: "log",
-};
-
-const prefixes = {
-  wait: `${chalk.white(chalk.bold("○"))} (serwist)`,
-  error: `${chalk.red(chalk.bold("X"))} (serwist)`,
-  warn: `${chalk.yellow(chalk.bold("⚠"))} (serwist)`,
-  info: `${chalk.white(chalk.bold("○"))} (serwist)`,
-  event: `${chalk.green(chalk.bold("✓"))} (serwist)`,
-};
+export type LoggingMethods = "wait" | "error" | "warn" | "info" | "event";
 
 const prefixedLog = (prefixType: LoggingMethods, ...message: any[]) => {
-  const consoleMethod = mapLoggingMethodToConsole[prefixType];
-  const prefix = prefixes[prefixType];
+  let prefix: string;
+  let consoleMethod: keyof Console;
+
+  switch (prefixType) {
+    case "wait":
+      prefix = `${white(bold("○"))} (serwist)`;
+      consoleMethod = "log";
+      break;
+    case "error":
+      prefix = `${red(bold("X"))} (serwist)`;
+      consoleMethod = "error";
+      break;
+    case "warn":
+      prefix = `${yellow(bold("⚠"))} (serwist)`;
+      consoleMethod = "warn";
+      break;
+    case "info":
+      prefix = `${white(bold("○"))} (serwist)`;
+      consoleMethod = "log";
+      break;
+    case "event":
+      prefix = `${green(bold("✓"))} (serwist)`;
+      consoleMethod = "log";
+      break;
+  }
 
   if ((message[0] === "" || message[0] === undefined) && message.length === 1) {
     message.shift();
@@ -32,26 +43,16 @@ const prefixedLog = (prefixType: LoggingMethods, ...message: any[]) => {
   if (message.length === 0) {
     console[consoleMethod]("");
   } else {
-    console[consoleMethod](` ${prefix}`, ...message);
+    console[consoleMethod](`${LOGGING_SPACE_PREFIX}${prefix}`, ...message);
   }
 };
 
-export const wait = (...message: any[]) => {
-  prefixedLog("wait", ...message);
-};
+export const wait = (...message: any[]) => prefixedLog("wait", ...message);
 
-export const error = (...message: any[]) => {
-  prefixedLog("error", ...message);
-};
+export const error = (...message: any[]) => prefixedLog("error", ...message);
 
-export const warn = (...message: any[]) => {
-  prefixedLog("warn", ...message);
-};
+export const warn = (...message: any[]) => prefixedLog("warn", ...message);
 
-export const info = (...message: any[]) => {
-  prefixedLog("info", ...message);
-};
+export const info = (...message: any[]) => prefixedLog("info", ...message);
 
-export const event = (...message: any[]) => {
-  prefixedLog("event", ...message);
-};
+export const event = (...message: any[]) => prefixedLog("event", ...message);

@@ -1,6 +1,6 @@
-import { InjectManifest } from "@serwist/webpack-plugin";
 import { defineConfig } from "@rsbuild/core";
 import { pluginReact } from "@rsbuild/plugin-react";
+import { InjectManifest } from "@serwist/webpack-plugin";
 
 const dev = process.env.NODE_ENV === "development";
 

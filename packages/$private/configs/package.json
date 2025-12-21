@@ -27,8 +27,8 @@
     "@rollup/plugin-node-resolve": "16.0.3",
     "@rollup/plugin-swc": "0.4.0",
     "@rollup/plugin-typescript": "12.3.0",
-    "@swc/core": "1.15.3",
-    "rollup": "4.53.3",
+    "@swc/core": "1.15.7",
+    "rollup": "4.54.0",
     "rollup-plugin-svelte": "7.2.3"
   }
 }
