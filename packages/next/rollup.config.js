@@ -9,8 +9,10 @@ export default getRollupOptions({
     {
       input: {
         index: "src/index.ts",
-        "index.worker": "src/index.worker.ts",
+        "index.config": "src/index.config.ts",
+        "index.react": "src/index.react.tsx",
         "index.schema": "src/index.schema.ts",
+        "index.worker": "src/index.worker.ts",
         "sw-entry": "src/sw-entry.ts",
         "sw-entry-worker": "src/sw-entry-worker.ts",
       },

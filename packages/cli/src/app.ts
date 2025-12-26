@@ -8,52 +8,18 @@
 import assert from "node:assert";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import { type InjectManifestOptions, injectManifest } from "@serwist/build";
+import type { InjectManifestOptions } from "@serwist/build";
 import chokidar from "chokidar";
 import { glob } from "glob";
 import type { Result as MeowResult } from "meow";
-import prettyBytes from "pretty-bytes";
 
 import type { SupportedFlags } from "./bin.js";
+import { runBuildCommand, runInjectManifestCommand } from "./lib/build.js";
 import { constants } from "./lib/constants.js";
 import { errors } from "./lib/errors.js";
 import { logger } from "./lib/logger.js";
 import { readConfig } from "./lib/read-config.js";
 import { runWizard } from "./lib/run-wizard.js";
-
-type BuildCommand = {
-  watch: boolean;
-  config: InjectManifestOptions;
-};
-
-/**
- * Runs the specified build command with the provided configuration.
- *
- * @param options
- */
-const runBuildCommand = async ({ config, watch }: BuildCommand) => {
-  const { count, filePaths, size, warnings } = await injectManifest(config);
-
-  for (const warning of warnings) {
-    logger.warn(warning);
-  }
-
-  if (filePaths.length === 1) {
-    logger.log(`The service worker file was written to ${config.swDest}`);
-  } else {
-    const message = filePaths
-      .sort()
-      .map((filePath) => `  • ${filePath}`)
-      .join("\n");
-    logger.log(`The service worker files were written to:\n${message}`);
-  }
-
-  logger.log(`The service worker will precache ${count} URLs, ` + `totaling ${prettyBytes(size)}.`);
-
-  if (watch) {
-    logger.log("\nWatching for changes...");
-  }
-};
 
 export const app = async (params: MeowResult<SupportedFlags>): Promise<void> => {
   // This should not be a user-visible error, unless meow() messes something up.
@@ -62,9 +28,38 @@ export const app = async (params: MeowResult<SupportedFlags>): Promise<void> => 
   // Default to showing the help message if there's no command provided.
   const [command = "help", option] = params.input;
 
+  process.env.SERWIST_ENV = params.flags.watch ? "watch" : "build";
+  process.env.NODE_ENV = params.flags.watch ? "development" : "production";
+
   switch (command) {
     case "wizard": {
       await runWizard();
+      break;
+    }
+
+    case "build": {
+      const configPath = path.resolve(process.cwd(), option || constants.defaultConfigFile);
+      const configUrl = pathToFileURL(configPath).href;
+
+      let config: InjectManifestOptions | null;
+      try {
+        config = await readConfig(configUrl);
+      } catch (error) {
+        config = null;
+        if (error instanceof Error) {
+          logger.error(errors["invalid-common-js-module"]);
+          throw error;
+        }
+      }
+
+      if (config === null) {
+        throw logger.error(errors["invalid-config-location"]);
+      }
+
+      logger.log(`Using configuration from ${configPath}.`);
+
+      await runBuildCommand({ config, watch: !!params.flags.watch });
+
       break;
     }
 
@@ -90,7 +85,7 @@ export const app = async (params: MeowResult<SupportedFlags>): Promise<void> => 
       logger.log(`Using configuration from ${configPath}.`);
 
       // Determine whether we're in --watch mode, or one-off mode.
-      if (params?.flags?.watch) {
+      if (params.flags.watch) {
         if (config.globPatterns) {
           chokidar
             .watch(
@@ -106,14 +101,14 @@ export const app = async (params: MeowResult<SupportedFlags>): Promise<void> => 
             )
             .on("all", async () => {
               if (config === null) return;
-              await runBuildCommand({
+              await runInjectManifestCommand({
                 config,
                 watch: true,
               });
             })
             .on("ready", async () => {
               if (config === null) return;
-              await runBuildCommand({
+              await runInjectManifestCommand({
                 config,
                 watch: true,
               });
@@ -123,7 +118,7 @@ export const app = async (params: MeowResult<SupportedFlags>): Promise<void> => 
             });
         }
       } else {
-        await runBuildCommand({ config, watch: false });
+        await runInjectManifestCommand({ config, watch: false });
       }
       break;
     }
