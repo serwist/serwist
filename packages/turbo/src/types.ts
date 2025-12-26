@@ -10,8 +10,8 @@ import type {
 } from "@serwist/build";
 import type { Prettify, Require } from "@serwist/utils";
 import type { BuildOptions } from "esbuild-wasm";
-import type { SUPPORTED_ESBUILD_OPTIONS } from "./lib/constants.js";
 import type { NextConfig as CompleteNextConfig } from "next";
+import type { SUPPORTED_ESBUILD_OPTIONS } from "./lib/constants.js";
 
 export type EsbuildSupportedOptions = (typeof SUPPORTED_ESBUILD_OPTIONS)[number];
 
