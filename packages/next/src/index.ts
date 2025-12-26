@@ -141,9 +141,7 @@ const withSerwistInit = (userOptions: InjectManifestOptions): ((nextConfig?: Nex
         });
 
         for (const file of cleanUpList) {
-          fs.rm(file, { force: true }, (err) => {
-            if (err) throw err;
-          });
+          fs.rmSync(file, { force: true });
         }
 
         const shouldBuildSWEntryWorker = cacheOnNavigation;
@@ -214,7 +212,6 @@ const withSerwistInit = (userOptions: InjectManifestOptions): ((nextConfig?: Nex
               },
             ],
             manifestTransforms: [
-              // TODO(ducanhgh): move this spread to below our transform function?
               ...manifestTransforms,
               async (manifestEntries, compilation) => {
                 // This path always uses forward slashes, so it is safe to use it in the following string replace.

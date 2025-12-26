@@ -1,7 +1,6 @@
 packages:
   - "__tests__"
   - "__tests__/*"
-  - "docs"
   - "packages/*"
   - "packages/$legacy/*"
   - "packages/$private/*"
@@ -11,6 +10,7 @@ packages:
   - "serwist-e2e-test"
 overrides:
   "@serwist/astro": "workspace:*"
+  "@serwist/cli": "workspace:*"
   "@serwist/react-router": "workspace:*"
   "@serwist/turbopack": "workspace:*"
   "@serwist/vite": "workspace:*"
