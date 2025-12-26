@@ -1,5 +1,12 @@
 # @serwist/range-requests
 
+## 9.4.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - serwist@9.4.2
+
 ## 9.4.1
 
 ### Patch Changes

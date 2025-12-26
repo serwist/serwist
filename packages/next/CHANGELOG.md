@@ -1,5 +1,19 @@
 # @serwist/next
 
+## 9.4.2
+
+### Patch Changes
+
+- [`7600c43`](https://github.com/serwist/serwist/commit/7600c4320ea4804ea54f5a060ea746362e99a038) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(next/config): automatically read Browserslist
+  - This allows customizing compilation targets via an unified Browserslist rather than esbuild's `target`.
+
+- Updated dependencies []:
+  - @serwist/build@9.4.2
+  - @serwist/cli@9.4.2
+  - @serwist/webpack-plugin@9.4.2
+  - @serwist/window@9.4.2
+  - serwist@9.4.2
+
 ## 9.4.1
 
 ### Patch Changes

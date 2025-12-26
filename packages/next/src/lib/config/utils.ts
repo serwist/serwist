@@ -26,16 +26,16 @@ const compareSemver = (a: string[], b: string[]) => {
 // License: MIT
 /**
  * Loads and converts Browserslist into esbuild's `target` option.
- * 
- * @param cwd 
- * @returns 
+ *
+ * @param cwd
+ * @returns
  */
-export const loadBrowserslist = async (cwd: string): Promise<string[]> => {
+export const loadBrowserslist = (cwd: string): string[] => {
   const browserslistConfig = browserslist.loadConfig({ path: cwd }) ?? MODERN_BROWSERSLIST_TARGET;
   return (
     browserslist(browserslistConfig)
-      // Filter out legacy Android webview to avoid converting them into Chrome targets 
-      .filter(query => !UNSUPPORTED_BROWSERLIST_TARGETS.some(target => query.startsWith(target)))
+      // Filter out legacy Android webview to avoid converting them into Chrome targets
+      .filter((query) => !UNSUPPORTED_BROWSERLIST_TARGETS.some((target) => query.startsWith(target)))
       .map((query) => {
         const modified = query === "safari TP" ? browserslist("last 1 safari version")[0] : query;
         const split = modified.split(" ");
