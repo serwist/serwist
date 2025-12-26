@@ -22,7 +22,7 @@ declare global {
 /**
  * `@serwist/window` provider for Next.js apps.
  * @param options
- * @returns 
+ * @returns
  */
 export function SerwistProvider({
   swUrl,
