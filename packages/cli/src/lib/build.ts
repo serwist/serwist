@@ -50,6 +50,7 @@ export interface BuildCommand {
 }
 
 export const runBuildCommand = async ({ config, watch }: BuildCommand) => {
+  const isDev = process.env.NODE_ENV === "development";
   const options = await validateBuildOptions(config);
   const { count, manifestEntries, size, warnings } = await getFileManifestEntries(options);
 
@@ -70,12 +71,12 @@ export const runBuildCommand = async ({ config, watch }: BuildCommand) => {
 
   const esbuildContext = await esbuild.context({
     metafile: true,
-    sourcemap: watch,
+    sourcemap: isDev,
     format: "esm",
     target: ["chrome64", "edge79", "firefox67", "opera51", "safari12"],
     treeShaking: true,
     // `minify` would also automatically set `NODE_ENV` to `"production"` when true.
-    minify: process.env.NODE_ENV === "production",
+    minify: !isDev,
     bundle: true,
     ...options.esbuildOptions,
     platform: "browser",
