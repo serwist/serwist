@@ -1,5 +1,12 @@
 # @serwist/sw
 
+## 9.4.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - serwist@9.4.1
+
 ## 9.4.0
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @serwist/cli
 
+## 9.4.1
+
+### Patch Changes
+
+- [`bfe94ce`](https://github.com/serwist/serwist/commit/bfe94ce94cb403d4f4e4df878ef690d30404144d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(cli): allow manually setting `NODE_ENV`
+  - This allows building in development mode without `--watch`.
+
+- Updated dependencies []:
+  - @serwist/build@9.4.1
+
 ## 9.4.0
 
 ### Patch Changes
