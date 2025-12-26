@@ -5,6 +5,7 @@ import { SerwistContext, useSerwist } from "./lib/context.js";
 
 export interface SerwistProviderProps {
   swUrl: string;
+  disable?: boolean;
   register?: boolean;
   cacheOnNavigation?: boolean;
   reloadOnOnline?: boolean;
@@ -18,8 +19,14 @@ declare global {
   }
 }
 
+/**
+ * `@serwist/window` provider for Next.js apps.
+ * @param options
+ * @returns 
+ */
 export function SerwistProvider({
   swUrl,
+  disable = false,
   register = true,
   cacheOnNavigation = true,
   reloadOnOnline = true,
@@ -28,17 +35,16 @@ export function SerwistProvider({
 }: SerwistProviderProps) {
   const [serwist] = useState(() => {
     if (typeof window === "undefined") return null;
+    if (disable) return null;
+    const scope = options?.scope || "/";
     if (!(window.serwist && window.serwist instanceof Serwist) && "serviceWorker" in navigator) {
-      window.serwist = new Serwist(swUrl, { ...options, type: options?.type || "module", scope: options?.scope || "/" });
+      window.serwist = new Serwist(swUrl, { ...options, scope, type: options?.type || "module" });
+      if (register && !isCurrentPageOutOfScope(scope)) {
+        void window.serwist.register();
+      }
     }
     return window.serwist ?? null;
   });
-  useEffect(() => {
-    const scope = options?.scope || "/";
-    if (register && !isCurrentPageOutOfScope(scope)) {
-      void serwist?.register();
-    }
-  }, [register, options?.scope, serwist?.register]);
   useEffect(() => {
     const cacheUrls = async (url?: string | URL | null | undefined) => {
       if (!window.navigator.onLine || !url) {
@@ -70,7 +76,7 @@ export function SerwistProvider({
       history.replaceState = replaceState;
       window.removeEventListener("online", cacheCurrentPathname);
     };
-  }, [serwist?.messageSW, cacheOnNavigation]);
+  }, [serwist, cacheOnNavigation]);
   useEffect(() => {
     const reload = () => location.reload();
     if (reloadOnOnline) {
