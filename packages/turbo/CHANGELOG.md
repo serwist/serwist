@@ -1,5 +1,14 @@
 # @serwist/turbopack
 
+## 9.4.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/build@9.4.2
+  - @serwist/window@9.4.2
+  - serwist@9.4.2
+
 ## 9.4.1
 
 ### Patch Changes

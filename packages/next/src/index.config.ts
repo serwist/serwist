@@ -87,7 +87,7 @@ export const serwist = async (options: SerwistOptions): Promise<BuildOptions> =>
     esbuildOptions: {
       ...cliOptions.esbuildOptions,
       target: cliOptions.esbuildOptions?.target ?? (await loadBrowserslist(cwd)),
-    }
+    },
   };
 };
 
