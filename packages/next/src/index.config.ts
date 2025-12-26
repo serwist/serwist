@@ -4,14 +4,15 @@ import { rebasePath } from "@serwist/build";
 import type { BuildOptions } from "@serwist/cli";
 import { PHASE_DEVELOPMENT_SERVER, PHASE_PRODUCTION_BUILD } from "next/constants.js";
 import type { SerwistOptions } from "./lib/config/types.js";
-import { generateGlobPatterns } from "./lib/config/utils.js";
+import { generateGlobPatterns, loadBrowserslist } from "./lib/config/utils.js";
 
 import loadNextConfig = require("next/dist/server/config.js");
 
 export const serwist = async (options: SerwistOptions): Promise<BuildOptions> => {
+  const cwd = process.cwd();
   const isDev = process.env.NODE_ENV === "development";
   const nextPhase = isDev ? PHASE_DEVELOPMENT_SERVER : PHASE_PRODUCTION_BUILD;
-  const config = await loadNextConfig.default(nextPhase, process.cwd(), {
+  const config = await loadNextConfig.default(nextPhase, cwd, {
     silent: false,
   });
   const basePath = config.basePath || "/";
@@ -21,7 +22,7 @@ export const serwist = async (options: SerwistOptions): Promise<BuildOptions> =>
   const distServerDir = `${distDir}server/`;
   const distAppDir = `${distServerDir}app/`;
   const distPagesDir = `${distServerDir}pages/`;
-  const { precachePrerendered = true, globDirectory = process.cwd(), ...cliOptions } = options;
+  const { precachePrerendered = true, globDirectory = cwd, ...cliOptions } = options;
   for (const file of [cliOptions.swDest, `${cliOptions.swDest}.map`]) {
     fs.rmSync(file, { force: true });
   }
@@ -83,6 +84,10 @@ export const serwist = async (options: SerwistOptions): Promise<BuildOptions> =>
         return { manifest, warnings: [] };
       },
     ],
+    esbuildOptions: {
+      ...cliOptions.esbuildOptions,
+      target: cliOptions.esbuildOptions?.target ?? (await loadBrowserslist(cwd)),
+    }
   };
 };
 

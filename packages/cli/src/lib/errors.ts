@@ -11,7 +11,7 @@ export const errors = {
   "missing-input": "params.input value was not set properly.",
   "missing-dest-dir-param": ol`Please provide the path to a directory in which
     the libraries will be copied.`,
-  "invalid-common-js-module": ol`Please pass in a valid CommonJS module that
+  "invalid-common-js-module": ol`Please pass in a valid module that
     exports your configuration.`,
   "config-validation-failed": "Your configuration is invalid:",
   "serwist-build-runtime-error": "Service worker generation failed:",

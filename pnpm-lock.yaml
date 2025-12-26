@@ -773,6 +773,9 @@ importers:
       '@serwist/window':
         specifier: workspace:*
         version: link:../window
+      browserslist:
+        specifier: 4.28.1
+        version: 4.28.1
       glob:
         specifier: 10.5.0
         version: 10.5.0
