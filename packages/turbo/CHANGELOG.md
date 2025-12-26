@@ -1,5 +1,19 @@
 # @serwist/turbopack
 
+## 10.0.0
+
+### Minor Changes
+
+- [`3c2d01b`](https://github.com/serwist/serwist/commit/3c2d01b996f6e5dffa1344dd0ed8e32090584f3a) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(turbo,next): added `disable` to `SerwistProvider`
+  - This allows disabling `@serwist/window` when needed.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/build@10.0.0
+  - @serwist/window@10.0.0
+  - serwist@10.0.0
+
 ## 9.3.1
 
 ### Patch Changes
