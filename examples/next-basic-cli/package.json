@@ -5,7 +5,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "concurrently 'serwist build --watch' 'next dev'",
+    "dev": "concurrently -p none 'serwist build --watch' 'next dev'",
     "build": "next build && serwist build",
     "start": "next start",
     "lint": "next lint"
