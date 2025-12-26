@@ -1,5 +1,12 @@
 # @serwist/sw
 
+## 10.0.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - serwist@10.0.0
+
 ## 9.3.0
 
 ### Patch Changes
@@ -1026,11 +1033,13 @@
   - Since `runtimeCaching` is now a part of `@serwist/sw` rather than `@serwist/build`, it makes more sense to move the types there as well.
   - To migrate, simply update the imports.
     - Old:
+
     ```ts
     import type { StrategyName, RuntimeCaching } from "@serwist/build";
     ```
 
     - New:
+
     ```ts
     import type { StrategyName, RuntimeCaching } from "@serwist/sw";
     ```

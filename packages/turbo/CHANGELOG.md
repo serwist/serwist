@@ -1,5 +1,20 @@
 # @serwist/turbopack
 
+## 10.0.0
+
+### Minor Changes
+
+- [`022a795`](https://github.com/serwist/serwist/commit/022a795919fa8ed1bc8bf652c13f70b943e506f8) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(turbo): export `useSerwist` & added `cacheOnNavigation`
+  - This allows retrieving the global `@serwist/window` instance without accessing the `window` object, which makes typing `window.serwist` unnecessary. Both ways of accessing the instance remain supported.
+  - `cacheOnNavigation` is a feature of `@serwist/next` that has been ported to `@serwist/turbopack`. It is enabled by default. The service worker must accept `{ type: "CACHE_URLS", payload: { urlsToCache: string[] }}` messages for this feature to work.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/build@10.0.0
+  - @serwist/window@10.0.0
+  - serwist@10.0.0
+
 ## 9.3.0
 
 ### Minor Changes
