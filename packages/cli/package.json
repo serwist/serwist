@@ -27,6 +27,26 @@
   "repository": "https://github.com/serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",
   "homepage": "https://serwist.pages.dev",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "schema": [
+        "./dist/index.schema.d.ts"
+      ]
+    }
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./schema": {
+      "types": "./dist/index.schema.d.ts",
+      "default": "./dist/index.schema.js"
+    },
+    "./package.json": "./package.json"
+  },
   "bin": {
     "serwist": "cli.js"
   },
@@ -46,7 +66,8 @@
     "meow": "14.0.0",
     "pretty-bytes": "6.1.1",
     "stringify-object": "6.0.0",
-    "update-notifier": "7.3.1"
+    "update-notifier": "7.3.1",
+    "zod": "4.2.1"
   },
   "devDependencies": {
     "@serwist/configs": "workspace:*",
@@ -55,7 +76,16 @@
     "@types/inquirer": "9.0.9",
     "@types/stringify-object": "4.0.5",
     "@types/update-notifier": "6.0.8",
+    "esbuild": "0.27.2",
     "rollup": "4.54.0",
     "typescript": "5.9.3"
+  },
+  "peerDependencies": {
+    "esbuild": ">=0.25.0 <1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "esbuild": {
+      "optional": true
+    }
   }
 }

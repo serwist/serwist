@@ -6,7 +6,6 @@
   "workspaces": [
     "__tests__",
     "__tests__/*",
-    "docs",
     "packages/*",
     "packages/$legacy/*",
     "packages/$private/*",
