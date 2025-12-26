@@ -1,5 +1,16 @@
 # @serwist/turbopack
 
+## 9.3.1
+
+### Patch Changes
+
+- [`ed4174b`](https://github.com/serwist/serwist/commit/ed4174b50001f8519007344d52434bee197c6b34) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(turbo): export `useSerwist` & added `cacheOnNavigation`
+
+- Updated dependencies []:
+  - @serwist/build@9.3.1
+  - @serwist/window@9.3.1
+  - serwist@9.3.1
+
 ## 9.3.0
 
 ### Minor Changes

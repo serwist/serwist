@@ -1,5 +1,16 @@
 # @serwist/cli
 
+## 9.3.1
+
+### Patch Changes
+
+- [`ed4174b`](https://github.com/serwist/serwist/commit/ed4174b50001f8519007344d52434bee197c6b34) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(cli): added build command
+  - This command uses esbuild to build the service worker. You must install `esbuild` before running this command.
+  - To use this command, run `serwist build` or `serwist build --watch`.
+
+- Updated dependencies []:
+  - @serwist/build@9.3.1
+
 ## 9.3.0
 
 ### Patch Changes
