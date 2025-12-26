@@ -8,6 +8,8 @@ export default getRollupOptions({
   jsFiles: [
     {
       input: {
+        index: "src/index.ts",
+        "index.schema": "src/index.schema.ts",
         bin: "src/bin.ts",
       },
       output: {

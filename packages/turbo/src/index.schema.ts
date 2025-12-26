@@ -1,5 +1,5 @@
 import path from "node:path";
-import { assertType, type Equals, basePartial, globPartial, injectPartial } from "@serwist/build/schema";
+import { assertType, basePartial, type Equals, globPartial, injectPartial } from "@serwist/build/schema";
 import z from "zod";
 import { SUPPORTED_ESBUILD_OPTIONS } from "./lib/constants.js";
 import { generateGlobPatterns } from "./lib/utils.js";
