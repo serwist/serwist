@@ -20,6 +20,7 @@ import { errors } from "./lib/errors.js";
 import { logger } from "./lib/logger.js";
 import { readConfig } from "./lib/read-config.js";
 import { runWizard } from "./lib/run-wizard.js";
+import type { BuildOptions } from "./types.js";
 
 export const app = async (params: MeowResult<SupportedFlags>): Promise<void> => {
   // This should not be a user-visible error, unless meow() messes something up.
@@ -29,7 +30,10 @@ export const app = async (params: MeowResult<SupportedFlags>): Promise<void> => 
   const [command = "help", option] = params.input;
 
   process.env.SERWIST_ENV = params.flags.watch ? "watch" : "build";
-  process.env.NODE_ENV = params.flags.watch ? "development" : "production";
+
+  if (!process.env.NODE_ENV) {
+    process.env.NODE_ENV = params.flags.watch ? "development" : "production";
+  }
 
   switch (command) {
     case "wizard": {
@@ -41,9 +45,9 @@ export const app = async (params: MeowResult<SupportedFlags>): Promise<void> => 
       const configPath = path.resolve(process.cwd(), option || constants.defaultConfigFile);
       const configUrl = pathToFileURL(configPath).href;
 
-      let config: InjectManifestOptions | null;
+      let config: BuildOptions | null;
       try {
-        config = await readConfig(configUrl);
+        config = await readConfig<BuildOptions>(configUrl);
       } catch (error) {
         config = null;
         if (error instanceof Error) {

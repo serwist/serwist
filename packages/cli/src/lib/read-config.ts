@@ -7,6 +7,6 @@
 */
 import type { InjectManifestOptions } from "@serwist/build";
 
-export const readConfig = async (configFile: string): Promise<InjectManifestOptions> => {
-  return (await import(configFile)).default as InjectManifestOptions;
+export const readConfig = async <T extends InjectManifestOptions = InjectManifestOptions>(configFile: string): Promise<T> => {
+  return (await import(configFile)).default as T;
 };

@@ -9,8 +9,8 @@ import { generateGlobPatterns } from "./lib/config/utils.js";
 import loadNextConfig = require("next/dist/server/config.js");
 
 export const serwist = async (options: SerwistOptions): Promise<BuildOptions> => {
-  const isWatch = process.env.SERWIST_ENV === "watch";
-  const nextPhase = isWatch ? PHASE_DEVELOPMENT_SERVER : PHASE_PRODUCTION_BUILD;
+  const isDev = process.env.NODE_ENV === "development";
+  const nextPhase = isDev ? PHASE_DEVELOPMENT_SERVER : PHASE_PRODUCTION_BUILD;
   const config = await loadNextConfig.default(nextPhase, process.cwd(), {
     silent: false,
   });
@@ -27,7 +27,7 @@ export const serwist = async (options: SerwistOptions): Promise<BuildOptions> =>
   }
   return {
     dontCacheBustURLsMatching: new RegExp(`^${distDir}static/`),
-    disablePrecacheManifest: isWatch,
+    disablePrecacheManifest: isDev,
     ...cliOptions,
     globDirectory,
     globPatterns: [

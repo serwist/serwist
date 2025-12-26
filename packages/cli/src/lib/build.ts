@@ -75,7 +75,7 @@ export const runBuildCommand = async ({ config, watch }: BuildCommand) => {
     target: ["chrome64", "edge79", "firefox67", "opera51", "safari12"],
     treeShaking: true,
     // `minify` would also automatically set `NODE_ENV` to `"production"` when true.
-    minify: !watch,
+    minify: process.env.NODE_ENV === "production",
     bundle: true,
     ...options.esbuildOptions,
     platform: "browser",
