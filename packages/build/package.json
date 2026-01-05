@@ -54,6 +54,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
+    "@serwist/utils": "workspace:*",
     "common-tags": "1.8.2",
     "glob": "10.5.0",
     "pretty-bytes": "6.1.1",
@@ -62,7 +63,6 @@
   },
   "devDependencies": {
     "@serwist/configs": "workspace:*",
-    "@serwist/utils": "workspace:*",
     "@types/common-tags": "1.8.4",
     "@types/node": "25.0.3",
     "rollup": "4.54.0",

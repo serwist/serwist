@@ -65,12 +65,12 @@
   },
   "dependencies": {
     "@serwist/build": "workspace:*",
+    "@serwist/utils": "workspace:*",
     "pretty-bytes": "6.1.1",
     "zod": "4.2.1"
   },
   "devDependencies": {
     "@serwist/configs": "workspace:*",
-    "@serwist/utils": "workspace:*",
     "@types/node": "25.0.3",
     "@types/webpack": "5.28.5",
     "rollup": "4.54.0",

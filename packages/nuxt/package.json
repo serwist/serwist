@@ -63,6 +63,7 @@
   "dependencies": {
     "@nuxt/kit": "4.2.2",
     "@serwist/build": "workspace:*",
+    "@serwist/utils": "workspace:*",
     "@serwist/vite": "workspace:*",
     "@serwist/window": "workspace:*"
   },
@@ -70,7 +71,6 @@
     "@nuxt/module-builder": "1.0.2",
     "@nuxt/schema": "4.2.2",
     "@serwist/configs": "workspace:*",
-    "@serwist/utils": "workspace:*",
     "@types/node": "25.0.3",
     "eslint": "9.39.2",
     "nuxt": "4.2.2",

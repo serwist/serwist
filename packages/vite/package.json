@@ -79,6 +79,7 @@
   },
   "dependencies": {
     "@serwist/build": "workspace:*",
+    "@serwist/utils": "workspace:*",
     "serwist": "workspace:*",
     "glob": "10.5.0",
     "kolorist": "1.8.0",
@@ -87,7 +88,6 @@
   "devDependencies": {
     "@serwist/configs": "workspace:*",
     "serwist": "workspace:*",
-    "@serwist/utils": "workspace:*",
     "@serwist/window": "workspace:*",
     "@types/node": "25.0.3",
     "rollup": "4.54.0",

@@ -55,11 +55,11 @@
     "typecheck": "tsc"
   },
   "dependencies": {
+    "@serwist/utils": "workspace:*",
     "idb": "8.0.3"
   },
   "devDependencies": {
     "@serwist/configs": "workspace:*",
-    "@serwist/utils": "workspace:*",
     "rollup": "4.54.0",
     "typescript": "5.9.3"
   },

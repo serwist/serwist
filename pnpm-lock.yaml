@@ -637,10 +637,11 @@ importers:
         specifier: 4.54.0
         version: 4.54.0
 
-  packages/$private/utils: {}
-
   packages/build:
     dependencies:
+      '@serwist/utils':
+        specifier: workspace:*
+        version: link:../utils
       common-tags:
         specifier: 1.8.2
         version: 1.8.2
@@ -660,9 +661,6 @@ importers:
       '@serwist/configs':
         specifier: workspace:*
         version: link:../$private/configs
-      '@serwist/utils':
-        specifier: workspace:*
-        version: link:../$private/utils
       '@types/common-tags':
         specifier: 1.8.4
         version: 1.8.4
@@ -687,6 +685,9 @@ importers:
       '@serwist/build':
         specifier: workspace:*
         version: link:../build
+      '@serwist/utils':
+        specifier: workspace:*
+        version: link:../utils
       chalk:
         specifier: 5.6.2
         version: 5.6.2
@@ -718,9 +719,6 @@ importers:
       '@serwist/configs':
         specifier: workspace:*
         version: link:../$private/configs
-      '@serwist/utils':
-        specifier: workspace:*
-        version: link:../$private/utils
       '@types/common-tags':
         specifier: 1.8.4
         version: 1.8.4
@@ -745,6 +743,9 @@ importers:
 
   packages/core:
     dependencies:
+      '@serwist/utils':
+        specifier: workspace:*
+        version: link:../utils
       idb:
         specifier: 8.0.3
         version: 8.0.3
@@ -752,9 +753,6 @@ importers:
       '@serwist/configs':
         specifier: workspace:*
         version: link:../$private/configs
-      '@serwist/utils':
-        specifier: workspace:*
-        version: link:../$private/utils
       rollup:
         specifier: 4.54.0
         version: 4.54.0
@@ -767,6 +765,9 @@ importers:
       '@serwist/build':
         specifier: workspace:*
         version: link:../build
+      '@serwist/utils':
+        specifier: workspace:*
+        version: link:../utils
       '@serwist/webpack-plugin':
         specifier: workspace:*
         version: link:../webpack-plugin
@@ -798,9 +799,6 @@ importers:
       '@serwist/configs':
         specifier: workspace:*
         version: link:../$private/configs
-      '@serwist/utils':
-        specifier: workspace:*
-        version: link:../$private/utils
       '@types/node':
         specifier: 25.0.3
         version: 25.0.3
@@ -840,6 +838,9 @@ importers:
       '@serwist/build':
         specifier: workspace:*
         version: link:../build
+      '@serwist/utils':
+        specifier: workspace:*
+        version: link:../utils
       '@serwist/vite':
         specifier: workspace:*
         version: link:../vite
@@ -856,9 +857,6 @@ importers:
       '@serwist/configs':
         specifier: workspace:*
         version: link:../$private/configs
-      '@serwist/utils':
-        specifier: workspace:*
-        version: link:../$private/utils
       '@types/node':
         specifier: 25.0.3
         version: 25.0.3
@@ -940,6 +938,9 @@ importers:
       '@serwist/build':
         specifier: workspace:*
         version: link:../build
+      '@serwist/utils':
+        specifier: workspace:*
+        version: link:../utils
       '@serwist/window':
         specifier: workspace:*
         version: link:../window
@@ -962,9 +963,6 @@ importers:
       '@serwist/configs':
         specifier: workspace:*
         version: link:../$private/configs
-      '@serwist/utils':
-        specifier: workspace:*
-        version: link:../$private/utils
       '@types/node':
         specifier: 25.0.3
         version: 25.0.3
@@ -996,11 +994,29 @@ importers:
         specifier: 5.9.3
         version: 5.9.3
 
+  packages/utils:
+    devDependencies:
+      '@serwist/configs':
+        specifier: workspace:*
+        version: link:../$private/configs
+      '@types/common-tags':
+        specifier: 1.8.4
+        version: 1.8.4
+      rollup:
+        specifier: 4.54.0
+        version: 4.54.0
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
+
   packages/vite:
     dependencies:
       '@serwist/build':
         specifier: workspace:*
         version: link:../build
+      '@serwist/utils':
+        specifier: workspace:*
+        version: link:../utils
       glob:
         specifier: 10.5.0
         version: 10.5.0
@@ -1017,9 +1033,6 @@ importers:
       '@serwist/configs':
         specifier: workspace:*
         version: link:../$private/configs
-      '@serwist/utils':
-        specifier: workspace:*
-        version: link:../$private/utils
       '@serwist/window':
         specifier: workspace:*
         version: link:../window
@@ -1041,6 +1054,9 @@ importers:
       '@serwist/build':
         specifier: workspace:*
         version: link:../build
+      '@serwist/utils':
+        specifier: workspace:*
+        version: link:../utils
       pretty-bytes:
         specifier: 6.1.1
         version: 6.1.1
@@ -1051,9 +1067,6 @@ importers:
       '@serwist/configs':
         specifier: workspace:*
         version: link:../$private/configs
-      '@serwist/utils':
-        specifier: workspace:*
-        version: link:../$private/utils
       '@types/node':
         specifier: 25.0.3
         version: 25.0.3
