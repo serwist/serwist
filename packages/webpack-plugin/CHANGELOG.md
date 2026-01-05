@@ -1,5 +1,16 @@
 # @serwist/webpack-plugin
 
+## 9.4.3
+
+### Patch Changes
+
+- [`2d44bc1`](https://github.com/serwist/serwist/commit/2d44bc1ed2efc1868087c828a2d18abd44610a67) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(utils): publish `@serwist/utils`
+  - This fixes `@serwist/utils` types being unresolvable when used in other packages.
+
+- Updated dependencies [[`2d44bc1`](https://github.com/serwist/serwist/commit/2d44bc1ed2efc1868087c828a2d18abd44610a67)]:
+  - @serwist/build@9.4.3
+  - @serwist/utils@9.4.3
+
 ## 9.4.2
 
 ### Patch Changes

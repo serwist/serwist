@@ -1,5 +1,12 @@
 # @serwist/streams
 
+## 9.4.3
+
+### Patch Changes
+
+- Updated dependencies [[`2d44bc1`](https://github.com/serwist/serwist/commit/2d44bc1ed2efc1868087c828a2d18abd44610a67)]:
+  - serwist@9.4.3
+
 ## 9.4.2
 
 ### Patch Changes
