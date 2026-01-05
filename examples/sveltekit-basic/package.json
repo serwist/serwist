@@ -1,27 +1,27 @@
 {
-	"name": "@serwist-example/sveltekit-basic",
-	"version": "1.0.0",
-	"type": "module",
-	"license": "MIT",
-	"private": true,
-	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build",
-		"preview": "vite preview",
-		"prepare": "svelte-kit sync || echo ''",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
-	},
-	"devDependencies": {
-		"@serwist/build": "latest",
-		"@serwist/svelte": "latest",
-		"@sveltejs/adapter-static": "3.0.10",
-		"@sveltejs/kit": "2.49.2",
-		"@sveltejs/vite-plugin-svelte": "6.2.1",
-		"serwist": "latest",
-		"svelte": "5.46.1",
-		"svelte-check": "4.3.5",
-		"typescript": "5.9.3",
-		"vite": "7.3.0"
-	}
+  "name": "@serwist-example/sveltekit-basic",
+  "version": "1.0.0",
+  "type": "module",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "prepare": "svelte-kit sync || echo ''",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+  },
+  "devDependencies": {
+    "@serwist/build": "latest",
+    "@serwist/svelte": "latest",
+    "@sveltejs/adapter-static": "3.0.10",
+    "@sveltejs/kit": "2.49.2",
+    "@sveltejs/vite-plugin-svelte": "6.2.1",
+    "serwist": "latest",
+    "svelte": "5.46.1",
+    "svelte-check": "4.3.5",
+    "typescript": "5.9.3",
+    "vite": "7.3.0"
+  }
 }

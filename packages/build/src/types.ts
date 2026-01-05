@@ -8,15 +8,9 @@ export type ManifestEntry = z.input<typeof manifestEntry>;
 
 export type ManifestTransformResult = z.input<typeof manifestTransformResult>;
 
-export type ManifestTransform = (
-  entries: (ManifestEntry & { size: number })[],
-  params?: unknown,
-) => MaybePromise<ManifestTransformResult>;
+export type ManifestTransform = (entries: (ManifestEntry & { size: number })[], params?: unknown) => MaybePromise<ManifestTransformResult>;
 
-export type ResolvedManifestTransform = (
-  entries: (ManifestEntry & { size: number })[],
-  params?: unknown,
-) => Promise<ManifestTransformResult>;
+export type ResolvedManifestTransform = (entries: (ManifestEntry & { size: number })[], params?: unknown) => Promise<ManifestTransformResult>;
 
 export interface BasePartial {
   /**

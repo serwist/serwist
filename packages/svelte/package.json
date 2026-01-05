@@ -1,6 +1,6 @@
 {
   "name": "@serwist/svelte",
-  "version": "9.4.4",
+  "version": "9.5.0",
   "type": "module",
   "description": "A module that complements SvelteKit's built-in service worker support.",
   "files": [
