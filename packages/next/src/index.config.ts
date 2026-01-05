@@ -2,21 +2,21 @@ import fs from "node:fs";
 import path from "node:path";
 import { rebasePath } from "@serwist/build";
 import type { BuildOptions } from "@serwist/cli";
-import { PHASE_DEVELOPMENT_SERVER, PHASE_PRODUCTION_BUILD } from "next/constants.js";
+import type { NextConfigComplete } from "next/dist/server/config-shared.js";
 import type { SerwistOptions } from "./lib/config/types.js";
-import { generateGlobPatterns, loadBrowserslist } from "./lib/config/utils.js";
+import { generateGlobPatterns, loadBrowserslist, loadNextConfig } from "./lib/config/utils.js";
 
-import loadNextConfig = require("next/dist/server/config.js");
-
-export const serwist = async (options: SerwistOptions): Promise<BuildOptions> => {
+/**
+ * Integrates Serwist into your Next.js app.
+ * @param options
+ * @returns
+ */
+export const serwist = async (options: SerwistOptions, nextConfig?: NextConfigComplete): Promise<BuildOptions> => {
   const cwd = process.cwd();
   const isDev = process.env.NODE_ENV === "development";
-  const nextPhase = isDev ? PHASE_DEVELOPMENT_SERVER : PHASE_PRODUCTION_BUILD;
-  const config = await loadNextConfig.default(nextPhase, cwd, {
-    silent: false,
-  });
-  const basePath = config.basePath || "/";
-  let distDir = config.distDir;
+  if (!nextConfig) nextConfig = await loadNextConfig(cwd, isDev);
+  const basePath = nextConfig.basePath || "/";
+  let distDir = nextConfig.distDir;
   if (distDir[0] === "/") distDir = distDir.slice(1);
   if (distDir[distDir.length - 1] !== "/") distDir += "/";
   const distServerDir = `${distDir}server/`;
@@ -73,7 +73,7 @@ export const serwist = async (options: SerwistOptions): Promise<BuildOptions> =>
           }
           // Replace all references to "$(distDir)" with "$(assetPrefix)/_next/".
           if (m.url.startsWith(distDir)) {
-            m.url = `${config.assetPrefix ?? ""}/_next/${m.url.slice(distDir.length)}`;
+            m.url = `${nextConfig.assetPrefix ?? ""}/_next/${m.url.slice(distDir.length)}`;
           }
           // Replace all references to public/ with "$(basePath)/".
           if (m.url.startsWith("public/")) {
@@ -89,6 +89,20 @@ export const serwist = async (options: SerwistOptions): Promise<BuildOptions> =>
       target: cliOptions.esbuildOptions?.target ?? loadBrowserslist(cwd),
     },
   };
+};
+
+/**
+ * Integrates Serwist into your Next.js app. Allows reading complete Next.js configuration.
+ * @param optionsFunction
+ * @returns
+ */
+serwist.withNextConfig = async (
+  optionsFunction: (nextConfig: NextConfigComplete) => Promise<SerwistOptions> | SerwistOptions,
+): Promise<BuildOptions> => {
+  const cwd = process.cwd();
+  const isDev = process.env.NODE_ENV === "development";
+  const nextConfig = await loadNextConfig(cwd, isDev);
+  return serwist(await optionsFunction(nextConfig), nextConfig);
 };
 
 export { generateGlobPatterns };
