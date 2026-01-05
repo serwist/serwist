@@ -2,7 +2,9 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "module": "NodeNext",
-    "types": ["@sveltejs/kit", "node"]
+    "types": ["@sveltejs/kit", "node"],
+    "declaration": true,
+    "declarationMap": true
   },
   "include": ["globals.d.ts", "rollup.config.js", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "dist", "__tests__"]

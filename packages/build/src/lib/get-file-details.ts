@@ -38,10 +38,6 @@ export const getFileDetails = ({
     throw new Error(`${errors["unable-to-glob-files"]} '${err instanceof Error && err.message ? err.message : ""}'`);
   }
 
-  if (globbedFiles.length === 0) {
-    warning = `${errors["useless-glob-pattern"]} ${JSON.stringify({ globDirectory, globPattern, globIgnores }, null, 2)}`;
-  }
-
   const globbedFileDetails: FileDetails[] = [];
   for (const file of globbedFiles) {
     const fullPath = path.join(globDirectory, file);

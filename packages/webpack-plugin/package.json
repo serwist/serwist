@@ -67,13 +67,13 @@
     "@serwist/build": "workspace:*",
     "@serwist/utils": "workspace:*",
     "pretty-bytes": "6.1.1",
-    "zod": "4.2.1"
+    "zod": "4.3.5"
   },
   "devDependencies": {
     "@serwist/configs": "workspace:*",
     "@types/node": "25.0.3",
     "@types/webpack": "5.28.5",
-    "rollup": "4.54.0",
+    "rollup": "4.55.1",
     "typescript": "5.9.3",
     "webpack": "5.104.1"
   },

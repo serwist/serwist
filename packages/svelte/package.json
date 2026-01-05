@@ -25,14 +25,27 @@
   "repository": "https://github.com/serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",
   "homepage": "https://serwist.pages.dev",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
+      "client": [
+        "./dist/index.svelte.d.ts"
+      ],
       "worker": [
         "./dist/index.worker.d.ts"
       ]
     }
   },
   "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./client": {
+      "types": "./dist/index.svelte.d.ts",
+      "svelte": "./dist/index.svelte.js"
+    },
     "./worker": {
       "types": "./dist/index.worker.d.ts",
       "default": "./dist/index.worker.js"
@@ -40,24 +53,32 @@
     "./package.json": "./package.json"
   },
   "scripts": {
-    "build": "rimraf dist && NODE_ENV=production rollup --config rollup.config.js",
-    "dev": "rollup --config rollup.config.js --watch",
+    "build": "rimraf dist && svelte-package",
+    "dev": "svelte-package --watch",
     "lint": "biome lint ./src",
     "typecheck": "tsc"
   },
   "dependencies": {
+    "@serwist/build": "workspace:*",
+    "@serwist/utils": "workspace:*",
+    "@serwist/window": "workspace:*",
+    "@sveltejs/package": "2.5.7",
+    "esm-env": "1.2.2",
     "serwist": "workspace:*"
   },
   "devDependencies": {
-    "@serwist/configs": "workspace:*",
     "@sveltejs/kit": "2.49.2",
-    "rollup": "4.54.0"
+    "svelte": "5.46.1"
   },
   "peerDependencies": {
     "@sveltejs/kit": ">=2.0.0",
+    "svelte": ">=5.0.0",
     "typescript": ">=5.0.0"
   },
   "peerDependenciesMeta": {
+    "svelte": {
+      "optional": true
+    },
     "typescript": {
       "optional": true
     }

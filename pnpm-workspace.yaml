@@ -12,7 +12,10 @@ overrides:
   "@serwist/astro": "workspace:*"
   "@serwist/cli": "workspace:*"
   "@serwist/react-router": "workspace:*"
+  "@serwist/svelte": "workspace:*"
   "@serwist/turbopack": "workspace:*"
   "@serwist/vite": "workspace:*"
   "@serwist/window": "workspace:*"
   "serwist": "workspace:*"
+onlyBuiltDependencies:
+  - esbuild

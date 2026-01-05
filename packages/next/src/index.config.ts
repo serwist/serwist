@@ -19,7 +19,7 @@ export interface SerwistContext {
   cwd?: string;
   /**
    * Whether Serwist is in development mode. This option determines how Next.js configuration
-   * is resolved. Note that this option doesn't change how the service worker is built.
+   * is resolved. Note that it doesn't change how the service worker is built.
    */
   isDev?: boolean;
 }

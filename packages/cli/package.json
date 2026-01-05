@@ -68,7 +68,7 @@
     "pretty-bytes": "6.1.1",
     "stringify-object": "6.0.0",
     "update-notifier": "7.3.1",
-    "zod": "4.2.1"
+    "zod": "4.3.5"
   },
   "devDependencies": {
     "@serwist/configs": "workspace:*",
@@ -77,7 +77,7 @@
     "@types/stringify-object": "4.0.5",
     "@types/update-notifier": "6.0.8",
     "esbuild": "0.27.2",
-    "rollup": "4.54.0",
+    "rollup": "4.55.1",
     "typescript": "5.9.3"
   },
   "peerDependencies": {

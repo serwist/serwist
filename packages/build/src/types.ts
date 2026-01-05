@@ -11,10 +11,12 @@ export type ManifestTransformResult = z.input<typeof manifestTransformResult>;
 export type ManifestTransform = (
   entries: (ManifestEntry & { size: number })[],
   params?: unknown,
-) => MaybePromise<{
-  manifest: (ManifestEntry & { size: number })[];
-  warnings?: string[] | undefined;
-}>;
+) => MaybePromise<ManifestTransformResult>;
+
+export type ResolvedManifestTransform = (
+  entries: (ManifestEntry & { size: number })[],
+  params?: unknown,
+) => Promise<ManifestTransformResult>;
 
 export interface BasePartial {
   /**
@@ -74,7 +76,9 @@ export interface BasePartial {
   };
 }
 
-export type BaseResolved = Require<BasePartial, "disablePrecacheManifest" | "maximumFileSizeToCacheInBytes">;
+export interface BaseResolved extends Require<BasePartial, "disablePrecacheManifest" | "maximumFileSizeToCacheInBytes"> {
+  manifestTransforms?: ResolvedManifestTransform[];
+}
 
 // This needs to be set when using GetManifest or InjectManifest. This is
 // enforced via runtime validation, and needs to be documented.

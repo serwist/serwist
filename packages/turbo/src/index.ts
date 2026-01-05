@@ -71,7 +71,7 @@ export const createSerwistRoute = (options: InjectManifestOptions) => {
       ],
       manifestTransforms: [
         ...(config.manifestTransforms ?? []),
-        (manifestEntries) => {
+        async (manifestEntries) => {
           const manifest = manifestEntries.map((m) => {
             // Replace all references to "$(distDir)" with "$(assetPrefix)/_next/".
             if (m.url.startsWith(config.nextConfig.distDir)) {

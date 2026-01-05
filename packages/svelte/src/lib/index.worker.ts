@@ -1,3 +1,4 @@
+import { DEV } from "esm-env";
 import type { PrecacheEntry, RuntimeCaching } from "serwist";
 import { CacheFirst, ExpirationPlugin, NetworkFirst, NetworkOnly, StaleWhileRevalidate } from "serwist";
 import { logger } from "serwist/internal";
@@ -126,7 +127,7 @@ export const defaultIgnoreUrlParameters = [/^x-sveltekit-invalidated$/];
  *
  * @see https://serwist.pages.dev/docs/svelte/worker-exports#default-cache
  */
-export const defaultCache: RuntimeCaching[] = import.meta.env.DEV
+export const defaultCache: RuntimeCaching[] = DEV
   ? [
       {
         matcher: /.*/i,

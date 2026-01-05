@@ -78,7 +78,7 @@
     "serve": "14.2.5",
     "typescript": "5.9.3",
     "vite": "7.3.0",
-    "vue-tsc": "3.2.0"
+    "vue-tsc": "3.2.1"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0",
