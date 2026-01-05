@@ -6,14 +6,43 @@ import type { NextConfigComplete } from "next/dist/server/config-shared.js";
 import type { SerwistOptions } from "./lib/config/types.js";
 import { generateGlobPatterns, loadBrowserslist, loadNextConfig } from "./lib/config/utils.js";
 
+const _cwd = process.cwd();
+const _isDev = process.env.NODE_ENV === "development";
+
 /**
- * Integrates Serwist into your Next.js app.
- * @param options
- * @returns
+ * Additional build context.
  */
-export const serwist = async (options: SerwistOptions, nextConfig?: NextConfigComplete): Promise<BuildOptions> => {
-  const cwd = process.cwd();
-  const isDev = process.env.NODE_ENV === "development";
+export interface SerwistContext {
+  /**
+   * The current working directory.
+   */
+  cwd?: string;
+  /**
+   * Whether Serwist is in development mode. This option determines how Next.js configuration
+   * is resolved. Note that this option doesn't change how the service worker is built.
+   */
+  isDev?: boolean;
+}
+
+export interface Serwist {
+  /**
+   * Integrates Serwist into your Next.js app.
+   * @param options
+   * @returns
+   */
+  (options: SerwistOptions, nextConfig?: NextConfigComplete, context?: SerwistContext): Promise<BuildOptions>;
+  /**
+   * Integrates Serwist into your Next.js app. Allows reading fully resolved Next.js configuration.
+   * @param optionsFunction
+   * @returns
+   */
+  withNextConfig: (
+    optionsFunction: (nextConfig: NextConfigComplete) => Promise<SerwistOptions> | SerwistOptions,
+    context?: SerwistContext,
+  ) => Promise<BuildOptions>;
+}
+
+export const serwist: Serwist = async (options, nextConfig, { cwd = _cwd, isDev = _isDev } = {}) => {
   if (!nextConfig) nextConfig = await loadNextConfig(cwd, isDev);
   const basePath = nextConfig.basePath || "/";
   let distDir = nextConfig.distDir;
@@ -91,18 +120,9 @@ export const serwist = async (options: SerwistOptions, nextConfig?: NextConfigCo
   };
 };
 
-/**
- * Integrates Serwist into your Next.js app. Allows reading complete Next.js configuration.
- * @param optionsFunction
- * @returns
- */
-serwist.withNextConfig = async (
-  optionsFunction: (nextConfig: NextConfigComplete) => Promise<SerwistOptions> | SerwistOptions,
-): Promise<BuildOptions> => {
-  const cwd = process.cwd();
-  const isDev = process.env.NODE_ENV === "development";
+serwist.withNextConfig = async (optionsFunction, { cwd = _cwd, isDev = _isDev } = {}) => {
   const nextConfig = await loadNextConfig(cwd, isDev);
-  return serwist(await optionsFunction(nextConfig), nextConfig);
+  return serwist(await optionsFunction(nextConfig), nextConfig, { cwd, isDev });
 };
 
 export { generateGlobPatterns };
