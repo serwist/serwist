@@ -1,5 +1,12 @@
 # @serwist/strategies
 
+## 9.4.4
+
+### Patch Changes
+
+- Updated dependencies []:
+  - serwist@9.4.4
+
 ## 9.4.3
 
 ### Patch Changes
