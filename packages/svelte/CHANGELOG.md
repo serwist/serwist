@@ -1,5 +1,20 @@
 # @serwist/svelte
 
+## 9.5.0
+
+### Minor Changes
+
+- [`bb57c2f`](https://github.com/serwist/serwist/commit/bb57c2f01ba679db33ccda90e332804a2c21b24e) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(svelte): added Serwist adapter
+  - Added an adapter that post-processes the SvelteKit service worker using `@serwist/build.injectManifest`.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/build@9.5.0
+  - @serwist/utils@9.5.0
+  - @serwist/window@9.5.0
+  - serwist@9.5.0
+
 ## 9.4.4
 
 ### Patch Changes

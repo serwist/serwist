@@ -1,6 +1,6 @@
 {
   "name": "@serwist/range-requests",
-  "version": "9.4.4",
+  "version": "9.5.0",
   "type": "module",
   "description": "This library creates a new Response, given a source Response and a Range header value.",
   "files": [
