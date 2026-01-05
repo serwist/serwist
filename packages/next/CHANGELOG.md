@@ -1,5 +1,20 @@
 # @serwist/next
 
+## 9.4.4
+
+### Patch Changes
+
+- [`a7ef40f`](https://github.com/serwist/serwist/commit/a7ef40f920aeabd1acab491d6dc550dc30437ef9) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(next/config): added `serwist.withNextConfig`
+  - This allows for using fully resolved Next.js configuration to resolve Serwist configuration.
+
+- Updated dependencies []:
+  - @serwist/build@9.4.4
+  - @serwist/cli@9.4.4
+  - @serwist/utils@9.4.4
+  - @serwist/webpack-plugin@9.4.4
+  - @serwist/window@9.4.4
+  - serwist@9.4.4
+
 ## 9.4.3
 
 ### Patch Changes
