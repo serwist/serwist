@@ -100,7 +100,6 @@ export const createSerwistRoute = (options: InjectManifestOptions) => {
     // See https://github.com/GoogleChrome/workbox/issues/2230
     const injectionPoint = config.injectionPoint || "";
     const manifestString = manifestEntries === undefined ? "undefined" : JSON.stringify(manifestEntries, null, 2);
-    logSerwistResult(filePath, { count, size, warnings });
     const log = (type: LoggingMethods, ...message: any[]) => {
       if (filePath === "sw.js") {
         logger[type](...message);
@@ -116,6 +115,7 @@ export const createSerwistRoute = (options: InjectManifestOptions) => {
       if (!esbuildWasm) esbuildWasm = import("esbuild-wasm");
       esbuild = await esbuildWasm;
     }
+    logSerwistResult(filePath, { count, size, warnings });
     const result = await esbuild.build({
       sourcemap: true,
       format: "esm",

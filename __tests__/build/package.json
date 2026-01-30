@@ -7,6 +7,8 @@
     "test": "vitest run --config ../vitest.config.ts"
   },
   "devDependencies": {
+    "@serwist/build": "workspace:*",
+    "serwist": "workspace:*",
     "vitest": "4.0.18"
   }
 }

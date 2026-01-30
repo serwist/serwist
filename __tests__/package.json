@@ -8,12 +8,8 @@
   "license": "MIT",
   "homepage": "https://serwist.pages.dev",
   "devDependencies": {
-    "@serwist/build": "workspace:*",
-    "@serwist/next": "workspace:*",
-    "@serwist/turbopack": "workspace:*",
     "cheerio": "1.2.0",
     "glob": "10.5.0",
-    "serwist": "workspace:*",
     "type-fest": "5.4.2",
     "vitest": "4.0.18"
   }

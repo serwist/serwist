@@ -10,6 +10,8 @@
     "test": "vitest run --config ../vitest.config.ts"
   },
   "devDependencies": {
+    "@serwist/next": "workspace:*",
+    "serwist": "workspace:*",
     "vitest": "4.0.18"
   }
 }

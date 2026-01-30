@@ -102,24 +102,12 @@ importers:
 
   __tests__:
     devDependencies:
-      '@serwist/build':
-        specifier: workspace:*
-        version: link:../packages/build
-      '@serwist/next':
-        specifier: workspace:*
-        version: link:../packages/next
-      '@serwist/turbopack':
-        specifier: workspace:*
-        version: link:../packages/turbo
       cheerio:
         specifier: 1.2.0
         version: 1.2.0
       glob:
         specifier: 10.5.0
         version: 10.5.0
-      serwist:
-        specifier: workspace:*
-        version: link:../packages/core
       type-fest:
         specifier: 5.4.2
         version: 5.4.2
@@ -129,6 +117,12 @@ importers:
 
   __tests__/build:
     devDependencies:
+      '@serwist/build':
+        specifier: workspace:*
+        version: link:../../packages/build
+      serwist:
+        specifier: workspace:*
+        version: link:../../packages/core
       vitest:
         specifier: 4.0.18
         version: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.1.0)(jiti@2.6.1)(jsdom@27.3.0)(lightningcss@1.30.2)(terser@5.39.0)(tsx@4.20.6)(yaml@2.8.2)
@@ -137,6 +131,12 @@ importers:
 
   __tests__/next:
     devDependencies:
+      '@serwist/next':
+        specifier: workspace:*
+        version: link:../../packages/next
+      serwist:
+        specifier: workspace:*
+        version: link:../../packages/core
       vitest:
         specifier: 4.0.18
         version: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.1.0)(jiti@2.6.1)(jsdom@27.3.0)(lightningcss@1.30.2)(terser@5.39.0)(tsx@4.20.6)(yaml@2.8.2)
@@ -152,6 +152,12 @@ importers:
       '@serwist-tests/next':
         specifier: workspace:*
         version: link:../next
+      '@serwist/turbopack':
+        specifier: workspace:*
+        version: link:../../packages/turbo
+      serwist:
+        specifier: workspace:*
+        version: link:../../packages/core
       vitest:
         specifier: 4.0.18
         version: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.1.0)(jiti@2.6.1)(jsdom@27.3.0)(lightningcss@1.30.2)(terser@5.39.0)(tsx@4.20.6)(yaml@2.8.2)
