@@ -1,5 +1,18 @@
 # @serwist/turbopack
 
+## 9.5.3
+
+### Patch Changes
+
+- [`86a75a8`](https://github.com/serwist/serwist/commit/86a75a8ed99cf5193598fc63347d348a6c90b8c4) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(turbo): read Browserslist when `esbuildOptions.target` is not specified
+  - This forces `@serwist/turbopack` to sync up with Browserslist by default.
+
+- Updated dependencies []:
+  - @serwist/build@9.5.3
+  - @serwist/utils@9.5.3
+  - @serwist/window@9.5.3
+  - serwist@9.5.3
+
 ## 9.5.2
 
 ### Patch Changes
