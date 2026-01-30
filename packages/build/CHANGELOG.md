@@ -1,5 +1,12 @@
 # @serwist/build
 
+## 9.5.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/utils@9.5.1
+
 ## 9.5.0
 
 ### Patch Changes

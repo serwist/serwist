@@ -1,6 +1,6 @@
 {
   "name": "@serwist/vite",
-  "version": "9.5.0",
+  "version": "9.5.1",
   "type": "module",
   "description": "A module that integrates Serwist into your Vite application.",
   "files": [
