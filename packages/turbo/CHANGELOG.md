@@ -1,5 +1,19 @@
 # @serwist/turbopack
 
+## 9.5.2
+
+### Patch Changes
+
+- [`eae652f`](https://github.com/serwist/serwist/commit/eae652f91b171bcca87c7ec80857122651d90826) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(turbo): allow using native esbuild
+  - Set `useNativeEsbuild` to `true` to use native esbuild, which is faster and works on Windows, instead of esbuild-wasm.
+  - `useNativeEsbuild` defaults to `true` on Windows systems.
+
+- Updated dependencies []:
+  - @serwist/build@9.5.2
+  - @serwist/utils@9.5.2
+  - @serwist/window@9.5.2
+  - serwist@9.5.2
+
 ## 9.5.1
 
 ### Patch Changes
