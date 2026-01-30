@@ -1,3 +1,1 @@
-export const toUnix = (p: string) => {
-  return p.replace(/\\/g, "/").replace(/(?<!^)\/+/g, "/");
-};
+export const toUnix = (p: string) => p.replace(/\\/g, "/").replace(/(?<!^)\/+/g, "/");
