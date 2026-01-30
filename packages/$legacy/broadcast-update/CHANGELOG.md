@@ -1,5 +1,12 @@
 # @serwist/broadcast-update
 
+## 9.5.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - serwist@9.5.3
+
 ## 9.5.2
 
 ### Patch Changes

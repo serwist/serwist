@@ -1,6 +1,6 @@
 {
   "name": "@serwist/turbopack",
-  "version": "9.5.2",
+  "version": "9.5.3",
   "type": "module",
   "sideEffects": false,
   "description": "A module that integrates Serwist into your Next.js / Turbopack application.",
