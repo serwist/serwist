@@ -16,11 +16,13 @@ jobs:
     name: ⚫️ Run Vitest (development mode) tests
     uses: ./.github/workflows/build-reusable.yml
     with:
+      skipBuild: "yes"
       afterBuild: TEST_MODE=dev pnpm test --filter='./__tests__/*'
     secrets: inherit
   test-prod:
     name: ⚫️ Run Vitest (production mode) tests
     uses: ./.github/workflows/build-reusable.yml
     with:
+      skipBuild: "yes"
       afterBuild: TEST_MODE=start pnpm test --filter='./__tests__/*'
     secrets: inherit

@@ -1,7 +1,7 @@
 name: Publish packages to npm
 on:
   push:
-    paths: [packages/**, .changeset/*, __tests__/**]
+    paths: [packages/**, .changeset/*, __tests__/**, .github/**]
     branches: [main]
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
