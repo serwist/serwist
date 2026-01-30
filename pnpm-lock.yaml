@@ -1038,6 +1038,9 @@ importers:
       '@types/semver':
         specifier: 7.7.1
         version: 7.7.1
+      esbuild:
+        specifier: 0.27.2
+        version: 0.27.2
       esbuild-wasm:
         specifier: 0.27.2
         version: 0.27.2

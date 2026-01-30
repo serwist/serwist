@@ -1,8 +1,9 @@
 // @ts-check
+import { withSerwist } from "@serwist/turbopack";
+
 /** @type {import("next").NextConfig} */
-const nextConfig = {
+const nextConfig = withSerwist({
   reactStrictMode: true,
-  serverExternalPackages: ["esbuild-wasm"],
-};
+});
 
 export default nextConfig;

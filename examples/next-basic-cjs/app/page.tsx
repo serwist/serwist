@@ -5,9 +5,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return (
-    <>
-      <h1>Next.js + Serwist</h1>
-    </>
-  );
+  return <h1>Next.js + Serwist</h1>;
 }

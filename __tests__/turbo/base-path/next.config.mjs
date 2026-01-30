@@ -1,5 +1,6 @@
 // @ts-check
-export default {
+import { withSerwist } from "@serwist/turbopack";
+
+export default withSerwist({
   basePath: "/serwist-app",
-  serverExternalPackages: ["esbuild-wasm"],
-};
+});

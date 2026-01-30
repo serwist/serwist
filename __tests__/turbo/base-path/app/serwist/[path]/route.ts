@@ -4,4 +4,5 @@ import nextConfig from "../../../next.config.mjs";
 export const { dynamic, dynamicParams, revalidate, generateStaticParams, GET } = createSerwistRoute({
   swSrc: "app/sw.ts",
   nextConfig,
+  useNativeEsbuild: true,
 });

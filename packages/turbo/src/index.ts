@@ -4,16 +4,17 @@
 import path from "node:path";
 import { type BuildResult, getFileManifestEntries, rebasePath } from "@serwist/build";
 import { SerwistConfigError, validationErrorMap } from "@serwist/build/schema";
-import { toUnix } from "@serwist/utils";
 import { cyan, dim, yellow } from "kolorist";
+import type { NextConfig } from "next";
 import { NextResponse } from "next/server.js";
 import { z } from "zod";
 import { injectManifestOptions } from "./index.schema.js";
 import { logger } from "./lib/index.js";
+import type { LoggingMethods } from "./lib/logger.js";
 import type { InjectManifestOptions, InjectManifestOptionsComplete } from "./types.js";
 
-// TODO(workaround): `esbuild` doesn't load when in Turbopack production
-const esbuild = import("esbuild-wasm");
+let esbuildWasm: Promise<typeof import("esbuild-wasm")> | null = null;
+let esbuildNative: Promise<typeof import("esbuild")> | null = null;
 
 const logSerwistResult = (filePath: string, buildResult: Pick<BuildResult, "count" | "size" | "warnings">) => {
   const { count, size, warnings } = buildResult;
@@ -100,7 +101,22 @@ export const createSerwistRoute = (options: InjectManifestOptions) => {
     const injectionPoint = config.injectionPoint || "";
     const manifestString = manifestEntries === undefined ? "undefined" : JSON.stringify(manifestEntries, null, 2);
     logSerwistResult(filePath, { count, size, warnings });
-    const result = await (await esbuild).build({
+    const log = (type: LoggingMethods, ...message: any[]) => {
+      if (filePath === "sw.js") {
+        logger[type](...message);
+      }
+    };
+    let esbuild: typeof import("esbuild");
+    if (config.useNativeEsbuild) {
+      log("info", "Using esbuild to bundle the service worker.");
+      if (!esbuildNative) esbuildNative = import("esbuild");
+      esbuild = await esbuildNative;
+    } else {
+      log("info", "Using esbuild-wasm to bundle the service worker.");
+      if (!esbuildWasm) esbuildWasm = import("esbuild-wasm");
+      esbuild = await esbuildWasm;
+    }
+    const result = await esbuild.build({
       sourcemap: true,
       format: "esm",
       target: ["chrome64", "edge79", "firefox67", "opera51", "safari12"],
@@ -113,7 +129,7 @@ export const createSerwistRoute = (options: InjectManifestOptions) => {
         ...config.esbuildOptions.define,
         ...(injectionPoint ? { [injectionPoint]: manifestString } : {}),
       },
-      outdir: toUnix(config.cwd),
+      outdir: config.cwd,
       write: false,
       entryNames: "[name]",
       // Asset and chunk names must be at the top, as our path is `/serwist/[path]`,
@@ -121,7 +137,7 @@ export const createSerwistRoute = (options: InjectManifestOptions) => {
       // than one level.
       assetNames: "[name]-[hash]",
       chunkNames: "[name]-[hash]",
-      entryPoints: [{ in: toUnix(config.swSrc), out: "sw" }],
+      entryPoints: [{ in: config.swSrc, out: "sw" }],
     });
     if (result.errors.length) {
       console.error("Failed to build the service worker.", result.errors);
@@ -151,3 +167,8 @@ export const createSerwistRoute = (options: InjectManifestOptions) => {
   };
   return { dynamic, dynamicParams, revalidate, generateStaticParams, GET };
 };
+
+export const withSerwist = (nextConfig: NextConfig = {}): NextConfig => ({
+  ...nextConfig,
+  serverExternalPackages: [...(nextConfig.serverExternalPackages ?? []), "esbuild", "esbuild-wasm"],
+});

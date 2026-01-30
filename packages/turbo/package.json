@@ -84,6 +84,7 @@
     "@types/node": "25.1.0",
     "@types/react": "19.2.10",
     "@types/semver": "7.7.1",
+    "esbuild": "0.27.2",
     "esbuild-wasm": "0.27.2",
     "next": "16.1.6",
     "react": "19.2.4",
@@ -93,12 +94,19 @@
     "typescript": "5.9.3"
   },
   "peerDependencies": {
+    "esbuild": ">=0.25.0 <1.0.0",
     "esbuild-wasm": ">=0.25.0 <1.0.0",
     "next": ">=14.0.0",
     "react": ">=18.0.0",
     "typescript": ">=5.0.0"
   },
   "peerDependenciesMeta": {
+    "esbuild": {
+      "optional": true
+    },
+    "esbuild-wasm": {
+      "optional": true
+    },
     "typescript": {
       "optional": true
     }

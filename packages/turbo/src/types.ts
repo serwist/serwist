@@ -57,13 +57,19 @@ export interface TurboPartial {
    */
   nextConfig: Prettify<NextConfig>;
   /**
+   * Whether to use the native `esbuild` package instead of
+   * `esbuild-wasm` for bundling the service worker. Defaults
+   * to `false` if not on Windows, `true` otherwise.
+   */
+  useNativeEsbuild?: boolean;
+  /**
    * Options to configure the esbuild instance used to bundle
    * the service worker.
    */
   esbuildOptions?: EsbuildOptions;
 }
 
-export interface TurboResolved extends Require<TurboPartial, "cwd" | "esbuildOptions"> {
+export interface TurboResolved extends Require<TurboPartial, "cwd" | "useNativeEsbuild" | "esbuildOptions"> {
   nextConfig: Require<NextConfig, "basePath" | "distDir">;
 }
 

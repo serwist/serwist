@@ -12,6 +12,7 @@ export const turboPartial = z.strictObject({
     basePath: z.string().prefault("/"),
     distDir: z.string().prefault(".next"),
   }),
+  useNativeEsbuild: z.boolean().prefault(process.platform === "win32"),
   esbuildOptions: z.partialRecord(z.literal(SUPPORTED_ESBUILD_OPTIONS), z.any()).prefault({}),
 });
 
