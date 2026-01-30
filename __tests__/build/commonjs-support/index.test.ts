@@ -25,8 +25,8 @@ describe("@serwist/build - CommonJS basic test", () => {
       });
     });
 
-    expect(cliOutput.includes("ERR_REQUIRE_ESM")).toBe(false);
-    expect(exitCode).toBe(0);
+    expect(cliOutput).not.toContain("ERR_REQUIRE_ESM");
+    expect(exitCode, cliOutput).toBe(0);
     console.log(`build exited with code ${exitCode}, cli\n${cliOutput}`);
   });
 });

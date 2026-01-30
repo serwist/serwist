@@ -9,9 +9,8 @@ const path = require("node:path");
     globDirectory: path.join(__dirname, "../public"),
     globPatterns: ["**/*.{js,css,html,png}"],
   });
-
   if (warnings.length > 0) {
-    console.warn("[@serwist/build] Oopsie, there are warnings from Serwist:", warnings);
+    console.warn("[@serwist/build] There are warnings from Serwist:", warnings);
   }
   console.log(`[@serwist/build] Manifest injected: ${count} files, totaling ${size} bytes.`);
 })();

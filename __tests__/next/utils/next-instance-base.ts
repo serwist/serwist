@@ -7,6 +7,7 @@ import type { PackageJson } from "type-fest";
 import treeKill from "./tree-kill.ts";
 
 export interface NextInstanceOpts {
+  turbo?: boolean;
   skipInstall: boolean;
   dependencies?: PackageJson["dependencies"];
 }
@@ -16,6 +17,7 @@ export abstract class NextInstance {
   protected _appTestDir: string;
   protected _url: string;
   protected _skipInstall: boolean;
+  protected _turbo: boolean;
   protected _cliOutput: string;
   protected _process: ChildProcessWithoutNullStreams | undefined;
   protected _dependencies: PackageJson["dependencies"] | undefined;
@@ -23,6 +25,7 @@ export abstract class NextInstance {
     this._isDestroyed = false;
     this._url = "";
     this._appTestDir = "";
+    this._turbo = opts.turbo ?? false;
     this._skipInstall = opts.skipInstall;
     this._cliOutput = "";
     this._process = undefined;

@@ -7,7 +7,7 @@ import type { InjectManifestOptions, InjectManifestOptionsComplete, TurboPartial
 
 export const turboPartial = z.strictObject({
   cwd: z.string().prefault(process.cwd()),
-  nextConfig: z.strictObject({
+  nextConfig: z.object({
     assetPrefix: z.string().optional(),
     basePath: z.string().prefault("/"),
     distDir: z.string().prefault(".next"),

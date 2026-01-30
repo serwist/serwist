@@ -1,0 +1,7 @@
+{
+  "name": "@serwist-tests/turbopack-base-path",
+  "type": "module",
+  "devDependencies": {
+    "next": "16.1.6"
+  }
+}

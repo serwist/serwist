@@ -4,6 +4,7 @@
 import path from "node:path";
 import { type BuildResult, getFileManifestEntries, rebasePath } from "@serwist/build";
 import { SerwistConfigError, validationErrorMap } from "@serwist/build/schema";
+import { toUnix } from "@serwist/utils";
 import { cyan, dim, yellow } from "kolorist";
 import { NextResponse } from "next/server.js";
 import { z } from "zod";
@@ -11,7 +12,7 @@ import { injectManifestOptions } from "./index.schema.js";
 import { logger } from "./lib/index.js";
 import type { InjectManifestOptions, InjectManifestOptionsComplete } from "./types.js";
 
-// TODO(workarond): `esbuild` doesn't load when in Turbopack production
+// TODO(workaround): `esbuild` doesn't load when in Turbopack production
 const esbuild = import("esbuild-wasm");
 
 const logSerwistResult = (filePath: string, buildResult: Pick<BuildResult, "count" | "size" | "warnings">) => {
@@ -112,7 +113,7 @@ export const createSerwistRoute = (options: InjectManifestOptions) => {
         ...config.esbuildOptions.define,
         ...(injectionPoint ? { [injectionPoint]: manifestString } : {}),
       },
-      outdir: config.cwd,
+      outdir: toUnix(config.cwd),
       write: false,
       entryNames: "[name]",
       // Asset and chunk names must be at the top, as our path is `/serwist/[path]`,
@@ -120,7 +121,7 @@ export const createSerwistRoute = (options: InjectManifestOptions) => {
       // than one level.
       assetNames: "[name]-[hash]",
       chunkNames: "[name]-[hash]",
-      entryPoints: [{ in: config.swSrc, out: "sw" }],
+      entryPoints: [{ in: toUnix(config.swSrc), out: "sw" }],
     });
     if (result.errors.length) {
       console.error("Failed to build the service worker.", result.errors);
@@ -134,7 +135,7 @@ export const createSerwistRoute = (options: InjectManifestOptions) => {
   const generateStaticParams = async () => {
     const config = await validation;
     if (!map) map = await loadMap("root");
-    return [...map.keys().map((e) => ({ path: path.relative(config.cwd, e) }))];
+    return [...map.keys()].map((e) => ({ path: path.relative(config.cwd, e) }));
   };
   const GET = async (_: Request, { params }: { params: Promise<{ path: string }> }) => {
     // TODO: obviously, files get stale in development when we pull this off.
