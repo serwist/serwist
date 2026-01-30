@@ -2,9 +2,12 @@ import fs from "node:fs";
 import path from "node:path";
 import { rebasePath } from "@serwist/build";
 import type { BuildOptions } from "@serwist/cli";
+import { browserslistToEsbuild } from "@serwist/utils";
+import browserslist from "browserslist";
+import { MODERN_BROWSERSLIST_TARGET } from "next/constants.js";
 import type { NextConfigComplete } from "next/dist/server/config-shared.js";
 import type { SerwistOptions } from "./lib/config/types.js";
-import { generateGlobPatterns, loadBrowserslist, loadNextConfig } from "./lib/config/utils.js";
+import { generateGlobPatterns, loadNextConfig } from "./lib/config/utils.js";
 
 const _cwd = process.cwd();
 const _isDev = process.env.NODE_ENV === "development";
@@ -116,7 +119,7 @@ export const serwist: Serwist = async (options, nextConfig, { cwd = _cwd, isDev 
     ],
     esbuildOptions: {
       ...cliOptions.esbuildOptions,
-      target: cliOptions.esbuildOptions?.target ?? loadBrowserslist(cwd),
+      target: cliOptions.esbuildOptions?.target ?? browserslistToEsbuild(browserslist, cwd, MODERN_BROWSERSLIST_TARGET),
     },
   };
 };

@@ -1019,6 +1019,9 @@ importers:
       '@swc/core':
         specifier: 1.15.11
         version: 1.15.11(@swc/helpers@0.5.18)
+      browserslist:
+        specifier: 4.28.1
+        version: 4.28.1
       kolorist:
         specifier: 1.8.0
         version: 1.8.0
@@ -1077,6 +1080,9 @@ importers:
       '@types/common-tags':
         specifier: 1.8.4
         version: 1.8.4
+      browserslist:
+        specifier: 4.28.1
+        version: 4.28.1
       rollup:
         specifier: 4.57.0
         version: 4.57.0

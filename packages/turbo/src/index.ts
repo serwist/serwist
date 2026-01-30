@@ -4,8 +4,11 @@
 import path from "node:path";
 import { type BuildResult, getFileManifestEntries, rebasePath } from "@serwist/build";
 import { SerwistConfigError, validationErrorMap } from "@serwist/build/schema";
+import { browserslistToEsbuild } from "@serwist/utils";
+import browserslist from "browserslist";
 import { cyan, dim, yellow } from "kolorist";
 import type { NextConfig } from "next";
+import { MODERN_BROWSERSLIST_TARGET } from "next/constants.js";
 import { NextResponse } from "next/server.js";
 import { z } from "zod";
 import { injectManifestOptions } from "./index.schema.js";
@@ -119,11 +122,11 @@ export const createSerwistRoute = (options: InjectManifestOptions) => {
     const result = await esbuild.build({
       sourcemap: true,
       format: "esm",
-      target: ["chrome64", "edge79", "firefox67", "opera51", "safari12"],
       treeShaking: true,
       minify: !isDev,
       bundle: true,
       ...config.esbuildOptions,
+      target: config.esbuildOptions?.target ?? browserslistToEsbuild(browserslist, config.cwd, MODERN_BROWSERSLIST_TARGET),
       platform: "browser",
       define: {
         ...config.esbuildOptions.define,

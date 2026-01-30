@@ -36,7 +36,16 @@
   "devDependencies": {
     "@serwist/configs": "workspace:*",
     "@types/common-tags": "1.8.4",
+    "browserslist": "4.28.1",
     "rollup": "4.57.0",
     "typescript": "5.9.3"
+  },
+  "peerDependencies": {
+    "browserslist": ">=4"
+  },
+  "peerDependenciesMeta": {
+    "browserslist": {
+      "optional": true
+    }
   }
 }

@@ -74,6 +74,7 @@
     "@serwist/utils": "workspace:*",
     "@serwist/window": "workspace:*",
     "@swc/core": "1.15.11",
+    "browserslist": "4.28.1",
     "kolorist": "1.8.0",
     "semver": "7.7.3",
     "serwist": "workspace:*",
