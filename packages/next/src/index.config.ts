@@ -66,6 +66,7 @@ export const serwist: Serwist = async (options, nextConfig, { cwd = _cwd, isDev 
     ],
     globIgnores: [
       `${distAppDir}**/_not-found.html`,
+      `${distAppDir}_global-error*`,
       `${distPagesDir}404.html`,
       `${distPagesDir}500.html`,
       ...(cliOptions.globIgnores ?? []),
