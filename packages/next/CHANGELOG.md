@@ -1,5 +1,19 @@
 # @serwist/next
 
+## 9.5.1
+
+### Patch Changes
+
+- [#326](https://github.com/serwist/serwist/pull/326) [`b410227`](https://github.com/serwist/serwist/commit/b410227f3a1709f5c20ab3db6f7177b0fe518d92) Thanks [@Debbl](https://github.com/Debbl)! - fix(next/cli): ignore \_global-error.html
+
+- Updated dependencies []:
+  - @serwist/build@9.5.1
+  - @serwist/cli@9.5.1
+  - @serwist/utils@9.5.1
+  - @serwist/webpack-plugin@9.5.1
+  - @serwist/window@9.5.1
+  - serwist@9.5.1
+
 ## 9.5.0
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # @serwist/turbopack
 
+## 9.5.1
+
+### Patch Changes
+
+- [#329](https://github.com/serwist/serwist/pull/329) [`406dab1`](https://github.com/serwist/serwist/commit/406dab14183697a4322f357011bff0eac805575e) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(turbo): fixed `esbuild-wasm` not working in Windows
+
+- Updated dependencies []:
+  - @serwist/build@9.5.1
+  - @serwist/utils@9.5.1
+  - @serwist/window@9.5.1
+  - serwist@9.5.1
+
 ## 9.5.0
 
 ### Patch Changes
