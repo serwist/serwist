@@ -7,6 +7,7 @@ import { getURLFromLog } from "./utils.ts";
 export class NextInstanceStart extends NextInstance {
   public async spawn() {
     const spawnOpts: SpawnOptionsWithoutStdio = {
+      cwd: this._appTestDir,
       shell: process.platform === "win32",
       env: {
         ...process.env,
@@ -18,19 +19,15 @@ export class NextInstanceStart extends NextInstance {
     console.log("running next build...");
 
     await new Promise<void>((resolve, reject) => {
-      let buildStdout = "";
-      let buildStderr = "";
-      this._process = spawn("pnpm", ["next", "build", "--webpack", this._appTestDir], spawnOpts);
+      this._process = spawn("pnpm", ["next", "build", this._turbo ? "" : "--webpack"], spawnOpts);
       this._process.stdout.on("data", (chunk: Buffer) => {
         const msg = chunk.toString();
         this._cliOutput += msg;
-        buildStdout += msg;
         if (msg) console.log(msg);
       });
       this._process.stderr.on("data", (chunk: Buffer) => {
         const msg = chunk.toString();
         this._cliOutput += msg;
-        buildStderr += msg;
         if (msg) console.error(msg);
       });
       this._process.on("error", (err) => {
@@ -50,7 +47,7 @@ export class NextInstanceStart extends NextInstance {
     console.log("running next start...");
 
     return new Promise<void>((resolve, reject) => {
-      this._process = spawn("pnpm", ["next", "start", this._appTestDir], spawnOpts);
+      this._process = spawn("pnpm", ["next", "start"], spawnOpts);
       this._process.stdout.on("data", (chunk: Buffer) => {
         const msg = chunk.toString();
         this._cliOutput += msg;

@@ -1,0 +1,13 @@
+{
+  "name": "@serwist-tests/turbopack",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "vitest run --config ../vitest.config.ts"
+  },
+  "devDependencies": {
+    "@serwist-tests/next": "workspace:*",
+    "vitest": "4.0.18"
+  }
+}
