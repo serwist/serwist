@@ -22,9 +22,9 @@ createDescribe("@serwist/turbopack - basePath", { sourceDir: __dirname, turbo: t
     expect(sw.headers.get("Content-Type")?.includes("application/javascript")).toBe(true);
     const swContent = await sw.text();
     if (testMode === "start") {
-      expect(swContent.includes("url:\"/serwist-app/next.svg\"")).toBe(true);
-      expect(swContent.includes("url:\"/serwist-app/serwist/sw.js\"")).toBe(false);
-      expect(swContent.includes("url:\"/serwist-app/_next/../public/sw.js\"")).toBe(false);
+      expect(swContent.includes('url:"/serwist-app/next.svg"')).toBe(true);
+      expect(swContent.includes('url:"/serwist-app/serwist/sw.js"')).toBe(false);
+      expect(swContent.includes('url:"/serwist-app/_next/../public/sw.js"')).toBe(false);
     }
   });
 });
