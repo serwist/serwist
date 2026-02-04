@@ -25,8 +25,8 @@ export const swcConfig = {
       format: {
         comments: {
           regex: "webpackIgnore",
-        }
-      }
+        },
+      },
     },
   },
   minify: false,

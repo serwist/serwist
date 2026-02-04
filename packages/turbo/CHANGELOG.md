@@ -1,5 +1,18 @@
 # @serwist/turbopack
 
+## 9.5.4
+
+### Patch Changes
+
+- [`14de9b9`](https://github.com/serwist/serwist/commit/14de9b91455a301b4ed186603d6f039171159edb) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(turbo): force Turbopack not to resolve `esbuild` or `esbuild-wasm`
+  - This allows not installing either of those dependencies.
+
+- Updated dependencies []:
+  - @serwist/build@9.5.4
+  - @serwist/utils@9.5.4
+  - @serwist/window@9.5.4
+  - serwist@9.5.4
+
 ## 9.5.3
 
 ### Patch Changes

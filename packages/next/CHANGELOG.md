@@ -1,5 +1,20 @@
 # @serwist/next
 
+## 9.5.4
+
+### Patch Changes
+
+- [`14de9b9`](https://github.com/serwist/serwist/commit/14de9b91455a301b4ed186603d6f039171159edb) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(next): fixed Turbopack warning
+  - Changed the warning to note that Serwist now supports Turbopack.
+
+- Updated dependencies []:
+  - @serwist/build@9.5.4
+  - @serwist/cli@9.5.4
+  - @serwist/utils@9.5.4
+  - @serwist/webpack-plugin@9.5.4
+  - @serwist/window@9.5.4
+  - serwist@9.5.4
+
 ## 9.5.3
 
 ### Patch Changes

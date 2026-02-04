@@ -1,5 +1,12 @@
 # @serwist/sw
 
+## 9.5.4
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/utils@9.5.4
+
 ## 9.5.3
 
 ### Patch Changes
