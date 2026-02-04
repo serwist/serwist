@@ -111,11 +111,11 @@ export const createSerwistRoute = (options: InjectManifestOptions) => {
     let esbuild: typeof import("esbuild");
     if (config.useNativeEsbuild) {
       log("info", "Using esbuild to bundle the service worker.");
-      if (!esbuildNative) esbuildNative = import("esbuild");
+      if (!esbuildNative) esbuildNative = import(/* webpackIgnore: true */ "esbuild");
       esbuild = await esbuildNative;
     } else {
       log("info", "Using esbuild-wasm to bundle the service worker.");
-      if (!esbuildWasm) esbuildWasm = import("esbuild-wasm");
+      if (!esbuildWasm) esbuildWasm = import(/* webpackIgnore: true */ "esbuild-wasm");
       esbuild = await esbuildWasm;
     }
     logSerwistResult(filePath, { count, size, warnings });

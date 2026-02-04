@@ -13,18 +13,26 @@ import { validateInjectManifestOptions } from "./lib/validator.js";
 
 const dirname = "__dirname" in globalThis ? __dirname : fileURLToPath(new URL(".", import.meta.url));
 
-let warnedTurbopack = false;
-
 /**
  * Integrates Serwist into your Next.js app.
  * @param userOptions
  * @returns
  */
 const withSerwistInit = (userOptions: InjectManifestOptions): ((nextConfig?: NextConfig) => NextConfig) => {
-  if (!warnedTurbopack && process.env.TURBOPACK && !userOptions.disable && !process.env.SERWIST_SUPPRESS_TURBOPACK_WARNING) {
-    warnedTurbopack = true;
+  if (!process.env.SERWIST_SUPPRESS_TURBOPACK_WARNING && process.env.TURBOPACK && !userOptions.disable) {
+    process.env.SERWIST_SUPPRESS_TURBOPACK_WARNING = "1";
     console.warn(
-      `[@serwist/next] WARNING: You are using '@serwist/next' with \`next dev --turbopack\`, but Serwist doesn't support Turbopack at the moment. It is recommended that you set \`disable\` to \`process.env.NODE_ENV !== "production"\`. Follow https://github.com/serwist/serwist/issues/54 for progress on Serwist + Turbopack. You can also suppress this warning by setting SERWIST_SUPPRESS_TURBOPACK_WARNING=1.`,
+      `[@serwist/next] WARNING: You are using '@serwist/next' with \`next dev --turbopack\`, but it doesn't support Turbopack. Do one of the following:
+
+- Set \`disable\` to \`process.env.NODE_ENV !== "production"\`.
+
+- Use webpack by running \`next dev --webpack\` instead of \`next dev --turbopack\`.
+
+- Migrate to '@serwist/turbopack' which has experimental support for Turbopack. See https://serwist.pages.dev/docs/next/turbo for more information.
+
+- Migrate to configurator mode which has support for Turbopack. See https://serwist.pages.dev/docs/next/config for more information. 
+
+Follow https://github.com/serwist/serwist/issues/54 for progress on Serwist + Turbopack. You can also suppress this warning by setting SERWIST_SUPPRESS_TURBOPACK_WARNING=1.\n`,
     );
   }
   return (nextConfig = {}) => ({

@@ -9,13 +9,16 @@ import type {
   RequiredGlobDirectoryResolved,
 } from "@serwist/build";
 import type { Prettify, Require } from "@serwist/utils";
-import type { BuildOptions } from "esbuild-wasm";
+import type { BuildOptions as BaseEsbuildNativeOpts } from "esbuild";
+import type { BuildOptions as BaseEsbuildWasmOpts } from "esbuild-wasm";
 import type { NextConfig as CompleteNextConfig } from "next";
 import type { SUPPORTED_ESBUILD_OPTIONS } from "./lib/constants.js";
 
 export type EsbuildSupportedOptions = (typeof SUPPORTED_ESBUILD_OPTIONS)[number];
 
-export type EsbuildOptions = Pick<BuildOptions, EsbuildSupportedOptions>;
+export type EsbuildWasmOptions = Prettify<any extends BaseEsbuildWasmOpts ? never : Pick<BaseEsbuildWasmOpts, EsbuildSupportedOptions>>;
+
+export type EsbuildNativeOptions = Prettify<any extends BaseEsbuildNativeOpts ? never : Pick<BaseEsbuildNativeOpts, EsbuildSupportedOptions>>;
 
 export interface NextConfig extends Pick<CompleteNextConfig, "basePath" | "distDir"> {
   /**
@@ -66,7 +69,7 @@ export interface TurboPartial {
    * Options to configure the esbuild instance used to bundle
    * the service worker.
    */
-  esbuildOptions?: EsbuildOptions;
+  esbuildOptions?: EsbuildNativeOptions | EsbuildWasmOptions;
 }
 
 export interface TurboResolved extends Require<TurboPartial, "cwd" | "useNativeEsbuild" | "esbuildOptions"> {

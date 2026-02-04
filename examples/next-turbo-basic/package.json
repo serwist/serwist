@@ -21,7 +21,7 @@
     "@types/node": "25.1.0",
     "@types/react": "19.2.10",
     "@types/react-dom": "19.2.3",
-    "esbuild-wasm": "0.27.2",
+    "esbuild": "0.27.2",
     "typescript": "5.9.3"
   }
 }

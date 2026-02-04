@@ -22,6 +22,11 @@ export const swcConfig = {
     minify: {
       compress: false,
       mangle: false,
+      format: {
+        comments: {
+          regex: "webpackIgnore",
+        }
+      }
     },
   },
   minify: false,

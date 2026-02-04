@@ -35,6 +35,9 @@
   "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
+      "react": [
+        "./dist/index.react.d.ts"
+      ],
       "worker": [
         "./dist/index.worker.d.ts"
       ],
