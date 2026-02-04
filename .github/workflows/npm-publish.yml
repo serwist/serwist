@@ -25,7 +25,7 @@ jobs:
       pull-requests: write
     strategy:
       matrix:
-        node-version: ["22.x"]
+        node-version: ["24.x"]
     if: "${{ contains(github.event.head_commit.message, '[bump]') || contains(github.event.head_commit.message, 'chore(packages): publish packages') }}"
     steps:
       - name: Checkout repo
