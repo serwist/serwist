@@ -1,5 +1,19 @@
 # @serwist/turbopack
 
+## 9.5.5
+
+### Patch Changes
+
+- [`910ee78`](https://github.com/serwist/serwist/commit/910ee78b5f1f9bb0abe54fa73967e348b7a699e0) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(turbo): automatically load Next.js config
+  - The `nextConfig` option has been deprecated and will be removed with Serwist 10. Any option provided to it overrides that of the loaded Next.js configuration for now.
+  - This does not apply to Next.js versions older than 15.0.0. For such versions, you will still have to use the `nextConfig` option. `@serwist/turbopack`'s minimum supported Next.js version will be bumped to 15.0.0 with Serwist 10.
+
+- Updated dependencies []:
+  - @serwist/build@9.5.5
+  - @serwist/utils@9.5.5
+  - @serwist/window@9.5.5
+  - serwist@9.5.5
+
 ## 9.5.4
 
 ### Patch Changes
