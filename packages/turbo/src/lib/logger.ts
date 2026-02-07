@@ -4,7 +4,9 @@ import semver from "semver";
 
 const require = createRequire(import.meta.url);
 
-const LOGGING_SPACE_PREFIX = semver.gte(require("next/package.json").version, "16.0.0") ? "" : " ";
+export const NEXT_VERSION = require("next/package.json").version as string;
+
+const LOGGING_SPACE_PREFIX = semver.gte(NEXT_VERSION, "16.0.0") ? "" : " ";
 
 export type LoggingMethods = "wait" | "error" | "warn" | "info" | "event";
 

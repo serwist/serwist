@@ -51,14 +51,13 @@ export interface TurboPartial {
    */
   cwd?: string;
   /**
-   * A copy of your Next.js configuration. You must check
-   * if any option you've configured is needed by Serwist
-   * to ensure expected behavior.
+   * A copy of your Next.js configuration. This option has been deprecated
+   * and is no longer necessary, as Serwist can load the Next.js configuration
+   * itself. It will be removed in Serwist 10.
    *
-   * The following options are currently needed: `assetPrefix`,
-   * `basePath`, `distDir`.
+   * @deprecated
    */
-  nextConfig: Prettify<NextConfig>;
+  nextConfig?: Prettify<NextConfig>;
   /**
    * Whether to use the native `esbuild` package instead of
    * `esbuild-wasm` for bundling the service worker. Defaults
@@ -72,9 +71,7 @@ export interface TurboPartial {
   esbuildOptions?: EsbuildNativeOptions | EsbuildWasmOptions;
 }
 
-export interface TurboResolved extends Require<TurboPartial, "cwd" | "useNativeEsbuild" | "esbuildOptions"> {
-  nextConfig: Require<NextConfig, "basePath" | "distDir">;
-}
+export interface TurboResolved extends Require<TurboPartial, "cwd" | "useNativeEsbuild" | "esbuildOptions"> {}
 
 export type InjectManifestOptions = Prettify<
   Omit<BasePartial & GlobPartial & InjectPartial & OptionalGlobDirectoryPartial & TurboPartial, "disablePrecacheManifest">
@@ -85,4 +82,6 @@ export type InjectManifestOptionsComplete = Prettify<
     Require<BaseResolved, "dontCacheBustURLsMatching"> & GlobResolved & InjectResolved & RequiredGlobDirectoryResolved & TurboResolved,
     "disablePrecacheManifest"
   >
->;
+> & {
+  nextConfig: Required<NextConfig>;
+};

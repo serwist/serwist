@@ -1,17 +1,21 @@
 import path from "node:path";
 import { assertType, basePartial, type Equals, globPartial, injectPartial } from "@serwist/build/schema";
+import semver from "semver";
 import z from "zod";
 import { SUPPORTED_ESBUILD_OPTIONS } from "./lib/constants.js";
-import { generateGlobPatterns } from "./lib/utils.js";
+import { NEXT_VERSION } from "./lib/logger.js";
+import { generateGlobPatterns, loadNextConfig } from "./lib/utils.js";
 import type { InjectManifestOptions, InjectManifestOptionsComplete, TurboPartial, TurboResolved } from "./types.js";
 
 export const turboPartial = z.strictObject({
   cwd: z.string().prefault(process.cwd()),
-  nextConfig: z.object({
-    assetPrefix: z.string().optional(),
-    basePath: z.string().prefault("/"),
-    distDir: z.string().prefault(".next"),
-  }),
+  nextConfig: z
+    .object({
+      assetPrefix: z.string().optional(),
+      basePath: z.string().optional(),
+      distDir: z.string().optional(),
+    })
+    .optional(),
   useNativeEsbuild: z.boolean().prefault(process.platform === "win32"),
   esbuildOptions: z.partialRecord(z.literal(SUPPORTED_ESBUILD_OPTIONS), z.any()).prefault({}),
 });
@@ -26,8 +30,21 @@ export const injectManifestOptions = z
     globDirectory: z.string().optional(),
   })
   .omit({ disablePrecacheManifest: true })
-  .transform((input) => {
-    let distDir = input.nextConfig.distDir;
+  .transform(async (input) => {
+    // TODO: remove in semver check in Serwist 10
+    // webpackIgnore is only supported by Next.js 15 and above, but it is necessary
+    // for loading `next/dist/server/config.js`.
+    const nextConfig = semver.gte(NEXT_VERSION, "15.0.0")
+      ? {
+          ...(await loadNextConfig(input.cwd, process.env.NODE_ENV === "development")),
+          ...input.nextConfig,
+        }
+      : {
+          distDir: input.nextConfig?.distDir ?? ".next",
+          basePath: input.nextConfig?.basePath ?? "/",
+          assetPrefix: input.nextConfig?.assetPrefix ?? input.nextConfig?.basePath ?? "",
+        };
+    let distDir = nextConfig.distDir;
     if (distDir[0] === "/") distDir = distDir.slice(1);
     if (distDir[distDir.length - 1] !== "/") distDir += "/";
     return {
@@ -37,7 +54,7 @@ export const injectManifestOptions = z
       globDirectory: input.globDirectory ?? input.cwd,
       dontCacheBustURLsMatching: input.dontCacheBustURLsMatching ?? new RegExp(`^${distDir}static/`),
       nextConfig: {
-        ...input.nextConfig,
+        ...nextConfig,
         distDir,
       },
     };

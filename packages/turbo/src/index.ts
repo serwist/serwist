@@ -80,7 +80,7 @@ export const createSerwistRoute = (options: InjectManifestOptions) => {
           const manifest = manifestEntries.map((m) => {
             // Replace all references to "$(distDir)" with "$(assetPrefix)/_next/".
             if (m.url.startsWith(config.nextConfig.distDir)) {
-              m.url = `${config.nextConfig.assetPrefix ?? ""}/_next/${m.url.slice(config.nextConfig.distDir.length)}`;
+              m.url = `${config.nextConfig.assetPrefix}/_next/${m.url.slice(config.nextConfig.distDir.length)}`;
             }
             // Replace all references to public/ with "$(basePath)/".
             if (m.url.startsWith("public/")) {
