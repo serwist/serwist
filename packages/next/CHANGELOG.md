@@ -1,5 +1,17 @@
 # @serwist/next
 
+## 9.5.6
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/build@9.5.6
+  - @serwist/cli@9.5.6
+  - @serwist/utils@9.5.6
+  - @serwist/webpack-plugin@9.5.6
+  - @serwist/window@9.5.6
+  - serwist@9.5.6
+
 ## 9.5.5
 
 ### Patch Changes

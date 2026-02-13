@@ -1,5 +1,17 @@
 # @serwist/turbopack
 
+## 9.5.6
+
+### Patch Changes
+
+- [`1277125`](https://github.com/serwist/serwist/commit/1277125ebf93e1f5b8e1cc6f8991d1246e641f62) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(turbo): handle empty `basePath`
+
+- Updated dependencies []:
+  - @serwist/build@9.5.6
+  - @serwist/utils@9.5.6
+  - @serwist/window@9.5.6
+  - serwist@9.5.6
+
 ## 9.5.5
 
 ### Patch Changes
