@@ -56,6 +56,8 @@ export const injectManifestOptions = z
       nextConfig: {
         ...nextConfig,
         distDir,
+        // Next.js, by default, set `basePath` to an empty string.
+        basePath: nextConfig.basePath || "/",
       },
     };
   });
