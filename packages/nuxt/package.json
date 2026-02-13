@@ -1,6 +1,6 @@
 {
   "name": "@serwist/nuxt",
-  "version": "9.5.5",
+  "version": "9.5.6",
   "type": "module",
   "description": "A Nuxt module that integrates Serwist into your application.",
   "files": [
