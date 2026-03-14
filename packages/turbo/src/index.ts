@@ -1,6 +1,8 @@
 // Workaround for Next.js + Turbopack, while plugins are still
 // not supported. This relies on Next.js Route Handlers and file
 // name determinism.
+import crypto from "node:crypto";
+import fs from "node:fs";
 import path from "node:path";
 import { type BuildResult, getFileManifestEntries, rebasePath } from "@serwist/build";
 import { SerwistConfigError, validationErrorMap } from "@serwist/build/schema";
@@ -93,6 +95,7 @@ export const createSerwistRoute = (options: InjectManifestOptions) => {
       ],
     };
   });
+  let lastHash: string | null = null;
   let map: Map<string, string> | null = null;
   // NOTE: ALL FILES MUST HAVE DETERMINISTIC NAMES. THIS IS BECAUSE
   // THE FOLLOWING MAP IS LOADED SEPARATELY FOR `generateStaticParams`
@@ -157,10 +160,16 @@ export const createSerwistRoute = (options: InjectManifestOptions) => {
     return [...map.keys()].map((e) => ({ path: path.relative(config.cwd, e) }));
   };
   const GET = async (_: Request, { params }: { params: Promise<{ path: string }> }) => {
-    // TODO: obviously, files get stale in development when we pull this off.
     const { path: filePath } = await params;
     const config = await validation;
-    if (!map) map = await loadMap(filePath);
+    if (isDev && config.rebuildOnChange) {
+      const swContent = fs.readFileSync(config.swSrc, "utf-8");
+      const currentHash = crypto.createHash("sha256").update(swContent).digest("hex");
+      if (!map || lastHash !== currentHash) {
+        map = await loadMap(filePath);
+        lastHash = currentHash;
+      }
+    } else if (!map) map = await loadMap(filePath);
     return new NextResponse(map.get(path.join(config.cwd, filePath)), {
       headers: {
         "Content-Type": contentTypeMap[path.extname(filePath)] || "text/plain",
