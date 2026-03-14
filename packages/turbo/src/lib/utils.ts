@@ -6,7 +6,8 @@ export const loadNextConfig = async (cwd: string, isDev: boolean) => {
   // for loading `next/dist/server/config.js`.
   const nextConfig = await import(/* webpackIgnore: true */ "next/dist/server/config.js");
   // 1) what does `default.default` even mean
-  const loadConfig = typeof nextConfig.default?.default === "function" ? nextConfig.default.default : nextConfig.default;
+  const loadConfig =
+    typeof nextConfig.default === "function" ? (nextConfig.default as unknown as typeof nextConfig.default.default) : nextConfig.default.default;
   return loadConfig(nextPhase, cwd, { silent: false });
 };
 
