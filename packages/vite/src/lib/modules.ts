@@ -153,6 +153,7 @@ export const generateServiceWorker = async (ctx: SerwistViteContext) => {
           name: "app",
           formats: [rollupFormat],
         },
+        // @ts-expect-error Currently on Vite 8 (migrated to Rolldown)'s types
         rollupOptions: {
           ...rollupOptions,
           plugins,

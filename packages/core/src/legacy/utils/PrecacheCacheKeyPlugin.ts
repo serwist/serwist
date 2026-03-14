@@ -24,9 +24,7 @@ export class PrecacheCacheKeyPlugin implements SerwistPlugin {
 
   cacheKeyWillBeUsed: SerwistPlugin["cacheKeyWillBeUsed"] = async ({ request, params }: SerwistPluginCallbackParam["cacheKeyWillBeUsed"]) => {
     // Params is type any, can't change right now.
-    /* eslint-disable */
     const cacheKey = params?.cacheKey || this._precacheController.getCacheKeyForURL(request.url);
-    /* eslint-enable */
 
     return cacheKey ? new Request(cacheKey, { headers: request.headers }) : request;
   };

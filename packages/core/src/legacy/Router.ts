@@ -340,13 +340,12 @@ export class Router {
         }
 
         // See https://github.com/GoogleChrome/workbox/issues/2079
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         params = matchResult;
         if (Array.isArray(params) && params.length === 0) {
           // Instead of passing an empty array in as params, use undefined.
           params = undefined;
         } else if (
-          matchResult.constructor === Object && // eslint-disable-line
+          matchResult.constructor === Object &&
           Object.keys(matchResult).length === 0
         ) {
           // Instead of passing an empty object in as params, use undefined.

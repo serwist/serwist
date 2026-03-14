@@ -89,23 +89,23 @@
     "browserslist": "4.28.1",
     "glob": "10.5.0",
     "kolorist": "1.8.0",
-    "semver": "7.7.3",
+    "semver": "7.7.4",
     "serwist": "workspace:*",
     "zod": "4.3.6"
   },
   "devDependencies": {
     "@serwist/cli": "workspace:*",
     "@serwist/configs": "workspace:*",
-    "@types/node": "25.1.0",
-    "@types/react": "19.2.10",
+    "@types/node": "25.5.0",
+    "@types/react": "19.2.14",
     "@types/semver": "7.7.1",
     "next": "16.1.6",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "rollup": "4.57.0",
-    "type-fest": "5.4.2",
+    "rollup": "4.59.0",
+    "type-fest": "5.4.4",
     "typescript": "5.9.3",
-    "webpack": "5.104.1"
+    "webpack": "5.105.4"
   },
   "peerDependencies": {
     "@serwist/cli": "workspace:^",

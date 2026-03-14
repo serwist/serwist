@@ -71,11 +71,11 @@
   },
   "devDependencies": {
     "@serwist/configs": "workspace:*",
-    "@types/node": "25.1.0",
+    "@types/node": "25.5.0",
     "@types/webpack": "5.28.5",
-    "rollup": "4.57.0",
+    "rollup": "4.59.0",
     "typescript": "5.9.3",
-    "webpack": "5.104.1"
+    "webpack": "5.105.4"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0",

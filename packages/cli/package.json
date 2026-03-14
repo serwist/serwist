@@ -57,14 +57,14 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@inquirer/prompts": "8.2.0",
+    "@inquirer/prompts": "8.3.0",
     "@serwist/build": "workspace:*",
     "@serwist/utils": "workspace:*",
     "chalk": "5.6.2",
     "chokidar": "5.0.0",
     "common-tags": "1.8.2",
     "glob": "10.5.0",
-    "meow": "14.0.0",
+    "meow": "14.1.0",
     "pretty-bytes": "6.1.1",
     "stringify-object": "6.0.0",
     "update-notifier": "7.3.1",
@@ -76,8 +76,8 @@
     "@types/inquirer": "9.0.9",
     "@types/stringify-object": "4.0.5",
     "@types/update-notifier": "6.0.8",
-    "esbuild": "0.27.2",
-    "rollup": "4.57.0",
+    "esbuild": "0.27.4",
+    "rollup": "4.59.0",
     "typescript": "5.9.3"
   },
   "peerDependencies": {

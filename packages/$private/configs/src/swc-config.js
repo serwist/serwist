@@ -1,5 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
-
 /** @type {import("./swc-config.d.ts").swcConfig} */
 export const swcConfig = {
   module: {

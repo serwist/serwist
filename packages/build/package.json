@@ -64,9 +64,9 @@
   "devDependencies": {
     "@serwist/configs": "workspace:*",
     "@types/common-tags": "1.8.4",
-    "@types/node": "25.1.0",
-    "rollup": "4.57.0",
-    "type-fest": "5.4.2",
+    "@types/node": "25.5.0",
+    "rollup": "4.59.0",
+    "type-fest": "5.4.4",
     "typescript": "5.9.3"
   },
   "peerDependencies": {

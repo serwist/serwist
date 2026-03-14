@@ -18,11 +18,11 @@
   "devDependencies": {
     "@serwist/cli": "latest",
     "@serwist/next": "latest",
-    "@types/node": "25.1.0",
-    "@types/react": "19.2.10",
+    "@types/node": "25.5.0",
+    "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "concurrently": "9.2.1",
-    "esbuild": "0.27.2",
+    "esbuild": "0.27.4",
     "serwist": "latest",
     "typescript": "5.9.3"
   }
