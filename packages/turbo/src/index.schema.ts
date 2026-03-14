@@ -17,6 +17,7 @@ export const turboPartial = z.strictObject({
     })
     .optional(),
   useNativeEsbuild: z.boolean().prefault(process.platform === "win32"),
+  rebuildOnChange: z.boolean().prefault(false),
   esbuildOptions: z.partialRecord(z.literal(SUPPORTED_ESBUILD_OPTIONS), z.any()).prefault({}),
 });
 

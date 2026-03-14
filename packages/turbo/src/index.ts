@@ -2,6 +2,8 @@
 // not supported. This relies on Next.js Route Handlers and file
 // name determinism.
 import path from "node:path";
+import fs from "node:fs";
+import crypto from "node:crypto";
 import { type BuildResult, getFileManifestEntries, rebasePath } from "@serwist/build";
 import { SerwistConfigError, validationErrorMap } from "@serwist/build/schema";
 import { browserslistToEsbuild } from "@serwist/utils";
@@ -93,6 +95,7 @@ export const createSerwistRoute = (options: InjectManifestOptions) => {
       ],
     };
   });
+  let lastHash: string | null = null;
   let map: Map<string, string> | null = null;
   // NOTE: ALL FILES MUST HAVE DETERMINISTIC NAMES. THIS IS BECAUSE
   // THE FOLLOWING MAP IS LOADED SEPARATELY FOR `generateStaticParams`
@@ -160,7 +163,16 @@ export const createSerwistRoute = (options: InjectManifestOptions) => {
     // TODO: obviously, files get stale in development when we pull this off.
     const { path: filePath } = await params;
     const config = await validation;
-    if (!map) map = await loadMap(filePath);
+
+    if (isDev && config.rebuildOnChange) {
+      const swContent = fs.readFileSync(config.swSrc, "utf-8");
+      const currentHash = crypto.createHash("sha256").update(swContent).digest("hex");
+      if (!map || lastHash !== currentHash) {
+        map = await loadMap(filePath);
+        lastHash = currentHash;
+        console.log(`Service worker rebuilt`);
+      }
+    } else if (!map) map = await loadMap(filePath);
     return new NextResponse(map.get(path.join(config.cwd, filePath)), {
       headers: {
         "Content-Type": contentTypeMap[path.extname(filePath)] || "text/plain",

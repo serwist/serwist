@@ -65,13 +65,18 @@ export interface TurboPartial {
    */
   useNativeEsbuild?: boolean;
   /**
+   * Whether to rebuild automatically on dev when source files changes.
+   * @default false
+   */
+  rebuildOnChange?: boolean;
+  /**
    * Options to configure the esbuild instance used to bundle
    * the service worker.
    */
   esbuildOptions?: EsbuildNativeOptions | EsbuildWasmOptions;
 }
 
-export interface TurboResolved extends Require<TurboPartial, "cwd" | "useNativeEsbuild" | "esbuildOptions"> {}
+export interface TurboResolved extends Require<TurboPartial, "cwd" | "useNativeEsbuild" | "rebuildOnChange" | "esbuildOptions"> {}
 
 export type InjectManifestOptions = Prettify<
   Omit<BasePartial & GlobPartial & InjectPartial & OptionalGlobDirectoryPartial & TurboPartial, "disablePrecacheManifest">
