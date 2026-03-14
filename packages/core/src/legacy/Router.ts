@@ -344,10 +344,7 @@ export class Router {
         if (Array.isArray(params) && params.length === 0) {
           // Instead of passing an empty array in as params, use undefined.
           params = undefined;
-        } else if (
-          matchResult.constructor === Object &&
-          Object.keys(matchResult).length === 0
-        ) {
+        } else if (matchResult.constructor === Object && Object.keys(matchResult).length === 0) {
           // Instead of passing an empty object in as params, use undefined.
           params = undefined;
         } else if (typeof matchResult === "boolean") {
