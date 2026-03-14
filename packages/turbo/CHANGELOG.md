@@ -1,5 +1,25 @@
 # @serwist/turbopack
 
+## 9.5.7
+
+### Patch Changes
+
+- [#344](https://github.com/serwist/serwist/pull/344) [`d813c3b`](https://github.com/serwist/serwist/commit/d813c3b812becfe7b14d1bf6fdba1089c0bfbe26) Thanks [@Davydhh](https://github.com/Davydhh)! - fix(turbo): resolve `default.default` breaking bun build
+  - What? Fix CJS/ESM interop issue when loading `next/dist/server/config.js` in the `@serwist/turbopack` package.
+  - Why? When building a Next.js app inside a Bun Docker container (`oven/bun:1`), the module `next/dist/server/config.js` resolves differently than in Node.js. Specifically, `nextConfig.default.default` is `undefined` instead of a function, causing the build to crash at the "Collecting page data" step.
+  - How? Instead of calling `nextConfig.default.default(...)` directly, the fix checks whether `nextConfig.default?.default` is a function first. If it is, it uses it; otherwise it falls back to `nextConfig.default`. This handles both CJS and ESM module resolution correctly.
+
+- [#346](https://github.com/serwist/serwist/pull/346) [`f88382b`](https://github.com/serwist/serwist/commit/f88382be04716b02b0d0c631595e83a46b348b30) Thanks [@sharmapukar217](https://github.com/sharmapukar217)! - feat(turbo): add option to rebuild sw.js on content change
+  - What? Adds a `rebuildOnChange` option to `@serwist/turbopack`. When enabled in development mode, the service worker automatically rebuilds whenever its source file content changes.
+  - Why? Currently, changes to the service worker in development require manual rebuilds or server restarts, which slows down development and can lead to stale behavior. This feature improves developer experience by keeping the service worker up-to-date automatically.
+  - How? Adds a SHA256 hash check on the service worker source file in development mode. If the content changes, the service worker is rebuilt before responding to GET requests. The feature is enabled by setting `rebuildOnChange: true` in the route configuration. Default value is `true`.
+
+- Updated dependencies []:
+  - @serwist/build@9.5.7
+  - @serwist/utils@9.5.7
+  - @serwist/window@9.5.7
+  - serwist@9.5.7
+
 ## 9.5.6
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @serwist/core
 
+## 9.5.7
+
+### Patch Changes
+
+- Updated dependencies []:
+  - serwist@9.5.7
+
 ## 9.5.6
 
 ### Patch Changes
