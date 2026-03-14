@@ -66,7 +66,7 @@ export interface TurboPartial {
   useNativeEsbuild?: boolean;
   /**
    * Whether to rebuild automatically on dev when source files changes.
-   * @default false
+   * @default true
    */
   rebuildOnChange?: boolean;
   /**
