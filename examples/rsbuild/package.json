@@ -14,7 +14,7 @@
     "react-dom": "19.2.4"
   },
   "devDependencies": {
-    "@rsbuild/core": "1.7.3",
+    "@rsbuild/core": "1.7.5",
     "@rsbuild/plugin-react": "1.4.6",
     "@serwist/webpack-plugin": "latest",
     "@serwist/window": "workspace:*",

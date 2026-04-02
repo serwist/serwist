@@ -1,5 +1,5 @@
-import { spawnSync } from "node:child_process";
 import { createSerwistRoute } from "@serwist/turbopack";
+import { spawnSync } from "node:child_process";
 
 // Using `git rev-parse HEAD` might not the most efficient
 // way of determining a revision. You may prefer to use

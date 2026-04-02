@@ -1,11 +1,12 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "rootDir": "./src",
     "module": "NodeNext",
     "types": ["@sveltejs/kit", "node"],
     "declaration": true,
     "declarationMap": true
   },
-  "include": ["globals.d.ts", "rollup.config.js", "**/*.ts", "**/*.tsx"],
+  "include": ["../globals.d.ts", "../rollup.config.js", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "dist", "__tests__"]
 }

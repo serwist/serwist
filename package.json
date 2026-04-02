@@ -38,25 +38,25 @@
     "typecheck": "FORCE_COLOR=1 turbo run typecheck"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.7",
+    "@biomejs/biome": "2.4.10",
     "@changesets/changelog-github": "0.6.0",
     "@changesets/cli": "2.30.0",
-    "@swc/core": "1.15.18",
+    "@swc/core": "1.15.21",
     "@types/node": "25.5.0",
     "@types/shell-quote": "1.7.5",
     "fast-glob": "3.3.3",
     "globals": "17.4.0",
-    "npm-check-updates": "19.6.3",
+    "npm-check-updates": "20.0.0",
     "prettier-plugin-svelte": "3.5.1",
     "prettier-plugin-tailwindcss": "0.7.2",
     "rimraf": "5.0.10",
     "shell-quote": "1.8.3",
     "ts-node": "10.9.2",
     "tslib": "2.8.1",
-    "turbo": "2.8.17",
-    "typescript": "5.9.3"
+    "turbo": "2.9.3",
+    "typescript": "6.0.2"
   },
-  "packageManager": "pnpm@10.32.1",
+  "packageManager": "pnpm@10.33.0",
   "pnpm": {
     "onlyBuiltDependencies": [
       "@parcel/watcher",

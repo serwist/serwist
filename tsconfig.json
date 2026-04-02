@@ -5,6 +5,7 @@
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "lib": ["DOM", "ESNext", "DOM.Iterable", "ESNext.AsyncIterable", "WebWorker"],
+    "types": ["node"],
     "skipLibCheck": true,
     "sourceMap": false,
     "strict": true,

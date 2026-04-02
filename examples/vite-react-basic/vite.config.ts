@@ -1,6 +1,6 @@
-import { serwist } from "@serwist/vite";
 import react from "@vitejs/plugin-react-swc";
 import { defineConfig } from "vite";
+import { serwist } from "vite-plugin-serwist/test";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -11,7 +11,6 @@ export default defineConfig({
       swDest: "sw.js",
       globDirectory: "dist",
       injectionPoint: "self.__SW_MANIFEST",
-      rollupFormat: "iife",
     }),
   ],
 });

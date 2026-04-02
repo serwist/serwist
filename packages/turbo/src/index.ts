@@ -1,22 +1,21 @@
 // Workaround for Next.js + Turbopack, while plugins are still
 // not supported. This relies on Next.js Route Handlers and file
 // name determinism.
-import crypto from "node:crypto";
-import fs from "node:fs";
-import path from "node:path";
 import { type BuildResult, getFileManifestEntries, rebasePath } from "@serwist/build";
-import { SerwistConfigError, validationErrorMap } from "@serwist/build/schema";
 import { browserslistToEsbuild } from "@serwist/utils";
 import browserslist from "browserslist";
 import { cyan, dim, yellow } from "kolorist";
 import type { NextConfig } from "next";
 import { MODERN_BROWSERSLIST_TARGET } from "next/constants.js";
 import { NextResponse } from "next/server.js";
-import { z } from "zod";
-import { injectManifestOptions } from "./index.schema.js";
+import crypto from "node:crypto";
+import fs from "node:fs";
+import path from "node:path";
+import { validateGetManifestOptions } from "./index.schema.js";
+import { CONTENT_TYPE_MAP, DEV } from "./lib/constants.js";
 import { logger } from "./lib/index.js";
 import type { LoggingMethods } from "./lib/logger.js";
-import type { InjectManifestOptions, InjectManifestOptionsComplete } from "./types.js";
+import type { InjectManifestOptions } from "./types.js";
 
 let esbuildWasm: Promise<typeof import("esbuild-wasm")> | null = null;
 let esbuildNative: Promise<typeof import("esbuild")> | null = null;
@@ -35,26 +34,6 @@ const logSerwistResult = (filePath: string, buildResult: Pick<BuildResult, "coun
   }
 };
 
-const validateGetManifestOptions = async (input: unknown): Promise<InjectManifestOptionsComplete> => {
-  const result = await injectManifestOptions.spa(input, {
-    error: validationErrorMap,
-  });
-  if (!result.success) {
-    throw new SerwistConfigError({
-      moduleName: "@serwist/turbopack",
-      message: z.prettifyError(result.error),
-    });
-  }
-  return result.data;
-};
-
-const isDev = process.env.NODE_ENV === "development";
-
-const contentTypeMap: Record<string, string> = {
-  ".js": "application/javascript",
-  ".map": "application/json; charset=UTF-8",
-};
-
 /**
  * Creates a Route Handler for Serwist files.
  * @param options Options for {@linkcode getFileManifestEntries}.
@@ -66,8 +45,8 @@ export const createSerwistRoute = (options: InjectManifestOptions) => {
   const validation = validateGetManifestOptions(options).then((config) => {
     return {
       ...config,
-      disablePrecacheManifest: isDev,
-      additionalPrecacheEntries: isDev ? [] : config.additionalPrecacheEntries,
+      disablePrecacheManifest: DEV,
+      additionalPrecacheEntries: DEV ? [] : config.additionalPrecacheEntries,
       globIgnores: [
         ...config.globIgnores,
         // Make sure we leave swSrc out of the precache manifest.
@@ -126,7 +105,7 @@ export const createSerwistRoute = (options: InjectManifestOptions) => {
       sourcemap: true,
       format: "esm",
       treeShaking: true,
-      minify: !isDev,
+      minify: !DEV,
       bundle: true,
       ...config.esbuildOptions,
       target: config.esbuildOptions?.target ?? browserslistToEsbuild(browserslist, config.cwd, MODERN_BROWSERSLIST_TARGET),
@@ -162,7 +141,7 @@ export const createSerwistRoute = (options: InjectManifestOptions) => {
   const GET = async (_: Request, { params }: { params: Promise<{ path: string }> }) => {
     const { path: filePath } = await params;
     const config = await validation;
-    if (isDev && config.rebuildOnChange) {
+    if (DEV && config.rebuildOnChange) {
       const swContent = fs.readFileSync(config.swSrc, "utf-8");
       const currentHash = crypto.createHash("sha256").update(swContent).digest("hex");
       if (!map || lastHash !== currentHash) {
@@ -172,7 +151,7 @@ export const createSerwistRoute = (options: InjectManifestOptions) => {
     } else if (!map) map = await loadMap(filePath);
     return new NextResponse(map.get(path.join(config.cwd, filePath)), {
       headers: {
-        "Content-Type": contentTypeMap[path.extname(filePath)] || "text/plain",
+        "Content-Type": CONTENT_TYPE_MAP[path.extname(filePath)] || "text/plain",
         "Service-Worker-Allowed": "/",
       },
     });

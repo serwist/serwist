@@ -12,6 +12,6 @@
   "devDependencies": {
     "@serwist/next": "workspace:*",
     "serwist": "workspace:*",
-    "vitest": "4.1.0"
+    "vitest": "4.1.2"
   }
 }

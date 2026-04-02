@@ -1,5 +1,5 @@
+import { assertType, basePartial, type Equals, globPartial, injectPartial, SerwistConfigError, validationErrorMap } from "@serwist/build/schema";
 import path from "node:path";
-import { assertType, basePartial, type Equals, globPartial, injectPartial } from "@serwist/build/schema";
 import semver from "semver";
 import z from "zod";
 import { SUPPORTED_ESBUILD_OPTIONS } from "./lib/constants.js";
@@ -62,6 +62,20 @@ export const injectManifestOptions = z
       },
     };
   });
+
+
+export const validateGetManifestOptions = async (input: unknown): Promise<InjectManifestOptionsComplete> => {
+  const result = await injectManifestOptions.spa(input, {
+    error: validationErrorMap,
+  });
+  if (!result.success) {
+    throw new SerwistConfigError({
+      moduleName: "@serwist/turbopack",
+      message: z.prettifyError(result.error),
+    });
+  }
+  return result.data;
+};
 
 assertType<Equals<TurboPartial, z.input<typeof turboPartial>>>();
 assertType<Equals<TurboResolved, z.output<typeof turboPartial>>>();

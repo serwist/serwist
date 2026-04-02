@@ -1,0 +1,106 @@
+{
+  "name": "@serwist/vite",
+  "version": "9.5.7",
+  "type": "module",
+  "description": "A module that integrates Serwist into your Vite application.",
+  "files": [
+    "src",
+    "dist",
+    "*.d.ts"
+  ],
+  "keywords": [
+    "react",
+    "remix",
+    "vue",
+    "preact",
+    "svelte",
+    "sveltekit",
+    "solidjs",
+    "vite",
+    "vite-plugin",
+    "serwist",
+    "serwistjs",
+    "pwa",
+    "sw",
+    "service worker",
+    "web",
+    "service-worker"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": "antfu <anthonyfu117@hotmail.com>",
+  "contributors": [
+    "Serwist <ducanh2912.rusty@gmail.com> (https://serwist.pages.dev/)"
+  ],
+  "license": "MIT",
+  "repository": "https://github.com/serwist/serwist",
+  "bugs": "https://github.com/serwist/serwist/issues",
+  "homepage": "https://serwist.pages.dev",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "worker": [
+        "./dist/index.worker.d.ts"
+      ],
+      "schema": [
+        "./dist/index.schema.d.ts"
+      ],
+      "typings": [
+        "./typings.d.ts"
+      ]
+    }
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./worker": {
+      "types": "./dist/index.worker.d.ts",
+      "default": "./dist/index.worker.js"
+    },
+    "./schema": {
+      "types": "./dist/index.schema.d.ts",
+      "default": "./dist/index.schema.js"
+    },
+    "./typings": {
+      "types": "./typings.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "rimraf dist && NODE_ENV=production rollup --config rollup.config.js",
+    "dev": "rollup --config rollup.config.js --watch",
+    "lint": "biome lint ./src",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "@serwist/build": "workspace:*",
+    "@serwist/utils": "workspace:*",
+    "serwist": "workspace:*",
+    "glob": "10.5.0",
+    "kolorist": "1.8.0",
+    "zod": "4.3.6"
+  },
+  "devDependencies": {
+    "@serwist/configs": "workspace:*",
+    "serwist": "workspace:*",
+    "@serwist/window": "workspace:*",
+    "@types/node": "25.5.0",
+    "rollup": "4.60.1",
+    "typescript": "6.0.2",
+    "vite": "8.0.3"
+  },
+  "peerDependencies": {
+    "typescript": ">=5.0.0",
+    "vite": ">=5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    }
+  }
+}

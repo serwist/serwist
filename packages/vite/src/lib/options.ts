@@ -1,10 +1,10 @@
 import path from "node:path";
 import process from "node:process";
 
+import { resolveBasePath, slash } from "@serwist/utils";
 import type { ResolvedConfig } from "vite";
 
 import type { PluginOptions, PluginOptionsComplete } from "./types.js";
-import { resolveBasePath, slash } from "./utils.js";
 import { validateInjectManifestOptions } from "./validator.js";
 
 const prepareConfigForValidation = (

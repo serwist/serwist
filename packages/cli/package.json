@@ -57,7 +57,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@inquirer/prompts": "8.3.0",
+    "@inquirer/prompts": "8.3.2",
     "@serwist/build": "workspace:*",
     "@serwist/utils": "workspace:*",
     "chalk": "5.6.2",
@@ -76,9 +76,9 @@
     "@types/inquirer": "9.0.9",
     "@types/stringify-object": "4.0.5",
     "@types/update-notifier": "6.0.8",
-    "esbuild": "0.27.4",
-    "rollup": "4.59.0",
-    "typescript": "5.9.3"
+    "esbuild": "0.27.7",
+    "rollup": "4.60.1",
+    "typescript": "6.0.2"
   },
   "peerDependencies": {
     "esbuild": ">=0.25.0 <1.0.0"

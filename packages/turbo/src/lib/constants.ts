@@ -59,3 +59,10 @@ export const SUPPORTED_ESBUILD_OPTIONS = [
   "footer",
   "plugins",
 ] as const satisfies readonly (keyof BuildOptions)[];
+
+export const CONTENT_TYPE_MAP: Record<string, string> = {
+  ".js": "application/javascript",
+  ".map": "application/json; charset=UTF-8",
+};
+
+export const DEV = process.env.NODE_ENV === "development";

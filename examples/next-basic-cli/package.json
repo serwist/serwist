@@ -11,7 +11,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "16.1.6",
+    "next": "16.2.2",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
@@ -22,8 +22,8 @@
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "concurrently": "9.2.1",
-    "esbuild": "0.27.4",
+    "esbuild": "0.27.7",
     "serwist": "latest",
-    "typescript": "5.9.3"
+    "typescript": "6.0.2"
   }
 }

@@ -15,8 +15,10 @@ overrides:
   "@serwist/react-router": "workspace:*"
   "@serwist/svelte": "workspace:*"
   "@serwist/turbopack": "workspace:*"
+  "@serwist/utils": "workspace:*"
   "@serwist/vite": "workspace:*"
   "@serwist/window": "workspace:*"
   "serwist": "workspace:*"
+  "vite-plugin-serwist": "workspace:*"
 onlyBuiltDependencies:
   - esbuild

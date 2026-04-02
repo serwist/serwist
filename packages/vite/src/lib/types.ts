@@ -5,7 +5,6 @@ import type {
   BaseResolved,
   GlobPartial,
   GlobResolved,
-  ManifestEntry,
   RequiredGlobDirectoryPartial,
   RequiredGlobDirectoryResolved,
   RequiredSwDestPartial,
@@ -13,7 +12,8 @@ import type {
 } from "@serwist/build";
 import type { Require } from "@serwist/utils";
 import type { RollupOptions } from "rollup";
-import type { BuildOptions, Plugin, ResolvedConfig } from "vite";
+import type { BuildOptions, PluginOption, ResolvedConfig } from "vite";
+import type { FRAMEWORKS, VIRTUAL_PREFIX, VIRTUAL_SERWIST } from "./constants.js";
 
 export interface InjectPartial {
   /**
@@ -66,7 +66,7 @@ export interface InjectPartial {
   /**
    * Rollup/Vite plugins used to build the service worker.
    */
-  plugins?: Plugin[];
+  plugins?: PluginOption[];
   /**
    * The format used to build the service worker.
    *
@@ -76,14 +76,14 @@ export interface InjectPartial {
   /**
    * Custom Rollup options used to build the service worker.
    */
-  rollupOptions?: Omit<RollupOptions, "plugins" | "output">;
+  rollupOptions?: Omit<RollupOptions, "input" | "output">;
   /**
    * Development-specific options.
    */
   devOptions?: DevOptions;
 }
 
-export interface InjectResolved extends Require<InjectPartial, "mode" | "type" | "scope" | "base" | "disable" | "swUrl" | "rollupFormat"> {
+export interface InjectResolved extends Require<InjectPartial, "mode" | "type" | "scope" | "base" | "disable" | "swUrl"> {
   devOptions: Required<DevOptions>;
 }
 
@@ -111,7 +111,7 @@ export interface Hooks {
    */
   beforeBuildServiceWorker?: (options: PluginOptionsComplete) => void | Promise<void>;
   /**
-   * Adjusts the application order of `@serwist/vite`'s `closeBundle` hook.
+   * Adjusts the application order of `vite-plugin-serwist`'s `closeBundle` hook.
    */
   closeBundleOrder?: "pre" | "post" | null;
   /**
@@ -144,20 +144,21 @@ export interface PluginOptionsComplete extends InjectResolved {
   injectManifest: Omit<InjectManifestOptionsComplete, keyof InjectResolved>;
 }
 
+/**
+ * @deprecated
+ */
 export interface SerwistViteApi {
   /**
    * Whether the plugin is disabled.
    */
   disabled: boolean;
-  /**
-   * Extends the precache manifest.
-   * @param fn
-   */
-  extendManifestEntries(fn: ExtendManifestEntriesHook): void;
   /*
    * Generates the service worker.
    */
   generateSW(): Promise<void>;
 }
 
-export type ExtendManifestEntriesHook = (manifestEntries: (string | ManifestEntry)[]) => (string | ManifestEntry)[] | undefined;
+export type VirtualPrefix = typeof VIRTUAL_PREFIX;
+export type VirtualSerwist = typeof VIRTUAL_SERWIST;
+export type Frameworks = (typeof FRAMEWORKS)[number];
+export type VirtualFrameworks = `${VirtualPrefix}${VirtualSerwist}/${Frameworks}`;

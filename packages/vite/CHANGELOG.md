@@ -1,4 +1,4 @@
-# @serwist/vite
+# vite-plugin-serwist
 
 ## 9.5.7
 

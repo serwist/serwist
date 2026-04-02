@@ -2,7 +2,8 @@
   "name": "@serwist/utils",
   "version": "9.5.7",
   "type": "module",
-  "description": "This module contains utilities used by Serwist packages.",
+  "sideEffects": false,
+  "description": "This module contains internal utilities used by Serwist packages.",
   "files": [
     "src",
     "dist"
@@ -20,10 +21,21 @@
   "homepage": "https://serwist.pages.dev",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "node": {
+      "*": [
+        "./dist/index.node.d.ts"
+      ]
+    }
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
+    },
+    "./node": {
+      "types": "./dist/index.node.d.ts",
+      "default": "./dist/index.node.js"
     },
     "./package.json": "./package.json"
   },
@@ -31,14 +43,19 @@
     "build": "rimraf dist && NODE_ENV=production rollup --config rollup.config.js",
     "dev": "rollup --config rollup.config.js --watch",
     "lint": "biome lint ./src",
+    "qcheck": "biome check ./src",
     "typecheck": "tsc"
+  },
+  "dependencies": {
+    "common-tags": "1.8.2",
+    "kolorist": "1.8.0"
   },
   "devDependencies": {
     "@serwist/configs": "workspace:*",
     "@types/common-tags": "1.8.4",
-    "browserslist": "4.28.1",
-    "rollup": "4.59.0",
-    "typescript": "5.9.3"
+    "browserslist": "4.28.2",
+    "rollup": "4.60.1",
+    "typescript": "6.0.2"
   },
   "peerDependencies": {
     "browserslist": ">=4"

@@ -1,5 +1,5 @@
 /**
- * Make certain fields in a object type required
+ * Makes certain fields in a object type required
  *
  * @example
  *     interface A {
@@ -18,7 +18,7 @@
 export type Require<T, U extends keyof T> = T & Required<Pick<T, U>>;
 
 /**
- * Make certain fields in a object type optional
+ * Makes certain fields in a object type optional
  *
  * @example
  *     interface A {
@@ -53,5 +53,11 @@ export type Optional<T, U extends keyof T> = Omit<T, U> & Partial<Pick<T, U>>;
 export type Prettify<T> = {
   [K in keyof T]: T[K];
 } & {};
+
+export interface FileDetails {
+  file: string;
+  hash: string | null;
+  size: number;
+}
 
 export type MaybePromise<T> = T | Promise<T>;

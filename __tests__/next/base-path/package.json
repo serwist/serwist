@@ -2,6 +2,6 @@
   "name": "@serwist-tests/next-base-path",
   "type": "module",
   "devDependencies": {
-    "next": "16.1.6"
+    "next": "16.2.2"
   }
 }

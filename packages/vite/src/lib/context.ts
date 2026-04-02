@@ -1,8 +1,8 @@
-import type { ResolvedConfig } from "vite";
-
+import type { Logger } from "@serwist/utils/node";
+import type { ResolvedConfig, UserConfig } from "vite";
 import type { PluginOptions, PluginOptionsComplete } from "./types.js";
 
-export type SerwistViteFrameworks = "nuxt";
+export type SerwistViteFrameworks = "nuxt" | "react-router" | "astro";
 
 export interface SerwistViteContext {
   /**
@@ -11,6 +11,12 @@ export interface SerwistViteContext {
    * Note: This value is set by our main plugin, located at plugins/main.ts.
    */
   viteConfig: ResolvedConfig;
+  /**
+   * User's Vite config.
+   *
+   * Note: This value is set by our main plugin, located at plugins/main.ts.
+   */
+  userViteConfig: UserConfig;
   /**
    * Provided options.
    */
@@ -22,24 +28,30 @@ export interface SerwistViteContext {
    * `userOptions` is the raw configuration that the user provides us.
    */
   options: PluginOptionsComplete;
-  useImportRegister: boolean;
   /**
    * Is the plugin running on dev?
    *
    * Note: This value is set by our dev plugin, located at plugins/dev.ts.
    */
   devEnvironment: boolean;
-  /** To tailor our APIs to these frameworks. */
+  /**
+   * To tailor our APIs to these frameworks.
+   */
   framework: SerwistViteFrameworks | undefined;
+  /**
+   * `@serwist/vite`'s logger.
+   */
+  logger: Logger;
 }
 
 export const createContext = (userOptions: PluginOptions, framework: SerwistViteFrameworks | undefined): SerwistViteContext => {
   return {
+    viteConfig: null!,
+    userViteConfig: null!,
     userOptions,
-    options: undefined!,
-    viteConfig: undefined!,
-    useImportRegister: false,
+    options: null!,
     devEnvironment: false,
     framework,
+    logger: null!,
   };
 };
