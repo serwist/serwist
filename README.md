@@ -2,7 +2,7 @@
 
 Serwist is a collection of JavaScript libraries for [progressive web apps](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps).
 
-It is a fork of Workbox that came to be due to the its development being stagnated. Most of the prior work was done by Google LLC's team and the community.
+It is a fork of Workbox that came to be due to its development being stagnated. Most of the prior work was done by Google LLC's team and the community.
 
 ---
 
