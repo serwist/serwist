@@ -24,29 +24,29 @@
   "repository": "https://github.com/serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",
   "homepage": "https://serwist.pages.dev",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "typesVersions": {
     "*": {
       "internal": [
-        "./dist/index.internal.d.ts"
+        "./dist/index.internal.d.mts"
       ]
     }
   },
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
     },
     "./internal": {
-      "types": "./dist/index.internal.d.ts",
-      "default": "./dist/index.internal.js"
+      "types": "./dist/index.internal.d.mts",
+      "default": "./dist/index.internal.mjs"
     },
     "./package.json": "./package.json"
   },
   "scripts": {
-    "build": "rimraf dist && NODE_ENV=production rollup --config rollup.config.js",
-    "dev": "rollup --config rollup.config.js --watch",
+    "build": "rimraf dist && NODE_ENV=production tsdown",
+    "dev": "tsdown --watch",
     "lint": "biome lint ./src",
     "typecheck": "tsc"
   },
@@ -55,9 +55,8 @@
     "@types/trusted-types": "2.0.7"
   },
   "devDependencies": {
-    "@serwist/configs": "workspace:*",
-    "rollup": "4.59.0",
-    "typescript": "5.9.3"
+    "tsdown": "0.21.10",
+    "typescript": "6.0.3"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0"

@@ -3,6 +3,6 @@
   "compilerOptions": {
     "module": "NodeNext"
   },
-  "include": ["**/*.ts", "rollup.config.js"],
+  "include": ["**/*.ts"],
   "exclude": ["dist", "node_modules"]
 }

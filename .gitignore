@@ -40,9 +40,6 @@ output/
 # jetbrains ide
 .idea
 
-# rollup
-.rollup.cache
-
 # vite
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*

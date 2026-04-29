@@ -1,7 +1,8 @@
-import path from "node:path";
 import { addPlugin, createResolver, defineNuxtModule, extendWebpackConfig } from "@nuxt/kit";
 import type { SerwistViteApi, SerwistViteContext } from "@serwist/vite";
 import { createApi, createContext, dev as devPlugin, main as mainPlugin, resolveEntry } from "@serwist/vite";
+import path from "node:path";
+import type { ViteConfig } from "nuxt/schema";
 import { version } from "../package.json";
 import { configureSerwistOptions } from "./config.js";
 import type { ClientOptions, DefaultModuleOptions, ModuleOptions } from "./types.js";
@@ -71,7 +72,7 @@ export default defineNuxtModule<ModuleOptions>().with<DefaultModuleOptions>({
       }
     });
 
-    nuxt.hook("vite:extendConfig", async (viteInlineConfig, { isClient }) => {
+    nuxt.hook("vite:extendConfig", async (viteInlineConfig: ViteConfig, { isClient }) => {
       if (!viteInlineConfig.plugins) {
         viteInlineConfig.plugins = [];
       }

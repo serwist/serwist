@@ -4,6 +4,6 @@
     "module": "NodeNext",
     "jsx": "preserve"
   },
-  "include": ["globals.d.ts", "rollup.config.js", "**/*.ts", "**/*.tsx"],
+  "include": ["globals.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "dist", "__tests__"]
 }

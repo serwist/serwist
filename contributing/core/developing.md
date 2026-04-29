@@ -40,10 +40,13 @@ If you use Visual Studio Code, you may want to set .vscode/settings.json to this
 
 ```json
 {
-  "typescript.preferences.autoImportFileExcludePatterns": [
+  "js/ts.preferences.autoImportFileExcludePatterns": [
     "./packages/sw/src/index.ts",
     "./packages/sw/src/index.*.ts",
   ],
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit",
+  },
   "[typescript]": {
     "editor.defaultFormatter": "biomejs.biome"
   },

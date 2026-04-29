@@ -4,6 +4,7 @@
   "type": "module",
   "description": "A Nuxt module that integrates Serwist into your application.",
   "files": [
+    "src",
     "dist"
   ],
   "keywords": [
@@ -70,14 +71,14 @@
   "devDependencies": {
     "@nuxt/module-builder": "1.0.2",
     "@nuxt/schema": "4.4.2",
-    "@serwist/configs": "workspace:*",
-    "@types/node": "25.5.0",
+    "@types/node": "25.6.0",
     "nuxt": "4.4.2",
     "rimraf": "5.0.10",
     "serve": "14.2.6",
-    "typescript": "5.9.3",
-    "vite": "8.0.0",
-    "vue-tsc": "3.2.5"
+    "typescript": "6.0.3",
+    "unbuild": "3.6.1",
+    "vite": "8.0.10",
+    "vue-tsc": "3.2.7"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0",
