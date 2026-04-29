@@ -10,6 +10,8 @@
     "ignoreUnknown": true
   },
   "assist": { "actions": { "source": { "organizeImports": "off" } } },
+  "html": { "experimentalFullSupportEnabled": true },
+  "css": { "parser": { "tailwindDirectives": true } },
   "linter": {
     "enabled": true,
     "rules": {

@@ -1,7 +1,8 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "module": "NodeNext"
+    "module": "NodeNext",
+    "types": ["node", "trusted-types"]
   },
   "include": ["**/*.ts", "src/Serwist.js"],
   "exclude": ["dist", "node_modules"]
