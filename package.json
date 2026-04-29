@@ -47,8 +47,6 @@
     "fast-glob": "3.3.3",
     "globals": "17.5.0",
     "npm-check-updates": "22.0.1",
-    "prettier-plugin-svelte": "3.5.1",
-    "prettier-plugin-tailwindcss": "0.8.0",
     "rimraf": "5.0.10",
     "shell-quote": "1.8.3",
     "ts-node": "10.9.2",
