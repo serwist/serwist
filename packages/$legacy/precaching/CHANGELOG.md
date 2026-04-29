@@ -1,5 +1,18 @@
 # @serwist/precaching
 
+## 9.5.8
+
+### Patch Changes
+
+- [#351](https://github.com/serwist/serwist/pull/351) [`be7d645`](https://github.com/serwist/serwist/commit/be7d645e5336c859deb9faa13cb8faa96d4d2c27) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat: migrate to tsdown
+
+  - Migrated to tsdown for easier configuration and better build performance.
+
+  - Updated dependencies and removed unused ones.
+
+- Updated dependencies [[`be7d645`](https://github.com/serwist/serwist/commit/be7d645e5336c859deb9faa13cb8faa96d4d2c27)]:
+  - serwist@9.5.8
+
 ## 9.5.7
 
 ### Patch Changes
@@ -110,6 +123,7 @@
 ### Patch Changes
 
 - [`01f4b27`](https://github.com/serwist/serwist/commit/01f4b27152fd6fc4a9f5a39cc5636047a06346d0) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): dependencies maintenance
+
   - This patch updates all dependencies and bumps `glob` to fix a vulnerability.
 
 - Updated dependencies [[`01f4b27`](https://github.com/serwist/serwist/commit/01f4b27152fd6fc4a9f5a39cc5636047a06346d0)]:
@@ -157,6 +171,7 @@
 ### Patch Changes
 
 - [`de27be5`](https://github.com/serwist/serwist/commit/de27be5c8c48afc6122e046dc116696cedfc93e4) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): monthly dependencies maintenance
+
   - Just the regular stuff. Serwist 10 is still on the way!
 
 - Updated dependencies [[`de27be5`](https://github.com/serwist/serwist/commit/de27be5c8c48afc6122e046dc116696cedfc93e4)]:
@@ -234,6 +249,7 @@
 ### Patch Changes
 
 - [`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): updated all dependencies
+
   - We have updated all dependencies to latest, as usual.
 
 - Updated dependencies [[`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed), [`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed), [`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed)]:
@@ -258,9 +274,12 @@
 ### Major Changes
 
 - [#123](https://github.com/serwist/serwist/pull/123) [`6c3e789`](https://github.com/serwist/serwist/commit/6c3e789724533dab23a6f5afb2a0f40d8f26bf16) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(precaching.PrecacheFallbackPlugin): renamed `fallbackURL`, added support for a `matcher`
+
   - `fallbackURL` has been renamed to `fallbackUrls`, which should now be an array of strings or `PrecacheFallbackEntry`'s.
+
     - `PrecacheFallbackEntry` is an interface that requires a fallback URL and a matcher, which is used to check whether the current fallback entry can be used for a request.
     - To migrate:
+
       - Old:
 
       ```js
@@ -289,7 +308,9 @@
       ```
 
   - With this change, `serwist.Serwist.fallbacks` now also uses `PrecacheFallbackPlugin`. This means that `FallbackEntry.cacheMatchOptions` has been removed, for `PrecacheController.matchPrecache` doesn't support a custom `matchOptions`. This option is most likely not needed anyway.
+
     - To migrate:
+
       - Old:
 
       ```js
@@ -328,11 +349,14 @@
       ```
 
 - [#123](https://github.com/serwist/serwist/pull/123) [`7b55ac5`](https://github.com/serwist/serwist/commit/7b55ac526a73826cb2d179a863d7eb29182616ee) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(js): dropped the CommonJS build
+
   - Serwist is now an ESM-only project.
   - This was done because our tooling around supporting CJS had always been crappy: it was slow, had no way of supporting emitting `.d.cts` (we used to copy `.d.ts` to `.d.cts`), and was too error-prone (there were various issues of our builds crashing due to an ESM-only package slipping in).
   - If you already use ESM, there's nothing to be done. Great! Otherwise, to migrate:
+
     - Migrate to ESM if possible.
     - Otherwise, use dynamic imports. For example, to migrate to the new `@serwist/next`:
+
       - Old:
 
       ```js
@@ -374,14 +398,19 @@
 ### Minor Changes
 
 - [#123](https://github.com/serwist/serwist/pull/123) [`c65578b`](https://github.com/serwist/serwist/commit/c65578b68f1ae88822238c3c03aa5e859a4f2b7e) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor: merge service worker modules into `serwist`
+
   - These service worker modules have been merged into `serwist`:
+
     - Modules now located at `serwist`:
+
       - `@serwist/navigation-preload`:
+
         - `@serwist/navigation-preload.disable` -> `serwist.disableNavigationPreload`.
         - `@serwist/navigation-preload.enable` -> `serwist.enableNavigationPreload`.
         - `@serwist/navigation-preload.isSupported` -> `serwist.isNavigationPreloadSupported`.
 
       - `@serwist/background-sync`
+
         - `@serwist/background-sync.QueueEntry` -> `serwist.BackgroundSyncQueueEntry`
         - `@serwist/background-sync.QueueOptions` -> `serwist.BackgroundSyncQueueOptions`
         - `@serwist/background-sync.Queue` -> `serwist.BackgroundSyncQueue`
@@ -391,6 +420,7 @@
       - `@serwist/cacheable-response`
       - `@serwist/expiration`
       - `@serwist/google-analytics`
+
         - `@serwist/google-analytics.initialize` -> `serwist.initializeGoogleAnalytics`
 
       - `@serwist/range-requests`
@@ -464,6 +494,7 @@
 ### Patch Changes
 
 - 6d294f9: refactor: migrate to GitLab
+
   - Serwist and `@ducanh2912/next-pwa` have migrated to GitLab.
   - This was the result of GitHub flagging my account, organizations, and repositories as spam. Sorry for the inconvenience.
 
@@ -608,6 +639,7 @@
 ### Minor Changes
 
 - [`cbf3e46`](https://github.com/serwist/serwist/commit/cbf3e4603388257a799e4da5ba1f32bca58aba4b) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(precaching): support concurrent precaching
+
   - `PrecacheController` now accepts a new option, "concurrentPrecaching", which should be a number of how many precache requests should be made concurrently.
 
   - By default, we precache things sequentially, but this can be changed by setting this option or `self.__WB_CONCURRENT_PRECACHING`. The former takes precedence over the latter.
@@ -633,10 +665,13 @@
 ### Major Changes
 
 - [`6c3e789`](https://github.com/serwist/serwist/commit/6c3e789724533dab23a6f5afb2a0f40d8f26bf16) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(precaching.PrecacheFallbackPlugin): renamed `fallbackURL`, added support for a `matcher`
+
   - `fallbackURL` has been renamed to `fallbackUrls`, which should now be an array of strings or `PrecacheFallbackEntry`'s.
+
     - `PrecacheFallbackEntry` is an interface that requires a fallback URL and a matcher, which is used to check whether the current fallback entry can be used for a request.
 
     - To migrate:
+
       - Old:
 
       ```js
@@ -665,7 +700,9 @@
       ```
 
   - With this change, `@serwist/sw.fallbacks` now also uses `PrecacheFallbackPlugin`. This means that `FallbackEntry.cacheMatchOptions` has been removed, for `PrecacheController.matchPrecache` doesn't support a custom `matchOptions`. This option is most likely not needed anyway.
+
     - To migrate:
+
       - Old:
 
       ```js
@@ -740,11 +777,14 @@
 ### Major Changes
 
 - [`defdd5a`](https://github.com/serwist/serwist/commit/defdd5a50f80e6c58e00dff8c608466c02fdc459) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(js): migrate to ESM-only
+
   - Serwist is now an ESM-only project.
   - This was done because our tooling around supporting CJS had always been crappy: it was slow, had no way of supporting emitting `.d.cts` (we used to copy `.d.ts` to `.d.cts`), and was too error-prone (there were various issues of our builds crashing due to an ESM-only package slipping in).
   - If you already use ESM, there's nothing to be done. Great! Otherwise, to migrate:
+
     - Migrate to ESM if possible.
     - Otherwise, use dynamic imports. For example, to migrate to the new `@serwist/next`:
+
       - Old:
 
       ```js
@@ -831,6 +871,7 @@
 ### Patch Changes
 
 - [#32](https://github.com/serwist/serwist/pull/32) [`87fea3c`](https://github.com/serwist/serwist/commit/87fea3c8ce51eab78404e64887b3840b9f633d9d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(docs): changed docs's URL
+
   - Currently we deploy at Cloudflare Pages.
 
 - Updated dependencies [[`87fea3c`](https://github.com/serwist/serwist/commit/87fea3c8ce51eab78404e64887b3840b9f633d9d)]:
@@ -888,6 +929,7 @@
 ### Patch Changes
 
 - [#10](https://github.com/serwist/serwist/pull/10) [`52edfe2`](https://github.com/serwist/serwist/commit/52edfe2f9e4ff2007747dd038023dbc94af52698) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(node-16-cjs): added type support for NodeNext with CommonJS
+
   - The "fix" is really simple - we copy `.d.ts` to `.old.d.cts` 💀
   - This also fixes the issue where using `@serwist/build`, `@serwist/webpack-plugin`, and their dependents with CommonJS crashes due to us using `pretty-bytes`, which is an ESM package.
 

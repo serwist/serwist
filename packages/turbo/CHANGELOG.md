@@ -1,15 +1,33 @@
 # @serwist/turbopack
 
+## 9.5.8
+
+### Patch Changes
+
+- [#351](https://github.com/serwist/serwist/pull/351) [`be7d645`](https://github.com/serwist/serwist/commit/be7d645e5336c859deb9faa13cb8faa96d4d2c27) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat: migrate to tsdown
+
+  - Migrated to tsdown for easier configuration and better build performance.
+
+  - Updated dependencies and removed unused ones.
+
+- Updated dependencies [[`be7d645`](https://github.com/serwist/serwist/commit/be7d645e5336c859deb9faa13cb8faa96d4d2c27)]:
+  - @serwist/window@9.5.8
+  - @serwist/build@9.5.8
+  - @serwist/utils@9.5.8
+  - serwist@9.5.8
+
 ## 9.5.7
 
 ### Patch Changes
 
 - [#344](https://github.com/serwist/serwist/pull/344) [`d813c3b`](https://github.com/serwist/serwist/commit/d813c3b812becfe7b14d1bf6fdba1089c0bfbe26) Thanks [@Davydhh](https://github.com/Davydhh)! - fix(turbo): resolve `default.default` breaking bun build
+
   - What? Fix CJS/ESM interop issue when loading `next/dist/server/config.js` in the `@serwist/turbopack` package.
   - Why? When building a Next.js app inside a Bun Docker container (`oven/bun:1`), the module `next/dist/server/config.js` resolves differently than in Node.js. Specifically, `nextConfig.default.default` is `undefined` instead of a function, causing the build to crash at the "Collecting page data" step.
   - How? Instead of calling `nextConfig.default.default(...)` directly, the fix checks whether `nextConfig.default?.default` is a function first. If it is, it uses it; otherwise it falls back to `nextConfig.default`. This handles both CJS and ESM module resolution correctly.
 
 - [#346](https://github.com/serwist/serwist/pull/346) [`f88382b`](https://github.com/serwist/serwist/commit/f88382be04716b02b0d0c631595e83a46b348b30) Thanks [@sharmapukar217](https://github.com/sharmapukar217)! - feat(turbo): add option to rebuild sw.js on content change
+
   - What? Adds a `rebuildOnChange` option to `@serwist/turbopack`. When enabled in development mode, the service worker automatically rebuilds whenever its source file content changes.
   - Why? Currently, changes to the service worker in development require manual rebuilds or server restarts, which slows down development and can lead to stale behavior. This feature improves developer experience by keeping the service worker up-to-date automatically.
   - How? Adds a SHA256 hash check on the service worker source file in development mode. If the content changes, the service worker is rebuilt before responding to GET requests. The feature is enabled by setting `rebuildOnChange: true` in the route configuration. Default value is `true`.
@@ -37,6 +55,7 @@
 ### Patch Changes
 
 - [`910ee78`](https://github.com/serwist/serwist/commit/910ee78b5f1f9bb0abe54fa73967e348b7a699e0) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(turbo): automatically load Next.js config
+
   - The `nextConfig` option has been deprecated and will be removed with Serwist 10. Any option provided to it overrides that of the loaded Next.js configuration for now.
   - This does not apply to Next.js versions older than 15.0.0. For such versions, you will still have to use the `nextConfig` option. `@serwist/turbopack`'s minimum supported Next.js version will be bumped to 15.0.0 with Serwist 10.
 
@@ -51,6 +70,7 @@
 ### Patch Changes
 
 - [`14de9b9`](https://github.com/serwist/serwist/commit/14de9b91455a301b4ed186603d6f039171159edb) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(turbo): force Turbopack not to resolve `esbuild` or `esbuild-wasm`
+
   - This allows not installing either of those dependencies.
 
 - Updated dependencies []:
@@ -64,6 +84,7 @@
 ### Patch Changes
 
 - [`86a75a8`](https://github.com/serwist/serwist/commit/86a75a8ed99cf5193598fc63347d348a6c90b8c4) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(turbo): read Browserslist when `esbuildOptions.target` is not specified
+
   - This forces `@serwist/turbopack` to sync up with Browserslist by default.
 
 - Updated dependencies []:
@@ -77,6 +98,7 @@
 ### Patch Changes
 
 - [`eae652f`](https://github.com/serwist/serwist/commit/eae652f91b171bcca87c7ec80857122651d90826) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(turbo): allow using native esbuild
+
   - Set `useNativeEsbuild` to `true` to use native esbuild, which is faster and works on Windows, instead of esbuild-wasm.
   - `useNativeEsbuild` defaults to `true` on Windows systems.
 
@@ -123,6 +145,7 @@
 ### Patch Changes
 
 - [`2d44bc1`](https://github.com/serwist/serwist/commit/2d44bc1ed2efc1868087c828a2d18abd44610a67) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(utils): publish `@serwist/utils`
+
   - This fixes `@serwist/utils` types being unresolvable when used in other packages.
 
 - Updated dependencies [[`2d44bc1`](https://github.com/serwist/serwist/commit/2d44bc1ed2efc1868087c828a2d18abd44610a67)]:
@@ -194,6 +217,7 @@
 
 - [`1e58a05`](https://github.com/serwist/serwist/commit/1e58a059abdd1ed1e77716dc81681d1b63867b93) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - <!-- Delete on release -->
   fix(turbo/preview): handle `assetPrefix`, `distDir`, `dontCacheBustURLsMatching`
+
   - `@serwist/turbopack` now sets `dontCacheBustURLsMatching` to `/_next/static` by default.
   - `assetPrefix` and `distDir` are now properly handled.
   - BREAKING CHANGE (Preview): `basePath` has now been moved to `nextConfig.basePath` and is no longer required.
@@ -208,6 +232,7 @@
 ### Patch Changes
 
 - [`86fd2ff`](https://github.com/serwist/serwist/commit/86fd2ff9f05dbfa69d9e65ab57da784336b5fe5a) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(turbo/preview): removed `esbuild-wasm` from `dependencies`
+
   - This caused problems with adding newer `esbuild-wasm` versions to `serverExternalPackages`.
 
 - Updated dependencies []:
@@ -220,11 +245,18 @@
 ### Minor Changes
 
 - [`e3dbb24`](https://github.com/serwist/serwist/commit/e3dbb24b6c70205058eb8f6eb777146c86e7ae43) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(turbo/preview): allow configuring `esbuild` instance
+
   - You can now configure `@serwist/turbopack`'s `esbuild` instance. For example, to output the service worker in the `iife` format and disable sourcemaps:
 
   ```tsx
   // app/serwist/[path]/route.ts
-  export const { dynamic, dynamicParams, revalidate, generateStaticParams, GET } = createSerwistRoute({
+  export const {
+    dynamic,
+    dynamicParams,
+    revalidate,
+    generateStaticParams,
+    GET,
+  } = createSerwistRoute({
     swSrc: "app/sw.ts",
     basePath: "/",
     esbuildOptions: {
@@ -271,7 +303,9 @@
 ### Minor Changes
 
 - [`935c16f`](https://github.com/serwist/serwist/commit/935c16f28ac9344bdf9e7b34fbcbcef90f160cda) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(turbo): added rudimentary Turbopack support
+
   - `@serwist/turbopack` helps developers integrate Serwist into Next.js + Turbopack applications. To get started:
+
     - Install required packages:
 
     ```bash
@@ -295,7 +329,13 @@
     // app/serwist/[path]/route.ts
     import { createSerwistRoute } from "@serwist/turbopack";
 
-    export const { dynamic, dynamicParams, revalidate, generateStaticParams, GET } = createSerwistRoute({
+    export const {
+      dynamic,
+      dynamicParams,
+      revalidate,
+      generateStaticParams,
+      GET,
+    } = createSerwistRoute({
       swSrc: "app/sw.ts",
       basePath: "/",
     });
@@ -361,19 +401,19 @@
           "src": "/icons/android-chrome-192x192.png",
           "sizes": "192x192",
           "type": "image/png",
-          "purpose": "maskable",
+          "purpose": "maskable"
         },
         {
           "src": "/icons/icon-512x512.png",
           "sizes": "512x512",
-          "type": "image/png",
-        },
+          "type": "image/png"
+        }
       ],
       "theme_color": "#FFFFFF",
       "background_color": "#FFFFFF",
       "start_url": "/",
       "display": "standalone",
-      "orientation": "portrait",
+      "orientation": "portrait"
     }
     ```
 
@@ -451,6 +491,7 @@
 ### Patch Changes
 
 - [`01f4b27`](https://github.com/serwist/serwist/commit/01f4b27152fd6fc4a9f5a39cc5636047a06346d0) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): dependencies maintenance
+
   - This patch updates all dependencies and bumps `glob` to fix a vulnerability.
 
 - Updated dependencies [[`01f4b27`](https://github.com/serwist/serwist/commit/01f4b27152fd6fc4a9f5a39cc5636047a06346d0)]:
@@ -490,6 +531,7 @@
 ### Patch Changes
 
 - [`f163a02`](https://github.com/serwist/serwist/commit/f163a024965bd2ecd6176b82530257a58f8c8da1) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(next, turbo): added network-only catch-all route for GET requests
+
   - This is only so that preloaded responses are properly.
 
 - Updated dependencies []:

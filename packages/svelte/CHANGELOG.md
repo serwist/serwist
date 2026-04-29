@@ -1,5 +1,21 @@
 # @serwist/svelte
 
+## 9.5.8
+
+### Patch Changes
+
+- [#351](https://github.com/serwist/serwist/pull/351) [`be7d645`](https://github.com/serwist/serwist/commit/be7d645e5336c859deb9faa13cb8faa96d4d2c27) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat: migrate to tsdown
+
+  - Migrated to tsdown for easier configuration and better build performance.
+
+  - Updated dependencies and removed unused ones.
+
+- Updated dependencies [[`be7d645`](https://github.com/serwist/serwist/commit/be7d645e5336c859deb9faa13cb8faa96d4d2c27)]:
+  - @serwist/window@9.5.8
+  - @serwist/build@9.5.8
+  - @serwist/utils@9.5.8
+  - serwist@9.5.8
+
 ## 9.5.7
 
 ### Patch Changes
@@ -139,6 +155,7 @@
 ### Patch Changes
 
 - [`01f4b27`](https://github.com/serwist/serwist/commit/01f4b27152fd6fc4a9f5a39cc5636047a06346d0) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): dependencies maintenance
+
   - This patch updates all dependencies and bumps `glob` to fix a vulnerability.
 
 - Updated dependencies [[`01f4b27`](https://github.com/serwist/serwist/commit/01f4b27152fd6fc4a9f5a39cc5636047a06346d0)]:
@@ -186,6 +203,7 @@
 ### Patch Changes
 
 - [`de27be5`](https://github.com/serwist/serwist/commit/de27be5c8c48afc6122e046dc116696cedfc93e4) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): monthly dependencies maintenance
+
   - Just the regular stuff. Serwist 10 is still on the way!
 
 - Updated dependencies [[`de27be5`](https://github.com/serwist/serwist/commit/de27be5c8c48afc6122e046dc116696cedfc93e4)]:
@@ -263,9 +281,11 @@
 ### Patch Changes
 
 - [`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): updated all dependencies
+
   - We have updated all dependencies to latest, as usual.
 
 - [`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(frameworks): use `NetworkOnly` for `defaultCache` in dev
+
   - If we set `runtimeCaching` to an empty array, all preload responses are discarded, causing certain browsers to log a certain error message. This change fixes that error for developers using `defaultCache` in development mode.
 
 - Updated dependencies [[`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed), [`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed), [`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed)]:
@@ -290,12 +310,15 @@
 ### Major Changes
 
 - [#123](https://github.com/serwist/serwist/pull/123) [`db9f327`](https://github.com/serwist/serwist/commit/db9f3275cd2f78287516668b50a62cff7c1a4d1d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(svelte): moved Svelte integration into a separate package
+
   - IMPORTANT NOTE: with this change, `@serwist/svelte` no longer makes use of any of the Serwist build tools.
+
     - This is because SvelteKit itself is capable of generating a list of precache manifest, and we'd like to leverage
       that capability. Essentially, Serwist, from now, only handles the service worker side for SvelteKit.
     - If the old behaviour is preferred, [manual integration](https://serwist.pages.dev/docs/vite/recipes/svelte) is required.
 
   - To migrate, uninstall `@serwist/vite`, remove `@serwist/vite/integration/svelte.serwist` from vite.config.(js|ts), install `@serwist/svelte`, and then update your service-worker.ts:
+
     - Old:
 
     ```ts
@@ -372,6 +395,7 @@
 ### Patch Changes
 
 - [#123](https://github.com/serwist/serwist/pull/123) [`db7776e`](https://github.com/serwist/serwist/commit/db7776e6f55f4d1cf62ea8975c8460cb92c28138) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(svelte,next,vite): force `defaultCache` to only use `NetworkOnly` in development mode
+
   - This is to prevent files from being accidentally cached during development mode, which isn't the behaviour you would expect to see anyway.
   - URLs that are matched by these entries in production are now handled by `NetworkOnly` in development. No option to override this behaviour is provided, for it would provide little to no value. If you do need runtime caching to work during development, you have to copy `defaultCache` into your code.
   - As a reminder for those who extend `defaultCache`, it should be placed below any custom entry, since such an entry wouldn't ever be matched otherwise.
@@ -446,6 +470,7 @@
 ### Patch Changes
 
 - 6d294f9: refactor: migrate to GitLab
+
   - Serwist and `@ducanh2912/next-pwa` have migrated to GitLab.
   - This was the result of GitHub flagging my account, organizations, and repositories as spam. Sorry for the inconvenience.
 
@@ -480,6 +505,7 @@
 ### Patch Changes
 
 - [`db7776e`](https://github.com/serwist/serwist/commit/db7776e6f55f4d1cf62ea8975c8460cb92c28138) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(svelte,next,vite): force `defaultCache` to only use NetworkOnly in development mode
+
   - This is to prevent files from being accidentally cached during development mode, which isn't the behaviour you would expect to see anyway.
   - URLs that are matched by these entries in production are now handled by NetworkOnly in development. No option to override this behaviour is provided, for it would provide little to no value. If you do need runtime caching to work during development, you have to copy `defaultCache` into your code.
   - As a reminder for those who extend `defaultCache`, it should be placed below any custom entry, since such an entry wouldn't ever be matched otherwise.
@@ -577,7 +603,9 @@
 ### Major Changes
 
 - [`db9f327`](https://github.com/serwist/serwist/commit/db9f3275cd2f78287516668b50a62cff7c1a4d1d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(svelte): moved Svelte integration into a separate package
+
   - IMPORTANT NOTE: with this change, `@serwist/svelte` no longer makes use of any of the Serwist build tools.
+
     - This is because SvelteKit itself is capable of generating a list of precache manifest, and we'd like to leverage
       that capability. Essentially, Serwist, from now, only handles the service worker side for SvelteKit.
 
@@ -585,6 +613,7 @@
       to see how this should be implemented. A guide will be added to the docs soon.
 
   - To migrate, uninstall `@serwist/vite`, remove `@serwist/vite/integration/svelte.serwist` from vite.config.(js|ts), install `@serwist/svelte`, and then update your service-worker.ts:
+
     - Old:
 
     ```ts
