@@ -1,5 +1,19 @@
 # @serwist/webpack-plugin
 
+## 9.5.8
+
+### Patch Changes
+
+- [#351](https://github.com/serwist/serwist/pull/351) [`be7d645`](https://github.com/serwist/serwist/commit/be7d645e5336c859deb9faa13cb8faa96d4d2c27) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat: migrate to tsdown
+
+  - Migrated to tsdown for easier configuration and better build performance.
+
+  - Updated dependencies and removed unused ones.
+
+- Updated dependencies [[`be7d645`](https://github.com/serwist/serwist/commit/be7d645e5336c859deb9faa13cb8faa96d4d2c27)]:
+  - @serwist/build@9.5.8
+  - @serwist/utils@9.5.8
+
 ## 9.5.7
 
 ### Patch Changes
@@ -77,6 +91,7 @@
 ### Patch Changes
 
 - [`2d44bc1`](https://github.com/serwist/serwist/commit/2d44bc1ed2efc1868087c828a2d18abd44610a67) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(utils): publish `@serwist/utils`
+
   - This fixes `@serwist/utils` types being unresolvable when used in other packages.
 
 - Updated dependencies [[`2d44bc1`](https://github.com/serwist/serwist/commit/2d44bc1ed2efc1868087c828a2d18abd44610a67)]:
@@ -123,6 +138,7 @@
 ### Patch Changes
 
 - [`01f4b27`](https://github.com/serwist/serwist/commit/01f4b27152fd6fc4a9f5a39cc5636047a06346d0) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): dependencies maintenance
+
   - This patch updates all dependencies and bumps `glob` to fix a vulnerability.
 
 - Updated dependencies [[`01f4b27`](https://github.com/serwist/serwist/commit/01f4b27152fd6fc4a9f5a39cc5636047a06346d0)]:
@@ -161,6 +177,7 @@
 ### Minor Changes
 
 - [`852df26`](https://github.com/serwist/serwist/commit/852df2609f700d28de6433e0cb6669ade13c5b95) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - feat(build): migrate to Zod 4
+
   - This fixes issues with Zod validation.
   - We've migrated to `z.prettifyError`, meaning you can expect to see this new format of errors:
 
@@ -196,6 +213,7 @@
 ### Patch Changes
 
 - [`de27be5`](https://github.com/serwist/serwist/commit/de27be5c8c48afc6122e046dc116696cedfc93e4) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): monthly dependencies maintenance
+
   - Just the regular stuff. Serwist 10 is still on the way!
 
 - Updated dependencies [[`de27be5`](https://github.com/serwist/serwist/commit/de27be5c8c48afc6122e046dc116696cedfc93e4)]:
@@ -243,6 +261,7 @@
 ### Patch Changes
 
 - [#192](https://github.com/serwist/serwist/pull/192) [`ceea5d1`](https://github.com/serwist/serwist/commit/ceea5d1d56dfec9b3aafba41bd0b0f2916a4ac17) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(build): remove extraneous Node.js API wrappers
+
   - Doesn't seem that we really need `fs-extra`, `pathe`, `fast-json-stable-stringify`, or `upath`, so let's just remove them.
   - This also adds tests for Windows to ensure that we don't mess up.
 
@@ -254,6 +273,7 @@
 ### Patch Changes
 
 - [#189](https://github.com/serwist/serwist/pull/189) [`12f6e82`](https://github.com/serwist/serwist/commit/12f6e824020ded438e0afa91a570d8e321a1a3f7) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(webpack-plugin): explicitly call webpack's internal `WebWorkerTemplatePlugin`
+
   - This plugin calls `ArrayPushCallbackChunkFormatPlugin` on our child compiler, allowing chunks to work properly.
 
 - Updated dependencies []:
@@ -264,6 +284,7 @@
 ### Patch Changes
 
 - [#168](https://github.com/serwist/serwist/pull/168) [`c7bed2b`](https://github.com/serwist/serwist/commit/c7bed2b3a16be9b60cbb485500a3e893615f321d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(dependencies): reverted `glob` to v10 and `rimraf` to v5
+
   - Turns out `glob` v11 and `rimraf` v6 drops support for Node.js 18, so we are back to v10 and v5 for now.
   - This also adds test for Node.js 18 and 22.
 
@@ -277,6 +298,7 @@
 - [`db66e96`](https://github.com/serwist/serwist/commit/db66e96cb7fd8857200efc261d60cffaca1c0177) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): monthly dependencies maintenance
 
 - [`db66e96`](https://github.com/serwist/serwist/commit/db66e96cb7fd8857200efc261d60cffaca1c0177) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(webpack-plugin): compatibility with Rspack
+
   - Thanks @JoseVSeb! Quoting their message:
 
   > Currently, `@serwist/webpack-plugin` fails to run in `Rspack` and `Rsbuild` by throwing `TypeError: Cannot set property warnings of #<Compilation> which has only a getter`.
@@ -293,6 +315,7 @@
 ### Patch Changes
 
 - [`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): updated all dependencies
+
   - We have updated all dependencies to latest, as usual.
 
 - Updated dependencies [[`c0d65aa`](https://github.com/serwist/serwist/commit/c0d65aa132fc93edd4fc52a7e2ee70df9a87b0ed)]:
@@ -317,9 +340,11 @@
 ### Major Changes
 
 - [#123](https://github.com/serwist/serwist/pull/123) [`add4fdd`](https://github.com/serwist/serwist/commit/add4fdd390555053d023faebfe1dca41510b2e2f) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(build): moved framework-specific types out of `@serwist/build`
+
   - Types the likes of `WebpackPartial`, `WebpackInjectManifestOptions`, `ViteInjectManifestOptions`, along with their according validators have been moved out of `@serwist/build`.
   - This design, a relic of Workbox, never made any sense in the first place. As such, we are getting rid of it and migrating to a design where types and validators are co-located with their related packages.
   - To migrate, update the imports:
+
     - `@serwist/build.WebpackPartial` -> `@serwist/webpack-plugin.WebpackPartial`
     - `@serwist/build.WebpackInjectManifestOptions` -> `@serwist/webpack-plugin.InjectManifestOptions`
     - `@serwist/build.WebpackInjectManifestPartial` -> `Omit<import("@serwist/webpack-plugin").InjectManifestOptions, keyof import("@serwist/build").BasePartial | keyof import("@serwist/build").InjectPartial | keyof import("@serwist/webpack-plugin").WebpackPartial | keyof import("@serwist/build").OptionalSwDestPartial>`
@@ -328,6 +353,7 @@
   - With this change, validators and schemas have also been made public. Validators can be imported from "/" files, whereas schemas can be imported from "/schema" ones.
 
 - [#123](https://github.com/serwist/serwist/pull/123) [`4a5d51a`](https://github.com/serwist/serwist/commit/4a5d51ac8e9ed97b97754d8164990a08be65846d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(peerDeps): bump minimum supported TypeScript and Node.js version
+
   - From now, we only support TypeScript versions later than 5.0.0 and Node.js ones later than 18.0.0.
   - To migrate, simply update these tools.
 
@@ -339,15 +365,19 @@
   ```
 
 - [#123](https://github.com/serwist/serwist/pull/123) [`dc12dda`](https://github.com/serwist/serwist/commit/dc12ddad60526db921b557f8dc5808ba17fc4d8e) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(webpack-plugin): removed `mode`
+
   - This option was already a no-op before that, so this simply removes it from the types.
   - To migrate, just remove `mode` from your options.
 
 - [#123](https://github.com/serwist/serwist/pull/123) [`7b55ac5`](https://github.com/serwist/serwist/commit/7b55ac526a73826cb2d179a863d7eb29182616ee) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(js): dropped the CommonJS build
+
   - Serwist is now an ESM-only project.
   - This was done because our tooling around supporting CJS had always been crappy: it was slow, had no way of supporting emitting `.d.cts` (we used to copy `.d.ts` to `.d.cts`), and was too error-prone (there were various issues of our builds crashing due to an ESM-only package slipping in).
   - If you already use ESM, there's nothing to be done. Great! Otherwise, to migrate:
+
     - Migrate to ESM if possible.
     - Otherwise, use dynamic imports. For example, to migrate to the new `@serwist/next`:
+
       - Old:
 
       ```js
@@ -450,6 +480,7 @@
 ### Patch Changes
 
 - 6d294f9: refactor: migrate to GitLab
+
   - Serwist and `@ducanh2912/next-pwa` have migrated to GitLab.
   - This was the result of GitHub flagging my account, organizations, and repositories as spam. Sorry for the inconvenience.
 
@@ -496,9 +527,11 @@
 ### Major Changes
 
 - [`add4fdd`](https://github.com/serwist/serwist/commit/add4fdd390555053d023faebfe1dca41510b2e2f) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(build): moved framework-specific types out of `@serwist/build`
+
   - Types the likes of `WebpackPartial`, `WebpackInjectManifestOptions`, `ViteInjectManifestOptions`, along with their according validators have been moved out of `@serwist/build`.
   - This design, a relic of Workbox, never made any sense in the first place. As such, we are getting rid of it and migrating to a design where types and validators are co-located with their related packages.
   - To migrate, update the imports:
+
     - `@serwist/build.WebpackPartial` -> `@serwist/webpack-plugin.WebpackPartial`
     - `@serwist/build.WebpackInjectManifestOptions` -> `@serwist/webpack-plugin.InjectManifestOptions`
     - `@serwist/build.WebpackInjectManifestPartial` -> `Omit<import("@serwist/webpack-plugin").InjectManifestOptions, keyof import("@serwist/build").BasePartial | keyof import("@serwist/build").InjectPartial | keyof import("@serwist/webpack-plugin").WebpackPartial | keyof import("@serwist/build").OptionalSwDestPartial>`
@@ -530,6 +563,7 @@
 ### Minor Changes
 
 - [`4de5675`](https://github.com/serwist/serwist/commit/4de56759940875a217a1840261d45d5d46aeed77) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(webpack,next): allow webpack to be an optional `peerDependency`
+
   - Since we support frameworks that ship a prebundled webpack, such as Next.js, it would be nice if we can take advantage of that as well.
 
   - As a result, webpack is now an optional `peerDependency` for `@serwist/webpack-plugin` and is no longer a `peerDependency` for `@serwist/next`. Thanks to the fact that we currently don't use any webpack plugin, it is also not indirectly installed.
@@ -620,6 +654,7 @@
 ### Major Changes
 
 - [`30e4c25`](https://github.com/serwist/serwist/commit/30e4c25ac9fc319902c75682b16a5ba31bfbae58) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(peerDeps): bump minimum supported TypeScript and Node.js version
+
   - From now, we only support TypeScript versions later than 5.0.0 and Node.js ones later than 18.0.0.
   - To migrate, simply update these tools.
 
@@ -631,11 +666,14 @@
   ```
 
 - [`defdd5a`](https://github.com/serwist/serwist/commit/defdd5a50f80e6c58e00dff8c608466c02fdc459) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - refactor(js): migrate to ESM-only
+
   - Serwist is now an ESM-only project.
   - This was done because our tooling around supporting CJS had always been crappy: it was slow, had no way of supporting emitting `.d.cts` (we used to copy `.d.ts` to `.d.cts`), and was too error-prone (there were various issues of our builds crashing due to an ESM-only package slipping in).
   - If you already use ESM, there's nothing to be done. Great! Otherwise, to migrate:
+
     - Migrate to ESM if possible.
     - Otherwise, use dynamic imports. For example, to migrate to the new `@serwist/next`:
+
       - Old:
 
       ```js
@@ -712,6 +750,7 @@
 ### Patch Changes
 
 - [#32](https://github.com/serwist/serwist/pull/32) [`87fea3c`](https://github.com/serwist/serwist/commit/87fea3c8ce51eab78404e64887b3840b9f633d9d) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(docs): changed docs's URL
+
   - Currently we deploy at Cloudflare Pages.
 
 - Updated dependencies [[`87fea3c`](https://github.com/serwist/serwist/commit/87fea3c8ce51eab78404e64887b3840b9f633d9d)]:
@@ -722,6 +761,7 @@
 ### Patch Changes
 
 - [`bd75087`](https://github.com/serwist/serwist/commit/bd7508722a50bc2191d24a1e6e55a835060ba350) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(cjs): fixed CommonJS builds crashing
+
   - Turns out we also need `chunkFileNames`, otherwise Rollup would always use ".js" for all the chunks. What in the world.
 
 - Updated dependencies []:
@@ -753,6 +793,7 @@
 ### Patch Changes
 
 - [`beec2d1`](https://github.com/serwist/serwist/commit/beec2d1d4bf1747acc15567e9accab68e37980cc) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(webpack-plugin): fixed default `swDest` resolving to `swSrc` with ".js" extension
+
   - This behaviour is neither desired nor intended and as such has been fixed.
   - It now resolves to `${output.path}/${swSrc.name}.js` by default, same as `workbox-webpack-plugin`.
   - It is not my desire to cause a breaking change and not follow SemVer, but given that our current users are migrants from `@ducanh2912/next-pwa` and as such are unlikely to use `@serwist/webpack-plugin` rather than `@serwist/next`, this should not cause any harm.
@@ -765,6 +806,7 @@
 ### Patch Changes
 
 - [#10](https://github.com/serwist/serwist/pull/10) [`52edfe2`](https://github.com/serwist/serwist/commit/52edfe2f9e4ff2007747dd038023dbc94af52698) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(node-16-cjs): added type support for NodeNext with CommonJS
+
   - The "fix" is really simple - we copy `.d.ts` to `.old.d.cts` 💀
   - This also fixes the issue where using `@serwist/build`, `@serwist/webpack-plugin`, and their dependents with CommonJS crashes due to us using `pretty-bytes`, which is an ESM package.
 
