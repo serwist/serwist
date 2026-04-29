@@ -23,26 +23,27 @@
   "repository": "https://github.com/serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",
   "homepage": "https://serwist.pages.dev",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
     }
   },
   "dependencies": {
     "serwist": "workspace:*"
   },
   "scripts": {
-    "build": "rimraf dist && NODE_ENV=production rollup --config rollup.config.js",
+    "build": "rimraf dist && NODE_ENV=production tsdown",
     "lint": "biome lint ./src",
     "typecheck": "tsc"
   },
   "devDependencies": {
     "@serwist/configs": "workspace:*",
-    "rollup": "4.59.0",
-    "typescript": "5.9.3"
+    "rollup": "4.60.2",
+    "tsdown": "0.21.10",
+    "typescript": "6.0.3"
   },
   "peerDependencies": {
     "typescript": ">=5.0.0"

@@ -10,12 +10,12 @@
     "preview": "rsbuild preview"
   },
   "dependencies": {
-    "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react": "19.2.5",
+    "react-dom": "19.2.5"
   },
   "devDependencies": {
-    "@rsbuild/core": "1.7.3",
-    "@rsbuild/plugin-react": "1.4.6",
+    "@rsbuild/core": "2.0.3",
+    "@rsbuild/plugin-react": "2.0.0",
     "@serwist/webpack-plugin": "latest",
     "@serwist/window": "workspace:*",
     "@types/react": "19.2.14",

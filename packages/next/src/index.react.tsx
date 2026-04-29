@@ -1,6 +1,6 @@
 import { Serwist } from "@serwist/window";
 import { isCurrentPageOutOfScope } from "@serwist/window/internal";
-import { type ReactNode, useEffect, useState } from "react";
+import { type JSX, type ReactNode, useEffect, useState } from "react";
 import { SerwistContext, useSerwist } from "./lib/context.js";
 
 export interface SerwistProviderProps {
@@ -32,7 +32,7 @@ export function SerwistProvider({
   reloadOnOnline = true,
   options,
   children,
-}: SerwistProviderProps) {
+}: SerwistProviderProps): JSX.Element {
   const [serwist] = useState(() => {
     if (typeof window === "undefined") return null;
     if (disable) return null;

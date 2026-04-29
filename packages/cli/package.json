@@ -27,23 +27,23 @@
   "repository": "https://github.com/serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",
   "homepage": "https://serwist.pages.dev",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "typesVersions": {
     "*": {
       "schema": [
-        "./dist/index.schema.d.ts"
+        "./dist/index.schema.d.mts"
       ]
     }
   },
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
     },
     "./schema": {
-      "types": "./dist/index.schema.d.ts",
-      "default": "./dist/index.schema.js"
+      "types": "./dist/index.schema.d.mts",
+      "default": "./dist/index.schema.mjs"
     },
     "./package.json": "./package.json"
   },
@@ -51,13 +51,13 @@
     "serwist": "cli.js"
   },
   "scripts": {
-    "build": "rimraf dist && NODE_ENV=production rollup --config rollup.config.js",
-    "dev": "rollup --config rollup.config.js --watch",
+    "build": "rimraf dist && NODE_ENV=production tsdown",
+    "dev": "tsdown --watch",
     "lint": "biome lint ./src",
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@inquirer/prompts": "8.3.0",
+    "@inquirer/prompts": "8.4.2",
     "@serwist/build": "workspace:*",
     "@serwist/utils": "workspace:*",
     "chalk": "5.6.2",
@@ -76,9 +76,10 @@
     "@types/inquirer": "9.0.9",
     "@types/stringify-object": "4.0.5",
     "@types/update-notifier": "6.0.8",
-    "esbuild": "0.27.4",
-    "rollup": "4.59.0",
-    "typescript": "5.9.3"
+    "esbuild": "0.28.0",
+    "rollup": "4.60.2",
+    "tsdown": "0.21.10",
+    "typescript": "6.0.3"
   },
   "peerDependencies": {
     "esbuild": ">=0.25.0 <1.0.0"

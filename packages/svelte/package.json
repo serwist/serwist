@@ -67,8 +67,8 @@
     "serwist": "workspace:*"
   },
   "devDependencies": {
-    "@sveltejs/kit": "2.55.0",
-    "svelte": "5.53.12"
+    "@sveltejs/kit": "2.58.0",
+    "svelte": "5.55.5"
   },
   "peerDependencies": {
     "@sveltejs/kit": ">=2.0.0",

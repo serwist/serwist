@@ -82,7 +82,7 @@ Follow https://github.com/serwist/serwist/issues/54 for progress on Serwist + Tu
         } satisfies Record<`${SerwistNextOptionsKey}.${Exclude<keyof SerwistNextOptions, "swEntryWorker">}`, string | undefined>),
       );
 
-      const swEntryJs = path.join(dirname, "sw-entry.js");
+      const swEntryJs = path.join(dirname, "sw-entry.mjs");
       const entry = config.entry as () => Promise<Record<string, string[] | string>>;
       config.entry = async () => {
         const entries = await entry();
@@ -157,7 +157,7 @@ Follow https://github.com/serwist/serwist/issues/54 for progress on Serwist + Tu
         let swEntryWorkerDest: string | undefined;
 
         if (shouldBuildSWEntryWorker) {
-          const swEntryWorkerSrc = path.join(dirname, "sw-entry-worker.js");
+          const swEntryWorkerSrc = path.join(dirname, "sw-entry-worker.mjs");
           const swEntryName = `swe-worker-${getContentHash(swEntryWorkerSrc, dev)}.js`;
           swEntryPublicPath = path.posix.join(basePath, swEntryName);
           swEntryWorkerDest = path.join(destDir, swEntryName);
