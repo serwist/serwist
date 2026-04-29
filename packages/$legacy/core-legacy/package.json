@@ -50,8 +50,6 @@
     "serwist": "workspace:*"
   },
   "devDependencies": {
-    "@serwist/configs": "workspace:*",
-    "rollup": "4.60.2",
     "tsdown": "0.21.10",
     "typescript": "6.0.3"
   },

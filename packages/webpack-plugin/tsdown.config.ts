@@ -6,9 +6,9 @@ const config: UserConfig = {
     "index.internal": "src/index.internal.ts",
     "index.schema": "src/index.schema.ts",
   },
-  dts: {
-    sourcemap: true,
-  },
+  deps: { onlyBundle: [] },
+  outputOptions: { chunkFileNames: "chunks/[name]-[hash].js" },
+  dts: { sourcemap: true },
 };
 
 export default config;

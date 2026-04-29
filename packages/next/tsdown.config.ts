@@ -10,9 +10,9 @@ const config: UserConfig = {
     "sw-entry": "src/sw-entry.ts",
     "sw-entry-worker": "src/sw-entry-worker.ts",
   },
-  dts: {
-    sourcemap: true,
-  },
+  deps: { onlyBundle: [] },
+  outputOptions: { chunkFileNames: "chunks/[name]-[hash].js" },
+  dts: { sourcemap: true },
 };
 
 export default config;
