@@ -56,11 +56,11 @@
   "dependencies": {
     "@serwist/utils": "workspace:*",
     "common-tags": "1.8.2",
-    "glob": "10.5.0",
+    "glob": "13.0.6",
     "pretty-bytes": "6.1.1",
     "source-map": "0.8.0-beta.0",
     "type-fest": "5.6.0",
-    "zod": "4.3.6"
+    "zod": "4.4.1"
   },
   "devDependencies": {
     "@types/common-tags": "1.8.4",

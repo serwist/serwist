@@ -81,9 +81,9 @@
     "@serwist/build": "workspace:*",
     "@serwist/utils": "workspace:*",
     "serwist": "workspace:*",
-    "glob": "10.5.0",
+    "glob": "13.0.6",
     "kolorist": "1.8.0",
-    "zod": "4.3.6"
+    "zod": "4.4.1"
   },
   "devDependencies": {
     "serwist": "workspace:*",

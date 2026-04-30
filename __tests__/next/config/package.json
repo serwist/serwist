@@ -1,0 +1,13 @@
+{
+  "name": "@serwist-tests/next-config",
+  "type": "module",
+  "scripts": {
+    "dev": "serwist build && next dev",
+    "build": "serwist build && next build"
+  },
+  "devDependencies": {
+    "@serwist/cli": "workspace:*",
+    "esbuild": "0.28.0",
+    "next": "16.2.4"
+  }
+}

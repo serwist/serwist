@@ -19,7 +19,7 @@ export class NextInstanceStart extends NextInstance {
     console.log("running next build...");
 
     await new Promise<void>((resolve, reject) => {
-      this._process = spawn("pnpm", ["next", "build", this._turbo ? "" : "--webpack"], spawnOpts);
+      this._process = spawn("pnpm", this._script?.build ?? ["next", "build", this._turbo ? "" : "--webpack"], spawnOpts);
       this._process.stdout.on("data", (chunk: Buffer) => {
         const msg = chunk.toString();
         this._cliOutput += msg;
@@ -47,7 +47,7 @@ export class NextInstanceStart extends NextInstance {
     console.log("running next start...");
 
     return new Promise<void>((resolve, reject) => {
-      this._process = spawn("pnpm", ["next", "start"], spawnOpts);
+      this._process = spawn("pnpm", this._script?.start ?? ["next", "start"], spawnOpts);
       this._process.stdout.on("data", (chunk: Buffer) => {
         const msg = chunk.toString();
         this._cliOutput += msg;

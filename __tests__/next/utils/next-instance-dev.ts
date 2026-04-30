@@ -19,7 +19,7 @@ export class NextInstanceDev extends NextInstance {
     console.log("running next dev...");
 
     return new Promise<void>((resolve, reject) => {
-      this._process = spawn("pnpm", ["next", "dev", this._turbo ? "" : "--webpack"], spawnOpts);
+      this._process = spawn("pnpm", this._script?.dev ?? ["next", "dev", this._turbo ? "" : "--webpack"], spawnOpts);
       this._process.stdout.on("data", (chunk: Buffer) => {
         const msg = chunk.toString();
         this._cliOutput += msg;

@@ -1,7 +1,7 @@
-import path from "node:path";
-import { getFileManifestEntries, type InjectManifestOptions, injectManifest } from "@serwist/build";
+import { getFileManifestEntries, injectManifest, type InjectManifestOptions } from "@serwist/build";
 import chokidar from "chokidar";
 import { glob } from "glob";
+import path from "node:path";
 import prettyBytes from "pretty-bytes";
 
 import type { BuildOptions } from "../types.js";
@@ -73,7 +73,7 @@ export const runBuildCommand = async ({ config, watch }: BuildCommand) => {
     metafile: true,
     sourcemap: isDev,
     format: "esm",
-    target: ["chrome64", "edge79", "firefox67", "opera51", "safari12"],
+    target: ["chrome111", "edge111", "firefox111", "safari16"],
     treeShaking: true,
     // `minify` would also automatically set `NODE_ENV` to `"production"` when true.
     minify: !isDev,

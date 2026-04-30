@@ -81,7 +81,7 @@
     "kolorist": "1.8.0",
     "semver": "7.7.4",
     "serwist": "workspace:*",
-    "zod": "4.3.6"
+    "zod": "4.4.1"
   },
   "devDependencies": {
     "@rolldown/plugin-babel": "0.2.3",

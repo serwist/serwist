@@ -87,11 +87,11 @@
     "@serwist/webpack-plugin": "workspace:*",
     "@serwist/window": "workspace:*",
     "browserslist": "4.28.2",
-    "glob": "10.5.0",
+    "glob": "13.0.6",
     "kolorist": "1.8.0",
     "semver": "7.7.4",
     "serwist": "workspace:*",
-    "zod": "4.3.6"
+    "zod": "4.4.1"
   },
   "devDependencies": {
     "@rolldown/plugin-babel": "0.2.3",

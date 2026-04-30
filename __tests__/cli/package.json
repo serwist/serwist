@@ -1,0 +1,15 @@
+{
+  "name": "@serwist-tests/cli",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "vitest run --config ../vitest.config.ts"
+  },
+  "devDependencies": {
+    "@serwist/build": "workspace:*",
+    "@serwist/cli": "workspace:*",
+    "serwist": "workspace:*",
+    "vitest": "4.1.5"
+  }
+}

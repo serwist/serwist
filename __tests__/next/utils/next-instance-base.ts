@@ -1,13 +1,20 @@
+import * as cheerio from "cheerio";
+import { glob } from "glob";
 import type { ChildProcessWithoutNullStreams } from "node:child_process";
 import { lstatSync } from "node:fs";
 import fs from "node:fs/promises";
-import * as cheerio from "cheerio";
-import { glob } from "glob";
 import type { PackageJson } from "type-fest";
 import treeKill from "./tree-kill.ts";
 
+export interface NextBuildScript {
+  dev?: string[];
+  build?: string[];
+  start?: string[];
+}
+
 export interface NextInstanceOpts {
   turbo?: boolean;
+  script?: NextBuildScript;
   skipInstall: boolean;
   dependencies?: PackageJson["dependencies"];
 }
@@ -18,6 +25,7 @@ export abstract class NextInstance {
   protected _url: string;
   protected _skipInstall: boolean;
   protected _turbo: boolean;
+  protected _script: NextBuildScript | undefined;
   protected _cliOutput: string;
   protected _process: ChildProcessWithoutNullStreams | undefined;
   protected _dependencies: PackageJson["dependencies"] | undefined;
@@ -26,6 +34,7 @@ export abstract class NextInstance {
     this._url = "";
     this._appTestDir = "";
     this._turbo = opts.turbo ?? false;
+    this._script = opts.script;
     this._skipInstall = opts.skipInstall;
     this._cliOutput = "";
     this._process = undefined;
