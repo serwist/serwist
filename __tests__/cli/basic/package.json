@@ -1,0 +1,7 @@
+{
+  "name": "@serwist-tests/cli-basic",
+  "type": "module",
+  "devDependencies": {
+    "@serwist/cli": "workspace:*"
+  }
+}

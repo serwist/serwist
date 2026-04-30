@@ -63,6 +63,9 @@ importers:
 
   __tests__/build:
     devDependencies:
+      '@serwist-tests/utils':
+        specifier: workspace:*
+        version: link:../utils
       '@serwist/build':
         specifier: workspace:*
         version: link:../../packages/build
@@ -77,6 +80,9 @@ importers:
 
   __tests__/cli:
     devDependencies:
+      '@serwist-tests/utils':
+        specifier: workspace:*
+        version: link:../utils
       '@serwist/build':
         specifier: workspace:*
         version: link:../../packages/build
@@ -89,6 +95,12 @@ importers:
       vitest:
         specifier: 4.1.5
         version: 4.1.5(@types/node@25.6.0)(vite@8.0.10(@types/node@25.6.0)(esbuild@0.28.0)(jiti@2.6.1)(terser@5.46.0)(yaml@2.8.2))
+
+  __tests__/cli/basic:
+    devDependencies:
+      '@serwist/cli':
+        specifier: workspace:*
+        version: link:../../../packages/cli
 
   __tests__/next:
     devDependencies:
@@ -143,6 +155,8 @@ importers:
       next:
         specifier: 16.2.4
         version: 16.2.4(@babel/core@7.29.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+
+  __tests__/utils: {}
 
   examples/cli:
     devDependencies:
