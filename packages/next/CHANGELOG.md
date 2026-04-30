@@ -1,5 +1,20 @@
 # @serwist/next
 
+## 9.5.9
+
+### Patch Changes
+
+- [`d287534`](https://github.com/serwist/serwist/commit/d28753494057da13e71bbf0e4d48876da623a2df) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(turbo, next): set `"jsx"` to `"react-jsx"`
+
+  - This tells tsdown to transpile JSX when building packages.
+
+- Updated dependencies []:
+  - @serwist/build@9.5.9
+  - @serwist/utils@9.5.9
+  - @serwist/webpack-plugin@9.5.9
+  - @serwist/window@9.5.9
+  - serwist@9.5.9
+
 ## 9.5.8
 
 ### Patch Changes
