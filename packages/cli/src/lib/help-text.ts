@@ -23,8 +23,16 @@ Commands:
     time a file in the precache manifest changes. See 
     https://serwist.pages.dev/docs/cli for more information.
 
+  build [<path/to/config.js>] [--watch]
+    Takes a service worker file and bundles it with a precache manifest
+    injected using esbuild. The precache manifest is generated based
+    on the options in the config file (defaults to 'serwist.config.js').
+    If '--watch' is provided, the CLI will stay running and rebuild
+    the service worker each time a file in the precache manifest changes.
+    See https://serwist.pages.dev/docs/cli for more information.
+
 Configuration file:
-  The 'inject-manifest' command expects the configuration 
+  The 'inject-manifest' and 'build' commands expect the configuration 
   file to be a JavaScript file. By default, it is assumed 
   to be named 'serwist.config.js' and located in the current
   directory, but this can be overridden.
@@ -32,4 +40,5 @@ Configuration file:
 Examples:
   $ serwist wizard
   $ serwist inject-manifest configs/serwist-config.js
+  $ serwist build configs/serwist-config.js
 `;
