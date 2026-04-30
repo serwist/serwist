@@ -1,5 +1,19 @@
 # @serwist/cli
 
+## 9.5.10
+
+### Patch Changes
+
+- [`b29bb67`](https://github.com/serwist/serwist/commit/b29bb6770fe6c320eb5e960307b3f0440dba7a50) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - fix(cli): fix dist import
+
+  - cli.js was previously pointing to dist/bin.js, which no longer exists. This change updates the import path to dist/cli.mjs, ensuring that the CLI can be executed correctly.
+
+  - Tests for `@serwist/next`'s configurator mode and `@serwist/cli` have been added to prevent this issue from reoccurring.
+
+- Updated dependencies []:
+  - @serwist/build@9.5.10
+  - @serwist/utils@9.5.10
+
 ## 9.5.9
 
 ### Patch Changes
