@@ -1,3 +1,5 @@
+import pluginBabel from "@rolldown/plugin-babel";
+import { reactCompilerPreset } from "@vitejs/plugin-react";
 import type { UserConfig } from "tsdown";
 
 const config: UserConfig = {
@@ -11,6 +13,11 @@ const config: UserConfig = {
     "sw-entry-worker": "src/sw-entry-worker.ts",
   },
   deps: { onlyBundle: [] },
+  plugins: [
+    pluginBabel({
+      presets: [reactCompilerPreset()],
+    }),
+  ],
   outputOptions: { chunkFileNames: "chunks/[name]-[hash].js" },
   dts: { sourcemap: true },
 };

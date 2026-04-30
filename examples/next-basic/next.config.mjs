@@ -1,6 +1,6 @@
 // @ts-check
-import { spawnSync } from "node:child_process";
 import withSerwistInit from "@serwist/next";
+import { spawnSync } from "node:child_process";
 
 // Using `git rev-parse HEAD` might not the most efficient
 // way of determining a revision. You may prefer to use

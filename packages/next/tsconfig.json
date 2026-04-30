@@ -2,7 +2,7 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "module": "NodeNext",
-    "jsx": "preserve"
+    "jsx": "react-jsx"
   },
   "include": ["globals.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "dist", "__tests__"]
