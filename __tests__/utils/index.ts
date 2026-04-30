@@ -12,9 +12,10 @@ export const createCommandState = (): CommandState => ({
 
 export const runCommand = (command: string, args: string[], cwd: string, state: CommandState) => {
   return new Promise<void>((resolve, reject) => {
-    const build = spawn(command, args, {
+    const isWindows = process.platform === "win32";
+    const build = spawn(isWindows ? `${command} ${args.join(" ")}` : command, isWindows ? [] : args, {
       cwd,
-      shell: process.platform === "win32",
+      shell: isWindows,
       env: {
         ...process.env,
         NODE_ENV: "" as any,
@@ -32,8 +33,8 @@ export const runCommand = (command: string, args: string[], cwd: string, state: 
       state.cliOutput += msg;
     });
 
-    build.stderr.on("error", (err) => {
-      reject(err);
+    build.on("error", (err) => {
+      reject(new Error(`Failed to run '${command}${args.length > 0 ? ` ${args.join(" ")}` : ""}' with log:\n${state.cliOutput}`, { cause: err }));
     });
 
     build.on("close", (code) => {
