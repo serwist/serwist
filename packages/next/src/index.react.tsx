@@ -1,3 +1,4 @@
+"use client";
 import { Serwist } from "@serwist/window";
 import { isCurrentPageOutOfScope } from "@serwist/window/internal";
 import { type JSX, type ReactNode, useEffect, useState } from "react";
