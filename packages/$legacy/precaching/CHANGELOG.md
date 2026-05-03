@@ -1,5 +1,12 @@
 # @serwist/precaching
 
+## 9.5.11
+
+### Patch Changes
+
+- Updated dependencies []:
+  - serwist@9.5.11
+
 ## 9.5.10
 
 ### Patch Changes

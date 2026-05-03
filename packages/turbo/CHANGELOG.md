@@ -1,5 +1,19 @@
 # @serwist/turbopack
 
+## 9.5.11
+
+### Patch Changes
+
+- [`47a2b2a`](https://github.com/serwist/serwist/commit/47a2b2ae0fc7be46b2fc9e0dbbe60fc40fd571f2) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(next, turbo): added `"use client"` to index.react.tsx
+
+  - Rolldown allows [the usage of additional directives such as `"use client"`](https://rolldown.rs/in-depth/directives#other-directives) when the directive is not in the top-level scope or when the directive is in the top-level scope, and either the module is an entry module, or `output.preserveModules` is enabled. Given that index.react.tsx is an entry module, we can add the `"use client"` directive to it, and it will be preserved in the output. This allows users to import the file directly in React Server Components without needing to add the directive themselves.
+
+- Updated dependencies []:
+  - @serwist/build@9.5.11
+  - @serwist/utils@9.5.11
+  - @serwist/window@9.5.11
+  - serwist@9.5.11
+
 ## 9.5.10
 
 ### Patch Changes
