@@ -1,0 +1,26 @@
+{
+  "name": "@serwist-example/rolldown-react-basic",
+  "version": "1.0.0",
+  "type": "module",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "rolldown --watch",
+    "build": "rimraf dist && rolldown -c"
+  },
+  "dependencies": {
+    "react": "19.2.5",
+    "react-dom": "19.2.5"
+  },
+  "devDependencies": {
+    "@rollup/plugin-html": "2.0.0",
+    "@serwist/window": "latest",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "magic-string": "0.30.21",
+    "rimraf": "6.1.3",
+    "rolldown": "1.0.0-rc.18",
+    "rolldown-plugin-serwist": "latest",
+    "serwist": "latest"
+  }
+}
