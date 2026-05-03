@@ -23,7 +23,28 @@ const addChunkFilter = (options: OutputOptions) => {
         };
 };
 
-const postprocessPlugin: Plugin = {
+/**
+ * Creates an importer function that generates `importScripts` statements for the given
+ * import URI if it hasn't been imported before. The import URI is resolved from the service
+ * worker's perspective based on the provided base path.
+ * 
+ * @param importBase The base path to resolve import URIs against.
+ * @returns A function that takes an import URI and returns an `importScripts` statement if
+ * the URI hasn't been imported before, or an empty string if it has.
+ */
+const createImporter = (importBase: string) => {
+  const imported = new Set<string>();
+  return (importUri: string) => {
+    const resolvedImportUri = path.join(importBase, importUri);
+    if (!imported.has(resolvedImportUri)) {
+      imported.add(resolvedImportUri);
+      return `importScripts("${resolvedImportUri}");`;
+    }
+    return "";
+  };
+};
+
+const postprocessPlugin = (swDestDirectory: string): Plugin => ({
   name: "rolldown-plugin-serwist:postprocess",
   outputOptions(opts) {
     addChunkFilter(opts);
@@ -34,9 +55,10 @@ const postprocessPlugin: Plugin = {
     },
     async handler(code, chunk) {
       let hoisted = "";
-      const imported = new Set<string>();
       const magicFile = new RolldownMagicString(code);
       const chunkDirectory = path.dirname(chunk.fileName);
+      // Resolve the import URI from the service worker's perspective due to how `importScripts` works.
+      const importIfNotExists = createImporter(path.relative(swDestDirectory, chunkDirectory));
 
       const ast = parseSync(chunk.name, code);
       const staticImports = ast.module.staticImports;
@@ -52,18 +74,18 @@ const postprocessPlugin: Plugin = {
       for (const importGroup of staticImports) {
         const importUri = importGroup.moduleRequest.value;
         if (importUri.startsWith(".")) {
-          let importHeader = "";
+          // The imported bindings are grouped under their chunk paths relative to the output directory.
           const importChunkName = path.join(chunkDirectory, importUri);
-          if (!imported.has(importUri)) {
-            imported.add(importUri);
-            importHeader = `importScripts("./${importChunkName}");`;
-          }
           const importEntries = importGroup.entries
             .map((im) =>
               im.importName.name === im.localName.value ? im.localName.value : `${im.importName.name ?? "default"}: ${im.localName.value}`,
             )
             .join(",");
-          magicFile.update(importGroup.start, importGroup.end, `${importHeader}const { ${importEntries} } = globalThis["${importChunkName}"];`);
+          magicFile.update(
+            importGroup.start,
+            importGroup.end,
+            `${importIfNotExists(importUri)}const { ${importEntries} } = globalThis["${importChunkName}"];`,
+          );
         } else {
           hoisted += magicFile.slice(importGroup.start, importGroup.end);
           magicFile.remove(importGroup.start, importGroup.end);
@@ -73,13 +95,13 @@ const postprocessPlugin: Plugin = {
       for (const importExpression of dynamicImports) {
         const importUri = importExpression.moduleRequest.value;
         if (importUri.startsWith(".")) {
-          let importHeader = "";
+          // The imported bindings are grouped under their chunk paths relative to the output directory.
           const importChunkName = path.join(chunkDirectory, importUri);
-          if (!imported.has(importUri)) {
-            imported.add(importUri);
-            importHeader = `importScripts("./${importChunkName}");`;
-          }
-          magicFile.update(importExpression.start, importExpression.end, `${importHeader}Promise.resolve(globalThis["${importChunkName}"])`);
+          magicFile.update(
+            importExpression.start,
+            importExpression.end,
+            `${importIfNotExists(importUri)}Promise.resolve(globalThis["${importChunkName}"])`,
+          );
         }
       }
 
@@ -97,7 +119,7 @@ const postprocessPlugin: Plugin = {
       return magicFile;
     },
   },
-};
+});
 
 export const serwist = (options?: PluginOptions): Plugin => {
   if (!options?.swSrc || !options?.swDest) {
@@ -105,7 +127,9 @@ export const serwist = (options?: PluginOptions): Plugin => {
   }
 
   const swSrc = options.swSrc;
-  const swDest = options.swDest;
+  const swDest = path.parse(options.swDest);
+  const swDestDirectory = swDest.dir;
+  const swDestWithoutExtension = path.join(swDestDirectory, swDest.name);
 
   options.outputFormat = options.outputFormat ?? "iife";
 
@@ -118,7 +142,7 @@ export const serwist = (options?: PluginOptions): Plugin => {
       name: "rolldown-plugin-serwist:esm",
       options(opts) {
         opts.input = {
-          [path.parse(swDest).name]: swSrc,
+          [swDestWithoutExtension]: swSrc,
           ...normalizeInput(opts.input),
         };
       },
@@ -142,16 +166,15 @@ export const serwist = (options?: PluginOptions): Plugin => {
         platform: inputOptions?.platform,
         shimMissingExports: inputOptions?.shimMissingExports,
         input: {
-          [path.parse(swDest).name]: swSrc,
+          [swDestWithoutExtension]: swSrc,
         },
         write: false,
         plugins: [
-          postprocessPlugin,
+          postprocessPlugin(swDestDirectory),
           ...(inputOptions?.plugins.filter((plugin) => !("name" in plugin) || plugin.name !== "rolldown-plugin-serwist") ?? []),
         ],
         output: {
           ...outputOptions,
-          dir: path.dirname(swDest),
           file: undefined,
           format: "es",
           entryFileNames: "[name].js",
