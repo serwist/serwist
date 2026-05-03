@@ -1,5 +1,15 @@
 # @serwist/svelte
 
+## 9.5.11
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/build@9.5.11
+  - @serwist/utils@9.5.11
+  - @serwist/window@9.5.11
+  - serwist@9.5.11
+
 ## 9.5.10
 
 ### Patch Changes
