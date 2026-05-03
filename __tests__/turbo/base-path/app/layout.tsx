@@ -1,4 +1,4 @@
-import { SerwistProvider } from "./serwist";
+import { SerwistProvider } from "@serwist/turbopack/react";
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
   <html lang="en">

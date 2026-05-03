@@ -34,6 +34,7 @@ createDescribe(
       if (testMode === "start") {
         expect(swContent.includes("/serwist-app/next.svg")).toBe(true);
         expect(swContent.includes("/serwist-app/sw.js")).toBe(false);
+        expect(swContent.includes("/serwist-app/_next/static/")).toBe(true);
         expect(swContent.includes("/serwist-app/_next/../public/sw.js")).toBe(false);
       }
     });

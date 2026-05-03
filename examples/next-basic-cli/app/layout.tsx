@@ -1,6 +1,6 @@
+import { SerwistProvider } from "@serwist/next/react";
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
-import { SerwistProvider } from "./serwist";
 
 const APP_NAME = "NJS App";
 const APP_DESCRIPTION = "Next.js + Serwist PWA";
