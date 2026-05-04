@@ -49,6 +49,7 @@
   },
   "dependencies": {
     "@serwist/build": "workspace:*",
+    "kolorist": "1.8.0",
     "serwist": "workspace:*"
   },
   "devDependencies": {
