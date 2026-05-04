@@ -17,13 +17,13 @@ export {
   runCallbacks,
   waitUntil,
 } from "./handler.js";
-export { CacheFirst } from "./legacy/CacheFirst.js";
-export { CacheOnly } from "./legacy/CacheOnly.js";
-export { NetworkFirst } from "./legacy/NetworkFirst.js";
-export { NetworkOnly } from "./legacy/NetworkOnly.js";
-export { StaleWhileRevalidate } from "./legacy/StaleWhileRevalidate.js";
-export { Strategy } from "./legacy/Strategy.js";
-export { StrategyHandler } from "./legacy/StrategyHandler.js";
+export { CacheFirst } from "./legacy/cache-first.js";
+export { CacheOnly } from "./legacy/cache-only.js";
+export { NetworkFirst } from "./legacy/network-first.js";
+export { NetworkOnly } from "./legacy/network-only.js";
+export { StaleWhileRevalidate } from "./legacy/stale-while-revalidate.js";
+export { Strategy } from "./legacy/strategy.js";
+export { StrategyHandler } from "./legacy/strategy-handler.js";
 export type { NetworkFirstOptions } from "./network-first.js";
 export { networkFirst } from "./network-first.js";
 export type { NetworkOnlyOptions } from "./network-only.js";

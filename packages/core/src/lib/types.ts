@@ -5,10 +5,13 @@ import type { Route } from "./route.js";
 import type { Serwist } from "./serwist.js";
 
 export type {
-    PrecacheEntry, PrecacheExtensionOptions,
-    PrecacheOptions, PrecacheRouteOptions, MaybePromise as PromiseOrNot,
-    StrategyPlugin as SerwistPlugin,
-    StrategyPluginCallbackParam as SerwistPluginCallbackParam
+  PrecacheEntry,
+  PrecacheExtensionOptions,
+  PrecacheOptions,
+  PrecacheRouteOptions,
+  MaybePromise as PromiseOrNot,
+  StrategyPlugin as SerwistPlugin,
+  StrategyPluginCallbackParam as SerwistPluginCallbackParam,
 };
 
 export interface MapLikeObject {

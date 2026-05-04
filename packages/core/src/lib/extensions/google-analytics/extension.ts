@@ -1,24 +1,24 @@
-import { BackgroundSyncPlugin } from "$lib/background-sync/BackgroundSyncPlugin.js";
-import type { BackgroundSyncQueue, BackgroundSyncQueueEntry } from "$lib/background-sync/BackgroundSyncQueue.js";
+import { BackgroundSyncPlugin } from "$lib/background-sync/background-sync-plugin.js";
+import type { BackgroundSyncQueue, BackgroundSyncQueueEntry } from "$lib/background-sync/background-sync-queue.js";
 import type { Serwist } from "$lib/core.js";
 import type { Extension } from "$lib/extension.js";
 import { registerRoute } from "$lib/functions/router.js";
 import { Route } from "$lib/route.js";
-import { NetworkFirst } from "$lib/strategies/legacy/NetworkFirst.js";
-import { NetworkOnly } from "$lib/strategies/legacy/NetworkOnly.js";
+import { NetworkFirst } from "$lib/strategies/legacy/network-first.js";
+import { NetworkOnly } from "$lib/strategies/legacy/network-only.js";
 import type { RouteMatchCallbackOptions } from "$lib/types.js";
-import { cacheNames as privateCacheNames } from "$utils/cacheNames.js";
-import { getFriendlyURL } from "$utils/getFriendlyURL.js";
+import { cacheNames as privateCacheNames } from "$utils/cache-names.js";
+import { getFriendlyURL } from "$utils/get-friendly-url.js";
 import { logger } from "$utils/logger.js";
 import {
-    ANALYTICS_JS_PATH,
-    COLLECT_PATHS_REGEX,
-    GOOGLE_ANALYTICS_HOST,
-    GTAG_JS_PATH,
-    GTM_HOST,
-    GTM_JS_PATH,
-    MAX_RETENTION_TIME,
-    QUEUE_NAME,
+  ANALYTICS_JS_PATH,
+  COLLECT_PATHS_REGEX,
+  GOOGLE_ANALYTICS_HOST,
+  GTAG_JS_PATH,
+  GTM_HOST,
+  GTM_JS_PATH,
+  MAX_RETENTION_TIME,
+  QUEUE_NAME,
 } from "./constants.js";
 
 export interface GoogleAnalyticsOptions {

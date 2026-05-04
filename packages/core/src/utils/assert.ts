@@ -7,7 +7,7 @@
 */
 
 import type { MapLikeObject } from "$lib/types.js";
-import { SerwistError } from "./SerwistError.js";
+import { SerwistError } from "./serwist-error.js";
 
 /*
  * This method throws if the supplied value is not an array.

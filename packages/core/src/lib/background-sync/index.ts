@@ -1,5 +1,5 @@
-export { BackgroundSyncPlugin } from "./BackgroundSyncPlugin.js";
-export type { BackgroundSyncQueueEntry, BackgroundSyncQueueOptions } from "./BackgroundSyncQueue.js";
-export { BackgroundSyncQueue } from "./BackgroundSyncQueue.js";
-export { BackgroundSyncQueueStore } from "./BackgroundSyncQueueStore.js";
-export { StorableRequest } from "./StorableRequest.js";
+export { BackgroundSyncPlugin } from "./background-sync-plugin.js";
+export type { BackgroundSyncQueueEntry, BackgroundSyncQueueOptions } from "./background-sync-queue.js";
+export { BackgroundSyncQueue } from "./background-sync-queue.js";
+export { BackgroundSyncQueueStore } from "./background-sync-queue-store.js";
+export { StorableRequest } from "./storable-request.js";

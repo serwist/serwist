@@ -7,8 +7,8 @@
 */
 
 import type { Serwist } from "$lib/core.js";
-import { generateURLVariations } from "$utils/generateURLVariations.js";
-import { getFriendlyURL } from "$utils/getFriendlyURL.js";
+import { generateURLVariations } from "$utils/generate-url-variations.js";
+import { getFriendlyURL } from "$utils/get-friendly-url.js";
 import { logger } from "$utils/logger.js";
 import { Route } from "../../route.js";
 import type { RouteMatchCallback, RouteMatchCallbackOptions, UrlManipulation } from "../../types.js";

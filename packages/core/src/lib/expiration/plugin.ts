@@ -1,12 +1,12 @@
 import type { CacheDidUpdateCallbackParam, CachedResponseWillBeUsedCallbackParam, StrategyPlugin } from "$lib/types.js";
 import { registerQuotaErrorCallback } from "$lib/utils.js";
 import { assert } from "$utils/assert.js";
-import { cacheNames as privateCacheNames } from "$utils/cacheNames.js";
-import { getFriendlyURL } from "$utils/getFriendlyURL.js";
+import { cacheNames as privateCacheNames } from "$utils/cache-names.js";
+import { getFriendlyURL } from "$utils/get-friendly-url.js";
 import { logger } from "$utils/logger.js";
-import { SerwistError } from "$utils/SerwistError.js";
+import { SerwistError } from "$utils/serwist-error.js";
 import type { Strategy } from "../strategies/core.js";
-import { CacheExpiration } from "./CacheExpiration.js";
+import { CacheExpiration } from "./cache-expiration.js";
 
 export interface ExpirationPluginOptions {
   /**

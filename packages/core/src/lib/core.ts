@@ -1,4 +1,4 @@
-import { clientsClaim as clientsClaimImpl } from "$utils/clientsClaim.js";
+import { clientsClaim as clientsClaimImpl } from "$utils/clients-claim.js";
 import type { HTTPMethod } from "./constants.js";
 import type { Extension } from "./extension.js";
 import { Precache } from "./extensions/index.js";

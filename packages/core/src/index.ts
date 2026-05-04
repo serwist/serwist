@@ -9,52 +9,70 @@ import { copyResponse, disableDevLogs, registerQuotaErrorCallback, setCacheNameD
 // Background synchronizing
 export {
   BackgroundSyncPlugin,
-  BackgroundSyncQueue, BackgroundSyncQueueStore,
-  StorableRequest, type BackgroundSyncQueueEntry,
-  type BackgroundSyncQueueOptions
+  BackgroundSyncQueue,
+  BackgroundSyncQueueStore,
+  StorableRequest,
+  type BackgroundSyncQueueEntry,
+  type BackgroundSyncQueueOptions,
 } from "$lib/background-sync/index.js";
 
 // Broadcasting updates
 export {
   BROADCAST_UPDATE_DEFAULT_HEADERS,
-  BroadcastCacheUpdate, BroadcastUpdatePlugin,
-  responsesAreSame, type BroadcastCacheUpdateOptions,
+  BroadcastCacheUpdate,
+  BroadcastUpdatePlugin,
+  responsesAreSame,
+  type BroadcastCacheUpdateOptions,
   type BroadcastMessage,
   type BroadcastPayload,
-  type BroadcastPayloadGenerator
+  type BroadcastPayloadGenerator,
 } from "$lib/broadcast-update/index.js";
 
 // Setting cacheability criteria
 export {
-  CacheableResponse, CacheableResponsePlugin, type CacheableResponseOptions
+  CacheableResponse,
+  CacheableResponsePlugin,
+  type CacheableResponseOptions,
 } from "$lib/cacheable-response/index.js";
 
 // Controllers
 
 // Expiring outdated responses
 export {
-  CacheExpiration, expiration, ExpirationPlugin,
-  type ExpirationPluginOptions
+  CacheExpiration,
+  expiration,
+  ExpirationPlugin,
+  type ExpirationPluginOptions,
 } from "$lib/expiration/index.js";
 
 // Extensions
 export {
-  GoogleAnalytics, initializeGoogleAnalytics, PrecacheFallbackPlugin, PrecacheRoute,
+  GoogleAnalytics,
+  initializeGoogleAnalytics,
+  PrecacheFallbackPlugin,
+  PrecacheRoute,
   PrecacheStrategy,
-  RuntimeCache, type GoogleAnalyticsInitializeOptions,
-  type GoogleAnalyticsOptions, type PrecacheFallbackEntry, type PrecacheFallbackPluginOptions, type RuntimeCacheOptions
+  RuntimeCache,
+  type GoogleAnalyticsInitializeOptions,
+  type GoogleAnalyticsOptions,
+  type PrecacheFallbackEntry,
+  type PrecacheFallbackPluginOptions,
+  type RuntimeCacheOptions,
 } from "$lib/extensions/index.js";
 
 // Handling range requests
 export {
   createPartialResponse,
-  RangeRequestsPlugin
+  RangeRequestsPlugin,
 } from "$lib/range-requests/index.js";
 
 // Built-in caching strategies
 export {
-  CacheFirst, cacheFirst,
-  cacheMatch, CacheOnly, cacheOnly,
+  CacheFirst,
+  cacheFirst,
+  cacheMatch,
+  CacheOnly,
+  cacheOnly,
   cachePut,
   createHandler,
   createStrategy,
@@ -66,10 +84,19 @@ export {
   getPreloadResponse,
   hasCallback,
   iterateCallbacks,
-  NetworkFirst, networkFirst, NetworkOnly, networkOnly,
+  NetworkFirst,
+  networkFirst,
+  NetworkOnly,
+  networkOnly,
   runCallbacks,
-  StaleWhileRevalidate, staleWhileRevalidate, Strategy,
-  StrategyHandler, waitUntil, type NetworkFirstOptions, type NetworkOnlyOptions, type StrategyOptions
+  StaleWhileRevalidate,
+  staleWhileRevalidate,
+  Strategy,
+  StrategyHandler,
+  waitUntil,
+  type NetworkFirstOptions,
+  type NetworkOnlyOptions,
+  type StrategyOptions,
 } from "$lib/strategies/index.js";
 
 // Core
@@ -82,13 +109,17 @@ export {
   isNavigationPreloadSupported,
   // Routing
   NavigationRoute,
-  RegExpRoute, registerQuotaErrorCallback, Route, Serwist, setCacheNameDetails
+  RegExpRoute,
+  registerQuotaErrorCallback,
+  Route,
+  Serwist,
+  setCacheNameDetails,
 };
 
 // Core (modern)
 // TODO(v11): rename once we remove legacy `Serwist` and `SerwistOptions`
-  export { createSerwist } from "$lib/core.js";
-  export type { SerwistOptions as CreateSerwistOptions, Serwist as SerwistState } from "$lib/core.js";
+export { createSerwist } from "$lib/core.js";
+export type { SerwistOptions as CreateSerwistOptions, Serwist as SerwistState } from "$lib/core.js";
 // Extension
 export type * from "$lib/extension.js";
 export {
@@ -99,10 +130,9 @@ export {
   createInstallHandler,
   iterateExtensions,
   setCatchHandler,
-  setDefaultHandler
+  setDefaultHandler,
 } from "$lib/functions/handlers.js";
 export { findMatchingRoute, handleRequest, registerCapture, registerRoute, unregisterRoute } from "$lib/functions/router.js";
 
 export type * from "$lib/types.js";
 export type { HTTPMethod, NavigationRouteMatchOptions, SerwistOptions };
-

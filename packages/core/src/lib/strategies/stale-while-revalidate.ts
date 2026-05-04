@@ -1,10 +1,10 @@
 import { assert } from "$utils/assert.js";
 import { logger } from "$utils/logger.js";
-import { SerwistError } from "$utils/SerwistError.js";
+import { SerwistError } from "$utils/serwist-error.js";
 import type { StrategyOptions } from "./core.js";
 import { createStrategy } from "./core.js";
 import { cacheMatch, fetchAndCachePut, waitUntil } from "./handler.js";
-import { cacheOkAndOpaquePlugin } from "./plugins/cacheOkAndOpaquePlugin.js";
+import { cacheOkAndOpaquePlugin } from "./plugins/cache-ok-and-opaque-plugin.js";
 import { messages } from "./utils/messages.js";
 
 /**

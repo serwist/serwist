@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { getFriendlyURL } from "$utils/getFriendlyURL.js";
+import { getFriendlyURL } from "$utils/get-friendly-url.js";
 import { logger } from "$utils/logger.js";
 
 export const messages = {

@@ -1,6 +1,6 @@
 import { assert } from "$utils/assert.js";
 import { logger } from "$utils/logger.js";
-import { SerwistError } from "$utils/SerwistError.js";
+import { SerwistError } from "$utils/serwist-error.js";
 import { createStrategy, type StrategyOptions } from "./core.js";
 import { cacheMatch, fetchAndCachePut } from "./handler.js";
 import { messages } from "./utils/messages.js";

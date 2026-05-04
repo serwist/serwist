@@ -2,12 +2,12 @@ import { createSerwist, type Serwist as SerwistState } from "$lib/core.js";
 import type { GoogleAnalyticsOptions, Precache, PrecacheFallbackEntry, PrecacheOptions } from "$lib/extensions/index.js";
 import { GoogleAnalytics, RuntimeCache } from "$lib/extensions/index.js";
 import {
-    createActivateHandler,
-    createCacheHandler,
-    createFetchHandler,
-    createInstallHandler,
-    setCatchHandler,
-    setDefaultHandler,
+  createActivateHandler,
+  createCacheHandler,
+  createFetchHandler,
+  createInstallHandler,
+  setCatchHandler,
+  setDefaultHandler,
 } from "$lib/functions/handlers.js";
 import { findMatchingRoute, handleRequest, registerCapture, registerRoute, unregisterRoute } from "$lib/functions/router.js";
 import type { Strategy } from "$lib/strategies/core.js";
@@ -15,13 +15,13 @@ import type { HTTPMethod } from "./constants.js";
 import type { Extension } from "./extension.js";
 import type { Route } from "./route.js";
 import type {
-    PrecacheEntry,
-    RouteHandler,
-    RouteHandlerCallback,
-    RouteHandlerCallbackOptions,
-    RouteMatchCallback,
-    RouteMatchCallbackOptions,
-    RuntimeCaching,
+  PrecacheEntry,
+  RouteHandler,
+  RouteHandlerCallback,
+  RouteHandlerCallbackOptions,
+  RouteMatchCallback,
+  RouteMatchCallbackOptions,
+  RuntimeCaching,
 } from "./types.js";
 
 declare const self: ServiceWorkerGlobalScope;

@@ -6,12 +6,12 @@
   https://opensource.org/licenses/MIT.
 */
 import { assert } from "$utils/assert.js";
-import type { PartialCacheNameDetails } from "$utils/cacheNames.js";
-import { cacheNames } from "$utils/cacheNames.js";
-import { canConstructResponseFromBodyStream } from "$utils/canConstructResponseFromBodyStream.js";
+import type { PartialCacheNameDetails } from "$utils/cache-names.js";
+import { cacheNames } from "$utils/cache-names.js";
+import { canConstructResponseFromBodyStream } from "$utils/can-construct-response-from-body-stream.js";
 import { logger } from "$utils/logger.js";
-import { SerwistError } from "$utils/SerwistError.js";
-import { quotaErrorCallbacks } from "../models/quotaErrorCallbacks.js";
+import { SerwistError } from "$utils/serwist-error.js";
+import { quotaErrorCallbacks } from "../models/quota-error-callbacks.js";
 
 declare const self: ServiceWorkerGlobalScope;
 

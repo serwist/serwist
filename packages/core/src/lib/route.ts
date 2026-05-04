@@ -7,7 +7,7 @@
 */
 import { assert } from "$utils/assert.js";
 import { logger } from "$utils/logger.js";
-import { normalizeHandler } from "$utils/normalizeHandler.js";
+import { normalizeHandler } from "$utils/normalize-handler.js";
 import type { HTTPMethod } from "./constants.js";
 import { defaultMethod, validMethods } from "./constants.js";
 import type { RouteHandler, RouteHandlerObject, RouteMatchCallback, RouteMatchCallbackOptions } from "./types.js";

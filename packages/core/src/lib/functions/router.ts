@@ -1,8 +1,8 @@
 import { assert } from "$utils/assert.js";
-import { getFriendlyURL } from "$utils/getFriendlyURL.js";
+import { getFriendlyURL } from "$utils/get-friendly-url.js";
 import { logger } from "$utils/logger.js";
-import { parseRoute } from "$utils/parseRoute.js";
-import { SerwistError } from "$utils/SerwistError.js";
+import { parseRoute } from "$utils/parse-route.js";
+import { SerwistError } from "$utils/serwist-error.js";
 import type { HTTPMethod } from "../constants.js";
 import type { Serwist } from "../core.js";
 import type { Route } from "../route.js";

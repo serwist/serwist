@@ -1,10 +1,10 @@
 import { assert, Deferred } from "$index.internal";
 import type { HandlerCallbackOptions, MapLikeObject, StrategyPlugin, StrategyPluginCallbackParam } from "$lib/types.js";
-import { cacheMatchIgnoreParams } from "$utils/cacheMatchIgnoreParams.js";
-import { executeQuotaErrorCallbacks } from "$utils/executeQuotaErrorCallbacks.js";
-import { getFriendlyURL } from "$utils/getFriendlyURL.js";
+import { cacheMatchIgnoreParams } from "$utils/cache-match-ignore-params.js";
+import { executeQuotaErrorCallbacks } from "$utils/execute-quota-error-callbacks.js";
+import { getFriendlyURL } from "$utils/get-friendly-url.js";
 import { logger } from "$utils/logger.js";
-import { SerwistError } from "$utils/SerwistError.js";
+import { SerwistError } from "$utils/serwist-error.js";
 import { timeout } from "$utils/timeout.js";
 import type { Strategy } from "./core.js";
 

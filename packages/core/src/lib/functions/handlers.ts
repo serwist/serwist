@@ -3,8 +3,8 @@ import type { Extension, ExtensionParam } from "$lib/extension.js";
 import type { Route } from "$lib/route.js";
 import type { RouteHandler } from "$lib/types.js";
 import { logger } from "$utils/logger.js";
-import { normalizeHandler } from "$utils/normalizeHandler.js";
-import { waitUntil } from "$utils/waitUntil.js";
+import { normalizeHandler } from "$utils/normalize-handler.js";
+import { waitUntil } from "$utils/wait-until.js";
 import type { Serwist } from "../core.js";
 import { handleRequest } from "./router.js";
 

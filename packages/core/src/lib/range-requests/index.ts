@@ -1,2 +1,2 @@
-export { createPartialResponse } from "./createPartialResponse.js";
-export { RangeRequestsPlugin } from "./RangeRequestsPlugin.js";
+export { createPartialResponse } from "./create-partial-response.js";
+export { RangeRequestsPlugin } from "./range-requests-plugin.js";

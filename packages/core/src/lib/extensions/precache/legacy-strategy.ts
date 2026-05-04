@@ -9,12 +9,12 @@
 import type { Serwist } from "$lib/core.js";
 import type { StrategyPlugin } from "$lib/types.js";
 import { copyResponse } from "$lib/utils.js";
-import { cacheNames as privateCacheNames } from "$utils/cacheNames.js";
-import { getFriendlyURL } from "$utils/getFriendlyURL.js";
+import { cacheNames as privateCacheNames } from "$utils/cache-names.js";
+import { getFriendlyURL } from "$utils/get-friendly-url.js";
 import { logger } from "$utils/logger.js";
-import { SerwistError } from "$utils/SerwistError.js";
-import { Strategy } from "../../strategies/legacy/Strategy.js";
-import type { StrategyHandler } from "../../strategies/legacy/StrategyHandler.js";
+import { SerwistError } from "$utils/serwist-error.js";
+import { Strategy } from "../../strategies/legacy/strategy.js";
+import type { StrategyHandler } from "../../strategies/legacy/strategy-handler.js";
 import type { PrecacheStrategyOptions } from "./strategy.js";
 
 export type { PrecacheStrategyOptions };

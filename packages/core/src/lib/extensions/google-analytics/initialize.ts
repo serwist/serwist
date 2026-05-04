@@ -5,17 +5,17 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-import { BackgroundSyncPlugin } from "$lib/background-sync/BackgroundSyncPlugin.js";
+import { BackgroundSyncPlugin } from "$lib/background-sync/background-sync-plugin.js";
 import type { Serwist } from "$lib/serwist.js";
-import { cacheNames as privateCacheNames } from "$utils/cacheNames.js";
+import { cacheNames as privateCacheNames } from "$utils/cache-names.js";
 import { MAX_RETENTION_TIME, QUEUE_NAME } from "./constants.js";
 import {
-    createAnalyticsJsRoute,
-    createCollectRoutes,
-    createGtagJsRoute,
-    createGtmJsRoute,
-    createOnSyncCallback,
-    type GoogleAnalyticsOptions,
+  createAnalyticsJsRoute,
+  createCollectRoutes,
+  createGtagJsRoute,
+  createGtmJsRoute,
+  createOnSyncCallback,
+  type GoogleAnalyticsOptions,
 } from "./extension.js";
 
 export interface GoogleAnalyticsInitializeOptions extends GoogleAnalyticsOptions {
