@@ -1,4 +1,4 @@
-import type { RuntimeCaching } from "../types.js";
+import type { RuntimeCaching } from "$lib/types.js";
 import { registerRoute } from "./registerRoute.js";
 
 /**

@@ -1,5 +1,5 @@
-import { Strategy } from "../lib/strategies/Strategy.js";
-import type { PrecacheRouteOptions, RuntimeCaching } from "../types.js";
+import { Strategy } from "$lib/strategies/legacy/Strategy.js";
+import type { PrecacheRouteOptions, RuntimeCaching } from "$lib/types.js";
 import type { PrecacheController } from "./PrecacheController.js";
 import type { PrecacheFallbackEntry } from "./PrecacheFallbackPlugin.js";
 import { PrecacheFallbackPlugin } from "./PrecacheFallbackPlugin.js";

@@ -1,4 +1,4 @@
-import type { Route } from "../Route.js";
+import type { Route } from "$lib/route.js";
 import type { Router } from "./Router.js";
 import { getSingletonRouter } from "./singletonRouter.js";
 

@@ -6,8 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { Route } from "../Route.js";
-import type { PrecacheRouteOptions, RouteMatchCallback, RouteMatchCallbackOptions } from "../types.js";
+import { Route } from "$lib/route.js";
+import type { PrecacheRouteOptions, RouteMatchCallback, RouteMatchCallbackOptions } from "$lib/types.js";
 import { generateURLVariations } from "../utils/generateURLVariations.js";
 import { getFriendlyURL } from "../utils/getFriendlyURL.js";
 import { logger } from "../utils/logger.js";

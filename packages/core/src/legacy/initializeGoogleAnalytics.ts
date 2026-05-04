@@ -6,12 +6,12 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { BackgroundSyncPlugin } from "../lib/backgroundSync/BackgroundSyncPlugin.js";
-import type { BackgroundSyncQueue, BackgroundSyncQueueEntry } from "../lib/backgroundSync/BackgroundSyncQueue.js";
-import { NetworkFirst } from "../lib/strategies/NetworkFirst.js";
-import { NetworkOnly } from "../lib/strategies/NetworkOnly.js";
-import { Route } from "../Route.js";
-import type { RouteMatchCallbackOptions } from "../types.js";
+import { BackgroundSyncPlugin } from "$lib/background-sync/BackgroundSyncPlugin.js";
+import type { BackgroundSyncQueue, BackgroundSyncQueueEntry } from "$lib/background-sync/BackgroundSyncQueue.js";
+import { Route } from "$lib/route.js";
+import { NetworkFirst } from "$lib/strategies/legacy/NetworkFirst.js";
+import { NetworkOnly } from "$lib/strategies/legacy/NetworkOnly.js";
+import type { RouteMatchCallbackOptions } from "$lib/types.js";
 import { cacheNames as privateCacheNames } from "../utils/cacheNames.js";
 import { getFriendlyURL } from "../utils/getFriendlyURL.js";
 import { logger } from "../utils/logger.js";

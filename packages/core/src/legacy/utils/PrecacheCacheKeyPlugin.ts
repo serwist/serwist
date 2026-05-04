@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { SerwistPlugin, SerwistPluginCallbackParam } from "../../types.js";
+import type { SerwistPlugin, SerwistPluginCallbackParam } from "$lib/types.js";
 import type { PrecacheController } from "../PrecacheController.js";
 
 /**

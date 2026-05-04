@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { RouteHandler } from "../types.js";
+import type { RouteHandler } from "$lib/types.js";
 import { getSingletonRouter } from "./singletonRouter.js";
 
 /**

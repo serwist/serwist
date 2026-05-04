@@ -1,5 +1,5 @@
-import { NavigationRoute } from "../NavigationRoute.js";
-import type { PrecacheEntry, PrecacheRouteOptions } from "../types.js";
+import { NavigationRoute } from "$lib/route.js";
+import type { PrecacheEntry, PrecacheRouteOptions } from "$lib/types.js";
 import { cleanupOutdatedCaches as cleanupOutdatedCachesImpl } from "../utils/cleanupOutdatedCaches.js";
 import { createHandlerBoundToURL } from "./createHandlerBoundToURL.js";
 import type { PrecacheController } from "./PrecacheController.js";

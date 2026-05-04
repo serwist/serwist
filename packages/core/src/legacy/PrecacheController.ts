@@ -6,15 +6,15 @@
   https://opensource.org/licenses/MIT.
 */
 
+import { PrecacheStrategy } from "$lib/extensions/index.js";
+import { PrecacheInstallReportPlugin } from "$lib/extensions/precache/plugin-install-report.js";
+import type { Strategy } from "$lib/strategies/legacy/Strategy.js";
+import type { CleanupResult, InstallResult, PrecacheEntry, RouteHandlerCallback, SerwistPlugin } from "$lib/types.js";
 import { parallel } from "@serwist/utils";
-import { PrecacheStrategy } from "../lib/strategies/PrecacheStrategy.js";
-import type { Strategy } from "../lib/strategies/Strategy.js";
-import type { CleanupResult, InstallResult, PrecacheEntry, RouteHandlerCallback, SerwistPlugin } from "../types.js";
 import { assert } from "../utils/assert.js";
 import { cacheNames as privateCacheNames } from "../utils/cacheNames.js";
 import { createCacheKey } from "../utils/createCacheKey.js";
 import { logger } from "../utils/logger.js";
-import { PrecacheInstallReportPlugin } from "../utils/PrecacheInstallReportPlugin.js";
 import { printCleanupDetails } from "../utils/printCleanupDetails.js";
 import { printInstallDetails } from "../utils/printInstallDetails.js";
 import { SerwistError } from "../utils/SerwistError.js";

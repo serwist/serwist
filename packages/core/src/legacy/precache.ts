@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { PrecacheEntry } from "../types.js";
+import type { PrecacheEntry } from "$lib/types.js";
 import type { addRoute } from "./addRoute.js";
 import type { precacheAndRoute } from "./precacheAndRoute.js";
 import { getSingletonPrecacheController } from "./singletonPrecacheController.js";

@@ -6,8 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import { getFriendlyURL } from "../../../utils/getFriendlyURL.js";
-import { logger } from "../../../utils/logger.js";
+import { getFriendlyURL } from "$utils/getFriendlyURL.js";
+import { logger } from "$utils/logger.js";
 
 export const messages = {
   strategyStart: (strategyName: string, request: Request): string => `Using ${strategyName} to respond to '${getFriendlyURL(request.url)}'`,

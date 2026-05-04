@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { RouteHandlerCallback } from "../types.js";
+import type { RouteHandlerCallback } from "$lib/types.js";
 import type { PrecacheController } from "./PrecacheController.js";
 import { getSingletonPrecacheController } from "./singletonPrecacheController.js";
 

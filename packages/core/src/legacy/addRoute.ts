@@ -5,7 +5,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { PrecacheRouteOptions } from "../types.js";
+import type { PrecacheRouteOptions } from "$lib/types.js";
 import { PrecacheRoute } from "./PrecacheRoute.js";
 import { registerRoute } from "./registerRoute.js";
 import { getSingletonPrecacheController } from "./singletonPrecacheController.js";

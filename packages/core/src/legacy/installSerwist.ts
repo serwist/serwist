@@ -1,7 +1,6 @@
-import { disableDevLogs as disableDevLogsImpl } from "../disableDevLogs.js";
-import { enableNavigationPreload } from "../navigationPreload.js";
-import { setCacheNameDetails } from "../setCacheNameDetails.js";
-import type { RuntimeCaching } from "../types.js";
+import { enableNavigationPreload } from "$lib/navigation-preload.js";
+import type { RuntimeCaching } from "$lib/types.js";
+import { disableDevLogs as disableDevLogsImpl, setCacheNameDetails } from "$lib/utils.js";
 import { clientsClaim as clientsClaimImpl } from "../utils/clientsClaim.js";
 import type { FallbacksOptions } from "./fallbacks.js";
 import { fallbacks as fallbacksImpl } from "./fallbacks.js";
@@ -9,8 +8,8 @@ import { type HandlePrecachingOptions, handlePrecaching } from "./handlePrecachi
 import type { GoogleAnalyticsInitializeOptions } from "./initializeGoogleAnalytics.js";
 import { initializeGoogleAnalytics } from "./initializeGoogleAnalytics.js";
 import type { PrecacheController } from "./PrecacheController.js";
-import type { Router } from "./Router.js";
 import { registerRuntimeCaching } from "./registerRuntimeCaching.js";
+import type { Router } from "./Router.js";
 import { getSingletonPrecacheController } from "./singletonPrecacheController.js";
 import { getSingletonRouter } from "./singletonRouter.js";
 

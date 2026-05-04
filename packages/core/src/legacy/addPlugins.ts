@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { SerwistPlugin } from "../types.js";
+import type { SerwistPlugin } from "$lib/types.js";
 import { getSingletonPrecacheController } from "./singletonPrecacheController.js";
 
 /**

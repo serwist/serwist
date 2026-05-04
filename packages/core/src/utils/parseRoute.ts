@@ -1,7 +1,6 @@
-import type { HTTPMethod } from "../constants.js";
-import { RegExpRoute } from "../RegExpRoute.js";
-import { Route } from "../Route.js";
-import type { RouteHandler, RouteMatchCallback } from "../types.js";
+import type { HTTPMethod } from "$lib/constants.js";
+import { RegExpRoute, Route } from "$lib/route.js";
+import type { RouteHandler, RouteMatchCallback } from "$lib/types.js";
 import { logger } from "./logger.js";
 import { SerwistError } from "./SerwistError.js";
 

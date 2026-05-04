@@ -6,10 +6,10 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { HTTPMethod } from "../constants.js";
-import { defaultMethod } from "../constants.js";
-import type { Route } from "../Route.js";
-import type { RouteHandler, RouteHandlerCallbackOptions, RouteHandlerObject, RouteMatchCallback, RouteMatchCallbackOptions } from "../types.js";
+import type { HTTPMethod } from "$lib/constants.js";
+import { defaultMethod } from "$lib/constants.js";
+import type { Route } from "$lib/route.js";
+import type { RouteHandler, RouteHandlerCallbackOptions, RouteHandlerObject, RouteMatchCallback, RouteMatchCallbackOptions } from "$lib/types.js";
 import { assert } from "../utils/assert.js";
 import { getFriendlyURL } from "../utils/getFriendlyURL.js";
 import { logger } from "../utils/logger.js";

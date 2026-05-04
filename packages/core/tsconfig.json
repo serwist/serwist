@@ -1,7 +1,14 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "module": "NodeNext"
+    "module": "NodeNext",
+    "paths": {
+      "$lib/*.js": ["./src/lib/*.ts"],
+      "$index": ["./src/index.ts"],
+      "$index.internal": ["./src/index.internal.ts"],
+      "$models/*.js": ["./src/models/*.ts"],
+      "$utils/*.js": ["./src/utils/*.ts"]
+    }
   },
   "include": ["**/*.ts"],
   "exclude": ["dist", "node_modules"]

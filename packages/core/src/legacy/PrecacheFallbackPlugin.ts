@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { HandlerDidErrorCallbackParam, SerwistPlugin } from "../types.js";
+import type { HandlerDidErrorCallbackParam, SerwistPlugin } from "$lib/types.js";
 import type { PrecacheController } from "./PrecacheController.js";
 import { getSingletonPrecacheController } from "./singletonPrecacheController.js";
 
