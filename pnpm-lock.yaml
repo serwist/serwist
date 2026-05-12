@@ -368,7 +368,7 @@ importers:
         version: link:../../packages/nuxt
       '@serwist/vite':
         specifier: workspace:*
-        version: link:../../packages/vite
+        version: link:../../packages/vite-legacy
       nuxt:
         specifier: 4.4.4
         version: 4.4.4(@babel/core@7.29.0)(@babel/plugin-syntax-jsx@7.28.6(@babel/core@7.29.0))(@biomejs/biome@2.4.13)(@parcel/watcher@2.5.6)(@types/node@25.6.0)(@vue/compiler-sfc@3.5.33)(cac@6.7.14)(db0@0.3.4)(ioredis@5.10.1)(lightningcss@1.32.0)(magicast@0.5.2)(meow@14.1.0)(rolldown@1.0.0-rc.18)(rollup-plugin-visualizer@7.0.1(rolldown@1.0.0-rc.18)(rollup@4.60.2))(rollup@4.60.2)(terser@5.46.0)(typescript@6.0.3)(vite@8.0.10(@types/node@25.6.0)(esbuild@0.28.0)(jiti@2.6.1)(terser@5.46.0)(yaml@2.8.2))(vue-tsc@3.2.7(typescript@6.0.3))(yaml@2.8.2)
@@ -494,7 +494,7 @@ importers:
     devDependencies:
       '@serwist/vite':
         specifier: workspace:*
-        version: link:../../packages/vite
+        version: link:../../packages/vite-legacy
       '@serwist/window':
         specifier: workspace:*
         version: link:../../packages/window
@@ -879,7 +879,7 @@ importers:
         version: link:../utils
       '@serwist/vite':
         specifier: workspace:*
-        version: link:../vite
+        version: link:../vite-legacy
       '@serwist/window':
         specifier: workspace:*
         version: link:../window
@@ -1091,7 +1091,7 @@ importers:
         specifier: 6.0.3
         version: 6.0.3
 
-  packages/vite:
+  packages/vite-legacy:
     dependencies:
       '@serwist/build':
         specifier: workspace:*
