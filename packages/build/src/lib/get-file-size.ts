@@ -6,8 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
+import { errors } from "@serwist/utils/node";
 import fs from "node:fs";
-import { errors } from "./errors.js";
 
 export const getFileSize = (file: string): number | null => {
   try {

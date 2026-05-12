@@ -5,10 +5,10 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
+import { errors } from "@serwist/utils/node";
 import { getManifest } from "./get-manifest.js";
 import { injectManifest } from "./inject-manifest.js";
 import { DEFAULT_GLOB_PATTERNS } from "./lib/constants.js";
-import { errors } from "./lib/errors.js";
 import { escapeRegExp } from "./lib/escape-regexp.js";
 import { getFileManifestEntries } from "./lib/get-file-manifest-entries.js";
 import { getSourceMapURL } from "./lib/get-source-map-url.js";
@@ -27,9 +27,7 @@ import { validateGetManifestOptions, validateInjectManifestOptions } from "./lib
 const stringify = JSON.stringify;
 
 export {
-  errors,
-  DEFAULT_GLOB_PATTERNS,
-  escapeRegExp,
+  DEFAULT_GLOB_PATTERNS, errors, escapeRegExp,
   getFileManifestEntries,
   getManifest,
   getSourceMapURL,
@@ -40,7 +38,8 @@ export {
   transformManifest,
   translateURLToSourcemapPaths,
   validateGetManifestOptions,
-  validateInjectManifestOptions,
+  validateInjectManifestOptions
 };
 
-export type * from "./types.js";
+  export type * from "./types.js";
+

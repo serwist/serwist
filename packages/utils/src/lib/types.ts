@@ -54,4 +54,10 @@ export type Prettify<T> = {
   [K in keyof T]: T[K];
 } & {};
 
+export interface FileDetails {
+  file: string;
+  hash: string | null;
+  size: number;
+}
+
 export type MaybePromise<T> = T | Promise<T>;

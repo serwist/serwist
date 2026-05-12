@@ -20,10 +20,21 @@
   "homepage": "https://serwist.pages.dev",
   "main": "./dist/index.mjs",
   "types": "./dist/index.d.mts",
+  "typesVersions": {
+    "node": {
+      "*": [
+        "./dist/index.node.d.mts"
+      ]
+    }
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.mts",
       "default": "./dist/index.mjs"
+    },
+    "./node": {
+      "types": "./dist/index.node.d.mts",
+      "default": "./dist/index.node.mjs"
     },
     "./package.json": "./package.json"
   },
@@ -36,14 +47,24 @@
   "devDependencies": {
     "@types/common-tags": "1.8.4",
     "browserslist": "4.28.2",
+    "common-tags": "1.8.2",
+    "kolorist": "1.8.0",
     "tsdown": "0.22.0",
     "typescript": "6.0.3"
   },
   "peerDependencies": {
-    "browserslist": ">=4"
+    "browserslist": ">=4",
+    "common-tags": ">=1.0.0",
+    "kolorist": ">=1.0.0"
   },
   "peerDependenciesMeta": {
     "browserslist": {
+      "optional": true
+    },
+    "common-tags": {
+      "optional": true
+    },
+    "kolorist": {
       "optional": true
     }
   }

@@ -6,9 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
+import { errors } from "@serwist/utils/node";
 import type { BaseResolved, FileDetails, ManifestEntry, ManifestTransform } from "../types.js";
 import { additionalPrecacheEntriesTransform } from "./additional-precache-entries-transform.js";
-import { errors } from "./errors.js";
 import { maximumSizeTransform } from "./maximum-size-transform.js";
 import { modifyURLPrefixTransform } from "./modify-url-prefix-transform.js";
 import { noRevisionForURLsMatchingTransform } from "./no-revision-for-urls-matching-transform.js";

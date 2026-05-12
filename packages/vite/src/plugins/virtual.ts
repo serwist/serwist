@@ -1,6 +1,6 @@
 import type { Plugin } from "vite";
 import type { SerwistViteContext } from "../lib/context.js";
-import { loadVirtual, resolveVirtualId } from "../lib/modules.js";
+import { loadVirtual, resolveVirtualId } from "../lib/virtual.js";
 
 /**
  * `vite-plugin-serwist`'s virtual modules plugin. Only used for when you

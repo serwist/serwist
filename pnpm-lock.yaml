@@ -1086,6 +1086,12 @@ importers:
       browserslist:
         specifier: 4.28.2
         version: 4.28.2
+      common-tags:
+        specifier: 1.8.2
+        version: 1.8.2
+      kolorist:
+        specifier: 1.8.0
+        version: 1.8.0
       tsdown:
         specifier: 0.22.0
         version: 0.22.0(typescript@6.0.3)(vue-tsc@3.2.8(typescript@6.0.3))

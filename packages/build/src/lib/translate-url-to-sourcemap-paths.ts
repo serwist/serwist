@@ -5,10 +5,10 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
+import { toUnix } from "@serwist/utils";
+import { errors } from "@serwist/utils/node";
 import fs from "node:fs";
 import path from "node:path";
-import { toUnix } from "@serwist/utils";
-import { errors } from "./errors.js";
 
 export function translateURLToSourcemapPaths(
   url: string | null,

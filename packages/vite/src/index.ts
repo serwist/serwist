@@ -1,41 +1,22 @@
-import { resolveEntry } from "@serwist/utils/node";
 import type { Plugin } from "vite";
-
-import { createApi } from "./lib/api.js";
-import { createContext } from "./lib/context.js";
-import { generateServiceWorker } from "./lib/modules.js";
-import { resolveOptions } from "./lib/options.js";
-import type { DevOptions, Hooks, PluginOptions, PluginOptionsComplete, SerwistViteApi } from "./lib/types.js";
-import { toFs } from "./lib/utils.js";
-import { validateInjectManifestOptions } from "./lib/validator.js";
+import { createContext, type SerwistViteContext } from "./lib/context.js";
+import type { PluginOptions, PluginOptionsComplete } from "./lib/types.js";
 import { buildPlugin } from "./plugins/build.js";
 import { devPlugin } from "./plugins/dev.js";
 import { mainPlugin } from "./plugins/main.js";
 import { virtualPlugin } from "./plugins/virtual.js";
 
 /**
- * Integrates Serwist into your Vite app.
- * @param userOptions
+ * Integrates Serwist into your Vite application.
+ *
+ * @param options Options for the plugin.
  * @returns
  */
-export const serwist = (userOptions: PluginOptions): Plugin[] => {
-  const ctx = createContext(userOptions, undefined);
-  return [mainPlugin(ctx), buildPlugin(ctx), devPlugin(ctx)];
+export const serwist = (options: PluginOptions): Plugin[] => {
+  const ctx = createContext(options, undefined);
+  return [mainPlugin(ctx), buildPlugin(ctx)];
 };
 
-// This allows for customization.
-export {
-  buildPlugin as build,
-  devPlugin as dev,
-  mainPlugin as main,
-  virtualPlugin as virtual,
-  resolveOptions,
-  generateServiceWorker,
-  createApi,
-  createContext,
-  resolveEntry,
-  toFs,
-  validateInjectManifestOptions,
-};
-export type { SerwistViteContext } from "./lib/context.js";
-export type { PluginOptions, PluginOptionsComplete, Hooks, DevOptions, SerwistViteApi };
+export { buildPlugin, devPlugin, mainPlugin, virtualPlugin };
+export type { PluginOptions, PluginOptionsComplete, SerwistViteContext };
+

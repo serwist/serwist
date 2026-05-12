@@ -5,7 +5,6 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-
 import { oneLine as ol } from "common-tags";
 
 export const errors = {
@@ -68,6 +67,8 @@ export const errors = {
     Please ensure that your service worker file contains the following: `,
   "multiple-injection-points": ol`Please ensure that your 'swSrc' file contains
     only one match for the following: `,
+  "useless-glob-pattern": ol`One of the glob patterns doesn't match any files.
+    Please remove or fix the following: `,
   "bad-template-urls-asset": ol`There was an issue using one of the provided
     'templatedURLs'.`,
   "invalid-generate-file-manifest-arg": ol`The input to generateFileManifest()

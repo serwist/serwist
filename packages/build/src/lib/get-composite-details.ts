@@ -6,9 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
+import type { FileDetails } from "@serwist/utils";
 import crypto from "node:crypto";
-
-import type { FileDetails } from "../types.js";
 
 export const getCompositeDetails = (compositeURL: string, dependencyDetails: FileDetails[]): FileDetails => {
   let totalSize = 0;

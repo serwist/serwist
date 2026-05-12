@@ -6,8 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
+import { errors } from "@serwist/utils/node";
 import type { ManifestTransform } from "../types.js";
-import { errors } from "./errors.js";
 
 export function noRevisionForURLsMatchingTransform(regexp: RegExp): ManifestTransform {
   if (!(regexp instanceof RegExp)) {

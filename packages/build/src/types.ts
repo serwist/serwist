@@ -1,8 +1,10 @@
-import type { MaybePromise, Require } from "@serwist/utils";
+import type { FileDetails, MaybePromise, Require } from "@serwist/utils";
 import type { PackageJson } from "type-fest";
 import type { z } from "zod";
 import type { manifestEntry } from "./schema/manifest-entry.js";
 import type { manifestTransformResult } from "./schema/manifest-transform.js";
+
+export type { FileDetails };
 
 export type ManifestEntry = z.input<typeof manifestEntry>;
 
@@ -203,15 +205,6 @@ export interface GetManifestResult {
 export type BuildResult = Omit<GetManifestResult, "manifestEntries"> & {
   filePaths: string[];
 };
-
-/**
- * @private
- */
-export interface FileDetails {
-  file: string;
-  hash: string | null;
-  size: number;
-}
 
 /**
  * @private

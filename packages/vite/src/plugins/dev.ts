@@ -1,10 +1,10 @@
+import { watch } from "chokidar";
 import fs from "node:fs";
 import path from "node:path";
-import { watch } from "chokidar";
 import { normalizePath, type Plugin } from "vite";
 
+import { build } from "../lib/build.js";
 import type { SerwistViteContext } from "../lib/context.js";
-import { generateServiceWorker } from "../lib/modules.js";
 import { toFs } from "../lib/utils.js";
 
 // This plugin handles the service worker in two ways:
@@ -26,7 +26,7 @@ export const devPlugin = (ctx: SerwistViteContext): Plugin => {
     async configureServer(server) {
       ctx.devEnvironment = true;
 
-      await generateServiceWorker(ctx);
+      await build(ctx);
 
       const watcher = watch(path.dirname(ctx.options.injectManifest.swSrc), {
         ignoreInitial: true,
@@ -36,14 +36,14 @@ export const devPlugin = (ctx: SerwistViteContext): Plugin => {
         followSymlinks: false,
       });
 
-      watcher.on("change", async () => await generateServiceWorker(ctx));
+      watcher.on("change", async () => await build(ctx));
 
       server.middlewares.use(async (req, res, next) => {
         if (!ctx.options.disable && req.url === ctx.options.swUrl) {
           res.setHeader("Content-Type", "application/javascript");
           if (ctx.options.devOptions.bundle) {
             if (!fs.existsSync(ctx.options.injectManifest.swDest)) {
-              await generateServiceWorker(ctx);
+              await build(ctx);
             }
             const content = fs.readFileSync(ctx.options.injectManifest.swDest, "utf-8");
             res.write(content);
@@ -60,7 +60,7 @@ export const devPlugin = (ctx: SerwistViteContext): Plugin => {
       if (!ctx.options.disable && !ctx.options.devOptions.bundle) {
         const swSrcId = normalizePath(ctx.options.injectManifest.swSrc);
         if (id === swSrcId) {
-          await generateServiceWorker(ctx);
+          await build(ctx);
           const content = fs.readFileSync(ctx.options.injectManifest.swDest, "utf-8");
           fs.rmSync(ctx.options.injectManifest.swDest);
           return content;

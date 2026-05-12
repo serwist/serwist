@@ -8,7 +8,7 @@
 
 import { readFileSync } from "node:fs";
 
-import { errors } from "./errors.js";
+import { errors } from "@serwist/utils/node";
 import { getStringHash } from "./get-string-hash.js";
 
 export const getFileHash = (file: string): string => {

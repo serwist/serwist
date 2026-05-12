@@ -20,3 +20,7 @@ export const serwist = (options: PluginOptions): Plugin => {
     },
   };
 };
+
+export { postprocessPlugin } from "./lib/postprocess.js";
+export { addChunkFilter, createImporter, normalizeInput } from "./lib/utils.js";
+

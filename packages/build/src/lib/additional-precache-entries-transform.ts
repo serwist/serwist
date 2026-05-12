@@ -6,8 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
+import { errors } from "@serwist/utils/node";
 import type { ManifestEntry } from "../types.js";
-import { errors } from "./errors.js";
 
 type AdditionalManifestEntriesTransform = (manifest: (ManifestEntry & { size: number })[]) => {
   manifest: (ManifestEntry & { size: number })[];

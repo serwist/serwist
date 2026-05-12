@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import type { FileDetails } from "../types.js";
+import type { FileDetails } from "@serwist/utils";
 import { getStringHash } from "./get-string-hash.js";
 
 export const getStringDetails = (url: string, str: string): FileDetails => ({

@@ -144,20 +144,6 @@ export interface PluginOptionsComplete extends InjectResolved {
   injectManifest: Omit<InjectManifestOptionsComplete, keyof InjectResolved>;
 }
 
-/**
- * @deprecated
- */
-export interface SerwistViteApi {
-  /**
-   * Whether the plugin is disabled.
-   */
-  disabled: boolean;
-  /*
-   * Generates the service worker.
-   */
-  generateSW(): Promise<void>;
-}
-
 export type VirtualPrefix = typeof VIRTUAL_PREFIX;
 export type VirtualSerwist = typeof VIRTUAL_SERWIST;
 export type Frameworks = (typeof FRAMEWORKS)[number];

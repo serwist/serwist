@@ -1,7 +1,7 @@
 import type { Plugin } from "vite";
 
+import { build } from "../lib/build.js";
 import type { SerwistViteContext } from "../lib/context.js";
-import { generateServiceWorker } from "../lib/modules.js";
 
 /**
  * `vite-plugin-serwist`'s build plugin.
@@ -19,7 +19,7 @@ export const buildPlugin = (ctx: SerwistViteContext): Plugin => {
       order: ctx.userOptions?.integration?.closeBundleOrder,
       async handler() {
         if (!ctx.viteConfig.build.ssr && !ctx.options.disable) {
-          await generateServiceWorker(ctx);
+          await build(ctx);
         }
       },
     },

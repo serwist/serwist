@@ -6,10 +6,11 @@
   https://opensource.org/licenses/MIT.
 */
 
+import type { FileDetails } from "@serwist/utils";
+import { errors } from "@serwist/utils/node";
 import assert from "node:assert";
 
-import type { FileDetails, GetManifestOptionsComplete, GetManifestResult } from "../types.js";
-import { errors } from "./errors.js";
+import type { GetManifestOptionsComplete, GetManifestResult } from "../types.js";
 import { getCompositeDetails } from "./get-composite-details.js";
 import { getFileDetails } from "./get-file-details.js";
 import { getStringDetails } from "./get-string-details.js";
