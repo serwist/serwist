@@ -17,6 +17,13 @@ overrides:
   "@serwist/turbopack": "workspace:*"
   "@serwist/vite": "workspace:*"
   "@serwist/window": "workspace:*"
+  "rolldown-plugin-serwist": "workspace:*"
   "serwist": "workspace:*"
+  "vite-plugin-serwist": "workspace:*"
 onlyBuiltDependencies:
   - esbuild
+allowBuilds:
+  '@parcel/watcher': true
+  '@swc/core': true
+  esbuild: true
+  sharp: true

@@ -59,7 +59,7 @@
     "idb": "8.0.3"
   },
   "devDependencies": {
-    "tsdown": "0.21.10",
+    "tsdown": "0.22.0",
     "typescript": "6.0.3"
   },
   "peerDependencies": {

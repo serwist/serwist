@@ -11,6 +11,6 @@
     "@serwist-tests/next": "workspace:*",
     "esbuild": "0.28.0",
     "serwist": "workspace:*",
-    "vitest": "4.1.5"
+    "vitest": "4.1.6"
   }
 }

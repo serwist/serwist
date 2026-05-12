@@ -12,14 +12,14 @@
   },
   "dependencies": {
     "@serwist/next": "latest",
-    "next": "16.2.4",
-    "react": "19.2.5",
-    "react-dom": "19.2.5",
+    "next": "16.2.6",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
     "serwist": "latest",
     "web-push": "3.6.7"
   },
   "devDependencies": {
-    "@types/node": "25.6.0",
+    "@types/node": "25.7.0",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@types/web-push": "3.6.4",
