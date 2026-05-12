@@ -52,7 +52,7 @@ export default defineConfig({
     }),
     serwist({
       swSrc: "src/sw.ts",
-      swDest: "dist/sw.js",
+      swDest: "sw.js",
       globDirectory: "dist",
     }),
   ],
