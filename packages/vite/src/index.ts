@@ -1,10 +1,10 @@
 import type { Plugin } from "vite";
-import { createContext, type SerwistViteContext } from "./lib/context.js";
+import type { PluginContext } from "./lib/context.js";
+import { createContext } from "./lib/context.js";
 import type { PluginOptions, PluginOptionsComplete } from "./lib/types.js";
-import { buildPlugin } from "./plugins/build.js";
-import { devPlugin } from "./plugins/dev.js";
+import { injectPlugin } from "./plugins/inject.js";
 import { mainPlugin } from "./plugins/main.js";
-import { virtualPlugin } from "./plugins/virtual.js";
+import { postprocessPlugin } from "./plugins/postprocess.js";
 
 /**
  * Integrates Serwist into your Vite application.
@@ -12,11 +12,9 @@ import { virtualPlugin } from "./plugins/virtual.js";
  * @param options Options for the plugin.
  * @returns
  */
-export const serwist = (options: PluginOptions): Plugin[] => {
-  const ctx = createContext(options, undefined);
-  return [mainPlugin(ctx), buildPlugin(ctx)];
+export const serwist = (userOptions: PluginOptions): Plugin[] => {
+  const ctx = createContext(userOptions, undefined);
+  return [mainPlugin(ctx), injectPlugin(ctx), postprocessPlugin];
 };
 
-export { buildPlugin, devPlugin, mainPlugin, virtualPlugin };
-export type { PluginOptions, PluginOptionsComplete, SerwistViteContext };
-
+export type { PluginOptions, PluginOptionsComplete, PluginContext as SerwistViteContext };

@@ -1,24 +1,18 @@
-import "./App.css";
-
 import { useEffect } from "react";
 import { getSerwist } from "virtual:serwist";
-
-import viteLogo from "/vite.svg";
-
+import "./App.css";
 import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
 
 function App() {
   useEffect(() => {
-    const loadSerwist = async () => {
-      if ("serviceWorker" in navigator) {
-        const serwist = await getSerwist();
-        serwist?.addEventListener("installed", () => {
-          console.log("Serwist installed!");
-        });
-        void serwist?.register();
-      }
-    };
-    loadSerwist();
+    if ("serviceWorker" in navigator) {
+      const serwist = getSerwist();
+      serwist?.addEventListener("installed", () => {
+        console.log("Serwist installed!");
+      });
+      void serwist?.register();
+    }
   });
 
   return (

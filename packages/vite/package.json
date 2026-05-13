@@ -39,15 +39,15 @@
   "repository": "https://github.com/serwist/serwist",
   "bugs": "https://github.com/serwist/serwist/issues",
   "homepage": "https://serwist.pages.dev",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "typesVersions": {
     "*": {
       "worker": [
-        "./dist/index.worker.d.ts"
+        "./dist/index.worker.d.mts"
       ],
       "schema": [
-        "./dist/index.schema.d.ts"
+        "./dist/index.schema.d.mts"
       ],
       "typings": [
         "./typings.d.ts"
@@ -56,16 +56,16 @@
   },
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
     },
     "./worker": {
-      "types": "./dist/index.worker.d.ts",
-      "default": "./dist/index.worker.js"
+      "types": "./dist/index.worker.d.mts",
+      "default": "./dist/index.worker.mjs"
     },
     "./schema": {
-      "types": "./dist/index.schema.d.ts",
-      "default": "./dist/index.schema.js"
+      "types": "./dist/index.schema.d.mts",
+      "default": "./dist/index.schema.mjs"
     },
     "./typings": {
       "types": "./typings.d.ts"
@@ -85,6 +85,7 @@
     "chokidar": "5.0.0",
     "glob": "13.0.6",
     "kolorist": "1.8.0",
+    "rolldown-plugin-serwist": "workspace:*",
     "serwist": "workspace:*",
     "zod": "4.4.3"
   },
@@ -94,10 +95,10 @@
     "@types/react": "19.2.14",
     "preact": "10.29.1",
     "react": "19.2.6",
-    "rollup": "4.60.3",
+    "rolldown": "1.0.0",
     "solid-js": "1.9.12",
     "svelte": "5.55.5",
-    "tsdown": "^0.22.0",
+    "tsdown": "0.22.0",
     "typescript": "6.0.3",
     "vite": "8.0.12",
     "vue": "3.5.34"
@@ -106,6 +107,7 @@
     "@serwist/window": "workspace:*",
     "preact": ">=10.0.0",
     "react": ">=18.0.0",
+    "rolldown": ">=1.0.0",
     "solid-js": ">=1.0.0",
     "svelte": ">=5.0.0",
     "typescript": ">=5.0.0",

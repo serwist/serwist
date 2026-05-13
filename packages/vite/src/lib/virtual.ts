@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import path from "node:path";
 import { VIRTUAL_FRAMEWORKS_MAP, VIRTUAL_PREFIX, VIRTUAL_SERWIST, VIRTUAL_SERWIST_RESOLVED } from "./constants.js";
+import type { PluginContext } from "./context.js";
 import type { VirtualFrameworks } from "./types.js";
 
 const require = createRequire(import.meta.url);
@@ -13,7 +14,7 @@ export const resolveVirtualId = (id: string) => {
   return undefined;
 };
 
-export const loadVirtual = (id: string, ctx: SerwistViteContext) => {
+export const loadVirtual = (id: string, ctx: PluginContext) => {
   if (id === VIRTUAL_SERWIST_RESOLVED) {
     return `import { Serwist } from "@serwist/window";
 export const swUrl = "${path.posix.join(ctx.options.base, ctx.options.swUrl)}";

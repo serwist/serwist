@@ -14,8 +14,7 @@ import { addChunkFilter, normalizeInput } from "./utils.js";
  */
 export const buildPlugin = (options: PluginOptions): Partial<Plugin> => {
   const swDest = path.parse(options.swDest);
-  const swDestDirectory = swDest.dir;
-  const swDestWithoutExtension = path.join(swDestDirectory, swDest.name);
+  const swDestWithoutExtension = path.join(swDest.dir, swDest.name);
 
   const outputFormat = options.outputFormat ?? "iife";
 
@@ -57,7 +56,7 @@ export const buildPlugin = (options: PluginOptions): Partial<Plugin> => {
         },
         write: false,
         plugins: [
-          postprocessPlugin(swDestDirectory),
+          postprocessPlugin,
           ...(inputOptions?.plugins.filter((plugin) => !("name" in plugin) || plugin.name !== "rolldown-plugin-serwist") ?? []),
         ],
         output: {

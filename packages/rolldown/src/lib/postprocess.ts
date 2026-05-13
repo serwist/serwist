@@ -1,7 +1,7 @@
 import path from "node:path";
-import type { Plugin } from "rolldown";
 import { RolldownMagicString } from "rolldown";
 import { parseSync } from "rolldown/utils";
+import type { Plugin } from "vite";
 import { addChunkFilter, createImporter } from "./utils.js";
 
 /**
@@ -9,12 +9,8 @@ import { addChunkFilter, createImporter } from "./utils.js";
  * the `importScripts` mechanism. It hoists non-relative imports, transforms relative imports
  * into `importScripts` statements, and exports the chunk's exports to `globalThis` under their
  * chunk paths relative to the output directory.
- *
- * @param swDestDirectory The output directory of the service worker, used to resolve import
- * paths from the service worker's perspective.
- * @returns A Rolldown plugin that postprocesses the generated service worker bundle.
  */
-export const postprocessPlugin = (swDestDirectory: string): Plugin => ({
+export const postprocessPlugin: Plugin = {
   name: "rolldown-plugin-serwist:postprocess",
   outputOptions(opts) {
     addChunkFilter(opts);
@@ -23,7 +19,8 @@ export const postprocessPlugin = (swDestDirectory: string): Plugin => ({
     filter: {
       code: { include: [/import/, /export/] },
     },
-    async handler(code, chunk) {
+    async handler(code, chunk, outputOpts) {
+      const swDestDirectory = outputOpts.dir || ".";
       let hoisted = "";
       const magicFile = new RolldownMagicString(code);
       const chunkDirectory = path.dirname(chunk.fileName);
@@ -46,10 +43,11 @@ export const postprocessPlugin = (swDestDirectory: string): Plugin => ({
         if (importUri.startsWith(".")) {
           // The imported bindings are grouped under their chunk paths relative to the output directory.
           const importChunkName = path.join(chunkDirectory, importUri);
+          importIfNotExists(importUri);
           magicFile.update(
             importGroup.start,
             importGroup.end,
-            `${importIfNotExists(importUri)}const { ${importGroup.entries
+            `const { ${importGroup.entries
               .map((im) =>
                 im.importName.name === im.localName.value ? im.localName.value : `${im.importName.name ?? "default"}: ${im.localName.value}`,
               )
@@ -82,10 +80,20 @@ export const postprocessPlugin = (swDestDirectory: string): Plugin => ({
         );
       }
 
-      magicFile.prepend(`${hoisted}\n(function(){`);
+      let importStatement = "";
+
+      if (importIfNotExists.imported.size > 0) {
+        importStatement = "importScripts(";
+        importIfNotExists.imported.forEach((importUri) => {
+          importStatement += `"${importUri}",`;
+        });
+        importStatement += ");";
+      }
+
+      magicFile.prepend(`${hoisted}\n(function(){${importStatement}`);
       magicFile.append(`\n})();`);
 
       return magicFile;
     },
   },
-});
+};

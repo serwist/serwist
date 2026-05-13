@@ -2,7 +2,7 @@ import type { UserConfig } from "tsdown";
 
 const config: UserConfig = {
   entry: {
-    // index: "src/index.ts",
+    index: "src/index.ts",
     "index.worker": "src/index.worker.ts",
     "index.schema": "src/index.schema.ts",
     "client/index.preact": "src/client/index.preact.ts",

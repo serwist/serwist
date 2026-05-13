@@ -1,28 +1,10 @@
-import type {
-  InjectPartial as BaseInjectPartial,
-  InjectResolved as BaseInjectResolved,
-  BasePartial,
-  BaseResolved,
-  GlobPartial,
-  GlobResolved,
-  RequiredGlobDirectoryPartial,
-  RequiredGlobDirectoryResolved,
-  RequiredSwDestPartial,
-  RequiredSwDestResolved,
-} from "@serwist/build";
+import type { InjectManifestOptions, InjectManifestOptionsComplete } from "@serwist/build";
 import type { Require } from "@serwist/utils";
-import type { RollupOptions } from "rollup";
+import type { RolldownOptions } from "rolldown";
 import type { BuildOptions, PluginOption, ResolvedConfig } from "vite";
 import type { FRAMEWORKS, VIRTUAL_PREFIX, VIRTUAL_SERWIST } from "./constants.js";
 
-export interface InjectPartial {
-  /**
-   * The mode in which your service worker should be built.
-   *
-   * @default
-   * process.env.NODE_ENV // or "production" if undefined
-   */
-  mode?: "development" | "production";
+export interface VitePartial {
   /**
    * The module type with which the service worker should be registered. Usually used alongside
    * `rollupFormat`.
@@ -76,32 +58,24 @@ export interface InjectPartial {
   /**
    * Custom Rollup options used to build the service worker.
    */
-  rollupOptions?: Omit<RollupOptions, "input" | "output">;
+  rolldownOptions?: Omit<RolldownOptions, "input" | "output">;
   /**
    * Development-specific options.
    */
   devOptions?: DevOptions;
 }
 
-export interface InjectResolved extends Require<InjectPartial, "mode" | "type" | "scope" | "base" | "disable" | "swUrl"> {
-  devOptions: Required<DevOptions>;
+export interface ViteResolved extends Require<VitePartial, "type" | "scope" | "base" | "disable" | "swUrl"> {}
+
+export interface PluginOptions extends VitePartial, Omit<InjectManifestOptions, "disablePrecacheManifest"> {}
+
+export interface PluginOptionsValidated extends ViteResolved {
+  injectManifest: Omit<InjectManifestOptionsComplete, "disablePrecacheManifest">;
 }
 
-export interface InjectManifestOptions
-  extends Omit<BasePartial, "disablePrecacheManifest">,
-    GlobPartial,
-    BaseInjectPartial,
-    RequiredSwDestPartial,
-    RequiredGlobDirectoryPartial,
-    InjectPartial {}
-
-export interface InjectManifestOptionsComplete
-  extends BaseResolved,
-    GlobResolved,
-    BaseInjectResolved,
-    RequiredSwDestResolved,
-    RequiredGlobDirectoryResolved,
-    InjectResolved {}
+export interface PluginOptionsComplete extends PluginOptionsValidated {
+  injectManifest: InjectManifestOptionsComplete;
+}
 
 export interface Hooks {
   /**
@@ -136,12 +110,6 @@ export interface DevOptions {
    * @default false
    */
   minify?: BuildOptions["minify"];
-}
-
-export interface PluginOptions extends InjectManifestOptions {}
-
-export interface PluginOptionsComplete extends InjectResolved {
-  injectManifest: Omit<InjectManifestOptionsComplete, keyof InjectResolved>;
 }
 
 export type VirtualPrefix = typeof VIRTUAL_PREFIX;

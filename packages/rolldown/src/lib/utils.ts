@@ -37,12 +37,13 @@ export const addChunkFilter = (options: OutputOptions) => {
  */
 export const createImporter = (importBase: string) => {
   const imported = new Set<string>();
-  return (importUri: string) => {
-    const resolvedImportUri = path.join(importBase, importUri);
-    if (!imported.has(resolvedImportUri)) {
-      imported.add(resolvedImportUri);
-      return `importScripts("${resolvedImportUri}");`;
-    }
-    return "";
-  };
+  return Object.assign(
+    (importUri: string) => {
+      const resolvedImportUri = path.join(importBase, importUri);
+      if (!imported.has(resolvedImportUri)) {
+        imported.add(resolvedImportUri);
+      }
+    },
+    { imported },
+  );
 };

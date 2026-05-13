@@ -14,13 +14,15 @@
     "react-dom": "19.2.6"
   },
   "devDependencies": {
-    "@serwist/vite": "latest",
+    "@rolldown/plugin-babel": "0.2.3",
     "@serwist/window": "latest",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
-    "@vitejs/plugin-react-swc": "4.3.0",
+    "@vitejs/plugin-react": "6.0.1",
+    "babel-plugin-react-compiler": "1.0.0",
     "serwist": "latest",
     "typescript": "6.0.3",
-    "vite": "8.0.12"
+    "vite": "8.0.12",
+    "vite-plugin-serwist": "latest"
   }
 }
