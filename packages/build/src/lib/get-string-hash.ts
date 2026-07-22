@@ -8,7 +8,7 @@
 
 import crypto from "node:crypto";
 
-export function getStringHash(input: crypto.BinaryLike): string {
+export function getStringHash(input: string | NodeJS.ArrayBufferView): string {
   const md5 = crypto.createHash("md5");
   md5.update(input);
   return md5.digest("hex");

@@ -31,6 +31,4 @@ const serwist = new Serwist({
   },
 });
 
-console.log("belo");
-
 serwist.addEventListeners();

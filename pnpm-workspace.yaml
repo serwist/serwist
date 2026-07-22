@@ -19,6 +19,8 @@ overrides:
   "@serwist/window": "workspace:*"
   "serwist": "workspace:*"
 minimumReleaseAge: 1440
+shellEmulator: true
+engineStrict: true
 allowBuilds:
   "@parcel/watcher": true
   "@swc/core": true
