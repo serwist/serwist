@@ -7,8 +7,8 @@
   },
   "devDependencies": {
     "@serwist/cli": "workspace:*",
-    "concurrently": "9.2.1",
-    "esbuild": "0.28.0",
-    "next": "16.2.4"
+    "concurrently": "10.0.3",
+    "esbuild": "0.28.1",
+    "next": "16.2.10"
   }
 }

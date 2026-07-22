@@ -35,6 +35,9 @@
   "types": "./dist/index.d.mts",
   "typesVersions": {
     "*": {
+      "cache": [
+        "./dist/index.cache.d.mts"
+      ],
       "react": [
         "./dist/index.react.d.mts"
       ],
@@ -50,6 +53,10 @@
     ".": {
       "types": "./dist/index.d.mts",
       "default": "./dist/index.mjs"
+    },
+    "./cache": {
+      "types": "./dist/index.cache.d.mts",
+      "default": "./dist/index.cache.mjs"
     },
     "./react": {
       "types": "./dist/index.react.d.mts",
@@ -76,28 +83,28 @@
     "@serwist/build": "workspace:*",
     "@serwist/utils": "workspace:*",
     "@serwist/window": "workspace:*",
-    "@swc/core": "1.15.32",
-    "browserslist": "4.28.2",
+    "@swc/core": "1.15.46",
+    "browserslist": "4.28.6",
     "kolorist": "1.8.0",
-    "semver": "7.7.4",
+    "semver": "7.8.5",
     "serwist": "workspace:*",
-    "zod": "4.4.1"
+    "zod": "4.4.3"
   },
   "devDependencies": {
     "@rolldown/plugin-babel": "0.2.3",
-    "@types/node": "25.6.0",
-    "@types/react": "19.2.14",
+    "@types/node": "26.1.1",
+    "@types/react": "19.2.17",
     "@types/semver": "7.7.1",
-    "@vitejs/plugin-react": "6.0.1",
+    "@vitejs/plugin-react": "6.0.3",
     "babel-plugin-react-compiler": "1.0.0",
-    "esbuild": "0.28.0",
-    "esbuild-wasm": "0.28.0",
-    "next": "16.2.4",
+    "esbuild": "0.28.1",
+    "esbuild-wasm": "0.28.1",
+    "next": "16.2.10",
     "react": "19.2.5",
     "react-dom": "19.2.5",
-    "tsdown": "0.21.10",
-    "type-fest": "5.6.0",
-    "typescript": "6.0.3"
+    "tsdown": "0.22.12",
+    "type-fest": "5.8.0",
+    "typescript": "7.0.2"
   },
   "peerDependencies": {
     "esbuild": ">=0.25.0 <1.0.0",

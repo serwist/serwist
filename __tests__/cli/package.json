@@ -11,6 +11,6 @@
     "@serwist/cli": "workspace:*",
     "@serwist-tests/utils": "workspace:*",
     "serwist": "workspace:*",
-    "vitest": "4.1.5"
+    "vitest": "4.1.10"
   }
 }

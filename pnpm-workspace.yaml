@@ -18,5 +18,10 @@ overrides:
   "@serwist/vite": "workspace:*"
   "@serwist/window": "workspace:*"
   "serwist": "workspace:*"
-onlyBuiltDependencies:
-  - esbuild
+minimumReleaseAge: 1440
+allowBuilds:
+  "@parcel/watcher": true
+  "@swc/core": true
+  core-js: true
+  esbuild: true
+  sharp: true
