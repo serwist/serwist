@@ -1,5 +1,13 @@
 # @serwist/utils
 
+## 9.5.12
+
+### Patch Changes
+
+- [#361](https://github.com/serwist/serwist/pull/361) [`7bcc113`](https://github.com/serwist/serwist/commit/7bcc11326ac1e32f0c9c3c1c530f82cd781c8921) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): monthly maintenance & bump TypeScript to 7.0
+
+  - This patch bumps TypeScript to the new Go compiler.
+
 ## 9.5.11
 
 ## 9.5.10

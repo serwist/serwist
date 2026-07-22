@@ -4,12 +4,7 @@ import { MODERN_BROWSERSLIST_TARGET } from "next/constants.js";
 import type { InjectManifestOptionsComplete } from "../types.js";
 import { DEV } from "./constants.js";
 
-export const build = (
-  esbuild: typeof import("esbuild"),
-  config: InjectManifestOptionsComplete,
-  injectionPoint: string,
-  manifestString: string,
-) =>
+export const build = (esbuild: typeof import("esbuild"), config: InjectManifestOptionsComplete, injectionPoint: string, manifestString: string) =>
   esbuild.build({
     sourcemap: true,
     format: "esm",
@@ -17,13 +12,7 @@ export const build = (
     minify: !DEV,
     bundle: true,
     ...config.esbuildOptions,
-    target:
-      config.esbuildOptions?.target ??
-      browserslistToEsbuild(
-        browserslist,
-        config.cwd,
-        MODERN_BROWSERSLIST_TARGET,
-      ),
+    target: config.esbuildOptions?.target ?? browserslistToEsbuild(browserslist, config.cwd, MODERN_BROWSERSLIST_TARGET),
     platform: "browser",
     define: {
       ...config.esbuildOptions.define,

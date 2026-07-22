@@ -14,25 +14,13 @@ import type { BuildOptions as BaseEsbuildWasmOpts } from "esbuild-wasm";
 import type { NextConfig as CompleteNextConfig } from "next";
 import type { SUPPORTED_ESBUILD_OPTIONS } from "./lib/constants.js";
 
-export type EsbuildSupportedOptions =
-  (typeof SUPPORTED_ESBUILD_OPTIONS)[number];
+export type EsbuildSupportedOptions = (typeof SUPPORTED_ESBUILD_OPTIONS)[number];
 
-export type EsbuildWasmOptions = Prettify<
-  any extends BaseEsbuildWasmOpts
-    ? never
-    : Pick<BaseEsbuildWasmOpts, EsbuildSupportedOptions>
->;
+export type EsbuildWasmOptions = Prettify<any extends BaseEsbuildWasmOpts ? never : Pick<BaseEsbuildWasmOpts, EsbuildSupportedOptions>>;
 
-export type EsbuildNativeOptions = Prettify<
-  any extends BaseEsbuildNativeOpts
-    ? never
-    : Pick<BaseEsbuildNativeOpts, EsbuildSupportedOptions>
->;
+export type EsbuildNativeOptions = Prettify<any extends BaseEsbuildNativeOpts ? never : Pick<BaseEsbuildNativeOpts, EsbuildSupportedOptions>>;
 
-export interface NextConfig extends Pick<
-  CompleteNextConfig,
-  "basePath" | "distDir"
-> {
+export interface NextConfig extends Pick<CompleteNextConfig, "basePath" | "distDir"> {
   /**
    * The Next.js `assetPrefix` config option.
    *
@@ -90,28 +78,14 @@ export interface TurboPartial {
   esbuildOptions?: EsbuildNativeOptions | EsbuildWasmOptions;
 }
 
-export interface TurboResolved extends Require<
-  TurboPartial,
-  "cwd" | "useNativeEsbuild" | "rebuildOnChange" | "esbuildOptions"
-> {}
+export interface TurboResolved extends Require<TurboPartial, "cwd" | "useNativeEsbuild" | "rebuildOnChange" | "esbuildOptions"> {}
 
 export type InjectManifestOptions = Prettify<
-  Omit<
-    BasePartial &
-      GlobPartial &
-      InjectPartial &
-      OptionalGlobDirectoryPartial &
-      TurboPartial,
-    "disablePrecacheManifest"
-  >
+  Omit<BasePartial & GlobPartial & InjectPartial & OptionalGlobDirectoryPartial & TurboPartial, "disablePrecacheManifest">
 >;
 
 export type InjectManifestOptionsComplete = Prettify<
-  Require<BaseResolved, "dontCacheBustURLsMatching"> &
-    GlobResolved &
-    InjectResolved &
-    RequiredGlobDirectoryResolved &
-    TurboResolved
+  Require<BaseResolved, "dontCacheBustURLsMatching"> & GlobResolved & InjectResolved & RequiredGlobDirectoryResolved & TurboResolved
 > & {
   nextConfig: Required<NextConfig>;
 };

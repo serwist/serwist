@@ -18,10 +18,7 @@ import type { InjectManifestOptions } from "./types.js";
 let esbuildWasm: Promise<typeof import("esbuild-wasm")> | null = null;
 let esbuildNative: Promise<typeof import("esbuild")> | null = null;
 
-const logSerwistResult = (
-  filePath: string,
-  buildResult: Pick<BuildResult, "count" | "size" | "warnings">,
-) => {
+const logSerwistResult = (filePath: string, buildResult: Pick<BuildResult, "count" | "size" | "warnings">) => {
   const { count, size, warnings } = buildResult;
   const hasWarnings = warnings && warnings.length > 0;
   // The route is reinitiated for each `path` param, so we only log results
@@ -29,9 +26,7 @@ const logSerwistResult = (
   if (filePath === "sw.js" && (hasWarnings || count > 0)) {
     logger[hasWarnings ? "warn" : "event"](
       `${cyan(count)} precache entries ${dim(`(${(size / 1024).toFixed(2)} KiB)`)}${
-        hasWarnings
-          ? `\n${yellow(["⚠ warnings", ...warnings.map((w) => `  ${w}`), ""].join("\n"))}`
-          : ""
+        hasWarnings ? `\n${yellow(["⚠ warnings", ...warnings.map((w) => `  ${w}`), ""].join("\n"))}` : ""
       }`,
     );
   }
@@ -53,14 +48,10 @@ export const createSerwistRoute = (options: InjectManifestOptions) => {
   // AND EVERY `GET` REQUEST TO EACH OF THE FILES.
   const loadMap = async (filePath: string) => {
     const config = await validation;
-    const { count, size, manifestEntries, warnings } =
-      await getFileManifestEntries(config);
+    const { count, size, manifestEntries, warnings } = await getFileManifestEntries(config);
     // See https://github.com/GoogleChrome/workbox/issues/2230
     const injectionPoint = config.injectionPoint || "";
-    const manifestString =
-      manifestEntries === undefined
-        ? "undefined"
-        : JSON.stringify(manifestEntries, null, 2);
+    const manifestString = manifestEntries === undefined ? "undefined" : JSON.stringify(manifestEntries, null, 2);
     const log = (type: LoggingMethods, ...message: any[]) => {
       if (filePath === "sw.js") {
         logger[type](...message);
@@ -69,13 +60,11 @@ export const createSerwistRoute = (options: InjectManifestOptions) => {
     let esbuild: typeof import("esbuild");
     if (config.useNativeEsbuild) {
       log("info", "Using esbuild to bundle the service worker.");
-      if (!esbuildNative)
-        esbuildNative = import(/* webpackIgnore: true */ "esbuild");
+      if (!esbuildNative) esbuildNative = import(/* webpackIgnore: true */ "esbuild");
       esbuild = await esbuildNative;
     } else {
       log("info", "Using esbuild-wasm to bundle the service worker.");
-      if (!esbuildWasm)
-        esbuildWasm = import(/* webpackIgnore: true */ "esbuild-wasm");
+      if (!esbuildWasm) esbuildWasm = import(/* webpackIgnore: true */ "esbuild-wasm");
       esbuild = await esbuildWasm;
     }
     logSerwistResult(filePath, { count, size, warnings });
@@ -94,18 +83,12 @@ export const createSerwistRoute = (options: InjectManifestOptions) => {
     if (!map) map = await loadMap("root");
     return [...map.keys()].map((e) => ({ path: path.relative(config.cwd, e) }));
   };
-  const GET = async (
-    _: Request,
-    { params }: { params: Promise<{ path: string }> },
-  ) => {
+  const GET = async (_: Request, { params }: { params: Promise<{ path: string }> }) => {
     const { path: filePath } = await params;
     const config = await validation;
     if (DEV && config.rebuildOnChange) {
       const swContent = fs.readFileSync(config.swSrc, "utf-8");
-      const currentHash = crypto
-        .createHash("sha256")
-        .update(swContent)
-        .digest("hex");
+      const currentHash = crypto.createHash("sha256").update(swContent).digest("hex");
       if (!map || lastHash !== currentHash) {
         map = await loadMap(filePath);
         lastHash = currentHash;
@@ -113,8 +96,7 @@ export const createSerwistRoute = (options: InjectManifestOptions) => {
     } else if (!map) map = await loadMap(filePath);
     return new NextResponse(map.get(path.join(config.cwd, filePath)), {
       headers: {
-        "Content-Type":
-          CONTENT_TYPE_MAP[path.extname(filePath)] || "text/plain",
+        "Content-Type": CONTENT_TYPE_MAP[path.extname(filePath)] || "text/plain",
         "Service-Worker-Allowed": "/",
       },
     });
@@ -124,11 +106,7 @@ export const createSerwistRoute = (options: InjectManifestOptions) => {
 
 export const withSerwist = (nextConfig: NextConfig = {}): NextConfig => ({
   ...nextConfig,
-  serverExternalPackages: [
-    ...(nextConfig.serverExternalPackages ?? []),
-    "esbuild",
-    "esbuild-wasm",
-  ],
+  serverExternalPackages: [...(nextConfig.serverExternalPackages ?? []), "esbuild", "esbuild-wasm"],
 });
 
 export type * from "./types.js";
