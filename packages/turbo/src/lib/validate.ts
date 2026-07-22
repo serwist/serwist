@@ -6,9 +6,7 @@ import { injectManifestOptions } from "../index.schema.js";
 import type { InjectManifestOptionsComplete } from "../types.js";
 import { DEV } from "./constants.js";
 
-export const validateInjectManifestOptions = async (
-  input: unknown,
-): Promise<InjectManifestOptionsComplete> => {
+export const validateInjectManifestOptions = async (input: unknown): Promise<InjectManifestOptionsComplete> => {
   const result = await injectManifestOptions.spa(input, {
     error: validationErrorMap,
   });
