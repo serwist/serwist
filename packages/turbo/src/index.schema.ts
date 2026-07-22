@@ -1,11 +1,22 @@
+import {
+  assertType,
+  basePartial,
+  type Equals,
+  globPartial,
+  injectPartial,
+} from "@serwist/build/schema";
 import path from "node:path";
-import { assertType, basePartial, type Equals, globPartial, injectPartial } from "@serwist/build/schema";
 import semver from "semver";
 import z from "zod";
-import { SUPPORTED_ESBUILD_OPTIONS } from "./lib/constants.js";
+import { DEV, SUPPORTED_ESBUILD_OPTIONS } from "./lib/constants.js";
 import { NEXT_VERSION } from "./lib/logger.js";
 import { generateGlobPatterns, loadNextConfig } from "./lib/utils.js";
-import type { InjectManifestOptions, InjectManifestOptionsComplete, TurboPartial, TurboResolved } from "./types.js";
+import type {
+  InjectManifestOptions,
+  InjectManifestOptionsComplete,
+  TurboPartial,
+  TurboResolved,
+} from "./types.js";
 
 export const turboPartial = z.strictObject({
   cwd: z.string().prefault(process.cwd()),
@@ -18,7 +29,9 @@ export const turboPartial = z.strictObject({
     .optional(),
   useNativeEsbuild: z.boolean().prefault(process.platform === "win32"),
   rebuildOnChange: z.boolean().prefault(true),
-  esbuildOptions: z.partialRecord(z.literal(SUPPORTED_ESBUILD_OPTIONS), z.any()).prefault({}),
+  esbuildOptions: z
+    .partialRecord(z.literal(SUPPORTED_ESBUILD_OPTIONS), z.any())
+    .prefault({}),
 });
 
 export const injectManifestOptions = z
@@ -37,33 +50,45 @@ export const injectManifestOptions = z
     // for loading `next/dist/server/config.js`.
     const nextConfig = semver.gte(NEXT_VERSION, "15.0.0")
       ? {
-          ...(await loadNextConfig(input.cwd, process.env.NODE_ENV === "development")),
+          ...(await loadNextConfig(
+            input.cwd,
+            process.env.NODE_ENV === "development",
+          )),
           ...input.nextConfig,
         }
       : {
           distDir: input.nextConfig?.distDir ?? ".next",
           basePath: input.nextConfig?.basePath ?? "/",
-          assetPrefix: input.nextConfig?.assetPrefix ?? input.nextConfig?.basePath ?? "",
+          assetPrefix:
+            input.nextConfig?.assetPrefix ?? input.nextConfig?.basePath ?? "",
         };
     let distDir = nextConfig.distDir;
     if (distDir[0] === "/") distDir = distDir.slice(1);
     if (distDir[distDir.length - 1] !== "/") distDir += "/";
     return {
       ...input,
-      swSrc: path.isAbsolute(input.swSrc) ? input.swSrc : path.join(input.cwd, input.swSrc),
+      disablePrecacheManifest: DEV,
+      swSrc: path.isAbsolute(input.swSrc)
+        ? input.swSrc
+        : path.join(input.cwd, input.swSrc),
       globPatterns: input.globPatterns ?? generateGlobPatterns(distDir),
       globDirectory: input.globDirectory ?? input.cwd,
-      dontCacheBustURLsMatching: input.dontCacheBustURLsMatching ?? new RegExp(`^${distDir}static/`),
+      dontCacheBustURLsMatching:
+        input.dontCacheBustURLsMatching ?? new RegExp(`^${distDir}static/`),
       nextConfig: {
         ...nextConfig,
         distDir,
         // Next.js, by default, set `basePath` to an empty string.
         basePath: nextConfig.basePath || "/",
       },
-    };
+    } satisfies InjectManifestOptionsComplete;
   });
 
 assertType<Equals<TurboPartial, z.input<typeof turboPartial>>>();
 assertType<Equals<TurboResolved, z.output<typeof turboPartial>>>();
-assertType<Equals<InjectManifestOptions, z.input<typeof injectManifestOptions>>>();
-assertType<Equals<InjectManifestOptionsComplete, z.output<typeof injectManifestOptions>>>();
+assertType<
+  Equals<InjectManifestOptions, z.input<typeof injectManifestOptions>>
+>();
+assertType<
+  Equals<InjectManifestOptionsComplete, z.output<typeof injectManifestOptions>>
+>();
