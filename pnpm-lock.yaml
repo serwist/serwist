@@ -162,7 +162,14 @@ importers:
         specifier: 16.2.10
         version: 16.2.10(@babel/core@7.29.0(supports-color@10.2.2))(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
 
-  __tests__/utils: {}
+  __tests__/utils:
+    devDependencies:
+      '@serwist/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
+      vitest:
+        specifier: 4.1.10
+        version: 4.1.10(@types/node@26.1.1)(vite@8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.46.0)(yaml@2.9.0))
 
   examples/cli:
     devDependencies:
