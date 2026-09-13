@@ -8,8 +8,8 @@ interface ItemResult<K> {
 
 /**
  * Executes many async functions in parallel. Returns the
- * results from all functions as an array. Does not handle
- * any error.
+ * results from all functions in input order, or rejects if
+ * any function throws or rejects.
  */
 export const parallel = async <T, K>(limit: number, array: readonly T[], func: (item: T) => Promise<K>): Promise<K[]> => {
   const work = array.map((item, index) => ({
@@ -17,12 +17,12 @@ export const parallel = async <T, K>(limit: number, array: readonly T[], func: (
     item,
   }));
   // Process array items
-  const processor = async (res: (value: ItemResult<K>[]) => void) => {
+  const processor = async () => {
     const results: ItemResult<K>[] = [];
     while (true) {
       const next = work.pop();
       if (!next) {
-        return res(results);
+        return results;
       }
       const result = await func(next.item);
       results.push({
@@ -32,7 +32,7 @@ export const parallel = async <T, K>(limit: number, array: readonly T[], func: (
     }
   };
   // Create queues
-  const queues = Array.from({ length: limit }, () => new Promise(processor));
+  const queues = Array.from({ length: limit }, processor);
   // Wait for all queues to complete
   const results = (await Promise.all(queues))
     .flat()
