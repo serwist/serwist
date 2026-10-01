@@ -15,11 +15,14 @@ export const buildPlugin = (ctx: SerwistViteContext, api: SerwistViteApi) => {
     name: "@serwist/vite:build",
     enforce: "post",
     apply: "build",
+    applyToEnvironment(environment) {
+      return environment.config.consumer === "client";
+    },
     closeBundle: {
       sequential: true,
       order: ctx.userOptions?.integration?.closeBundleOrder,
       async handler() {
-        if (!ctx.viteConfig.build.ssr && !ctx.options.disable) {
+        if (!ctx.options.disable) {
           await api.generateSW();
         }
       },
