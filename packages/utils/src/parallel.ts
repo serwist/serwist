@@ -8,35 +8,40 @@ interface ItemResult<K> {
 
 /**
  * Executes many async functions in parallel. Returns the
- * results from all functions as an array. Does not handle
- * any error.
+ * results from all functions in input order, or rejects if
+ * any function throws or rejects.
  */
-export const parallel = async <T, K>(limit: number, array: readonly T[], func: (item: T) => Promise<K>): Promise<K[]> => {
+export const parallel = async <T, K>(
+  limit: number,
+  array: readonly T[],
+  func: (item: T) => Promise<K>,
+): Promise<K[]> => {
   const work = array.map((item, index) => ({
     index,
     item,
   }));
   // Process array items
-  const processor = async (res: (value: ItemResult<K>[]) => void) => {
+  const processor = async () => {
     const results: ItemResult<K>[] = [];
     while (true) {
       const next = work.pop();
       if (!next) {
-        return res(results);
+        return results;
       }
       const result = await func(next.item);
       results.push({
-        result: result,
+        result,
         index: next.index,
       });
     }
   };
-  // Create queues
-  const queues = Array.from({ length: limit }, () => new Promise(processor));
-  // Wait for all queues to complete
-  const results = (await Promise.all(queues))
-    .flat()
-    .sort((a, b) => (a.index < b.index ? -1 : 1))
-    .map((res) => res.result);
+  const results = new Array(work.length);
+  for (const queue of await Promise.all(
+    Array.from({ length: limit }, processor),
+  )) {
+    for (const item of queue) {
+      results[item.index] = item.result;
+    }
+  }
   return results;
 };
