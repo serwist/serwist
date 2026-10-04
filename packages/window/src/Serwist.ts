@@ -117,6 +117,19 @@ export class Serwist extends SerwistEventTarget {
 
     this._registration = await this._registerScript();
 
+    // `navigator.serviceWorker.register()` is specified to either resolve with
+    // a registration or reject, but not every environment honours that. Under
+    // Playwright's `serviceWorkers: "block"`, for instance, it resolves with
+    // `undefined`. Bail out instead of dereferencing that below: a
+    // registration that yielded nothing should degrade to "no service worker",
+    // which `undefined` — already part of this method's return type — says.
+    if (!this._registration) {
+      if (process.env.NODE_ENV !== "production") {
+        logger.warn("The browser resolved the service worker registration with nothing. Service workers are likely blocked or unavailable here.");
+      }
+      return;
+    }
+
     // If we have a compatible controller, store the controller as the "own"
     // SW, resolve active/controlling deferreds and add necessary listeners.
     if (this._compatibleControllingSW) {
