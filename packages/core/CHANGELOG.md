@@ -1,5 +1,12 @@
 # @serwist/sw
 
+## 9.5.13
+
+### Patch Changes
+
+- Updated dependencies [[`7c8100d`](https://github.com/serwist/serwist/commit/7c8100d6f30790b595da5004d363b63503693728)]:
+  - @serwist/utils@9.5.13
+
 ## 9.5.12
 
 ### Patch Changes

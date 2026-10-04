@@ -1,5 +1,11 @@
 # @serwist/utils
 
+## 9.5.13
+
+### Patch Changes
+
+- [#368](https://github.com/serwist/serwist/pull/368) [`7c8100d`](https://github.com/serwist/serwist/commit/7c8100d6f30790b595da5004d363b63503693728) Thanks [@jdpt0](https://github.com/jdpt0)! - Propagate errors from parallel callbacks so failed precache downloads reject service worker installation instead of leaving it pending.
+
 ## 9.5.12
 
 ### Patch Changes
