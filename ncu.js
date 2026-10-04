@@ -17,7 +17,7 @@ const packageJsonList = await fg("**/package.json", {
 const examplesPackageJsonList = await fg("examples/*/package.json", {
   ignore: ["**/node_modules/**"],
 });
-const excludePackages = ["pretty-bytes"];
+const excludePackages = ["pretty-bytes", "stringify-object"];
 
 /**
  * @type {Promise<any>[]}
@@ -38,6 +38,9 @@ for (const packageFile of packageJsonList) {
         }
         if (dep === "tailwindcss" || dep === "@tailwindcss/vite") {
           return "@next";
+        }
+        if (dep === "@sveltejs/package" || dep === "@sveltejs/kit") {
+          return "@^2";
         }
         return "latest";
       },
