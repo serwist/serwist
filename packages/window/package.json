@@ -55,7 +55,7 @@
     "@types/trusted-types": "2.0.7"
   },
   "devDependencies": {
-    "tsdown": "0.22.12",
+    "tsdown": "0.23.0",
     "typescript": "7.0.2"
   },
   "peerDependencies": {

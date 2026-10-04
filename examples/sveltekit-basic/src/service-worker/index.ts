@@ -1,9 +1,3 @@
-/// <reference no-default-lib="true" />
-/// <reference lib="esnext" />
-/// <reference lib="webworker" />
-// Ensures that the `$service-worker` import has proper type definitions
-/// <reference types="@sveltejs/kit" />
-/// <reference types="../.svelte-kit/ambient.d.ts" />
 import { defaultCache } from "@serwist/svelte/worker";
 import { type PrecacheEntry, Serwist } from "serwist";
 
