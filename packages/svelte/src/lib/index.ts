@@ -23,7 +23,7 @@ export const serwist = (adapter?: Adapter, options?: SerwistOptions): Adapter =>
     ...adapter,
     name: adapter ? `${adapter.name} + @serwist/svelte` : `@serwist/svelte`,
     async adapt(builder) {
-      let buildAssetsDir = builder.config.kit.appDir;
+      let buildAssetsDir = builder.config.appDir;
       if (buildAssetsDir[0] === "/") {
         buildAssetsDir = buildAssetsDir.slice(1);
       }
@@ -78,7 +78,7 @@ export const serwist = (adapter?: Adapter, options?: SerwistOptions): Adapter =>
                 // Finally, prepend `viteConfig.base`.
                 // "/path" -> "/base/path"
                 // "/" -> "/base/"
-                e.url = path.posix.join(builder.config.kit.paths.base, e.url);
+                e.url = path.posix.join(builder.config.paths.base, e.url);
 
                 return e;
               });

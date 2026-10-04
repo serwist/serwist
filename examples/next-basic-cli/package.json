@@ -11,18 +11,18 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "16.2.10",
-    "react": "19.2.7",
-    "react-dom": "19.2.7"
+    "next": "16.3.8",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
   },
   "devDependencies": {
     "@serwist/cli": "latest",
     "@serwist/next": "latest",
-    "@types/node": "26.1.1",
-    "@types/react": "19.2.17",
-    "@types/react-dom": "19.2.3",
-    "concurrently": "10.0.3",
-    "esbuild": "0.28.1",
+    "@types/node": "26.6.4",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "concurrently": "10.0.5",
+    "esbuild": "0.28.2",
     "serwist": "latest",
     "typescript": "npm:@typescript/typescript6@6.0.2"
   }

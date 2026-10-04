@@ -83,16 +83,16 @@
     "serwist": "workspace:*",
     "glob": "13.0.6",
     "kolorist": "1.8.0",
-    "zod": "4.4.3"
+    "zod": "4.6.5"
   },
   "devDependencies": {
     "serwist": "workspace:*",
     "@serwist/window": "workspace:*",
-    "@types/node": "26.1.1",
-    "rollup": "4.62.2",
-    "tsdown": "0.22.12",
+    "@types/node": "26.6.4",
+    "rollup": "4.64.0",
+    "tsdown": "0.23.0",
     "typescript": "7.0.2",
-    "vite": "8.1.5"
+    "vite": "8.3.2"
   },
   "peerDependencies": {
     "rollup": ">=4.0.0",

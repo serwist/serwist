@@ -59,13 +59,13 @@
     "glob": "13.0.6",
     "pretty-bytes": "6.1.1",
     "source-map": "0.8.0",
-    "type-fest": "5.8.0",
-    "zod": "4.4.3"
+    "type-fest": "5.10.0",
+    "zod": "4.6.5"
   },
   "devDependencies": {
     "@types/common-tags": "1.8.4",
-    "@types/node": "26.1.1",
-    "tsdown": "0.22.12",
+    "@types/node": "26.6.4",
+    "tsdown": "0.23.0",
     "typescript": "7.0.2"
   },
   "peerDependencies": {
