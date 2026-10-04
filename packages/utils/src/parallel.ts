@@ -11,11 +11,7 @@ interface ItemResult<K> {
  * results from all functions in input order, or rejects if
  * any function throws or rejects.
  */
-export const parallel = async <T, K>(
-  limit: number,
-  array: readonly T[],
-  func: (item: T) => Promise<K>,
-): Promise<K[]> => {
+export const parallel = async <T, K>(limit: number, array: readonly T[], func: (item: T) => Promise<K>): Promise<K[]> => {
   const work = array.map((item, index) => ({
     index,
     item,
@@ -36,9 +32,7 @@ export const parallel = async <T, K>(
     }
   };
   const results = new Array(work.length);
-  for (const queue of await Promise.all(
-    Array.from({ length: limit }, processor),
-  )) {
+  for (const queue of await Promise.all(Array.from({ length: limit }, processor))) {
     for (const item of queue) {
       results[item.index] = item.result;
     }

@@ -1,5 +1,17 @@
 # @serwist/utils
 
+## 9.5.13
+
+### Patch Changes
+
+- [#368](https://github.com/serwist/serwist/pull/368) [`7c8100d`](https://github.com/serwist/serwist/commit/7c8100d6f30790b595da5004d363b63503693728) Thanks [@jdpt0](https://github.com/jdpt0)! - Propagate errors from parallel callbacks so failed precache downloads reject service worker installation instead of leaving it pending.
+
+- [`b847e0a`](https://github.com/serwist/serwist/commit/b847e0ae824b8bf3a7f3eab6408698ab78f6abfd) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - chore(deps): bump dependencies & migrated to SvelteKit 3
+  
+  - Monthly dependency maintenance.
+  
+  - Migrated to SvelteKit 3, dropping unsupported exports such as `basePath`, `immutableAssets`, `staticAssets`, `prerenderedRoutes`, `serviceWorkerVersion`, and `getPrecacheManifest`. Given low adoption of `@serwist/svelte`, this will not be regarded as a breaking change.
+
 ## 9.5.12
 
 ### Patch Changes
