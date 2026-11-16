@@ -1,6 +1,6 @@
 {
   "name": "@serwist/cli",
-  "version": "9.5.13",
+  "version": "9.5.14",
   "type": "module",
   "description": "The command line interface of Serwist.",
   "files": [
@@ -68,7 +68,7 @@
     "pretty-bytes": "6.1.1",
     "stringify-object": "6.0.0",
     "update-notifier": "7.3.1",
-    "zod": "4.6.5"
+    "zod": "~4.6.7"
   },
   "devDependencies": {
     "@types/common-tags": "1.8.4",

@@ -1,6 +1,6 @@
 {
   "name": "@serwist/next",
-  "version": "9.5.13",
+  "version": "9.5.14",
   "type": "module",
   "description": "A module that integrates Serwist into your Next.js application.",
   "files": [
@@ -91,7 +91,7 @@
     "kolorist": "1.8.0",
     "semver": "7.8.5",
     "serwist": "workspace:*",
-    "zod": "4.6.5"
+    "zod": "~4.6.7"
   },
   "devDependencies": {
     "@rolldown/plugin-babel": "0.2.4",

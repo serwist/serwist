@@ -1,5 +1,15 @@
 # @serwist/nuxt
 
+## 9.5.14
+
+### Patch Changes
+
+- Updated dependencies [[`ab9fb80`](https://github.com/serwist/serwist/commit/ab9fb80eb37cbdac5ca8fe5d49a7f1b369d3f00f)]:
+  - @serwist/build@9.5.14
+  - @serwist/vite@9.5.14
+  - @serwist/utils@9.5.14
+  - @serwist/window@9.5.14
+
 ## 9.5.13
 
 ### Patch Changes

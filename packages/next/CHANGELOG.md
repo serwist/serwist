@@ -1,5 +1,19 @@
 # @serwist/next
 
+## 9.5.14
+
+### Patch Changes
+
+- [#373](https://github.com/serwist/serwist/pull/373) [`ab9fb80`](https://github.com/serwist/serwist/commit/ab9fb80eb37cbdac5ca8fe5d49a7f1b369d3f00f) Thanks [@brandonweeks](https://github.com/brandonweeks)! - fix(deps): bump `zod` to `~4.6.7` to resolve CVE-2023-54404
+  
+  - `zod` is now specified with a `~` range so consumers can pick up future patch releases without waiting for a Serwist release.
+- Updated dependencies [[`ab9fb80`](https://github.com/serwist/serwist/commit/ab9fb80eb37cbdac5ca8fe5d49a7f1b369d3f00f)]:
+  - @serwist/build@9.5.14
+  - @serwist/webpack-plugin@9.5.14
+  - serwist@9.5.14
+  - @serwist/utils@9.5.14
+  - @serwist/window@9.5.14
+
 ## 9.5.13
 
 ### Patch Changes

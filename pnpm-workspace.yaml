@@ -11,11 +11,18 @@ packages:
   - "serwist-e2e-test"
 overrides:
   "@serwist/astro": "workspace:*"
+  "@serwist/build": "workspace:*"
   "@serwist/cli": "workspace:*"
+  "@serwist/next": "workspace:*"
+  "@serwist/nuxt": "workspace:*"
   "@serwist/react-router": "workspace:*"
+  "@serwist/recipes": "workspace:*"
+  "@serwist/streams": "workspace:*"
   "@serwist/svelte": "workspace:*"
   "@serwist/turbopack": "workspace:*"
+  "@serwist/utils": "workspace:*"
   "@serwist/vite": "workspace:*"
+  "@serwist/webpack-plugin": "workspace:*"
   "@serwist/window": "workspace:*"
   "serwist": "workspace:*"
 minimumReleaseAge: 1440
