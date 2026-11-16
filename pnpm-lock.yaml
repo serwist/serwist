@@ -164,11 +164,18 @@ settings:
 
 overrides:
   '@serwist/astro': workspace:*
+  '@serwist/build': workspace:*
   '@serwist/cli': workspace:*
+  '@serwist/next': workspace:*
+  '@serwist/nuxt': workspace:*
   '@serwist/react-router': workspace:*
+  '@serwist/recipes': workspace:*
+  '@serwist/streams': workspace:*
   '@serwist/svelte': workspace:*
   '@serwist/turbopack': workspace:*
+  '@serwist/utils': workspace:*
   '@serwist/vite': workspace:*
+  '@serwist/webpack-plugin': workspace:*
   '@serwist/window': workspace:*
   serwist: workspace:*
 
@@ -332,8 +339,8 @@ importers:
   examples/cli:
     devDependencies:
       '@serwist/build':
-        specifier: latest
-        version: 9.5.13(@typescript/typescript6@6.0.2)(browserslist@4.29.3)
+        specifier: workspace:*
+        version: link:../../packages/build
       '@serwist/cli':
         specifier: workspace:*
         version: link:../../packages/cli
@@ -356,8 +363,8 @@ importers:
   examples/next-basic:
     dependencies:
       '@serwist/next':
-        specifier: latest
-        version: 9.5.13(@serwist/cli@9.5.13(@types/node@26.6.4)(@typescript/typescript6@6.0.2)(browserslist@4.29.3)(esbuild@0.28.2))(@typescript/typescript6@6.0.2)(next@16.3.8(@babel/core@7.29.7(supports-color@10.2.2))(@types/node@26.6.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)(webpack@5.111.1(@swc/core@1.16.13(@swc/helpers@0.5.23))(cssnano@8.0.10(postcss@8.5.28))(csso@5.0.5)(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.28)(sharp@0.35.5(@types/node@26.6.4))(svgo@4.1.0))
+        specifier: workspace:*
+        version: link:../../packages/next
       next:
         specifier: 16.3.8
         version: 16.3.8(@babel/core@7.29.7(supports-color@10.2.2))(@types/node@26.6.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -387,8 +394,8 @@ importers:
   examples/next-basic-cjs:
     dependencies:
       '@serwist/next':
-        specifier: latest
-        version: 9.5.13(@serwist/cli@9.5.13(@types/node@26.6.4)(@typescript/typescript6@6.0.2)(browserslist@4.29.3)(esbuild@0.28.2))(@typescript/typescript6@6.0.2)(next@16.3.8(@babel/core@7.29.7(supports-color@10.2.2))(@types/node@26.6.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)(webpack@5.111.1(@swc/core@1.16.13(@swc/helpers@0.5.23))(cssnano@8.0.10(postcss@8.5.28))(csso@5.0.5)(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.28)(sharp@0.35.5(@types/node@26.6.4))(svgo@4.1.0))
+        specifier: workspace:*
+        version: link:../../packages/next
       next:
         specifier: 16.3.8
         version: 16.3.8(@babel/core@7.29.7(supports-color@10.2.2))(@types/node@26.6.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -431,8 +438,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/cli
       '@serwist/next':
-        specifier: latest
-        version: 9.5.13(@serwist/cli@packages+cli)(@typescript/typescript6@6.0.2)(next@16.3.8(@babel/core@7.29.7(supports-color@10.2.2))(@types/node@26.6.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)
+        specifier: workspace:*
+        version: link:../../packages/next
       '@types/node':
         specifier: 26.6.4
         version: 26.6.4
@@ -492,8 +499,8 @@ importers:
   examples/next-web-push:
     dependencies:
       '@serwist/next':
-        specifier: latest
-        version: 9.5.13(@serwist/cli@9.5.13(@types/node@26.6.4)(@typescript/typescript6@6.0.2)(browserslist@4.29.3)(esbuild@0.28.2))(@typescript/typescript6@6.0.2)(next@16.3.8(@babel/core@7.29.7(supports-color@10.2.2))(@types/node@26.6.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)(webpack@5.111.1(@swc/core@1.16.13(@swc/helpers@0.5.23))(cssnano@8.0.10(postcss@8.5.28))(csso@5.0.5)(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.28)(sharp@0.35.5(@types/node@26.6.4))(svgo@4.1.0))
+        specifier: workspace:*
+        version: link:../../packages/next
       next:
         specifier: 16.3.8
         version: 16.3.8(@babel/core@7.29.7(supports-color@10.2.2))(@types/node@26.6.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -529,8 +536,8 @@ importers:
   examples/nuxt-basic:
     devDependencies:
       '@serwist/nuxt':
-        specifier: latest
-        version: 9.5.13(@typescript/typescript6@6.0.2)(browserslist@4.29.3)(magic-string@1.4.2)(magicast@0.5.5)(rolldown@1.2.12)(unplugin@3.4.0(@rsbuild/core@2.2.11)(@rspack/core@2.2.8(@swc/helpers@0.5.23))(esbuild@0.28.2)(rolldown@1.2.12)(rollup@4.64.0)(vite@8.3.2(@types/node@26.6.4)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))(webpack@5.111.1(@swc/core@1.16.13(@swc/helpers@0.5.23))(cssnano@8.0.10(postcss@8.5.28))(csso@5.0.5)(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.28)(sharp@0.35.5(@types/node@26.6.4))(svgo@4.1.0)))(vite@8.3.2(@types/node@26.6.4)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))
+        specifier: workspace:*
+        version: link:../../packages/nuxt
       '@serwist/vite':
         specifier: workspace:*
         version: link:../../packages/vite
@@ -563,8 +570,8 @@ importers:
         specifier: 2.1.1
         version: 2.1.1(@rsbuild/core@2.2.11)(@rspack/core@2.2.8(@swc/helpers@0.5.23))
       '@serwist/webpack-plugin':
-        specifier: latest
-        version: 9.5.13(@typescript/typescript6@6.0.2)(browserslist@4.29.3)(webpack@5.111.1(@swc/core@1.16.13(@swc/helpers@0.5.23))(cssnano@8.0.10(postcss@8.5.28))(csso@5.0.5)(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.28)(sharp@0.35.5(@types/node@26.6.4))(svgo@4.1.0))
+        specifier: workspace:*
+        version: link:../../packages/webpack-plugin
       '@serwist/window':
         specifier: workspace:*
         version: link:../../packages/window
@@ -581,8 +588,8 @@ importers:
   examples/sveltekit-basic:
     devDependencies:
       '@serwist/build':
-        specifier: latest
-        version: 9.5.13(@typescript/typescript6@6.0.2)(browserslist@4.29.3)
+        specifier: workspace:*
+        version: link:../../packages/build
       '@serwist/svelte':
         specifier: workspace:*
         version: link:../../packages/svelte
@@ -2913,69 +2920,6 @@ packages:
       react-refresh: '>=0.10.0 <1.0.0'
     peerDependenciesMeta:
       '@rspack/core':
-        optional: true
-
-  '@serwist/build@9.5.13':
-    resolution: {integrity: sha512-3seu43B26paWNKixMJTJWXBJx8c07e+WZvPOUH5V/AByYfAoL4TKh9vMri8zukyj52shDyChs2Qjji5NObprMQ==}
-    engines: {node: '>=18.0.0'}
-    peerDependencies:
-      typescript: '>=5.0.0'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-
-  '@serwist/cli@9.5.13':
-    resolution: {integrity: sha512-Arcg+tiN3fIbI5bqo5ia1hWWSj2W/eJpXSZcFOJgJ8gknvKfyrShkC38hrBhan/H5hggMYtf4Q31j2gJJ37N5g==}
-    engines: {node: '>=20.19.0 <21.0.0 || >= 21.7.0'}
-    hasBin: true
-    peerDependencies:
-      esbuild: '>=0.25.0 <1.0.0'
-    peerDependenciesMeta:
-      esbuild:
-        optional: true
-
-  '@serwist/next@9.5.13':
-    resolution: {integrity: sha512-NyRUmZIhfN+8p/rWLWRlULt+0YGN6G90R2WKbYj8cq0/4VDhDaOrFXyI458Ym98ApQHrNwkUhgPzZMxQoxxWWA==}
-    engines: {node: '>=18.0.0'}
-    peerDependencies:
-      '@serwist/cli': workspace:*
-      next: '>=14.0.0'
-      react: '>=18.0.0'
-      typescript: '>=5.0.0'
-    peerDependenciesMeta:
-      '@serwist/cli':
-        optional: true
-      typescript:
-        optional: true
-
-  '@serwist/nuxt@9.5.13':
-    resolution: {integrity: sha512-SKy+Q9eAik79UpH9gu3Sew2AwVW0PhqZuWFLbUS/JMBCeLhjzcWv3wqyX09XmSYqVgJwrSOZXQ/FyXGItVhyWA==}
-    engines: {node: '>=18.0.0'}
-    peerDependencies:
-      typescript: '>=5.0.0'
-      vite: '>=5.0.0'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-
-  '@serwist/utils@9.5.13':
-    resolution: {integrity: sha512-jJJSvl0pSc6udJ7pN2u0oduOfQqSY6oJNjbIc82YcVnkpzj1O+qFHYdrR6tu9bspa30Nc8ZVV+VncOcyguvk5w==}
-    peerDependencies:
-      browserslist: '>=4'
-    peerDependenciesMeta:
-      browserslist:
-        optional: true
-
-  '@serwist/webpack-plugin@9.5.13':
-    resolution: {integrity: sha512-pXfrV0kVUjoXGOu7D+1xEz06tsDgBNiqV5YXvvBpVLQrIsXOnUTs5H4VLZ2p7OjfuPt8Ho5QFrS6xt08hTPxRA==}
-    engines: {node: '>=18.0.0'}
-    peerDependencies:
-      typescript: '>=5.0.0'
-      webpack: 4.4.0 || ^5.9.0
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-      webpack:
         optional: true
 
   '@simple-git/args-pathspec@1.0.4':
@@ -7187,9 +7131,6 @@ packages:
     resolution: {integrity: sha512-zK7YHHz4ZXpW89AHXUPbQVGKI7uvkd3hzusTdotCg1UxyaVtg0zFJSTfW/Dq5f7OBBVnq6cZIaC8Ti4hb6dtCA==}
     engines: {node: '>= 14'}
 
-  zod@4.6.5:
-    resolution: {integrity: sha512-v5l/aFXZQeai4awLbOpSoHecE9UiMrnfx75tEXLjNonXVARxQ5mOeipTjROUchszUNCqnE+hqAMujRsRHsut2Q==}
-
   zod@4.6.7:
     resolution: {integrity: sha512-g8W2D2kU6a8untc053fX1uVBKzM7yqAxW/3zwk83+6RyF2+SKOuV+c0wBDhUwzV1PaGapmZH+rmcUzPf+3CGwg==}
 
@@ -8798,116 +8739,6 @@ snapshots:
       react-refresh: 0.19.0
     optionalDependencies:
       '@rspack/core': 2.2.8(@swc/helpers@0.5.23)
-
-  '@serwist/build@9.5.13(@typescript/typescript6@6.0.2)(browserslist@4.29.3)':
-    dependencies:
-      '@serwist/utils': 9.5.13(browserslist@4.29.3)
-      common-tags: 1.8.2
-      glob: 13.0.6
-      pretty-bytes: 6.1.1
-      source-map: 0.8.0
-      type-fest: 5.10.0
-      zod: 4.6.5
-    optionalDependencies:
-      typescript: '@typescript/typescript6@6.0.2'
-    transitivePeerDependencies:
-      - browserslist
-
-  '@serwist/cli@9.5.13(@types/node@26.6.4)(@typescript/typescript6@6.0.2)(browserslist@4.29.3)(esbuild@0.28.2)':
-    dependencies:
-      '@inquirer/prompts': 8.7.2(@types/node@26.6.4)
-      '@serwist/build': 9.5.13(@typescript/typescript6@6.0.2)(browserslist@4.29.3)
-      '@serwist/utils': 9.5.13(browserslist@4.29.3)
-      chalk: 6.0.1
-      chokidar: 5.0.0
-      common-tags: 1.8.2
-      glob: 13.0.6
-      meow: 14.1.0
-      pretty-bytes: 6.1.1
-      stringify-object: 6.0.0
-      update-notifier: 7.3.1
-      zod: 4.6.5
-    optionalDependencies:
-      esbuild: 0.28.2
-    transitivePeerDependencies:
-      - '@types/node'
-      - browserslist
-      - typescript
-    optional: true
-
-  '@serwist/next@9.5.13(@serwist/cli@9.5.13(@types/node@26.6.4)(@typescript/typescript6@6.0.2)(browserslist@4.29.3)(esbuild@0.28.2))(@typescript/typescript6@6.0.2)(next@16.3.8(@babel/core@7.29.7(supports-color@10.2.2))(@types/node@26.6.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)(webpack@5.111.1(@swc/core@1.16.13(@swc/helpers@0.5.23))(cssnano@8.0.10(postcss@8.5.28))(csso@5.0.5)(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.28)(sharp@0.35.5(@types/node@26.6.4))(svgo@4.1.0))':
-    dependencies:
-      '@serwist/build': 9.5.13(@typescript/typescript6@6.0.2)(browserslist@4.29.3)
-      '@serwist/utils': 9.5.13(browserslist@4.29.3)
-      '@serwist/webpack-plugin': 9.5.13(@typescript/typescript6@6.0.2)(browserslist@4.29.3)(webpack@5.111.1(@swc/core@1.16.13(@swc/helpers@0.5.23))(cssnano@8.0.10(postcss@8.5.28))(csso@5.0.5)(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.28)(sharp@0.35.5(@types/node@26.6.4))(svgo@4.1.0))
-      '@serwist/window': link:packages/window
-      browserslist: 4.29.3
-      glob: 13.0.6
-      kolorist: 1.8.0
-      next: 16.3.8(@babel/core@7.29.7(supports-color@10.2.2))(@types/node@26.6.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
-      react: 19.3.0
-      semver: 7.8.5
-      serwist: link:packages/core
-      zod: 4.6.5
-    optionalDependencies:
-      '@serwist/cli': 9.5.13(@types/node@26.6.4)(@typescript/typescript6@6.0.2)(browserslist@4.29.3)(esbuild@0.28.2)
-      typescript: '@typescript/typescript6@6.0.2'
-    transitivePeerDependencies:
-      - webpack
-
-  '@serwist/next@9.5.13(@serwist/cli@packages+cli)(@typescript/typescript6@6.0.2)(next@16.3.8(@babel/core@7.29.7(supports-color@10.2.2))(@types/node@26.6.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)':
-    dependencies:
-      '@serwist/build': 9.5.13(@typescript/typescript6@6.0.2)(browserslist@4.29.3)
-      '@serwist/utils': 9.5.13(browserslist@4.29.3)
-      '@serwist/webpack-plugin': 9.5.13(@typescript/typescript6@6.0.2)(browserslist@4.29.3)(webpack@5.111.1(@swc/core@1.16.13(@swc/helpers@0.5.23))(cssnano@8.0.10(postcss@8.5.28))(csso@5.0.5)(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.28)(sharp@0.35.5(@types/node@26.6.4))(svgo@4.1.0))
-      '@serwist/window': link:packages/window
-      browserslist: 4.29.3
-      glob: 13.0.6
-      kolorist: 1.8.0
-      next: 16.3.8(@babel/core@7.29.7(supports-color@10.2.2))(@types/node@26.6.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
-      react: 19.3.0
-      semver: 7.8.5
-      serwist: link:packages/core
-      zod: 4.6.5
-    optionalDependencies:
-      '@serwist/cli': link:packages/cli
-      typescript: '@typescript/typescript6@6.0.2'
-    transitivePeerDependencies:
-      - webpack
-
-  '@serwist/nuxt@9.5.13(@typescript/typescript6@6.0.2)(browserslist@4.29.3)(magic-string@1.4.2)(magicast@0.5.5)(rolldown@1.2.12)(unplugin@3.4.0(@rsbuild/core@2.2.11)(@rspack/core@2.2.8(@swc/helpers@0.5.23))(esbuild@0.28.2)(rolldown@1.2.12)(rollup@4.64.0)(vite@8.3.2(@types/node@26.6.4)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))(webpack@5.111.1(@swc/core@1.16.13(@swc/helpers@0.5.23))(cssnano@8.0.10(postcss@8.5.28))(csso@5.0.5)(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.28)(sharp@0.35.5(@types/node@26.6.4))(svgo@4.1.0)))(vite@8.3.2(@types/node@26.6.4)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))':
-    dependencies:
-      '@nuxt/kit': 4.5.2(magic-string@1.4.2)(magicast@0.5.5)(rolldown@1.2.12)(unplugin@3.4.0(@rsbuild/core@2.2.11)(@rspack/core@2.2.8(@swc/helpers@0.5.23))(esbuild@0.28.2)(rolldown@1.2.12)(rollup@4.64.0)(vite@8.3.2(@types/node@26.6.4)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))(webpack@5.111.1(@swc/core@1.16.13(@swc/helpers@0.5.23))(cssnano@8.0.10(postcss@8.5.28))(csso@5.0.5)(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.28)(sharp@0.35.5(@types/node@26.6.4))(svgo@4.1.0)))
-      '@serwist/build': 9.5.13(@typescript/typescript6@6.0.2)(browserslist@4.29.3)
-      '@serwist/utils': 9.5.13(browserslist@4.29.3)
-      '@serwist/vite': link:packages/vite
-      '@serwist/window': link:packages/window
-      vite: 8.3.2(@types/node@26.6.4)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1)
-    optionalDependencies:
-      typescript: '@typescript/typescript6@6.0.2'
-    transitivePeerDependencies:
-      - browserslist
-      - magic-string
-      - magicast
-      - oxc-parser
-      - rolldown
-      - unplugin
-
-  '@serwist/utils@9.5.13(browserslist@4.29.3)':
-    optionalDependencies:
-      browserslist: 4.29.3
-
-  '@serwist/webpack-plugin@9.5.13(@typescript/typescript6@6.0.2)(browserslist@4.29.3)(webpack@5.111.1(@swc/core@1.16.13(@swc/helpers@0.5.23))(cssnano@8.0.10(postcss@8.5.28))(csso@5.0.5)(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.28)(sharp@0.35.5(@types/node@26.6.4))(svgo@4.1.0))':
-    dependencies:
-      '@serwist/build': 9.5.13(@typescript/typescript6@6.0.2)(browserslist@4.29.3)
-      '@serwist/utils': 9.5.13(browserslist@4.29.3)
-      pretty-bytes: 6.1.1
-      zod: 4.6.5
-    optionalDependencies:
-      typescript: '@typescript/typescript6@6.0.2'
-      webpack: 5.111.1(@swc/core@1.16.13(@swc/helpers@0.5.23))(cssnano@8.0.10(postcss@8.5.28))(csso@5.0.5)(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.28)(sharp@0.35.5(@types/node@26.6.4))(svgo@4.1.0)
-    transitivePeerDependencies:
-      - browserslist
 
   '@simple-git/args-pathspec@1.0.4': {}
 
@@ -13237,7 +13068,5 @@ snapshots:
       archiver-utils: 5.0.2
       compress-commons: 6.0.2
       readable-stream: 4.7.0
-
-  zod@4.6.5: {}
 
   zod@4.6.7: {}
