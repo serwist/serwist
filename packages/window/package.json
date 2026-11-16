@@ -1,6 +1,6 @@
 {
   "name": "@serwist/window",
-  "version": "9.5.12",
+  "version": "9.5.13",
   "type": "module",
   "description": "Simplifies communications with Serwist packages running in the service worker",
   "files": [
@@ -55,7 +55,7 @@
     "@types/trusted-types": "2.0.7"
   },
   "devDependencies": {
-    "tsdown": "0.22.12",
+    "tsdown": "0.23.0",
     "typescript": "7.0.2"
   },
   "peerDependencies": {

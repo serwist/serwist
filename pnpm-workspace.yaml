@@ -23,6 +23,7 @@ shellEmulator: true
 engineStrict: true
 allowBuilds:
   "@parcel/watcher": true
+  '@sveltejs/kit': set this to true or false
   "@swc/core": true
   core-js: true
   esbuild: true

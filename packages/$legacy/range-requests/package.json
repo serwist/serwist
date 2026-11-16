@@ -1,6 +1,6 @@
 {
   "name": "@serwist/range-requests",
-  "version": "9.5.12",
+  "version": "9.5.13",
   "type": "module",
   "description": "This library creates a new Response, given a source Response and a Range header value.",
   "files": [
@@ -44,7 +44,7 @@
     "serwist": "workspace:*"
   },
   "devDependencies": {
-    "tsdown": "0.22.12",
+    "tsdown": "0.23.0",
     "typescript": "7.0.2"
   },
   "peerDependencies": {

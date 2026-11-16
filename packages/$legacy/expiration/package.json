@@ -1,6 +1,6 @@
 {
   "name": "@serwist/expiration",
-  "version": "9.5.12",
+  "version": "9.5.13",
   "type": "module",
   "description": "A module that expires cached responses based on age or maximum number of entries.",
   "files": [
@@ -40,7 +40,7 @@
     "serwist": "workspace:*"
   },
   "devDependencies": {
-    "tsdown": "0.22.12",
+    "tsdown": "0.23.0",
     "typescript": "7.0.2"
   },
   "peerDependencies": {

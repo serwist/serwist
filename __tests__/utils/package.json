@@ -6,5 +6,11 @@
   "exports": {
     ".": "./index.ts"
   },
-  "devDependencies": {}
+  "scripts": {
+    "test": "vitest run --config ../vitest.config.ts"
+  },
+  "devDependencies": {
+    "@serwist/utils": "workspace:*",
+    "vitest": "5.0.3"
+  }
 }

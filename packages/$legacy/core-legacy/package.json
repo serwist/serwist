@@ -1,6 +1,6 @@
 {
   "name": "@serwist/core",
-  "version": "9.5.12",
+  "version": "9.5.13",
   "type": "module",
   "description": "This module was used by a number of the other Serwist modules to share common code.",
   "files": [
@@ -50,7 +50,7 @@
     "serwist": "workspace:*"
   },
   "devDependencies": {
-    "tsdown": "0.22.12",
+    "tsdown": "0.23.0",
     "typescript": "7.0.2"
   },
   "peerDependencies": {

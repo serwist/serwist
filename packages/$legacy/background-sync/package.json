@@ -1,6 +1,6 @@
 {
   "name": "@serwist/background-sync",
-  "version": "9.5.12",
+  "version": "9.5.13",
   "type": "module",
   "description": "A module that queues failed requests and uses the Background Synchronization API to replay them when the network is available.",
   "files": [
@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "cross-env": "10.1.0",
-    "tsdown": "0.22.12",
+    "tsdown": "0.23.0",
     "typescript": "7.0.2"
   },
   "peerDependencies": {

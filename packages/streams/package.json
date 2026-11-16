@@ -1,6 +1,6 @@
 {
   "name": "@serwist/streams",
-  "version": "9.5.12",
+  "version": "9.5.13",
   "type": "module",
   "description": "A library that makes it easier to work with Streams in the browser.",
   "files": [
@@ -42,7 +42,7 @@
     "serwist": "workspace:*"
   },
   "devDependencies": {
-    "tsdown": "0.22.12",
+    "tsdown": "0.23.0",
     "typescript": "7.0.2"
   },
   "peerDependencies": {

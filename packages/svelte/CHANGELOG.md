@@ -1,5 +1,16 @@
 # @serwist/svelte
 
+## 9.5.13
+
+### Patch Changes
+
+- [`b847e0a`](https://github.com/serwist/serwist/commit/b847e0ae824b8bf3a7f3eab6408698ab78f6abfd) Thanks [@DuCanhGH](https://github.com/DuCanhGH)! - Migrated to SvelteKit 3, dropping unsupported exports such as `basePath`, `immutableAssets`, `staticAssets`, `prerenderedRoutes`, `serviceWorkerVersion`, and `getPrecacheManifest`. Given low adoption of `@serwist/svelte`, this will not be regarded as a breaking change.
+- Updated dependencies [[`7c8100d`](https://github.com/serwist/serwist/commit/7c8100d6f30790b595da5004d363b63503693728)]:
+  - @serwist/utils@9.5.13
+  - @serwist/build@9.5.13
+  - serwist@9.5.13
+  - @serwist/window@9.5.13
+
 ## 9.5.12
 
 ### Patch Changes
