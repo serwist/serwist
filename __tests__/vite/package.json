@@ -1,0 +1,16 @@
+{
+  "name": "@serwist-tests/vite",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "vitest run --config ../vitest.config.ts"
+  },
+  "devDependencies": {
+    "@serwist/vite": "workspace:*",
+    "@serwist-tests/utils": "workspace:*",
+    "serwist": "workspace:*",
+    "vite": "8.1.5",
+    "vitest": "4.1.10"
+  }
+}

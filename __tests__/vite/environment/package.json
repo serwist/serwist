@@ -1,0 +1,9 @@
+{
+  "name": "@serwist-tests/vite-environment",
+  "type": "module",
+  "devDependencies": {
+    "@serwist/vite": "workspace:*",
+    "serwist": "workspace:*",
+    "vite": "8.1.5"
+  }
+}
