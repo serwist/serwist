@@ -87,7 +87,7 @@
     "@serwist/webpack-plugin": "workspace:*",
     "@serwist/window": "workspace:*",
     "browserslist": "^4.29.3",
-    "glob": "13.0.6",
+    "glob": "~14.0.6",
     "kolorist": "1.8.0",
     "semver": "7.8.5",
     "serwist": "workspace:*",
