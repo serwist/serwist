@@ -1,5 +1,9 @@
 # @serwist/utils
 
+## 9.5.15
+
+No changes in this release.
+
 ## 9.5.14
 
 No changes in this release.
