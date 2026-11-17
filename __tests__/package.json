@@ -9,7 +9,7 @@
   "homepage": "https://serwist.pages.dev",
   "devDependencies": {
     "cheerio": "1.2.0",
-    "glob": "13.0.6",
+    "glob": "~14.0.6",
     "type-fest": "5.10.0",
     "vitest": "5.0.3"
   }

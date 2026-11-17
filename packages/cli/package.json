@@ -1,6 +1,6 @@
 {
   "name": "@serwist/cli",
-  "version": "9.5.14",
+  "version": "9.5.15",
   "type": "module",
   "description": "The command line interface of Serwist.",
   "files": [
@@ -63,7 +63,7 @@
     "chalk": "6.0.1",
     "chokidar": "5.0.0",
     "common-tags": "1.8.2",
-    "glob": "13.0.6",
+    "glob": "~14.0.6",
     "meow": "14.1.0",
     "pretty-bytes": "6.1.1",
     "stringify-object": "6.0.0",

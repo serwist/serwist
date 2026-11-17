@@ -1,6 +1,6 @@
 {
   "name": "@serwist/build",
-  "version": "9.5.14",
+  "version": "9.5.15",
   "type": "module",
   "description": "A module that integrates into your build process, helping you generate a manifest of local files that should be precached.",
   "files": [
@@ -56,7 +56,7 @@
   "dependencies": {
     "@serwist/utils": "workspace:*",
     "common-tags": "1.8.2",
-    "glob": "13.0.6",
+    "glob": "~14.0.6",
     "pretty-bytes": "6.1.1",
     "source-map": "0.8.0",
     "type-fest": "5.10.0",

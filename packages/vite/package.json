@@ -1,6 +1,6 @@
 {
   "name": "@serwist/vite",
-  "version": "9.5.14",
+  "version": "9.5.15",
   "type": "module",
   "description": "A module that integrates Serwist into your Vite application.",
   "files": [
@@ -80,16 +80,16 @@
   "dependencies": {
     "@serwist/build": "workspace:*",
     "@serwist/utils": "workspace:*",
-    "serwist": "workspace:*",
-    "glob": "13.0.6",
+    "glob": "~14.0.6",
     "kolorist": "1.8.0",
+    "serwist": "workspace:*",
     "zod": "~4.6.7"
   },
   "devDependencies": {
-    "serwist": "workspace:*",
     "@serwist/window": "workspace:*",
     "@types/node": "26.6.4",
     "rollup": "4.64.0",
+    "serwist": "workspace:*",
     "tsdown": "0.23.0",
     "typescript": "7.0.2",
     "vite": "8.3.2"
