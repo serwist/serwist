@@ -1,5 +1,15 @@
 # @serwist/svelte
 
+## 9.5.15
+
+### Patch Changes
+
+- Updated dependencies [[`27176a2`](https://github.com/serwist/serwist/commit/27176a2792da01fe5f079102ad177a357e06f747)]:
+  - @serwist/build@9.5.15
+  - serwist@9.5.15
+  - @serwist/utils@9.5.15
+  - @serwist/window@9.5.15
+
 ## 9.5.14
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @serwist/cli
 
+## 9.5.15
+
+### Patch Changes
+
+- [#376](https://github.com/serwist/serwist/pull/376) [`27176a2`](https://github.com/serwist/serwist/commit/27176a2792da01fe5f079102ad177a357e06f747) Thanks [@brandonweeks](https://github.com/brandonweeks)! - fix(deps): bump `glob` to `~14.0.6`
+  
+  - `glob` is now specified with a `~` range so consumers can pick up future patch releases without waiting for a Serwist release.
+- Updated dependencies [[`27176a2`](https://github.com/serwist/serwist/commit/27176a2792da01fe5f079102ad177a357e06f747)]:
+  - @serwist/build@9.5.15
+  - @serwist/utils@9.5.15
+
 ## 9.5.14
 
 ### Patch Changes
