@@ -1,5 +1,22 @@
 # @serwist/vite
 
+## 9.6.0
+
+### Minor Changes
+
+- [#370](https://github.com/serwist/serwist/pull/370) [`58938fe`](https://github.com/serwist/serwist/commit/58938fe6a7d4ce01825593fbb9ba25a3c27e7247) Thanks [@jeremy-code](https://github.com/jeremy-code)! - fix: generate the service worker for the app's client environment in multi-environment builds
+  
+  - The service worker is now only built by the primary client environment, so extra environments do not generate it again.
+  - Options are resolved from the first resolved configuration, so `swDest`, `base` and the precache manifest URLs are no longer taken from whichever environment Vite resolved last (the SSR environment, for example), which could write `sw.js` into the server output directory.
+  - Vite 5 and older versions that do not support the Environment API keeps the legacy `build.ssr` check and still skips generation in an SSR build.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @serwist/build@9.6.0
+  - serwist@9.6.0
+  - @serwist/utils@9.6.0
+
 ## 9.5.15
 
 ### Patch Changes
