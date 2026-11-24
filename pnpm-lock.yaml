@@ -336,6 +336,36 @@ importers:
         specifier: 5.0.3
         version: 5.0.3(@types/node@26.6.4)(vite@8.3.2(@types/node@26.6.4)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))
 
+  __tests__/vite:
+    devDependencies:
+      '@serwist-tests/utils':
+        specifier: workspace:*
+        version: link:../utils
+      '@serwist/vite':
+        specifier: workspace:*
+        version: link:../../packages/vite
+      serwist:
+        specifier: workspace:*
+        version: link:../../packages/core
+      vite:
+        specifier: 8.3.2
+        version: 8.3.2(@types/node@26.6.4)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1)
+      vitest:
+        specifier: 5.0.3
+        version: 5.0.3(@types/node@26.6.4)(vite@8.3.2(@types/node@26.6.4)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))
+
+  __tests__/vite/environment:
+    devDependencies:
+      '@serwist/vite':
+        specifier: workspace:*
+        version: link:../../../packages/vite
+      serwist:
+        specifier: workspace:*
+        version: link:../../../packages/core
+      vite:
+        specifier: 8.3.2
+        version: 8.3.2(@types/node@26.6.4)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1)
+
   examples/cli:
     devDependencies:
       '@serwist/build':
