@@ -18,8 +18,7 @@ const runBuild = async (script: string) => {
   return commandState;
 };
 
-const generatedCount = (cliOutput: string) =>
-  cliOutput.match(/files generated/g)?.length ?? 0;
+const generatedCount = (cliOutput: string) => cliOutput.match(/files generated/g)?.length ?? 0;
 const distPath = (...segments: string[]) => path.join(distDir, ...segments);
 
 describe("@serwist/vite - build", () => {
@@ -30,9 +29,7 @@ describe("@serwist/vite - build", () => {
     expect(existsSync(distPath("client/sw.js"))).toBe(true);
     expect(existsSync(distPath("sw.js"))).toBe(false);
     // The precache manifest must be injected into the service worker.
-    expect(readFileSync(distPath("client/sw.js"), "utf-8")).toContain(
-      "index.html",
-    );
+    expect(readFileSync(distPath("client/sw.js"), "utf-8")).toContain("index.html");
     expect(generatedCount(commandState.cliOutput)).toBe(1);
   }, 120_000);
 
@@ -102,11 +99,7 @@ describe("@serwist/vite - build plugin environment", () => {
     return ctx;
   };
 
-  const environment = (
-    name: string,
-    consumer: "client" | "server",
-    environments: Record<string, { consumer?: "client" | "server" }>,
-  ) => ({
+  const environment = (name: string, consumer: "client" | "server", environments: Record<string, { consumer?: "client" | "server" }>) => ({
     name,
     config: { consumer },
     getTopLevelConfig: () => ({ environments }),
@@ -119,9 +112,7 @@ describe("@serwist/vite - build plugin environment", () => {
       async generateSW() {},
     });
 
-    const applyToEnvironment = plugin.applyToEnvironment as unknown as (
-      environment: unknown,
-    ) => boolean;
+    const applyToEnvironment = plugin.applyToEnvironment as unknown as (environment: unknown) => boolean;
 
     const environments = {
       client: { consumer: "client" as const },
@@ -129,17 +120,11 @@ describe("@serwist/vite - build plugin environment", () => {
       ssr: { consumer: "server" as const },
     };
 
-    expect(
-      applyToEnvironment(environment("client", "client", environments)),
-    ).toBe(true);
+    expect(applyToEnvironment(environment("client", "client", environments))).toBe(true);
     // A second client environment must not build the service worker again.
-    expect(applyToEnvironment(environment("sw", "client", environments))).toBe(
-      false,
-    );
+    expect(applyToEnvironment(environment("sw", "client", environments))).toBe(false);
     // A server environment never contains a service worker.
-    expect(applyToEnvironment(environment("ssr", "server", environments))).toBe(
-      false,
-    );
+    expect(applyToEnvironment(environment("ssr", "server", environments))).toBe(false);
     // A build without any client environment never contains a service worker.
     expect(applyToEnvironment(environment("ssr", "server", {}))).toBe(false);
   });

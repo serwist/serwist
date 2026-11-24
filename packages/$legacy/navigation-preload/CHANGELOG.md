@@ -1,5 +1,12 @@
 # @serwist/navigation-preload
 
+## 9.6.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - serwist@9.6.0
+
 ## 9.5.15
 
 ### Patch Changes
